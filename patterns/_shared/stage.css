@@ -1,0 +1,33 @@
+/* Shared reel stage: a 720x1280 canvas per scene, matching the source reels.
+   Colours, fonts and accents are set per pattern in pattern.css via these tokens. */
+:root {
+  --stage-w: 720px; --stage-h: 1280px;
+  --bg: #0b0d11; --grid: rgba(255,255,255,.035); --panel: #14171c; --panel-2: #1b1f26;
+  --border: rgba(255,255,255,.08); --text: #f2f4f7; --muted: #8b93a1; --accent: #2dd4bf; --danger: #f0506e; --ok: #34d399;
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #000; color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+body { display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 24px 0; }
+.scene { position: relative; width: var(--stage-w); height: var(--stage-h); overflow: hidden; background: var(--bg); background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 40px 40px; }
+.scene[hidden] { display: none; }
+body.single .scene:not(.active) { display: none; }
+body.single { padding: 0; gap: 0; }
+.scene-nav { position: fixed; bottom: 12px; right: 12px; display: flex; gap: 6px; z-index: 99; font: 12px var(--mono); }
+.scene-nav button { background: #222; color: #ddd; border: 1px solid #444; border-radius: 6px; padding: 6px 10px; cursor: pointer; }
+body.single .scene-nav { display: none; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; } }
+
+/* Recurring reel chrome (kicker pill at the top, headline under it, caption pill near the bottom) */
+.kicker { position: absolute; top: 122px; left: 50%; transform: translateX(-50%); padding: 8px 18px; border-radius: 999px; font-size: 14px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); white-space: nowrap; }
+.kicker--danger { color: var(--danger); background: color-mix(in srgb, var(--danger) 16%, transparent); }
+.kicker--plain { color: #c9ced5; background: #1a1e23; }
+.title { position: absolute; top: 150px; left: 0; right: 0; text-align: center; font-size: 40px; font-weight: 800; letter-spacing: -.02em; line-height: 1.15; padding: 0 24px; }
+.title em { font-style: normal; color: var(--accent); }
+.title em.danger { color: var(--danger); }
+.caption { position: absolute; top: 990px; left: 50%; transform: translateX(-50%); padding: 12px 24px; border-radius: 999px; background: #15191d; font-size: 20px; font-weight: 700; white-space: nowrap; box-shadow: 0 8px 30px rgba(0,0,0,.4); }
+.caption em { font-style: normal; color: var(--accent); }
+.caption em.danger { color: var(--danger); }
+.center { position: absolute; left: 50%; transform: translateX(-50%); }
+.glow { position: absolute; width: 520px; height: 520px; border-radius: 50%; filter: blur(90px); pointer-events: none; }
+.cursor { position: absolute; width: 22px; height: 26px; pointer-events: none; }

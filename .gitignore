@@ -1,0 +1,11 @@
+# designmotionhq's own media stays local; only our breakdowns and rebuilds are committed
+source/videos/
+source/igvideos/
+source/frames/
+source/sheets/
+source/triage/
+source/igmeta/
+source/md/
+source/*.err
+node_modules/
+tools/shots/

@@ -1,0 +1,108 @@
+/* Optimistic UI, rebuilt from the @designmotionhq reel "Click like. One waits. One feels instant."
+   Component classes are prefixed .ou- and depend only on the tokens below. */
+.ou {
+  --ou-bg: #0c0f12; --ou-panel: #15191e; --ou-panel-2: #1a1f25; --ou-border: rgba(255,255,255,.07);
+  --ou-text: #f3f5f7; --ou-muted: #8a9199; --ou-teal: #2fe0ad; --ou-teal-dim: rgba(47,224,173,.14);
+  --ou-pink: #ee4b7a; --ou-pink-dim: rgba(238,75,122,.16);
+  font-family: 'Inter', system-ui, sans-serif; color: var(--ou-text);
+}
+
+/* ---- Like card ------------------------------------------------------- */
+.ou-card { width: 254px; height: 188px; background: var(--ou-panel); border: 1px solid var(--ou-border); border-radius: 14px; padding: 22px 22px 18px; position: relative; }
+.ou-card.is-live { border-color: rgba(47,224,173,.55); box-shadow: 0 0 0 1px rgba(47,224,173,.15), 0 0 40px rgba(47,224,173,.18); }
+.ou-card.is-slow { box-shadow: 0 0 40px rgba(238,75,122,.12); }
+.ou-card.is-dim { opacity: .55; }
+.ou-card__head { display: flex; align-items: center; gap: 10px; }
+.ou-card__avatar { width: 30px; height: 30px; border-radius: 50%; background: #262c33; }
+.ou-card__lines { display: flex; flex-direction: column; gap: 6px; }
+.ou-card__lines i { display: block; height: 7px; border-radius: 4px; background: #262c33; }
+.ou-card__lines i:first-child { width: 78px; } .ou-card__lines i:last-child { width: 52px; }
+.ou-like { display: flex; align-items: center; gap: 12px; margin: 18px 0 0 6px; }
+.ou-like__btn { width: 52px; height: 52px; border-radius: 50%; border: 0; display: grid; place-items: center; background: #1e232a; color: var(--ou-muted); cursor: pointer; transition: transform .12s ease, background .18s ease, color .18s ease; }
+.ou-like__btn:active { transform: scale(.92); }
+.ou-like__btn svg { width: 24px; height: 24px; fill: currentColor; }
+.ou-like__btn.is-liked { background: var(--ou-teal-dim); color: var(--ou-teal); }
+.ou-like__btn.is-liked--slow { background: var(--ou-pink-dim); color: var(--ou-pink); }
+.ou-like__btn.is-pending { color: #8a9199; }
+.ou-like__count { font-weight: 700; font-size: 32px; line-height: 1; letter-spacing: -.02em; }
+.ou-like__label { font-size: 11px; letter-spacing: .14em; color: var(--ou-muted); margin-top: 4px; }
+.ou-tag { display: inline-block; margin-top: 12px; padding: 5px 14px; border-radius: 999px; font-size: 14px; font-weight: 600; }
+.ou-tag--slow { background: var(--ou-pink-dim); color: var(--ou-pink); }
+.ou-tag--instant { background: var(--ou-teal-dim); color: var(--ou-teal); }
+.ou-tag--rolled { background: #262c33; color: #b6bcc4; }
+.ou-card .ou-tag { position: absolute; left: 50%; transform: translateX(-50%); bottom: 18px; margin: 0; white-space: nowrap; }
+.ou-delta { position: absolute; right: -22px; bottom: -6px; font-size: 15px; font-weight: 600; color: var(--ou-pink); }
+
+/* ---- Toast ------------------------------------------------------------ */
+.ou-toast { display: flex; align-items: center; gap: 14px; width: 372px; padding: 14px 18px; background: #171b20; border: 1px solid var(--ou-border); border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,.45); }
+.ou-toast__icon { width: 36px; height: 36px; border-radius: 9px; background: var(--ou-pink-dim); color: var(--ou-pink); display: grid; place-items: center; }
+.ou-toast__icon svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
+.ou-toast b { display: block; font-size: 17px; font-weight: 700; }
+.ou-toast span { font-size: 14px; color: var(--ou-muted); }
+
+/* ---- Update strategy rows -------------------------------------------- */
+.ou-group { width: 600px; }
+.ou-group__label { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 14px; }
+.ou-group--slow .ou-group__label { color: var(--ou-pink); } .ou-group--fast .ou-group__label { color: var(--ou-teal); }
+.ou-row { display: flex; align-items: center; gap: 14px; height: 86px; padding: 0 18px; background: var(--ou-panel); border: 1px solid var(--ou-border); border-radius: 12px; margin-bottom: 14px; position: relative; }
+.ou-row--active { border-color: rgba(47,224,173,.5); box-shadow: 0 0 0 1px rgba(47,224,173,.15); }
+.ou-group--slow .ou-row { opacity: .35; }
+.ou-row__icon { width: 40px; height: 40px; border-radius: 9px; background: #1e232a; display: grid; place-items: center; color: var(--ou-teal); }
+.ou-group--slow .ou-row__icon { color: var(--ou-pink); }
+.ou-row__icon svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
+.ou-row__name { font-size: 18px; font-weight: 600; flex: 1; }
+.ou-row__heart { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--ou-teal-dim); color: var(--ou-teal); }
+.ou-group--slow .ou-row__heart { background: var(--ou-pink-dim); color: var(--ou-pink); }
+.ou-row__heart svg { width: 18px; height: 18px; fill: currentColor; }
+.ou-row__pill { padding: 5px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; background: var(--ou-teal-dim); color: var(--ou-teal); }
+.ou-row__wait { position: absolute; left: 160px; right: 130px; bottom: 6px; height: 3px; border-radius: 2px; background: var(--ou-pink); transform-origin: left; animation: ou-wait 1.6s ease-in-out infinite; }
+@keyframes ou-wait { 0% { transform: scaleX(0); opacity: 1 } 90% { transform: scaleX(1); opacity: 1 } 100% { transform: scaleX(1); opacity: 0 } }
+
+/* ---- Latency gauge ---------------------------------------------------- */
+.ou-gauge { width: 380px; height: 380px; position: relative; }
+.ou-gauge svg { width: 380px; height: 380px; overflow: visible; }
+.ou-gauge__arc { fill: none; stroke-width: 14; stroke-linecap: round; }
+.ou-gauge__needle { stroke: var(--ou-teal); stroke-width: 5; stroke-linecap: round; transform-origin: 190px 190px; transition: transform .8s cubic-bezier(.2,.8,.2,1), stroke .3s; }
+.ou-gauge__hub { fill: #0c0f12; stroke: var(--ou-teal); stroke-width: 4; transition: stroke .3s; }
+.ou-gauge__tick { font: 13px 'Inter', sans-serif; fill: var(--ou-muted); text-anchor: middle; }
+.ou-gauge__cut { font: 700 15px 'Inter', sans-serif; fill: #fff; }
+.ou-gauge__value { position: absolute; left: 0; right: 0; top: 218px; text-align: center; }
+.ou-gauge__value b { display: block; font-size: 44px; font-weight: 700; letter-spacing: -.02em; color: var(--ou-teal); transition: color .3s; }
+.ou-gauge__value span { display: block; margin-top: 6px; font-size: 15px; letter-spacing: .12em; color: var(--ou-muted); }
+.ou-gauge.is-broken .ou-gauge__needle, .ou-gauge.is-broken .ou-gauge__hub { stroke: var(--ou-pink); }
+.ou-gauge.is-broken .ou-gauge__value b { color: var(--ou-pink); }
+
+/* ---- Flow steps -------------------------------------------------------- */
+.ou-flow { display: flex; align-items: center; gap: 16px; }
+.ou-step { width: 162px; height: 146px; border-radius: 14px; background: var(--ou-panel); border: 1px solid var(--ou-border); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; opacity: .45; transition: opacity .3s, border-color .3s; }
+.ou-step.is-on { opacity: 1; border-color: rgba(47,224,173,.5); box-shadow: 0 0 0 1px rgba(47,224,173,.15); }
+.ou-step__icon { width: 48px; height: 48px; border-radius: 10px; background: #1e232a; display: grid; place-items: center; color: var(--ou-muted); margin-bottom: 6px; }
+.ou-step.is-on .ou-step__icon { background: var(--ou-teal-dim); color: var(--ou-teal); }
+.ou-step__icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; }
+.ou-step b { font-size: 19px; font-weight: 700; }
+.ou-step span { font-size: 14px; color: var(--ou-muted); }
+.ou-flow__arrow { color: #5b636d; font-size: 22px; }
+.ou-stat { display: flex; align-items: baseline; gap: 12px; }
+.ou-stat b { font-size: 72px; font-weight: 800; color: var(--ou-teal); letter-spacing: -.03em; }
+.ou-stat span { font-size: 15px; color: #c7ccd3; max-width: 120px; line-height: 1.25; }
+
+/* ---- Boundaries lists ------------------------------------------------- */
+.ou-lists { display: flex; gap: 28px; }
+.ou-list { width: 240px; }
+.ou-list__title { text-align: center; font-size: 15px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 12px; }
+.ou-list--ok .ou-list__title { color: var(--ou-teal); } .ou-list--truth .ou-list__title { color: var(--ou-pink); }
+.ou-item { display: flex; align-items: center; gap: 12px; height: 56px; padding: 0 14px; margin-bottom: 11px; border-radius: 10px; background: var(--ou-panel); border: 1px solid var(--ou-border); font-size: 19px; font-weight: 600; }
+.ou-item__icon { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; }
+.ou-item__icon svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+.ou-list--ok .ou-item__icon { background: var(--ou-teal-dim); color: var(--ou-teal); }
+.ou-list--truth .ou-item__icon { background: var(--ou-pink-dim); color: var(--ou-pink); }
+.ou-item__mark { margin-left: auto; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 800; }
+.ou-list--ok .ou-item__mark { background: var(--ou-teal-dim); color: var(--ou-teal); }
+.ou-list--truth .ou-item__mark { background: var(--ou-pink-dim); color: var(--ou-pink); }
+.ou-item--processing { background: var(--ou-pink); color: #fff; box-shadow: 0 10px 30px rgba(238,75,122,.35); line-height: 1.1; }
+.ou-item--processing .ou-spin { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.35); border-top-color: #fff; border-radius: 50%; animation: ou-spin .8s linear infinite; flex: none; }
+@keyframes ou-spin { to { transform: rotate(360deg) } }
+
+/* ---- Follow CTA ----------------------------------------------------------- */
+.ou-cta { display: inline-flex; align-items: center; gap: 12px; padding: 16px 30px; border-radius: 999px; background: var(--ou-teal); color: #062018; font-size: 21px; font-weight: 700; box-shadow: 0 0 60px rgba(47,224,173,.35); }
+.ou-cta svg { width: 20px; height: 20px; }
