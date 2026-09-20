@@ -1,0 +1,92 @@
+/* Whitespace Types, rebuilt from the @designmotionhq reel "White space makes your UI clean and professional".
+   Component classes are prefixed .ws- and depend only on the tokens below. */
+.ws {
+  --ws-bg: #0a070e; --ws-panel: #17151e; --ws-panel-2: #1c1a26; --ws-border: rgba(255,255,255,.06);
+  --ws-text: #f2f2f5; --ws-muted: #9a9aa3; --ws-dim: #4a4c55;
+  --ws-accent: #6664f3; --ws-accent-soft: #8b8ff5; --ws-chip: #14183a;
+  --ws-green: #34d399; --ws-green-dim: rgba(27,163,124,.18); --ws-red: #f43f5e; --ws-red-dim: rgba(228,88,132,.14);
+  --ws-mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--ws-text);
+}
+
+/* ---- Tile grid (the hero: cramped -> spaced) ---------------------------------- */
+.ws-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--ws-gap, 18px); width: 614px; }
+.ws-tile { height: 65px; padding: 14px 13px; border-radius: 6px; background: var(--ws-panel); border: 1px solid var(--ws-border); }
+.ws-tile i { display: block; height: 5px; border-radius: 3px; margin-bottom: 7px; }
+.ws-tile i:nth-child(1) { width: 118px; background: #e8e7eb; }
+.ws-tile i:nth-child(2) { width: 170px; background: #4a4c55; }
+.ws-tile i:nth-child(3) { width: 140px; background: #3e4049; margin-bottom: 0; }
+
+/* ---- Type card (MICRO / MACRO / ACTIVE) ------------------------------------------ */
+.ws-types { display: flex; flex-direction: column; gap: 16px; width: 640px; }
+.ws-type { position: relative; min-height: 142px; padding: 26px 22px 24px; border-radius: 14px; background: #16141d; border: 1px solid var(--ws-border); }
+.ws-type__head { display: flex; align-items: center; gap: 12px; }
+.ws-type__icon { width: 32px; height: 32px; border-radius: 8px; background: #1c1f34; color: var(--ws-accent-soft); display: grid; place-items: center; font-size: 14px; font-weight: 600; letter-spacing: -.05em; }
+.ws-type__name { font-size: 22px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.ws-type__desc { margin: 12px 0 0; width: 380px; font-size: 16px; line-height: 24px; color: var(--ws-muted); }
+.ws-type__aside { position: absolute; right: 22px; top: 36px; text-align: center; }
+.ws-btn { display: inline-block; border: 0; border-radius: 8px; background: var(--ws-accent); color: #fff; font-family: inherit; font-weight: 600; cursor: pointer; }
+.ws-btn--sub { padding: 0 var(--ws-pad, 27px); height: 42px; font-size: 16px; line-height: 42px; }
+.ws-tag { display: inline-block; margin-top: 10px; padding: 3px 8px; border-radius: 4px; background: var(--ws-green-dim); color: var(--ws-green); font: 500 12px/14px var(--ws-mono); letter-spacing: .02em; }
+.ws-blocks { width: 200px; text-align: left; }
+.ws-block { padding: 8px 10px; border-radius: 6px; background: var(--ws-panel-2); }
+.ws-blocks i { display: block; height: 4px; border-radius: 2px; margin-bottom: 6px; }
+.ws-block i:nth-child(1) { width: 110px; background: #d0d2da; }
+.ws-block i:nth-child(2) { width: 165px; background: #33323f; margin-bottom: 0; }
+.ws-blocks__gap { position: relative; height: var(--ws-mgap, 26px); transition: height .6s ease; }
+.ws-blocks__gap::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px dashed #2a2836; }
+.ws-blocks__gap span { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); padding: 0 6px; background: #16141d; color: var(--ws-accent-soft); font: 700 11px var(--ws-mono); opacity: var(--ws-mgap-label, 0); }
+.ws-blocks__lines i:nth-child(1) { width: 90px; background: #b9bac4; margin-bottom: 5px; }
+.ws-blocks__lines i:nth-child(2) { width: 145px; background: #33323f; margin-bottom: 5px; }
+.ws-blocks__lines i:nth-child(3) { width: 125px; background: #2a2935; margin-bottom: 0; }
+.ws-btn--cta { padding: 0 15px; height: 31px; font-size: 14px; line-height: 31px; font-weight: 700; border-radius: 8px; transition: transform .5s ease, box-shadow .5s ease; }
+.ws-btn--cta.is-lit { transform: scale(1.12); box-shadow: 0 0 0 1px rgba(150,150,255,.35), 0 0 26px rgba(102,100,243,.55); }
+
+/* ---- Profile card (BEFORE / AFTER) ------------------------------------------------ */
+.ws-card { --ws-cp: 12px; --ws-m1: 8px; --ws-m2: 2px; --ws-m3: 4px; --ws-m4: 6px; --ws-m5: 7px; --ws-av: 24px; --ws-fs-name: 14px; --ws-fs-role: 11.5px; --ws-fs-bio: 13px; --ws-lh-bio: 15px; --ws-fs-stat: 15px; --ws-fs-lab: 10px; --ws-fs-chip: 10px; --ws-chip-p: 3px 8px; --ws-cta-h: 24px; --ws-fs-cta: 14px; --ws-t: .8s;
+  width: 574px; padding: var(--ws-cp); border-radius: 12px; background: var(--ws-panel); border: 1px solid var(--ws-border); box-shadow: 0 20px 60px rgba(0,0,0,.45); transition: padding var(--ws-t) ease; }
+.ws-card * { transition: margin var(--ws-t) ease, gap var(--ws-t) ease, font-size var(--ws-t) ease, line-height var(--ws-t) ease, width var(--ws-t) ease, height var(--ws-t) ease, padding var(--ws-t) ease; }
+.ws-card__head { display: flex; align-items: center; gap: 8px; }
+.ws-card__avatar { flex: none; width: var(--ws-av); height: var(--ws-av); border-radius: 50%; background: linear-gradient(135deg, #8b8ff5, #6664f3); }
+.ws-card__name { font-size: var(--ws-fs-name); font-weight: 700; line-height: 1.15; }
+.ws-card__role { font-size: var(--ws-fs-role); line-height: 1.2; color: var(--ws-muted); margin-top: 1px; }
+.ws-card__bio { margin: var(--ws-m1) 0 0; font-size: var(--ws-fs-bio); line-height: var(--ws-lh-bio); color: #b0b0b8; }
+.ws-card__rule { height: 1px; margin-top: var(--ws-m2); background: rgba(255,255,255,.07); }
+.ws-card__stats { display: flex; gap: 8px; margin-top: var(--ws-m3); }
+.ws-card__stat { text-align: center; }
+.ws-card__stat b { display: block; font-size: var(--ws-fs-stat); font-weight: 700; line-height: 1; }
+.ws-card__stat span { display: block; font-size: var(--ws-fs-lab); line-height: 1.2; color: var(--ws-muted); margin-top: 2px; }
+.ws-card__chips { display: flex; gap: 8px; margin-top: var(--ws-m4); }
+.ws-card__chip { padding: var(--ws-chip-p); border-radius: 5px; background: var(--ws-chip); color: var(--ws-accent-soft); font-size: var(--ws-fs-chip); line-height: 1.2; font-weight: 500; }
+.ws-card__cta { display: block; width: 100%; height: var(--ws-cta-h); margin-top: var(--ws-m5); border: 0; border-radius: 6px; background: var(--ws-accent); color: #fff; font-family: 'Inter', sans-serif; font-weight: 700; font-size: var(--ws-fs-cta); line-height: var(--ws-cta-h); cursor: pointer; }
+/* spacious state */
+.ws-card.is-airy { --ws-cp: 27px; --ws-m1: 12px; --ws-m2: 13px; --ws-m3: 13px; --ws-m4: 19px; --ws-m5: 26px; --ws-av: 40px; --ws-fs-name: 20px; --ws-fs-role: 15px; --ws-fs-bio: 16px; --ws-lh-bio: 26px; --ws-fs-stat: 22px; --ws-fs-lab: 13px; --ws-fs-chip: 13px; --ws-chip-p: 5px 12px; --ws-cta-h: 44px; --ws-fs-cta: 17px; }
+.ws-card.is-airy .ws-card__head { gap: 11px; }
+.ws-card.is-airy .ws-card__role { margin-top: 4px; }
+.ws-card.is-airy .ws-card__stats { gap: 20px; }
+.ws-card.is-airy .ws-card__chips { gap: 10px; }
+.ws-card.is-airy .ws-card__stat span { margin-top: 4px; }
+.ws-card.is-airy .ws-card__cta { border-radius: 8px; font-weight: 600; }
+.ws-card.no-anim, .ws-card.no-anim * { transition: none !important; }
+
+/* ---- Spec tags and state pills ------------------------------------------------------- */
+.ws-pill { display: inline-block; padding: 6px 16px; border-radius: 6px; font-size: 16px; font-weight: 700; letter-spacing: .12em; }
+.ws-pill--before { background: var(--ws-red-dim); color: #e45884; }
+.ws-pill--after { background: rgba(27,163,124,.12); color: #1ba37c; }
+.ws-specs { display: flex; align-items: center; gap: 8px; }
+.ws-spec { padding: 4px 11px; border-radius: 6px; background: #1a111d; color: #c9c9d0; font-size: 15px; font-weight: 500; white-space: nowrap; }
+.ws-spec b { color: var(--ws-red); font-weight: 700; }
+.ws-spec--ok { background: #0b1a1a; }
+.ws-spec--ok b { color: var(--ws-green); }
+.ws-specs.is-dim .ws-spec { opacity: .35; }
+.ws-specs__arrow { color: #8a8a90; font-size: 20px; margin: 0 6px; }
+.ws-verdict { font-size: 28px; font-weight: 700; color: #898dff; text-shadow: 0 0 18px rgba(137,141,255,.6); white-space: nowrap; }
+
+/* ---- Follow CTA ------------------------------------------------------------------------- */
+.ws-follow { display: inline-flex; align-items: center; gap: 10px; height: 50px; padding: 0 46px; border-radius: 8px; background: #6457e6; color: #fff; font-size: 17px; font-weight: 600; box-shadow: 0 0 40px rgba(100,87,230,.45); }
+.ws-follow i { font-style: normal; font-size: 18px; font-weight: 400; }
+.ws-float { position: absolute; width: 30px; height: 30px; border-radius: 6px; background: #0f0d14; border: 1px solid rgba(255,255,255,.05); }
+
+/* ---- Karaoke caption ----------------------------------------------------------------------- */
+.ws-cap { position: absolute; left: 50%; top: 936px; transform: translateX(-50%); padding: 6px 14px; border-radius: 8px; background: rgba(0,0,0,.92); font-size: 30px; font-weight: 700; letter-spacing: -.01em; color: #8a8a8a; white-space: nowrap; }
+.ws-cap b { color: #fff; font-weight: 700; }

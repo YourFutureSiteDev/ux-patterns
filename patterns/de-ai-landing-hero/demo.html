@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>De-AI Landing Hero · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0b0e11; --accent: #2fd3b0; --danger: #ea4a72; --grid: rgba(255,255,255,.03); }
+  .scene { color: #f3f5f7; }
+  .kicker { top: 139px; padding: 0 20px; height: 35px; line-height: 33px; font-size: 15px; letter-spacing: .16em; border: 1px solid rgba(47,211,176,.4); background: rgba(47,211,176,.12); }
+  .kicker--danger { color: #f05a82; border-color: rgba(234,74,114,.45); background: rgba(234,74,114,.14); }
+  .title { top: 160px; font-size: 40px; font-weight: 800; letter-spacing: -.02em; }
+  .caption { top: 1028px; height: 52px; padding: 0 26px; line-height: 50px; font-size: 22px; font-weight: 800; color: #9aa1a9; background: #14181c; border: 1px solid rgba(255,255,255,.08); box-shadow: none; }
+  .caption--ok { color: #2fd3b0; background: rgba(47,211,176,.1); border-color: rgba(47,211,176,.35); box-shadow: 0 0 30px rgba(47,211,176,.12); }
+  .caption--hot { color: #1c0a12; background: #ea4a72; border-color: #ea4a72; box-shadow: 0 0 40px rgba(234,74,114,.35); }
+</style>
+</head>
+<body class="lh">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></symbol>
+  <symbol id="i-layout" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></symbol>
+  <symbol id="i-cursor" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></symbol>
+</svg>
+
+<!-- 1 · Hook -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="kicker kicker--danger">DE-AI YOUR UI · 02 · LANDING</div>
+  <h1 class="title">Looks AI-made.</h1>
+  <div class="lh-frame" style="left:27px;top:285px;width:666px;height:725px">
+    <div data-landing data-state="headline=ai blob primary=gradient" style="left:46px;top:-23px;transform:scale(.865)"></div>
+  </div>
+  <div class="caption caption--hot">AI-made · 5 tells</div>
+</section>
+
+<!-- 1b · Five tells -->
+<section class="scene" data-t="0.5" data-shot="1.5">
+  <div class="kicker kicker--danger">DE-AI YOUR UI · 02 · LANDING</div>
+  <h1 class="title">Five tells. Five fixes.</h1>
+  <div class="lh-frame" style="left:27px;top:285px;width:666px;height:725px">
+    <div data-landing data-state="headline=ai blob primary=gradient" style="left:46px;top:-23px;transform:scale(.865)"></div>
+  </div>
+  <span class="lh-marker" style="left:494px;top:415px;animation-delay:0s">1</span>
+  <span class="lh-marker" style="left:159px;top:514px;animation-delay:.1s">2</span>
+  <span class="lh-marker" style="left:345px;top:559px;animation-delay:.2s">3</span>
+  <span class="lh-marker" style="left:296px;top:735px;animation-delay:.3s">4</span>
+  <span class="lh-marker" style="left:405px;top:825px;animation-delay:.4s">5</span>
+  <div class="caption caption--hot">AI-made · 5 tells</div>
+</section>
+
+<!-- 2 · Tell 01 · the headline -->
+<section class="scene" data-t="4.5" data-shot="6">
+  <div class="kicker kicker--danger">TELL 01 · THE HEADLINE</div>
+  <h1 class="title">Adjectives are not a product.</h1>
+  <div class="lh-frame lh-frame--fade" style="left:27px;top:295px;width:666px;height:703px">
+    <div data-landing data-state="headline=ai blob primary=gradient" style="left:0;top:0"></div>
+  </div>
+  <span class="lh-marker" style="left:518px;top:474px">1</span>
+  <div class="caption">Outcome first · plain text</div>
+</section>
+
+<!-- 2b · Tell 01 · 0 words about the product -->
+<section class="scene" data-t="7.5" data-shot="9">
+  <div class="kicker kicker--danger">TELL 01 · THE HEADLINE</div>
+  <h1 class="title">Adjectives are not a product.</h1>
+  <div class="lh-frame lh-frame--fade" style="left:27px;top:295px;width:666px;height:703px">
+    <div data-landing data-state="headline=ai blob primary=gradient" style="left:0;top:0"></div>
+  </div>
+  <span class="lh-marker" style="left:518px;top:474px">1</span>
+  <span class="lh-strike" style="left:189px;top:488px;width:244px"></span>
+  <span class="lh-strike" style="left:165px;top:579px;width:72px;height:2px;animation-delay:.2s"></span>
+  <span class="lh-strike" style="left:352px;top:601px;width:86px;height:2px;animation-delay:.3s"></span>
+  <svg class="lh-line"><line x1="197" y1="468" x2="212" y2="446"/><circle cx="197" cy="468" r="4"/></svg>
+  <span class="lh-note" style="left:136px;top:418px">0 words about the product</span>
+  <div class="caption">Outcome first · plain text</div>
+</section>
+
+<!-- 2c · Tell 01 fixed -->
+<section class="scene" data-t="12" data-shot="16.5">
+  <div class="kicker">TELL 01 · THE HEADLINE</div>
+  <h1 class="title">Adjectives are not a product.</h1>
+  <div class="lh-frame lh-frame--fade" style="left:27px;top:295px;width:666px;height:703px">
+    <div data-landing data-state="blob primary=gradient" style="left:0;top:0"></div>
+  </div>
+  <span class="lh-underline lh-underline--green" style="left:172px;top:590px;width:89px"></span>
+  <svg class="lh-line is-green"><line x1="222" y1="592" x2="427" y2="621"/><circle cx="222" cy="592" r="4"/></svg>
+  <span class="lh-note lh-note--green" style="left:427px;top:607px">for whom</span>
+  <div class="caption caption--ok">Outcome first · plain text</div>
+</section>
+
+<!-- 3 · Tell 02 · the blob -->
+<section class="scene" data-t="18" data-shot="21">
+  <div class="kicker kicker--danger">TELL 02 · THE BLOB</div>
+  <h1 class="title">Color goes on the product.</h1>
+  <div class="lh-frame lh-frame--fade" style="left:27px;top:295px;width:666px;height:703px">
+    <div data-landing data-state="blob primary=gradient" style="left:15px;top:-10px;transform:scale(.95)"></div>
+  </div>
+  <span class="lh-marker" style="left:531px;top:479px">2</span>
+  <span class="lh-swatch" style="left:62px;top:678px;width:358px;animation-delay:.4s"></span>
+  <span class="lh-note" style="left:432px;top:678px;animation-delay:.5s">decorative</span>
+  <span class="lh-mono" style="left:62px;top:714px;animation-delay:.6s">7C3AED → EC4899 · blur 90 · behind everything</span>
+  <div class="caption">1 accent · 0 blobs</div>
+</section>
+
+<!-- 3b · Tell 02 · blob gone -->
+<section class="scene" data-t="24" data-shot="25.5">
+  <div class="kicker kicker--danger">TELL 02 · THE BLOB</div>
+  <h1 class="title">Color goes on the product.</h1>
+  <div class="lh-frame lh-frame--fade" style="left:27px;top:295px;width:666px;height:703px">
+    <div data-landing data-state="primary=gradient" style="left:15px;top:-10px;transform:scale(.95)"></div>
+  </div>
+  <div class="caption">1 accent · 0 blobs</div>
+</section>
+
+<!-- 3c · Tell 02 fixed · colour on the product -->
+<section class="scene" data-t="26" data-shot="27">
+  <div class="kicker">TELL 02 · THE BLOB</div>
+  <h1 class="title">Color goes on the product.</h1>
+  <div class="lh-frame lh-frame--fade" style="left:27px;top:295px;width:666px;height:703px">
+    <div data-landing data-state="shot primary=green" style="left:15px;top:-10px;transform:scale(.95)"></div>
+  </div>
+  <svg class="lh-line is-green"><line x1="516" y1="418" x2="516" y2="443"/><circle cx="516" cy="443" r="4"/></svg>
+  <span class="lh-note lh-note--green" style="left:478px;top:392px">product</span>
+  <div class="caption caption--ok">1 accent · 0 blobs</div>
+</section>
+
+<!-- 4 · Tell 03 · two buttons -->
+<section class="scene" data-t="30" data-shot="30">
+  <div class="kicker kicker--danger">TELL 03 · TWO BUTTONS</div>
+  <h1 class="title">One primary.</h1>
+  <div class="lh-frame lh-frame--dim" style="left:27px;top:295px;width:666px;height:703px">
+    <div data-landing data-state="shot primary=green" style="left:69px;top:-222px;transform:scale(1.57)"></div>
+  </div>
+  <div class="lh-cw" style="left:55px;top:775px"><span class="lh-cw__label">CLICK WEIGHT</span><span class="lh-cw__hint">same size, side by side</span><div class="lh-cw__bar"><div class="lh-cw__fill"></div><span class="lh-cw__l">50 %</span><span class="lh-cw__r">50 %</span></div></div>
+  <div class="caption">One primary · one text link</div>
+</section>
+
+<!-- 4b · Tell 03 · 200 x 64, twice -->
+<section class="scene" data-t="33" data-shot="36">
+  <div class="kicker kicker--danger">TELL 03 · TWO BUTTONS</div>
+  <h1 class="title">One primary.</h1>
+  <div class="lh-frame lh-frame--dim" style="left:27px;top:295px;width:666px;height:703px">
+    <div data-landing data-state="shot primary=green" style="left:69px;top:-222px;transform:scale(1.57)"></div>
+  </div>
+  <span class="lh-outline" style="left:125px;top:606px;width:207px;height:71px"></span>
+  <span class="lh-outline" style="left:342px;top:606px;width:206px;height:71px"></span>
+  <span class="lh-tag" style="left:252px;top:579px">200 × 64</span>
+  <span class="lh-tag" style="left:468px;top:579px">200 × 64</span>
+  <span class="lh-marker" style="left:132px;top:593px">3</span>
+  <span class="lh-marker" style="left:349px;top:593px;animation-delay:.1s">3</span>
+  <svg class="lh-cursor" style="left:243px;top:642px"><use href="#i-cursor"/></svg>
+  <div class="lh-cw is-bad" style="left:55px;top:775px"><span class="lh-cw__label">CLICK WEIGHT</span><span class="lh-cw__hint">two equal buttons split the click</span><div class="lh-cw__bar"><div class="lh-cw__fill"></div><span class="lh-cw__l">50 %</span><span class="lh-cw__r">50 %</span></div></div>
+  <div class="caption">One primary · one text link</div>
+</section>
+
+<!-- 4c · Tell 03 fixed -->
+<section class="scene" data-t="37.5" data-shot="39">
+  <div class="kicker">TELL 03 · TWO BUTTONS</div>
+  <h1 class="title">One primary.</h1>
+  <div class="lh-frame lh-frame--dim" style="left:27px;top:295px;width:666px;height:703px">
+    <div data-landing data-state="shot primary=green cta=Start+free secondary=link" style="left:69px;top:-222px;transform:scale(1.57)"></div>
+  </div>
+  <svg class="lh-cursor" style="left:293px;top:655px"><use href="#i-cursor"/></svg>
+  <div class="lh-cw is-primary" id="cw" style="left:55px;top:775px"><span class="lh-cw__label">CLICK WEIGHT</span><span class="lh-cw__hint">one primary takes the click</span><div class="lh-cw__bar"><div class="lh-cw__fill" style="width:90%"></div><span class="lh-cw__l">90 %</span><span class="lh-cw__r">10 %</span></div></div>
+  <div class="caption caption--ok">One primary · one text link</div>
+</section>
+
+<!-- 5 · Tell 04 · the proof -->
+<section class="scene" data-t="42" data-shot="45">
+  <div class="kicker kicker--danger">TELL 04 · THE PROOF</div>
+  <h1 class="title">One quote beats ten thousand.</h1>
+  <div class="lh-frame" style="left:27px;top:295px;width:666px;height:595px">
+    <div data-landing data-state="shot primary=green cta=Start+free secondary=link" style="left:-17px;top:-435px;transform:scale(1.055)"></div>
+  </div>
+  <span class="lh-marker" style="left:192px;top:394px">4</span>
+  <span class="lh-strike" style="left:352px;top:408px;width:62px;height:2px;animation-delay:.3s"></span>
+  <svg class="lh-line"><line x1="374" y1="418" x2="455" y2="392"/><circle cx="374" cy="418" r="4"/></svg>
+  <span class="lh-note" style="left:433px;top:366px;animation-delay:.4s">unverifiable</span>
+  <div class="caption">Name · role · result with a unit</div>
+</section>
+
+<!-- 5b · Tell 04 fixed · a name -->
+<section class="scene" data-t="49.5" data-shot="51">
+  <div class="kicker">TELL 04 · THE PROOF</div>
+  <h1 class="title">One quote beats ten thousand.</h1>
+  <div class="lh-frame" style="left:27px;top:295px;width:666px;height:595px">
+    <div data-landing data-state="shot primary=green cta=Start+free secondary=link proof=quote" style="left:-17px;top:-435px;transform:scale(1.055)"></div>
+  </div>
+  <svg class="lh-line is-green"><line x1="215" y1="496" x2="256" y2="482"/><circle cx="215" cy="496" r="4"/></svg>
+  <span class="lh-note lh-note--green lh-note--check" style="left:256px;top:468px">a name</span>
+  <div class="caption caption--ok">Name · role · result with a unit</div>
+</section>
+
+<!-- 5c · Tell 04 fixed · name, role, result -->
+<section class="scene" data-t="52" data-shot="52.5">
+  <div class="kicker">TELL 04 · THE PROOF</div>
+  <h1 class="title">One quote beats ten thousand.</h1>
+  <div class="lh-frame" style="left:27px;top:295px;width:666px;height:595px">
+    <div data-landing data-state="shot primary=green cta=Start+free secondary=link proof=quote" style="left:-17px;top:-435px;transform:scale(1.055)"></div>
+  </div>
+  <span class="lh-underline lh-underline--green" style="left:320px;top:441px;width:118px"></span>
+  <svg class="lh-line is-green"><line x1="215" y1="496" x2="256" y2="482"/><circle cx="215" cy="496" r="4"/><line x1="384" y1="445" x2="449" y2="485"/><circle cx="384" cy="445" r="4"/><line x1="287" y1="518" x2="310" y2="528"/><circle cx="287" cy="518" r="4"/></svg>
+  <span class="lh-note lh-note--green lh-note--check" style="left:256px;top:468px">a name</span>
+  <span class="lh-note lh-note--green lh-note--check" style="left:449px;top:472px;animation-delay:.2s">a result with a unit</span>
+  <span class="lh-note lh-note--green lh-note--check" style="left:310px;top:515px;animation-delay:.4s">a role</span>
+  <div class="caption caption--ok">Name · role · result with a unit</div>
+</section>
+
+<!-- 6 · Tell 05 · feature cards -->
+<section class="scene" data-t="54" data-shot="60">
+  <div class="kicker kicker--danger">TELL 05 · FEATURE CARDS</div>
+  <h1 class="title">Show the product.</h1>
+  <div class="lh-frame" style="left:27px;top:295px;width:666px;height:650px">
+    <div data-landing data-state="shot primary=green cta=Start+free secondary=link proof=quote" style="left:1px;top:-431px"></div>
+  </div>
+  <span class="lh-marker" style="left:346px;top:585px">5</span>
+  <span class="lh-underline" style="left:61px;top:667px;width:36px;animation-delay:.3s"></span>
+  <div class="caption">Show the product · not the adjectives</div>
+</section>
+
+<!-- 6b · Tell 05 · same row, every generated page -->
+<section class="scene" data-t="61.5" data-shot="63">
+  <div class="kicker kicker--danger">TELL 05 · FEATURE CARDS</div>
+  <h1 class="title">Show the product.</h1>
+  <div class="lh-frame" style="left:27px;top:295px;width:666px;height:650px">
+    <div data-landing data-state="shot primary=green cta=Start+free secondary=link proof=quote" style="left:1px;top:-431px"></div>
+  </div>
+  <span class="lh-marker" style="left:346px;top:585px">5</span>
+  <span class="lh-underline" style="left:61px;top:667px;width:36px"></span>
+  <span class="lh-underline" style="left:277px;top:667px;width:60px;animation-delay:.15s"></span>
+  <span class="lh-underline" style="left:494px;top:667px;width:39px;animation-delay:.3s"></span>
+  <svg class="lh-line"><line x1="585" y1="522" x2="620" y2="551"/><circle cx="620" cy="551" r="4"/></svg>
+  <span class="lh-note" style="left:350px;top:505px;animation-delay:.4s">same row, every generated page</span>
+  <div class="caption">Show the product · not the adjectives</div>
+</section>
+
+<!-- 6c · Tell 05 fixed · the product -->
+<section class="scene" data-t="64.5" data-shot="66">
+  <div class="kicker">TELL 05 · FEATURE CARDS</div>
+  <h1 class="title">Show the product.</h1>
+  <div class="lh-frame" style="left:27px;top:295px;width:666px;height:650px">
+    <div data-landing data-state="shot primary=green cta=Start+free secondary=link proof=quote features=product" style="left:1px;top:-431px"></div>
+  </div>
+  <div class="caption caption--ok">Show the product · not the adjectives</div>
+</section>
+
+<!-- 6d · Tell 05 fixed · three real things -->
+<section class="scene" data-t="67.5" data-shot="69">
+  <div class="kicker">TELL 05 · FEATURE CARDS</div>
+  <h1 class="title">Show the product.</h1>
+  <div class="lh-frame" style="left:27px;top:295px;width:666px;height:650px">
+    <div data-landing data-state="shot primary=green cta=Start+free secondary=link proof=quote features=product" style="left:1px;top:-431px"></div>
+  </div>
+  <svg class="lh-line is-green"><line x1="627" y1="589" x2="600" y2="524"/><circle cx="627" cy="589" r="4"/><line x1="545" y1="589" x2="444" y2="551"/><circle cx="545" cy="589" r="4"/><line x1="426" y1="857" x2="470" y2="897"/><circle cx="426" cy="857" r="4"/></svg>
+  <span class="lh-note lh-note--green" style="left:378px;top:498px">Export to your accountant in one click</span>
+  <span class="lh-note lh-note--green" style="left:236px;top:538px;animation-delay:.2s">Bank sync, every morning</span>
+  <span class="lh-note lh-note--green" style="left:378px;top:897px;animation-delay:.4s">Categories learned from your history</span>
+  <div class="caption caption--ok">Show the product · not the adjectives</div>
+</section>
+
+<!-- 7 · Outro · Claude Code -->
+<section class="scene" data-t="72" data-shot="72">
+  <div class="lh-glow"></div>
+  <div class="kicker">DE-AI YOUR UI · 02</div>
+  <h1 class="title">Five tells, gone.</h1>
+  <div class="lh-frame lh-frame--fade" style="left:62px;top:253px;width:596px;height:552px">
+    <div data-landing data-state="shot primary=green cta=Start+free secondary=link proof=quote features=product" style="left:61px;top:-17.5px;transform:scale(.7)"></div>
+  </div>
+  <div class="lh-palette" style="left:66px;top:822px">
+    <div class="lh-palette__input"><span class="lh-palette__brand">CLAUDE CODE</span><span class="lh-palette__prompt">&gt;</span><span class="lh-palette__caret"></span></div>
+    <div class="lh-palette__list">
+      <div class="lh-palette__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-layout"/></svg><code>/ux-design</code><span>Design a screen from a brief</span></div>
+      <div class="lh-palette__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-warn"/></svg><code>/ux-audit</code><span>Find every AI tell</span></div>
+      <div class="lh-palette__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-shield"/></svg><code>/ux-review</code><span>Review the UI of a PR</span></div>
+      <div class="lh-palette__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-spark"/></svg><code>/restyle</code><span>Kill the AI look</span></div>
+    </div>
+  </div>
+  <a class="lh-cta center" style="top:1028px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><use href="#i-link"/></svg>Link in bio</a>
+</section>
+
+<!-- 7b · Outro · UX Engine -->
+<section class="scene" data-t="78" data-shot="79.5">
+  <div class="lh-glow"></div>
+  <div class="kicker">DE-AI YOUR UI · 02</div>
+  <h1 class="title">Five tells, gone.</h1>
+  <div class="lh-frame lh-frame--fade" style="left:62px;top:253px;width:596px;height:552px">
+    <div data-landing data-state="shot primary=green cta=Start+free secondary=link proof=quote features=product" style="left:61px;top:-17.5px;transform:scale(.7)"></div>
+  </div>
+  <div class="lh-engine" style="left:66px;top:822px">
+    <div class="lh-engine__head"><span class="lh-engine__title">UX Engine</span><span class="lh-engine__badge">CLAUDE CODE PLUGIN</span></div>
+    <div class="lh-engine__cmds">
+      <span class="lh-engine__cmd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-layout"/></svg>/ux-design</span>
+      <span class="lh-engine__cmd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-warn"/></svg>/ux-audit</span>
+      <span class="lh-engine__cmd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-shield"/></svg>/ux-review</span>
+      <span class="lh-engine__cmd is-on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-spark"/></svg>/restyle</span>
+    </div>
+    <div class="lh-engine__price">$79 one time · 30 day refund · 12 months of updates</div>
+  </div>
+  <a class="lh-cta lh-cta--solid center" style="top:1028px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><use href="#i-link"/></svg>Link in bio</a>
+</section>
+
+<script type="module">
+  import { mountAll, ClickWeight } from './pattern.js';
+  mountAll();
+  // The click-weight meter animates 50 -> 90 when its scene is entered live (frozen at 90 for screenshots).
+  const cw = document.getElementById('cw'), meter = ClickWeight(cw);
+  cw.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t > 0) return; meter.set(50); setTimeout(() => meter.set(90), 600); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

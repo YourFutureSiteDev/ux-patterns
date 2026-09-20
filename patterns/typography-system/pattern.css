@@ -1,0 +1,278 @@
+/* Typography System, rebuilt from the @designmotionhq reel "Typography is a system." (nine decisions, one font).
+   Component classes are prefixed .ts- and depend only on the tokens below. */
+.ts {
+  --ts-bg: #090c0f; --ts-panel: #10151a; --ts-panel-2: #171d24; --ts-border: #232a31; --ts-border-2: #2c343c;
+  --ts-teal: #2fd39c; --ts-teal-dim: rgba(47,211,156,.14); --ts-teal-deep: #08302f; --ts-pink: #e0446f; --ts-pink-dim: rgba(224,68,111,.16);
+  --ts-text: #f2f4f6; --ts-muted: #8b939b; --ts-dim: #5f666d;
+  /* the three inks on white */
+  --ink-1: #18181b; --ink-2: #52525b; --ink-3: #a1a1aa; --ink-rule: #ececef; --ink-bg: #fafafa;
+  --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--ts-text);
+}
+.ts code, .ts .mono { font-family: var(--mono); }
+
+/* ---- Reel chrome: kicker pill, headline, bottom caption ------------------ */
+.ts-kicker { position: absolute; top: 139px; left: 50%; transform: translateX(-50%); height: 35px; line-height: 35px; padding: 0 20px; border-radius: 999px; background: #0f2723; border: 1px solid #1c4a3e; color: var(--ts-teal); font-size: 13px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; white-space: nowrap; }
+.ts-h1 { position: absolute; top: 183px; left: 0; right: 0; margin: 0; text-align: center; font-size: 40px; font-weight: 800; letter-spacing: -.025em; line-height: 1.2; white-space: nowrap; }
+.ts-cap { position: absolute; top: 1029px; left: 50%; transform: translateX(-50%); height: 50px; line-height: 48px; padding: 0 24px; border-radius: 10px; background: #0b1a18; border: 1px solid #1a3a34; color: var(--ts-teal); font-size: 22px; font-weight: 700; white-space: nowrap; letter-spacing: -.01em; }
+.ts-cap.is-lit { background: var(--ts-teal); color: #062a1f; border-color: var(--ts-teal); box-shadow: 0 0 40px rgba(47,211,156,.35); }
+.ts-cap.is-lit em { font-style: normal; font-weight: 400; padding: 0 10px; }
+.ts-cap--ghost { background: transparent; border: 1px solid #2a4a42; border-radius: 999px; font-size: 20px; }
+.ts-cap--ghost svg { width: 18px; height: 18px; vertical-align: -3px; margin-right: 8px; stroke: currentColor; fill: none; stroke-width: 2; }
+.ts-cap--lit { background: var(--ts-teal); color: #05241b; border-color: var(--ts-teal); border-radius: 999px; font-size: 20px; box-shadow: 0 0 40px rgba(47,211,156,.35); }
+.ts-cap--lit svg { width: 18px; height: 18px; vertical-align: -3px; margin-right: 8px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* ---- Orbit dashboard (white) --------------------------------------------- */
+.ts-orbit { position: absolute; background: #fff; border-radius: 12px; color: var(--ink-1); overflow: hidden; }
+.ts-orbit__bar { display: flex; align-items: center; height: 56px; padding: 0 16px; border-bottom: 1px solid var(--ink-rule); }
+.ts-orbit__logo { width: 18px; height: 18px; border-radius: 5px; background: var(--ts-teal); color: #04352a; font: 700 10px var(--mono); display: grid; place-items: center; margin-right: 10px; }
+.ts-orbit__brand { font-size: 16px; font-weight: 600; }
+.ts-orbit__user { margin-left: auto; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-2); }
+.ts-orbit__avatar { width: 24px; height: 24px; border-radius: 50%; background: #eeeef0; color: var(--ink-2); font-size: 9px; font-weight: 700; display: grid; place-items: center; }
+.ts-orbit__body { padding: 16px; }
+.ts-orbit__head { display: flex; align-items: flex-start; justify-content: space-between; margin: 18px 0 22px; }
+.ts-orbit__title { font-size: 32px; font-weight: 600; letter-spacing: -.02em; line-height: 1.1; margin: 0; }
+.ts-orbit__plan { text-align: right; }
+.ts-orbit__plan small { display: block; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.ts-orbit__plan b { display: block; font-size: 20px; font-weight: 600; margin-top: 4px; }
+.ts-stats { display: flex; gap: 10px; }
+.ts-stat { flex: 1; height: 88px; padding: 10px 10px 8px; border: 1px solid var(--ink-rule); border-radius: 8px; background: var(--ink-bg); }
+.ts-stat span { display: block; font-size: 13px; color: var(--ink-2); }
+.ts-stat b { display: block; font-size: 25px; font-weight: 600; letter-spacing: -.01em; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.ts-spark { display: flex; align-items: flex-end; gap: 2px; height: 14px; margin-top: 6px; }
+.ts-spark i { width: 3px; background: #d4d4d8; border-radius: 1px; }
+.ts-spark i.on { background: var(--ts-teal); }
+.ts-orbit__sect { display: flex; align-items: center; justify-content: space-between; margin: 24px 0 14px; font-size: 16px; font-weight: 600; }
+.ts-chip { font: 12px var(--mono); color: var(--ink-3); background: #f1f1f3; padding: 4px 8px; border-radius: 4px; }
+.ts-table { width: 100%; border-collapse: collapse; }
+.ts-table th { font-size: 12px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); text-align: left; padding: 0 0 10px; border-bottom: 1px solid var(--ink-rule); }
+.ts-table td { height: 39px; font-size: 16px; border-bottom: 1px solid var(--ink-rule); font-variant-numeric: tabular-nums; }
+.ts-table th.r, .ts-table td.r { text-align: right; padding-right: 12px; }
+.ts-table .id { color: var(--ink-2); } .ts-table .dt { color: var(--ink-3); } .ts-table .amt { font-weight: 600; color: var(--ink-1); }
+.ts-table.is-proportional td { font-variant-numeric: proportional-nums; }
+.ts-status { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 9px; border-radius: 999px; background: #f1f1f3; font-size: 13px; font-weight: 500; color: var(--ink-1); white-space: nowrap; }
+.ts-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--ts-teal); }
+.ts-status--pending::before { background: #a1a1aa; } .ts-status--due::before { background: var(--ts-pink); }
+.ts-orbit__note { margin: 14px 0 0; padding-right: 36px; font-size: 16px; line-height: 1.45; color: #3f3f46; }
+.ts-orbit--bold .ts-table td { font-weight: 600; } .ts-orbit--bold .ts-table .id { color: #3f3f46; } .ts-orbit--bold .ts-table .dt { color: #52525b; }
+.ts-orbit--sm .ts-orbit__note { font-size: 12px; font-weight: 600; line-height: 1.45; }
+
+/* ---- Inspector rail (scene 1) -------------------------------------------- */
+.ts-inspector { position: absolute; overflow: hidden; background: var(--ts-panel); color: var(--ts-muted); font: 12px var(--mono); }
+.ts-inspector__head { position: absolute; left: 12px; top: 12px; letter-spacing: .12em; font-size: 12px; color: var(--ts-dim); }
+.ts-inspector__count { position: absolute; right: 0; top: 8px; height: 28px; line-height: 28px; padding: 0 12px; border-radius: 999px 0 0 999px; background: #0f3b32; color: var(--ts-teal); font-size: 13px; font-weight: 700; }
+.ts-tag { position: absolute; height: 28px; line-height: 28px; padding: 0 10px; border-radius: 6px; background: var(--ts-panel-2); border: 1px solid var(--ts-border); color: #c5cad0; font-size: 13px; white-space: nowrap; }
+.ts-tag.is-lit { color: var(--ts-teal); border-color: #1e4f43; }
+.ts-box { position: absolute; padding: 10px 12px; border-radius: 8px; background: var(--ts-panel-2); border: 1px solid var(--ts-border); }
+.ts-box small { display: block; font-size: 10px; letter-spacing: .14em; color: var(--ts-dim); }
+.ts-box b { display: block; font: 600 16px 'Inter', sans-serif; color: #fff; margin-top: 6px; }
+.ts-box span { display: block; font-size: 11px; color: var(--ts-muted); margin-top: 3px; }
+.ts-scale { display: grid; grid-template-columns: 22px 1fr; gap: 3px 10px; align-items: center; margin-top: 6px; font-size: 12px; color: var(--ts-teal); }
+.ts-scale i { display: block; height: 3px; border-radius: 2px; background: var(--ts-teal); transform-origin: left; animation: ts-grow .6s ease-out both; }
+@keyframes ts-grow { from { transform: scaleX(0); } }
+
+/* ---- Scene 2: size ladder ----------------------------------------------------- */
+.ts-size { position: absolute; width: 206px; height: 42px; border-radius: 8px; background: var(--ts-panel); border: 1px solid var(--ts-border); display: flex; align-items: center; padding: 0 12px; gap: 14px; font: 15px var(--mono); color: var(--ts-teal); }
+.ts-size b { font-family: 'Inter', sans-serif; font-weight: 600; color: #e5e8ec; line-height: 1; }
+.ts-size i { height: 3px; border-radius: 2px; background: var(--ts-teal); margin-left: auto; }
+.ts-ratio { position: absolute; height: 24px; line-height: 24px; padding: 0 10px; border-radius: 6px; background: var(--ts-teal-deep); color: var(--ts-teal); font: 13px var(--mono); }
+.ts-ladder-line { position: absolute; width: 1px; background: var(--ts-border); }
+.ts-strip { position: absolute; height: 50px; border-radius: 10px; background: var(--ts-panel); border: 1px solid var(--ts-border); display: flex; align-items: center; padding: 0 12px; gap: 6px; font: 13px var(--mono); color: var(--ts-dim); }
+.ts-strip__label { letter-spacing: .14em; margin-right: 10px; }
+.ts-strip__n { min-width: 34px; height: 28px; line-height: 28px; text-align: center; border-radius: 6px; font-size: 14px; color: #1f262d; }
+.ts-strip__n.on { background: var(--ts-teal-deep); color: var(--ts-teal); }
+.ts-strip__left { margin-left: auto; color: var(--ts-teal); font-size: 15px; }
+
+/* ---- Scene 3: three inks ------------------------------------------------------ */
+.ts-white { position: absolute; background: #fff; border-radius: 12px; color: var(--ink-1); overflow: hidden; }
+.ts-white__bar { height: 36px; display: flex; align-items: center; justify-content: space-between; padding: 0 18px; background: #f4f4f5; border-bottom: 1px solid var(--ink-rule); font: 13px var(--mono); color: var(--ink-3); letter-spacing: .04em; }
+.ts-white__bar em { font-style: normal; color: #1f9f7a; }
+.ts-inkrow { display: flex; align-items: baseline; gap: 18px; padding: 30px 20px 36px; font-size: 30px; }
+.ts-inkrow .id { color: var(--ink-2); font-weight: 500; letter-spacing: .04em; font-size: 30px; }
+.ts-inkrow .dt { color: var(--ink-3); font-size: 28px; }
+.ts-inkrow .amt { margin-left: auto; font-weight: 600; color: var(--ink-1); }
+.ts-inkrow .ts-status { height: 34px; padding: 0 14px; font-size: 17px; align-self: center; }
+.ts-inks { border-top: 1px solid var(--ink-rule); padding: 18px 20px 12px; }
+.ts-ink { display: flex; align-items: center; gap: 14px; height: 44px; font-size: 18px; font-weight: 600; }
+.ts-ink i { width: 30px; height: 30px; border-radius: 8px; }
+.ts-ink span { width: 92px; }
+.ts-ink code { width: 100px; font-size: 15px; color: var(--ink-3); font-weight: 400; }
+.ts-ink em { font-style: normal; font-weight: 400; font-size: 17px; color: var(--ink-2); }
+.ts-split { position: absolute; border-radius: 12px; overflow: hidden; display: flex; }
+.ts-split > .ts-orbit { position: static; border-radius: 0; flex: none; }
+.ts-split__dark { flex: 1; background: var(--ts-panel); position: relative; font: 12px var(--mono); color: var(--ts-dim); letter-spacing: .1em; }
+.ts-split__dark span { position: absolute; left: 12px; top: 220px; line-height: 1.4; }
+
+/* ---- Scene 4: weights ------------------------------------------------------------ */
+.ts-wstat { position: absolute; width: 186px; height: 198px; border-radius: 12px; background: #fff; color: var(--ink-1); padding: 18px 16px; }
+.ts-wstat span { display: block; font-size: 18px; color: var(--ink-2); }
+.ts-wstat b { display: block; margin-top: 40px; font-size: 32px; font-weight: 600; letter-spacing: -.01em; }
+.ts-wstat .ts-spark { height: 24px; margin-top: 42px; gap: 3px; } .ts-wstat .ts-spark i { width: 6px; border-radius: 2px; }
+.ts-wchip { position: absolute; height: 30px; line-height: 28px; padding: 0 12px; border-radius: 8px; background: var(--ts-teal-deep); border: 1px solid #1e4f43; color: var(--ts-teal); font: 13px var(--mono); }
+.ts-aa { position: absolute; width: 298px; height: 244px; border-radius: 12px; background: var(--ts-panel); border: 1px solid var(--ts-border); padding: 22px 16px; color: #e5e8ec; }
+.ts-aa__glyph { display: flex; align-items: baseline; justify-content: space-between; }
+.ts-aa__glyph b { font-size: 56px; letter-spacing: -.02em; line-height: 1; }
+.ts-aa__glyph code { font-size: 15px; color: var(--ts-teal); }
+.ts-aa p { margin: 32px 0 0; font-size: 17px; line-height: 1.4; color: #c5cad0; width: 252px; }
+.ts-aa small { position: absolute; left: 16px; bottom: 22px; font: 13px var(--mono); color: var(--ts-dim); }
+.ts-aa--400 .ts-aa__glyph b, .ts-aa--400 p { font-weight: 400; } .ts-aa--600 .ts-aa__glyph b, .ts-aa--600 p { font-weight: 600; }
+.ts-wbar { position: absolute; width: 626px; height: 86px; border-radius: 10px; background: var(--ts-panel); border: 1px solid var(--ts-border); display: flex; align-items: center; padding: 0 16px; gap: 6px; }
+.ts-wbar__label { font: 12px var(--mono); color: var(--ts-dim); letter-spacing: .12em; line-height: 1.4; width: 120px; }
+.ts-w { width: 64px; height: 64px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #3f474f; background: #141a20; border: 1px solid #1e252c; }
+.ts-w b { font-size: 18px; } .ts-w code { font-size: 11px; margin-top: 2px; }
+.ts-w.on { background: var(--ts-panel-2); border: 1px solid var(--ts-border-2); color: #fff; } .ts-w.on code { color: var(--ts-teal); }
+.ts-wbar__kept { margin-left: auto; font: 15px var(--mono); color: var(--ts-teal); white-space: nowrap; }
+
+/* ---- Scene 5: leading ------------------------------------------------------------ */
+.ts-lead { position: absolute; width: 292px; height: 292px; border-radius: 12px; background: var(--ts-panel); border: 1px solid var(--ts-border); overflow: hidden; }
+.ts-lead__bar { height: 36px; display: flex; align-items: center; justify-content: space-between; padding: 0 14px; background: var(--ts-panel-2); font: 13px var(--mono); color: var(--ts-dim); letter-spacing: .1em; }
+.ts-lead__bar em { font-style: normal; color: var(--ts-teal); letter-spacing: 0; }
+.ts-lead__text { position: absolute; left: 14px; top: 58px; color: #fff; }
+.ts-lead__text.h { font-size: 32px; font-weight: 500; line-height: 1.1; letter-spacing: -.02em; width: 186px; }
+.ts-lead__text.b { font-size: 16px; line-height: 1.5; width: 186px; }
+.ts-lead__text span { display: block; border-bottom: 1px solid #3a424a; }
+.ts-lead__brace { position: absolute; width: 14px; border: 1.5px solid var(--ts-teal); border-left: 0; border-radius: 0 10px 10px 0; }
+.ts-lead__val { position: absolute; height: 24px; line-height: 22px; padding: 0 8px; border-radius: 6px; background: var(--ts-teal-deep); border: 1px solid #1e4f43; color: var(--ts-teal); font: 14px var(--mono); }
+.ts-lead__foot { position: absolute; left: 14px; bottom: 14px; font: 14px var(--mono); color: #9aa1a8; }
+.ts-chart { position: absolute; width: 626px; height: 366px; border-radius: 12px; background: var(--ts-panel); border: 1px solid var(--ts-border); }
+.ts-chart__axis { position: absolute; left: 14px; top: 200px; width: 596px; height: 1px; background: #2c343c; }
+.ts-chart__lab { position: absolute; left: 40px; font: 12px var(--mono); color: var(--ts-dim); letter-spacing: .12em; }
+.ts-bar { position: absolute; width: 64px; border-radius: 6px; background: #1e2429; overflow: hidden; }
+.ts-bar__top { position: absolute; left: 0; right: 0; top: 0; background: #273038; text-align: center; font: 14px var(--mono); color: #c5cad0; }
+.ts-bar__top span { display: block; padding-top: 10px; }
+.ts-bar__bot { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; font: 14px var(--mono); color: #7a828a; background: #1c2227; }
+.ts-bar__bot span { display: block; padding-bottom: 10px; position: absolute; left: 0; right: 0; bottom: 0; }
+.ts-bar.is-lit .ts-bar__bot { background: #123a34; color: var(--ts-teal); }
+.ts-pill { position: absolute; height: 36px; line-height: 34px; padding: 0 16px; border-radius: 8px; font: 15px var(--mono); border: 1px solid; }
+.ts-pill--bad { background: #3b1c29; border-color: #7a2f48; color: #ee6b8f; text-decoration: line-through; }
+.ts-pill--bad::before { content: '✕ '; text-decoration: none; }
+.ts-pill--good { background: #0d2c28; border-color: #1e5a4c; color: var(--ts-teal); }
+
+/* ---- Scene 6: tracking -------------------------------------------------------------- */
+.ts-track { position: absolute; background: #fff; border-radius: 12px; color: var(--ink-1); overflow: hidden; }
+.ts-track__bar { height: 36px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; background: #f4f4f5; border-bottom: 1px solid var(--ink-rule); font: 13px var(--mono); color: var(--ink-3); letter-spacing: .08em; }
+.ts-track__bar em { font-style: normal; color: #1f9f7a; letter-spacing: 0; }
+.ts-track__body { padding: 16px 20px; }
+.ts-track__line { display: flex; align-items: center; gap: 18px; }
+.ts-track__line .ts-badge { height: 26px; line-height: 24px; padding: 0 8px; border-radius: 6px; border: 1px solid var(--ink-rule); background: #f4f4f5; color: var(--ink-3); font: 13px var(--mono); }
+.ts-track__line .ts-badge.on { background: #dcf7ee; border-color: #b7ebd8; color: #1f9f7a; }
+.ts-track__rule { height: 8px; border-left: 1.5px solid; border-right: 1.5px solid; position: relative; margin: 10px 0 18px; }
+.ts-track__rule::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; border-top: 1.5px solid; }
+.ts-track__rule.g { border-color: var(--ink-3); color: var(--ink-3); } .ts-track__rule.t { border-color: #2fd39c; color: #2fd39c; }
+.ts-track p { margin: 0; font-size: 18px; line-height: 1.45; color: #27272a; }
+.ts-track small { display: block; margin-top: 6px; font: 14px var(--mono); color: var(--ink-3); }
+.ts-track .note { margin-top: 10px; font-size: 17px; color: #3f3f46; }
+
+/* ---- Scene 7: measure ---------------------------------------------------------------- */
+.ts-browser { position: absolute; background: #fff; border-radius: 12px; color: var(--ink-1); overflow: hidden; }
+.ts-browser__chrome { height: 36px; display: flex; align-items: center; gap: 6px; padding: 0 16px; background: #f4f4f5; border-bottom: 1px solid var(--ink-rule); }
+.ts-browser__chrome i { width: 9px; height: 9px; border-radius: 50%; background: #dcdce0; }
+.ts-browser__url { flex: 1; height: 22px; line-height: 22px; margin: 0 10px 0 12px; border-radius: 999px; background: #fff; border: 1px solid var(--ink-rule); padding: 0 14px; font: 13px var(--mono); color: var(--ink-3); }
+.ts-browser__dims { font: 12px var(--mono); color: var(--ink-3); }
+.ts-nav { display: flex; align-items: center; gap: 18px; height: 44px; padding: 0 14px; border-bottom: 1px solid var(--ink-rule); font-size: 13px; color: var(--ink-3); }
+.ts-nav b { font-size: 14px; color: var(--ink-1); font-weight: 600; } .ts-nav .on { color: var(--ink-1); font-weight: 500; }
+.ts-nav .user { margin-left: auto; }
+.ts-measure { position: absolute; height: 8px; border-left: 1.5px solid; border-right: 1.5px solid; }
+.ts-measure::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; border-top: 1.5px solid; }
+.ts-measure.g { color: var(--ink-2); border-color: var(--ink-2); } .ts-measure.t { color: #2fd39c; border-color: #2fd39c; }
+.ts-mtag { position: absolute; height: 22px; line-height: 20px; padding: 0 8px; border-radius: 4px; font: 13px var(--mono); border: 1px solid; }
+.ts-mtag--dark { background: #27272a; border-color: #27272a; color: #f4f4f5; }
+.ts-mtag--teal { background: #dcf7ee; border-color: #b7ebd8; color: #1f9f7a; }
+.ts-mtag--faint { background: #e8faf3; border-color: #cdeee0; color: #7fcbb0; }
+.ts-browser__title { position: absolute; left: 14px; top: 428px; font-size: 26px; font-weight: 600; letter-spacing: -.02em; }
+.ts-browser__sub { position: absolute; left: 14px; top: 458px; font-size: 13px; color: var(--ink-3); }
+.ts-browser__para { position: absolute; left: 109px; top: 510px; width: 460px; font-size: 15.5px; letter-spacing: -.005em; line-height: 1.5; color: #3f3f46; }
+.ts-browser__stats { position: absolute; left: 14px; right: 14px; top: 610px; }
+.ts-browser__stats .ts-stat { height: 74px; border-radius: 6px; }
+.ts-browser__stats .ts-stat b { font-size: 23px; }
+.ts-browser__rows { position: absolute; left: 14px; right: 14px; top: 696px; font-size: 13px; color: var(--ink-2); }
+.ts-browser__rows div { height: 26px; line-height: 26px; border-top: 1px solid var(--ink-rule); }
+.ts-slider { position: absolute; width: 626px; height: 192px; border-radius: 12px; background: var(--ts-panel); border: 1px solid var(--ts-border); }
+.ts-slider__label { position: absolute; left: 18px; top: 28px; font: 14px var(--mono); color: var(--ts-dim); letter-spacing: .12em; }
+.ts-slider__val { position: absolute; right: 18px; top: 18px; font: 28px var(--mono); color: var(--ts-teal); }
+.ts-slider__val span { color: #c5cad0; }
+.ts-slider__track { position: absolute; left: 30px; right: 30px; top: 80px; height: 8px; border-radius: 4px; background: #1e2429; }
+.ts-slider__band { position: absolute; top: 0; bottom: 0; border-radius: 4px; background: #1f8a6c; }
+.ts-slider__thumb { position: absolute; top: -8px; width: 24px; height: 24px; border-radius: 6px; background: var(--ts-teal); box-shadow: 0 0 0 4px rgba(47,211,156,.25); transform: translateX(-50%); transition: left .6s cubic-bezier(.2,.8,.2,1); }
+.ts-slider__ticks { position: absolute; left: 30px; right: 30px; top: 96px; height: 20px; font: 13px var(--mono); color: var(--ts-dim); }
+.ts-slider__ticks span { position: absolute; transform: translateX(-50%); padding-top: 8px; }
+.ts-slider__ticks span::before { content: ''; position: absolute; left: 50%; top: 0; height: 5px; border-left: 1px solid #3a424a; }
+.ts-slider__ticks span.on { color: var(--ts-teal); }
+.ts-slider__chips { position: absolute; left: 18px; top: 140px; display: flex; gap: 8px; }
+.ts-slider__chips span { height: 34px; line-height: 32px; padding: 0 14px; border-radius: 8px; border: 1px solid var(--ts-border-2); background: var(--ts-panel-2); font: 15px var(--mono); color: #c5cad0; white-space: nowrap; }
+.ts-slider__chips span.on { background: #0d2c28; border-color: #1e5a4c; color: var(--ts-teal); }
+
+/* ---- Scene 8: tabular figures ---------------------------------------------------------- */
+.ts-code { position: absolute; width: 626px; height: 62px; border-radius: 10px; background: #0d1a18; border: 1px solid #1e5a4c; display: flex; align-items: center; padding: 0 18px; gap: 12px; font: 600 17px var(--mono); color: var(--ts-teal); }
+.ts-code i { width: 8px; height: 22px; background: #1f8a6c; animation: ts-blink 1s steps(2) infinite; }
+@keyframes ts-blink { 0%, 70% { opacity: 1 } 71%, 100% { opacity: 0 } }
+.ts-invoices { position: absolute; background: #fff; border-radius: 12px; color: var(--ink-1); overflow: hidden; }
+.ts-invoices__bar { height: 36px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; background: #f4f4f5; border-bottom: 1px solid var(--ink-rule); font-size: 16px; font-weight: 600; }
+.ts-invoices__bar code { font-size: 13px; font-weight: 500; color: #1f9f7a; }
+.ts-invoices__bar code.bad { color: var(--ts-pink); }
+.ts-invoices .ts-table { width: calc(100% - 32px); margin: 8px 16px 0; }
+.ts-invoices .ts-table td { height: 47px; font-size: 18px; }
+.ts-invoices .ts-table th { padding-bottom: 12px; padding-top: 10px; font-size: 13px; }
+.ts-fig { position: absolute; width: 304px; height: 200px; border-radius: 12px; background: var(--ts-panel); border: 1px solid var(--ts-border); padding: 16px; }
+.ts-fig__head { display: flex; align-items: center; justify-content: space-between; font-size: 15px; color: var(--ts-muted); }
+.ts-fig__head code { height: 28px; line-height: 26px; padding: 0 12px; border-radius: 6px; border: 1px solid; font-size: 13px; }
+.ts-fig--bad .ts-fig__head code { background: #3b1c29; border-color: #7a2f48; color: #ee6b8f; }
+.ts-fig--good .ts-fig__head code { background: #0d2c28; border-color: #1e5a4c; color: var(--ts-teal); }
+.ts-fig__num { margin-top: 32px; font-size: 44px; font-weight: 500; letter-spacing: -.02em; color: #fff; line-height: 1; }
+.ts-fig--good .ts-fig__num { font-variant-numeric: tabular-nums; }
+.ts-fig__foot { position: absolute; left: 16px; right: 16px; bottom: 16px; display: flex; align-items: center; gap: 10px; font: 13px var(--mono); }
+.ts-fig__foot i { height: 4px; border-radius: 2px; }
+.ts-fig--bad .ts-fig__foot { color: #ee6b8f; } .ts-fig--bad .ts-fig__foot i { width: 62px; background: var(--ts-pink); box-shadow: 30px 0 0 #1e2429; }
+.ts-fig--good .ts-fig__foot { color: var(--ts-teal); } .ts-fig--good .ts-fig__foot i { width: 192px; background: #1e9c7e; }
+.ts-fig__foot span { margin-left: auto; }
+
+/* ---- Scene 9: seven decisions + terminal ---------------------------------------------- */
+.ts-tile { position: absolute; width: 305px; height: 50px; border-radius: 10px; background: var(--ts-panel); border: 1px solid var(--ts-border); display: flex; align-items: center; padding: 0 16px; gap: 12px; font-size: 18px; font-weight: 600; color: #fff; }
+.ts-tile--wide { width: 626px; }
+.ts-tile small { font: 12px var(--mono); color: var(--ts-dim); width: 18px; }
+.ts-tile i { width: 26px; height: 26px; border-radius: 6px; background: #0f3b32; border: 1px solid #1e5a4c; color: var(--ts-teal); display: grid; place-items: center; font: 700 13px var(--mono); }
+.ts-tile i svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+.ts-term { position: absolute; width: 626px; height: 170px; border-radius: 12px; background: var(--ts-panel); border: 1px solid var(--ts-border); font: 13px var(--mono); overflow: hidden; }
+.ts-term.is-lit { border-color: rgba(47,211,156,.55); box-shadow: 0 0 40px rgba(47,211,156,.14); }
+.ts-term__bar { height: 46px; display: flex; align-items: center; gap: 12px; padding: 0 16px; border-bottom: 1px solid var(--ts-border); }
+.ts-term__tag { height: 22px; line-height: 22px; padding: 0 8px; border-radius: 4px; background: var(--ts-panel-2); color: var(--ts-muted); font-size: 11px; letter-spacing: .12em; }
+.ts-term__bar b { color: var(--ts-muted); font-weight: 400; }
+.ts-term__cmd { color: #fff; font-weight: 600; font-size: 15px; }
+.ts-term__caret { width: 8px; height: 18px; background: var(--ts-teal); animation: ts-blink 1s steps(2) infinite; }
+.ts-term__row { display: flex; align-items: center; gap: 14px; height: 28px; margin: 0 10px; padding: 0 6px; border-radius: 6px; color: var(--ts-muted); font-family: 'Inter', sans-serif; font-size: 13px; }
+.ts-term__row svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+.ts-term__row b { color: #dfe3e7; font-weight: 600; width: 96px; font-family: var(--mono); }
+.ts-term__row.on { background: var(--ts-panel-2); color: #dfe3e7; } .ts-term__row.on b { color: var(--ts-teal); }
+.ts-term__row.off { opacity: .35; }
+.ts-term__rows { padding-top: 6px; }
+.ts-plugin { position: absolute; width: 626px; height: 150px; border-radius: 12px; background: var(--ts-panel); border: 1px solid var(--ts-border); padding: 20px; }
+.ts-plugin__head { display: flex; align-items: center; gap: 14px; }
+.ts-plugin__head b { font-size: 30px; font-weight: 800; letter-spacing: -.02em; color: #fff; }
+.ts-plugin__head span { height: 26px; line-height: 24px; padding: 0 12px; border-radius: 999px; border: 1px solid #1e5a4c; background: #0d2c28; color: var(--ts-teal); font: 700 12px 'Inter', sans-serif; letter-spacing: .1em; }
+.ts-plugin__cmds { display: flex; gap: 8px; margin-top: 16px; }
+.ts-plugin__cmds span { height: 36px; line-height: 34px; padding: 0 14px; border-radius: 6px; background: var(--ts-panel-2); border: 1px solid var(--ts-border-2); font: 600 15px var(--mono); color: #dfe3e7; display: inline-flex; align-items: center; gap: 6px; }
+.ts-plugin__cmds span.on { background: #0d2c28; border-color: var(--ts-teal); color: var(--ts-teal); }
+.ts-plugin__cmds svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+.ts-plugin__price { margin-top: 16px; font-size: 15px; color: var(--ts-muted); }
+
+/* ---- Motion ------------------------------------------------------------------------------ */
+.ts-fade { animation: ts-fade .5s ease-out both; }
+@keyframes ts-fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.ts-in { animation: ts-in .4s ease-out both; }
+@keyframes ts-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---- Medium dashboard (scenes 2 and 3) --------------------------------------------- */
+.ts-orbit--md .ts-orbit__bar { height: 52px; padding: 0 14px; }
+.ts-orbit--md .ts-orbit__body { padding: 14px; }
+.ts-orbit--md .ts-orbit__head { margin: 18px 0 28px; }
+.ts-orbit--md .ts-orbit__title { font-size: 26px; }
+.ts-orbit--md .ts-orbit__plan small { font-size: 12px; } .ts-orbit--md .ts-orbit__plan b { font-size: 18px; }
+.ts-orbit--md .ts-stat { height: 76px; padding: 8px 8px 6px; } .ts-orbit--md .ts-stat span { font-size: 12px; } .ts-orbit--md .ts-stat b { font-size: 22px; }
+.ts-orbit--md .ts-spark { height: 12px; margin-top: 4px; }
+.ts-orbit--md .ts-orbit__sect { margin: 24px 0 12px; font-size: 18px; }
+.ts-orbit--md .ts-table th { font-size: 12px; padding-bottom: 8px; }
+.ts-orbit--md .ts-table td { height: 35px; font-size: 15px; font-weight: 600; } .ts-orbit--md .ts-table .id { color: #3f3f46; } .ts-orbit--md .ts-table .dt { color: #52525b; }
+.ts-orbit--md .ts-status { height: 22px; font-size: 12px; padding: 0 8px; }
+.ts-orbit--md .ts-orbit__note { font-size: 12px; font-weight: 600; line-height: 1.5; margin-top: 16px; color: #3f3f46; }
+.ts-orbit--sm .ts-stat span { font-size: 13px; } .ts-orbit--sm .ts-stat b { font-size: 25px; }
+.ts-slider__val b { font-weight: 400; }

@@ -1,0 +1,92 @@
+/* Gestalt Laws, rebuilt from the @designmotionhq reel "Same elements. One is chaos. The other clicks instantly."
+   Component classes are prefixed .gl- and depend only on the tokens below. */
+.gl {
+  --gl-bg: #0a0d12; --gl-panel: #141821; --gl-panel-2: #1a1f27; --gl-border: rgba(255,255,255,.07);
+  --gl-text: #f2f4f7; --gl-muted: #8b93a1; --gl-blue: #3b82f6; --gl-blue-text: #60a5fa; --gl-green: #22c55e; --gl-green-text: #34d399;
+  --gl-purple: #8b5cf6; --gl-purple-text: #a78bfa; --gl-red: #e23744;
+  --gl-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--gl-text);
+}
+
+/* ---- Reel furniture --------------------------------------------------- */
+.gl-secret { position: absolute; left: 50%; transform: translateX(-50%); padding: 6px 15px; border-radius: 8px; font-size: 17px; font-weight: 700; letter-spacing: .12em; white-space: nowrap; background: rgba(59,130,246,.15); color: var(--gl-blue-text); }
+.gl-secret--green { background: rgba(34,197,94,.15); color: var(--gl-green-text); }
+.gl-secret--purple { background: rgba(139,92,246,.15); color: var(--gl-purple-text); }
+.gl-h { position: absolute; left: 0; right: 0; text-align: center; font-size: 38px; font-weight: 800; letter-spacing: .06em; line-height: 1.1; }
+.gl-sub { position: absolute; left: 0; right: 0; text-align: center; font-size: 18px; color: var(--gl-muted); }
+.gl-cap { position: absolute; left: 0; right: 0; text-align: center; font-size: 20px; font-weight: 700; }
+.gl-cap--muted { font-weight: 400; color: var(--gl-muted); }
+.gl-cap--green { color: var(--gl-green); }
+
+/* ---- Kanizsa triangle (intro) -------------------------------------------- */
+.gl-pac { position: absolute; width: 88px; height: 88px; border-radius: 50%; background: conic-gradient(from var(--from), transparent 0 60deg, var(--gl-blue) 60deg 360deg); filter: drop-shadow(0 0 18px rgba(59,130,246,.55)); }
+.gl-illusion { position: absolute; pointer-events: none; }
+.gl-illusion line { stroke: rgba(255,255,255,.09); stroke-width: 2; }
+.gl-count { position: absolute; left: 50%; transform: translateX(-50%); width: 34px; height: 34px; border-radius: 8px; background: var(--gl-blue); color: #fff; font-size: 16px; font-weight: 700; display: grid; place-items: center; }
+
+/* ---- Closure ------------------------------------------------------------------ */
+.gl-ring { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(59,130,246,.4), rgba(59,130,246,0) 70%); }
+.gl-ring svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.gl-ring circle { fill: none; stroke: var(--gl-blue); stroke-width: 3; stroke-linecap: round; stroke-dasharray: var(--dash) var(--gap); transform: rotate(-120deg); transform-origin: center; transition: stroke-dasharray .6s; }
+.gl-icons { position: absolute; display: flex; gap: 38px; }
+.gl-icons svg { width: 58px; height: 58px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; animation: gl-in .4s ease-out both; }
+@keyframes gl-in { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
+
+/* ---- Similarity ---------------------------------------------------------------- */
+.gl-grid { position: absolute; display: grid; grid-template-columns: repeat(4, 40px); gap: 21.5px; }
+.gl-dot { width: 40px; height: 40px; border-radius: 50%; background: #5a6270; transition: background .5s, box-shadow .5s; }
+.gl-grid.is-grouped .gl-dot[data-g="nav"] { background: var(--gl-blue); box-shadow: 0 0 16px rgba(59,130,246,.5); }
+.gl-grid.is-grouped .gl-dot[data-g="content"] { background: var(--gl-green); box-shadow: 0 0 16px rgba(34,197,94,.5); }
+.gl-grid.is-grouped .gl-dot[data-g="actions"] { background: var(--gl-purple); box-shadow: 0 0 16px rgba(139,92,246,.5); }
+.gl-legend { position: absolute; font-size: 18px; font-weight: 600; white-space: nowrap; animation: gl-in .4s ease-out both; }
+.gl-legend::before { content: '•'; margin-right: 8px; font-size: 14px; }
+
+/* ---- Continuity -------------------------------------------------------------- */
+.gl-pill { position: absolute; padding: 0 22px; height: 44px; line-height: 42px; border-radius: 999px; background: var(--gl-panel-2); border: 1px solid #2c333d; font-size: 18px; font-weight: 600; white-space: nowrap; transition: transform .8s cubic-bezier(.2,.8,.2,1), left .8s cubic-bezier(.2,.8,.2,1), top .8s cubic-bezier(.2,.8,.2,1); }
+.gl-path { position: absolute; pointer-events: none; }
+.gl-path line { stroke: var(--gl-green); stroke-width: 1.5; opacity: .8; }
+.gl-path circle { fill: var(--gl-green); filter: drop-shadow(0 0 6px rgba(34,197,94,.9)); }
+.gl-spark { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--gl-blue); box-shadow: 0 0 8px rgba(59,130,246,.9); }
+
+/* ---- Figure-ground ------------------------------------------------------------- */
+.gl-app { position: absolute; width: 344px; height: 466px; border-radius: 12px; background: #14171d; border: 1px solid var(--gl-border); overflow: hidden; transition: filter .6s, opacity .6s; }
+.gl-app.is-ground { filter: blur(5px); opacity: .45; }
+.gl-app.is-soft { filter: blur(1px); opacity: .65; }
+.gl-app__bar { display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 14px 0 14px; }
+.gl-app__bar i { display: block; height: 8px; width: 60px; border-radius: 4px; background: #3a4050; }
+.gl-app__bar b { width: 16px; height: 16px; border-radius: 4px; background: var(--gl-blue); }
+.gl-app__bar em { margin-left: auto; width: 12px; height: 12px; border-radius: 50%; background: #3a4050; }
+.gl-app__bar em + em { margin-left: 10px; }
+.gl-app__card { margin: 14px 12px 0; height: 68px; border-radius: 8px; background: #1b1f27; padding: 10px 12px; position: relative; }
+.gl-app__card b { position: absolute; left: 12px; top: 12px; width: 22px; height: 22px; border-radius: 5px; background: #2d4f8f; }
+.gl-app__card i { display: block; height: 6px; border-radius: 3px; background: #3a4050; margin-left: 34px; }
+.gl-app__card i:nth-child(2) { width: 90px; } .gl-app__card i:nth-child(3) { width: 50px; margin-top: 5px; } .gl-app__card i:nth-child(4) { margin: 10px 0 0 0; width: 100%; } .gl-app__card i:nth-child(5) { margin: 5px 0 0 0; width: 65%; }
+.gl-app__tabs { position: absolute; left: 0; right: 0; bottom: 0; height: 40px; display: flex; justify-content: space-around; align-items: center; padding: 0 20px; border-top: 1px solid var(--gl-border); }
+.gl-app__tabs i { width: 14px; height: 14px; border-radius: 3px; background: #3a4050; } .gl-app__tabs i:first-child { background: var(--gl-blue); }
+.gl-modal { position: absolute; width: 304px; padding: 36px 24px 26px; border-radius: 12px; background: #1a1d25; border: 1px solid rgba(255,255,255,.08); box-shadow: 0 30px 60px rgba(0,0,0,.6); text-align: center; animation: gl-pop .35s ease-out both; }
+@keyframes gl-pop { from { opacity: 0; transform: scale(.92) } to { opacity: 1; transform: none } }
+.gl-modal__icon { width: 22px; height: 22px; margin: 0 auto 14px; color: var(--gl-red); }
+.gl-modal h3 { margin: 0; font-size: 24px; font-weight: 700; }
+.gl-modal p { margin: 10px 0 16px; font-size: 17px; line-height: 24px; color: var(--gl-muted); }
+.gl-modal__row { display: flex; justify-content: center; gap: 11px; }
+.gl-btn { height: 36px; padding: 0 30px; border: 0; border-radius: 8px; font: 700 16px 'Inter', sans-serif; cursor: pointer; }
+.gl-btn--ghost { background: #2a2e37; color: #b6bcc6; } .gl-btn--danger { background: var(--gl-red); color: #fff; }
+
+/* ---- Common region --------------------------------------------------------------- */
+.gl-icon { position: absolute; width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid; display: grid; place-items: center; transition: left .8s cubic-bezier(.2,.8,.2,1), top .8s cubic-bezier(.2,.8,.2,1); }
+.gl-icon svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.gl-icon--blue { color: var(--gl-blue-text); border-color: var(--gl-blue); background: rgba(59,130,246,.12); }
+.gl-icon--green { color: var(--gl-green-text); border-color: var(--gl-green); background: rgba(34,197,94,.12); }
+.gl-icon--purple { color: var(--gl-purple-text); border-color: var(--gl-purple); background: rgba(139,92,246,.12); }
+.gl-chip { position: absolute; padding: 5px 12px; border-radius: 6px; background: #1e232b; font-size: 16px; white-space: nowrap; transition: left .8s cubic-bezier(.2,.8,.2,1), top .8s cubic-bezier(.2,.8,.2,1); }
+.gl-toggle { position: absolute; width: 38px; height: 22px; border-radius: 11px; background: #2a2e37; border: 0; cursor: pointer; transition: left .8s cubic-bezier(.2,.8,.2,1), top .8s cubic-bezier(.2,.8,.2,1), background .2s; }
+.gl-toggle::after { content: ''; position: absolute; left: 3px; top: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: transform .2s; }
+.gl-toggle.is-on { background: var(--gl-green); } .gl-toggle.is-on::after { transform: translateX(16px); }
+.gl-region { position: absolute; width: 586px; height: 54px; border-radius: 8px; background: #131720; border: 1px solid var(--gl-border); animation: gl-in .4s ease-out both; }
+.gl-region__label { position: absolute; left: 0; top: -25px; font-size: 15px; font-weight: 700; letter-spacing: .1em; color: var(--gl-blue-text); }
+
+/* ---- Outro list ---------------------------------------------------------------------- */
+.gl-list { position: absolute; width: 450px; }
+.gl-item { display: flex; align-items: center; height: 48px; margin-bottom: 9px; padding: 0 15px; border-radius: 8px; background: #12161e; border: 1px solid rgba(255,255,255,.05); font-size: 20px; font-weight: 600; animation: gl-in .4s ease-out both; }
+.gl-item b { width: 34px; font: 700 14px var(--gl-mono); color: var(--gl-blue-text); }
+.gl-item svg { width: 18px; height: 18px; margin: 0 12px 0 4px; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }

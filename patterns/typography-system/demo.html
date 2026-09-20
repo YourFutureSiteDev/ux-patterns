@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Typography System · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #090c0f; --grid: rgba(255,255,255,.03); --accent: #2fd39c; --danger: #e0446f; }
+  .scene { color: #f2f4f6; }
+  .scene::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 420px; background: radial-gradient(ellipse 60% 70% at 50% 100%, rgba(47,211,156,.10), transparent 70%); pointer-events: none; }
+</style>
+</head>
+<body class="ts">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="t-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.5 1.5M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7L12.5 19.5"/></symbol>
+  <symbol id="t-screen" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
+  <symbol id="t-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></symbol>
+  <symbol id="t-shield" viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></symbol>
+  <symbol id="t-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></symbol>
+  <symbol id="t-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18c1.5 0 2-1 2-2s-1-2 1-2h2a4 4 0 0 0 4-4 9 9 0 0 0-9-10z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15.5" cy="7" r="1"/></symbol>
+  <symbol id="t-lead" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="t-arrows" viewBox="0 0 24 24"><path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/></symbol>
+  <symbol id="t-ruler" viewBox="0 0 24 24"><path d="M3 17L17 3l4 4L7 21zM8 12l2 2M11 9l2 2M14 6l2 2"/></symbol>
+</svg>
+
+<!-- 1 · Typography is a system: dashboard + inspector -->
+<section class="scene" data-t="0" data-shot="3">
+  <div class="ts-kicker">Typography is a system · 01</div>
+  <h1 class="ts-h1">Typography is a system.</h1>
+  <div class="ts-orbit ts-fade" style="left:44px;top:279px;width:451px;height:673px;border-radius:12px 0 0 12px">
+    <div class="ts-orbit__bar"><span class="ts-orbit__logo">O</span><span class="ts-orbit__brand">Orbit</span><span class="ts-orbit__user"><span class="ts-orbit__avatar">NL</span>Nora Lindqvist · Owner</span></div>
+    <div class="ts-orbit__body">
+      <div class="ts-orbit__head"><h2 class="ts-orbit__title">Usage &amp; billing</h2><div class="ts-orbit__plan"><small>Current plan</small><b>Scale</b></div></div>
+      <div class="ts-stats">
+        <div class="ts-stat"><span>API calls</span><b>1,284,905</b><div class="ts-spark"><i style="height:4px"></i><i style="height:6px"></i><i style="height:5px"></i><i style="height:8px"></i><i style="height:6px"></i><i class="on" style="height:9px"></i><i class="on" style="height:12px"></i><i class="on" style="height:14px"></i></div></div>
+        <div class="ts-stat"><span>Spend</span><b>$4,312.40</b><div class="ts-spark"><i style="height:4px"></i><i style="height:6px"></i><i style="height:5px"></i><i style="height:8px"></i><i style="height:6px"></i><i style="height:9px"></i><i style="height:7px"></i><i style="height:10px"></i></div></div>
+        <div class="ts-stat"><span>Seats</span><b>24</b><div class="ts-spark"><i style="height:4px"></i><i style="height:6px"></i><i style="height:5px"></i><i style="height:8px"></i><i style="height:6px"></i><i style="height:9px"></i><i style="height:7px"></i><i style="height:10px"></i></div></div>
+      </div>
+      <div class="ts-orbit__sect">Invoices<span class="ts-chip">last 6 months</span></div>
+      <table class="ts-table">
+        <thead><tr><th>Invoice</th><th>Date</th><th class="r">Amount</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="id">ORB-2041</td><td class="dt">Jun 12</td><td class="r amt">$612.00</td><td><span class="ts-status">Paid</span></td></tr>
+          <tr><td class="id">ORB-2042</td><td class="dt">Jul 12</td><td class="r amt">$698.40</td><td><span class="ts-status">Paid</span></td></tr>
+          <tr><td class="id">ORB-2043</td><td class="dt">Aug 12</td><td class="r amt">$1,118.40</td><td><span class="ts-status">Paid</span></td></tr>
+          <tr><td class="id">ORB-2044</td><td class="dt">Sep 12</td><td class="r amt">$712.00</td><td><span class="ts-status">Paid</span></td></tr>
+          <tr><td class="id">ORB-2045</td><td class="dt">Sep 14</td><td class="r amt">$96.20</td><td><span class="ts-status ts-status--pending">Pending</span></td></tr>
+          <tr><td class="id">ORB-2046</td><td class="dt">Sep 16</td><td class="r amt">$1,284.00</td><td><span class="ts-status ts-status--due">Due</span></td></tr>
+        </tbody>
+      </table>
+      <p class="ts-orbit__note">Usage is billed on the 12th of each month. Overage on API calls is charged at $0.40 per thousand requests. Seats can be added or removed at any time and are prorated.</p>
+    </div>
+  </div>
+  <div class="ts-inspector ts-fade" style="left:495px;top:279px;width:181px;height:673px;border-radius:0 12px 12px 0;animation-delay:.2s">
+    <div class="ts-inspector__head">INSPECTOR</div>
+    <div class="ts-inspector__count ts-in" style="animation-delay:2.4s">7 decisions</div>
+    <div class="ts-tag ts-in" style="left:13px;top:96px;animation-delay:.5s">32 / 600 / primary</div>
+    <div class="ts-tag ts-in" style="left:13px;top:166px;animation-delay:.8s">13 / 400 / secondary</div>
+    <div class="ts-tag ts-in" style="left:13px;top:200px;animation-delay:1s">25 / 600 / primary</div>
+    <div class="ts-tag ts-in" style="left:13px;top:260px;animation-delay:1.2s">16 / 600 / primary</div>
+    <div class="ts-tag ts-in" style="left:13px;top:300px;animation-delay:1.4s">13 / 600 / muted</div>
+    <div class="ts-tag ts-in" style="left:13px;top:334px;animation-delay:1.6s">16 / 600 / primary</div>
+    <div class="ts-box ts-in" style="left:13px;top:364px;width:158px;height:66px;animation-delay:1.8s"><small>FAMILY</small><b>Inter</b><span>one family, no swap</span></div>
+    <div class="ts-box ts-in" style="left:13px;top:450px;width:158px;height:130px;animation-delay:2s"><small>SCALE</small>
+      <div class="ts-scale"><span>13</span><i style="width:27px"></i><span>16</span><i style="width:42px;animation-delay:.1s"></i><span>20</span><i style="width:62px;animation-delay:.2s"></i><span>25</span><i style="width:84px;animation-delay:.3s"></i><span>32</span><i style="width:100px;animation-delay:.4s"></i></div>
+    </div>
+    <div class="ts-tag ts-in" style="left:13px;top:594px;animation-delay:2.2s">16 / 400 / secondary</div>
+  </div>
+  <div class="ts-cap is-lit" id="tally"><b>11 sizes</b> <em>→</em> <b>5</b> <em>·</em> <b>1 grey</b> <em>→</em> <b>3</b> <em>·</em> <b>bold</b> <em>→</em> <b>2</b></div>
+</section>
+
+<!-- 2 · Five sizes, one ratio -->
+<section class="scene" data-t="6" data-shot="9">
+  <div class="ts-kicker">Typography is a system · 02</div>
+  <h1 class="ts-h1">Five sizes, one ratio.</h1>
+  <div class="ts-ladder-line" style="left:70px;top:335px;height:543px"></div>
+  <div class="ts-size ts-fade" style="left:40px;top:294px"><span>13</span><b style="font-size:13px">Aa</b><i style="width:27px"></i></div>
+  <div class="ts-ratio ts-fade" style="left:178px;top:378px;animation-delay:.4s">× 1.25</div>
+  <div class="ts-size ts-fade" style="left:40px;top:440px;animation-delay:.6s"><span>16</span><b style="font-size:16px">Aa</b><i style="width:42px"></i></div>
+  <div class="ts-ratio ts-fade" style="left:178px;top:524px;animation-delay:1s">× 1.25</div>
+  <div class="ts-size ts-fade" style="left:40px;top:586px;animation-delay:1.2s"><span>20</span><b style="font-size:20px">Aa</b><i style="width:62px"></i></div>
+  <div class="ts-ratio ts-fade" style="left:178px;top:670px;animation-delay:1.6s">× 1.25</div>
+  <div class="ts-size ts-fade" style="left:40px;top:732px;animation-delay:1.8s"><span>25</span><b style="font-size:25px">Aa</b><i style="width:84px"></i></div>
+  <div class="ts-ratio ts-fade" style="left:178px;top:816px;animation-delay:2.2s">× 1.25</div>
+  <div class="ts-size ts-fade" style="left:40px;top:878px;animation-delay:2.4s"><span>32</span><b style="font-size:32px">Aa</b><i style="width:100px"></i></div>
+  <div class="ts-orbit ts-orbit--md ts-fade" style="left:268px;top:293px;width:400px;height:625px">
+    <div class="ts-orbit__bar"><span class="ts-orbit__logo">O</span><span class="ts-orbit__brand">Orbit</span><span class="ts-orbit__user"><span class="ts-orbit__avatar">NL</span>Nora Lindqvist · Owner</span></div>
+    <div class="ts-orbit__body">
+      <div class="ts-orbit__head"><h2 class="ts-orbit__title">Usage &amp; billing</h2><div class="ts-orbit__plan"><small>Current plan</small><b>Scale</b></div></div>
+      <div class="ts-stats">
+        <div class="ts-stat"><span>API calls</span><b>1,284,905</b><div class="ts-spark"><i style="height:4px"></i><i style="height:6px"></i><i style="height:5px"></i><i style="height:8px"></i><i style="height:6px"></i><i class="on" style="height:9px"></i><i class="on" style="height:12px"></i><i class="on" style="height:14px"></i></div></div>
+        <div class="ts-stat"><span>Spend</span><b>$4,312.40</b><div class="ts-spark"><i style="height:4px"></i><i style="height:6px"></i><i style="height:5px"></i><i style="height:8px"></i><i style="height:6px"></i><i style="height:9px"></i><i style="height:7px"></i><i style="height:10px"></i></div></div>
+        <div class="ts-stat"><span>Seats</span><b>24</b><div class="ts-spark"><i style="height:4px"></i><i style="height:6px"></i><i style="height:5px"></i><i style="height:8px"></i><i style="height:6px"></i><i style="height:9px"></i><i style="height:7px"></i><i style="height:10px"></i></div></div>
+      </div>
+      <div class="ts-orbit__sect">Invoices<span class="ts-chip">last 6 months</span></div>
+      <table class="ts-table">
+        <thead><tr><th>Invoice</th><th>Date</th><th class="r">Amount</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="id">ORB-2041</td><td class="dt">Jun 12</td><td class="r amt">$612.00</td><td><span class="ts-status">Paid</span></td></tr>
+          <tr><td class="id">ORB-2042</td><td class="dt">Jul 12</td><td class="r amt">$698.40</td><td><span class="ts-status">Paid</span></td></tr>
+          <tr><td class="id">ORB-2043</td><td class="dt">Aug 12</td><td class="r amt">$1,118.40</td><td><span class="ts-status">Paid</span></td></tr>
+          <tr><td class="id">ORB-2044</td><td class="dt">Sep 12</td><td class="r amt">$712.00</td><td><span class="ts-status">Paid</span></td></tr>
+          <tr><td class="id">ORB-2045</td><td class="dt">Sep 14</td><td class="r amt">$96.20</td><td><span class="ts-status ts-status--pending">Pending</span></td></tr>
+          <tr><td class="id">ORB-2046</td><td class="dt">Sep 16</td><td class="r amt">$1,284.00</td><td><span class="ts-status ts-status--due">Due</span></td></tr>
+        </tbody>
+      </table>
+      <p class="ts-orbit__note">Usage is billed on the 12th of each month. Overage on API calls is charged at $0.40 per thousand requests. Seats can be added or removed at any time and are prorated.</p>
+    </div>
+  </div>
+  <div class="ts-strip ts-fade" style="left:40px;top:928px;width:640px;animation-delay:2.6s"><span class="ts-strip__label">SIZES</span><span class="ts-strip__n">11</span><span class="ts-strip__n">12</span><span class="ts-strip__n on">13</span><span class="ts-strip__n">14</span><span class="ts-strip__n">15</span><span class="ts-strip__n on">16</span><span class="ts-strip__n">18</span><span class="ts-strip__n on">20</span><span class="ts-strip__n">22</span><span class="ts-strip__n on">25</span><span class="ts-strip__n on">32</span><span class="ts-strip__left">5 left</span></div>
+  <div class="ts-cap">1 ratio · 5 sizes · 0 hand-picked</div>
+</section>
+
+<!-- 3 · Three inks, not ten sizes -->
+<section class="scene" data-t="15" data-shot="16.5">
+  <div class="ts-kicker">Typography is a system · 03</div>
+  <h1 class="ts-h1">Three inks, not ten sizes.</h1>
+  <div class="ts-white ts-fade" style="left:47px;top:288px;width:626px;height:302px">
+    <div class="ts-white__bar"><span>INVOICES / ROW 04</span><em>zoom 3x</em></div>
+    <div class="ts-inkrow"><span class="id">ORB-2044</span><span class="dt">Sep 12</span><span class="amt">$712.00</span><span class="ts-status">Paid</span></div>
+    <div class="ts-inks">
+      <div class="ts-ink ts-fade" style="animation-delay:.4s"><i style="background:#18181b"></i><span>primary</span><code>#18181B</code><em>the amount, the thing you scan for</em></div>
+      <div class="ts-ink ts-fade" style="animation-delay:.7s"><i style="background:#52525b"></i><span>secondary</span><code>#52525B</code><em>the invoice id, still readable</em></div>
+      <div class="ts-ink ts-fade" style="animation-delay:1s"><i style="background:#a1a1aa"></i><span>muted</span><code>#A1A1AA</code><em>the date, present but quiet</em></div>
+    </div>
+  </div>
+  <div class="ts-split ts-fade" style="left:47px;top:633px;width:626px;height:313px;animation-delay:.3s">
+    <div class="ts-orbit ts-orbit--bold" style="width:448px;height:313px">
+      <div class="ts-orbit__body" style="padding-top:14px">
+        <div class="ts-orbit__sect" style="margin-top:0;margin-bottom:12px">Invoices<span class="ts-chip">last 6 months</span></div>
+        <table class="ts-table">
+          <thead><tr><th>Invoice</th><th>Date</th><th class="r">Amount</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="id">ORB-2041</td><td class="dt">Jun 12</td><td class="r amt">$612.00</td><td><span class="ts-status">Paid</span></td></tr>
+            <tr><td class="id">ORB-2042</td><td class="dt">Jul 12</td><td class="r amt">$698.40</td><td><span class="ts-status">Paid</span></td></tr>
+            <tr><td class="id">ORB-2043</td><td class="dt">Aug 12</td><td class="r amt">$1,118.40</td><td><span class="ts-status">Paid</span></td></tr>
+            <tr><td class="id">ORB-2044</td><td class="dt">Sep 12</td><td class="r amt">$712.00</td><td><span class="ts-status">Paid</span></td></tr>
+            <tr><td class="id">ORB-2045</td><td class="dt">Sep 14</td><td class="r amt">$96.20</td><td><span class="ts-status ts-status--pending">Pending</span></td></tr>
+            <tr><td class="id">ORB-2046</td><td class="dt">Sep 16</td><td class="r amt">$1,284.00</td><td><span class="ts-status ts-status--due">Due</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="ts-split__dark"><span>SAME SIZE / TWO<br>RANKS</span></div>
+  </div>
+  <div class="ts-cap">color ranks in a line · size ranks between blocks</div>
+</section>
+
+<!-- 4 · Two weights, 400 and 600 -->
+<section class="scene" data-t="24" data-shot="25.5">
+  <div class="ts-kicker">Typography is a system · 04</div>
+  <h1 class="ts-h1">Two weights, 400 and 600.</h1>
+  <div class="ts-wstat ts-fade" style="left:60px;top:288px"><span>API calls</span><b>1,284,905</b><div class="ts-spark"><i style="height:6px"></i><i style="height:10px"></i><i style="height:8px"></i><i style="height:13px"></i><i style="height:10px"></i><i class="on" style="height:16px"></i><i class="on" style="height:22px"></i><i class="on" style="height:24px"></i></div></div>
+  <div class="ts-wstat ts-fade" style="left:267px;top:288px;animation-delay:.15s"><span>Spend</span><b>$4,312.40</b><div class="ts-spark"><i style="height:6px"></i><i style="height:10px"></i><i style="height:8px"></i><i style="height:13px"></i><i style="height:10px"></i><i class="on" style="height:16px"></i><i class="on" style="height:22px"></i><i class="on" style="height:24px"></i></div></div>
+  <div class="ts-wstat ts-fade" style="left:474px;top:288px;animation-delay:.3s"><span>Seats</span><b>24</b><div class="ts-spark"><i style="height:6px"></i><i style="height:10px"></i><i style="height:8px"></i><i style="height:13px"></i><i style="height:10px"></i><i class="on" style="height:16px"></i><i class="on" style="height:22px"></i><i class="on" style="height:24px"></i></div></div>
+  <div class="ts-wchip ts-fade" style="left:74px;top:505px;animation-delay:.6s">700 → 400 · 600</div>
+  <div class="ts-wchip ts-fade" style="left:281px;top:505px;animation-delay:.75s">700 → 400 · 600</div>
+  <div class="ts-wchip ts-fade" style="left:488px;top:505px;animation-delay:.9s">700 → 400 · 600</div>
+  <div class="ts-aa ts-aa--400 ts-fade" style="left:47px;top:588px;animation-delay:.8s"><div class="ts-aa__glyph"><b>Aa</b><code>400</code></div><p>Usage is billed on the 12th of each month.</p><small>Regular</small></div>
+  <div class="ts-aa ts-aa--600 ts-fade" style="left:374px;top:588px;animation-delay:1s"><div class="ts-aa__glyph"><b>Aa</b><code>600</code></div><p>Usage is billed on the 12th of each month.</p><small>Semibold</small></div>
+  <div class="ts-wbar ts-fade" style="left:47px;top:872px;animation-delay:1.2s"><div class="ts-wbar__label">FAMILY<br>WEIGHTS</div>
+    <div style="margin-left:40px;position:relative;width:370px;height:64px">
+      <div class="ts-w on" style="position:absolute;left:0;font-weight:400"><b>Aa</b><code>400</code></div>
+      <div class="ts-w" style="position:absolute;left:112px;font-weight:500"><b>Aa</b><code>500</code></div>
+      <div class="ts-w on" style="position:absolute;left:150px;font-weight:600"><b>Aa</b><code>600</code></div>
+      <div class="ts-w" style="position:absolute;left:236px;font-weight:700"><b>Aa</b><code>700</code></div>
+      <div class="ts-w" style="position:absolute;left:300px;font-weight:800"><b>Aa</b><code>800</code></div>
+    </div>
+    <span class="ts-wbar__kept">2 kept</span></div>
+  <div class="ts-cap">400 reads · 600 scans</div>
+</section>
+
+<!-- 5 · Leading moves against size -->
+<section class="scene" data-t="33" data-shot="37.5">
+  <div class="ts-kicker">Typography is a system · 05</div>
+  <h1 class="ts-h1">Leading moves against size.</h1>
+  <div class="ts-lead ts-fade" style="left:47px;top:288px">
+    <div class="ts-lead__bar"><span>HEADING 32</span><em>1.10</em></div>
+    <div class="ts-lead__text h"><span>Usage &amp;</span><span>billing</span></div>
+    <div class="ts-lead__brace" style="left:210px;top:62px;height:76px"></div>
+    <div class="ts-lead__val" style="left:236px;top:88px">1.10</div>
+    <div class="ts-lead__foot">line-height 1.4 → 1.10</div>
+  </div>
+  <div class="ts-lead ts-fade" style="left:381px;top:288px;animation-delay:.2s">
+    <div class="ts-lead__bar"><span>BODY 16</span><em>1.50</em></div>
+    <div class="ts-lead__text b"><span>Usage is billed on the</span><span>12th of each month.</span><span>Overage is charged per</span><span>thousand requests.</span></div>
+    <div class="ts-lead__brace" style="left:210px;top:62px;height:96px"></div>
+    <div class="ts-lead__val" style="left:236px;top:98px">1.50</div>
+    <div class="ts-lead__foot">line-height 1.4 → 1.50</div>
+  </div>
+  <div class="ts-chart ts-fade" style="left:47px;top:600px;animation-delay:.4s" id="leadChart">
+    <div class="ts-pill ts-pill--bad ts-fade" style="left:18px;top:19px;animation-delay:2.4s">1.4 everywhere</div>
+    <div class="ts-pill ts-pill--good ts-fade" style="left:315px;top:19px;animation-delay:2.8s">1.1 heading</div>
+    <div class="ts-pill ts-pill--good ts-fade" style="left:498px;top:19px;animation-delay:3s">1.5 body</div>
+    <div class="ts-chart__axis" style="top:215px"></div>
+    <div class="ts-chart__lab" style="top:192px">SIZE</div>
+    <div class="ts-chart__lab" style="top:224px">LEAD</div>
+    <div class="ts-bar is-lit" style="left:75px;top:185px;height:123px" data-size="13" data-lead="1.50"><div class="ts-bar__top" style="height:30px"><span>13</span></div><div class="ts-bar__bot" style="height:93px"><span>1.50</span></div></div>
+    <div class="ts-bar is-lit" style="left:181px;top:170px;height:138px" data-size="16" data-lead="1.50"><div class="ts-bar__top" style="height:45px"><span>16</span></div><div class="ts-bar__bot" style="height:93px"><span>1.50</span></div></div>
+    <div class="ts-bar is-lit" style="left:288px;top:152px;height:138px" data-size="20" data-lead="1.35"><div class="ts-bar__top" style="height:63px"><span>20</span></div><div class="ts-bar__bot" style="height:75px"><span>1.35</span></div></div>
+    <div class="ts-bar is-lit" style="left:394px;top:132px;height:136px" data-size="25" data-lead="1.20"><div class="ts-bar__top" style="height:83px"><span>25</span></div><div class="ts-bar__bot" style="height:53px"><span>1.20</span></div></div>
+    <div class="ts-bar is-lit" style="left:501px;top:103px;height:152px" data-size="32" data-lead="1.10"><div class="ts-bar__top" style="height:112px"><span>32</span></div><div class="ts-bar__bot" style="height:40px"><span>1.10</span></div></div>
+  </div>
+  <div class="ts-cap">size up → leading down</div>
+</section>
+
+<!-- 6 · Big tightens, small caps open -->
+<section class="scene" data-t="42" data-shot="46.5">
+  <div class="ts-kicker">Typography is a system · 06</div>
+  <h1 class="ts-h1">Big tightens, small caps open.</h1>
+  <div class="ts-track ts-fade" style="left:47px;top:288px;width:626px;height:232px">
+    <div class="ts-track__bar"><span>PAGE TITLE / 32</span><em>above 24 px</em></div>
+    <div class="ts-track__body">
+      <div class="ts-track__line"><span style="font-size:46px;font-weight:500;color:#a1a1aa;line-height:1.1">Usage &amp; billing</span><span class="ts-badge">0</span></div>
+      <div class="ts-track__rule g" style="width:342px"></div>
+      <div class="ts-track__line"><span style="font-size:46px;font-weight:600;letter-spacing:-.02em;line-height:1.1">Usage &amp; billing</span><span class="ts-badge on">-0.02em</span></div>
+      <div class="ts-track__rule t" style="width:328px"></div>
+    </div>
+  </div>
+  <div class="ts-track ts-fade" style="left:47px;top:540px;width:626px;height:200px;animation-delay:.2s">
+    <div class="ts-track__bar"><span>BODY / 16</span><em>stays at 0</em></div>
+    <div class="ts-track__body" style="position:relative">
+      <p style="width:460px">Usage is billed on the 12th of each month. Overage on API calls is charged at $0.40 per thousand requests. Seats can be added or removed at any time and are prorated.</p>
+      <span class="ts-badge" style="position:absolute;right:20px;top:18px;height:26px;line-height:24px;padding:0 8px;border-radius:6px;border:1px solid #ececef;background:#f4f4f5;color:#a1a1aa;font:13px var(--mono)">0</span>
+      <small>tracking is for the extremes, not for reading sizes</small>
+    </div>
+  </div>
+  <div class="ts-track ts-fade" style="left:47px;top:760px;width:626px;height:200px;animation-delay:.4s">
+    <div class="ts-track__bar"><span>LABEL / 13 UPPERCASE</span><em>below 16 px</em></div>
+    <div class="ts-track__body">
+      <div class="ts-track__line"><span style="font-size:20px;font-weight:500;color:#a1a1aa;line-height:1.2">CURRENT PLAN</span><span class="ts-badge">0</span></div>
+      <div class="ts-track__rule g" style="width:154px;margin-top:6px"></div>
+      <div class="ts-track__line"><span style="font-size:20px;font-weight:600;letter-spacing:.05em;line-height:1.2">CURRENT PLAN</span><span class="ts-badge on">+0.05em</span></div>
+      <div class="ts-track__rule t" style="width:166px;margin-top:6px"></div>
+      <div class="note">Caps have no ascenders to separate them. Tracking does it.</div>
+    </div>
+  </div>
+  <div class="ts-cap">big → tight · small caps → open</div>
+</section>
+
+<!-- 7 · Cap the measure, not the box -->
+<section class="scene" data-t="51" data-shot="55.5">
+  <div class="ts-kicker">Typography is a system · 07</div>
+  <h1 class="ts-h1">Cap the measure, not the box.</h1>
+  <div class="ts-browser ts-fade" style="left:47px;top:288px;width:626px;height:464px">
+    <div class="ts-browser__chrome"><i></i><i></i><i></i><span class="ts-browser__url">orbit.app/billing</span><span class="ts-browser__dims">1400 × 900</span></div>
+    <div class="ts-nav"><b>Orbit</b><span>Overview</span><span class="on">Usage &amp; billing</span><span>Team</span><span>Settings</span><span class="user">Nora Lindqvist · Owner</span></div>
+    <div class="ts-measure g" style="left:14px;top:89px;width:598px"></div>
+    <div class="ts-mtag ts-mtag--dark" style="left:241px;top:108px">container 1400 px</div>
+    <div class="ts-browser__title" style="top:138px">Usage &amp; billing</div>
+    <div class="ts-browser__sub" style="top:170px">Billing period Sep 1 to Sep 30</div>
+    <div class="ts-mtag ts-mtag--teal" style="left:303px;top:174px">measure 66ch</div>
+    <div class="ts-measure t" id="measureRule" style="left:109px;top:202px;width:491px"></div>
+    <div class="ts-lead__brace" style="left:20px;top:224px;height:68px;transform:scaleX(-1);border-radius:0 6px 6px 0"></div>
+    <div class="ts-mtag ts-mtag--faint" style="left:38px;top:247px">3 lines</div>
+    <p class="ts-browser__para" id="measurePara" style="top:222px">Usage is billed on the 12th of each month. Overage on API calls is charged at $0.40 per thousand requests. Seats can be added or removed at any time and are prorated.</p>
+    <div class="ts-browser__stats ts-stats" style="top:323px">
+      <div class="ts-stat"><span>API calls</span><b>1,284,905</b></div>
+      <div class="ts-stat"><span>Spend</span><b>$4,312.40</b></div>
+      <div class="ts-stat"><span>Seats</span><b>24</b></div>
+    </div>
+    <div class="ts-browser__rows" style="top:407px"><div>ORB-2046 · Sep 16 · $1,284.00 · Due</div><div>ORB-2045 · Sep 14 · $96.20 · Pending</div></div>
+  </div>
+  <div class="ts-slider ts-fade" style="left:47px;top:773px;animation-delay:.3s" id="measure">
+    <div class="ts-slider__label">CHARACTERS PER LINE</div>
+    <div class="ts-slider__val"><span>166</span> → <b class="ts-slider__now">66</b></div>
+    <div class="ts-slider__track"><div class="ts-slider__band" style="left:58px;width:112px"></div><div class="ts-slider__thumb" style="left:136px"></div></div>
+    <div class="ts-slider__ticks"><span style="left:0">30</span><span class="on" style="left:58px">45</span><span style="left:136px">66</span><span class="on" style="left:170px">75</span><span style="left:453px">150</span></div>
+    <svg class="cursor" style="left:166px;top:88px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+    <div class="ts-slider__chips"><span>container · 1400 px</span><span class="on">measure · 66ch</span><span class="on">comfort band · 45 to 75</span></div>
+  </div>
+  <div class="ts-cap">45 to 75 chars per line</div>
+</section>
+
+<!-- 8 · Tabular figures, one property -->
+<section class="scene" data-t="60" data-shot="67.5">
+  <div class="ts-kicker">Typography is a system · 08</div>
+  <h1 class="ts-h1">Tabular figures, one property.</h1>
+  <div class="ts-code ts-fade" style="left:47px;top:288px"><span>✓</span><span id="typed">font-variant-numeric: tabular-nums;</span><i></i></div>
+  <div class="ts-invoices ts-fade" style="left:47px;top:365px;width:626px;height:378px;animation-delay:.2s">
+    <div class="ts-invoices__bar"><span>Invoices</span><code id="numsMode">tabular-nums</code></div>
+    <table class="ts-table" id="numsTable">
+      <thead><tr><th>Invoice</th><th>Date</th><th class="r">Amount</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="id">ORB-2041</td><td class="dt">Jun 12</td><td class="r amt">$698.40</td><td><span class="ts-status">Paid</span></td></tr>
+        <tr><td class="id">ORB-2042</td><td class="dt">Jul 12</td><td class="r amt">$712.00</td><td><span class="ts-status">Paid</span></td></tr>
+        <tr><td class="id">ORB-2043</td><td class="dt">Aug 12</td><td class="r amt">$1,118.40</td><td><span class="ts-status">Paid</span></td></tr>
+        <tr><td class="id">ORB-2044</td><td class="dt">Sep 12</td><td class="r amt">$96.20</td><td><span class="ts-status">Paid</span></td></tr>
+        <tr><td class="id">ORB-2045</td><td class="dt">Sep 14</td><td class="r amt">$1,284.00</td><td><span class="ts-status ts-status--pending">Pending</span></td></tr>
+        <tr><td class="id">ORB-2046</td><td class="dt">Sep 16</td><td class="r amt">$612.00</td><td><span class="ts-status ts-status--due">Due</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ts-fig ts-fig--bad ts-fade" style="left:47px;top:765px;animation-delay:.4s"><div class="ts-fig__head"><code>proportional</code><span>API calls</span></div><div class="ts-fig__num" id="figBad">1,285,248</div><div class="ts-fig__foot"><i></i><span>shifts on every tick</span></div></div>
+  <div class="ts-fig ts-fig--good ts-fade" style="left:369px;top:765px;animation-delay:.5s"><div class="ts-fig__head"><code>tabular</code><span>API calls</span></div><div class="ts-fig__num" id="figGood">1,285,248</div><div class="ts-fig__foot"><i></i><span>0 wobble</span></div></div>
+  <div class="ts-cap">tabular-nums · 0 wobble</div>
+</section>
+
+<!-- 9 · Seven decisions. One font. -->
+<section class="scene" data-t="69" data-shot="70.5">
+  <div class="ts-kicker">Typography is a system · 09</div>
+  <h1 class="ts-h1">Seven decisions. One font.</h1>
+  <div class="ts-tile ts-fade" style="left:47px;top:288px"><small>01</small><i>T</i>Sizes</div>
+  <div class="ts-tile ts-fade" style="left:368px;top:288px;animation-delay:.1s"><small>02</small><i><svg><use href="#t-palette"/></svg></i>Colors</div>
+  <div class="ts-tile ts-fade" style="left:47px;top:349px;animation-delay:.2s"><small>03</small><i>B</i>Weights</div>
+  <div class="ts-tile ts-fade" style="left:368px;top:349px;animation-delay:.3s"><small>04</small><i><svg><use href="#t-lead"/></svg></i>Leading</div>
+  <div class="ts-tile ts-fade" style="left:47px;top:410px;animation-delay:.4s"><small>05</small><i><svg><use href="#t-arrows"/></svg></i>Tracking</div>
+  <div class="ts-tile ts-fade" style="left:368px;top:410px;animation-delay:.5s"><small>06</small><i><svg><use href="#t-ruler"/></svg></i>Measure</div>
+  <div class="ts-tile ts-tile--wide ts-fade" style="left:47px;top:471px;animation-delay:.6s"><small>07</small><i>#</i>Tabular</div>
+  <div class="ts-orbit ts-orbit--sm ts-fade" style="left:47px;top:535px;width:626px;height:180px;animation-delay:.7s">
+    <div class="ts-orbit__body" style="padding:18px 18px">
+      <div class="ts-orbit__head" style="margin:0 0 20px"><h2 class="ts-orbit__title" style="font-size:28px">Usage &amp; billing</h2><div class="ts-orbit__plan"><small>Current plan</small><b>Scale</b></div></div>
+      <div class="ts-stats">
+        <div class="ts-stat" style="height:86px"><span>API calls</span><b>1,284,905</b><div class="ts-spark"><i style="height:4px"></i><i style="height:6px"></i><i style="height:5px"></i><i style="height:8px"></i><i style="height:6px"></i><i class="on" style="height:9px"></i><i class="on" style="height:12px"></i><i class="on" style="height:14px"></i></div></div>
+        <div class="ts-stat" style="height:86px"><span>Spend</span><b>$4,312.40</b><div class="ts-spark"><i style="height:4px"></i><i style="height:6px"></i><i style="height:5px"></i><i style="height:8px"></i><i style="height:6px"></i><i style="height:9px"></i><i style="height:7px"></i><i style="height:10px"></i></div></div>
+        <div class="ts-stat" style="height:86px"><span>Seats</span><b>24</b><div class="ts-spark"><i style="height:4px"></i><i style="height:6px"></i><i style="height:5px"></i><i style="height:8px"></i><i style="height:6px"></i><i style="height:9px"></i><i style="height:7px"></i><i style="height:10px"></i></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="ts-term ts-fade" style="left:47px;top:730px;animation-delay:.9s">
+    <div class="ts-term__bar"><span class="ts-term__tag">CLAUDE CODE</span><b>&gt;</b><span class="ts-term__cmd"></span><span class="ts-term__caret"></span></div>
+    <div class="ts-term__rows">
+      <div class="ts-term__row"><svg><use href="#t-screen"/></svg><b>/ux-design</b>Design a screen from a brief</div>
+      <div class="ts-term__row"><svg><use href="#t-warn"/></svg><b>/ux-audit</b>Find every AI tell</div>
+      <div class="ts-term__row"><svg><use href="#t-shield"/></svg><b>/ux-review</b>Review the UI of a PR</div>
+      <div class="ts-term__row"><svg><use href="#t-spark"/></svg><b>/restyle</b>Kill the AI look</div>
+    </div>
+  </div>
+  <div class="ts-cap ts-cap--ghost"><svg><use href="#t-link"/></svg>Link in bio</div>
+</section>
+
+<!-- 10 · Think like a senior UX designer: /ux-design -->
+<section class="scene" data-t="72" data-shot="76.5">
+  <div class="ts-kicker">Typography is a system · 09</div>
+  <h1 class="ts-h1">Think like a senior UX designer.</h1>
+  <div class="ts-tile" style="left:47px;top:288px"><small>01</small><i>T</i>Sizes</div>
+  <div class="ts-tile" style="left:368px;top:288px"><small>02</small><i><svg><use href="#t-palette"/></svg></i>Colors</div>
+  <div class="ts-tile" style="left:47px;top:349px"><small>03</small><i>B</i>Weights</div>
+  <div class="ts-tile" style="left:368px;top:349px"><small>04</small><i><svg><use href="#t-lead"/></svg></i>Leading</div>
+  <div class="ts-tile" style="left:47px;top:410px"><small>05</small><i><svg><use href="#t-arrows"/></svg></i>Tracking</div>
+  <div class="ts-tile" style="left:368px;top:410px"><small>06</small><i><svg><use href="#t-ruler"/></svg></i>Measure</div>
+  <div class="ts-tile ts-tile--wide" style="left:47px;top:471px"><small>07</small><i>#</i>Tabular</div>
+  <div class="ts-orbit ts-orbit--sm" style="left:47px;top:535px;width:626px;height:180px">
+    <div class="ts-orbit__body" style="padding:18px 18px">
+      <div class="ts-orbit__head" style="margin:0 0 20px"><h2 class="ts-orbit__title" style="font-size:28px">Usage &amp; billing</h2><div class="ts-orbit__plan"><small>Current plan</small><b>Scale</b></div></div>
+      <div class="ts-stats">
+        <div class="ts-stat" style="height:86px"><span>API calls</span><b>1,284,905</b><div class="ts-spark"><i style="height:4px"></i><i style="height:6px"></i><i style="height:5px"></i><i style="height:8px"></i><i style="height:6px"></i><i class="on" style="height:9px"></i><i class="on" style="height:12px"></i><i class="on" style="height:14px"></i></div></div>
+        <div class="ts-stat" style="height:86px"><span>Spend</span><b>$4,312.40</b><div class="ts-spark"><i style="height:4px"></i><i style="height:6px"></i><i style="height:5px"></i><i style="height:8px"></i><i style="height:6px"></i><i style="height:9px"></i><i style="height:7px"></i><i style="height:10px"></i></div></div>
+        <div class="ts-stat" style="height:86px"><span>Seats</span><b>24</b><div class="ts-spark"><i style="height:4px"></i><i style="height:6px"></i><i style="height:5px"></i><i style="height:8px"></i><i style="height:6px"></i><i style="height:9px"></i><i style="height:7px"></i><i style="height:10px"></i></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="ts-term is-lit" id="term" style="left:47px;top:730px">
+    <div class="ts-term__bar"><span class="ts-term__tag">CLAUDE CODE</span><b>&gt;</b><span class="ts-term__cmd" id="termCmd">/ux-design</span><span class="ts-term__caret"></span></div>
+    <div class="ts-term__rows">
+      <div class="ts-term__row on"><svg><use href="#t-screen"/></svg><b>/ux-design</b>Design a screen from a brief</div>
+      <div class="ts-term__row off"><svg><use href="#t-warn"/></svg><b>/ux-audit</b>Find every AI tell</div>
+      <div class="ts-term__row off"><svg><use href="#t-shield"/></svg><b>/ux-review</b>Review the UI of a PR</div>
+      <div class="ts-term__row off"><svg><use href="#t-spark"/></svg><b>/restyle</b>Kill the AI look</div>
+    </div>
+  </div>
+  <div class="ts-cap ts-cap--ghost"><svg><use href="#t-link"/></svg>Link in bio</div>
+</section>
+
+<!-- 11 · UX Engine plugin outro -->
+<section class="scene" data-t="81" data-shot="82.5">
+  <div class="ts-kicker">Typography is a system · 09</div>
+  <h1 class="ts-h1">Think like a senior UX designer.</h1>
+  <div class="ts-tile" style="left:47px;top:288px"><small>01</small><i>T</i>Sizes</div>
+  <div class="ts-tile" style="left:368px;top:288px"><small>02</small><i><svg><use href="#t-palette"/></svg></i>Colors</div>
+  <div class="ts-tile" style="left:47px;top:349px"><small>03</small><i>B</i>Weights</div>
+  <div class="ts-tile" style="left:368px;top:349px"><small>04</small><i><svg><use href="#t-lead"/></svg></i>Leading</div>
+  <div class="ts-tile" style="left:47px;top:410px"><small>05</small><i><svg><use href="#t-arrows"/></svg></i>Tracking</div>
+  <div class="ts-tile" style="left:368px;top:410px"><small>06</small><i><svg><use href="#t-ruler"/></svg></i>Measure</div>
+  <div class="ts-tile ts-tile--wide" style="left:47px;top:471px"><small>07</small><i>#</i>Tabular</div>
+  <div class="ts-orbit ts-orbit--sm" style="left:47px;top:535px;width:626px;height:180px">
+    <div class="ts-orbit__body" style="padding:18px 18px">
+      <div class="ts-orbit__head" style="margin:0 0 20px"><h2 class="ts-orbit__title" style="font-size:28px">Usage &amp; billing</h2><div class="ts-orbit__plan"><small>Current plan</small><b>Scale</b></div></div>
+      <div class="ts-stats">
+        <div class="ts-stat" style="height:86px"><span>API calls</span><b>1,284,905</b><div class="ts-spark"><i style="height:4px"></i><i style="height:6px"></i><i style="height:5px"></i><i style="height:8px"></i><i style="height:6px"></i><i class="on" style="height:9px"></i><i class="on" style="height:12px"></i><i class="on" style="height:14px"></i></div></div>
+        <div class="ts-stat" style="height:86px"><span>Spend</span><b>$4,312.40</b><div class="ts-spark"><i style="height:4px"></i><i style="height:6px"></i><i style="height:5px"></i><i style="height:8px"></i><i style="height:6px"></i><i style="height:9px"></i><i style="height:7px"></i><i style="height:10px"></i></div></div>
+        <div class="ts-stat" style="height:86px"><span>Seats</span><b>24</b><div class="ts-spark"><i style="height:4px"></i><i style="height:6px"></i><i style="height:5px"></i><i style="height:8px"></i><i style="height:6px"></i><i style="height:9px"></i><i style="height:7px"></i><i style="height:10px"></i></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="ts-plugin ts-fade" style="left:47px;top:730px">
+    <div class="ts-plugin__head"><b>UX Engine</b><span>CLAUDE CODE PLUGIN</span></div>
+    <div class="ts-plugin__cmds"><span><svg><use href="#t-screen"/></svg>/ux-design</span><span><svg><use href="#t-warn"/></svg>/ux-audit</span><span><svg><use href="#t-shield"/></svg>/ux-review</span><span class="on"><svg><use href="#t-spark"/></svg>/restyle</span></div>
+    <div class="ts-plugin__price">$79 one time · 30 day refund · 12 months of updates</div>
+  </div>
+  <div class="ts-cap ts-cap--lit"><svg><use href="#t-link"/></svg>Link in bio</div>
+</section>
+
+<script type="module">
+  import { typeScale, measureSlider, tabularCounter, typeCommand, tallyCount } from './pattern.js';
+  const scenes = document.querySelectorAll('.scene');
+  const live = (el, fn) => el.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t === 0) fn(); });
+  // 1 · the tally counts 11→5, 1→3, 1→2 as the inspector fills in
+  live(document.getElementById('tally'), () => tallyCount(document.getElementById('tally'), [[11, 5], [1, 3], [1, 2]], 2400));
+  // 7 · the measure slider glides 166 → 66 and the paragraph re-wraps
+  live(document.getElementById('measure'), () => measureSlider(document.getElementById('measure'), { para: document.getElementById('measurePara'), from: 166, to: 66 }));
+  // 8 · the property gets typed, then both counters tick so the proportional one visibly wobbles
+  live(document.getElementById('typed'), () => { typeCommand(document.getElementById('typed'), 'font-variant-numeric: tabular-nums;', 60); tabularCounter([document.getElementById('figBad'), document.getElementById('figGood')], 1285038, 1285248, 6000); });
+  // 10 · the slash command is typed into the terminal
+  live(document.getElementById('termCmd'), () => typeCommand(document.getElementById('termCmd'), '/ux-design', 90));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

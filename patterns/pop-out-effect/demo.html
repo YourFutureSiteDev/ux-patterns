@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pop-Out Effect · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0f0d12; --grid: transparent; --accent: #ed9d10; --danger: #e0323f; }
+  .scene { color: #f4f2f6; }
+  .po-secret { position: absolute; top: 187px; left: 0; right: 0; text-align: center; font-size: 17.5px; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; color: #ed9d10; }
+  .po-h1 { margin: 0; position: absolute; top: 219px; left: 0; right: 0; text-align: center; font-size: 32.5px; font-weight: 700; letter-spacing: -.01em; }
+  .po-line { position: absolute; left: 0; right: 0; text-align: center; white-space: nowrap; }
+  .po-line--grey { color: #a8a5ae; font-size: 24px; font-weight: 600; }
+  .po-line--white { color: #fff; font-size: 27px; font-weight: 700; }
+  .po-line--orange { color: #ed9d10; font-size: 28px; font-weight: 700; }
+  .po-glow { --c: rgba(237,157,16,.13); position: absolute; border-radius: 50%; background: radial-gradient(circle, var(--c) 0%, transparent 62%); pointer-events: none; }
+</style>
+</head>
+<body class="po">
+
+<!-- 1 · Hook: same colour, different feeling -->
+<section class="scene" data-t="0" data-shot="3">
+  <div class="po-glow" style="left:60px;top:240px;width:600px;height:600px"></div>
+  <div class="po-tile po-tile--float" style="left:150px;top:347px">🎨</div>
+  <div class="po-tile po-tile--float" style="left:510px;top:382px">👁️</div>
+  <div class="po-tile po-tile--float" style="left:177px;top:865px">🧠</div>
+  <div class="po-tile po-tile--float" style="left:523px;top:901px">✨</div>
+  <div class="po-swatch po-swatch--light" style="position:absolute;left:165px;top:427px;width:152px;height:152px"><div class="po-swatch__chip" style="width:78px;height:78px"></div><div class="po-swatch__label">Looks darker</div></div>
+  <div class="po-vs" style="position:absolute;left:0;right:0;top:507px;text-align:center">vs</div>
+  <div class="po-swatch po-swatch--dark" style="position:absolute;left:403px;top:427px;width:152px;height:152px"><div class="po-swatch__chip" style="width:78px;height:78px"></div><div class="po-swatch__label">Looks lighter</div></div>
+  <div class="po-hex" style="position:absolute;left:258px;top:630px">🔍 Both squares: <code>#808080</code></div>
+  <div class="po-line po-line--white" style="top:701px;font-size:30px">Same color.</div>
+  <div class="po-line po-line--grey" style="top:753px;font-size:28px">Different feeling.</div>
+  <div class="po-line po-line--orange" style="top:802px;font-size:30px">Your brain is lying.</div>
+</section>
+
+<!-- 2 · Coming up (three cards cycle) -->
+<section class="scene" data-t="4.2" data-shot="4.5">
+  <div class="po-glow" style="left:110px;top:360px;width:500px;height:500px;opacity:.6"></div>
+  <div class="po-line" style="top:134px;font-size:26px;font-weight:700;color:#a3a0a8">Color tricks designers use on you</div>
+  <div class="po-up__stack">
+    <div class="po-up" style="left:187px;top:497px"><div class="po-up__emoji">🎨</div><div class="po-up__title">Simultaneous Contrast</div></div>
+    <div class="po-up" style="left:187px;top:497px"><div class="po-up__emoji">🎯</div><div class="po-up__title">The Pop-Out Effect</div></div>
+    <div class="po-up" style="left:187px;top:497px"><div class="po-up__emoji">🌡️</div><div class="po-up__title">Color Temperature</div></div>
+  </div>
+  <div class="po-line po-coming" style="top:746px">Coming up</div>
+</section>
+
+<!-- 2b · Coming up, third card -->
+<section class="scene" data-t="4.2" data-shot="9">
+  <div class="po-glow" style="left:110px;top:360px;width:500px;height:500px;opacity:.6"></div>
+  <div class="po-line" style="top:134px;font-size:26px;font-weight:700;color:#a3a0a8">Color tricks designers use on you</div>
+  <div class="po-up__stack">
+    <div class="po-up" style="left:187px;top:497px"><div class="po-up__emoji">🎨</div><div class="po-up__title">Simultaneous Contrast</div></div>
+    <div class="po-up" style="left:187px;top:497px"><div class="po-up__emoji">🎯</div><div class="po-up__title">The Pop-Out Effect</div></div>
+    <div class="po-up" style="left:187px;top:497px"><div class="po-up__emoji">🌡️</div><div class="po-up__title">Color Temperature</div></div>
+  </div>
+  <div class="po-line po-coming" style="top:746px">Coming up</div>
+</section>
+
+<!-- 3 · Secret #1: simultaneous contrast squares -->
+<section class="scene" data-t="11" data-shot="12">
+  <div class="po-glow" style="left:110px;top:150px;width:500px;height:500px;opacity:.7"></div>
+  <div class="po-secret">Secret #1</div>
+  <h1 class="po-h1">Simultaneous Contrast</h1>
+  <div class="po-swatch po-swatch--light" style="position:absolute;left:165px;top:505px;width:182px;height:182px;border-radius:18px"><div class="po-swatch__chip" style="width:93px;height:93px;border-radius:12px"></div><div class="po-swatch__label" style="margin-top:12px">"Looks dark"</div></div>
+  <div class="po-swatch po-swatch--dark" style="position:absolute;left:373px;top:505px;width:182px;height:182px;border-radius:18px"><div class="po-swatch__chip" style="width:93px;height:93px;border-radius:12px"></div><div class="po-swatch__label" style="margin-top:12px">"Looks light"</div></div>
+</section>
+
+<!-- 3b · Secret #1: the Buy Now button on two grounds -->
+<section class="scene" data-t="16.5" data-shot="18">
+  <div class="po-glow" style="left:110px;top:150px;width:500px;height:500px;opacity:.7"></div>
+  <div class="po-secret">Secret #1</div>
+  <h1 class="po-h1">Simultaneous Contrast</h1>
+  <div class="po-verdict po-verdict--bad" style="left:142px;top:513px">❌ Low contrast</div>
+  <div class="po-verdict po-verdict--good" style="left:442px;top:513px">✅ High contrast</div>
+  <div class="po-ctx po-ctx--low" style="position:absolute;left:67px;top:552px;width:282px;height:215px"><button class="po-ctx__btn">Buy Now</button></div>
+  <div class="po-ctx po-ctx--high" style="position:absolute;left:370px;top:552px;width:282px;height:215px"><button class="po-ctx__btn">Buy Now</button></div>
+  <div class="po-line po-line--grey" style="top:925px">Same color. Two contexts.</div>
+  <div class="po-line po-line--white" style="top:964px">Context changes everything.</div>
+</section>
+
+<!-- 4 · Secret #2: the pop-out effect -->
+<section class="scene" data-t="22.5" data-shot="24">
+  <div class="po-glow" style="left:110px;top:150px;width:500px;height:500px;--c:rgba(46,219,97,.08)"></div>
+  <div class="po-secret">Secret #2</div>
+  <h1 class="po-h1" style="font-size:33px">The Pop-Out Effect</h1>
+  <div class="po-verdict po-verdict--bad" style="left:96px;top:516px">❌ Everything screams</div>
+  <div class="po-verdict po-verdict--good" style="left:448px;top:516px">✅ One clear action</div>
+  <div class="po-grid" style="position:absolute;left:35px;top:556px">
+    <button class="po-btn" data-tone="red"><i>🔥</i>Sign Up</button><button class="po-btn" data-tone="blue"><i>📖</i>Learn More</button>
+    <button class="po-btn" data-tone="green"><i>🛒</i>Buy Now</button><button class="po-btn" data-tone="purple"><i>⭐</i>Subscribe</button>
+    <button class="po-btn" data-tone="orange"><i>📥</i>Download</button><button class="po-btn" data-tone="pink"><i>💬</i>Contact</button>
+  </div>
+  <div class="po-grid is-focused" id="popGrid" style="position:absolute;left:371px;top:556px">
+    <button class="po-btn" data-tone="red"><i>🔥</i>Sign Up</button><button class="po-btn" data-tone="blue"><i>📖</i>Learn More</button>
+    <button class="po-btn is-primary" data-tone="green" data-action="buy"><i>🛒</i>Buy Now</button><button class="po-btn" data-tone="purple"><i>⭐</i>Subscribe</button>
+    <button class="po-btn" data-tone="orange"><i>📥</i>Download</button><button class="po-btn" data-tone="pink"><i>💬</i>Contact</button>
+  </div>
+</section>
+
+<!-- 4b · Secret #2 with the verdict -->
+<section class="scene" data-t="27" data-shot="28.5">
+  <div class="po-glow" style="left:110px;top:150px;width:500px;height:500px;--c:rgba(46,219,97,.08)"></div>
+  <div class="po-secret">Secret #2</div>
+  <h1 class="po-h1" style="font-size:33px">The Pop-Out Effect</h1>
+  <div class="po-verdict po-verdict--bad" style="left:96px;top:516px">❌ Everything screams</div>
+  <div class="po-verdict po-verdict--good" style="left:448px;top:516px">✅ One clear action</div>
+  <div class="po-grid" style="position:absolute;left:35px;top:556px">
+    <button class="po-btn" data-tone="red"><i>🔥</i>Sign Up</button><button class="po-btn" data-tone="blue"><i>📖</i>Learn More</button>
+    <button class="po-btn" data-tone="green"><i>🛒</i>Buy Now</button><button class="po-btn" data-tone="purple"><i>⭐</i>Subscribe</button>
+    <button class="po-btn" data-tone="orange"><i>📥</i>Download</button><button class="po-btn" data-tone="pink"><i>💬</i>Contact</button>
+  </div>
+  <div class="po-grid is-focused" style="position:absolute;left:371px;top:556px">
+    <button class="po-btn" data-tone="red"><i>🔥</i>Sign Up</button><button class="po-btn" data-tone="blue"><i>📖</i>Learn More</button>
+    <button class="po-btn is-primary" data-tone="green"><i>🛒</i>Buy Now</button><button class="po-btn" data-tone="purple"><i>⭐</i>Subscribe</button>
+    <button class="po-btn" data-tone="orange"><i>📥</i>Download</button><button class="po-btn" data-tone="pink"><i>💬</i>Contact</button>
+  </div>
+  <div class="po-eye" style="position:absolute;left:436px;top:743px">👁️ Eye goes straight here</div>
+  <div class="po-line po-line--grey" style="top:925px">When everything is bold,</div>
+  <div class="po-line po-line--white" style="top:964px">nothing is.</div>
+</section>
+
+<!-- 5 · Secret #3: colour temperature, red -->
+<section class="scene" data-t="33" data-shot="34.5">
+  <div class="po-glow" style="left:110px;top:170px;width:500px;height:500px;--c:rgba(224,50,63,.10)"></div>
+  <div class="po-secret">Secret #3</div>
+  <h1 class="po-h1">Color Temperature</h1>
+  <div class="po-temp" id="temp" data-tone="red" style="left:109px;top:511px">
+    <div class="po-temp__label">Same button</div>
+    <button class="po-temp__btn">Subscribe</button>
+    <div class="po-temp__hint" data-tone="red">🔥 Urgent — Act now!</div>
+    <div class="po-temp__hint" data-tone="blue" hidden>🛡️ Safe &amp; trustworthy</div>
+    <div class="po-temp__hint" data-tone="green" hidden>✅ Go ahead, confirmed</div>
+  </div>
+</section>
+
+<!-- 5b · Secret #3, green with the caption -->
+<section class="scene" data-t="39" data-shot="40.5">
+  <div class="po-glow" style="left:110px;top:170px;width:500px;height:500px;--c:rgba(46,219,97,.09)"></div>
+  <div class="po-secret">Secret #3</div>
+  <h1 class="po-h1">Color Temperature</h1>
+  <div class="po-temp" data-tone="green" style="left:109px;top:511px">
+    <div class="po-temp__label">Same button</div>
+    <button class="po-temp__btn">Subscribe</button>
+    <div class="po-temp__hint" data-tone="green">✅ Go ahead, confirmed</div>
+  </div>
+  <div class="po-line po-line--grey" style="top:925px">Color has a voice.</div>
+  <div class="po-line po-line--white" style="top:964px">Make sure it says the right thing.</div>
+</section>
+
+<!-- 5c · Secret #3, in the real world -->
+<section class="scene" data-t="42" data-shot="43.5">
+  <div class="po-glow" style="left:110px;top:170px;width:500px;height:500px;opacity:.6"></div>
+  <div class="po-secret">Secret #3</div>
+  <h1 class="po-h1">Color Temperature</h1>
+  <div class="po-trio" style="left:127px;top:505px">
+    <div class="po-trio__lead">In the real world...</div>
+    <div class="po-trio__row">
+      <div class="po-trio__col"><button class="po-trio__btn po-trio__btn--danger"><i>🗑️</i>Delete</button><span class="po-trio__tag po-trio__tag--danger">danger</span></div>
+      <div class="po-trio__col"><button class="po-trio__btn po-trio__btn--success"><i>💾</i>Save</button><span class="po-trio__tag po-trio__tag--success">success</span></div>
+      <div class="po-trio__col"><button class="po-trio__btn po-trio__btn--neutral"><i>✕</i>Cancel</button><span class="po-trio__tag po-trio__tag--neutral">neutral</span></div>
+    </div>
+    <div class="po-note">It's not random.</div>
+  </div>
+  <div class="po-line po-line--grey" style="top:925px">Color has a voice.</div>
+  <div class="po-line po-line--white" style="top:964px">Make sure it says the right thing.</div>
+</section>
+
+<!-- 6 · All three principles at work -->
+<section class="scene" data-t="45" data-shot="46.5">
+  <div class="po-glow" style="left:110px;top:180px;width:500px;height:500px;opacity:.8"></div>
+  <div class="po-line" style="top:186px;font-size:28px;font-weight:700;color:#fff">All three principles at work</div>
+  <div class="po-dialog" style="left:125px;top:465px">
+    <div class="po-dialog__head"><div class="po-dialog__gear">⚙</div><div class="po-dialog__title">Settings</div><div class="po-dialog__more">•••</div></div>
+    <div class="po-row po-row--profile"><div class="po-avatar">👤</div><div><div class="po-row__name">John Doe</div><div class="po-row__email">john@example.com</div></div><div class="po-row__chev">›</div></div>
+    <div class="po-row po-row--toggle">🔔 Notifications<div class="po-toggle"></div></div>
+    <div class="po-dialog__rule"></div>
+    <div class="po-dialog__actions"><button class="po-act po-act--cancel">Cancel</button><button class="po-act po-act--delete">Delete</button><button class="po-act po-act--save">Save Changes</button></div>
+  </div>
+  <div class="po-chips po-chips--reveal" style="left:321px;top:760px"><span class="po-chip po-chip--orange">🎨 Contrast</span></div>
+</section>
+
+<!-- 6b · All three chips -->
+<section class="scene" data-t="45" data-shot="52.5">
+  <div class="po-glow" style="left:110px;top:180px;width:500px;height:500px;opacity:.8"></div>
+  <div class="po-line" style="top:186px;font-size:28px;font-weight:700;color:#fff">All three principles at work</div>
+  <div class="po-dialog" style="left:125px;top:462px">
+    <div class="po-dialog__head"><div class="po-dialog__gear">⚙</div><div class="po-dialog__title">Settings</div><div class="po-dialog__more">•••</div></div>
+    <div class="po-row po-row--profile"><div class="po-avatar">👤</div><div><div class="po-row__name">John Doe</div><div class="po-row__email">john@example.com</div></div><div class="po-row__chev">›</div></div>
+    <div class="po-row po-row--toggle">🔔 Notifications<div class="po-toggle"></div></div>
+    <div class="po-dialog__rule"></div>
+    <div class="po-dialog__actions"><button class="po-act po-act--cancel">Cancel</button><button class="po-act po-act--delete">Delete</button><button class="po-act po-act--save">Save Changes</button></div>
+  </div>
+  <div class="po-chips po-chips--reveal" style="left:227px;top:760px"><span class="po-chip po-chip--orange">🎨 Contrast</span><span class="po-chip po-chip--green">🎯 Pop-out</span><span class="po-chip po-chip--red">🌡️ Temperature</span></div>
+  <div class="po-line po-line--white" style="top:925px;opacity:0;animation:po-in .4s ease-out 8.6s forwards">Color isn't decoration.</div>
+  <div class="po-line po-line--orange" style="top:984px;opacity:0;animation:po-in .4s ease-out 9.4s forwards">It's communication.</div>
+</section>
+
+<!-- 7 · Outro -->
+<section class="scene" data-t="55.5" data-shot="55.5">
+  <div class="po-glow" style="left:130px;top:400px;width:460px;height:460px;--c:rgba(237,157,16,.16)"></div>
+  <div class="po-line" style="top:524px;font-size:33px;font-weight:700;color:#fff">Want more design tricks?</div>
+  <div class="po-line" style="top:580px;font-size:20px;color:#a8a5ae">Follow for daily tips</div>
+  <button class="po-follow" style="position:absolute;left:265px;top:633px"><span>+</span>Follow</button>
+  <div class="po-tile" style="left:164px;top:504px;opacity:0;animation:po-in .5s ease-out 1.3s forwards">🎨</div>
+  <div class="po-tile" style="left:510px;top:522px;opacity:0;animation:po-in .5s ease-out 1.5s forwards">🎯</div>
+  <div class="po-tile" style="left:203px;top:718px;opacity:0;animation:po-in .5s ease-out 1.7s forwards">🌡️</div>
+  <div class="po-tile" style="left:510px;top:747px;opacity:0;animation:po-in .5s ease-out 1.9s forwards">🚀</div>
+</section>
+
+<script type="module">
+  import { popOut, unPopOut, ColorTemperature, cycle } from './pattern.js';
+  // Live playback only (t = 0): the right grid starts loud and pops out one action after a beat.
+  const grid = document.getElementById('popGrid');
+  grid.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t > 0) return; unPopOut(grid); setTimeout(() => popOut(grid, '[data-action="buy"]'), 900); });
+  // The temperature card walks red, blue, green, showing each tone's hint after a beat.
+  const temp = document.getElementById('temp'), tone = ColorTemperature(temp);
+  temp.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t > 0) return; if (temp._stop) temp._stop(); temp._stop = cycle(t => { tone.set(t, { quiet: true }); setTimeout(() => tone.set(t), 900); }, ['red', 'blue', 'green'], 3000); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

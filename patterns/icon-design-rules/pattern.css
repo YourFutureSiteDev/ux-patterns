@@ -1,0 +1,88 @@
+/* Icon Design Rules, rebuilt from the @designmotionhq reel "Your icons look cheap. 5 rules turn them premium."
+   Component classes are prefixed .ic- and depend only on the tokens below. */
+.ic {
+  --ic-bg: #0a0a0c; --ic-panel: #131315; --ic-panel-2: #0e1114; --ic-text: #f4f2f3; --ic-muted: #9a9aa2; --ic-dim: #6b6b75;
+  --ic-pink: #e8467c; --ic-teal: #2fd9a8; --ic-yellow: #f5a623; --ic-purple: #a066ff; --ic-blue: #4a90ff; --ic-green: #3ed46a; --ic-diy: #e05574;
+  --accent: var(--ic-pink); --accent-light: #f7c6d9;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--ic-text);
+}
+.ic .mono { font-family: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace; }
+
+/* ---- Ambient glow in the rule's accent --------------------------------- */
+.ic-glow { position: absolute; left: 50%; top: 50%; width: 720px; height: 720px; margin: -360px 0 0 -360px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 22%, transparent) 0%, color-mix(in srgb, var(--accent) 10%, transparent) 34%, transparent 64%); }
+
+/* ---- Rule header: progress, counter, title, subtitle --------------------- */
+.ic-prog { position: absolute; left: 0; right: 0; display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; letter-spacing: .1em; color: var(--ic-muted); }
+.ic-dots { display: flex; align-items: center; gap: 9px; margin-right: 8px; }
+.ic-dots i { width: 6px; height: 6px; border-radius: 3px; background: #3a3a42; display: block; }
+.ic-dots i.is-on { width: 20px; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+.ic-prog .sep { color: #3a3a42; font-weight: 400; }
+.ic-prog .name { font-size: 13px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.ic-title { position: absolute; margin: 0; left: 0; right: 0; text-align: center; font-size: 56px; font-weight: 800; letter-spacing: -.03em; line-height: 1; background-image: linear-gradient(180deg, var(--accent-light) 0%, var(--accent) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+.ic-sub { position: absolute; left: 0; right: 0; text-align: center; font-size: 21px; color: var(--ic-muted); }
+
+/* ---- DIY vs SYSTEM ------------------------------------------------------ */
+.ic-tag { position: absolute; height: 29px; padding: 0 16px; border-radius: 999px; display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+.ic-tag--diy { color: var(--ic-diy); background: rgba(224,85,116,.12); border: 1px solid rgba(224,85,116,.25); opacity: .75; }
+.ic-tag--sys { color: var(--ic-green); background: rgba(62,212,106,.12); border: 1px solid rgba(62,212,106,.3); box-shadow: 0 0 20px rgba(62,212,106,.18); }
+.ic-panel { position: absolute; height: 147px; border-radius: 12px; background: var(--ic-panel); }
+.ic-panel--diy { opacity: .55; }
+.ic-panel--sys { background: var(--ic-panel-2); box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent), 0 0 50px color-mix(in srgb, var(--accent) 30%, transparent); }
+.ic-panel__lab { position: absolute; top: 12px; left: 0; right: 0; text-align: center; font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+.ic-panel--diy .ic-panel__lab { color: var(--ic-diy); } .ic-panel--sys .ic-panel__lab { color: var(--ic-green); }
+.ic-panel__note { position: absolute; bottom: 14px; left: 0; right: 0; text-align: center; font-size: 10px; letter-spacing: .1em; }
+.ic-panel--diy .ic-panel__note { color: var(--ic-diy); } .ic-panel--sys .ic-panel__note { color: var(--ic-green); }
+.ic-row { position: absolute; display: flex; align-items: flex-end; justify-content: center; gap: var(--gap, 30px); color: #a8a8b0; }
+.ic-panel--sys .ic-row { color: #fff; }
+.ic-cell { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.ic-cell small { font-size: 10px; font-weight: 600; letter-spacing: .12em; color: var(--ic-dim); font-family: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace; }
+.ic-box { display: grid; place-items: center; width: var(--box, 28px); height: var(--box, 28px); }
+.ic-cell.has-box .ic-box { border-radius: 6px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.07); }
+.ic-cell.is-active { color: var(--ic-pink); }
+.ic-cell.is-active .ic-box { box-shadow: inset 0 0 0 1px rgba(232,70,124,.6), 0 0 16px rgba(232,70,124,.35); background: rgba(232,70,124,.08); }
+.ic-cell.is-active small { color: var(--ic-pink); }
+.ic-row--shapes .ic-box { box-shadow: inset 0 0 0 1px rgba(255,255,255,.05); border-radius: 4px; }
+
+/* grid box for rule 02 */
+.ic-grid { position: relative; width: 136px; height: 88px; background-image: linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px); background-size: var(--cell, 24px) var(--cell, 24px); display: grid; place-items: center; }
+.ic-grid svg { width: 26px; height: 26px; }
+.ic-grid .ic-anchor { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: var(--ic-teal); box-shadow: 0 0 6px var(--ic-teal); opacity: 0; }
+.ic-grid.is-snapped .ic-anchor { opacity: 1; }
+.ic-grid.is-snapped svg { filter: drop-shadow(0 0 6px rgba(255,255,255,.5)); }
+
+/* ---- Rule / avoid lines ------------------------------------------------ */
+.ic-line { position: absolute; left: 0; right: 0; width: max-content; margin: 0 auto; height: 48px; padding: 0 24px 0 20px; border-radius: 999px; display: inline-flex; align-items: center; gap: 14px; font-size: 21px; font-weight: 600; white-space: nowrap; background: rgba(255,255,255,.035); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
+.ic-line svg { width: 16px; height: 16px; fill: none; stroke: var(--accent); stroke-width: 2; }
+.ic-line b { font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; padding: 4px 9px; border-radius: 5px; }
+.ic-line--rule b { color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, #000); }
+.ic-line--avoid b { color: var(--ic-yellow); background: #2a1d08; }
+
+/* ---- Hook + outro ------------------------------------------------------ */
+.ic-pill { position: absolute; left: 0; right: 0; width: max-content; margin: 0 auto; height: 44px; padding: 0 24px; border-radius: 999px; display: inline-flex; align-items: center; font-size: 17px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--ic-pink); background: #2a1520; box-shadow: inset 0 0 0 1px rgba(232,70,124,.25); white-space: nowrap; }
+.ic-setlab { position: absolute; font-size: 13px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+.ic-set { position: absolute; display: flex; gap: 62px; color: #fff; }
+.ic-set svg { width: 44px; height: 44px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.ic-set--diy svg:nth-child(2) { color: #f5c542; } .ic-set--diy svg:nth-child(4) { fill: #f5c542; stroke: #f5c542; }
+.ic-cap { position: absolute; left: 0; right: 0; text-align: center; font-size: 34px; font-weight: 700; letter-spacing: -.02em; line-height: 1.25; padding: 0 58px; }
+.ic-cap em { font-style: normal; color: var(--ic-pink); }
+.ic-eyebrow { position: absolute; left: 0; right: 0; text-align: center; font-size: 16px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--ic-pink); }
+.ic-outro { position: absolute; left: 0; right: 0; text-align: center; font-size: 48px; font-weight: 800; letter-spacing: -.03em; line-height: 1.15; padding: 0 36px; }
+.ic-outro em { font-style: normal; color: var(--ic-pink); }
+.ic-chips { position: absolute; left: 0; right: 0; display: flex; justify-content: center; gap: 14px; }
+.ic-chip { height: 36px; padding: 0 16px; border-radius: 999px; display: inline-flex; align-items: center; font-size: 15px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--c); background: color-mix(in srgb, var(--c) 18%, #0a0a0c); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 30%, transparent); }
+.ic-save { position: absolute; left: 0; right: 0; width: max-content; margin: 0 auto; height: 52px; padding: 0 30px; border: 0; border-radius: 999px; display: inline-flex; align-items: center; gap: 12px; background: var(--ic-pink); color: #fff; font: 700 18px 'Inter', sans-serif; white-space: nowrap; cursor: pointer; box-shadow: 0 0 40px rgba(232,70,124,.4); transition: transform .12s ease; }
+.ic-save:active { transform: scale(.96); }
+.ic-save svg { width: 14px; height: 14px; fill: currentColor; }
+.ic-follow { position: absolute; left: 0; right: 0; text-align: center; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #9a8f95; }
+.ic-follow svg { width: 11px; height: 11px; fill: var(--ic-pink); vertical-align: -1px; margin-right: 6px; }
+
+/* ---- Motion ----------------------------------------------------------- */
+@keyframes ic-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes ic-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ic-out-l { from { transform: none; opacity: 1; } to { transform: translateX(-420px); opacity: 0; } }
+@keyframes ic-in-l { from { transform: translateX(420px); } to { transform: none; } }
+.ic-in { animation: ic-in .6s cubic-bezier(.2,.8,.2,1) both; }
+.ic-fade { animation: ic-fade .6s ease both; }
+.ic-out-l { animation: ic-out-l 1s cubic-bezier(.4,0,.2,1) both; }
+.ic-in-l { animation: ic-in-l 1s cubic-bezier(.2,.8,.2,1) both; }
+.ic-row[data-row="random"] small, .ic-row[data-row="strategy"] small { text-transform: uppercase; font-family: 'Inter', sans-serif; letter-spacing: .14em; }

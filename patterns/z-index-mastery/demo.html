@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Z-Index Mastery · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0b0a0e; --grid: transparent; --accent: #2dd4bf; --danger: #e85776; }
+  .scene { color: #edecf0; }
+  .rule { position: absolute; left: 0; right: 0; top: 95px; text-align: center; font-size: 15px; font-weight: 600; letter-spacing: .22em; color: #818286; }
+  .h { position: absolute; left: 0; right: 0; top: 118px; text-align: center; font-size: 36px; font-weight: 800; letter-spacing: -.01em; line-height: 1.2; }
+  .cap { position: absolute; left: 0; right: 0; text-align: center; font-weight: 700; }
+  .cap--in { animation: zi-fade .5s ease both; animation-delay: var(--zi-delay, 0s); opacity: 0; }
+  .zi-glow { position: absolute; width: 480px; height: 480px; border-radius: 50%; pointer-events: none; }
+  /* rule 1: Card B lifts once the fix line lands */
+  .zi-fix .zi-card--pink { animation: zi-lift .5s ease both 1.2s; }
+  @keyframes zi-lift { from { transform: scale(1); box-shadow: none; } }
+  /* rule 2: cards fade up */
+  .zi-in { animation: zi-up .6s ease both; animation-delay: var(--zi-delay, 0s); }
+  @keyframes zi-up { from { opacity: 0; transform: translateY(20px); } }
+  /* rule 3: the messy stack settles into a clean one */
+  .zi-settle .zi-comp { animation: zi-settle .8s ease both .6s; }
+  @keyframes zi-settle { from { transform: var(--zi-from); } to { transform: var(--zi-to); } }
+</style>
+</head>
+<body class="zi">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-follow" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M19 8v6M16 11h6"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+</svg>
+
+<!-- 1 · Hook: z-index lies (a dropdown at z:10 under a modal at z:20, in 3D) -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="zi-glow" style="left:120px;top:380px;background:radial-gradient(circle, rgba(20,90,80,.35), rgba(20,90,80,0) 68%)"></div>
+  <div class="h" style="top:106px;font-size:40px">z-index <span class="zi-grad--teal">lies</span>.</div>
+  <div class="zi-stage3d">
+    <div class="zi-dropdown" style="left:163px;top:495px;transform:rotateY(-10deg) rotateX(4deg) rotate(1deg)">
+      <div class="zi-dropdown__title">Dropdown</div>
+      <div class="zi-dropdown__item">Profile</div><div class="zi-dropdown__item is-danger">Settings</div><div class="zi-dropdown__item">Help</div><div class="zi-dropdown__item">Sign out</div>
+      <span class="zi-zbadge zi-zbadge--pink" style="right:-16px;top:-14px">z: 10</span>
+    </div>
+    <div class="zi-modal" style="left:232px;top:522px;transform:rotateY(-8deg) rotateX(3deg) rotate(2deg) translateZ(30px)">
+      <div class="zi-modal__title">Confirm action</div>
+      <div class="zi-modal__text">Are you sure you want to continue with this operation?</div>
+      <div class="zi-modal__row"><button class="zi-btn zi-btn--ghost">Cancel</button><button class="zi-btn zi-btn--teal">Confirm</button></div>
+      <span class="zi-zbadge zi-zbadge--teal" style="right:-14px;top:-14px">z: 20</span>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · Rule 1: z-index needs position (static Card B ignores 9999) -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="zi-glow" style="left:120px;top:300px;background:radial-gradient(circle, rgba(90,30,50,.3), rgba(90,30,50,0) 68%)"></div>
+  <div class="rule">RULE 1</div>
+  <div class="h">z-index needs <span class="zi-grad">position</span></div>
+  <pre class="zi-code" style="position:absolute;left:100px;top:253px;margin:0;height:115px"><span class="line"><span class="s">.card-b</span> {</span><span class="line">  <span class="p">z-index</span>: <span class="v">9999</span>;</span><span class="line"></span><span class="line">}</span></pre>
+  <div class="zi-card zi-card--teal" style="position:absolute;left:95px;top:516px"><div class="zi-card__name">Card A</div><div class="zi-card__meta">position: relative<br>z-index: 1</div></div>
+  <div class="zi-card zi-card--pink" style="position:absolute;left:381px;top:520px;width:235px;height:172px"><div class="zi-card__name">Card B</div><div class="zi-card__meta">position: static<br>z-index: 9999</div></div>
+</section>
+
+<!-- 3 · Rule 1: the fix lands, Card B lifts -->
+<section class="scene zi-fix" data-t="6" data-shot="10.5">
+  <div class="zi-glow" style="left:120px;top:300px;background:radial-gradient(circle, rgba(90,30,50,.3), rgba(90,30,50,0) 68%)"></div>
+  <div class="rule">RULE 1</div>
+  <div class="h">z-index needs <span class="zi-grad">position</span></div>
+  <pre class="zi-code" style="position:absolute;left:100px;top:253px;margin:0;height:115px"><span class="line"><span class="s">.card-b</span> {</span><span class="line">  <span class="p">z-index</span>: <span class="v">9999</span>;</span><span class="line line--new" style="--zi-delay:.6s">  <span class="p">position</span>: <span class="g">relative</span>;<span class="c">← fix</span></span><span class="line">}</span></pre>
+  <div class="zi-card zi-card--teal" style="position:absolute;left:95px;top:516px"><div class="zi-card__name">Card A</div><div class="zi-card__meta">position: relative<br>z-index: 1</div></div>
+  <div class="zi-card zi-card--pink is-lifted" id="cardB" style="position:absolute;left:381px;top:520px;width:235px;height:172px"><div class="zi-card__name">Card B</div><div class="zi-card__meta"><b>position: relative</b><br>z-index: 9999</div></div>
+  <div class="cap cap--in" style="top:1064px;font-size:22px;--zi-delay:3.4s">No position, no z-index.</div>
+  <div class="cap cap--in" style="top:1100px;font-size:16px;font-weight:500;color:#9a9aa5;--zi-delay:3.6s">Relative · Absolute · Fixed · Sticky</div>
+</section>
+
+<!-- 4 · Rule 2: Parent caps child -->
+<section class="scene" data-t="13.5" data-shot="15">
+  <div class="zi-glow" style="left:-40px;top:220px;background:radial-gradient(circle, rgba(90,30,50,.28), rgba(90,30,50,0) 68%)"></div>
+  <div class="zi-glow" style="left:280px;top:480px;background:radial-gradient(circle, rgba(20,90,80,.28), rgba(20,90,80,0) 68%)"></div>
+  <div class="rule">RULE 2</div>
+  <div class="h">Parent caps <span class="zi-grad">child</span>.</div>
+  <div class="zi-parent zi-parent--a zi-in" style="position:absolute;left:80px;top:307px">
+    <div class="zi-parent__name">Parent A</div><div class="zi-parent__z">z-index: 1</div>
+    <div class="zi-child"><div class="zi-child__name">Child</div><div class="zi-child__z">z-index: 9999</div><div class="zi-child__note">Still trapped inside Parent A's stacking context.</div></div>
+  </div>
+  <div class="zi-parent zi-parent--b zi-in" style="position:absolute;left:378px;top:307px;width:264px;height:346px;--zi-delay:.2s">
+    <div class="zi-parent__name">Parent B</div><div class="zi-parent__z">z-index: 2</div>
+    <div class="zi-parent__win">Wins.</div><div class="zi-parent__note">Z-index 2 beats Parent A's entire universe.</div>
+  </div>
+</section>
+
+<!-- 5 · Rule 2: 9999 inside a context of 1 < 2 outside -->
+<section class="scene" data-t="18" data-shot="22.5">
+  <div class="zi-glow" style="left:-40px;top:220px;background:radial-gradient(circle, rgba(90,30,50,.28), rgba(90,30,50,0) 68%)"></div>
+  <div class="zi-glow" style="left:280px;top:480px;background:radial-gradient(circle, rgba(20,90,80,.28), rgba(20,90,80,0) 68%)"></div>
+  <div class="rule">RULE 2</div>
+  <div class="h">Parent caps <span class="zi-grad">child</span>.</div>
+  <div class="zi-parent zi-parent--a" style="position:absolute;left:80px;top:307px">
+    <div class="zi-parent__name">Parent A</div><div class="zi-parent__z">z-index: 1</div>
+    <div class="zi-child"><div class="zi-child__name">Child</div><div class="zi-child__z">z-index: 9999</div><div class="zi-child__note">Still trapped inside Parent A's stacking context.</div></div>
+  </div>
+  <div class="zi-chevron zi-in" style="position:absolute;left:350px;top:478px;--zi-delay:.3s">›</div>
+  <div class="zi-parent zi-parent--b" style="position:absolute;left:378px;top:307px;width:264px;height:346px">
+    <div class="zi-parent__spark zi-in" style="--zi-delay:.3s"></div>
+    <div class="zi-parent__name">Parent B</div><div class="zi-parent__z">z-index: 2</div>
+    <div class="zi-parent__win">Wins.</div><div class="zi-parent__note">Z-index 2 beats Parent A's entire universe.</div>
+  </div>
+  <div class="cap cap--in" style="top:1105px;font-size:22px;--zi-delay:3.2s">9999 inside a context of 1 <span style="color:#e85776">&lt;</span> <span style="color:#2dd4bf">2 outside</span></div>
+</section>
+
+<!-- 6 · Rule 3: One line. Clean stack. (leaking layers, before) -->
+<section class="scene" data-t="24" data-shot="27">
+  <div class="zi-glow" style="left:120px;top:420px;background:radial-gradient(circle, rgba(60,40,110,.3), rgba(60,40,110,0) 68%)"></div>
+  <div class="rule">RULE 3</div>
+  <div class="h">One line. <span class="zi-grad">Clean stack.</span></div>
+  <pre class="zi-code" style="position:absolute;left:120px;top:240px;margin:0;width:480px;height:95px;padding:14px 18px"><span class="line"><span class="s">.component</span> {</span><span class="line" style="opacity:.45"><span class="p">isolation</span>:  <span class="g">isolate</span> ;</span><span class="line">}</span></pre>
+  <div class="zi-comp zi-comp--pink" style="left:100px;top:532px;height:155px;transform:rotate(-6deg)"><div class="zi-comp__name">Card</div><div class="zi-comp__lines"><i></i><i></i></div></div>
+  <div class="zi-comp zi-comp--teal" style="left:258px;top:500px;height:155px;transform:rotate(-4deg)"><div class="zi-comp__name">Tooltip</div><div class="zi-comp__lines"><i></i><i></i></div></div>
+  <div class="zi-comp zi-comp--purple" style="left:415px;top:485px;height:148px;transform:rotate(-2deg)"><div class="zi-comp__name">Dropdown</div><div class="zi-comp__lines"><i></i><i></i></div></div>
+</section>
+
+<!-- 7 · Rule 3: isolation: isolate, every component in its own context -->
+<section class="scene zi-settle" data-t="28.5" data-shot="30">
+  <div class="zi-glow" style="left:120px;top:420px;background:radial-gradient(circle, rgba(60,40,110,.3), rgba(60,40,110,0) 68%)"></div>
+  <div class="rule">RULE 3</div>
+  <div class="h">One line. <span class="zi-grad">Clean stack.</span></div>
+  <pre class="zi-code" style="position:absolute;left:120px;top:240px;margin:0;width:480px;height:95px;padding:14px 18px"><span class="line"><span class="s">.component</span> {</span><span class="line">  <span class="p">isolation</span>: <span class="g hl">isolate</span>;</span><span class="line">}</span></pre>
+  <div id="comps">
+    <div class="zi-comp zi-comp--pink is-isolated" style="left:100px;top:486px;--zi-from:rotate(-6deg) translate(0,46px);--zi-to:none"><div class="zi-comp__name">Card</div><span class="zi-comp__tag">isolated</span><div class="zi-comp__lines"><i></i><i></i></div></div>
+    <div class="zi-comp zi-comp--teal is-isolated" style="left:260px;top:505px;--zi-from:rotate(-4deg) translate(0,-5px);--zi-to:none"><div class="zi-comp__name">Tooltip</div><span class="zi-comp__tag">isolated</span><div class="zi-comp__lines"><i></i><i></i></div></div>
+    <div class="zi-comp zi-comp--purple is-isolated" style="left:420px;top:527px;--zi-from:rotate(-2deg) translate(-5px,-42px);--zi-to:none"><div class="zi-comp__name">Dropdown</div><span class="zi-comp__tag">isolated</span><div class="zi-comp__lines"><i></i><i></i></div></div>
+  </div>
+</section>
+
+<!-- 8 · Rule 4: Debug visually (DevTools opens) -->
+<section class="scene" data-t="33" data-shot="34.5">
+  <div class="zi-glow" style="left:120px;top:560px;background:radial-gradient(circle, rgba(30,50,110,.28), rgba(30,50,110,0) 68%)"></div>
+  <div class="rule">RULE 4</div>
+  <div class="h">Debug <span class="zi-grad--blue">visually</span>.</div>
+  <div class="zi-devtools" style="position:absolute;left:60px;top:266px">
+    <div class="zi-devtools__bar"><div class="zi-devtools__dots"><i></i><i></i><i></i></div>Chrome DevTools<span class="zi-devtools__chip">LAYERS</span></div>
+  </div>
+</section>
+
+<!-- 9 · Rule 4: the Layers panel shows every stacking layer in 3D -->
+<section class="scene" data-t="36" data-shot="42">
+  <div class="zi-glow" style="left:120px;top:560px;background:radial-gradient(circle, rgba(30,50,110,.28), rgba(30,50,110,0) 68%)"></div>
+  <div class="rule">RULE 4</div>
+  <div class="h">Debug <span class="zi-grad--blue">visually</span>.</div>
+  <div class="zi-devtools" style="position:absolute;left:60px;top:266px">
+    <div class="zi-devtools__bar"><div class="zi-devtools__dots"><i></i><i></i><i></i></div>Chrome DevTools<span class="zi-devtools__chip">LAYERS</span></div>
+    <div class="zi-stack" id="stack">
+      <div class="zi-layer zi-layer--body" style="top:138px;width:440px;height:165px;--zi-delay:.2s"><div class="zi-layer__name">Body</div><span class="zi-layer__n">#0</span><div class="zi-layer__lines"><i></i><i></i></div></div>
+      <div class="zi-layer zi-layer--card" style="top:94px;width:455px;height:172px;--zi-delay:.6s"><div class="zi-layer__name">Card (z:1)</div><span class="zi-layer__n">#1</span><div class="zi-layer__lines"><i></i><i></i></div></div>
+      <div class="zi-layer zi-layer--drop" style="top:50px;width:472px;height:178px;--zi-delay:1s"><div class="zi-layer__name">Dropdown (z:10)</div><span class="zi-layer__n">#2</span><div class="zi-layer__lines"><i></i><i></i></div></div>
+      <div class="zi-layer zi-layer--modal" style="top:4px;width:492px;height:184px;--zi-delay:1.4s"><div class="zi-layer__name">Modal (z:20)</div><span class="zi-layer__n">#3</span><div class="zi-layer__lines"><i></i><i></i></div></div>
+    </div>
+  </div>
+  <div class="cap cap--in" style="top:1113px;font-size:22px;--zi-delay:4.5s">See every layer. <span style="color:#3b9dff">Stop guessing.</span></div>
+</section>
+
+<!-- 10 · Outro -->
+<section class="scene" data-t="45" data-shot="46.5">
+  <div class="zi-glow" style="left:60px;top:340px;width:600px;height:600px;background:radial-gradient(circle, rgba(120,40,60,.38), rgba(120,40,60,0) 68%)"></div>
+  <div class="h" style="top:464px;font-size:52px"><span class="zi-grad">Master z-index.</span></div>
+  <div class="cap" style="top:558px;font-size:20px;font-weight:500;color:#9a9aa5">Follow <b style="color:#edecf0;font-weight:700">@designmotionhq</b></div>
+  <div class="zi-follow center" style="top:620px"><svg><use href="#i-follow"/></svg>Follow</div>
+  <div class="zi-save center" style="top:706px"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+
+<script type="module">
+  import { NeedsPosition, Isolate, LayerReport } from './pattern.js';
+  // Rule 1 live: Card B is static until the fix lands, then NeedsPosition() positions and lifts it.
+  const b = document.getElementById('cardB');
+  b.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t > 0) return; b.classList.remove('is-lifted'); setTimeout(() => NeedsPosition(b, { fix: true }), 1200); });
+  // Rule 3 live: Isolate() gives each component its own stacking context and shows the tag.
+  const comps = document.getElementById('comps');
+  comps.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t > 0) return; comps.querySelectorAll('.zi-comp').forEach(c => c.classList.remove('is-isolated')); setTimeout(() => Isolate(comps), 1000); });
+  // Rule 4: the layer order comes from LayerReport over the demo's own stack.
+  console.table(LayerReport([...document.querySelectorAll('#stack .zi-layer')].map(el => ({ el, name: el.querySelector('.zi-layer__name').textContent }))));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

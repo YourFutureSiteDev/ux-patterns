@@ -1,0 +1,117 @@
+/* Gradient Design, rebuilt from the @designmotionhq reel "Why your gradients look cheap".
+   Component classes are prefixed .gd- and depend only on the tokens below. */
+.gd {
+  --gd-bg: #0a0a0c; --gd-panel: #0e1116; --gd-border: rgba(255,255,255,.06);
+  --gd-text: #f3f3f6; --gd-muted: #9a9aa2; --gd-dim: #6b6d75;
+  --gd-a: #8b5cf6; --gd-b: #3b82f6; --gd-c: #a78bfa;              /* the premium pair (60° apart) + mesh third point */
+  --gd-grad: linear-gradient(135deg, var(--gd-a), var(--gd-b));
+  --gd-cheap: linear-gradient(90deg, #8b3ff5 0%, #f5a12e 50%, #3b82f6 100%);  /* 180° of hue travel: muddy middle */
+  --gd-clash: linear-gradient(135deg, #e11d2b 0%, #c9a12a 50%, #22c31a 100%);
+  --gd-harm: linear-gradient(135deg, #5b3df0 0%, #e024e0 100%);
+  --gd-green: #22c55e; --gd-red: #ee3550;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--gd-text);
+}
+
+/* ---- Ambient glow: a soft radial behind content, never a wash on top ---- */
+.gd-glow { position: absolute; left: 50%; top: 50%; width: 860px; height: 860px; margin: -430px 0 0 -430px; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(88,48,170,.36) 0%, rgba(88,48,170,.2) 30%, rgba(88,48,170,.06) 52%, rgba(88,48,170,0) 66%); }
+
+/* ---- Headers ---------------------------------------------------------- */
+.gd-rule { position: absolute; left: 0; right: 0; text-align: center; font-size: 15px; font-weight: 600; letter-spacing: .28em; text-transform: uppercase; color: #8b8a92; }
+.gd-title { position: absolute; margin: 0; left: 0; right: 0; text-align: center; font-size: 34px; font-weight: 700; letter-spacing: -.01em; line-height: 1.1; color: #fff; }
+.gd-tag { position: absolute; left: 0; right: 0; text-align: center; font-size: 16px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+.gd-tag--cheap { color: var(--gd-red); } .gd-tag--premium { color: var(--gd-green); }
+.gd-vs { position: absolute; left: 0; right: 0; text-align: center; font-size: 20px; font-weight: 700; letter-spacing: .3em; color: var(--gd-dim); }
+
+/* ---- Gradient button --------------------------------------------------- */
+.gd-tray { position: absolute; border-radius: 12px; background: var(--gd-panel); }
+.gd-btn { position: absolute; display: grid; place-items: center; border: 0; border-radius: 9px; color: #fff; font: 700 24px 'Inter', sans-serif; letter-spacing: -.01em; cursor: pointer; background: var(--gd-grad); background-image: linear-gradient(90deg, var(--gd-a), var(--gd-b)); transition: transform .12s ease, filter .18s ease; }
+.gd-btn:active { transform: scale(.97); }
+.gd-btn--cheap { background-image: var(--gd-cheap); }
+.gd-strip { position: absolute; height: 5px; border-radius: 3px; background-image: linear-gradient(90deg, var(--gd-a), var(--gd-b)); opacity: .8; }
+.gd-strip--cheap { background-image: var(--gd-cheap); }
+.gd-btn--premium { box-shadow: 0 0 40px rgba(124,92,246,.45); }
+
+/* ---- Hue wheel --------------------------------------------------------- */
+.gd-wheel { position: absolute; border-radius: 50%; background: conic-gradient(from 0deg, #ff2d55, #ff9500, #ffd60a, #4cd964, #34e0f0, #3b82f6, #a24bff, #ff2d8a, #ff2d55); }
+.gd-wheel::after { content: ''; position: absolute; inset: 52px; border-radius: 50%; background: #0a0a0c; }
+.gd-wheel__wedge { position: absolute; inset: 0; z-index: 1; }
+.gd-wheel__wedge path { fill: rgba(255,255,255,.55); }
+.gd-wheel__deg { position: absolute; font-size: 20px; font-weight: 700; color: #fff; }
+
+/* ---- Hue-pair card ------------------------------------------------------ */
+.gd-pair { position: absolute; border-radius: 12px; background: var(--gd-panel); overflow: hidden; }
+.gd-pair__swatch { position: absolute; left: 0; right: 0; top: 0; }
+.gd-pair--ok .gd-pair__swatch { background-image: var(--gd-harm); }
+.gd-pair--bad .gd-pair__swatch { background-image: var(--gd-clash); }
+.gd-badge { position: absolute; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-size: 16px; font-weight: 800; }
+.gd-badge--ok { background: var(--gd-green); } .gd-badge--bad { background: #e0293a; }
+.gd-pair__apart { position: absolute; font-size: 17px; font-weight: 500; color: var(--gd-muted); }
+.gd-pair__strip { position: absolute; height: 48px; border-radius: 8px; }
+.gd-pair--ok .gd-pair__strip { background-image: linear-gradient(90deg, #5b3df0, #e024e0); box-shadow: 0 0 30px rgba(160,60,230,.35); }
+.gd-pair--bad .gd-pair__strip { background-image: linear-gradient(90deg, #e11d2b, #c9a12a, #22c31a); }
+.gd-pair__verdict { position: absolute; font-size: 21px; font-weight: 700; }
+.gd-pair--ok .gd-pair__verdict { color: var(--gd-green); } .gd-pair--bad .gd-pair__verdict { color: #e8233a; }
+
+/* ---- Direction cards -------------------------------------------------- */
+.gd-dir { position: absolute; border-radius: 10px; background: var(--gd-panel); transition: opacity .4s; }
+.gd-dir__swatch { position: absolute; border-radius: 8px; background-image: linear-gradient(var(--angle, 135deg), var(--gd-a), var(--gd-b)); }
+.gd-dir__deg { position: absolute; left: 0; right: 0; text-align: center; font: 500 20px 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace; color: #fff; letter-spacing: .04em; }
+.gd-dir__note { position: absolute; left: 0; right: 0; text-align: center; font-size: 15px; font-style: italic; color: #777a7f; }
+.gd-dir.is-dim { opacity: .22; }
+.gd-dir.is-win { box-shadow: 0 0 60px rgba(124,92,246,.4), 0 0 0 1px rgba(124,92,246,.2); }
+.gd-premium { position: absolute; text-align: center; font-size: 22px; font-weight: 600; color: #9e88df; white-space: nowrap; }
+
+/* ---- Mesh gradient ------------------------------------------------------ */
+.gd-mesh { position: absolute; border-radius: 12px; overflow: hidden; background: radial-gradient(circle at 15% 92%, #090a22 0%, transparent 40%), radial-gradient(circle at 88% 8%, #090c2c 0%, transparent 40%), #10123c; }
+.gd-mesh.is-linear { background-image: var(--gd-grad); }
+.gd-mesh__blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0; transition: opacity .8s; }
+.gd-mesh.is-mesh .gd-mesh__blob { opacity: .85; }
+.gd-mesh__pt { position: absolute; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; border: 2px solid rgba(255,255,255,.75); background: rgba(255,255,255,.18); opacity: 0; transition: opacity .4s; box-shadow: 0 0 12px rgba(255,255,255,.35); }
+.gd-mesh.is-mesh .gd-mesh__pt { opacity: 1; }
+.gd-cap { position: absolute; left: 0; right: 0; text-align: center; font-size: 18px; color: #8b8a92; }
+
+/* ---- Hero card using a mesh as ambiance ------------------------------ */
+.gd-hero { position: absolute; border-radius: 12px; background: var(--gd-panel); overflow: hidden; }
+.gd-hero__bg { position: absolute; left: 0; right: 0; top: 0; overflow: hidden; background: #12123a; }
+.gd-hero__bg i { position: absolute; border-radius: 50%; filter: blur(46px); opacity: .75; }
+.gd-hero__eyebrow { position: absolute; font-size: 11px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #a9a9b3; }
+.gd-hero__h { position: absolute; font-size: 21px; font-weight: 700; color: #fff; }
+.gd-hero__p { position: absolute; font-size: 15px; line-height: 1.45; color: #a4a4ad; }
+.gd-hero__cta { position: absolute; display: grid; place-items: center; border-radius: 8px; font-size: 15px; font-weight: 600; color: #fff; background-image: linear-gradient(90deg, var(--gd-a), var(--gd-b)); }
+.gd-hero__ghost { position: absolute; display: grid; place-items: center; border-radius: 8px; font-size: 15px; font-weight: 500; color: #c0c0c6; border: 1px solid #2a2d35; }
+
+/* ---- Text gradients ----------------------------------------------------- */
+.gd-card { position: absolute; border-radius: 12px; background: var(--gd-panel); border: 1px solid #1a1d24; }
+.gd-flag { position: absolute; left: 0; right: 0; text-align: center; font-size: 17px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.gd-flag--bad { color: var(--gd-red); } .gd-flag--ok { color: var(--gd-green); font-size: 20px; }
+.gd-h { position: absolute; left: 0; right: 0; text-align: center; font-size: 44px; font-weight: 700; letter-spacing: -.02em; line-height: 1; }
+.gd-text-grad { background-image: linear-gradient(90deg, var(--gd-a), var(--gd-b)); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+.gd-text-rainbow { background-image: linear-gradient(90deg, #ef4444 0%, #f59e0b 22%, #22c55e 48%, #22c55e 62%, #f5c518 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+.gd-p { position: absolute; left: 0; right: 0; text-align: center; font-size: 19px; line-height: 1.6; color: #a4a4ad; }
+.gd-note { position: absolute; font-size: 14px; font-weight: 600; white-space: nowrap; }
+.gd-note--grad { color: var(--gd-green); } .gd-note--solid { color: #b0b0b8; }
+.gd-cta { position: absolute; left: 50%; transform: translateX(-50%); display: grid; place-items: center; border: 0; border-radius: 8px; color: #fff; font: 600 15px 'Inter', sans-serif; background-image: linear-gradient(90deg, var(--gd-a), var(--gd-b)); cursor: pointer; }
+
+/* ---- Rules list + outro --------------------------------------------- */
+.gd-list { position: absolute; border-radius: 12px; background: var(--gd-panel); }
+.gd-list__t { position: absolute; font-size: 17px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #8b8a92; }
+.gd-list__row { position: absolute; display: flex; align-items: center; gap: 16px; font-size: 20px; font-weight: 600; color: #fff; white-space: nowrap; }
+.gd-list__n { width: 26px; height: 26px; border-radius: 6px; display: grid; place-items: center; font-size: 13px; font-weight: 700; color: #fff; }
+.gd-handle { position: absolute; left: 0; right: 0; text-align: center; font-size: 30px; font-weight: 700; letter-spacing: -.01em; }
+.gd-sub { position: absolute; left: 0; right: 0; text-align: center; font-size: 19px; color: var(--gd-muted); }
+.gd-follow { position: absolute; left: 50%; transform: translateX(-50%); width: 174px; height: 55px; border: 0; border-radius: 8px; color: #fff; font: 700 21px 'Inter', sans-serif; background-image: linear-gradient(90deg, var(--gd-a), var(--gd-b)); cursor: pointer; box-shadow: 0 0 40px rgba(124,92,246,.35); transition: transform .12s ease, filter .18s ease; }
+.gd-follow:active { transform: translateX(-50%) scale(.96); }
+.gd-follow.is-on { filter: brightness(.8); }
+.gd-fine { position: absolute; left: 0; right: 0; text-align: center; font-size: 15px; font-style: italic; color: #6b62a8; }
+
+/* ---- Motion ----------------------------------------------------------- */
+@keyframes gd-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes gd-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes gd-pop { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: scale(1); } }
+@keyframes gd-slide-l { from { transform: translateX(240px); } to { transform: none; } }
+.gd-in { animation: gd-in .6s cubic-bezier(.2,.8,.2,1) both; }
+.gd-fade { animation: gd-fade .6s ease both; }
+.gd-pop { animation: gd-pop .6s cubic-bezier(.2,.9,.3,1.1) both; }
+.gd-slide-l { animation: gd-slide-l 1.2s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes gd-move-down { from { transform: none; } to { transform: translateY(56px); } }

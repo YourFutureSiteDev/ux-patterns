@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Glassmorphism · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #150f28; --grid: transparent; --accent: #a78bfa; --danger: #f472b6; }
+  .scene { color: #f5f3ff; }
+  .gm-fade { animation: gm-fadein 1.4s ease-out both; }
+  @keyframes gm-fadein { from { opacity: .3 } to { opacity: 1 } }
+</style>
+</head>
+<body class="gm">
+
+<!-- 1 · Hook: 4 lines of CSS -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="gm-bg"><div class="gm-blob gm-blob--pink" style="left:95px;top:530px;width:205px;height:260px"></div><div class="gm-blob gm-blob--blue" style="left:300px;top:640px;width:260px;height:260px;animation-delay:-3s"></div><div class="gm-blob gm-blob--orange" style="left:280px;top:700px;width:260px;height:220px;animation-delay:-6s"></div></div>
+  <div class="gm-hook">4 Lines of <em>CSS.</em></div>
+  <div class="gm-player gm-glass" style="left:127px;top:474px;transform:rotate(-3deg)">
+    <div class="gm-player__head"><div class="gm-player__art"></div><div><div class="gm-player__title">Midnight Dreams</div><div class="gm-player__artist">Glass Orchestra</div></div><div class="gm-player__more">&#8942;</div></div>
+    <div class="gm-player__bar"></div>
+    <div class="gm-player__time"><span>2:34</span><span>-1:18</span></div>
+    <div class="gm-player__ctl"><svg class="sm" viewBox="0 0 24 24"><path d="M6 5h2v14H6zM19 5 9 12l10 7z"/></svg><svg class="lg" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg><svg class="sm" viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM5 5l10 7-10 7z"/></svg></div>
+    <div class="gm-player__vol"><span>&#128264;</span><div class="gm-player__bar"></div><span>&#128266;</span></div>
+  </div>
+</section>
+
+<!-- 2 · 01/04 Pour in transparency: the solid card -->
+<section class="scene" data-t="3" data-shot="3">
+  <div class="gm-bg"><div class="gm-blob gm-blob--pink" style="left:215px;top:490px;width:255px;height:230px"></div><div class="gm-blob gm-blob--blue" style="left:270px;top:590px;width:305px;height:280px;animation-delay:-3s"></div><div class="gm-blob gm-blob--orange" style="left:265px;top:620px;width:210px;height:250px;animation-delay:-6s"></div></div>
+  <div class="gm-step gm-fade">01 / 04</div>
+  <div class="gm-title gm-fade">POUR IN TRANSPARENCY</div>
+  <div class="gm-player gm-glass is-step-0" style="left:127px;top:474px">
+    <div class="gm-player__head"><div class="gm-player__art"></div><div><div class="gm-player__title">Midnight Dreams</div><div class="gm-player__artist">Glass Orchestra</div></div><div class="gm-player__more">&#8942;</div></div>
+    <div class="gm-player__bar"></div>
+    <div class="gm-player__time"><span>2:34</span><span>-1:18</span></div>
+    <div class="gm-player__ctl"><svg class="sm" viewBox="0 0 24 24"><path d="M6 5h2v14H6zM19 5 9 12l10 7z"/></svg><svg class="lg" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg><svg class="sm" viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM5 5l10 7-10 7z"/></svg></div>
+    <div class="gm-player__vol"><span>&#128264;</span><div class="gm-player__bar"></div><span>&#128266;</span></div>
+  </div>
+</section>
+
+<!-- 3 · 01/04 Pour in transparency: opacity 0.35 -->
+<section class="scene" data-t="4.5" data-shot="9">
+  <div class="gm-bg"><div class="gm-blob gm-blob--pink" style="left:215px;top:490px;width:255px;height:230px"></div><div class="gm-blob gm-blob--blue" style="left:270px;top:590px;width:305px;height:280px;animation-delay:-3s"></div><div class="gm-blob gm-blob--orange" style="left:265px;top:620px;width:210px;height:250px;animation-delay:-6s"></div></div>
+  <div class="gm-step">01 / 04</div>
+  <div class="gm-title">POUR IN TRANSPARENCY</div>
+  <div class="gm-slider" id="sliderOpacity" style="left:176px;top:412px"><div class="gm-slider__name">opacity</div><div class="gm-slider__track"><div class="gm-slider__fill"></div><div class="gm-slider__knob"></div></div><div class="gm-slider__val">0.35</div></div>
+  <div class="gm-player gm-glass is-step-1" id="glassCard" style="left:127px;top:474px">
+    <div class="gm-player__head"><div class="gm-player__art"></div><div><div class="gm-player__title">Midnight Dreams</div><div class="gm-player__artist">Glass Orchestra</div></div><div class="gm-player__more">&#8942;</div></div>
+    <div class="gm-player__bar"></div>
+    <div class="gm-player__time"><span>2:34</span><span>-1:18</span></div>
+    <div class="gm-player__ctl"><svg class="sm" viewBox="0 0 24 24"><path d="M6 5h2v14H6zM19 5 9 12l10 7z"/></svg><svg class="lg" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg><svg class="sm" viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM5 5l10 7-10 7z"/></svg></div>
+    <div class="gm-player__vol"><span>&#128264;</span><div class="gm-player__bar"></div><span>&#128266;</span></div>
+  </div>
+  <div class="gm-code" id="codeLine" style="top:806px">background: <b>rgba(255,255,255, 0.35);</b></div>
+  <div class="gm-checks" style="top:891px"><div class="gm-check is-done"><i>&#10003;</i>POUR IN TRANSPARENCY</div><div class="gm-check"><i></i>MIX IN THE BLUR</div><div class="gm-check"><i></i>A PINCH OF BORDER</div><div class="gm-check"><i></i>FINISH WITH SHADOW</div></div>
+</section>
+
+<!-- 4 · 02/04 Mix in the blur -->
+<section class="scene" data-t="12" data-shot="18">
+  <div class="gm-bg"><div class="gm-blob gm-blob--pink" style="left:175px;top:440px;width:265px;height:250px"></div><div class="gm-blob gm-blob--blue" style="left:430px;top:500px;width:220px;height:270px;animation-delay:-3s"></div><div class="gm-blob gm-blob--orange" style="left:190px;top:620px;width:250px;height:180px;animation-delay:-6s"></div></div>
+  <div class="gm-step">02 / 04</div>
+  <div class="gm-title">MIX IN THE BLUR</div>
+  <div class="gm-slider" style="left:176px;top:412px"><div class="gm-slider__name">blur</div><div class="gm-slider__track"><div class="gm-slider__fill"></div><div class="gm-slider__knob"></div></div><div class="gm-slider__val">20px</div></div>
+  <div class="gm-player gm-glass is-step-2" style="left:127px;top:474px">
+    <div class="gm-player__head"><div class="gm-player__art"></div><div><div class="gm-player__title">Midnight Dreams</div><div class="gm-player__artist">Glass Orchestra</div></div><div class="gm-player__more">&#8942;</div></div>
+    <div class="gm-player__bar"></div>
+    <div class="gm-player__time"><span>2:34</span><span>-1:18</span></div>
+    <div class="gm-player__ctl"><svg class="sm" viewBox="0 0 24 24"><path d="M6 5h2v14H6zM19 5 9 12l10 7z"/></svg><svg class="lg" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg><svg class="sm" viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM5 5l10 7-10 7z"/></svg></div>
+    <div class="gm-player__vol"><span>&#128264;</span><div class="gm-player__bar"></div><span>&#128266;</span></div>
+  </div>
+  <div class="gm-code" style="top:806px">backdrop-filter: <b>blur(20px);</b></div>
+  <div class="gm-checks" style="top:891px"><div class="gm-check is-done"><i>&#10003;</i>POUR IN TRANSPARENCY</div><div class="gm-check is-done"><i>&#10003;</i>MIX IN THE BLUR</div><div class="gm-check"><i></i>A PINCH OF BORDER</div><div class="gm-check"><i></i>FINISH WITH SHADOW</div></div>
+</section>
+
+<!-- 5 · 03/04 A pinch of border -->
+<section class="scene" data-t="21" data-shot="27">
+  <div class="gm-bg"><div class="gm-blob gm-blob--pink" style="left:15px;top:380px;width:305px;height:290px"></div><div class="gm-blob gm-blob--blue" style="left:430px;top:500px;width:290px;height:280px;animation-delay:-3s"></div><div class="gm-blob gm-blob--orange" style="left:240px;top:620px;width:275px;height:190px;animation-delay:-6s"></div></div>
+  <div class="gm-step">03 / 04</div>
+  <div class="gm-title">A PINCH OF BORDER</div>
+  <div class="gm-player gm-glass is-step-3" style="left:127px;top:474px">
+    <div class="gm-player__head"><div class="gm-player__art"></div><div><div class="gm-player__title">Midnight Dreams</div><div class="gm-player__artist">Glass Orchestra</div></div><div class="gm-player__more">&#8942;</div></div>
+    <div class="gm-player__bar"></div>
+    <div class="gm-player__time"><span>2:34</span><span>-1:18</span></div>
+    <div class="gm-player__ctl"><svg class="sm" viewBox="0 0 24 24"><path d="M6 5h2v14H6zM19 5 9 12l10 7z"/></svg><svg class="lg" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg><svg class="sm" viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM5 5l10 7-10 7z"/></svg></div>
+    <div class="gm-player__vol"><span>&#128264;</span><div class="gm-player__bar"></div><span>&#128266;</span></div>
+  </div>
+  <div class="gm-code" style="top:806px">border: <b>1px solid rgba(255,255,255, 0.5);</b></div>
+  <div class="gm-checks" style="top:891px"><div class="gm-check is-done"><i>&#10003;</i>POUR IN TRANSPARENCY</div><div class="gm-check is-done"><i>&#10003;</i>MIX IN THE BLUR</div><div class="gm-check is-done"><i>&#10003;</i>A PINCH OF BORDER</div><div class="gm-check"><i></i>FINISH WITH SHADOW</div></div>
+</section>
+
+<!-- 6 · 04/04 Finish with shadow -->
+<section class="scene" data-t="30" data-shot="36">
+  <div class="gm-bg"><div class="gm-blob gm-blob--pink" style="left:15px;top:380px;width:305px;height:290px"></div><div class="gm-blob gm-blob--blue" style="left:430px;top:500px;width:290px;height:280px;animation-delay:-3s"></div><div class="gm-blob gm-blob--orange" style="left:240px;top:620px;width:275px;height:190px;animation-delay:-6s"></div></div>
+  <div class="gm-step">04 / 04</div>
+  <div class="gm-title">FINISH WITH SHADOW</div>
+  <div class="gm-slider" style="left:176px;top:412px"><div class="gm-slider__name">shadow</div><div class="gm-slider__track"><div class="gm-slider__fill"></div><div class="gm-slider__knob"></div></div><div class="gm-slider__val">0.15</div></div>
+  <div class="gm-player gm-glass" style="left:127px;top:474px">
+    <div class="gm-player__head"><div class="gm-player__art"></div><div><div class="gm-player__title">Midnight Dreams</div><div class="gm-player__artist">Glass Orchestra</div></div><div class="gm-player__more">&#8942;</div></div>
+    <div class="gm-player__bar"></div>
+    <div class="gm-player__time"><span>2:34</span><span>-1:18</span></div>
+    <div class="gm-player__ctl"><svg class="sm" viewBox="0 0 24 24"><path d="M6 5h2v14H6zM19 5 9 12l10 7z"/></svg><svg class="lg" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg><svg class="sm" viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM5 5l10 7-10 7z"/></svg></div>
+    <div class="gm-player__vol"><span>&#128264;</span><div class="gm-player__bar"></div><span>&#128266;</span></div>
+  </div>
+  <div class="gm-code" style="top:806px">box-shadow: <b>0 8px 32px rgba(0,0,0,0.15);</b></div>
+  <div class="gm-checks" style="top:891px"><div class="gm-check is-done"><i>&#10003;</i>POUR IN TRANSPARENCY</div><div class="gm-check is-done"><i>&#10003;</i>MIX IN THE BLUR</div><div class="gm-check is-done"><i>&#10003;</i>A PINCH OF BORDER</div><div class="gm-check is-done"><i>&#10003;</i>FINISH WITH SHADOW</div></div>
+</section>
+
+<!-- 7 · Save for later: the widget set -->
+<section class="scene" data-t="39" data-shot="40.5">
+  <div class="gm-bg"><div class="gm-blob gm-blob--pink" style="left:15px;top:380px;width:305px;height:290px"></div><div class="gm-blob gm-blob--blue" style="left:430px;top:500px;width:290px;height:280px;animation-delay:-3s"></div><div class="gm-blob gm-blob--orange" style="left:240px;top:620px;width:275px;height:190px;animation-delay:-6s"></div></div>
+  <div class="gm-step" style="top:130px;font-family:'Inter',sans-serif;font-size:18px;font-weight:600;letter-spacing:.14em;color:rgba(255,255,255,.55)">SAVE FOR LATER</div>
+  <div class="gm-widget gm-glass gm-weather" style="left:27px;top:388px;width:267px;height:172px"><div class="gm-weather__temp">24°</div><div class="gm-weather__city">San Francisco</div><div class="gm-weather__sun">&#9728;&#65039;</div>
+    <div class="gm-weather__days"><div>Mon<span>&#127782;&#65039;</span><b>22°</b></div><div>Tue<span>&#127782;&#65039;</span><b>25°</b></div><div>Wed<span>&#9728;&#65039;</span><b>27°</b></div><div>Thu<span>&#127783;&#65039;</span><b>19°</b></div></div></div>
+  <div class="gm-widget gm-glass" style="left:411px;top:440px;width:274px;height:128px;padding:44px 14px"><div class="gm-msg"><div class="gm-msg__icon">&#128276;</div><div><b>New Message</b><span>Hey! Check out this glass effect &#128293;</span></div><em>2m</em></div></div>
+  <div class="gm-player gm-glass" style="left:127px;top:474px;left:188px;top:550px;width:345px;height:218px;padding:42px 20px 0;overflow:hidden">
+    <div class="gm-player__head"><div class="gm-player__art"></div><div><div class="gm-player__title">Midnight Dreams</div><div class="gm-player__artist">Glass Orchestra</div></div><div class="gm-player__more">&#8942;</div></div>
+    <div class="gm-player__bar"></div>
+    <div class="gm-player__time"><span>2:34</span><span>-1:18</span></div>
+    <div class="gm-player__ctl"><svg class="sm" viewBox="0 0 24 24"><path d="M6 5h2v14H6zM19 5 9 12l10 7z"/></svg><svg class="lg" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg><svg class="sm" viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM5 5l10 7-10 7z"/></svg></div>
+    <div class="gm-player__vol"><span>&#128264;</span><div class="gm-player__bar"></div><span>&#128266;</span></div>
+  </div>
+  <div class="gm-widget gm-glass gm-profile" style="left:47px;top:785px;width:251px;height:158px;padding:18px"><div class="gm-profile__avatar"></div><b>Sarah Chen</b><span>Product Designer</span><div class="gm-profile__stats"><div><b>1.2K</b>Posts</div><div><b>8.4K</b>Followers</div><div><b>342</b>Following</div></div></div>
+  <div class="gm-widget gm-glass gm-focus" style="left:441px;top:767px;width:238px;height:146px;padding:24px 20px"><div class="gm-focus__label">FOCUS TIME</div><div class="gm-focus__time">25:00</div><div class="gm-focus__btn">Start</div></div>
+</section>
+
+<!-- 8 · Save for later: the recipe -->
+<section class="scene" data-t="45" data-shot="46.5">
+  <div class="gm-bg"><div class="gm-blob gm-blob--pink" style="left:15px;top:380px;width:305px;height:290px"></div><div class="gm-blob gm-blob--blue" style="left:430px;top:500px;width:290px;height:280px;animation-delay:-3s"></div><div class="gm-blob gm-blob--orange" style="left:240px;top:620px;width:275px;height:190px;animation-delay:-6s"></div></div>
+  <div class="gm-step" style="top:130px;font-family:'Inter',sans-serif;font-size:18px;font-weight:600;letter-spacing:.14em;color:rgba(255,255,255,.55)">SAVE FOR LATER</div>
+  <div class="gm-window gm-glass" id="recipe" style="left:61px;top:481px">
+    <div class="gm-window__bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span>glass.css</span></div>
+    <pre><span class="l"><span class="n">1</span><u>.glass-card</u>{</span>
+<span class="l" style="animation-delay:.2s"><span class="n">2</span>  <b>background</b>:<em>rgba(255,255,255, 0.35)</em>;</span>
+<span class="l" style="animation-delay:.4s"><span class="n">3</span>  <b>backdrop-filter</b>:<em>blur(20px)</em>;</span>
+<span class="l" style="animation-delay:.6s"><span class="n">4</span>  <b>border</b>:<em>1px solid rgba(255,255,255, 0.5)</em>;</span>
+<span class="l" style="animation-delay:.8s"><span class="n">5</span>  <b>box-shadow</b>:<em>0 8px 32px rgba(0,0,0,0.15)</em>;</span>
+<span class="l" style="animation-delay:1s"><span class="n">6</span>}</span></pre>
+  </div>
+</section>
+
+<!-- 9 · Outro -->
+<section class="scene" data-t="48" data-shot="51">
+  <div class="gm-bg"><div class="gm-blob gm-blob--pink" style="left:80px;top:410px;width:270px;height:300px"></div><div class="gm-blob gm-blob--blue" style="left:310px;top:580px;width:300px;height:290px;animation-delay:-3s"></div><div class="gm-blob gm-blob--orange" style="left:310px;top:640px;width:260px;height:240px;animation-delay:-6s"></div></div>
+  <div class="gm-save" style="top:474px">Save this recipe</div>
+  <div class="gm-follow gm-glass" style="top:557px">Follow</div>
+  <div class="gm-handle" style="top:646px">@designmotionhq</div>
+</section>
+
+<script type="module">
+  import { Glass, GlassSlider } from './pattern.js';
+  // Scene 3 is live: drag the opacity slider and the card + code line follow.
+  const glass = Glass(document.getElementById('glassCard'), { opacity: .35 });
+  GlassSlider(document.getElementById('sliderOpacity'), glass, 'opacity', { p: 100 }, css => { const [k, v] = css.split(': '); document.getElementById('codeLine').innerHTML = `${k}: <b>${v}</b>`; });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

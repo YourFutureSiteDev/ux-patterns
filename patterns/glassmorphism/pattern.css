@@ -1,0 +1,93 @@
+/* Glassmorphism, rebuilt from the @designmotionhq reel "Glassmorphism in seconds" (4 lines of CSS).
+   Component classes are prefixed .gm- and depend only on the tokens below. */
+.gm {
+  --gm-bg: #150f28; --gm-text: #f5f3ff; --gm-muted: rgba(255,255,255,.55); --gm-dim: rgba(255,255,255,.35);
+  --gm-glass: rgba(255,255,255,.35); --gm-blur: 20px; --gm-edge: rgba(255,255,255,.5); --gm-shadow: rgba(0,0,0,.15);
+  --gm-purple: #c4b5fd; --gm-cyan: #7dd3fc; --gm-pink: #f472b6; --gm-blue: #60a5fa; --gm-accent: #a78bfa;
+  --gm-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--gm-text);
+}
+
+/* ---- The four lines ------------------------------------------------------ */
+.gm-glass { background: var(--gm-glass); backdrop-filter: blur(var(--gm-blur)); -webkit-backdrop-filter: blur(var(--gm-blur)); border: 1px solid var(--gm-edge); box-shadow: 0 8px 32px var(--gm-shadow); border-radius: 18px; }
+/* Steps of the recipe: each modifier switches one line on. */
+.gm-glass.is-step-0 { background: #16121f; backdrop-filter: none; -webkit-backdrop-filter: none; border-color: transparent; box-shadow: none; }
+.gm-glass.is-step-1 { backdrop-filter: none; -webkit-backdrop-filter: none; border-color: transparent; box-shadow: none; }
+.gm-glass.is-step-2 { border-color: transparent; box-shadow: none; }
+.gm-glass.is-step-3 { box-shadow: none; }
+
+/* ---- Background: gradient, grid, colour blobs ---------------------------------- */
+.gm-bg { position: absolute; inset: 0; background: linear-gradient(180deg, #0e0a1c 0%, #140e28 50%, #22113a 100%); overflow: hidden; }
+.gm-bg::after { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 40px 40px; }
+.gm-blob { position: absolute; border-radius: 42% 58% 55% 45% / 48% 42% 58% 52%; filter: blur(2px); animation: gm-drift 9s ease-in-out infinite alternate; }
+.gm-blob--pink { background: rgba(200,90,180,.26); }
+.gm-blob--blue { background: rgba(50,90,200,.28); }
+.gm-blob--orange { background: rgba(210,100,70,.24); }
+@keyframes gm-drift { to { transform: translate(14px, -18px) rotate(6deg) } }
+
+/* ---- Reel furniture -------------------------------------------------------------- */
+.gm-step { position: absolute; left: 0; right: 0; top: 128px; text-align: center; font: 17px var(--gm-mono); letter-spacing: .2em; color: #8a8598; }
+.gm-title { position: absolute; left: 0; right: 0; top: 160px; text-align: center; font-size: 26px; font-weight: 800; letter-spacing: .1em; }
+.gm-hook { position: absolute; left: 0; right: 0; top: 130px; text-align: center; font-size: 46px; font-weight: 700; letter-spacing: -.01em; }
+.gm-hook em { font-style: normal; background: linear-gradient(90deg, #5aa9ff, #7dd3fc); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.gm-slider { position: absolute; display: flex; align-items: center; gap: 16px; }
+.gm-slider__name { width: 60px; text-align: right; font: 14px var(--gm-mono); color: #fff; }
+.gm-slider__track { position: relative; width: 267px; height: 3px; border-radius: 2px; background: rgba(255,255,255,.18); }
+.gm-slider__fill { position: absolute; left: 0; top: 0; height: 100%; border-radius: 2px; background: linear-gradient(90deg, #38bdf8, #a78bfa); width: var(--p, 100%); transition: width .3s; }
+.gm-slider__knob { position: absolute; top: 50%; left: var(--p, 100%); width: 16px; height: 16px; border-radius: 50%; background: #fff; transform: translate(-50%, -50%); box-shadow: 0 2px 6px rgba(0,0,0,.4); transition: left .3s; }
+.gm-slider__val { width: 44px; font: 13px var(--gm-mono); color: #8a8598; }
+.gm-code { position: absolute; left: 50%; transform: translateX(-50%); padding: 20px 28px; border-radius: 12px; background: rgba(255,255,255,.08); backdrop-filter: blur(12px); font: 20px var(--gm-mono); color: var(--gm-purple); white-space: nowrap; }
+.gm-code b { font-weight: 400; color: var(--gm-cyan); }
+.gm-checks { position: absolute; left: 236px; }
+.gm-check { display: flex; align-items: center; gap: 13px; height: 32px; font-size: 16px; font-weight: 600; letter-spacing: .04em; color: var(--gm-dim); }
+.gm-check i { width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid rgba(255,255,255,.3); display: grid; place-items: center; font-style: normal; font-size: 12px; color: #fff; }
+.gm-check.is-done { color: #fff; } .gm-check.is-done i { background: var(--gm-accent); border-color: var(--gm-accent); }
+
+/* ---- Music player card ------------------------------------------------------------ */
+.gm-player { position: absolute; width: 466px; height: 278px; padding: 50px 24px 0; transition: background .4s, border-color .4s, box-shadow .4s; }
+.gm-player__head { display: flex; align-items: center; gap: 13px; }
+.gm-player__art { width: 68px; height: 68px; border-radius: 12px; background: linear-gradient(135deg, #f472b6, #60a5fa); flex: none; }
+.gm-player__title { font-size: 17px; font-weight: 600; } .gm-player__artist { font-size: 13px; color: var(--gm-muted); margin-top: 3px; }
+.gm-player__more { margin-left: auto; margin-right: 6px; font-size: 16px; color: var(--gm-muted); }
+.gm-player__bar { position: relative; height: 2px; margin-top: 12px; background: rgba(255,255,255,.25); border-radius: 1px; }
+.gm-player__bar::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: var(--p, 65%); background: rgba(255,255,255,.85); border-radius: 1px; }
+.gm-player__time { display: flex; justify-content: space-between; margin-top: 6px; font-size: 11px; color: var(--gm-muted); }
+.gm-player__ctl { display: flex; justify-content: center; align-items: center; gap: 34px; margin-top: 18px; }
+.gm-player__ctl svg { fill: #fff; } .gm-player__ctl svg.sm { width: 14px; height: 14px; opacity: .75; } .gm-player__ctl svg.lg { width: 24px; height: 24px; }
+.gm-player__vol { display: flex; align-items: center; gap: 12px; margin-top: 22px; font-size: 10px; color: var(--gm-muted); }
+.gm-player__vol .gm-player__bar { flex: 1; margin: 0; --p: 45%; }
+
+/* ---- Widget set ------------------------------------------------------------------------ */
+.gm-widget { position: absolute; padding: 18px 20px; }
+.gm-weather__temp { font-size: 31px; font-weight: 500; line-height: 1; } .gm-weather__city { font-size: 14px; color: var(--gm-muted); margin-top: 6px; }
+.gm-weather__sun { position: absolute; right: 24px; top: 20px; font-size: 32px; }
+.gm-weather__days { display: flex; gap: 32px; margin-top: 16px; text-align: center; font-size: 10px; color: var(--gm-muted); }
+.gm-weather__days span { display: block; font-size: 16px; margin: 2px 0; } .gm-weather__days b { font-weight: 500; color: #fff; }
+.gm-msg { display: flex; align-items: center; gap: 12px; }
+.gm-msg__icon { width: 34px; height: 34px; border-radius: 9px; background: var(--gm-accent); display: grid; place-items: center; font-size: 16px; }
+.gm-msg b { display: block; font-size: 14px; } .gm-msg span { display: block; font-size: 10.5px; color: var(--gm-muted); margin-top: 2px; white-space: nowrap; }
+.gm-msg em { margin-left: auto; font-style: normal; font-size: 10px; color: var(--gm-muted); align-self: flex-start; }
+.gm-profile { text-align: center; }
+.gm-profile__avatar { width: 44px; height: 44px; border-radius: 50%; margin: 0 auto 10px; background: linear-gradient(135deg, #60a5fa, #93c5fd); }
+.gm-profile b { display: block; font-size: 15px; } .gm-profile span { display: block; font-size: 11px; color: var(--gm-muted); margin-top: 2px; }
+.gm-profile__stats { display: flex; justify-content: center; gap: 22px; margin-top: 14px; font-size: 9px; color: var(--gm-muted); }
+.gm-profile__stats b { font-size: 13px; margin-bottom: 1px; }
+.gm-focus { text-align: center; }
+.gm-focus__label { font-size: 11px; letter-spacing: .2em; color: var(--gm-purple); }
+.gm-focus__time { font-size: 36px; font-weight: 300; letter-spacing: .04em; margin: 8px 0 10px; }
+.gm-focus__btn { display: inline-block; padding: 4px 22px; border-radius: 999px; background: linear-gradient(90deg, #38bdf8, #a78bfa); font-size: 12px; font-weight: 600; }
+
+/* ---- Code window ------------------------------------------------------------------------ */
+.gm-window { position: absolute; width: 598px; height: 319px; padding: 0; overflow: hidden; }
+.gm-window__bar { display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px; background: rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.08); font: 12px var(--gm-mono); color: var(--gm-muted); }
+.gm-window__bar i { width: 10px; height: 10px; border-radius: 50%; } .gm-window__bar span { margin-left: 8px; }
+.gm-window pre { margin: 0; padding: 14px 0 0; font: 14px/32px var(--gm-mono); color: rgba(255,255,255,.6); }
+.gm-window pre b { font-weight: 700; color: var(--gm-purple); } .gm-window pre em { font-style: normal; color: var(--gm-cyan); } .gm-window pre u { text-decoration: none; color: var(--gm-pink); }
+.gm-window pre .n { display: inline-block; width: 60px; text-align: right; margin-right: 14px; color: rgba(255,255,255,.28); font-size: 12px; }
+.gm-window pre .l { animation: gm-line .3s ease-out both; }
+@keyframes gm-line { from { opacity: 0 } to { opacity: 1 } }
+
+/* ---- Outro ------------------------------------------------------------------------------- */
+.gm-save { position: absolute; left: 0; right: 0; text-align: center; font-size: 40px; font-weight: 700; }
+.gm-follow { position: absolute; left: 50%; transform: translateX(-50%); width: 264px; height: 52px; border-radius: 999px; display: grid; place-items: center; font-size: 17px; font-weight: 600; }
+.gm-handle { position: absolute; left: 0; right: 0; text-align: center; font-size: 18px; color: var(--gm-dim); }

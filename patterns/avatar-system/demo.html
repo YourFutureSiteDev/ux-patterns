@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Avatar System · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0b0e11; --accent: #34d399; --danger: #f43f5e; --grid: rgba(255,255,255,.05); }
+  .scene { color: #f3f4f6; }
+  .av-pop { animation: av-pop .5s cubic-bezier(.2,.9,.3,1.3) both; animation-delay: var(--d, 0s); }
+</style>
+</head>
+<body class="av">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-broken" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 3l18 18M21 15l-4-4-3 3"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+  <symbol id="i-comment" viewBox="0 0 24 24"><path d="M12 4a8 7 0 0 0-6.5 11.5L4 20l4.6-1.4A8 7 0 1 0 12 4z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0M16 5a3.5 3.5 0 0 1 0 7M22 20a6 6 0 0 0-5-6"/></symbol>
+  <symbol id="i-q" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5M3 17l9 5 9-5"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-ruler" viewBox="0 0 24 24"><path d="M3 17L17 3l4 4L7 21zM8 12l2 2M11 9l2 2M14 6l2 2"/></symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18c1.5 0 2-1 2-2s-1-2 1-2h2a4 4 0 0 0 4-4 9 9 0 0 0-9-10z"/><circle cx="7.5" cy="12" r="1.2"/><circle cx="10" cy="7.5" r="1.2"/><circle cx="15" cy="7.5" r="1.2"/></symbol>
+  <symbol id="i-text" viewBox="0 0 24 24"><path d="M5 5h14M12 5v14M9 19h6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-ne" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></symbol>
+  <symbol id="i-at" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.5 18.5a7 7 0 0 1 11 0"/></symbol>
+</svg>
+
+<!-- 1 · Intro: the fallback ships anyway -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="av-glow" style="top:160px"></div>
+  <div class="av-mono-label" style="left:0;right:0;top:154px;text-align:center;letter-spacing:.28em">Avatar · Component system</div>
+  <div class="av-ring" style="left:274px;top:381px;width:172px;height:172px;box-shadow:0 0 40px rgba(52,211,153,.35)"></div>
+  <div class="av-avatar av-pop" style="--size:140px;position:absolute;left:290px;top:397px;font-size:44px">SC</div>
+  <div class="av-chip av-chip--green av-fade" style="top:600px;height:40px;font-size:17px;letter-spacing:0;text-transform:none;padding:0 20px;--d:.3s"><svg style="width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round"><use href="#i-check"/></svg>fallback → initials</div>
+  <div class="av-mono-label av-fade" style="left:0;right:0;top:731px;text-align:center;font-size:13px;--d:.5s">One fails → use the next</div>
+  <div class="av-fade" style="position:absolute;left:234px;top:762px;display:flex;align-items:center;gap:20px;--d:.6s">
+    <span class="av-avatar av-avatar--img" style="--size:52px;opacity:.7"><svg><use href="#i-user"/></svg></span><span class="av-arrow" style="position:static">→</span>
+    <span class="av-avatar" style="--size:52px;font-size:19px">SC</span><span class="av-arrow" style="position:static">→</span>
+    <span class="av-avatar av-avatar--icon" style="--size:52px"><svg><use href="#i-user"/></svg></span>
+  </div>
+  <div class="av-cap av-fade" style="--d:.8s">the fallback ships anyway</div>
+</section>
+
+<!-- 2 · Fallback chain: degrade, don't break -->
+<section class="scene" data-t="3" data-shot="7.5">
+  <div class="av-kicker">Fallback · Chain</div>
+  <h1 class="av-title">One image fails? <em>Degrade, don't break.</em></h1>
+  <div class="av-step av-pop" style="left:48px;top:438px"><span class="av-step__n">1</span><span class="av-avatar av-avatar--img" style="opacity:.75"><svg><use href="#i-user"/></svg></span><span class="av-check av-pop" style="left:78px;top:73px;--d:1.2s"><svg><use href="#i-check"/></svg></span><div class="av-step__name">image</div><div class="av-step__sub">if it loads</div></div>
+  <div class="av-arrow" style="left:183px;top:505px">→</div>
+  <div class="av-step av-pop" style="left:216px;top:438px;--d:.15s"><span class="av-step__n">2</span><span class="av-avatar" style="font-size:27px">SC</span><span class="av-check av-pop" style="left:78px;top:73px;--d:1.4s"><svg><use href="#i-check"/></svg></span><div class="av-step__name">initials</div><div class="av-step__sub">from the name</div></div>
+  <div class="av-arrow" style="left:351px;top:505px">→</div>
+  <div class="av-step av-step--up av-pop" style="left:384px;top:428px;--d:.3s"><span class="av-step__n">3</span><span class="av-avatar av-avatar--icon"><svg><use href="#i-user"/></svg></span><span class="av-check av-pop" style="left:78px;top:73px;--d:1.6s"><svg><use href="#i-check"/></svg></span><div class="av-step__name" style="top:96px">generic<br>icon</div><div class="av-step__sub" style="top:146px">last resort</div></div>
+  <div class="av-arrow" style="left:519px;top:505px">→</div>
+  <div class="av-step av-step--up av-step--bad av-pop" style="left:552px;top:428px;--d:.45s"><span class="av-step__n av-step__n--bad"><svg style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:3"><use href="#i-x"/></svg></span><span class="av-avatar" style="background:#1b1a22;color:var(--av-pink);border:1px dashed #3a2a33"><svg style="width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round"><use href="#i-broken"/></svg></span><div class="av-step__name" style="top:96px">broken<br>square</div><div class="av-step__sub av-step__sub--pink" style="top:146px">never</div></div>
+  <div class="av-nope av-pop" style="left:653px;top:416px;--d:1.8s"></div>
+  <div class="av-slash av-pop" style="left:564px;top:520px;width:100px;transform:rotate(-13deg);--d:1.8s"></div>
+  <div class="av-bar av-fade" style="left:60px;top:778px;width:600px;--d:.8s"><span class="av-mono-label" style="position:static;font-size:13px">Resolve order</span><span class="av-bar__order">image<i>›</i>initials<i>›</i>icon<i>›</i><s>broken</s></span></div>
+  <div class="av-cap av-fade" style="--d:1s"><svg><use href="#i-check"/></svg>Graceful degradation</div>
+</section>
+
+<!-- 3 · Deterministic colour: same name, same colour, everywhere -->
+<section class="scene" data-t="9" data-shot="12">
+  <div class="av-kicker">Color · Deterministic</div>
+  <h1 class="av-title">Same name, <em>same color.</em><br>Everywhere.</h1>
+  <div class="av-pipe av-fade" style="left:37px;top:265px">
+    <span class="av-pipe__box av-pipe__box--name">“Sarah Chen”</span><span class="av-pipe__arrow">→</span>
+    <span class="av-pipe__box av-pipe__box--hash" id="hash">0x629b2403</span><span class="av-pipe__arrow">→</span>
+    <span class="av-pipe__box av-pipe__box--mod">% 6 = 1</span><span class="av-pipe__arrow">→</span>
+    <span class="av-pipe__box av-pipe__box--out"><span class="av-avatar">SC</span>#0EA5E9</span>
+  </div>
+  <div class="av-row-label av-fade" style="left:60px;top:396px;color:var(--av-green);--d:.3s"><i></i>One function · Every screen</div>
+  <div class="av-cards av-fade" style="left:60px;top:440px;--d:.4s">
+    <div class="av-card"><div class="av-card__ctx"><svg><use href="#i-chat"/></svg>Chat header</div><span class="av-avatar">SC</span><div class="av-card__name">Sarah Chen</div><div class="av-card__sub">typing...</div></div>
+    <div class="av-card"><div class="av-card__ctx"><svg><use href="#i-comment"/></svg>Comment</div><span class="av-avatar">SC</span><div class="av-card__name">Sarah Chen</div><div class="av-card__sub">· 2h</div></div>
+    <div class="av-card"><div class="av-card__ctx"><svg><use href="#i-users"/></svg>Member list</div><span class="av-avatar">SC</span><div class="av-card__name">Sarah Chen</div><div class="av-card__sub">Editor</div></div>
+  </div>
+  <div class="av-row-label av-fade" style="left:60px;top:681px;color:var(--av-pink);--d:.6s"><svg><use href="#i-q"/></svg>Random palette · Who is this?</div>
+  <div class="av-cards av-fade" id="randomRow" style="left:60px;top:725px;--d:.7s">
+    <div class="av-card"><div class="av-card__ctx"><svg><use href="#i-chat"/></svg>Chat header</div><span class="av-avatar av-avatar--purple">SC</span><div class="av-card__name">Sarah Chen</div><div class="av-card__sub">typing...</div></div>
+    <div class="av-card"><div class="av-card__ctx"><svg><use href="#i-comment"/></svg>Comment</div><span class="av-avatar av-avatar--amber">SC</span><div class="av-card__name">Sarah Chen</div><div class="av-card__sub">· 2h</div></div>
+    <div class="av-card"><div class="av-card__ctx"><svg><use href="#i-users"/></svg>Member list</div><span class="av-avatar av-avatar--indigo">SC</span><div class="av-card__name">Sarah Chen</div><div class="av-card__sub">Editor</div></div>
+  </div>
+  <div class="av-cap av-fade" style="--d:.9s"><i></i>One name, one color</div>
+</section>
+
+<!-- 4 · Initials: two letters read as a person -->
+<section class="scene" data-t="19.5" data-shot="21">
+  <div class="av-kicker">Initials · Default</div>
+  <h1 class="av-title">Two letters read as <em>a person.</em></h1>
+  <div class="av-name av-fade" style="top:316px"><b>S</b>arah <b>C</b>hen</div>
+  <div class="av-avatar av-pop" style="--size:128px;position:absolute;left:296px;top:405px;font-size:44px;--d:.2s">SC</div>
+  <div class="av-people av-fade" style="left:190px;top:586px;--d:.6s">
+    <div class="av-person"><span class="av-avatar">SC</span><em>Sarah Chen</em></div>
+    <div class="av-person"><span class="av-avatar av-avatar--pink">MR</span><em>Miles Reyes</em></div>
+    <div class="av-person"><span class="av-avatar av-avatar--green">AO</span><em>Ada Okafor</em></div>
+  </div>
+  <div class="av-cap av-fade" style="--d:.8s"><svg><use href="#i-arrow"/></svg>2 by default · 1 only when tiny</div>
+</section>
+
+<!-- 4b · Initials: drop to one when tiny -->
+<section class="scene" data-t="22.5" data-shot="24">
+  <div class="av-kicker">Initials · Default</div>
+  <h1 class="av-title">Two letters read as <em>a person.</em></h1>
+  <div class="av-sizes">
+    <div class="av-sizes__item av-pop" style="left:0"><span class="av-avatar" style="--size:112px;font-size:36px">SC</span><em>48px</em></div>
+    <div class="av-sizes__item av-pop" style="left:211px;--d:.15s"><span class="av-avatar" style="--size:78px;font-size:26px">SC</span><em>32px</em></div>
+    <div class="av-sizes__item av-pop" style="left:386px;--d:.3s"><span class="av-avatar" style="--size:56px;font-size:19px">SC</span><em>24px</em></div>
+    <div class="av-sizes__item av-sizes__item--pink av-pop" style="left:541px;--d:.45s"><span class="av-avatar av-avatar--rose" style="--size:30px;font-size:12px">S</span><em>16px</em></div>
+  </div>
+  <div class="av-cap av-cap--pink av-fade" style="top:634px;--d:.8s">two letters turn to mush → drop to one</div>
+  <div class="av-cap"><svg><use href="#i-arrow"/></svg>2 by default · 1 only when tiny</div>
+</section>
+
+<!-- 4c · Initials: a person vs a bug -->
+<section class="scene" data-t="25.5" data-shot="27">
+  <div class="av-kicker">Initials · Default</div>
+  <h1 class="av-title">Two letters read as <em>a person.</em></h1>
+  <div class="av-panel av-panel--green av-judge av-fade" style="left:82px;top:375px">
+    <div class="av-chip av-chip--green" style="top:22px"><svg style="width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round"><use href="#i-check"/></svg>A person</div>
+    <span class="av-avatar av-avatar--pink">JD</span>
+    <div class="av-judge__row"><span class="av-avatar av-avatar--pink">JD</span>Jamie Dean<br>commented</div>
+  </div>
+  <div class="av-panel av-panel--pink av-judge av-fade" style="left:373px;top:375px;height:255px;--d:.15s">
+    <div class="av-chip av-chip--pink" style="top:22px"><svg style="width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round"><use href="#i-x"/></svg>A bug</div>
+    <span class="av-avatar av-avatar--rose">J</span>
+    <div class="av-judge__row" style="min-height:47px;left:22px;right:22px"><span class="av-avatar av-avatar--rose">J</span>J commented</div>
+  </div>
+  <div class="av-cap"><svg><use href="#i-arrow"/></svg>2 by default · 1 only when tiny</div>
+</section>
+
+<!-- 5 · Stack: overlap the group, cap the row -->
+<section class="scene" data-t="28.5" data-shot="31.5">
+  <div class="av-kicker">Stack · Overflow</div>
+  <h1 class="av-title">Overlap the group, <em>cap the row.</em></h1>
+  <div class="av-mono-label av-fade" style="left:0;right:0;top:402px;text-align:center" id="showing">Showing 4 · +3 more</div>
+  <div class="av-stack av-stack--big" id="bigStack" style="position:absolute;left:202px;top:522px"></div>
+  <div class="av-stats av-fade" style="left:155px;top:661px;--d:.6s"><span class="av-stat">Overlap <b>−52px</b></span><span class="av-stat">Cap <b>4 shown</b></span><span class="av-stat">Overflow <b>+3</b></span></div>
+  <div class="av-review av-fade" style="left:60px;top:741px;width:600px;--d:.9s"><div class="av-review__title">Design Review</div><div class="av-review__sub"><svg><use href="#i-users"/></svg>7 collaborators</div><div class="av-stack av-stack--sm" id="smallStack"></div></div>
+  <div class="av-cap av-fade" style="--d:1s"><svg><use href="#i-layers"/></svg>Overlap + overflow</div>
+</section>
+
+<!-- 6 · Presence: status lives on the ring -->
+<section class="scene" data-t="33" data-shot="37.5">
+  <div class="av-kicker av-kicker--grey">Presence · Ring</div>
+  <h1 class="av-title">Status lives on <em>the ring.</em></h1>
+  <div class="av-panel av-panel--green av-pres av-fade" style="left:53px;top:313px;box-shadow:0 0 50px rgba(52,211,153,.06)">
+    <div class="av-chip av-chip--green" style="top:22px">On the ring</div>
+    <span class="av-avatar av-avatar--ring" data-status="online" style="--size:104px;position:absolute;left:94px;top:93px;font-size:38px;--ring-w:5px;--ring-gap:14px;box-shadow:0 0 44px 10px rgba(52,211,153,.28)">SC</span>
+    <div class="av-pres__cap">one integrated signal</div>
+  </div>
+  <div class="av-panel av-panel--pink av-pres av-fade" style="left:375px;top:313px;--d:.15s">
+    <div class="av-chip av-chip--pink" style="top:22px">Second badge</div>
+    <span class="av-warn" style="left:62px;top:62px"><svg><use href="#i-warn"/></svg></span>
+    <span class="av-avatar" style="--size:112px;position:absolute;left:90px;top:91px;font-size:40px;box-shadow:none">SC</span>
+    <span class="av-badge" style="left:148px;top:77px"><i></i>Online</span>
+    <span class="av-dot" style="left:176px;top:177px"></span>
+    <span class="av-badge av-badge--muted" style="left:65px;top:195px;height:26px">active now</span>
+    <div class="av-pres__cap">stacked, redundant</div>
+  </div>
+  <div class="av-legend av-fade" style="left:60px;top:766px;width:600px;--d:.7s">
+    <div class="av-legend__item"><span class="av-avatar av-avatar--ring" data-status="online">SC</span><div><b style="color:var(--av-green)">ONLINE</b><span>green</span></div></div>
+    <div class="av-legend__item"><span class="av-avatar av-avatar--pink av-avatar--ring" data-status="away">MR</span><div><b style="color:var(--av-amber)">AWAY</b><span>amber</span></div></div>
+    <div class="av-legend__item"><span class="av-avatar av-avatar--green av-avatar--ring" data-status="offline">AO</span><div><b style="color:#6b7280">OFFLINE</b><span>grey</span></div></div>
+  </div>
+  <div class="av-cap av-fade" style="--d:.9s"><svg><use href="#i-check"/></svg>Status on the ring</div>
+</section>
+
+<!-- 7 · Size scale: three sizes, then stop -->
+<section class="scene" data-t="42" data-shot="43.5">
+  <div class="av-kicker">Size · Scale</div>
+  <h1 class="av-title">Three sizes. <em>Then stop.</em></h1>
+  <div class="av-baseline"></div>
+  <span class="av-avatar av-pop" style="--size:76px;position:absolute;left:109px;top:503px;font-size:24px">SC</span>
+  <span class="av-avatar av-pop" style="--size:102px;position:absolute;left:282px;top:479px;font-size:32px;--d:.15s">SC</span>
+  <span class="av-avatar av-pop" style="--size:128px;position:absolute;left:482px;top:452px;font-size:40px;--d:.3s">SC</span>
+  <div class="av-tick" style="left:153px;top:596px"></div><div class="av-tick" style="left:347px;top:596px"></div><div class="av-tick" style="left:555px;top:596px"></div>
+  <div class="av-size-chip av-fade" style="left:99px;top:620px;--d:.4s"><b>24</b>· List</div>
+  <div class="av-size-chip av-fade" style="left:285px;top:620px;--d:.5s"><b>32</b>· Header</div>
+  <div class="av-size-chip av-fade" style="left:489px;top:620px;--d:.6s"><b>40</b>· Profile</div>
+  <div class="av-list av-fade" style="left:60px;top:752px;--d:.8s">
+    <div class="av-list__card"><span class="av-avatar" style="--size:24px;font-size:9px">SC</span><div><b>Sarah Chen</b><span>Editor</span></div></div>
+    <div class="av-list__card" style="width:196px"><span class="av-avatar" style="--size:32px;font-size:12px;overflow:visible">SC<i class="av-online"></i></span><div><b>Sarah Chen</b><span>online</span></div></div>
+    <div class="av-list__card"><span class="av-avatar" style="--size:40px;font-size:15px">SC</span><div><b>Sarah Chen</b><span>Product Designer</span></div></div>
+  </div>
+  <div class="av-cap av-fade" style="--d:1s"><svg><use href="#i-ruler"/></svg>Three tokens, nothing between</div>
+</section>
+
+<!-- 8 · Outro -->
+<section class="scene" data-t="48" data-shot="51">
+  <div class="av-glow" style="top:120px;height:700px"></div>
+  <div class="av-outro__h av-fade">More UI systems</div>
+  <div class="av-outro__sub av-fade" style="--d:.1s">One component, decoded every week.</div>
+  <div class="av-stack av-stack--mid av-fade" id="outroStack" style="position:absolute;left:208px;top:341px;--d:.2s"></div>
+  <div class="av-feature av-fade" style="left:60px;top:468px;--d:.3s"><i><svg><use href="#i-broken"/></svg></i><b>Fallback chain</b><span>photo, initials, icon</span></div>
+  <div class="av-feature av-fade" style="left:368px;top:468px;--d:.4s"><i><svg><use href="#i-palette"/></svg></i><b>Color from name</b><span>same person, same hue</span></div>
+  <div class="av-feature av-fade" style="left:60px;top:560px;--d:.5s"><i><svg><use href="#i-text"/></svg></i><b>Two initials</b><span>one only when tiny</span></div>
+  <div class="av-feature av-fade" style="left:368px;top:560px;--d:.6s"><i><svg><use href="#i-shield"/></svg></i><b>Status on the ring</b><span>never a second badge</span></div>
+  <div class="av-site av-fade" style="--d:.7s"><svg><use href="#i-at"/></svg>designmotionhq.com</div>
+  <div class="av-btn av-btn--green av-fade" style="left:206px;top:776px;--d:.8s">Link in bio<svg><use href="#i-ne"/></svg></div>
+  <div class="av-btn av-btn--dark av-fade" style="left:393px;top:776px;--d:.9s"><svg><use href="#i-bookmark"/></svg>Save</div>
+  <div class="av-handle">@designmotionhq</div>
+</section>
+
+<script type="module">
+  import { AvatarStack, hashHex, colorFromName } from './pattern.js';
+  const team = [{ name: 'Sarah Chen' }, { name: 'Miles Reyes' }, { name: 'Ada Okafor' }, { name: 'Lena Park' }, { name: 'Omar Diaz' }, { name: 'Ivy Zhou' }, { name: 'Ken Mori' }];
+  // The reel's colours for the four visible members; AvatarStack picks them from the name hash, we pin the palette order to match.
+  const pin = (stack) => { const g = ['var(--sky)', 'var(--pink)', 'var(--grn)', 'var(--vio)']; [...stack.querySelectorAll('.av-avatar:not(.av-avatar--more)')].forEach((a, i) => a.style.background = g[i]); };
+  pin(AvatarStack(document.getElementById('bigStack'), team, { max: 4, size: 92, overlap: -44 }));
+  pin(AvatarStack(document.getElementById('smallStack'), team, { max: 4, size: 36, overlap: -14 }));
+  pin(AvatarStack(document.getElementById('outroStack'), team.slice(0, 5), { max: 4, size: 84, overlap: -38 }));
+  // Random palette row: a different colour every 1.5 s, because nothing ties it to the name.
+  const rnd = ['av-avatar--purple', 'av-avatar--amber', 'av-avatar--indigo', 'av-avatar--pink', 'av-avatar--rose', 'av-avatar--green', 'av-avatar--orange'];
+  const row = document.getElementById('randomRow'), avs = [...row.querySelectorAll('.av-avatar')];
+  const paint = k => avs.forEach((a, i) => { a.classList.remove(...rnd); a.classList.add(rnd[(((k * 3 + i) % rnd.length) + rnd.length) % rnd.length]); });
+  row.closest('.scene').addEventListener('scene:enter', e => { const local = (e.detail.t || 0) - 9; paint(Math.max(0, Math.round(local / 1.5)) - 2); if (!new URLSearchParams(location.search).has('t')) { let k = 0; clearInterval(row._iv); row._iv = setInterval(() => paint(++k), 1500); } });
+  document.getElementById('hash').title = hashHex('Sarah Chen') + ' → ' + colorFromName('Sarah Chen').hex;
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

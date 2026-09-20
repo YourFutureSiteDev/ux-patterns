@@ -1,0 +1,91 @@
+/* Border radius, rebuilt from the @designmotionhq reel "Same card. One looks off, one looks expensive."
+   Component classes are prefixed .br- and depend only on the tokens below. */
+.br {
+  --br-bg: #0a090b; --br-panel: #101014; --br-panel-2: #151519; --br-field: #1c1c22; --br-border: #1e1e24; --br-text: #f2f2f5; --br-muted: #8b8b96; --br-dim: #9a9aa4;
+  --br-purple: #8b5cf6; --br-cyan: #22d3ee; --br-green: #4ade80; --br-red: #ef4444; --br-blue: #4f7fd0; --br-pink: #c46493;
+  --br-mono: 'JetBrains Mono', Consolas, 'Cascadia Mono', Menlo, monospace;
+  --radius: 16px; --inner-radius: 8px;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--br-text);
+}
+.br-h { position: absolute; left: 0; right: 0; top: 135px; margin: 0; text-align: center; font-size: 30px; font-weight: 700; letter-spacing: -.01em; }
+.br-h--soft { font-weight: 400; color: var(--br-dim); }
+.br-glow { position: absolute; left: 110px; top: 380px; width: 500px; height: 500px; border-radius: 50%; background: rgba(139,92,246,.08); filter: blur(90px); pointer-events: none; }
+.br-fade { animation: br-fade .5s ease-out both; animation-delay: var(--d, 0s); }
+
+/* ---- Modal (the "something's off" card) ---------------------------------- */
+.br-modal { position: absolute; width: 450px; height: 268px; background: var(--br-panel); border: 1px solid var(--br-border); border-radius: var(--radius); box-shadow: 0 30px 60px rgba(0,0,0,.5); transition: border-radius .4s; }
+.br-modal__title { position: absolute; left: 15px; top: 17px; font-size: 19px; font-weight: 700; }
+.br-modal__close { position: absolute; right: 16px; top: 16px; width: 24px; height: 24px; border-radius: var(--close-radius, 6px); background: var(--br-field); color: var(--br-dim); font-size: 12px; display: grid; place-items: center; }
+.br-modal__group { position: absolute; left: 15px; right: 15px; top: 55px; height: 146px; background: var(--br-panel-2); border: 1px solid var(--br-border); border-radius: var(--inner-radius); transition: border-radius .4s; }
+.br-modal__avatar { position: absolute; left: 14px; top: 14px; width: 34px; height: 34px; border-radius: 50%; background: #1d1a30; border: 2px solid #6d4fd6; }
+.br-modal__name { position: absolute; left: 61px; top: 12px; font-size: 15px; font-weight: 700; }
+.br-modal__hint { position: absolute; left: 61px; top: 32px; font-size: 14px; color: var(--br-muted); }
+.br-modal__input { position: absolute; left: 13px; right: 18px; height: 32px; background: var(--br-field); border-radius: var(--input-radius, var(--inner-radius)); color: var(--br-muted); font-size: 14px; line-height: 32px; padding-left: 12px; transition: border-radius .4s; }
+.br-modal__btn { position: absolute; top: 218px; height: 34px; padding: 0 20px; border-radius: var(--button-radius, 8px); background: var(--br-field); color: #d0d0d8; font-size: 16px; font-weight: 600; line-height: 34px; transition: border-radius .4s; }
+.br-modal__btn--primary { background: var(--br-purple); color: #fff; font-weight: 700; }
+.br-modal--off { --radius: 12px; --inner-radius: 2px; --input-radius: 16px; --button-radius: 2px; --close-radius: 6px; }
+.br-modal--rule { --radius: 16px; --inner-radius: 8px; --input-radius: 8px; --button-radius: 8px; --close-radius: 6px; }
+.br-tokens { position: absolute; display: flex; gap: 22px; }
+.br-token { text-align: center; } .br-token span { display: block; font-size: 15px; color: var(--br-dim); margin-bottom: 6px; } .br-token b { display: inline-block; padding: 3px 8px; border-radius: 6px; background: #0e2a30; color: var(--br-cyan); font-size: 18px; font-weight: 700; }
+
+/* ---- The Rule diagram ------------------------------------------------------- */
+.br-rule { position: absolute; width: 320px; height: 225px; background: #111117; border: 1px solid rgba(139,92,246,.5); border-radius: 16px; padding: 8px; }
+.br-rule__inner { width: 100%; height: 100%; background: #16162a; border: 1px solid rgba(34,211,238,.5); border-radius: 8px; position: relative; z-index: 2; }
+.br-rule__av { position: absolute; left: 16px; top: 16px; width: 32px; height: 32px; border-radius: 6px; background: #2a2450; }
+.br-rule__inner i { position: absolute; left: 16px; height: 5px; border-radius: 3px; background: #23232e; display: block; }
+.br-rule__btn { position: absolute; left: 16px; right: 16px; bottom: 16px; height: 26px; border-radius: 8px; background: #2e2560; }
+.br-mark { position: absolute; font-size: 13px; color: var(--br-dim); line-height: 1.2; }
+.br-mark b { display: block; font: 700 18px var(--br-mono); }
+.br-mark--purple b { color: var(--br-purple); } .br-mark--cyan b { color: var(--br-cyan); }
+.br-mark--pad { font: 700 13px/17px var(--br-mono); color: var(--br-cyan); z-index: 1; }
+.br-line { position: absolute; height: 1px; }
+.br-eq { position: absolute; left: 50%; transform: translateX(-50%); height: 50px; padding: 0 26px; border-radius: 10px; background: #0d1f22; border: 1px solid rgba(34,211,238,.3); display: flex; align-items: center; gap: 10px; font: 700 22px var(--br-mono); color: #6b6b78; white-space: nowrap; box-shadow: 0 0 30px rgba(34,211,238,.08); }
+.br-eq .p { color: var(--br-purple); } .br-eq .c { color: var(--br-cyan); } .br-eq .g { color: var(--br-green); }
+.br-bad { position: absolute; width: 131px; height: 77px; background: #1a1522; border: 1px solid rgba(239,68,68,.35); border-radius: 16px; padding: 8px; }
+.br-bad i { display: block; width: 100%; height: 100%; background: #16162a; border: 1px solid #3a3a48; border-radius: 16px; }
+.br-bad__note { position: absolute; color: var(--br-red); }
+.br-bad__note b { display: block; font: 700 16px var(--br-mono); } .br-bad__note span { display: block; margin-top: 8px; font-size: 15px; }
+
+/* ---- Radius scale ------------------------------------------------------------ */
+.br-scale { position: absolute; left: 0; right: 0; top: 181px; text-align: center; font: 700 18px var(--br-mono); letter-spacing: .2em; color: var(--br-cyan); }
+.br-tag { position: absolute; left: 0; right: 0; top: 231px; text-align: center; font-size: 15px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
+.br-tag--before { color: var(--br-red); } .br-tag--after { color: var(--br-green); }
+.br-bar { position: absolute; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; font-weight: 700; background: #1a1530; border: 1px solid #2a2348; border-radius: var(--r); }
+.br-bar span { font-size: 13px; font-weight: 400; color: var(--br-muted); }
+.br-bar--bad { background: #2a1218; border-color: #3a1a22; }
+.br-axis { position: absolute; width: 1px; background: #3a2a5a; }
+.br-axis__pt { position: absolute; left: -4px; display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; color: var(--br-purple); transform: translateY(-50%); white-space: nowrap; }
+.br-axis__pt::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--br-purple); }
+
+/* ---- Personality ------------------------------------------------------------- */
+.br-card { position: absolute; width: 266px; height: 268px; background: #111014; border: 1px solid #1c1b20; border-radius: var(--radius); text-align: center; transition: border-radius .4s; }
+.br-card__av { position: absolute; left: 109px; top: 21px; width: 48px; height: 48px; border-radius: var(--avatar-radius); background: var(--av-bg); border: 1px solid var(--av-border); display: grid; place-items: center; transition: border-radius .4s; }
+.br-card__av::after { content: ''; width: 24px; height: 24px; border-radius: calc(var(--avatar-radius) / 2); background: var(--av-dot); }
+.br-card__name { position: absolute; left: 0; right: 0; top: 83px; font-size: 17px; font-weight: 700; }
+.br-card__role { position: absolute; left: 0; right: 0; top: 116px; font-size: 14px; color: var(--br-muted); }
+.br-card__stats { position: absolute; left: 0; right: 0; top: 148px; display: flex; justify-content: center; gap: 24px; }
+.br-card__stats b { display: block; font-size: 18px; font-weight: 700; color: var(--accent-c); } .br-card__stats span { display: block; font-size: 13px; color: var(--br-muted); margin-top: 3px; }
+.br-card__btn { position: absolute; left: 21px; right: 21px; top: 209px; height: 36px; border-radius: var(--inner-radius); background: var(--btn-bg); color: var(--accent-c); font-size: 15px; font-weight: 600; line-height: 36px; transition: border-radius .4s; }
+.br-card--corp { --radius: 2px; --inner-radius: 2px; --avatar-radius: 4px; --av-bg: #1f3a63; --av-border: #2a4a80; --av-dot: #2a5aa0; --accent-c: var(--br-blue); --btn-bg: #151e2f; }
+.br-card--friendly { --radius: 20px; --inner-radius: 18px; --avatar-radius: 16px; --av-bg: #5c2b4c; --av-border: #7a3a66; --av-dot: #7a3a66; --accent-c: var(--br-pink); --btn-bg: #1d101d; }
+.br-divider { position: absolute; width: 1px; background: #1c1b20; }
+.br-mood { position: absolute; height: 31px; padding: 0 17px; display: flex; align-items: center; font-size: 16px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
+.br-mood--corp { color: #3b82f6; background: #10162a; border: 1px solid #1e2a45; border-radius: 2px; }
+.br-mood--friendly { color: #e879b0; background: #2a1020; border: 1px solid #45203a; border-radius: 999px; }
+.br-slider { position: absolute; width: 466px; }
+.br-slider__labels { display: flex; justify-content: space-between; font-size: 15px; font-weight: 600; margin-bottom: 12px; }
+.br-slider__labels span:first-child { color: #4f6fbb; } .br-slider__labels span:last-child { color: var(--br-pink); }
+.br-slider__track { position: relative; height: 5px; border-radius: 3px; background: linear-gradient(90deg, #3b4d94, #6d4fd6 50%, #c46493); cursor: pointer; }
+.br-slider__thumb { position: absolute; top: 50%; left: 45%; width: 14px; height: 14px; border-radius: 50%; background: #d0d0d0; transform: translate(-50%, -50%); box-shadow: 0 0 0 3px rgba(208,208,208,.15); }
+.br-choose { position: absolute; left: 0; right: 0; text-align: center; font-size: 17px; color: var(--br-muted); }
+
+/* ---- Outro ------------------------------------------------------------------- */
+.br-row { position: absolute; left: 127px; width: 466px; height: 66px; background: #121113; border: 1px solid #1c1b20; border-radius: 10px; }
+.br-row i { position: absolute; left: 22px; top: 19px; width: 28px; height: 28px; border-radius: 6px; display: grid; place-items: center; font: 700 13px var(--br-mono); font-style: normal; opacity: .55; }
+.br-row b { position: absolute; left: 67px; top: 12px; font-size: 17px; font-weight: 700; } .br-row span { position: absolute; left: 67px; top: 36px; font-size: 14px; color: var(--br-muted); }
+.br-handle { position: absolute; left: 0; right: 0; text-align: center; font-size: 28px; font-weight: 800; }
+.br-cta { position: absolute; left: 50%; transform: translateX(-50%); height: 45px; padding: 0 38px; font-size: 17.5px; border-radius: 999px; background: linear-gradient(90deg, #22d3ee, #8b5cf6); color: #fff; font-size: 17px; font-weight: 700; line-height: 45px; white-space: nowrap; box-shadow: 0 0 40px rgba(139,92,246,.35); }
+.br-save { position: absolute; left: 0; right: 0; text-align: center; font-size: 15px; color: var(--br-dim); display: flex; justify-content: center; align-items: center; gap: 6px; }
+.br-save svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+@keyframes br-fade { from { opacity: 0; translate: 0 8px; } to { opacity: 1; translate: 0 0; } }
+@keyframes br-pop { from { opacity: 0; scale: .96; } to { opacity: 1; scale: 1; } }

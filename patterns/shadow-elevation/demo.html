@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shadow Elevation · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #06080e; --grid: transparent; --accent: #8b5cf6; --danger: #ef4444; }
+  .scene { color: #f2f3f7; }
+</style>
+</head>
+<body class="se">
+
+<!-- 1 · Shadow Layers: flat vs floats -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:260px;top:120px;width:560px;height:560px;background:rgba(139,92,246,.10)"></div>
+  <h1 class="se-title se-fade" style="top:133px;font-size:38px">Shadow Layers</h1>
+  <div class="se-price se-price--flat se-fade" style="left:52px;top:218px;animation-delay:.2s">
+    <div class="se-price__tier">Basic</div>
+    <div class="se-price__amount">$9<span>/mo</span></div>
+    <div class="se-price__rule"></div>
+    <ul class="se-price__list">
+      <li class="is-on"><i></i>Unlimited projects</li><li><i>—</i>Custom domains</li><li><i>—</i>Priority support</li><li><i>—</i>Analytics suite</li>
+    </ul>
+    <button class="se-price__btn">Get Started</button>
+  </div>
+  <div class="se-price se-price--pro se-fade" style="left:386px;top:218px;animation-delay:.4s">
+    <div class="se-price__tier">Pro</div>
+    <div class="se-price__amount">$29<span>/mo</span></div>
+    <div class="se-price__rule"></div>
+    <ul class="se-price__list">
+      <li class="is-on"><i>✓</i>Unlimited projects</li><li class="is-on"><i>✓</i>Custom domains</li><li class="is-on"><i>✓</i>Priority support</li><li class="is-on"><i>✓</i>Analytics suite</li>
+    </ul>
+    <button class="se-price__btn">Upgrade Now</button>
+  </div>
+  <div class="se-tag se-tag--flat se-fade" style="left:145px;top:536px;animation-delay:.8s">Flat</div>
+  <div class="se-tag se-tag--floats se-fade" style="left:464px;top:536px;animation-delay:1s">Floats</div>
+</section>
+
+<!-- 2 · 3 Layers of Depth: contact shadow -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="glow" style="left:-60px;top:260px;width:520px;height:520px;background:rgba(139,92,246,.07)"></div>
+  <h1 class="se-title se-fade" style="top:145px">3 Layers of Depth</h1>
+  <div class="se-sub se-fade" style="top:194px;animation-delay:.15s">Add them one by one</div>
+  <div class="se-card se-card--contact se-card--dim se-fade" style="left:105px;top:527px;animation-delay:.3s">
+    <div class="se-card__head"><div class="se-card__logo">T</div><div><b>Premium Card</b><span>@designmotionhq</span></div></div>
+    <div class="se-card__rule"></div>
+    <p class="se-card__body">Shadows aren't decoration. They communicate hierarchy and depth.</p>
+    <div class="se-card__stats"><div><span>Depth</span><b>3 layers</b></div><div><span>Impact</span><b>+40%</b></div></div>
+  </div>
+  <div class="se-layer se-layer--contact se-fade" style="right:40px;top:348px;animation-delay:.9s"><span class="se-layer__badge">Contact</span><code class="se-layer__code">0 1px 3px rgba(0,0,0,0.4)</code><span class="se-layer__note">Tight shadow anchors it</span></div>
+</section>
+
+<!-- 2b · 3 Layers of Depth: contact + glow + elevation -->
+<section class="scene" data-t="6" data-shot="9">
+  <div class="glow" style="left:-60px;top:260px;width:520px;height:520px;background:rgba(139,92,246,.07)"></div>
+  <h1 class="se-title" style="top:145px">3 Layers of Depth</h1>
+  <div class="se-sub" style="top:194px">Add them one by one</div>
+  <div class="se-card se-card--contact se-card--glow se-card--lift" style="left:105px;top:527px">
+    <div class="se-card__head"><div class="se-card__logo">T</div><div><b>Premium Card</b><span>@designmotionhq</span></div></div>
+    <div class="se-card__rule"></div>
+    <p class="se-card__body">Shadows aren't decoration. They communicate hierarchy and depth.</p>
+    <div class="se-card__stats"><div><span>Depth</span><b>3 layers</b></div><div><span>Impact</span><b>+40%</b></div></div>
+  </div>
+  <div class="se-layer se-layer--contact" style="right:40px;top:348px"><span class="se-layer__badge">Contact</span><code class="se-layer__code">0 1px 3px rgba(0,0,0,0.4)</code><span class="se-layer__note">Tight shadow anchors it</span></div>
+  <div class="se-layer se-layer--glow se-fade" style="right:40px;top:481px;animation-delay:.3s"><span class="se-layer__badge">Glow</span><code class="se-layer__code">0 0 60px rgba(139,92,246,0.15)</code><span class="se-layer__note">Colored glow adds brand</span></div>
+  <div class="se-layer se-layer--elevation se-fade" style="right:40px;top:614px;animation-delay:1.8s"><span class="se-layer__badge">Elevation</span><code class="se-layer__code">perspective(1000px)<br>rotateX(2deg) translateZ(20px)</code><span class="se-layer__note">3D lift creates depth</span></div>
+</section>
+
+<!-- 2c · 3 Layers of Depth: combined CSS -->
+<section class="scene" data-t="10.5" data-shot="12">
+  <div class="glow" style="left:-60px;top:260px;width:520px;height:520px;background:rgba(139,92,246,.07)"></div>
+  <h1 class="se-title" style="top:145px">3 Layers of Depth</h1>
+  <div class="se-sub" style="top:194px">Add them one by one</div>
+  <div class="se-card se-card--contact se-card--glow se-card--lift se-rise" id="layered" style="left:105px;top:527px">
+    <div class="se-card__head"><div class="se-card__logo">T</div><div><b>Premium Card</b><span>@designmotionhq</span></div></div>
+    <div class="se-card__rule"></div>
+    <p class="se-card__body">Shadows aren't decoration. They communicate hierarchy and depth.</p>
+    <div class="se-card__stats"><div><span>Depth</span><b>3 layers</b></div><div><span>Impact</span><b>+40%</b></div></div>
+  </div>
+  <div class="se-layer se-layer--contact" style="right:40px;top:348px"><span class="se-layer__badge">Contact</span><code class="se-layer__code">0 1px 3px rgba(0,0,0,0.4)</code><span class="se-layer__note">Tight shadow anchors it</span></div>
+  <div class="se-layer se-layer--glow" style="right:40px;top:481px"><span class="se-layer__badge">Glow</span><code class="se-layer__code">0 0 60px rgba(139,92,246,0.15)</code><span class="se-layer__note">Colored glow adds brand</span></div>
+  <div class="se-layer se-layer--elevation" style="right:40px;top:614px"><span class="se-layer__badge">Elevation</span><code class="se-layer__code">perspective(1000px)<br>rotateX(2deg) translateZ(20px)</code><span class="se-layer__note">3D lift creates depth</span></div>
+  <div class="se-css se-fade" style="left:40px;top:852px;animation-delay:.4s">
+    <div class="se-css__label">Combined CSS</div>
+<pre><b>box-shadow:</b>
+  0 1px 3px rgba(0,0,0,0.4),
+  0 8px 24px rgba(0,0,0,0.3),
+  0 0 60px rgba(139,92,246,0.15);
+<b>transform:</b>
+  perspective(1000px)
+  rotateX(2deg) translateZ(20px);</pre>
+  </div>
+</section>
+
+<!-- 3 · Tint Your Glow: creative -->
+<section class="scene" data-t="15" data-shot="16.5">
+  <h1 class="se-title se-fade" style="top:132px;font-size:33px">Tint Your Glow</h1>
+  <div class="se-app se-app--purple se-fade" style="left:200px;top:203px;animation-delay:.2s">
+    <div class="se-app__head"><div class="se-app__icon"></div><div><b>Creative App</b><span>Dashboard</span></div></div>
+    <div class="se-app__row"><b>Projects</b><em>24 active</em></div>
+    <div class="se-bar"><i style="width:72%"></i></div>
+    <div class="se-chips"><span>Brand Kit</span><span>Wireframe</span><span>Prototype</span></div>
+  </div>
+  <div class="se-code se-code--purple se-fade" style="top:368px;animation-delay:.5s"><b>box-shadow:</b> rgba(139, 92, 246, 0.35)</div>
+</section>
+
+<!-- 3b · Tint Your Glow: creative, fintech, health -->
+<section class="scene" data-t="18" data-shot="22.5">
+  <h1 class="se-title" style="top:132px;font-size:33px">Tint Your Glow</h1>
+  <div class="se-app se-app--purple" style="left:200px;top:203px">
+    <div class="se-app__head"><div class="se-app__icon"></div><div><b>Creative App</b><span>Dashboard</span></div></div>
+    <div class="se-app__row"><b>Projects</b><em>24 active</em></div>
+    <div class="se-bar"><i style="width:72%"></i></div>
+    <div class="se-chips"><span>Brand Kit</span><span>Wireframe</span><span>Prototype</span></div>
+  </div>
+  <div class="se-code se-code--purple" style="top:368px"><b>box-shadow:</b> rgba(139, 92, 246, 0.35)</div>
+  <div class="se-app se-app--blue se-fade" style="left:200px;top:410px">
+    <div class="se-app__head"><div class="se-app__icon"></div><div><b>Fintech</b><span>Dashboard</span></div></div>
+    <div class="se-app__row"><b>Balance</b><em class="se-app__big">$12,480</em></div>
+    <div class="se-bars"><i style="height:10px"></i><i style="height:16px"></i><i style="height:14px"></i><i style="height:22px"></i><i style="height:18px"></i><i class="is-hot" style="height:34px"></i><i style="height:16px"></i></div>
+    <div class="se-app__axis"><span>Mon</span><span>Sun</span></div>
+  </div>
+  <div class="se-code se-code--blue se-fade" style="top:589px;animation-delay:.3s"><b>box-shadow:</b> rgba(59, 130, 246, 0.35)</div>
+  <div class="se-app se-app--green se-fade" style="left:200px;top:630px;animation-delay:3s">
+    <div class="se-app__head"><div class="se-app__icon"></div><div><b>Health App</b><span>Dashboard</span></div></div>
+    <div class="se-app__row"><b>Today</b><em>8,421 steps</em></div>
+    <div class="se-health"><svg class="se-ring" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16"/><circle class="se-ring__val" cx="20" cy="20" r="16" style="--p:84"/><text x="20" y="24">84%</text></svg><div><span>Calories <b>1,840</b></span><span>Distance <b>5.2 km</b></span></div></div>
+  </div>
+  <div class="se-code se-code--green se-fade" style="top:787px;animation-delay:3.3s"><b>box-shadow:</b> rgba(34, 197, 94, 0.35)</div>
+</section>
+
+<script type="module">
+  import { Elevation } from './pattern.js';
+  // The layered card rebuilds its three shadows from the CSS block when its scene is entered live.
+  const card = document.getElementById('layered');
+  card.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t > 0) return; const el = Elevation(card, { glow: 'rgba(139,92,246,0.15)' }); el.reset(); setTimeout(() => el.contact(), 200); setTimeout(() => el.glow(), 900); setTimeout(() => el.lift(), 1600); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

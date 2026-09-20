@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Depth Layers · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a0c10; --accent: #7c6cf0; --danger: #ee4b5f; --grid: rgba(255,255,255,0); }
+  .scene { color: #f3f5f7; background-image: none; }
+  .title { top: 398px; font-size: 24px; font-weight: 700; letter-spacing: -.01em; }
+</style>
+</head>
+<body class="dl">
+
+<svg width="0" height="0" style="position:absolute"><symbol id="i-cursor" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></symbol></svg>
+
+<!-- 1 · Same layout. Same colors. -->
+<section class="scene" data-t="0" data-shot="3">
+  <h1 class="title">Same layout. Same colors.</h1>
+  <div class="dl-compare">
+    <div class="dl-compare__head"><span class="flat">FLAT</span><span class="depth">DEPTH</span></div>
+    <div class="dl-compare__divider"></div>
+    <div class="dl-compare__col dl-compare__col--flat">
+      <div class="dl-card dl-card--flat">Dashboard</div><div class="dl-card dl-card--flat">Messages</div><div class="dl-card dl-card--flat">Settings</div><div class="dl-card dl-card--flat">Profile</div>
+    </div>
+    <div class="dl-compare__col dl-compare__col--depth">
+      <div class="dl-card dl-card--depth">Dashboard</div><div class="dl-card dl-card--depth">Messages</div><div class="dl-card dl-card--depth">Settings</div><div class="dl-card dl-card--depth">Profile</div>
+    </div>
+  </div>
+  <div class="dl-tagline">3 properties. That's it.</div>
+</section>
+
+<!-- 2 · Layer 1 · layered shadows (2px tight) -->
+<section class="scene" data-t="4.5" data-shot="6">
+  <div class="dl-layer" style="top:391px"><span class="dl-layer__chip">LAYER 1</span><span class="dl-layer__name">Layered Shadows</span></div>
+  <div class="dl-stack" style="top:450px">
+    <div class="dl-card">Dashboard<span class="dl-dots is-dim"><i></i><i></i><i></i></span></div>
+    <div class="dl-card">Messages<span class="dl-dots is-dim"><i></i><i></i><i></i></span></div>
+    <div class="dl-card">Settings<span class="dl-dots is-dim"><i></i><i></i><i></i></span></div>
+    <div class="dl-card">Profile<span class="dl-dots is-dim"><i></i><i></i><i></i></span></div>
+  </div>
+  <div class="dl-shadow-note" style="top:553px"><b>2px</b><span>tight</span></div>
+</section>
+
+<!-- 2b · Layer 1 · 2px tight, 12px spread, 32px ambient -->
+<section class="scene" data-t="9" data-shot="12">
+  <div class="dl-layer" style="top:391px"><span class="dl-layer__chip">LAYER 1</span><span class="dl-layer__name">Layered Shadows</span></div>
+  <div class="dl-stack">
+    <div class="dl-card">Dashboard<span class="dl-dots"><i></i><i></i><i></i></span></div>
+    <div class="dl-card">Messages<span class="dl-dots"><i></i><i></i><i></i></span></div>
+    <div class="dl-card">Settings<span class="dl-dots"><i></i><i></i><i></i></span></div>
+    <div class="dl-card">Profile<span class="dl-dots"><i></i><i></i><i></i></span></div>
+  </div>
+  <div class="dl-shadow-note" style="top:553px"><b>2px</b><span>tight</span></div>
+  <div class="dl-shadow-note" style="top:624px;animation-delay:.6s"><b>12px</b><span>spread</span></div>
+  <div class="dl-shadow-note" style="top:695px;animation-delay:1.2s"><b>32px</b><span>ambient</span></div>
+</section>
+
+<!-- 3 · Layer 2 · parallax scroll (three shots of one 9 s scroll) -->
+<section class="scene" data-t="13.5" data-shot="15">
+  <div class="dl-px">
+    <div class="dl-px__layer dl-px__layer--bg" data-speed="1">
+      <div class="dl-px__bg" style="top:331px">Hero Section</div>
+      <div class="dl-px__bg" style="top:479px"></div>
+      <div class="dl-px__line" style="top:666px"></div>
+    </div>
+    <div class="dl-px__layer dl-px__layer--fg" data-speed="2">
+      <div class="dl-px__fg" style="top:467px">Dashboard</div>
+      <div class="dl-px__fg" style="top:574px">Messages</div>
+      <div class="dl-px__fg" style="top:680px">Settings</div>
+    </div>
+  </div>
+  <div class="dl-layer" style="top:133px"><span class="dl-layer__chip">LAYER 2</span><span class="dl-layer__name">Parallax Scroll</span></div>
+</section>
+<section class="scene" data-t="13.5" data-shot="18">
+  <div class="dl-px">
+    <div class="dl-px__layer dl-px__layer--bg" data-speed="1">
+      <div class="dl-px__bg" style="top:331px">Hero Section</div>
+      <div class="dl-px__bg" style="top:479px"></div>
+      <div class="dl-px__line" style="top:666px"></div>
+    </div>
+    <div class="dl-px__layer dl-px__layer--fg" data-speed="2">
+      <div class="dl-px__fg" style="top:467px">Dashboard</div>
+      <div class="dl-px__fg" style="top:574px">Messages</div>
+      <div class="dl-px__fg" style="top:680px">Settings</div>
+    </div>
+  </div>
+  <div class="dl-layer" style="top:133px"><span class="dl-layer__chip">LAYER 2</span><span class="dl-layer__name">Parallax Scroll</span></div>
+  <div class="dl-legend"><div class="bg"><b>1x</b><span>BG</span></div><div class="mid"><b>2.5x</b><span>MID</span></div><div class="fg"><b>5x</b><span>FG</span></div></div>
+</section>
+<section class="scene" data-t="13.5" data-shot="21">
+  <div class="dl-px">
+    <div class="dl-px__layer dl-px__layer--bg" data-speed="1">
+      <div class="dl-px__bg" style="top:331px">Hero Section</div>
+      <div class="dl-px__bg" style="top:479px"></div>
+      <div class="dl-px__line" style="top:666px"></div>
+    </div>
+    <div class="dl-px__layer dl-px__layer--fg" data-speed="2">
+      <div class="dl-px__fg" style="top:467px">Dashboard</div>
+      <div class="dl-px__fg" style="top:574px">Messages</div>
+      <div class="dl-px__fg" style="top:680px">Settings</div>
+    </div>
+  </div>
+  <div class="dl-layer" style="top:133px"><span class="dl-layer__chip">LAYER 2</span><span class="dl-layer__name">Parallax Scroll</span></div>
+  <div class="dl-legend"><div class="bg"><b>1x</b><span>BG</span></div><div class="mid"><b>2.5x</b><span>MID</span></div><div class="fg"><b>5x</b><span>FG</span></div></div>
+</section>
+
+<!-- 4 · Layer 3 · z-translation on hover (Dashboard, Messages, Profile) -->
+<section class="scene" data-t="22.5" data-shot="24" id="hoverScene">
+  <div class="dl-halo" style="top:-40px;opacity:.6"></div>
+  <div class="dl-layer" style="top:200px"><span class="dl-layer__chip">LAYER 3</span><span class="dl-layer__name">Z-Translation on Hover</span></div>
+  <div class="dl-hover" id="hover"><div class="dl-card">Dashboard</div><div class="dl-card">Messages</div><div class="dl-card">Settings</div><div class="dl-card">Profile</div></div>
+  <svg class="dl-cursor" id="hoverCursor" style="left:453px;top:326px"><use href="#i-cursor"/></svg>
+  <div class="dl-code" id="hoverCode" hidden>transform: translateZ(20px) scale(1.03)</div>
+</section>
+<section class="scene" data-t="22.5" data-shot="27" data-hover="1">
+  <div class="dl-halo" style="top:-40px;opacity:.6"></div>
+  <div class="dl-layer" style="top:200px"><span class="dl-layer__chip">LAYER 3</span><span class="dl-layer__name">Z-Translation on Hover</span></div>
+  <div class="dl-hover"><div class="dl-card">Dashboard</div><div class="dl-card">Messages</div><div class="dl-card">Settings</div><div class="dl-card">Profile</div></div>
+  <svg class="dl-cursor" style="left:453px;top:518px"><use href="#i-cursor"/></svg>
+  <div class="dl-code">transform: translateZ(20px) scale(1.03)</div>
+</section>
+<section class="scene" data-t="22.5" data-shot="30" data-hover="3">
+  <div class="dl-halo" style="top:-40px;opacity:.6"></div>
+  <div class="dl-layer" style="top:200px"><span class="dl-layer__chip">LAYER 3</span><span class="dl-layer__name">Z-Translation on Hover</span></div>
+  <div class="dl-hover"><div class="dl-card">Dashboard</div><div class="dl-card">Messages</div><div class="dl-card">Settings</div><div class="dl-card">Profile</div></div>
+  <svg class="dl-cursor" style="left:453px;top:641px"><use href="#i-cursor"/></svg>
+  <div class="dl-code">transform: translateZ(20px) scale(1.03)</div>
+</section>
+
+<!-- 5 · Shadows + Parallax + Z-Translation -->
+<section class="scene" data-t="33" data-shot="36">
+  <div class="dl-halo"></div>
+  <div class="dl-chips"><b>Shadows</b>+<b>Parallax</b>+<b>Z-Translation</b></div>
+  <div class="dl-final">
+    <div class="dl-card"><b>Dashboard</b><span>Analytics overview</span></div>
+    <div class="dl-card"><b>Messages</b><span>3 unread</span></div>
+    <div class="dl-card"><b>Settings</b><span>Preferences</span></div>
+    <div class="dl-card"><b>Profile</b><span>Edit account</span></div>
+  </div>
+</section>
+
+<script type="module">
+  import { ZLift, Parallax } from './pattern.js';
+  // Layer 3: the first hover scene plays Dashboard -> Messages -> Profile every 3 s when entered live;
+  // the two follow-up sections are frozen on Messages and Profile for their screenshots.
+  const scene = document.getElementById('hoverScene'), z = ZLift(document.getElementById('hover'));
+  const cursor = document.getElementById('hoverCursor'), code = document.getElementById('hoverCode');
+  const steps = [[0, 326, false], [1, 518, true], [3, 641, true]];
+  const apply = ([i, y, showCode]) => { z.hover(i); cursor.style.top = y + 'px'; code.hidden = !showCode; };
+  scene.addEventListener('scene:enter', e => {
+    clearInterval(scene._iv);
+    if (e.detail.t > 0) { apply(steps[Math.min(2, Math.floor((e.detail.t - 22.5) / 3))]); return; }
+    let k = 0; apply(steps[0]); scene._iv = setInterval(() => { k = (k + 1) % steps.length; apply(steps[k]); }, 3000);
+  });
+  document.querySelectorAll('[data-hover]').forEach(s => ZLift(s.querySelector('.dl-hover')).hover(Number(s.dataset.hover)));
+  // Real hover works on every card too (ZLift wires pointerenter/leave). Parallax() is the runtime driver
+  // for the layer-2 scroll; the demo uses CSS keyframes for the same motion so ?t= can freeze it.
+  window.dlParallax = Parallax;
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

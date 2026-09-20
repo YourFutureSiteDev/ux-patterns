@@ -1,0 +1,94 @@
+/* Radius Spectrum, rebuilt from the @designmotionhq reel "One CSS property changes everything".
+   Classes are prefixed .rs-. The whole component is driven by one token, --rs-r (border-radius),
+   plus --rs-accent for the tone that goes with it (blue sharp, orange rounded, pink pill). */
+.rs {
+  --rs-bg: #0b070f; --rs-card: #15131d; --rs-card-2: #1a1825; --rs-border: rgba(255,255,255,.06);
+  --rs-text: #f4f2f7; --rs-muted: #a9a6ae; --rs-dim: #6d6a74;
+  --rs-blue: #4580ea; --rs-purple: #8b5cf6; --rs-orange: #f17215; --rs-pink: #ed4896; --rs-red: #e53d42; --rs-green: #3dbb78; --rs-grey: #7a7f8c;
+  --rs-r: 2px; --rs-accent: var(--rs-blue);
+  font-family: 'Inter', system-ui, sans-serif; color: var(--rs-text);
+}
+
+/* ---- Radius preview card: every corner reads --rs-r ------------------------------------------- */
+.rs-preview { position: absolute; width: 320px; height: 410px; background: var(--rs-card-2); border-radius: var(--rs-r); transition: border-radius .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s; }
+.rs-preview.is-warm { box-shadow: 0 0 60px rgba(241,114,21,.18); }
+.rs-preview__avatar { position: absolute; left: 136px; top: 44px; width: 48px; height: 48px; background: var(--rs-accent); border-radius: min(var(--rs-r), 24px); transition: border-radius .5s cubic-bezier(.2,.8,.2,1), background .5s; }
+.rs-preview__line { position: absolute; left: 20px; height: 14px; background: #cfccd4; border-radius: min(var(--rs-r), 7px); transition: border-radius .5s; }
+.rs-preview__line--sub { height: 8px; background: #4b4952; border-radius: min(var(--rs-r), 4px); }
+.rs-preview__slot { position: absolute; top: 201px; width: 88px; height: 46px; background: #1d172d; border-radius: min(var(--rs-r), 12px); transition: border-radius .5s; }
+.rs-preview__slot + .rs-preview__slot { background: #231526; }
+.rs-preview__btn { position: absolute; left: 20px; right: 20px; bottom: 25px; height: 40px; border: 0; background: var(--rs-accent); border-radius: min(var(--rs-r), 20px); transition: border-radius .5s cubic-bezier(.2,.8,.2,1), background .5s; }
+/* Corner brackets sit 12px outside the card and take the same radius */
+.rs-brackets { position: absolute; inset: -12px; pointer-events: none; }
+.rs-brackets i { position: absolute; width: 34px; height: 34px; border: 2px solid var(--rs-accent); transition: border-radius .5s cubic-bezier(.2,.8,.2,1), border-color .5s; }
+.rs-brackets i:nth-child(1) { left: 0; top: 0; border-right: 0; border-bottom: 0; border-top-left-radius: var(--rs-r); }
+.rs-brackets i:nth-child(2) { right: 0; top: 0; border-left: 0; border-bottom: 0; border-top-right-radius: var(--rs-r); }
+.rs-brackets i:nth-child(3) { left: 0; bottom: 0; border-right: 0; border-top: 0; border-bottom-left-radius: var(--rs-r); }
+.rs-brackets i:nth-child(4) { right: 0; bottom: 0; border-left: 0; border-top: 0; border-bottom-right-radius: var(--rs-r); }
+
+/* Feeling chip */
+.rs-feel { position: absolute; left: 50%; transform: translateX(-50%); height: 36px; padding: 0 18px; display: inline-flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 600; white-space: nowrap; border-radius: min(var(--rs-r), 18px); color: var(--rs-accent); background: color-mix(in srgb, var(--rs-accent) 12%, #12111a); transition: border-radius .5s; }
+.rs-feel::before { content: ''; width: 7px; height: 7px; background: currentColor; border-radius: min(var(--rs-r), 50%); }
+
+/* ---- Slider: border-radius 0..40 ----------------------------------------------------------------- */
+.rs-slider { position: absolute; width: 506px; }
+.rs-slider__head { display: flex; justify-content: space-between; align-items: baseline; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace; }
+.rs-slider__label { font-size: 20px; color: #a19ea8; letter-spacing: .02em; }
+.rs-slider__value { font-size: 27px; font-weight: 700; color: var(--rs-accent); transition: color .5s; }
+.rs-slider__track { position: relative; height: 4px; margin-top: 18px; border-radius: 2px; background: #221e28; }
+.rs-slider__fill { position: absolute; left: 0; top: 0; bottom: 0; width: var(--rs-pct, 5%); border-radius: 2px; background: linear-gradient(90deg, #3b82f6, #8b5cf6 55%, #f17215); background-size: 506px 100%; transition: width .5s cubic-bezier(.2,.8,.2,1); }
+.rs-slider__knob { position: absolute; top: 50%; left: var(--rs-pct, 5%); width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; background: #fff; border: 3px solid var(--rs-accent); box-shadow: 0 0 14px color-mix(in srgb, var(--rs-accent) 60%, transparent); transition: left .5s cubic-bezier(.2,.8,.2,1), border-color .5s; }
+.rs-slider__ends { display: flex; justify-content: space-between; margin-top: 12px; font-size: 17px; font-weight: 600; }
+.rs-slider__ends span:first-child { color: var(--rs-blue); } .rs-slider__ends span:last-child { color: var(--rs-orange); }
+
+/* ---- Corner anatomy: the eye snags on 90°, flows round a curve ------------------------------------- */
+.rs-corner { position: absolute; background: var(--rs-card); }
+.rs-corner--sharp { border-top: 8px solid var(--rs-red); border-right: 8px solid var(--rs-red); }
+.rs-corner--sharp::after { content: ''; position: absolute; right: 0; top: 0; width: 64px; height: 64px; border-left: 3px solid var(--rs-red); border-bottom: 3px solid var(--rs-red); }
+.rs-corner__angle { position: absolute; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace; font-size: 50px; font-weight: 700; color: var(--rs-red); }
+.rs-target { position: absolute; width: 250px; height: 250px; margin: -125px 0 0 -125px; border-radius: 50%; border: 5px solid rgba(229,61,66,.75); }
+.rs-target::before { content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 5px solid rgba(229,61,66,.6); animation: rs-pulse 1.6s ease-out infinite; }
+.rs-target::after { content: ''; position: absolute; left: 50%; top: 50%; width: 80px; height: 80px; margin: -40px 0 0 -40px; border-radius: 50%; background: rgba(229,61,66,.55); border: 5px solid var(--rs-red); }
+@keyframes rs-pulse { 0% { transform: scale(.55); opacity: .9 } 100% { transform: scale(1.05); opacity: 0 } }
+.rs-corner--round { border-top: 9px dashed var(--rs-green); border-right: 9px dashed var(--rs-green); border-top-right-radius: 120px; box-shadow: 0 0 70px rgba(61,187,120,.35), 0 0 24px rgba(61,187,120,.35); }
+.rs-corner__px { position: absolute; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace; font-size: 50px; font-weight: 700; color: #2f8e62; opacity: .55; }
+.rs-corner__dot { position: absolute; width: 20px; height: 20px; border-radius: 50%; background: rgba(61,187,120,.7); box-shadow: 0 0 12px rgba(61,187,120,.6); animation: rs-flow 1.6s linear infinite; }
+@keyframes rs-flow { 0% { opacity: 0 } 20% { opacity: 1 } 100% { opacity: 0; transform: translate(60px, 120px) } }
+.rs-callout { position: absolute; left: 50%; transform: translateX(-50%); height: 58px; padding: 0 40px; display: inline-flex; align-items: center; gap: 14px; font-size: 25px; font-weight: 600; white-space: nowrap; }
+.rs-callout::before { content: ''; width: 8px; height: 8px; background: currentColor; }
+.rs-callout--red { color: var(--rs-red); background: #2a1518; }
+.rs-callout--green { color: var(--rs-green); background: #12261c; } .rs-callout--green::before { border-radius: 50%; }
+
+/* ---- Spectrum: one card, four radii ---------------------------------------------------------------- */
+.rs-spec { position: absolute; left: 0; right: 0; text-align: center; }
+.rs-spec__value { font-size: 78px; font-weight: 800; letter-spacing: -.02em; line-height: 1; color: var(--rs-accent); text-shadow: 0 0 30px color-mix(in srgb, var(--rs-accent) 45%, transparent); transition: color .5s; }
+.rs-spec__name { margin-top: 72px; font-size: 26px; font-weight: 700; }
+.rs-spec__who { margin-top: 6px; font-size: 18px; color: var(--rs-muted); }
+.rs-spec__card { position: relative; width: 266px; height: 160px; margin: 26px auto 0; background: var(--rs-card); border: 1px solid var(--rs-border); border-radius: var(--rs-r); overflow: hidden; transition: border-radius .5s cubic-bezier(.2,.8,.2,1); box-shadow: 0 0 40px color-mix(in srgb, var(--rs-accent) 12%, transparent); }
+.rs-spec__card::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 55px; background: color-mix(in srgb, var(--rs-accent) 6%, #1d1c26); }
+.rs-spec__card i { position: absolute; left: 14px; height: 5px; border-radius: 2px; background: #5e5c65; }
+.rs-spec__card i:nth-child(1) { top: 70px; width: 107px; height: 8px; background: #bab8bf; }
+.rs-spec__card i:nth-child(2) { top: 87px; width: 174px; } .rs-spec__card i:nth-child(3) { top: 98px; width: 133px; }
+.rs-spec__btn { display: block; width: 240px; height: 43px; margin: 14px auto 0; border-radius: var(--rs-r); background: color-mix(in srgb, var(--rs-accent) 10%, #1b1b24); border: 1px solid color-mix(in srgb, var(--rs-accent) 45%, transparent); color: var(--rs-accent); font: 700 17px 'Inter', sans-serif; transition: border-radius .5s cubic-bezier(.2,.8,.2,1); }
+.rs-spec[data-step="0"] { --rs-accent: var(--rs-grey); --rs-r: 0px; }
+.rs-spec[data-step="0"] .rs-spec__btn { color: #9aa0ab; border-color: #2a2b34; }
+.rs-spec[data-step="1"] { --rs-accent: var(--rs-blue); --rs-r: 8px; }
+.rs-spec[data-step="2"] { --rs-accent: var(--rs-orange); --rs-r: 20px; }
+.rs-spec[data-step="3"] { --rs-accent: var(--rs-pink); --rs-r: 999px; }
+.rs-spec[data-step="3"] .rs-spec__card { border-radius: 40px; }
+.rs-dots { position: absolute; left: 0; right: 0; display: flex; justify-content: center; gap: 12px; }
+.rs-dots i { width: 5px; height: 5px; border-radius: 3px; background: #3d3a4a; transition: width .3s, background .3s; }
+.rs-dots i.is-on { width: 22px; height: 7px; margin: -1px 0; }
+.rs-dots i:nth-child(1).is-on { background: #a3a8b8; } .rs-dots i:nth-child(2).is-on { background: var(--rs-blue); } .rs-dots i:nth-child(3).is-on { background: var(--rs-orange); } .rs-dots i:nth-child(4).is-on { background: var(--rs-pink); }
+.rs-progress { position: absolute; height: 2px; background: #1e1b24; }
+.rs-progress i { display: block; height: 100%; width: var(--rs-pct, 10%); background: linear-gradient(90deg, #4580ea, #8b5cf6 45%, #f17215 70%, #ed4896); background-size: 466px 100%; transition: width .5s; }
+
+/* ---- Outro ---------------------------------------------------------------------------------------- */
+.rs-gradient-text { background: linear-gradient(90deg, #f17215, #ed4896); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.rs-follow { position: absolute; display: grid; place-items: center; height: 70px; padding: 0 42px; border-radius: 35px; background: linear-gradient(90deg, #8b5cf6, #ed4896 55%, #f17215); color: #fff; font-size: 21px; font-weight: 600; box-shadow: 0 0 40px rgba(237,72,150,.35); white-space: nowrap; }
+
+/* ---- Burnt-in subtitle line ------------------------------------------------------------------------- */
+.rs-sub { position: absolute; left: 0; right: 0; top: 930px; text-align: center; font-family: 'Poppins', 'Inter', sans-serif; font-size: 34px; font-weight: 800; letter-spacing: -.01em; color: #fff; white-space: nowrap; }
+.rs-sub b { display: inline-block; padding: 0 10px; margin: 0 -4px; border-radius: 6px; background: #6d3aef; color: #fff; font-weight: 700; }
+.rs-save { position: absolute; left: 0; right: 0; top: 1125px; display: flex; justify-content: center; align-items: center; gap: 6px; font-size: 18px; color: #6d6a74; }
+.rs-save svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; }

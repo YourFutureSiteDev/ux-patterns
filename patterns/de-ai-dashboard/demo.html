@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>De-AI Dashboard · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0b0e11; --accent: #2fe0a8; --danger: #ea4a72; --grid: rgba(255,255,255,.03); }
+  .scene { color: #f3f5f7; }
+  .kicker { top: 139px; padding: 0 20px; height: 35px; line-height: 33px; font-size: 15px; letter-spacing: .16em; border: 1px solid rgba(47,224,168,.4); background: rgba(47,224,168,.12); }
+  .kicker--danger { color: #f05a82; border-color: rgba(234,74,114,.45); background: rgba(234,74,114,.14); }
+  .title { top: 160px; font-size: 40px; font-weight: 800; letter-spacing: -.02em; }
+  .caption { top: 1028px; height: 52px; padding: 0 26px; line-height: 50px; font-size: 22px; font-weight: 800; color: #9aa1a9; background: #14181c; border: 1px solid rgba(255,255,255,.08); box-shadow: none; }
+  .caption--ok { color: #2fe0a8; background: rgba(47,224,168,.1); border-color: rgba(47,224,168,.35); box-shadow: 0 0 30px rgba(47,224,168,.12); }
+  .caption--hot { color: #1c0a12; background: #ea4a72; border-color: #ea4a72; box-shadow: 0 0 40px rgba(234,74,114,.35); }
+</style>
+</head>
+<body class="dd">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></symbol>
+  <symbol id="i-layout" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></symbol>
+</svg>
+
+<!-- 1 · Hook -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="kicker kicker--danger">DE-AI YOUR UI · 01</div>
+  <h1 class="title">Your dashboard looks AI-made.</h1>
+  <div class="dd-frame" style="left:27px;top:322px;width:666px;height:668px">
+    <div data-dashboard data-state="gradient icons" style="left:32px;top:0;transform:scale(.905)"></div>
+  </div>
+  <div class="caption caption--hot">5 tells · 5 fixes</div>
+</section>
+
+<!-- 1b · Hook with the five markers -->
+<section class="scene" data-t="2.5" data-shot="3">
+  <div class="kicker kicker--danger">DE-AI YOUR UI · 01</div>
+  <h1 class="title">Your dashboard looks AI-made.</h1>
+  <div class="dd-frame" style="left:27px;top:322px;width:666px;height:668px">
+    <div data-dashboard data-state="gradient icons" style="left:32px;top:0;transform:scale(.905)"></div>
+  </div>
+  <span class="dd-marker" style="left:256px;top:355px">1</span>
+  <span class="dd-marker" style="left:148px;top:452px;animation-delay:.1s">2</span>
+  <span class="dd-marker" style="left:368px;top:547px;animation-delay:.2s">3</span>
+  <span class="dd-marker" style="left:233px;top:653px;animation-delay:.3s">4</span>
+  <span class="dd-marker" style="left:302px;top:413px;animation-delay:.4s">5</span>
+  <div class="caption caption--hot">5 tells · 5 fixes</div>
+</section>
+
+<!-- 2 · Tell 01 · the gradient -->
+<section class="scene" data-t="6" data-shot="9">
+  <div class="kicker kicker--danger">TELL 01 · THE GRADIENT</div>
+  <h1 class="title">Gradients with nothing to say.</h1>
+  <div class="dd-frame dd-frame--fade" style="left:27px;top:295px;width:666px;height:685px">
+    <div data-dashboard data-state="gradient icons" style="left:0;top:0"></div>
+  </div>
+  <span class="dd-marker" style="left:246px;top:332px">1</span>
+  <svg class="dd-line"><line x1="381" y1="378" x2="401" y2="412"/><circle cx="381" cy="378" r="4"/><line x1="629" y1="386" x2="612" y2="414"/><circle cx="629" cy="386" r="4"/><line x1="368" y1="790" x2="462" y2="790"/><circle cx="368" cy="790" r="4"/></svg>
+  <span class="dd-note" style="left:391px;top:410px">header</span>
+  <span class="dd-note" style="left:561px;top:414px;animation-delay:.3s">button</span>
+  <span class="dd-note" style="left:462px;top:777px;animation-delay:.6s">chart fill</span>
+  <div class="caption">One flat accent</div>
+</section>
+
+<!-- 2b · Tell 01 fixed -->
+<section class="scene" data-t="12" data-shot="13.5">
+  <div class="kicker">TELL 01 · THE GRADIENT</div>
+  <h1 class="title">Gradients with nothing to say.</h1>
+  <div class="dd-frame dd-frame--fade" style="left:27px;top:295px;width:666px;height:685px">
+    <div data-dashboard data-state="icons" style="left:0;top:0"></div>
+  </div>
+  <div class="caption caption--ok">One flat accent</div>
+</section>
+
+<!-- 3 · Tell 02 · icon tiles -->
+<section class="scene" data-t="16.5" data-shot="18">
+  <div class="kicker kicker--danger">TELL 02 · ICON TILES</div>
+  <h1 class="title">Four colors, four numbers.</h1>
+  <div class="dd-frame dd-frame--fade" style="left:27px;top:295px;width:666px;height:685px">
+    <div data-dashboard data-state="icons" style="left:-56px;top:-100px;transform:scale(1.085)"></div>
+  </div>
+  <span class="dd-marker" style="left:81px;top:352px">2</span>
+  <div class="caption">The number is the hero</div>
+</section>
+
+<!-- 3b · Tell 02 · four colours named -->
+<section class="scene" data-t="22.5" data-shot="24">
+  <div class="kicker kicker--danger">TELL 02 · ICON TILES</div>
+  <h1 class="title">Four colors, four numbers.</h1>
+  <div class="dd-frame dd-frame--fade" style="left:27px;top:295px;width:666px;height:685px">
+    <div data-dashboard data-state="icons" style="left:-56px;top:-100px;transform:scale(1.085)"></div>
+  </div>
+  <span class="dd-note dd-note--c" style="--c:#4f8cff;left:47px;top:342px;height:26px;line-height:23px;font-size:14px">blue</span>
+  <span class="dd-note dd-note--c" style="--c:#34d399;left:360px;top:342px;height:26px;line-height:23px;font-size:14px;animation-delay:.15s">green</span>
+  <span class="dd-note dd-note--c" style="--c:#a78bfa;left:40px;top:477px;height:26px;line-height:23px;font-size:14px;animation-delay:.3s">purple</span>
+  <span class="dd-note dd-note--c" style="--c:#ff8c42;left:357px;top:477px;height:26px;line-height:23px;font-size:14px;animation-delay:.45s">orange</span>
+  <div class="caption">The number is the hero</div>
+</section>
+
+<!-- 3c · Tell 02 fixed -->
+<section class="scene" data-t="27" data-shot="28.5">
+  <div class="kicker">TELL 02 · ICON TILES</div>
+  <h1 class="title">Four colors, four numbers.</h1>
+  <div class="dd-frame dd-frame--fade" style="left:27px;top:295px;width:666px;height:685px">
+    <div data-dashboard data-state="" style="left:-56px;top:-100px;transform:scale(1.085)"></div>
+  </div>
+  <div class="caption caption--ok">The number is the hero</div>
+</section>
+
+<!-- 4 · Tell 03 · hierarchy -->
+<section class="scene" data-t="28.5" data-shot="30">
+  <div class="kicker kicker--danger">TELL 03 · HIERARCHY</div>
+  <h1 class="title">Same size, same weight.</h1>
+  <div class="dd-frame dd-frame--fade" style="left:27px;top:295px;width:666px;height:685px">
+    <div data-dashboard data-state="" style="left:-56px;top:-100px;transform:scale(1.085)"></div>
+  </div>
+  <span class="dd-outline" style="left:44px;top:350px;width:312px;height:128px"></span>
+  <span class="dd-outline" style="left:364px;top:350px;width:314px;height:128px"></span>
+  <span class="dd-outline dd-outline--dim" style="left:44px;top:486px;width:312px;height:128px"></span>
+  <span class="dd-marker" style="left:345px;top:466px">3</span>
+  <div class="caption">One primary. Three secondary.</div>
+</section>
+
+<!-- 4b · Tell 03 · every card is 402 x 160 -->
+<section class="scene" data-t="31.5" data-shot="33">
+  <div class="kicker kicker--danger">TELL 03 · HIERARCHY</div>
+  <h1 class="title">Same size, same weight.</h1>
+  <div class="dd-frame dd-frame--fade" style="left:27px;top:295px;width:666px;height:685px">
+    <div data-dashboard data-state="" style="left:-56px;top:-100px;transform:scale(1.085)"></div>
+  </div>
+  <span class="dd-outline" style="left:44px;top:350px;width:312px;height:128px"></span>
+  <span class="dd-outline" style="left:364px;top:350px;width:314px;height:128px"></span>
+  <span class="dd-outline" style="left:44px;top:486px;width:312px;height:128px"></span>
+  <span class="dd-outline" style="left:364px;top:486px;width:314px;height:128px"></span>
+  <span class="dd-tag" style="left:242px;top:340px">402 × 160</span>
+  <span class="dd-tag" style="left:562px;top:340px">402 × 160</span>
+  <span class="dd-tag" style="left:242px;top:476px">402 × 160</span>
+  <span class="dd-tag" style="left:562px;top:476px">402 × 160</span>
+  <span class="dd-ring" style="left:62px;top:432px;width:84px;height:32px"></span>
+  <span class="dd-ring" style="left:382px;top:432px;width:84px;height:32px"></span>
+  <span class="dd-ring" style="left:62px;top:567px;width:84px;height:32px"></span>
+  <span class="dd-ring" style="left:382px;top:567px;width:84px;height:32px"></span>
+  <span class="dd-marker" style="left:345px;top:466px">3</span>
+  <div class="caption">One primary. Three secondary.</div>
+</section>
+
+<!-- 4c · Tell 03 fixed -->
+<section class="scene" data-t="37.5" data-shot="39">
+  <div class="kicker">TELL 03 · HIERARCHY</div>
+  <h1 class="title">Same size, same weight.</h1>
+  <div class="dd-frame dd-frame--fade" style="left:27px;top:295px;width:666px;height:685px">
+    <div data-dashboard data-state="hero" style="left:-56px;top:-100px;transform:scale(1.085)"></div>
+  </div>
+  <div class="caption caption--ok">One primary. Three secondary.</div>
+</section>
+
+<!-- 4d · Tell 03 · the one primary number -->
+<section class="scene" data-t="40.5" data-shot="42">
+  <div class="kicker">TELL 03 · HIERARCHY</div>
+  <h1 class="title">Same size, same weight.</h1>
+  <div class="dd-frame dd-frame--fade" style="left:27px;top:295px;width:666px;height:685px">
+    <div data-dashboard data-state="hero" style="left:-56px;top:-100px;transform:scale(1.085)"></div>
+  </div>
+  <span class="dd-hl" style="left:58px;top:388px;width:202px;height:60px"></span>
+  <div class="caption caption--ok">One primary. Three secondary.</div>
+</section>
+
+<!-- 5 · Tell 04 · shadows -->
+<section class="scene" data-t="43.5" data-shot="45">
+  <div class="kicker kicker--danger">TELL 04 · SHADOWS</div>
+  <h1 class="title">When everything floats.</h1>
+  <div class="dd-frame" style="left:27px;top:295px;width:666px;height:685px">
+    <div data-dashboard data-state="hero shadows compact" style="left:20px;top:-3px;transform:scale(.94)"></div>
+  </div>
+  <span class="dd-tag" style="left:455px;top:338px">16</span>
+  <span class="dd-tag" style="left:418px;top:627px">16</span>
+  <span class="dd-tag" style="left:575px;top:950px">16</span>
+  <svg class="dd-line"><line x1="553" y1="639" x2="506" y2="664"/><circle cx="553" cy="639" r="4"/></svg>
+  <span class="dd-note" style="left:390px;top:662px">drop shadow</span>
+  <span class="dd-marker" style="left:229px;top:624px">4</span>
+  <div class="caption">Shadow only on what floats</div>
+</section>
+
+<!-- 5b · Tell 04 fixed -->
+<section class="scene" data-t="55.5" data-shot="57">
+  <div class="kicker">TELL 04 · SHADOWS</div>
+  <h1 class="title">When everything floats.</h1>
+  <div class="dd-frame" style="left:27px;top:295px;width:666px;height:685px">
+    <div data-dashboard data-state="hero compact menu" style="left:20px;top:-3px;transform:scale(.94)"></div>
+  </div>
+  <span class="dd-tag dd-tag--green" style="left:441px;top:338px"><s>16</s>→ 8</span>
+  <span class="dd-tag dd-tag--green" style="left:399px;top:627px"><s>16</s>→ 12</span>
+  <span class="dd-tag dd-tag--green" style="left:562px;top:950px"><s>16</s>→ 6</span>
+  <svg class="dd-line is-green"><line x1="473" y1="880" x2="522" y2="880"/><circle cx="522" cy="880" r="4"/></svg>
+  <span class="dd-note dd-note--green" style="left:410px;top:866px">floats</span>
+  <div class="caption caption--ok">Shadow only on what floats</div>
+</section>
+
+<!-- 6 · Tell 05 · copy -->
+<section class="scene" data-t="58.5" data-shot="60">
+  <div class="kicker kicker--danger">TELL 05 · COPY</div>
+  <h1 class="title">Welcome back, Jordan.</h1>
+  <div class="dd-frame" style="left:27px;top:288px;width:666px;height:692px">
+    <div data-dashboard data-state="hero" style="left:3px;top:-86px;transform:scale(.99)"></div>
+  </div>
+  <span class="dd-underline" style="left:99px;top:328px;width:201px"></span>
+  <span class="dd-marker" style="left:298px;top:303px">5</span>
+  <div class="caption">Numbers with a shape</div>
+</section>
+
+<!-- 6b · Tell 05 · the wave and the badge -->
+<section class="scene" data-t="61.5" data-shot="63">
+  <div class="kicker kicker--danger">TELL 05 · COPY</div>
+  <h1 class="title">Welcome back, Jordan.</h1>
+  <div class="dd-frame" style="left:27px;top:288px;width:666px;height:692px">
+    <div data-dashboard data-state="hero" style="left:3px;top:-86px;transform:scale(.99)"></div>
+  </div>
+  <span class="dd-underline" style="left:99px;top:328px;width:201px"></span>
+  <span class="dd-ring" style="left:266px;top:301px;width:32px;height:32px"></span>
+  <span class="dd-ring" style="left:111px;top:432px;width:190px;height:30px;animation-delay:.3s"></span>
+  <div class="caption">Numbers with a shape</div>
+</section>
+
+<!-- 6c · Tell 05 · a title that says what the page is -->
+<section class="scene" data-t="67.5" data-shot="69">
+  <div class="kicker">TELL 05 · COPY</div>
+  <h1 class="title">Welcome back, Jordan.</h1>
+  <div class="dd-frame" style="left:27px;top:288px;width:666px;height:692px">
+    <div data-dashboard data-state="hero title=revenue" style="left:3px;top:-86px;transform:scale(.99)"></div>
+  </div>
+  <span class="dd-ring" style="left:111px;top:432px;width:190px;height:30px"></span>
+  <svg class="dd-line is-green"><line class="dd-line--dash" x1="565" y1="793" x2="565" y2="915"/></svg>
+  <div class="caption caption--ok">Numbers with a shape</div>
+</section>
+
+<!-- 6d · Tell 05 fixed -->
+<section class="scene" data-t="72" data-shot="72">
+  <div class="kicker">TELL 05 · COPY</div>
+  <h1 class="title">Welcome back, Jordan.</h1>
+  <div class="dd-frame" style="left:27px;top:288px;width:666px;height:692px">
+    <div data-dashboard data-state="hero title=revenue shape" style="left:3px;top:-86px;transform:scale(.99)"></div>
+  </div>
+  <div class="caption caption--ok">Numbers with a shape</div>
+</section>
+
+<!-- 7 · Outro · the fixed dashboard + /restyle -->
+<section class="scene" data-t="75" data-shot="75">
+  <div class="dd-glow"></div>
+  <div class="kicker">DE-AI YOUR UI · 01</div>
+  <h1 class="title">Five tells, gone.</h1>
+  <div class="dd-frame" style="left:62px;top:253px;width:596px;height:565px">
+    <div data-dashboard data-state="hero title=revenue shape compact" style="left:47.5px;top:4.5px;transform:scale(.75)"></div>
+  </div>
+  <div class="dd-palette" style="left:66px;top:838px">
+    <div class="dd-palette__input"><span class="dd-palette__brand">CLAUDE CODE</span><span class="dd-palette__prompt">&gt;</span><span class="dd-palette__typed">/res</span><span class="dd-palette__caret"></span></div>
+    <div class="dd-palette__list">
+      <div class="dd-palette__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-layout"/></svg><code>/ux-design</code><span>Design a screen from a brief</span></div>
+      <div class="dd-palette__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-warn"/></svg><code>/ux-audit</code><span>Find every AI tell</span></div>
+      <div class="dd-palette__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-shield"/></svg><code>/ux-review</code><span>Review the UI of a PR</span></div>
+      <div class="dd-palette__item is-on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-spark"/></svg><code>/restyle</code><span>Kill the AI look</span></div>
+    </div>
+  </div>
+  <a class="dd-link center" style="top:1028px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><use href="#i-link"/></svg>Link in bio</a>
+</section>
+
+<!-- 7b · Outro · UX Engine -->
+<section class="scene" data-t="79.5" data-shot="81">
+  <div class="dd-glow"></div>
+  <div class="kicker">DE-AI YOUR UI · 01</div>
+  <h1 class="title">Five tells, gone.</h1>
+  <div class="dd-frame" style="left:62px;top:253px;width:596px;height:565px">
+    <div data-dashboard data-state="hero title=revenue shape compact" style="left:47.5px;top:4.5px;transform:scale(.75)"></div>
+  </div>
+  <div class="dd-engine" style="left:66px;top:838px">
+    <div class="dd-engine__head"><span class="dd-engine__title">UX Engine</span><span class="dd-engine__badge">CLAUDE CODE PLUGIN</span></div>
+    <div class="dd-engine__cmds">
+      <span class="dd-engine__cmd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-layout"/></svg>/ux-design</span>
+      <span class="dd-engine__cmd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-warn"/></svg>/ux-audit</span>
+      <span class="dd-engine__cmd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-shield"/></svg>/ux-review</span>
+      <span class="dd-engine__cmd is-on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-spark"/></svg>/restyle</span>
+    </div>
+    <div class="dd-engine__price">$79 one time · 30 day refund · 12 months of updates</div>
+  </div>
+  <a class="dd-link dd-link--solid center" style="top:1028px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><use href="#i-link"/></svg>Link in bio</a>
+</section>
+
+<script type="module">
+  import { mountAll } from './pattern.js';
+  mountAll();
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

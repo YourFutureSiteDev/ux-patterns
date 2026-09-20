@@ -1,0 +1,91 @@
+/* Proximity Rule, rebuilt from the @designmotionhq reel "Close = related. Far = separate."
+   Classes are prefixed .px-. Every group uses two tokens: --px-within (gap inside a group) and
+   --px-between (gap between groups). Grouping is spacing, never borders. */
+.px {
+  --px-bg: #0a090b; --px-panel: #10121a; --px-raised: #171824; --px-border: rgba(255,255,255,.05);
+  --px-text: #f5f4f7; --px-muted: #a5a2ab; --px-dim: #6c6b74; --px-label: #c5c3cb;
+  --px-purple: #864ded; --px-cyan: #2ee1e7; --px-green: #2cde5e; --px-red: #ee3d55; --px-grey: #373846;
+  --px-within: 8px; --px-between: 32px;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--px-text);
+}
+.px-panel { position: absolute; background: var(--px-panel); border: 1px solid var(--px-border); border-radius: 14px; }
+.px-tile { position: absolute; width: 46px; height: 46px; border-radius: 11px; background: #1c1327; border: 1px solid rgba(134,77,237,.18); display: grid; place-items: center; font-size: 26px; box-shadow: 0 8px 24px rgba(0,0,0,.4); }
+
+/* ---- Verdict labels ------------------------------------------------------------- */
+.px-verdict { position: absolute; font-size: 17px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; transform: translateX(-50%); }
+.px-verdict--bad { color: var(--px-red); } .px-verdict--good { color: var(--px-green); }
+
+/* ---- Hook: chaos grid vs three labelled rows ---------------------------------------- */
+.px-chaos { display: grid; grid-template-columns: repeat(4, 34px); gap: 14px; }
+.px-chaos i { display: block; width: 34px; height: 34px; border-radius: 8px; background: var(--px-grey); }
+.px-clear { display: flex; flex-direction: column; gap: 21px; }
+.px-clear__label { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 8px; }
+.px-clear__row { display: flex; gap: 7px; }
+.px-clear__row i { display: block; width: 34px; height: 34px; border-radius: 8px; }
+.px-clear--purple .px-clear__label, .px-clear--purple .px-clear__row i { color: var(--px-purple); background: var(--px-purple); }
+.px-clear--purple .px-clear__label { background: none; }
+.px-clear--purple .px-clear__row i { box-shadow: 0 0 12px rgba(134,77,237,.5); } .px-clear--cyan .px-clear__row i { box-shadow: 0 0 12px rgba(46,225,231,.4); } .px-clear--green .px-clear__row i { box-shadow: 0 0 12px rgba(44,222,94,.4); }
+.px-clear--cyan .px-clear__label { color: var(--px-cyan); } .px-clear--cyan .px-clear__row i { background: var(--px-cyan); }
+.px-clear--green .px-clear__label { color: var(--px-green); } .px-clear--green .px-clear__row i { background: var(--px-green); }
+
+/* ---- Proximity squares: even, then two groups ----------------------------------------- */
+.px-squares { display: flex; align-items: flex-start; gap: var(--px-between); }
+.px-squares__group { display: flex; gap: var(--px-within); position: relative; transition: gap .6s cubic-bezier(.2,.8,.2,1); }
+.px-squares i { display: block; width: 42px; height: 42px; border-radius: 9px; background: var(--px-purple); transition: margin .6s cubic-bezier(.2,.8,.2,1); }
+.px-squares__group::after { content: attr(data-label); position: absolute; left: 0; right: 0; top: 53px; border-top: 2px solid var(--px-cyan); padding-top: 10px; text-align: center; font-size: 16px; font-weight: 600; color: var(--px-cyan); opacity: 0; transition: opacity .3s; }
+.px-squares.is-grouped .px-squares__group::after { opacity: 1; }
+.px-squares__gap { align-self: flex-start; margin-top: 8px; font-size: 14px; font-weight: 600; color: #8c8a93; opacity: 0; transition: opacity .3s; }
+.px-squares.is-grouped .px-squares__gap { opacity: 1; }
+.px-squares.is-even { --px-within: 27px; --px-between: 27px; }
+.px-squares.is-even .px-squares__gap { display: none; }
+
+/* ---- Toolbar: eight icons, equally spaced or grouped by function --------------------------- */
+.px-nav { display: flex; align-items: flex-start; }
+.px-nav__group { display: flex; position: relative; }
+.px-nav__item { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 64px; font-size: 13px; color: var(--px-label); }
+.px-nav__item i { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; background: #26272f; font-size: 15px; font-style: normal; transition: background .4s, box-shadow .4s; }
+.px-nav.is-grouped .px-nav__item { width: 58px; }
+.px-nav.is-grouped .px-nav__group + .px-nav__group { margin-left: 17px; }
+.px-nav.is-grouped .px-nav__group--navigate i { background: linear-gradient(135deg, #9a5cf6, #7b3fe4); box-shadow: 0 0 14px rgba(134,77,237,.45); }
+.px-nav.is-grouped .px-nav__group--actions i { background: linear-gradient(135deg, #3ee8ee, #19b9c6); box-shadow: 0 0 14px rgba(46,225,231,.4); }
+.px-nav.is-grouped .px-nav__group--system i { background: linear-gradient(135deg, #3fe86f, #1fbf4c); box-shadow: 0 0 14px rgba(44,222,94,.4); }
+.px-nav__title { position: absolute; left: 0; right: 0; top: -39px; text-align: center; font-size: 15px; font-weight: 700; opacity: 0; transition: opacity .3s; }
+.px-nav__group--navigate .px-nav__title { color: var(--px-purple); } .px-nav__group--actions .px-nav__title { color: var(--px-cyan); } .px-nav__group--system .px-nav__title { color: var(--px-green); }
+.px-nav.is-labelled .px-nav__title { opacity: 1; }
+.px-nav__gap { position: absolute; font-size: 13px; font-weight: 600; color: #8c8a93; text-align: center; opacity: 0; transition: opacity .3s; }
+.px-nav__gap::before { content: ''; display: block; width: 26px; margin: 0 auto 4px; border-top: 1px dashed #4c4a55; }
+.px-nav.is-labelled .px-nav__gap { opacity: 1; }
+.px-nav__gap--purple { color: var(--px-purple); } .px-nav__gap--cyan { color: var(--px-cyan); } .px-nav__gap--green { color: var(--px-green); }
+
+/* ---- Form: 12px inside a section, 40px between sections ------------------------------------ */
+.px-form { position: absolute; padding: 22px 24px 24px; --px-within: 6px; --px-between: 24px; }
+.px-form__section + .px-form__section { margin-top: var(--px-between); }
+.px-form__head { font-size: 16px; line-height: 20px; font-weight: 700; color: #8f6cf0; margin-bottom: 6px; }
+.px-field + .px-field { margin-top: var(--px-within); }
+.px-field label { display: block; font-size: 14px; line-height: 17px; color: var(--px-label); margin-bottom: 8px; }
+.px-field input { display: block; width: 100%; height: 46px; padding: 0 14px; border-radius: 8px; background: var(--px-raised); border: 1px solid #252632; color: var(--px-text); font: 16px 'Inter', sans-serif; }
+.px-field input::placeholder { color: var(--px-dim); }
+.px-field--row { display: flex; gap: 8px; } .px-field--row > div { flex: 1; }
+.px-form__gap { position: absolute; left: 100%; display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 700; color: var(--px-cyan); white-space: nowrap; }
+.px-form__gap::before { content: ''; width: 18px; border-top: 1px dashed #3d3b47; }
+.px-form__gap span { padding: 3px 5px; border-radius: 5px; background: rgba(46,225,231,.14); }
+
+/* ---- Sidebar: eight flat links vs three labelled groups --------------------------------------- */
+.px-side { position: absolute; padding: 24px 22px; }
+.px-side__item { display: flex; align-items: center; gap: 11px; font-size: 17px; height: 32px; color: #b9b7bf; }
+.px-side__item i { width: 20px; height: 20px; border-radius: 50%; background: #383949; }
+.px-side--grouped .px-side__item { height: 28px; color: var(--px-text); }
+.px-side__head { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 9px; }
+.px-side__group + .px-side__group { margin-top: 18px; }
+.px-side__group--purple .px-side__head { color: #a67cf5; } .px-side__group--purple i { background: var(--px-purple); }
+.px-side__group--cyan .px-side__head { color: var(--px-cyan); } .px-side__group--cyan i { background: var(--px-cyan); }
+.px-side__group--green .px-side__head { color: var(--px-green); } .px-side__group--green i { background: var(--px-green); }
+
+/* ---- Outro ----------------------------------------------------------------------------------- */
+.px-mini { position: absolute; display: flex; align-items: center; justify-content: center; gap: 41px; background: #13111a; border-radius: 12px; }
+.px-mini span { display: flex; gap: 10px; } .px-mini i { display: block; width: 24px; height: 24px; border-radius: 5px; background: var(--px-purple); }
+.px-follow { position: absolute; display: grid; place-items: center; height: 54px; padding: 0 28px; border-radius: 27px; background: #7c4fcf; color: #fff; font-size: 19px; font-weight: 600; box-shadow: 0 0 40px rgba(134,77,237,.5); white-space: nowrap; }
+
+/* Enter animations used by the scenes */
+@keyframes px-in { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
+.px-in { opacity: 0; animation: px-in .5s ease-out forwards; }

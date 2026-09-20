@@ -1,0 +1,94 @@
+/* Charts That Lie, rebuilt from the @designmotionhq reel "Same data, opposite stories".
+   Component classes are prefixed .cl- and depend only on the tokens below. */
+.cl {
+  --cl-bg: #0c0f10; --cl-panel: #101618; --cl-panel-2: #1f2429; --cl-grid: #1a2024; --cl-border: #182024;
+  --cl-text: #f3f5f7; --cl-muted: #9a9fa5; --cl-dim: #5c6369; --cl-teal: #20c9a4; --cl-pink: #d84269; --cl-bar: #9191a3; --cl-bar-dim: #20262d;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--cl-text);
+}
+
+/* ---- Chrome ------------------------------------------------------------------ */
+.cl-kick { position: absolute; left: 0; right: 0; text-align: center; font-size: 15px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--cl-muted); }
+.cl-kick--teal { color: var(--cl-teal); }
+.cl-h { margin: 0; position: absolute; left: 0; right: 0; text-align: center; font-size: 28px; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
+.cl-foot { position: absolute; left: 0; right: 0; text-align: center; font-size: 16px; color: var(--cl-muted); }
+.cl-callout { position: absolute; left: 54px; width: 612px; height: 70px; display: flex; align-items: center; padding: 0 26px; border-radius: 10px; background: #111719; border: 1px solid #1c2528; border-left: 3px solid var(--cl-teal); font-size: 24px; font-weight: 700; white-space: nowrap; box-shadow: 0 0 40px rgba(32,201,164,.08); }
+.cl-callout em { font-style: normal; color: var(--cl-teal); margin-left: 8px; }
+.cl-badge { position: absolute; left: 50%; transform: translateX(-50%); height: 30px; padding: 0 12px; display: inline-flex; align-items: center; border-radius: 6px; font-size: 15px; font-weight: 700; white-space: nowrap; }
+.cl-badge--pink { background: #2a1520; border: 1px solid #5a2036; color: var(--cl-pink); }
+.cl-badge--teal { background: #12302b; border: 1px solid #1f5a4c; color: var(--cl-teal); }
+.cl-delta { position: absolute; left: 50%; transform: translateX(-50%); width: 160px; height: 68px; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.cl-delta b { font-size: 26px; font-weight: 800; line-height: 1; }
+.cl-delta span { font-size: 12px; margin-top: 5px; color: #b8c0c4; }
+.cl-delta--pink { background: #2a1520; border: 1px solid #6a2440; color: var(--cl-pink); }
+.cl-delta--teal { background: #1f4340; border: 1px solid #2c9e81; color: var(--cl-teal); box-shadow: 0 0 30px rgba(32,201,164,.15); }
+.cl-dots { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; align-items: center; }
+.cl-dots i { width: 6px; height: 6px; border-radius: 3px; background: #2a3136; }
+.cl-dots i.is-on { width: 20px; background: #b0b6bb; }
+.cl-dots i.is-on.is-teal { background: var(--cl-teal); }
+
+/* ---- Bar chart panel ------------------------------------------------------------ */
+.cl-panel { position: absolute; background: var(--cl-panel); border-radius: 12px; box-shadow: 0 30px 60px rgba(0,0,0,.35); }
+.cl-panel__title { position: absolute; left: 53px; top: 16px; font-size: 16px; font-weight: 600; }
+.cl-panel__tag { position: absolute; right: 10px; top: 10px; height: 26px; padding: 0 10px; display: inline-flex; align-items: center; border-radius: 6px; font-size: 13px; font-weight: 700; }
+.cl-panel__tag--pink { background: #2a1520; border: 1px solid #5a2036; color: var(--cl-pink); }
+.cl-panel__tag--teal { background: #12302b; border: 1px solid #1f5a4c; color: var(--cl-teal); }
+.cl-panel__tag.is-off { opacity: .35; text-decoration: line-through; }
+.cl-axis { position: absolute; left: 0; width: 46px; text-align: right; font-size: 12px; color: var(--cl-dim); transform: translateY(-50%); }
+.cl-grid { position: absolute; left: 53px; right: 20px; height: 1px; background: var(--cl-grid); }
+.cl-grid--zero { background: none; border-top: 1.5px dashed var(--cl-teal); opacity: .8; }
+.cl-bar { position: absolute; bottom: 0; border-radius: 3px 3px 0 0; background: var(--cl-bar); transform-origin: bottom; }
+.cl-bar--pink { background: var(--cl-pink); } .cl-bar--teal { background: var(--cl-teal); }
+.cl-bar--dim { background: var(--cl-bar-dim); }
+.cl-bar--glow { box-shadow: 0 0 24px rgba(32,201,164,.35); }
+.cl-bar__val { position: absolute; left: 50%; transform: translateX(-50%); top: -24px; font-size: 16px; font-weight: 700; color: #fff; white-space: nowrap; }
+.cl-bar__cat { position: absolute; left: 50%; transform: translateX(-50%); bottom: -24px; font-size: 14px; color: var(--cl-muted); white-space: nowrap; }
+.cl-bar__cat.is-on { color: var(--cl-teal); font-weight: 600; }
+
+/* ---- Pick-the-chart cards --------------------------------------------------------- */
+.cl-card { position: absolute; width: 202px; height: 438px; border-radius: 12px; background: var(--cl-panel); border: 1px solid var(--cl-border); }
+.cl-card__art { position: absolute; left: 0; right: 0; top: 60px; height: 250px; display: grid; place-items: center; }
+.cl-card__mark { position: absolute; left: 50%; transform: translateX(-50%); top: 338px; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; }
+.cl-card__mark--ok { background: #12302b; border: 1.5px solid #1f7a63; color: var(--cl-teal); }
+.cl-card__mark--no { background: #2a1520; border: 1.5px solid #7a2a44; color: var(--cl-pink); }
+.cl-card__mark svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.4; }
+.cl-card__lab { position: absolute; left: 0; right: 0; top: 376px; text-align: center; font-size: 15px; font-weight: 700; }
+.cl-card__lab--no { color: var(--cl-pink); }
+.cl-card__type { position: absolute; left: 0; right: 0; top: 406px; text-align: center; font-size: 12px; font-weight: 700; letter-spacing: .16em; color: var(--cl-dim); }
+
+/* ---- Palettes -------------------------------------------------------------------- */
+.cl-pal { position: absolute; left: 53px; display: flex; align-items: center; height: 38px; }
+.cl-pal b { width: 160px; font-size: 16px; font-weight: 600; }
+.cl-pal i { width: 82px; height: 38px; border-radius: 4px; margin-right: 10px; }
+
+/* ---- Data-ink meter and line chart ---------------------------------------------- */
+.cl-meter { position: absolute; left: 53px; right: 53px; height: 20px; display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 600; color: var(--cl-muted); }
+.cl-meter__track { flex: 1; height: 6px; border-radius: 3px; background: var(--cl-bar-dim); overflow: hidden; }
+.cl-meter__fill { height: 100%; border-radius: 3px; background: var(--cl-teal); width: var(--w, 0%); transition: width .6s ease; }
+.cl-meter b { width: 36px; text-align: right; color: var(--cl-teal); font-size: 15px; font-weight: 700; }
+.cl-line { position: absolute; background: var(--cl-panel); border-radius: 12px; box-shadow: 0 30px 60px rgba(0,0,0,.35); }
+.cl-line.is-tilted { transform: perspective(700px) rotateX(18deg); transform-origin: 50% 50%; background: #12191c; }
+.cl-line svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.cl-line__grid line { stroke: #1f292e; stroke-width: 1; }
+.cl-line__path { fill: none; stroke: var(--cl-teal); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+.cl-line__dot { fill: var(--cl-teal); }
+.cl-line__legend { position: absolute; right: 34px; top: 32px; height: 26px; padding: 0 10px; display: inline-flex; align-items: center; gap: 6px; border-radius: 4px; background: #1a2124; border: 1px solid #262e33; font-size: 11px; color: #aab1b6; }
+.cl-line__legend i { width: 12px; height: 2px; background: var(--cl-teal); }
+.cl-line__label { position: absolute; right: 20px; top: 18px; font-size: 15px; font-weight: 700; color: var(--cl-teal); }
+
+/* ---- Aspect ratio ---------------------------------------------------------------- */
+.cl-ratio { position: absolute; background: var(--cl-panel); border-radius: 10px; box-shadow: 0 30px 60px rgba(0,0,0,.35); }
+.cl-ratio__plot { position: absolute; inset: 18px 22px 20px 22px; background: var(--cl-panel-2); overflow: visible; }
+.cl-ratio__plot svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.cl-ratio__path { fill: none; stroke: #b8bec3; stroke-width: 2.5; stroke-linejoin: round; }
+.cl-ratio__end { fill: #b8bec3; }
+.cl-ratio.is-banked .cl-ratio__plot { background: var(--cl-panel); }
+.cl-ratio.is-banked .cl-ratio__path { stroke: var(--cl-teal); }
+.cl-ratio.is-banked .cl-ratio__end { fill: var(--cl-teal); }
+.cl-ratio__area { fill: #112b29; }
+.cl-ratio__diag { fill: none; stroke: var(--cl-teal); stroke-width: 1.5; stroke-dasharray: 5 5; opacity: .8; }
+.cl-ratio__deg { position: absolute; font-size: 14px; font-weight: 700; color: var(--cl-teal); }
+
+/* ---- Outro ------------------------------------------------------------------------- */
+.cl-cta { position: absolute; left: 0; right: 0; text-align: center; font-size: 34px; font-weight: 700; color: var(--cl-teal); letter-spacing: -.01em; text-shadow: 0 0 30px rgba(32,201,164,.35); }
+.cl-cta-line { position: absolute; left: 0; right: 0; display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 19px; font-weight: 500; }
+.cl-cta-line svg { width: 18px; height: 18px; stroke: var(--cl-teal); fill: none; stroke-width: 2; }

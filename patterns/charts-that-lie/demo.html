@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Charts That Lie · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0c0f10; --grid: rgba(255,255,255,.03); --accent: #20c9a4; --danger: #d84269; }
+  .scene { color: #f3f5f7; }
+  .scene--green::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(60% 30% at 50% 75%, rgba(32,201,164,.10), transparent 70%); }
+</style>
+</head>
+<body class="cl">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5L19 7"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-follow" viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M2 21a8 8 0 0 1 14-4M19 8v6M16 11h6"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+</svg>
+
+<!-- 1 · Hook: the truncated version -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="cl-delta cl-delta--pink" style="top:148px"><b>+400%</b><span>vs last quarter</span></div>
+  <div class="cl-panel" id="hookLie" style="left:60px;top:228px;width:600px;height:517px"><div class="cl-panel__title">Quarterly revenue</div></div>
+</section>
+
+<!-- 1b · Hook: the honest version -->
+<section class="scene" data-t="1.5" data-shot="1.5">
+  <div class="cl-delta cl-delta--teal" style="top:148px"><b>+4%</b><span>vs last quarter</span></div>
+  <div class="cl-panel" id="hookTrue" style="left:60px;top:228px;width:600px;height:517px"><div class="cl-panel__title">Quarterly revenue</div></div>
+  <div class="cl-h" style="top:855px;font-size:38px">This chart is <em style="font-style:normal;color:var(--cl-teal)">lying.</em></div>
+</section>
+
+<!-- 2 · Truncated axis: baseline 46% -->
+<section class="scene" data-t="3" data-shot="3">
+  <div class="cl-kick" style="top:63px">The truncated axis</div>
+  <h1 class="cl-h" style="top:90px">Landslide? Or a tie.</h1>
+  <div class="cl-panel" id="axis46" style="left:60px;top:200px;width:600px;height:518px"><div class="cl-panel__title">Approval rating</div><span class="cl-panel__tag cl-panel__tag--pink">baseline 46%</span></div>
+</section>
+
+<!-- 2b · Truncated axis: pulling the baseline down -->
+<section class="scene" data-t="6" data-shot="6">
+  <div class="cl-kick" style="top:63px">The truncated axis</div>
+  <h1 class="cl-h" style="top:90px">Landslide? Or a tie.</h1>
+  <div class="cl-panel" id="axis34" style="left:60px;top:200px;width:600px;height:518px"><div class="cl-panel__title">Approval rating</div><span class="cl-panel__tag cl-panel__tag--pink is-off">baseline 46%</span></div>
+</section>
+
+<!-- 2c · Truncated axis: baseline 0 -->
+<section class="scene scene--green" data-t="9" data-shot="9">
+  <div class="cl-kick cl-kick--teal" style="top:63px">The truncated axis</div>
+  <h1 class="cl-h" style="top:90px">Landslide? Or a tie.</h1>
+  <div class="cl-panel" id="axis0" style="left:60px;top:200px;width:600px;height:518px"><div class="cl-panel__title">Approval rating</div><span class="cl-panel__tag cl-panel__tag--teal">baseline 0</span></div>
+  <div class="cl-callout" style="top:803px">Bar charts start at zero.<em>No exceptions.</em></div>
+  <div class="cl-foot" style="top:980px">Start every bar axis at zero.</div>
+</section>
+
+<!-- 3 · Match the form to the question -->
+<section class="scene" data-t="12" data-shot="15">
+  <div class="cl-kick" style="top:99px">Match the form to the question</div>
+  <h1 class="cl-h" style="top:127px;font-size:30px">Pick the chart for the job.</h1>
+  <div class="cl-card" style="left:37px;top:247px"><div class="cl-card__art"><svg viewBox="0 0 140 140" width="140" height="140"><rect x="8" y="76" width="24" height="52" rx="3" fill="#9191a3"/><rect x="46" y="38" width="24" height="90" rx="3" fill="#9191a3"/><rect x="84" y="60" width="24" height="68" rx="3" fill="#9191a3"/><rect x="122" y="6" width="24" height="122" rx="3" fill="#20c9a4"/></svg></div><div class="cl-card__mark cl-card__mark--ok"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></div><div class="cl-card__lab">Compare values</div><div class="cl-card__type">BAR</div></div>
+  <div class="cl-card" style="left:258px;top:247px"><div class="cl-card__art"><svg viewBox="0 0 170 120" width="170" height="120"><polyline points="4,102 34,78 72,70 104,38 132,45 164,6" fill="none" stroke="#20c9a4" stroke-width="3" stroke-linejoin="round"/><circle cx="164" cy="6" r="4" fill="#20c9a4"/></svg></div><div class="cl-card__mark cl-card__mark--ok"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></div><div class="cl-card__lab">Change over time</div><div class="cl-card__type">LINE</div></div>
+  <div class="cl-card" style="left:481px;top:247px"><div class="cl-card__art"><svg viewBox="-75 -75 150 150" width="150" height="150" id="pieA"></svg></div><div class="cl-card__mark cl-card__mark--no"><svg viewBox="0 0 24 24"><use href="#i-x"/></svg></div><div class="cl-card__lab cl-card__lab--no">Breaks past 5 slices</div><div class="cl-card__type">PIE</div></div>
+  <div class="cl-foot" style="top:987px">The question picks the chart — not your taste.</div>
+</section>
+
+<!-- 3b · The pie breaks -->
+<section class="scene" data-t="16.5" data-shot="18">
+  <div class="cl-kick" style="top:99px">Match the form to the question</div>
+  <h1 class="cl-h" style="top:127px;font-size:30px">Pick the chart for the job.</h1>
+  <div class="cl-card" style="left:37px;top:247px"><div class="cl-card__art"><svg viewBox="0 0 140 140" width="140" height="140"><rect x="8" y="76" width="24" height="52" rx="3" fill="#9191a3"/><rect x="46" y="38" width="24" height="90" rx="3" fill="#9191a3"/><rect x="84" y="60" width="24" height="68" rx="3" fill="#9191a3"/><rect x="122" y="6" width="24" height="122" rx="3" fill="#20c9a4"/></svg></div><div class="cl-card__mark cl-card__mark--ok"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></div><div class="cl-card__lab">Compare values</div><div class="cl-card__type">BAR</div></div>
+  <div class="cl-card" style="left:258px;top:247px"><div class="cl-card__art"><svg viewBox="0 0 170 120" width="170" height="120"><polyline points="4,102 34,78 72,70 104,38 132,45 164,6" fill="none" stroke="#20c9a4" stroke-width="3" stroke-linejoin="round"/><circle cx="164" cy="6" r="4" fill="#20c9a4"/></svg></div><div class="cl-card__mark cl-card__mark--ok"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></div><div class="cl-card__lab">Change over time</div><div class="cl-card__type">LINE</div></div>
+  <div class="cl-card" style="left:481px;top:247px"><div class="cl-card__art"><svg viewBox="-75 -75 150 150" width="150" height="150" id="pieB"></svg></div><div class="cl-card__mark cl-card__mark--no"><svg viewBox="0 0 24 24"><use href="#i-x"/></svg></div><div class="cl-card__lab cl-card__lab--no">Breaks past 5 slices</div><div class="cl-card__type">PIE</div></div>
+  <div class="cl-foot" style="top:987px">The question picks the chart — not your taste.</div>
+</section>
+
+<!-- 4 · Color: the rainbow -->
+<section class="scene" data-t="21" data-shot="21">
+  <div class="cl-kick" style="top:73px">Color encodes meaning</div>
+  <h1 class="cl-h" style="top:100px;font-size:30px">Color is encoding, not decoration.</h1>
+  <div class="cl-panel" id="rainbow" style="left:60px;top:200px;width:600px;height:425px"></div>
+</section>
+
+<!-- 4b · Color: one hero, three scales -->
+<section class="scene" data-t="24" data-shot="27">
+  <div class="cl-kick" style="top:73px">Color encodes meaning</div>
+  <h1 class="cl-h" style="top:100px;font-size:30px">Color is encoding, not decoration.</h1>
+  <div class="cl-panel" id="hero" style="left:60px;top:200px;width:600px;height:425px"></div>
+  <div class="cl-pal" style="top:726px"><b>Categorical</b><i style="background:#20c9a4"></i><i style="background:#9191a3"></i><i style="background:#4f555c"></i><i style="background:#20262d"></i><i style="background:#68727b"></i></div>
+  <div class="cl-pal" style="top:785px"><b>Sequential</b><i style="background:#0d3f32"></i><i style="background:#18a88a"></i><i style="background:#20c9a4"></i><i style="background:#37e5b9"></i><i style="background:#84f4d8"></i></div>
+  <div class="cl-pal" style="top:844px"><b>Diverging</b><i style="background:#d84269"></i><i style="background:#c1808d"></i><i style="background:#4f555c"></i><i style="background:#74c4b2"></i><i style="background:#1fc9a4"></i></div>
+</section>
+
+<!-- 5 · Chartjunk: 28% data-ink -->
+<section class="scene" data-t="30" data-shot="30">
+  <div class="cl-kick" style="top:73px">Strip everything that isn't data</div>
+  <h1 class="cl-h" style="top:100px">Kill the chartjunk.</h1>
+  <div class="cl-meter" style="top:185px">Data-ink<div class="cl-meter__track"><div class="cl-meter__fill" style="--w:28%"></div></div><b>28%</b></div>
+  <div class="cl-line is-tilted" style="left:60px;top:240px;width:600px;height:505px"><svg viewBox="0 0 600 505" data-line="grid" data-reveal=".13"></svg><div class="cl-line__legend"><i></i>Revenue</div></div>
+</section>
+
+<!-- 5b · Chartjunk: 72%, flat and gridless -->
+<section class="scene" data-t="34.5" data-shot="36">
+  <div class="cl-kick" style="top:73px">Strip everything that isn't data</div>
+  <h1 class="cl-h" style="top:100px">Kill the chartjunk.</h1>
+  <div class="cl-meter" style="top:185px">Data-ink<div class="cl-meter__track"><div class="cl-meter__fill" style="--w:72%"></div></div><b>72%</b></div>
+  <div class="cl-line" style="left:60px;top:240px;width:600px;height:505px"><svg viewBox="0 0 600 505" data-line></svg><div class="cl-line__legend" style="top:32px;right:34px"><i></i>Revenue</div></div>
+</section>
+
+<!-- 5c · Chartjunk: 94%, label the line directly -->
+<section class="scene scene--green" data-t="37.5" data-shot="39">
+  <div class="cl-kick" style="top:73px">Strip everything that isn't data</div>
+  <h1 class="cl-h" style="top:100px">Kill the chartjunk.</h1>
+  <div class="cl-meter" style="top:185px">Data-ink<div class="cl-meter__track"><div class="cl-meter__fill" style="--w:94%"></div></div><b>94%</b></div>
+  <div class="cl-line" style="left:60px;top:240px;width:600px;height:505px"><svg viewBox="0 0 600 505" data-line></svg><div class="cl-line__label">Revenue</div></div>
+  <div class="cl-callout" style="top:828px">Data-ink ratio:<em>every pixel is data.</em></div>
+</section>
+
+<!-- 6 · Aspect ratio: flat? -->
+<section class="scene" data-t="42" data-shot="42">
+  <div class="cl-kick" style="top:73px">The aspect ratio</div>
+  <h1 class="cl-h" style="top:100px">Same data. The ratio changes the story.</h1>
+  <div class="cl-badge cl-badge--pink" style="top:420px">Flat?</div>
+  <div class="cl-ratio" style="left:55px;top:452px;width:610px;height:238px"><div class="cl-ratio__plot"><svg viewBox="0 0 564 200" preserveAspectRatio="none" data-ratio></svg></div></div>
+  <div class="cl-dots" style="top:947px"><i class="is-on"></i><i></i><i></i></div>
+</section>
+
+<!-- 6b · Aspect ratio: spike? -->
+<section class="scene" data-t="45" data-shot="45">
+  <div class="cl-kick" style="top:73px">The aspect ratio</div>
+  <h1 class="cl-h" style="top:100px">Same data. The ratio changes the story.</h1>
+  <div class="cl-badge cl-badge--pink" style="top:254px">Spike?</div>
+  <div class="cl-ratio" style="left:208px;top:283px;width:305px;height:575px"><div class="cl-ratio__plot"><svg viewBox="0 0 261 537" preserveAspectRatio="none" data-ratio></svg></div></div>
+  <div class="cl-dots" style="top:947px"><i></i><i class="is-on"></i><i></i></div>
+</section>
+
+<!-- 6c · Aspect ratio: banked to 45° -->
+<section class="scene scene--green" data-t="48" data-shot="48">
+  <div class="cl-kick" style="top:73px">The aspect ratio</div>
+  <h1 class="cl-h" style="top:100px">Same data. The ratio changes the story.</h1>
+  <div class="cl-badge cl-badge--teal" style="top:314px">Banking to 45°</div>
+  <div class="cl-ratio is-banked" style="left:67px;top:348px;width:586px;height:449px"><div class="cl-ratio__plot"><svg viewBox="0 0 540 411" preserveAspectRatio="none" data-ratio="banked"></svg><div class="cl-ratio__deg" style="left:213px;top:184px">45°</div></div></div>
+  <div class="cl-dots" style="top:947px"><i></i><i></i><i class="is-on is-teal"></i></div>
+</section>
+
+<!-- 7 · Outro: title the takeaway -->
+<section class="scene scene--green" data-t="51" data-shot="52.5">
+  <div class="cl-panel" id="outro" style="left:60px;top:165px;width:600px;height:455px"><div class="cl-panel__title">Revenue flat since March</div></div>
+  <div class="cl-cta" style="top:715px">Follow for more UI design</div>
+  <div class="cl-cta-line" style="top:778px"><svg viewBox="0 0 24 24"><use href="#i-follow"/></svg>Follow @designmotionhq</div>
+  <div class="cl-cta-line" style="top:820px"><svg viewBox="0 0 24 24"><use href="#i-bookmark"/></svg>Save this for your next dashboard.</div>
+</section>
+
+<script type="module">
+  import { renderBars, growBars, renderLine, revealLine, linePoints, pointsAttr } from './pattern.js';
+  const two = (a, b, clsB, fmt) => ({ bars: [{ x: 144, w: 80, v: a, label: 'Candidate A', valueText: fmt(a), cls: '' }, { x: 406, w: 80, v: b, label: 'Candidate B', valueText: fmt(b), cls: clsB }] });
+  // Hook: 104 vs 108, once on an 80..109 axis, once from zero.
+  renderBars(document.getElementById('hookLie'), { plotTop: 41, plotBottom: 481, ticks: 6, min: 80, max: 109, bars: [{ x: 144, w: 80, v: 104, label: 'Q1', valueText: '104' }, { x: 406, w: 80, v: 108, label: 'Q2', valueText: '108', cls: 'cl-bar--pink' }] });
+  renderBars(document.getElementById('hookTrue'), { plotTop: 41, plotBottom: 481, ticks: 6, min: 0, max: 110, bars: [{ x: 144, w: 80, v: 104, label: 'Q1', valueText: '104' }, { x: 406, w: 80, v: 108, label: 'Q2', valueText: '108', cls: 'cl-bar--teal' }] });
+  // Approval: 47 vs 48 on three baselines.
+  const pct = v => v + '%';
+  renderBars(document.getElementById('axis46'), { plotTop: 42, plotBottom: 482, ticks: 6, min: 46, max: 49, fmt: t => Math.round(t), ...two(47, 48, 'cl-bar--pink', pct) });
+  renderBars(document.getElementById('axis34'), { plotTop: 42, plotBottom: 482, ticks: 6, min: 34, max: 52, fmt: t => Math.round(t), ...two(47, 48, 'cl-bar--pink', pct) });
+  renderBars(document.getElementById('axis0'), { plotTop: 42, plotBottom: 482, ticks: 6, min: 0, max: 60, zeroLine: true, ...two(47, 48, 'cl-bar--teal', pct) });
+  // Colour: eight months, rainbow then one hero.
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'], vals = [175, 245, 147, 300, 207, 265, 362, 227];
+  const rainbow = ['#5a2a3a', '#6b5030', '#244a3a', '#2a5060', '#4a3a70', '#6a3a5a', '#20c9a4', '#6a6030'];
+  const xs = [13, 86, 159, 231, 304, 377, 449, 522];
+  const colourBars = colour => ({ plotTop: 8, plotBottom: 370, ticks: 0, min: 0, max: 362, bars: vals.map((v, i) => ({ x: xs[i], w: 62, v, label: months[i], on: i === 6, cls: '' })) });
+  const rb = renderBars(document.getElementById('rainbow'), colourBars()); rb.querySelectorAll('.cl-bar').forEach((b, i) => { b.style.background = rainbow[i]; if (i === 6) b.classList.add('cl-bar--glow'); b.querySelector('.cl-bar__cat').style.bottom = '-20px'; });
+  const hb = renderBars(document.getElementById('hero'), colourBars()); hb.querySelectorAll('.cl-bar').forEach((b, i) => { b.classList.add(i === 6 ? 'cl-bar--teal' : 'cl-bar--dim'); if (i === 6) b.classList.add('cl-bar--glow'); b.querySelector('.cl-bar__cat').style.bottom = '-20px'; });
+  // Outro: honest bars, titled with the takeaway.
+  renderBars(document.getElementById('outro'), { plotTop: 44, plotBottom: 417, ticks: 5, min: 0, max: 80, bars: [62, 64, 65.5, 65, 67, 66].map((v, i) => ({ x: [71, 161, 245, 332, 419, 507][i], w: 50, v, label: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'][i], cls: i === 2 ? 'cl-bar--teal' : '' })) });
+  // Revenue line: same series in every chartjunk scene.
+  const revenue = [0, 87, 60, 183, 220, 306, 279, 400, 450];
+  for (const svg of document.querySelectorAll('svg[data-line]')) { const poly = renderLine(svg, revenue, { w: 600, h: 505, pad: 28, grid: svg.dataset.line === 'grid' ? 6 : 0 }); if (svg.dataset.reveal) revealLine(poly, Number(svg.dataset.reveal)); }
+  // Aspect ratio: the same gentle rise in three boxes.
+  const rise = [0, 20, 36, 68, 88, 108, 128, 158, 188];
+  for (const svg of document.querySelectorAll('svg[data-ratio]')) {
+    const w = Number(svg.viewBox.baseVal.width), h = Number(svg.viewBox.baseVal.height), pts = linePoints(rise, w, h, 4);
+    if (svg.dataset.ratio === 'banked') svg.insertAdjacentHTML('beforeend', `<polygon class="cl-ratio__area" points="${pointsAttr(pts)} ${w - 4},${h - 4}"/><line class="cl-ratio__diag" x1="${pts[0][0]}" y1="${pts[0][1]}" x2="${pts[0][0] + (h - 8)}" y2="${pts[0][1] - (h - 8)}"/>`);
+    svg.insertAdjacentHTML('beforeend', `<polyline class="cl-ratio__path" points="${pointsAttr(pts)}" vector-effect="non-scaling-stroke"/><circle class="cl-ratio__end" cx="${pts[8][0]}" cy="${pts[8][1]}" r="4"/>`);
+  }
+  // Pies: six slices, teal first. pieA is the full pie; pieB adds the pink strike.
+  const slices = [100, 62, 50, 46, 58, 44], cols = ['#20c9a4', '#5c6369', '#4a5057', '#3a4046', '#2e3439', '#252a2f'];
+  const pie = (svg, strike) => { let a = -90; const r = 73; let html = ''; for (let i = 0; i < slices.length; i++) { const a2 = a + slices[i]; const p = d => [r * Math.cos(d * Math.PI / 180), r * Math.sin(d * Math.PI / 180)]; const [x1, y1] = p(a), [x2, y2] = p(a2); html += `<path d="M0 0L${x1} ${y1}A${r} ${r} 0 ${slices[i] > 180 ? 1 : 0} 1 ${x2} ${y2}Z" fill="${cols[i]}"/>`; a = a2; } if (strike) html = html.replace("#20c9a4", "#4f555c"); if (strike) html += `<line x1="-74" y1="-7" x2="70" y2="-52" stroke="#d84269" stroke-width="2.5"/>`; svg.innerHTML = html; };
+  pie(document.getElementById('pieA')); pie(document.getElementById('pieB'), true);
+  // Live playback: bars grow when a scene is entered without a freeze time.
+  for (const s of document.querySelectorAll('.scene')) s.addEventListener('scene:enter', e => { if (e.detail.t === 0) s.querySelectorAll('.cl-panel').forEach(p => growBars(p)); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

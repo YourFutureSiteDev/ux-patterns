@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Build a Design System · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0c0c12; --accent: #22d3ee; --danger: #ee3a4a; }
+  .scene { color: #f3f5f7; background-image: radial-gradient(rgba(255,255,255,.07) 1px, transparent 1.5px); background-size: 28px 28px; background-position: 14px 14px; }
+  .scene--plain { background-image: none; }
+</style>
+</head>
+<body class="ds">
+
+<svg width="0" height="0" style="position:absolute"><symbol id="i-bookmark" viewBox="0 0 16 18"><path d="M2 1.5h12v15l-6-4-6 4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol></svg>
+
+<!-- 1 · Hook: no system vs design system -->
+<section class="scene scene--plain" data-t="0" data-shot="0">
+  <span class="ds-cap" style="left:155px;top:386px">NO SYSTEM</span>
+  <span class="ds-cap is-on" style="left:440px;top:386px">DESIGN SYSTEM</span>
+  <div class="ds-mess">
+    <div class="ds-mess__brand"><i></i><div><b>my app</b><span>welcome page</span></div></div>
+    <div class="ds-mess__box"></div><div class="ds-mess__bar" style="width:196px"></div><div class="ds-mess__bar" style="width:130px"></div>
+    <div class="ds-mess__btns"><span>click here</span><span class="blue">SUBMIT</span><span>cancel</span></div>
+    <div class="ds-mess__shapes"><i></i><i></i><i></i><small>v1.0</small></div>
+  </div>
+  <div class="ds-neat">
+    <div class="ds-neat__brand"><i>✨</i><div><b>MyApp</b><span>Dashboard</span></div></div>
+    <div class="ds-neat__preview"><div class="ds-neat__img"></div><div class="ds-neat__bar"></div><div class="ds-neat__bar"></div></div>
+    <div class="ds-neat__btns"><span class="on">Get Started</span><span>Learn More</span></div>
+    <div class="ds-neat__dots"><i style="--c:#6366f1"></i><i style="--c:#22d3ee"></i><i style="--c:#4ade80"></i></div>
+  </div>
+  <div class="ds-hook-title">The difference is <em>a system</em>.</div>
+  <div class="ds-hook-sub">Here's how to build one.</div>
+</section>
+
+<!-- 2 · 01 Colors · Monochromatic -->
+<section class="scene" data-t="4.5" data-shot="6">
+  <span class="ds-num">01</span><h1 class="ds-h1">Colors</h1>
+  <svg class="ds-wheel" viewBox="0 0 300 300" data-wheel="monochromatic"></svg>
+  <div class="ds-harmony ds-in"><b>Monochromatic</b><span>One hue — vary lightness &amp; saturation</span></div>
+  <div class="ds-swatches ds-in" style="animation-delay:.2s"><i style="background:#2a3ec4"></i><i style="background:#4b5be0"></i><i style="background:#7480f0"></i><i style="background:#aab3fa"></i></div>
+  <div class="ds-panel ds-panel--ex ds-in" style="animation-delay:.4s"><div class="ds-label">Example</div>
+    <div class="ds-btn ds-btn--primary">Primary Button</div><div class="ds-btn ds-btn--secondary">Secondary Button</div><div class="ds-btn ds-btn--ghost">Ghost Button</div>
+  </div>
+  <div class="ds-save"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 2b · 01 Colors · Complementary -->
+<section class="scene" data-t="9" data-shot="12">
+  <span class="ds-num">01</span><h1 class="ds-h1">Colors</h1>
+  <svg class="ds-wheel" viewBox="0 0 300 300" data-wheel="complementary" data-base="0"></svg>
+  <div class="ds-harmony ds-in"><b>Complementary</b><span>Two opposites — maximum contrast</span></div>
+  <div class="ds-swatches ds-in" style="animation-delay:.2s"><i style="background:#ee3a4a"></i><i style="background:#2ecfd6"></i></div>
+  <div class="ds-panel ds-panel--ex ds-in" style="animation-delay:.4s"><div class="ds-label">Example</div>
+    <div class="ds-alert"><div><b>Alert Banner</b><span>Action required</span></div><a>Fix now</a></div>
+  </div>
+  <div class="ds-save"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 2c · 01 Colors · Analogous -->
+<section class="scene" data-t="13.5" data-shot="18">
+  <span class="ds-num">01</span><h1 class="ds-h1">Colors</h1>
+  <svg class="ds-wheel" viewBox="0 0 300 300" data-wheel="analogous" data-base="4"></svg>
+  <div class="ds-harmony ds-in"><b>Analogous</b><span>3 neighbors — harmonious &amp; natural</span></div>
+  <div class="ds-swatches ds-in" style="animation-delay:.2s"><i style="background:#d9e21f"></i><i style="background:#4ade80"></i><i style="background:#2dd4bf"></i></div>
+  <div class="ds-panel ds-panel--ex ds-in" style="animation-delay:.4s"><div class="ds-label">Example</div>
+    <div class="ds-stats"><div style="--c:#d9e21f"><b>$12k</b><span>Revenue</span></div><div style="--c:#4ade80"><b>+28%</b><span>Growth</span></div><div style="--c:#2dd4bf"><b>$4.2k</b><span>Profit</span></div></div>
+  </div>
+  <div class="ds-save"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 3 · 02 Typography · Modular scale (rows fill in, then the ratio line) -->
+<section class="scene" data-t="22.5" data-shot="24">
+  <span class="ds-num">02</span><h1 class="ds-h1">Typography</h1>
+  <div class="ds-sub" style="top:222px"><b>Modular Scale</b><span>Each step is a fixed ratio — not random sizes</span></div>
+  <div class="ds-scale">
+    <div class="ds-scale__row ds-in" style="height:75px"><i style="height:10px"></i><b style="font-size:13px">Caption</b><div class="ds-scale__meta"><b>14px</b><span>0.875×</span></div></div>
+    <div class="ds-scale__row ds-in" style="height:73px;animation-delay:.3s"><i style="height:12px"></i><b style="font-size:17px;font-weight:500">Body</b><div class="ds-scale__meta"><b>18px</b><span class="base">base</span></div></div>
+    <div class="ds-scale__row ds-in" style="height:71px;animation-delay:.6s"><i style="height:18px"></i><b style="font-size:30px">Heading</b><div class="ds-scale__meta"><b>32px</b><span>1.78×</span></div></div>
+    <div class="ds-scale__row ds-in" style="height:71px;animation-delay:2.4s"><i style="height:22px"></i><b style="font-size:40px">Display</b><div class="ds-scale__meta"><b>48px</b><span>2.67×</span></div></div>
+  </div>
+  <div class="ds-line ds-in" style="top:619px;animation-delay:3s">Mathematical ratios → <b>always harmonious</b></div>
+  <div class="ds-save"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+<section class="scene" data-t="22.5" data-shot="27">
+  <span class="ds-num">02</span><h1 class="ds-h1">Typography</h1>
+  <div class="ds-sub" style="top:222px"><b>Modular Scale</b><span>Each step is a fixed ratio — not random sizes</span></div>
+  <div class="ds-scale">
+    <div class="ds-scale__row ds-in" style="height:75px"><i style="height:10px"></i><b style="font-size:13px">Caption</b><div class="ds-scale__meta"><b>14px</b><span>0.875×</span></div></div>
+    <div class="ds-scale__row ds-in" style="height:73px;animation-delay:.3s"><i style="height:12px"></i><b style="font-size:17px;font-weight:500">Body</b><div class="ds-scale__meta"><b>18px</b><span class="base">base</span></div></div>
+    <div class="ds-scale__row ds-in" style="height:71px;animation-delay:.6s"><i style="height:18px"></i><b style="font-size:30px">Heading</b><div class="ds-scale__meta"><b>32px</b><span>1.78×</span></div></div>
+    <div class="ds-scale__row ds-in" style="height:71px;animation-delay:2.4s"><i style="height:22px"></i><b style="font-size:40px">Display</b><div class="ds-scale__meta"><b>48px</b><span>2.67×</span></div></div>
+  </div>
+  <div class="ds-line ds-in" style="top:619px;animation-delay:3s">Mathematical ratios → <b>always harmonious</b></div>
+  <div class="ds-save"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 3b · 02 Typography · Hierarchy in action -->
+<section class="scene" data-t="28.5" data-shot="33">
+  <span class="ds-num">02</span><h1 class="ds-h1">Typography</h1>
+  <div class="ds-sub" style="top:262px;left:-45px"><b>Hierarchy in Action</b><span>Your eye follows the scale naturally</span></div>
+  <div class="ds-article ds-in">
+    <h2 class="ds-article__display">The Future of<br>Design</h2>
+    <h3 class="ds-article__heading">Why systems matter</h3>
+    <p class="ds-article__body">A design system is a collection of reusable<br>components, guided by clear standards.</p>
+    <p class="ds-article__caption">Published Jan 2025 · 4 min read</p>
+    <span class="ds-tag ds-tag--display ds-in" style="top:28px;animation-delay:.4s">Display — 48px</span>
+    <span class="ds-tag ds-tag--heading ds-in" style="top:143px;animation-delay:.7s">Heading — 32px</span>
+    <span class="ds-tag ds-tag--body ds-in" style="top:192px;animation-delay:1s">Body — 18px</span>
+    <span class="ds-tag ds-tag--caption ds-in" style="top:263px;animation-delay:1.3s">Caption — 14px</span>
+  </div>
+  <div class="ds-line ds-in" style="top:670px;font-size:22px;animation-delay:6s">One font family. <b>4 sizes. Instant hierarchy.</b></div>
+  <div class="ds-save"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+<section class="scene" data-t="28.5" data-shot="36">
+  <span class="ds-num">02</span><h1 class="ds-h1">Typography</h1>
+  <div class="ds-sub" style="top:262px;left:-45px"><b>Hierarchy in Action</b><span>Your eye follows the scale naturally</span></div>
+  <div class="ds-article ds-in">
+    <h2 class="ds-article__display">The Future of<br>Design</h2>
+    <h3 class="ds-article__heading">Why systems matter</h3>
+    <p class="ds-article__body">A design system is a collection of reusable<br>components, guided by clear standards.</p>
+    <p class="ds-article__caption">Published Jan 2025 · 4 min read</p>
+    <span class="ds-tag ds-tag--display ds-in" style="top:28px;animation-delay:.4s">Display — 48px</span>
+    <span class="ds-tag ds-tag--heading ds-in" style="top:143px;animation-delay:.7s">Heading — 32px</span>
+    <span class="ds-tag ds-tag--body ds-in" style="top:192px;animation-delay:1s">Body — 18px</span>
+    <span class="ds-tag ds-tag--caption ds-in" style="top:263px;animation-delay:1.3s">Caption — 14px</span>
+  </div>
+  <div class="ds-line ds-in" style="top:670px;font-size:22px;animation-delay:6s">One font family. <b>4 sizes. Instant hierarchy.</b></div>
+  <div class="ds-save"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 4 · 03 Spacing · One unit: 8px (bars, then applied to a card) -->
+<section class="scene" data-t="37.5" data-shot="42">
+  <span class="ds-num">03</span><h1 class="ds-h1">Spacing</h1>
+  <div class="ds-sub" style="top:222px"><b>One unit: 8px</b><span>Stack it to create every spacing value</span></div>
+  <div class="ds-bars" data-spacing></div>
+  <div class="ds-panel ds-applied ds-in" style="animation-delay:5s"><div class="ds-label">Applied to a card</div>
+    <div class="ds-applied__card"><b>Card Title</b><p>Description text here.</p><a>Action</a>
+      <div class="ds-guide" style="top:0"><span style="top:2px">24px</span></div><div class="ds-guide" style="top:24px"></div>
+      <div class="ds-guide" style="top:70px"></div><div class="ds-guide" style="top:84px"><span style="top:-18px">16px</span></div>
+      <div class="ds-guide" style="top:127px"></div><div class="ds-guide" style="top:145px"><span style="top:-6px">24px</span></div>
+    </div>
+  </div>
+  <div class="ds-save"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+<section class="scene" data-t="37.5" data-shot="45">
+  <span class="ds-num">03</span><h1 class="ds-h1">Spacing</h1>
+  <div class="ds-sub" style="top:222px"><b>One unit: 8px</b><span>Stack it to create every spacing value</span></div>
+  <div class="ds-bars" data-spacing></div>
+  <div class="ds-panel ds-applied ds-in" style="animation-delay:5s"><div class="ds-label">Applied to a card</div>
+    <div class="ds-applied__card"><b>Card Title</b><p>Description text here.</p><a>Action</a>
+      <div class="ds-guide" style="top:0"><span style="top:2px">24px</span></div><div class="ds-guide" style="top:24px"></div>
+      <div class="ds-guide" style="top:70px"></div><div class="ds-guide" style="top:84px"><span style="top:-18px">16px</span></div>
+      <div class="ds-guide" style="top:127px"></div><div class="ds-guide" style="top:145px"><span style="top:-6px">24px</span></div>
+    </div>
+  </div>
+  <div class="ds-save"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 4b · 03 Spacing · Spot the difference -->
+<section class="scene" data-t="46.5" data-shot="51">
+  <span class="ds-num">03</span><h1 class="ds-h1">Spacing</h1>
+  <div class="ds-sub" style="top:262px;left:-45px"><b>Spot the Difference</b><span>Same content — different spacing</span></div>
+  <div class="ds-diff__head" style="left:57px;width:274px;color:#ee3a4a">RANDOM</div>
+  <div class="ds-diff__head" style="left:344px;width:274px;color:#4ade80">8PX GRID</div>
+  <div class="ds-diff ds-diff--random ds-in" style="left:57px">
+    <div class="ds-diff__row">Title</div><div class="ds-diff__gap" style="height:3px"></div>
+    <div class="ds-diff__row">Subtitle</div><div class="ds-diff__gap" style="height:18px"><span>18px</span></div>
+    <div class="ds-diff__row" style="line-height:28px">Image</div><div class="ds-diff__gap" style="height:9px"></div>
+    <div class="ds-diff__row" style="line-height:17px">Body</div><div class="ds-diff__gap" style="height:22px"><span>22px</span></div>
+    <div class="ds-diff__row">Button</div><div class="ds-diff__gap" style="height:10px"><span>10px</span></div>
+  </div>
+  <div class="ds-diff ds-diff--grid ds-in" style="left:344px;animation-delay:.2s">
+    <div class="ds-diff__row">Title</div><div class="ds-diff__gap" style="height:16px"><span>16px</span></div>
+    <div class="ds-diff__row">Subtitle</div><div class="ds-diff__gap" style="height:8px"></div>
+    <div class="ds-diff__row" style="line-height:30px">Image</div><div class="ds-diff__gap" style="height:16px"><span>16px</span></div>
+    <div class="ds-diff__row">Body</div><div class="ds-diff__gap" style="height:8px"></div>
+    <div class="ds-diff__row">Button</div><div class="ds-diff__gap" style="height:16px"><span>16px</span></div>
+  </div>
+  <div class="ds-save"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 5 · 04 Atomic components (atoms + molecule, then the organism) -->
+<section class="scene" data-t="55.5" data-shot="60">
+  <span class="ds-num">04</span><h1 class="ds-h1">Atomic Components</h1>
+  <div class="ds-sub" style="top:214px"><b style="font-size:26px">Atoms → Molecules → Organisms</b><span>Small pieces compose into bigger ones</span></div>
+  <span class="ds-level" style="top:286px">ATOMS</span>
+  <div class="ds-atoms">
+    <div class="ds-atom ds-in"><i class="ds-atom__ic color"></i>Color</div>
+    <div class="ds-atom ds-in" style="animation-delay:.15s"><i class="ds-atom__ic type">Aa</i>Type</div>
+    <div class="ds-atom ds-in" style="animation-delay:.3s"><i class="ds-atom__ic space"><i></i><i></i><i></i></i>Space</div>
+    <div class="ds-atom ds-in" style="animation-delay:.45s"><i class="ds-atom__ic radius"></i>Radius</div>
+  </div>
+  <div class="ds-arrow ds-in" style="top:418px;animation-delay:1s">↓</div>
+  <span class="ds-level ds-in" style="top:455px;animation-delay:1.3s">MOLECULE</span>
+  <div class="ds-molecule ds-in" style="animation-delay:1.5s"><a>Get Started</a>
+    <span class="ds-chip ds-chip--indigo ds-in" style="animation-delay:2.3s">primary</span><span class="ds-chip ds-in" style="animation-delay:2.7s">Inter 700</span><span class="ds-chip ds-chip--cyan ds-in" style="animation-delay:3.1s">16 × 28</span><span class="ds-chip ds-chip--cyan ds-in" style="animation-delay:6.5s">r:12</span>
+  </div>
+  <div class="ds-arrow ds-in" style="top:590px;animation-delay:7s">↓</div>
+  <span class="ds-level ds-in" style="top:627px;animation-delay:7.2s">ORGANISM</span>
+  <div class="ds-organism ds-in" style="animation-delay:7.4s">
+    <div class="ds-organism__card"><b>Pro Plan</b><p>Everything to scale your workflow.</p><a>Upgrade</a></div>
+    <div class="ds-organism__chips"><span class="ds-chip">Heading</span><span class="ds-chip ds-chip--plain">Body text</span><span class="ds-chip ds-chip--indigo">Button</span><span class="ds-chip ds-chip--cyan">24px pad</span></div>
+  </div>
+  <div class="ds-line ds-in" style="top:910px;font-size:24px;animation-delay:10s">Small tokens. <b>Big systems.</b></div>
+  <div class="ds-save"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+<section class="scene" data-t="55.5" data-shot="69">
+  <span class="ds-num">04</span><h1 class="ds-h1">Atomic Components</h1>
+  <div class="ds-sub" style="top:214px"><b style="font-size:26px">Atoms → Molecules → Organisms</b><span>Small pieces compose into bigger ones</span></div>
+  <span class="ds-level" style="top:286px">ATOMS</span>
+  <div class="ds-atoms">
+    <div class="ds-atom ds-in"><i class="ds-atom__ic color"></i>Color</div>
+    <div class="ds-atom ds-in" style="animation-delay:.15s"><i class="ds-atom__ic type">Aa</i>Type</div>
+    <div class="ds-atom ds-in" style="animation-delay:.3s"><i class="ds-atom__ic space"><i></i><i></i><i></i></i>Space</div>
+    <div class="ds-atom ds-in" style="animation-delay:.45s"><i class="ds-atom__ic radius"></i>Radius</div>
+  </div>
+  <div class="ds-arrow ds-in" style="top:418px;animation-delay:1s">↓</div>
+  <span class="ds-level ds-in" style="top:455px;animation-delay:1.3s">MOLECULE</span>
+  <div class="ds-molecule ds-in" style="animation-delay:1.5s"><a>Get Started</a>
+    <span class="ds-chip ds-chip--indigo ds-in" style="animation-delay:2.3s">primary</span><span class="ds-chip ds-in" style="animation-delay:2.7s">Inter 700</span><span class="ds-chip ds-chip--cyan ds-in" style="animation-delay:3.1s">16 × 28</span><span class="ds-chip ds-chip--cyan ds-in" style="animation-delay:6.5s">r:12</span>
+  </div>
+  <div class="ds-arrow ds-in" style="top:590px;animation-delay:7s">↓</div>
+  <span class="ds-level ds-in" style="top:627px;animation-delay:7.2s">ORGANISM</span>
+  <div class="ds-organism ds-in" style="animation-delay:7.4s">
+    <div class="ds-organism__card"><b>Pro Plan</b><p>Everything to scale your workflow.</p><a>Upgrade</a></div>
+    <div class="ds-organism__chips"><span class="ds-chip">Heading</span><span class="ds-chip ds-chip--plain">Body text</span><span class="ds-chip ds-chip--indigo">Button</span><span class="ds-chip ds-chip--cyan">24px pad</span></div>
+  </div>
+  <div class="ds-line ds-in" style="top:910px;font-size:24px;animation-delay:10s">Small tokens. <b>Big systems.</b></div>
+  <div class="ds-save"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+
+<script type="module">
+  import { ColorWheel, SpacingChart } from './pattern.js';
+  document.querySelectorAll('[data-wheel]').forEach(el => ColorWheel(el, { mode: el.dataset.wheel, base: Number(el.dataset.base ?? 8) }));
+  document.querySelectorAll('[data-spacing]').forEach(el => SpacingChart(el));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

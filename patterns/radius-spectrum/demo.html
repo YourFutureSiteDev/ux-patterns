@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Radius Spectrum · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0b070f; --grid: transparent; --accent: #8b5cf6; --danger: #e53d42; }
+  .scene { color: #f4f2f7; background-image: radial-gradient(rgba(255,255,255,.045) 1px, transparent 1.5px); background-size: 24px 24px; }
+  .scene.rs-lines { background-image: linear-gradient(#1e1b25 3px, transparent 3px), linear-gradient(90deg, #1e1b25 3px, transparent 3px); background-size: 58px 58px; background-position: 6px 8px; }
+  .rs-line { position: absolute; left: 0; right: 0; text-align: center; white-space: nowrap; }
+  .rs-kicker { position: absolute; top: 190px; left: 0; right: 0; text-align: center; font-size: 18px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: #8b5cf6; }
+  .rs-glow { position: absolute; border-radius: 50%; background: radial-gradient(circle, var(--c, rgba(139,92,246,.12)) 0%, transparent 62%); pointer-events: none; }
+</style>
+</head>
+<body class="rs">
+
+<!-- 1 · Hook: 2px, feels corporate -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="rs-line" style="top:189px;font-size:26px;color:#a9a6ae">One CSS property</div>
+  <div class="rs-line" style="top:229px;font-size:34px;font-weight:700">changes <span style="color:#8b5cf6">everything</span></div>
+  <div id="hook" style="--rs-r:2px;--rs-accent:#4580ea;--rs-pct:5%">
+    <div class="rs-feel" style="top:340px">Feels corporate</div>
+    <div class="rs-preview" style="left:200px;top:470px">
+      <div class="rs-brackets"><i></i><i></i><i></i><i></i></div>
+      <div class="rs-preview__avatar"></div>
+      <div class="rs-preview__line" style="top:151px;width:134px"></div>
+      <div class="rs-preview__line rs-preview__line--sub" style="top:175px;width:213px"></div>
+      <div class="rs-preview__slot" style="left:116px"></div><div class="rs-preview__slot" style="left:211px"></div>
+      <button class="rs-preview__btn" aria-label="Primary action"></button>
+    </div>
+    <div class="rs-slider" style="left:107px;top:948px">
+      <div class="rs-slider__head"><span class="rs-slider__label">border-radius:</span><span class="rs-slider__value">2px</span></div>
+      <div class="rs-slider__track"><div class="rs-slider__fill"></div><div class="rs-slider__knob"></div></div>
+      <div class="rs-slider__ends"><span>Sharp</span><span>Rounded</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 1b · Hook: 40px, feels friendly -->
+<section class="scene" data-t="1.5" data-shot="3">
+  <div class="rs-glow" style="left:60px;top:370px;width:600px;height:600px;--c:rgba(241,114,21,.14)"></div>
+  <div class="rs-line" style="top:189px;font-size:26px;color:#a9a6ae">One CSS property</div>
+  <div class="rs-line" style="top:229px;font-size:34px;font-weight:700">changes <span style="color:#8b5cf6">everything</span></div>
+  <div style="--rs-r:40px;--rs-accent:#f17215;--rs-pct:100%">
+    <div class="rs-feel" style="top:340px">Feels friendly</div>
+    <div class="rs-preview is-warm" style="left:190px;top:462px;width:340px;height:426px">
+      <div class="rs-brackets"><i></i><i></i><i></i><i></i></div>
+      <div class="rs-preview__avatar" style="left:146px;top:44px"></div>
+      <div class="rs-preview__line" style="top:157px;width:141px"></div>
+      <div class="rs-preview__line rs-preview__line--sub" style="top:181px;width:226px"></div>
+      <div class="rs-preview__slot" style="left:122px;top:208px"></div><div class="rs-preview__slot" style="left:222px;top:208px"></div>
+      <button class="rs-preview__btn" style="left:22px;right:22px;bottom:23px;height:44px" aria-label="Primary action"></button>
+    </div>
+    <div class="rs-slider" style="left:107px;top:948px">
+      <div class="rs-slider__head"><span class="rs-slider__label">border-radius:</span><span class="rs-slider__value">40px</span></div>
+      <div class="rs-slider__track"><div class="rs-slider__fill"></div><div class="rs-slider__knob"></div></div>
+      <div class="rs-slider__ends"><span>Sharp</span><span>Rounded</span></div>
+    </div>
+  </div>
+  <div class="rs-line" style="top:1049px;font-size:21px;color:#a9a6ae">The psychology behind <b style="color:#f17215">rounded corners</b></div>
+  <div class="rs-save"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Save for later</div>
+</section>
+
+<!-- 2 · Sharp corners create -->
+<section class="scene rs-lines" data-t="4.5" data-shot="4.5">
+  <div style="position:absolute;left:-4px;top:585px;width:439px;height:720px;background:#15131d;border:3px solid #33313f"></div>
+  <div class="rs-sub">Sharp corners <b>create</b></div>
+  <div class="rs-save"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Save for later</div>
+</section>
+
+<!-- 3 · Sharp corner = eye snags -->
+<section class="scene rs-lines" data-t="6" data-shot="6">
+  <div class="rs-callout rs-callout--red" style="top:190px">Sharp corner = Eye snags</div>
+  <div class="rs-corner" style="left:0;top:650px;width:351px;height:640px"></div>
+  <div style="position:absolute;left:0;top:645px;width:353px;height:11px;background:#e53d42"></div>
+  <div style="position:absolute;left:342px;top:645px;width:11px;height:382px;background:#e53d42;border-radius:0 0 6px 6px"></div>
+  <div style="position:absolute;left:275px;top:654px;width:70px;height:66px;border-left:3px solid #e53d42;border-bottom:3px solid #e53d42"></div>
+  <div class="rs-corner__angle" style="left:197px;top:748px">90°</div>
+  <div class="rs-target" style="left:347px;top:650px"></div>
+  <div class="rs-sub">Your eye snags on the</div>
+  <div class="rs-save"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Save for later</div>
+</section>
+
+<!-- 4 · Rounded = flows right through -->
+<section class="scene rs-lines" data-t="7.5" data-shot="9">
+  <div class="rs-corner rs-corner--round" style="left:-8px;top:646px;width:359px;height:650px"></div>
+  <div class="rs-corner__px" style="left:172px;top:722px">30px</div>
+  <div class="rs-corner__dot" style="left:330px;top:690px"></div>
+  <div class="rs-corner__dot" style="left:240px;top:812px;animation-delay:-.8s"></div>
+  <div class="rs-sub">flows right through</div>
+  <div class="rs-save"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Save for later</div>
+</section>
+
+<!-- 5 · The spectrum: 0px Authority -->
+<section class="scene" data-t="10.5" data-shot="12">
+  <div class="rs-kicker">The Spectrum</div>
+  <div class="rs-line" style="top:222px;font-size:28px;font-weight:700">Every pixel changes the vibe</div>
+  <div class="rs-dots" style="top:275px"><i class="is-on"></i><i></i><i></i><i></i></div>
+  <div class="rs-progress" style="left:127px;top:296px;width:466px;--rs-pct:10%"><i></i></div>
+  <div class="rs-spec" id="spec" data-step="0" style="top:336px">
+    <div class="rs-spec__value">0px</div>
+    <div class="rs-spec__name">Authority</div>
+    <div class="rs-spec__who">Banks • Law firms</div>
+    <div class="rs-spec__card"><i></i><i></i><i></i></div>
+    <button class="rs-spec__btn">Get Started</button>
+  </div>
+  <div class="rs-sub"><b>Banks,</b> government,</div>
+  <div class="rs-save"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Save for later</div>
+</section>
+
+<!-- 5b · 8px Professional -->
+<section class="scene" data-t="13.5" data-shot="15">
+  <div class="rs-kicker">The Spectrum</div>
+  <div class="rs-line" style="top:222px;font-size:28px;font-weight:700">Every pixel changes the vibe</div>
+  <div class="rs-dots" style="top:275px"><i></i><i class="is-on"></i><i></i><i></i></div>
+  <div class="rs-progress" style="left:127px;top:296px;width:466px;--rs-pct:35%"><i></i></div>
+  <div class="rs-spec" data-step="1" style="top:336px">
+    <div class="rs-spec__value">8px</div>
+    <div class="rs-spec__name">Professional</div>
+    <div class="rs-spec__who">SaaS • Enterprise</div>
+    <div class="rs-spec__card"><i></i><i></i><i></i></div>
+    <button class="rs-spec__btn">Get Started</button>
+  </div>
+  <div class="rs-sub">professional, B2B</div>
+  <div class="rs-save"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Save for later</div>
+</section>
+
+<!-- 5c · 20px Friendly -->
+<section class="scene" data-t="16.5" data-shot="18">
+  <div class="rs-kicker">The Spectrum</div>
+  <div class="rs-line" style="top:222px;font-size:28px;font-weight:700">Every pixel changes the vibe</div>
+  <div class="rs-dots" style="top:275px"><i></i><i></i><i class="is-on"></i><i></i></div>
+  <div class="rs-progress" style="left:127px;top:296px;width:466px;--rs-pct:61%"><i></i></div>
+  <div class="rs-spec" data-step="2" style="top:336px">
+    <div class="rs-spec__value">20px</div>
+    <div class="rs-spec__name">Friendly</div>
+    <div class="rs-spec__who">Consumer apps</div>
+    <div class="rs-spec__card"><i></i><i></i><i></i></div>
+    <button class="rs-spec__btn">Get Started</button>
+  </div>
+  <div class="rs-save"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Save for later</div>
+</section>
+
+<!-- 5d · 50% Playful -->
+<section class="scene" data-t="19.5" data-shot="21">
+  <div class="rs-kicker">The Spectrum</div>
+  <div class="rs-line" style="top:222px;font-size:28px;font-weight:700">Every pixel changes the vibe</div>
+  <div class="rs-dots" style="top:275px"><i></i><i></i><i></i><i class="is-on"></i></div>
+  <div class="rs-progress" style="left:127px;top:296px;width:466px;--rs-pct:87%"><i></i></div>
+  <div class="rs-spec" data-step="3" style="top:336px">
+    <div class="rs-spec__value">50%</div>
+    <div class="rs-spec__name">Playful</div>
+    <div class="rs-spec__who">Social • Gen Z</div>
+    <div class="rs-spec__card"><i></i><i></i><i></i></div>
+    <button class="rs-spec__btn">Get Started</button>
+  </div>
+  <div class="rs-save"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Save for later</div>
+</section>
+
+<!-- 6 · Outro -->
+<section class="scene" data-t="22.5" data-shot="22.5">
+  <div class="rs-glow" style="left:110px;top:120px;width:500px;height:500px;--c:rgba(139,92,246,.08)"></div>
+  <div class="rs-line" style="top:541px;font-size:34px;font-weight:700">Stop guessing radius.</div>
+  <div class="rs-line rs-gradient-text" style="top:594px;font-size:34px;font-weight:700">Match it to your brand.</div>
+  <div class="rs-follow" style="left:163px;top:676px;width:394px">Follow @designmotionhq</div>
+  <div class="rs-sub">your <b>brand</b></div>
+</section>
+
+<script type="module">
+  import { RadiusSpectrum, SpectrumStepper } from './pattern.js';
+  // Live playback: the hook slides from 2px to 40px after a beat, then back, so the chip flips corporate / friendly.
+  const hook = document.getElementById('hook'), rs = RadiusSpectrum(hook, { value: 2 });
+  hook.closest('.scene').addEventListener('scene:enter', e => {
+    if (e.detail.t > 0) return; rs.set(2); clearTimeout(hook._to);
+    const loop = async () => { await new Promise(r => setTimeout(r, 900)); await rs.animateTo(40, 1200); await new Promise(r => setTimeout(r, 1400)); await rs.animateTo(2, 1200); hook._to = setTimeout(loop, 600); };
+    hook._to = setTimeout(loop, 0);
+  });
+  // The spectrum card steps through its four stops when entered live.
+  const spec = document.getElementById('spec'), stepper = SpectrumStepper(spec, { dots: spec.parentElement.querySelector('.rs-dots'), progress: spec.parentElement.querySelector('.rs-progress') });
+  spec.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t > 0) return; stepper.set(0); clearInterval(spec._iv); spec._iv = setInterval(() => stepper.next(), 2500); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

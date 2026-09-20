@@ -1,0 +1,87 @@
+/* Optical Corrections, rebuilt from the @designmotionhq reel "5 optical corrections: math is not always right".
+   Component classes are prefixed .oc- and depend only on the tokens below. */
+.oc {
+  --oc-bg: #090b11; --oc-panel: #1b1a27; --oc-text: #f2f4f7; --oc-muted: #8b93a1; --oc-dim: #5c6470;
+  --oc-cyan: #0db3d3; --oc-cyan-ink: #071a20; --oc-cyan-dim: rgba(13,179,211,.12);
+  --oc-green: #3ddc84; --oc-green-dim: rgba(61,220,132,.13); --oc-pink: #ff4d6d; --oc-pink-dim: rgba(255,77,109,.14);
+  --oc-font: 'Inter', system-ui, sans-serif; --oc-mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-family: var(--oc-font); color: var(--oc-text);
+}
+
+/* ---- Reel chrome: kicker, verdict pill, code pill, note --------------- */
+.oc-kicker { position: absolute; top: 174px; left: 50%; transform: translateX(-50%); height: 30px; padding: 0 20px; border-radius: 999px; display: flex; align-items: center; background: #12b4d8; color: #071a20; font: 700 16px var(--oc-font); letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; box-shadow: 0 0 26px rgba(13,179,211,.5); }
+.oc-verdict { position: absolute; top: 880px; left: 50%; transform: translateX(-50%); height: 32px; padding: 0 14px; border-radius: 8px; display: flex; align-items: center; gap: 6px; font: 600 16px var(--oc-font); white-space: nowrap; }
+.oc-verdict--ok { background: var(--oc-green-dim); color: var(--oc-green); border: 1px solid rgba(61,220,132,.3); }
+.oc-verdict--bad { background: var(--oc-pink-dim); color: var(--oc-pink); border: 1px solid rgba(255,77,109,.3); }
+.oc-code { position: absolute; top: 921px; left: 50%; transform: translateX(-50%); height: 40px; padding: 0 16px; border-radius: 8px; display: flex; align-items: center; background: #0d1a24; border: 1px solid #1c3a48; color: var(--oc-cyan); font: 700 19px var(--oc-mono); white-space: nowrap; letter-spacing: .02em; }
+.oc-note { position: absolute; top: 1016px; left: 0; right: 0; text-align: center; font: 500 19px/24px var(--oc-font); color: #9aa3ae; white-space: nowrap; }
+.oc-tag { position: absolute; height: 24px; padding: 0 8px; border-radius: 5px; display: flex; align-items: center; font: 700 14px var(--oc-mono); letter-spacing: -.02em; white-space: nowrap; background: #14161f; }
+.oc-tag--bad { color: var(--oc-pink); } .oc-tag--ok { color: var(--oc-green); }
+.oc-glow { position: absolute; left: 160px; top: 380px; width: 400px; height: 400px; border-radius: 50%; background: rgba(13,179,211,.09); filter: blur(90px); pointer-events: none; }
+
+/* ---- #1 Play button ----------------------------------------------------- */
+.oc-play { position: relative; border-radius: 50%; border: 2px solid var(--oc-cyan); display: grid; place-items: center; box-shadow: 0 0 60px rgba(13,179,211,.18), inset 0 0 40px rgba(13,179,211,.06); transition: border-color .3s; }
+.oc-play.is-corrected { border-color: var(--oc-green); box-shadow: 0 0 60px rgba(61,220,132,.16), inset 0 0 40px rgba(61,220,132,.05); }
+.oc-play__icon { --shift: 0px; position: relative; width: 58px; height: 58px; transform: translateX(var(--shift)); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.oc-play__icon svg { width: 100%; height: 100%; display: block; fill: #f0f2f6; overflow: visible; }
+.oc-play__bbox { position: absolute; inset: -2px; border: 1px dashed rgba(255,77,109,.7); pointer-events: none; }
+.oc-play.is-corrected .oc-play__bbox { opacity: 0; }
+.oc-play__axis { position: absolute; background: repeating-linear-gradient(90deg, rgba(13,179,211,.55) 0 6px, transparent 6px 12px); height: 1px; left: -10px; right: -10px; top: 50%; }
+.oc-play__axis--v { width: 1px; height: auto; top: -10px; bottom: -10px; left: 50%; right: auto; background: repeating-linear-gradient(180deg, rgba(13,179,211,.55) 0 6px, transparent 6px 12px); }
+.oc-play__dot { position: absolute; left: 50%; top: 50%; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; border-radius: 50%; background: var(--oc-pink); opacity: .8; }
+.oc-lead { position: absolute; height: 1px; background: repeating-linear-gradient(90deg, currentColor 0 5px, transparent 5px 9px); opacity: .7; }
+
+/* ---- #2 Shape sizing ------------------------------------------------------ */
+.oc-shapes { position: absolute; left: 0; right: 0; top: 493px; height: 133px; }
+.oc-shapes__guide { position: absolute; left: 68px; right: 68px; height: 1px; background: repeating-linear-gradient(90deg, rgba(13,179,211,.45) 0 5px, transparent 5px 10px); }
+.oc-square, .oc-circle { position: absolute; top: 50%; background: var(--oc-cyan); transform: translate(-50%, -50%); }
+.oc-square { width: 132px; height: 132px; border-radius: 10px; }
+.oc-circle { width: var(--d, 132px); height: var(--d, 132px); border-radius: 50%; }
+.oc-shapes__vs { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font: 500 20px var(--oc-font); letter-spacing: .06em; color: var(--oc-dim); }
+.oc-dim { position: absolute; top: 640px; transform: translateX(-50%); font: 700 17px var(--oc-mono); color: #9aa3ae; }
+.oc-lead-title { position: absolute; top: 700px; left: 0; right: 0; text-align: center; font: 600 24px/30px var(--oc-font); color: #c9ced6; }
+.oc-lead-sub { position: absolute; top: 733px; left: 0; right: 0; text-align: center; font: 400 18px/24px var(--oc-font); color: var(--oc-muted); }
+
+/* ---- #3 Border radius --------------------------------------------------- */
+.oc-corner { position: absolute; left: 206px; top: 240px; width: 307px; height: 240px; border-radius: 12px; background: var(--oc-panel); border: 1px solid var(--oc-cyan); box-shadow: 0 0 30px rgba(13,179,211,.25); overflow: hidden; }
+.oc-corner__ring { position: absolute; left: -200px; top: 73px; width: 396px; height: 400px; border: 6px solid #143240; border-radius: var(--r-outer, 90px); }
+.oc-corner__inner { position: absolute; left: -200px; top: 110px; width: 358px; height: 400px; background: var(--oc-cyan); border-radius: var(--r-inner, 50px); transition: border-radius .5s cubic-bezier(.2,.8,.2,1); }
+.oc-corner__x { position: absolute; right: 10px; bottom: 8px; font: 500 12px var(--oc-mono); color: #4a5563; }
+.oc-nest { position: absolute; left: 221px; top: 548px; width: 278px; height: 157px; background: var(--oc-panel); border: 1px solid #2a2c3c; padding: 10px; }
+.oc-nest__btn { width: 100%; height: 100%; background: var(--oc-cyan); display: grid; place-items: center; font: 600 20px var(--oc-font); color: #071018; transition: border-radius .5s cubic-bezier(.2,.8,.2,1); }
+.oc-vals { position: absolute; top: 726px; left: 0; right: 0; display: flex; justify-content: center; gap: 46px; }
+.oc-val { text-align: center; width: 60px; }
+.oc-val span { display: block; font: 500 15px/18px var(--oc-font); color: var(--oc-muted); }
+.oc-val b { display: block; margin-top: 2px; font: 700 20px/24px var(--oc-font); }
+.oc-val--cyan b { color: var(--oc-cyan); } .oc-val--ok b { color: var(--oc-green); } .oc-val--bad b { color: var(--oc-pink); } .oc-val--muted b { color: var(--oc-muted); }
+
+/* ---- #4 Dark mode weight ------------------------------------------------ */
+.oc-fox { position: absolute; top: 488px; width: 265px; height: 118px; border-radius: 12px; display: grid; place-items: center; font-size: 20px; letter-spacing: -.01em; }
+.oc-fox--light { background: #f6f3f8; color: #14161c; box-shadow: 0 10px 40px rgba(0,0,0,.4); }
+.oc-fox--dark { background: #1d1a1f; color: #f2f4f7; border: 1px solid rgba(255,255,255,.04); }
+.oc-fox__meta { position: absolute; top: 616px; width: 265px; text-align: center; }
+.oc-fox__meta span { display: block; font: 400 15px/20px var(--oc-font); color: var(--oc-muted); }
+.oc-fox__meta b { display: block; margin-top: 2px; font: 700 16px/20px var(--oc-mono); color: #fff; }
+.oc-fox__meta b.is-bad { color: var(--oc-pink); } .oc-fox__meta b.is-ok { color: var(--oc-green); }
+
+/* ---- #5 Text centering ------------------------------------------------- */
+.oc-cta { position: absolute; left: 218px; top: 533px; width: 284px; height: 55px; border-radius: 999px; background: var(--oc-cyan); color: #071018; font: 700 20px var(--oc-font); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 40px rgba(13,179,211,.35); box-sizing: border-box; }
+.oc-cta.is-low { padding-top: 6px; }
+.oc-cta.is-cap-aligned { padding-top: 0; padding-bottom: 2px; }
+.oc-ibeam { position: absolute; width: 8px; font-size: 0; }
+.oc-ibeam::before { content: ''; position: absolute; left: 3px; top: 0; bottom: 0; width: 1px; background: currentColor; }
+.oc-ibeam::after { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: currentColor; box-shadow: 0 var(--h, 22px) 0 currentColor; }
+
+/* ---- Summary list, follow ---------------------------------------------- */
+.oc-sum-kicker { position: absolute; top: 348px; left: 0; right: 0; text-align: center; font: 700 17px/22px var(--oc-font); letter-spacing: .16em; text-transform: uppercase; color: var(--oc-cyan); }
+.oc-sum-title { position: absolute; top: 376px; left: 0; right: 0; text-align: center; font: 800 36px/46px var(--oc-font); letter-spacing: -.02em; color: #fff; }
+.oc-list { position: absolute; left: 40px; top: 455px; width: 640px; display: flex; flex-direction: column; gap: 12px; }
+.oc-row { height: 60px; border-radius: 12px; background: #1a1b27; border: 1px solid rgba(255,255,255,.04); display: flex; align-items: center; gap: 14px; padding: 0 18px; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+.oc-row__icon { width: 32px; height: 32px; border-radius: 8px; background: #1c3344; color: var(--oc-cyan); display: grid; place-items: center; box-shadow: 0 0 14px rgba(13,179,211,.25); }
+.oc-row__icon svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+.oc-row__n { display: block; font: 700 10px/12px var(--oc-mono); color: var(--oc-cyan); letter-spacing: .04em; }
+.oc-row__t { display: block; font: 600 18px/22px var(--oc-font); color: #fff; }
+.oc-list--stagger .oc-row { opacity: 0; transform: translateY(14px); animation: oc-in .45s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(.5s + var(--i, 0) * .6s); }
+@keyframes oc-in { to { opacity: 1; transform: none } }
+.oc-follow { display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 174px; height: 53px; border-radius: 12px; border: 0; background: var(--oc-cyan); color: #fff; font: 600 18px var(--oc-font); box-shadow: 0 0 40px rgba(13,179,211,.45); cursor: pointer; }
+.oc-follow b { font-size: 22px; font-weight: 500; line-height: 1; }

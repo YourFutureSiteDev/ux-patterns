@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Optical Corrections · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #090b11; --grid: transparent; --accent: #0db3d3; --danger: #ff4d6d; }
+  .scene { color: #f2f4f7; font-family: var(--oc-font); }
+  /* hero: triangle shifts right at ~1 s, verdict pill swaps */
+  .oc-hero .oc-play__icon { animation: oc-hero-shift .5s .9s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes oc-hero-shift { to { transform: translateX(12px) } }
+  .oc-hero .oc-verdict--math { animation: oc-out .3s .9s both; } .oc-hero .oc-verdict--opt { opacity: 0; animation: oc-in .3s 1.1s both; }
+  @keyframes oc-out { to { opacity: 0 } }
+  .oc-hero .oc-play__bbox { animation: none; opacity: 1; }
+  .oc-hero .oc-play { box-shadow: inset 0 0 80px rgba(13,179,211,.07); background: rgba(13,179,211,.025); }
+  .oc-hero .oc-verdict--math, .oc-hero .oc-verdict--opt { top: 790px; height: 38px; font-size: 17px; padding: 0 16px; }
+  .oc-verdict--opt { background: var(--oc-cyan-dim); color: var(--oc-cyan); border: 1px solid rgba(13,179,211,.3); }
+  /* shape sizing: circle grows at 0.4 s */
+  .oc-grow .oc-circle { animation: oc-grow .8s .4s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes oc-grow { from { --d: 132px } to { --d: 150px } }
+  /* text-centering annotation lines */
+  .oc-desc { position: absolute; left: 222px; top: 586px; height: 22px; padding: 0 6px; }
+</style>
+</head>
+<body class="oc">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-tri" viewBox="0 0 58 58" preserveAspectRatio="none"><path d="M1 1.5 57 29 1 56.5z"/></symbol>
+  <symbol id="i-play-s" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-circ" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/></symbol>
+  <symbol id="i-sq" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="3"/></symbol>
+  <symbol id="i-a" viewBox="0 0 24 24"><path d="M5 20 12 3l7 17M8 14h8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-lines" viewBox="0 0 24 24"><path d="M6 8h12M6 12h12M6 16h12"/></symbol>
+</svg>
+
+<!-- 1 · Hook: mathematically perfect, then optically correct -->
+<section class="scene oc-hero" data-t="0" data-shot="0">
+  <div class="oc-play" style="position:absolute;left:165px;top:378px;width:390px;height:390px">
+    <div class="oc-play__axis"></div><div class="oc-play__axis oc-play__axis--v"></div>
+    <div class="oc-play__icon" style="width:124px;height:130px"><svg viewBox="0 0 58 58" preserveAspectRatio="none"><use href="#i-tri"/></svg><div class="oc-play__bbox" style="border-color:rgba(13,179,211,.55)"></div></div>
+    <div class="oc-play__dot"></div>
+  </div>
+  <div class="oc-verdict oc-verdict--ok oc-verdict--math">✓ Mathematically perfect.</div>
+  <div class="oc-verdict oc-verdict--opt">✓ Optically correct.</div>
+</section>
+<section class="scene oc-hero" data-t="0" data-shot="1.5">
+  <div class="oc-play" style="position:absolute;left:165px;top:378px;width:390px;height:390px">
+    <div class="oc-play__axis"></div><div class="oc-play__axis oc-play__axis--v"></div>
+    <div class="oc-play__icon" style="width:124px;height:130px"><svg viewBox="0 0 58 58" preserveAspectRatio="none"><use href="#i-tri"/></svg><div class="oc-play__bbox" style="border-color:rgba(13,179,211,.55)"></div></div>
+    <div class="oc-play__dot"></div>
+  </div>
+  <div class="oc-verdict oc-verdict--ok oc-verdict--math">✓ Mathematically perfect.</div>
+  <div class="oc-verdict oc-verdict--opt">✓ Optically correct.</div>
+</section>
+
+<!-- 2 · #1 Play button: bbox centre, then visual centroid -->
+<section class="scene" data-t="4.5" data-shot="6">
+  <div class="oc-glow" style="left:210px;top:424px;width:300px;height:300px;background:rgba(13,179,211,.14)"></div>
+  <div class="oc-kicker">#1 — Play Button</div>
+  <div class="oc-play" style="position:absolute;left:253px;top:467px;width:214px;height:214px">
+    <div class="oc-play__icon"><svg><use href="#i-tri"/></svg><div class="oc-play__bbox"></div></div>
+  </div>
+  <div class="oc-tag oc-tag--bad" style="left:40px;top:555px">bbox center</div>
+  <div class="oc-lead" style="left:146px;top:574px;width:108px;color:var(--oc-pink)"></div>
+</section>
+<section class="scene oc-s1" data-t="9" data-shot="12">
+  <div class="oc-glow" style="left:210px;top:424px;width:300px;height:300px;background:rgba(13,179,211,.14)"></div>
+  <div class="oc-kicker">#1 — Play Button</div>
+  <div class="oc-play is-corrected" data-play style="position:absolute;left:253px;top:467px;width:214px;height:214px">
+    <div class="oc-play__icon" style="--shift:13px"><svg><use href="#i-tri"/></svg><div class="oc-play__bbox"></div></div>
+  </div>
+  <div class="oc-tag oc-tag--ok" style="left:40px;top:555px">visual centroid</div>
+  <div class="oc-lead" style="left:178px;top:574px;width:76px;color:var(--oc-green)"></div>
+  <div class="oc-verdict oc-verdict--ok">✓ Optically centered</div>
+  <div class="oc-code">shift += bbox_width × 0.08</div>
+</section>
+<section class="scene" data-t="13.5" data-shot="15">
+  <div class="oc-glow" style="left:210px;top:424px;width:300px;height:300px;background:rgba(13,179,211,.14)"></div>
+  <div class="oc-kicker">#1 — Play Button</div>
+  <div class="oc-play is-corrected" style="position:absolute;left:253px;top:467px;width:214px;height:214px">
+    <div class="oc-play__icon" style="--shift:13px"><svg><use href="#i-tri"/></svg><div class="oc-play__bbox"></div></div>
+  </div>
+  <div class="oc-tag oc-tag--ok" style="left:40px;top:555px">visual centroid</div>
+  <div class="oc-lead" style="left:178px;top:574px;width:76px;color:var(--oc-green)"></div>
+  <div class="oc-verdict oc-verdict--ok">✓ Optically centered</div>
+  <div class="oc-code">shift += bbox_width × 0.08</div>
+  <div class="oc-note">YouTube, Spotify, Apple — all shift the triangle right.</div>
+</section>
+
+<!-- 3 · #2 Shape sizing -->
+<section class="scene" data-t="19.5" data-shot="21">
+  <div class="oc-glow" style="top:400px"></div>
+  <div class="oc-kicker">#2 — Shape Sizing</div>
+  <div class="oc-shapes">
+    <div class="oc-shapes__guide" style="top:0"></div><div class="oc-shapes__guide" style="bottom:0"></div>
+    <div class="oc-square" style="left:226px"></div>
+    <div class="oc-shapes__vs">VS</div>
+    <div class="oc-circle" style="left:494px"></div>
+  </div>
+  <div class="oc-dim" style="left:226px">200px</div><div class="oc-dim" style="left:494px">200px</div>
+  <div class="oc-lead-title">Same size?</div>
+  <div class="oc-lead-sub">Both set to 200px</div>
+  <div class="oc-verdict oc-verdict--bad">✗ Circle looks smaller</div>
+</section>
+<section class="scene oc-s2" data-t="24" data-shot="27">
+  <div class="oc-glow" style="top:400px"></div>
+  <div class="oc-kicker">#2 — Shape Sizing</div>
+  <div class="oc-shapes">
+    <div class="oc-shapes__guide" style="top:0"></div><div class="oc-shapes__guide" style="bottom:0"></div>
+    <div class="oc-square" style="left:226px"></div>
+    <div class="oc-shapes__vs">VS</div>
+    <div class="oc-circle" data-circle style="left:494px;--d:150px"></div>
+  </div>
+  <div class="oc-dim" style="left:226px">200px</div><div class="oc-dim" data-count style="left:494px">226px</div>
+  <div class="oc-verdict oc-verdict--ok">✓ Optically equal</div>
+  <div class="oc-code">circle_size = square × 1.13</div>
+</section>
+<section class="scene" data-t="27.5" data-shot="28.5">
+  <div class="oc-glow" style="top:400px"></div>
+  <div class="oc-kicker">#2 — Shape Sizing</div>
+  <div class="oc-shapes">
+    <div class="oc-shapes__guide" style="top:0"></div><div class="oc-shapes__guide" style="bottom:0"></div>
+    <div class="oc-square" style="left:226px"></div>
+    <div class="oc-shapes__vs">VS</div>
+    <div class="oc-circle" style="left:494px;--d:150px"></div>
+  </div>
+  <div class="oc-dim" style="left:226px">200px</div><div class="oc-dim" style="left:494px">226px</div>
+  <div class="oc-verdict oc-verdict--ok">✓ Optically equal</div>
+  <div class="oc-code">circle_size = square × 1.13</div>
+  <div class="oc-note">Icon grids use this. Your brain reads area, not pixels.</div>
+</section>
+
+<!-- 4 · #3 Border radius: pinched, then concentric -->
+<section class="scene" data-t="31.5" data-shot="33">
+  <div class="oc-glow" style="top:420px"></div>
+  <div class="oc-kicker">#3 — Border Radius</div>
+  <div class="oc-corner"><div class="oc-corner__ring"></div><div class="oc-corner__inner" style="--r-inner:90px"></div><div class="oc-corner__x">×4</div></div>
+  <div class="oc-nest" style="border-radius:23px"><div class="oc-nest__btn" style="border-radius:23px">Get Started</div></div>
+  <div class="oc-vals"><div class="oc-val oc-val--cyan"><span>outer</span><b>32px</b></div><div class="oc-val oc-val--bad"><span>inner</span><b>32px</b></div><div class="oc-val oc-val--muted"><span>gap</span><b>14px</b></div></div>
+  <div class="oc-verdict oc-verdict--bad">✗ Pinched corners</div>
+</section>
+<section class="scene" data-t="34.5" data-shot="36">
+  <div class="oc-glow" style="top:420px"></div>
+  <div class="oc-kicker">#3 — Border Radius</div>
+  <div class="oc-corner"><div class="oc-corner__ring"></div><div class="oc-corner__inner" style="--r-inner:50px"></div><div class="oc-corner__x">×4</div></div>
+  <div class="oc-nest" data-nest style="border-radius:23px"><div class="oc-nest__btn" style="border-radius:13px">Get Started</div></div>
+  <div class="oc-vals"><div class="oc-val oc-val--cyan"><span>outer</span><b>32px</b></div><div class="oc-val oc-val--ok"><span>inner</span><b>18px</b></div><div class="oc-val oc-val--muted"><span>gap</span><b>14px</b></div></div>
+  <div class="oc-verdict oc-verdict--ok">✓ Smooth curves</div>
+  <div class="oc-code">inner = outer − padding</div>
+</section>
+<section class="scene" data-t="39" data-shot="40.5">
+  <div class="oc-glow" style="top:420px"></div>
+  <div class="oc-kicker">#3 — Border Radius</div>
+  <div class="oc-corner"><div class="oc-corner__ring"></div><div class="oc-corner__inner" style="--r-inner:50px"></div><div class="oc-corner__x">×4</div></div>
+  <div class="oc-nest" style="border-radius:23px"><div class="oc-nest__btn" style="border-radius:13px">Get Started</div></div>
+  <div class="oc-vals"><div class="oc-val oc-val--cyan"><span>outer</span><b>32px</b></div><div class="oc-val oc-val--ok"><span>inner</span><b>18px</b></div><div class="oc-val oc-val--muted"><span>gap</span><b>14px</b></div></div>
+  <div class="oc-verdict oc-verdict--ok">✓ Smooth curves</div>
+  <div class="oc-code">inner = outer − padding</div>
+  <div class="oc-note">Apple added this to iOS guidelines. Most devs still miss it.</div>
+</section>
+
+<!-- 5 · #4 Dark mode weight -->
+<section class="scene" data-t="43.5" data-shot="45">
+  <div class="oc-glow" style="top:380px"></div>
+  <div class="oc-kicker">#4 — Dark Mode Weight</div>
+  <div class="oc-fox oc-fox--light" style="left:84px;font-weight:600">The quick brown fox</div>
+  <div class="oc-fox oc-fox--dark" style="left:371px;font-weight:600">The quick brown fox</div>
+  <div class="oc-fox__meta" style="left:84px"><span>Light mode</span><b>weight 600</b></div>
+  <div class="oc-fox__meta" style="left:371px"><span>Dark mode</span><b class="is-bad">weight 600</b></div>
+  <div class="oc-lead-title" style="top:684px;font-size:22px">Same weight, different feel</div>
+  <div class="oc-lead-sub" style="top:714px;font-size:17px">Irradiation illusion — light bleeds into dark</div>
+  <div class="oc-verdict oc-verdict--bad">✗ Dark mode looks heavier</div>
+</section>
+<section class="scene" data-t="46.5" data-shot="48">
+  <div class="oc-glow" style="top:380px"></div>
+  <div class="oc-kicker">#4 — Dark Mode Weight</div>
+  <div class="oc-fox oc-fox--light" style="left:84px;font-weight:600">The quick brown fox</div>
+  <div class="oc-fox oc-fox--dark" data-fox style="left:371px;font-weight:500">The quick brown fox</div>
+  <div class="oc-fox__meta" style="left:84px"><span>Light mode</span><b>weight 600</b></div>
+  <div class="oc-fox__meta" style="left:371px"><span>Dark mode</span><b class="is-ok">weight 500</b></div>
+  <div class="oc-verdict oc-verdict--ok">✓ Visually balanced</div>
+  <div class="oc-code">dark_mode: weight − 100</div>
+</section>
+<section class="scene" data-t="51" data-shot="52.5">
+  <div class="oc-glow" style="top:380px"></div>
+  <div class="oc-kicker">#4 — Dark Mode Weight</div>
+  <div class="oc-fox oc-fox--light" style="left:84px;font-weight:600">The quick brown fox</div>
+  <div class="oc-fox oc-fox--dark" style="left:371px;font-weight:500">The quick brown fox</div>
+  <div class="oc-fox__meta" style="left:84px"><span>Light mode</span><b>weight 600</b></div>
+  <div class="oc-fox__meta" style="left:371px"><span>Dark mode</span><b class="is-ok">weight 500</b></div>
+  <div class="oc-verdict oc-verdict--ok">✓ Visually balanced</div>
+  <div class="oc-code">dark_mode: weight − 100</div>
+  <div class="oc-note">Apple reduces font weight by one step in dark mode.</div>
+</section>
+
+<!-- 6 · #5 Text centering -->
+<section class="scene" data-t="55.5" data-shot="57">
+  <div class="oc-glow" style="top:380px"></div>
+  <div class="oc-kicker">#5 — Text Centering</div>
+  <div class="oc-cta is-low">Get Started</div>
+  <div class="oc-ibeam" style="left:209px;top:549px;height:22px;color:var(--oc-pink)"></div>
+  <div class="oc-lead" style="left:502px;top:560px;width:10px;color:var(--oc-pink)"></div>
+  <div class="oc-tag oc-tag--bad oc-desc" style="font-size:14px">descender space below baseline</div>
+  <div class="oc-verdict oc-verdict--bad">✗ Text sits too low</div>
+</section>
+<section class="scene" data-t="58.5" data-shot="60">
+  <div class="oc-glow" style="top:380px"></div>
+  <div class="oc-kicker">#5 — Text Centering</div>
+  <div class="oc-cta is-cap-aligned" data-cta>Get Started</div>
+  <div class="oc-ibeam" style="left:209px;top:550px;height:20px;color:var(--oc-green);--h:19px"></div>
+  <div class="oc-lead" style="left:502px;top:560px;width:10px;color:var(--oc-green)"></div>
+  <div class="oc-verdict oc-verdict--ok">✓ Cap-height aligned</div>
+  <div class="oc-code">padding-top: +2px</div>
+</section>
+<section class="scene" data-t="61.5" data-shot="63">
+  <div class="oc-glow" style="top:380px"></div>
+  <div class="oc-kicker">#5 — Text Centering</div>
+  <div class="oc-cta is-cap-aligned">Get Started</div>
+  <div class="oc-ibeam" style="left:209px;top:550px;height:20px;color:var(--oc-green);--h:19px"></div>
+  <div class="oc-lead" style="left:502px;top:560px;width:10px;color:var(--oc-green)"></div>
+  <div class="oc-verdict oc-verdict--ok">✓ Cap-height aligned</div>
+  <div class="oc-code">padding-top: +2px</div>
+  <div class="oc-note">CSS centers the line box. Your eye centers the letters.</div>
+</section>
+
+<!-- 7 · Summary -->
+<section class="scene" data-t="64.5" data-shot="66">
+  <div class="oc-glow" style="top:300px;left:110px;width:500px;height:500px"></div>
+  <div class="oc-sum-kicker">5 Optical Corrections</div>
+  <div class="oc-sum-title">Math is not always right.</div>
+  <div class="oc-list oc-list--stagger">
+    <div class="oc-row" style="--i:0"><div class="oc-row__icon"><svg><use href="#i-play-s"/></svg></div><div><span class="oc-row__n">#1</span><span class="oc-row__t">Play Button</span></div></div>
+    <div class="oc-row" style="--i:1"><div class="oc-row__icon"><svg><use href="#i-circ"/></svg></div><div><span class="oc-row__n">#2</span><span class="oc-row__t">Shape Sizing</span></div></div>
+    <div class="oc-row" style="--i:2"><div class="oc-row__icon"><svg><use href="#i-sq"/></svg></div><div><span class="oc-row__n">#3</span><span class="oc-row__t">Border Radius</span></div></div>
+    <div class="oc-row" style="--i:3"><div class="oc-row__icon"><svg><use href="#i-a"/></svg></div><div><span class="oc-row__n">#4</span><span class="oc-row__t">Font Weight</span></div></div>
+    <div class="oc-row" style="--i:4"><div class="oc-row__icon"><svg><use href="#i-lines"/></svg></div><div><span class="oc-row__n">#5</span><span class="oc-row__t">Text Center</span></div></div>
+  </div>
+  <div class="oc-note" style="top:836px;font-size:22px;color:#9aa3ae;opacity:0;animation:oc-in .4s 3s both">Your eyes are the judge.</div>
+</section>
+<section class="scene" data-t="64.5" data-shot="69">
+  <div class="oc-glow" style="top:300px;left:110px;width:500px;height:500px"></div>
+  <div class="oc-sum-kicker">5 Optical Corrections</div>
+  <div class="oc-sum-title">Math is not always right.</div>
+  <div class="oc-list oc-list--stagger">
+    <div class="oc-row" style="--i:0"><div class="oc-row__icon"><svg><use href="#i-play-s"/></svg></div><div><span class="oc-row__n">#1</span><span class="oc-row__t">Play Button</span></div></div>
+    <div class="oc-row" style="--i:1"><div class="oc-row__icon"><svg><use href="#i-circ"/></svg></div><div><span class="oc-row__n">#2</span><span class="oc-row__t">Shape Sizing</span></div></div>
+    <div class="oc-row" style="--i:2"><div class="oc-row__icon"><svg><use href="#i-sq"/></svg></div><div><span class="oc-row__n">#3</span><span class="oc-row__t">Border Radius</span></div></div>
+    <div class="oc-row" style="--i:3"><div class="oc-row__icon"><svg><use href="#i-a"/></svg></div><div><span class="oc-row__n">#4</span><span class="oc-row__t">Font Weight</span></div></div>
+    <div class="oc-row" style="--i:4"><div class="oc-row__icon"><svg><use href="#i-lines"/></svg></div><div><span class="oc-row__n">#5</span><span class="oc-row__t">Text Center</span></div></div>
+  </div>
+  <div class="oc-note" style="top:836px;font-size:22px;color:#9aa3ae;opacity:0;animation:oc-in .4s 3s both">Your eyes are the judge.</div>
+</section>
+
+<!-- 8 · Outro -->
+<section class="scene" data-t="70.5" data-shot="72">
+  <div class="oc-glow" style="top:400px;left:180px;width:360px;height:360px;background:rgba(13,179,211,.12)"></div>
+  <div style="position:absolute;top:526px;left:0;right:0;text-align:center;font:800 30px/40px var(--oc-font);letter-spacing:-.01em;color:#fff">More design secrets?</div>
+  <div style="position:absolute;top:580px;left:0;right:0;text-align:center;font:500 19px/26px var(--oc-font);color:#8b93a1">@designmotionhq</div>
+  <button class="oc-follow center" style="top:636px"><b>+</b>Follow</button>
+</section>
+
+<script type="module">
+  import { OpticalPlay, CountUp, NestedRadius, applyDarkModeWeight, capHeightCenter } from './pattern.js';
+  const at = (s, e) => e.detail.t > 0 ? e.detail.t - Number(s.dataset.t) : null;
+  // #1: the play button corrects itself 300 ms after the scene enters (box = the 160px icon box inside the circle)
+  document.querySelectorAll('.oc-s1').forEach(s => {
+    const play = OpticalPlay(s.querySelector('[data-play]'), { box: 160 });
+    s.addEventListener('scene:enter', e => { const t = at(s, e); play.correct(t !== null); if (t === null) setTimeout(() => play.correct(true), 300); });
+  });
+  // #2: circle grows 200 -> 226 (×1.13) with a counting label
+  document.querySelectorAll('.oc-s2').forEach(s => {
+    const c = CountUp(s.querySelector('[data-count]'), 200, 226, { ms: 800 }); const circle = s.querySelector('[data-circle]');
+    s.addEventListener('scene:enter', e => { const t = at(s, e); if (t === null) { circle.style.setProperty('--d', '132px'); setTimeout(() => { circle.style.transition = '--d .8s'; circle.style.width = circle.style.height = '150px'; c.play(); }, 400); } else { c.seek(t - .4); circle.style.width = circle.style.height = t > .4 ? '150px' : '132px'; } });
+  });
+  // #3, #4, #5: apply the rules for real on the "corrected" examples
+  const nest = document.querySelector('[data-nest]'); if (nest) NestedRadius(nest, nest.firstElementChild, { outer: 32, gap: 14, scale: 10 / 14 });
+  const fox = document.querySelector('[data-fox]'); if (fox) applyDarkModeWeight(fox, 600, true);
+  const cta = document.querySelector('[data-cta]'); if (cta) capHeightCenter(cta, 2);
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

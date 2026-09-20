@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reverse-Engineered Linear · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0b0d10; --grid: rgba(255,255,255,.03); --accent: #2fd4b0; --danger: #ef4b6b; }
+  .scene { color: #e6e8eb; background-size: 48px 48px; }
+  .rl-glow { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(47,212,176,.07) 0%, transparent 62%); pointer-events: none; }
+</style>
+</head>
+<body class="rl">
+
+<!-- 1 · Hook: the loose, coloured list. 0 / 5 decisions -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="rl-kicker">Reverse-engineered · Linear</div>
+  <div class="rl-app" data-app="" style="left:48px;top:291px"></div>
+  <div class="rl-chips" style="left:48px;top:890px"><span class="rl-chip">Density</span><span class="rl-chip">Borders</span><span class="rl-chip">One color</span><span class="rl-chip">Keyboard</span><span class="rl-chip">Alignment</span></div>
+  <div class="rl-counter" style="top:1028px">0 / 5 decisions</div>
+</section>
+
+<!-- 1b · Five decisions. No designer. 5 / 5 -->
+<section class="scene" data-t="1.5" data-shot="3">
+  <div class="rl-glow" style="left:60px;top:200px;width:600px;height:600px"></div>
+  <div class="rl-kicker">Reverse-engineered · Linear</div>
+  <h1 class="rl-h1">Five decisions. No designer.</h1>
+  <div class="rl-app" data-app="density borders oneColor keyboard alignment" style="left:48px;top:291px"></div>
+  <div class="rl-chips" style="left:48px;top:890px"><span class="rl-chip is-on">Density</span><span class="rl-chip is-on">Borders</span><span class="rl-chip is-on">One color</span><span class="rl-chip is-on">Keyboard</span><span class="rl-chip is-on">Alignment</span></div>
+  <div class="rl-counter" style="top:1028px">5 / 5 decisions</div>
+</section>
+
+<!-- 2 · Decision 01 · Density (before) -->
+<section class="scene" data-t="6" data-shot="6">
+  <div class="rl-kicker rl-kicker--teal">Decision 01 · Density</div>
+  <h1 class="rl-h1">Density reads as competence.</h1>
+  <div class="rl-app" data-app="" style="left:22px;top:291px"></div>
+  <svg class="rl-lead" style="left:0;top:0" width="720" height="1280"><line x1="417" y1="408" x2="530" y2="340"/><circle cx="417" cy="408" r="4"/></svg>
+  <div class="rl-tag rl-tag--mono" style="left:550px;top:312px">13 px text</div>
+  <div class="rl-panel" style="left:22px;top:878px;width:624px;height:84px">
+    <div class="rl-panel__label" style="left:18px;top:16px">Letter spacing</div>
+    <div class="rl-sample" style="left:18px;top:36px">Migrate billing webhooks to v2</div>
+    <div class="rl-value" style="right:20px;top:25px">0em</div>
+  </div>
+  <div class="rl-caption">13 px · 32 px rows · -0.01em</div>
+</section>
+
+<!-- 2b · Density applied: 14 rows, same height -->
+<section class="scene" data-t="9" data-shot="12">
+  <div class="rl-kicker rl-kicker--teal">Decision 01 · Density</div>
+  <h1 class="rl-h1">Density reads as competence.</h1>
+  <div class="rl-app" data-app="density" style="left:22px;top:291px"></div>
+  <svg class="rl-lead" style="left:0;top:0" width="720" height="1280"><line x1="664" y1="404" x2="664" y2="432"/><circle cx="664" cy="404" r="3"/></svg>
+  <div class="rl-tag rl-tag--mono" style="left:664px;top:373px">32 px</div>
+  <div class="rl-tag" style="left:333px;top:837px">14 rows, same height</div>
+  <div class="rl-panel" style="left:22px;top:878px;width:624px;height:84px">
+    <div class="rl-panel__label" style="left:18px;top:16px">Letter spacing</div>
+    <div class="rl-sample" style="left:18px;top:36px;letter-spacing:-.01em">Migrate billing webhooks to v2</div>
+    <div class="rl-value rl-value--teal" style="right:20px;top:25px">-0.01em</div>
+  </div>
+  <div class="rl-caption">13 px · 32 px rows · -0.01em</div>
+</section>
+
+<!-- 3 · Decision 02 · Borders -->
+<section class="scene" data-t="18" data-shot="21">
+  <div class="rl-kicker rl-kicker--teal">Decision 02 · Borders</div>
+  <h1 class="rl-h1">Borders, not shadows.</h1>
+  <div class="rl-app" data-app="density borders" style="left:48px;top:291px"></div>
+  <svg class="rl-lead" style="left:0;top:0" width="720" height="1280"><line x1="452" y1="486" x2="475" y2="516"/><circle cx="452" cy="486" r="4"/></svg>
+  <div class="rl-tag rl-tag--mono" style="left:478px;top:515px">1px solid rgba(255,255,255,.08)</div>
+  <div class="rl-surface" style="left:47px;top:863px;width:626px;background:#0b0d10"><b>canvas</b>· background<code>#0B0D10</code></div>
+  <div class="rl-surface" style="left:47px;top:895px;width:626px;background:#13161b"><b>list</b>· surface1<code>#13161B</code></div>
+  <div class="rl-surface" style="left:47px;top:927px;width:626px;background:#1a1e25"><b>hover</b>· surface2<code>#1A1E25</code></div>
+  <div class="rl-caption">box-shadow: none · 1 px at 8%</div>
+</section>
+
+<!-- 3b · Borders: hover is a surface change, not an elevation -->
+<section class="scene" data-t="27" data-shot="30">
+  <div class="rl-kicker rl-kicker--teal">Decision 02 · Borders</div>
+  <h1 class="rl-h1">Borders, not shadows.</h1>
+  <div class="rl-app" data-app="density borders" data-hover="NOR-144" style="left:48px;top:291px"></div>
+  <svg class="rl-cursor" style="left:400px;top:504px" viewBox="0 0 18 22"><path d="M2 2l5 16 3-6.5L17 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <svg class="rl-lead" style="left:0;top:0" width="720" height="1280"><line x1="520" y1="512" x2="540" y2="530"/><circle cx="520" cy="512" r="4"/></svg>
+  <div class="rl-tag" style="left:568px;top:526px">elevation 0 · surface2</div>
+  <div class="rl-surface is-lit" style="left:47px;top:863px;width:626px;background:#0b0d10"><b>canvas</b>· background<code>#0B0D10</code></div>
+  <div class="rl-surface is-lit" style="left:47px;top:895px;width:626px;background:#13161b"><b>list</b>· surface1<code>#13161B</code></div>
+  <div class="rl-surface is-lit" style="left:47px;top:927px;width:626px;background:#1a1e25"><b>hover</b>· surface2<code>#1A1E25</code></div>
+  <div class="rl-tag" style="left:247px;top:974px">✓ engineered</div>
+  <div class="rl-caption">box-shadow: none · 1 px at 8%</div>
+</section>
+
+<!-- 4 · Decision 03 · One color (before: 7 colours) -->
+<section class="scene" data-t="33" data-shot="36">
+  <div class="rl-kicker rl-kicker--teal">Decision 03 · One color</div>
+  <h1 class="rl-h1">One color. Everything else grey.</h1>
+  <div class="rl-tag rl-tag--grey" style="left:586px;top:271px">7 colors</div>
+  <div class="rl-app" data-app="density borders" style="left:48px;top:291px"></div>
+  <div class="rl-swatches" style="left:47px;top:870px">
+    <div class="rl-swatch" style="--c:#3b82f6"><i></i>#3B82F6</div><div class="rl-swatch" style="--c:#eab308"><i></i>#EAB308</div><div class="rl-swatch" style="--c:#22c55e"><i></i>#22C55E</div><div class="rl-swatch" style="--c:#ef4444"><i></i>#EF4444</div>
+    <div class="rl-swatch" style="--c:#f97316"><i></i>#F97316</div><div class="rl-swatch" style="--c:#a855f7"><i></i>#A855F7</div><div class="rl-swatch" style="--c:#2563eb"><i></i>#2563EB</div><div class="rl-swatch is-brand"><i></i>#5E6AD2</div>
+  </div>
+  <div class="rl-caption">1 brand color · icons for status</div>
+</section>
+
+<!-- 4b · One color applied -->
+<section class="scene" data-t="39" data-shot="42">
+  <div class="rl-kicker rl-kicker--teal">Decision 03 · One color</div>
+  <h1 class="rl-h1">One color. Everything else grey.</h1>
+  <div class="rl-tag" style="left:586px;top:271px">1 color</div>
+  <div class="rl-app" data-app="density borders oneColor" style="left:48px;top:291px"></div>
+  <div class="rl-swatches" style="left:47px;top:870px">
+    <div class="rl-swatch is-grey"><i></i>grey</div><div class="rl-swatch is-grey"><i></i>grey</div><div class="rl-swatch is-grey"><i></i>grey</div><div class="rl-swatch is-grey"><i></i>grey</div>
+    <div class="rl-swatch is-grey"><i></i>grey</div><div class="rl-swatch is-grey"><i></i>grey</div><div class="rl-swatch is-grey"><i></i>grey</div><div class="rl-swatch is-brand"><i></i>#5E6AD2</div>
+  </div>
+  <div class="rl-caption">1 brand color · icons for status</div>
+</section>
+
+<!-- 5 · Decision 04 · Keyboard -->
+<section class="scene" data-t="48" data-shot="48">
+  <div class="rl-kicker rl-kicker--teal">Decision 04 · Keyboard</div>
+  <h1 class="rl-h1">The UI answers first.</h1>
+  <div class="rl-app" data-app="density borders oneColor keyboard" data-focus="" style="left:48px;top:291px"></div>
+  <div class="rl-key" style="left:47px;top:866px">C</div><div class="rl-key__label" style="left:79px;top:939px">create</div>
+  <div class="rl-key rl-key--wide" style="left:123px;top:866px">⌘K</div><div class="rl-key__label rl-key__label--grey" style="left:170px;top:939px">search</div>
+  <div class="rl-timing" style="left:235px;top:868px">
+    <span>hover</span><span class="rl-bar"><i style="--w:0%"></i></span><span class="rl-ms">80 ms</span>
+    <span>transition</span><span class="rl-bar"><i style="--w:0%"></i></span><span class="rl-ms">150 ms</span>
+    <span>generic</span><span class="rl-bar rl-bar--bad"><i style="--w:100%"></i></span><span class="rl-ms is-bad" style="color:#ef4b6b;text-decoration:none">300 ms</span>
+  </div>
+  <div class="rl-dial rl-dial--bad" style="left:482px;top:882px"><span>bouncy</span><span class="rl-dial__track"><i class="rl-dial__knob" style="left:-7px"></i></span></div>
+  <div class="rl-dial rl-dial--good" style="left:482px;top:926px"><span>snappy</span><span class="rl-dial__track"><i class="rl-dial__knob" style="left:-7px"></i></span></div>
+  <div class="rl-caption">80 ms hover · 150 ms max · 0 overshoot</div>
+</section>
+
+<!-- 5b · Keyboard: the command palette -->
+<section class="scene" data-t="52.5" data-shot="54">
+  <div class="rl-kicker rl-kicker--teal">Decision 04 · Keyboard</div>
+  <h1 class="rl-h1">The UI answers first.</h1>
+  <div class="rl-app" data-app="density borders oneColor keyboard" style="left:48px;top:291px"></div>
+  <div class="rl-cmd" id="cmd" style="left:165px;top:362px"></div>
+  <svg class="rl-cursor" style="left:366px;top:697px" viewBox="0 0 18 22"><path d="M2 2l5 16 3-6.5L17 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="rl-key" style="left:47px;top:866px">C</div><div class="rl-key__label" style="left:79px;top:939px">create</div>
+  <div class="rl-key" style="left:123px;top:866px;width:94px">⌘K</div><div class="rl-key__label" style="left:170px;top:939px">search</div>
+  <div class="rl-timing" style="left:235px;top:868px">
+    <span>hover</span><span class="rl-bar"><i style="--w:27%"></i></span><span class="rl-ms" style="color:#2fd4b0">80 ms</span>
+    <span>transition</span><span class="rl-bar"><i style="--w:50%"></i></span><span class="rl-ms" style="color:#2fd4b0">150 ms</span>
+    <span>generic</span><span class="rl-bar rl-bar--bad"><i style="--w:100%"></i></span><span class="rl-ms is-bad">300 ms</span>
+  </div>
+  <div class="rl-dial rl-dial--bad" style="left:482px;top:882px"><span>bouncy</span><span class="rl-dial__track"><i class="rl-dial__knob" style="left:-7px"></i></span></div>
+  <div class="rl-dial rl-dial--good" style="left:482px;top:926px"><span>snappy</span><span class="rl-dial__track"><i class="rl-dial__knob" style="left:-7px"></i></span></div>
+  <div class="rl-caption">80 ms hover · 150 ms max · 0 overshoot</div>
+</section>
+
+<!-- 6 · Decision 05 · Alignment: the loupe -->
+<section class="scene" data-t="63" data-shot="63">
+  <div class="rl-kicker rl-kicker--teal">Decision 05 · Alignment</div>
+  <h1 class="rl-h1">Invisible when right.</h1>
+  <div class="rl-app" data-app="density borders oneColor keyboard alignment" data-cut style="left:48px;top:291px;height:420px"></div>
+  <div class="rl-loupe" style="left:47px;top:735px;width:626px;height:237px">
+    <div class="rl-loupe__head"><kbd>x2.4</kbd>Loupe · one row</div>
+    <div class="rl-loupe__row" style="top:91px">
+      <svg class="rl-i rl-status" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/></svg>
+      <span class="rl-bars" data-n="1"><i></i><i></i><i></i></span>
+      <span class="rl-id">NOR-147</span><span>Bulk edit for labels</span>
+      <span class="rl-label">Feature</span><span class="rl-avatar">AL</span><span class="rl-date">Sep 4</span>
+    </div>
+  </div>
+  <svg class="rl-lead" style="left:0;top:0" width="720" height="1280"><line x1="78" y1="838" x2="150" y2="797"/><circle cx="78" cy="838" r="4"/></svg>
+  <div class="rl-tag" style="left:205px;top:768px">16 px · centered</div>
+  <div class="rl-caption">4 px grid · 16 px icons · numbers right</div>
+</section>
+
+<!-- 6b · Alignment: left, right, aligned -->
+<section class="scene" data-t="66" data-shot="69">
+  <div class="rl-kicker rl-kicker--teal">Decision 05 · Alignment</div>
+  <h1 class="rl-h1">Invisible when right.</h1>
+  <div class="rl-app" data-app="density borders oneColor keyboard alignment" data-cut style="left:48px;top:291px;height:420px"></div>
+  <div class="rl-loupe" style="left:47px;top:735px;width:626px;height:237px">
+    <div class="rl-loupe__head"><kbd>x2.4</kbd>Loupe · one row</div>
+    <div class="rl-loupe__row" style="top:91px">
+      <svg class="rl-i rl-status" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/></svg>
+      <span class="rl-bars" data-n="1"><i></i><i></i><i></i></span>
+      <span class="rl-id">NOR-147</span><span>Bulk edit for labels</span>
+      <span class="rl-label">Feature</span><span class="rl-avatar">AL</span><span class="rl-date">Sep 4</span>
+    </div>
+  </div>
+  <svg class="rl-lead" style="left:0;top:0" width="720" height="1280"><line x1="78" y1="838" x2="150" y2="797"/><circle cx="78" cy="838" r="4"/><line x1="182" y1="881" x2="182" y2="920"/><circle cx="182" cy="881" r="4"/><line x1="628" y1="881" x2="628" y2="920"/><circle cx="628" cy="881" r="4"/></svg>
+  <div class="rl-tag" style="left:205px;top:768px">16 px · centered</div>
+  <div class="rl-tag" style="left:600px;top:745px">✓ aligned</div>
+  <div class="rl-tag" style="left:182px;top:921px">left</div>
+  <div class="rl-tag" style="left:628px;top:921px">right</div>
+  <div class="rl-caption">4 px grid · 16 px icons · numbers right</div>
+</section>
+
+<!-- 7 · Outro: Five decisions, one afternoon (Claude Code) -->
+<section class="scene" data-t="73.5" data-shot="73.5">
+  <div class="rl-glow" style="left:60px;top:200px;width:600px;height:600px"></div>
+  <div class="rl-kicker rl-kicker--teal">Reverse-engineered · Linear</div>
+  <h1 class="rl-h1">Five decisions, one afternoon.</h1>
+  <div class="rl-app" data-app="density borders oneColor keyboard alignment" data-cut style="left:60px;top:270px;transform:scale(.96);transform-origin:0 0;height:507px"></div>
+  <div class="rl-cli" style="left:67px;top:790px;width:586px">
+    <div class="rl-cli__head"><kbd>CLAUDE CODE</kbd>&gt; <em>/r</em><i class="rl-caret"></i></div>
+    <div class="rl-cli__rows">
+      <div class="rl-cli__row"><svg class="rl-i" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="4"/><rect x="2" y="9" width="12" height="4"/></svg>/ux-design<span>Design a screen from a brief</span></div>
+      <div class="rl-cli__row"><svg class="rl-i" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 2l6 11H2zM8 7v3M8 11.5v.5"/></svg>/ux-audit<span>Find every AI tell</span></div>
+      <div class="rl-cli__row"><svg class="rl-i" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 2l5 2v4c0 3-2 5-5 6-3-1-5-3-5-6V4zM6 8l1.5 1.5L10 6.5"/></svg>/ux-review<span>Review the UI of a PR</span></div>
+      <div class="rl-cli__row is-active"><svg class="rl-i" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 2v3M8 11v3M2 8h3M11 8h3M4 4l2 2M10 10l2 2M12 4l-2 2M6 10l-2 2"/></svg>/restyle<span>Kill the AI look</span></div>
+    </div>
+  </div>
+  <div class="rl-link" style="top:1028px"><svg class="rl-i" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 9.5l3-3M5 11l-1.5 1.5a2.1 2.1 0 0 1-3-3L3.5 7M11 5l1.5-1.5a2.1 2.1 0 0 1 3 3L12.5 9"/></svg>Link in bio</div>
+</section>
+
+<!-- 7b · Outro: UX Engine -->
+<section class="scene" data-t="76.5" data-shot="78">
+  <div class="rl-glow" style="left:60px;top:200px;width:600px;height:600px"></div>
+  <div class="rl-kicker rl-kicker--teal">Reverse-engineered · Linear</div>
+  <h1 class="rl-h1">Five decisions, one afternoon.</h1>
+  <div class="rl-app" data-app="density borders oneColor keyboard alignment" data-cut style="left:60px;top:270px;transform:scale(.96);transform-origin:0 0;height:507px"></div>
+  <div class="rl-engine" style="left:67px;top:787px;width:586px">
+    <div class="rl-engine__title">UX Engine<span>Claude Code plugin</span></div>
+    <div class="rl-engine__cmds">
+      <span class="rl-engine__cmd"><svg class="rl-i" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="4"/><rect x="2" y="9" width="12" height="4"/></svg>/ux-design</span>
+      <span class="rl-engine__cmd"><svg class="rl-i" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 2l6 11H2zM8 7v3M8 11.5v.5"/></svg>/ux-audit</span>
+      <span class="rl-engine__cmd"><svg class="rl-i" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 2l5 2v4c0 3-2 5-5 6-3-1-5-3-5-6V4zM6 8l1.5 1.5L10 6.5"/></svg>/ux-review</span>
+      <span class="rl-engine__cmd is-on"><svg class="rl-i" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 2v3M8 11v3M2 8h3M11 8h3M4 4l2 2M10 10l2 2M12 4l-2 2M6 10l-2 2"/></svg>/restyle</span>
+    </div>
+    <div class="rl-engine__price">$79 one time · 30 day refund · 12 months of updates</div>
+  </div>
+  <div class="rl-link" style="top:1028px"><svg class="rl-i" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 9.5l3-3M5 11l-1.5 1.5a2.1 2.1 0 0 1-3-3L3.5 7M11 5l1.5-1.5a2.1 2.1 0 0 1 3 3L12.5 9"/></svg>Link in bio</div>
+</section>
+
+<script type="module">
+  import { IssueTracker, CommandPalette, DECISIONS } from './pattern.js';
+  // Every [data-app] is a real IssueTracker with the listed decisions applied.
+  document.querySelectorAll('[data-app]').forEach(el => {
+    const on = el.dataset.app.split(/\s+/).filter(Boolean);
+    const app = IssueTracker(el, { decisions: Object.fromEntries(on.map(k => [k, true])) });
+    if (el.dataset.hover) app.hover(el.dataset.hover);
+    if ('cut' in el.dataset) el.querySelector('.rl-side__user').hidden = true;
+    if ('focus' in el.dataset) el.querySelector('.rl-btn--primary').classList.add('is-focus');
+    el._app = app;
+  });
+  CommandPalette(document.getElementById('cmd'), { query: 'pri' });
+  // Live playback of the hook: the five decisions switch on one after another, chips and counter following.
+  const hook = document.querySelector('.scene:first-of-type');
+  hook.addEventListener('scene:enter', e => {
+    if (e.detail.t > 0) return; const app = hook.querySelector('[data-app]')._app, chips = [...hook.querySelectorAll('.rl-chip')], counter = hook.querySelector('.rl-counter');
+    app.reset(); chips.forEach(c => c.classList.remove('is-on')); counter.textContent = '0 / 5 decisions'; clearInterval(hook._iv);
+    let i = 0; hook._iv = setInterval(() => { if (i >= DECISIONS.length) { app.reset(); chips.forEach(c => c.classList.remove('is-on')); counter.textContent = '0 / 5 decisions'; i = 0; return; } app.set(DECISIONS[i]); chips[i].classList.add('is-on'); i++; counter.textContent = `${i} / 5 decisions`; }, 1100);
+  });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

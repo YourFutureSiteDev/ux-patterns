@@ -1,0 +1,103 @@
+/* Z-Index Mastery, rebuilt from the @designmotionhq reel "z-index lies".
+   Component classes are prefixed .zi- and depend only on the tokens below. */
+.zi {
+  --zi-bg: #0b0a0e; --zi-panel: #1d1c29; --zi-panel-2: #1b1b25; --zi-border: rgba(255,255,255,.08);
+  --zi-text: #edecf0; --zi-muted: #818286; --zi-dim: #63636d;
+  --zi-pink: #e85776; --zi-pink-deep: #d84c63; --zi-teal: #2dd4bf; --zi-teal-deep: #1fc3b0; --zi-purple: #7c4fe0; --zi-blue: #3b9dff; --zi-green: #4ade80;
+  --zi-mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--zi-text);
+}
+.zi-grad { background: linear-gradient(90deg, var(--zi-pink), var(--zi-teal)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.zi-grad--teal { background: linear-gradient(90deg, var(--zi-teal), #8a8f95); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.zi-grad--blue { background: linear-gradient(90deg, var(--zi-blue), var(--zi-teal)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* ---- Code block ---------------------------------------------------------------- */
+.zi-code { width: 520px; padding: 16px 18px; border-radius: 10px; background: var(--zi-panel); border: 1px solid var(--zi-border); font: 500 17px/21px var(--zi-mono); color: #9a9aa5; white-space: pre; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+.zi-code .s { color: var(--zi-pink); } .zi-code .p { color: var(--zi-teal); } .zi-code .v { color: var(--zi-pink); } .zi-code .g { color: var(--zi-green); } .zi-code .c { color: var(--zi-teal); font-size: 12px; margin-left: 6px; }
+.zi-code .hl { background: rgba(74,222,128,.16); border-radius: 4px; padding: 1px 4px; }
+.zi-code .line { display: block; height: 21px; }
+.zi-code .line--new { opacity: 0; animation: zi-fade .4s ease both; animation-delay: var(--zi-delay, 0s); }
+@keyframes zi-fade { to { opacity: 1; } }
+
+/* ---- Rule 1: positioned vs static cards ------------------------------------------- */
+.zi-card { position: relative; width: 243px; height: 181px; padding: 20px 15px 16px; border-radius: 10px; color: #fff; transition: transform .5s ease, box-shadow .5s ease; }
+.zi-card--teal { background: linear-gradient(160deg, #2ad9c2, #1fc3b0); }
+.zi-card--pink { background: linear-gradient(160deg, #ea5a78, #d84c63); }
+.zi-card__name { font-size: 16px; font-weight: 700; }
+.zi-card__meta { position: absolute; left: 15px; bottom: 16px; font: 12px/17px var(--zi-mono); color: rgba(255,255,255,.85); }
+.zi-card__meta b { font-weight: 700; color: #fff; }
+.zi-card.is-lifted { transform: translateX(10px) scale(1.17); z-index: 2; box-shadow: 0 0 50px rgba(232,87,118,.4), 0 20px 40px rgba(0,0,0,.4); }
+
+/* ---- Rule 2: parent contexts ---------------------------------------------------------- */
+.zi-parent { position: relative; width: 260px; height: 343px; padding: 16px 15px; border-radius: 12px; }
+.zi-parent--a { background: #101017; border: 1px dashed rgba(232,87,118,.55); }
+.zi-parent--b { background: linear-gradient(160deg, #2ad9c2, #21c5b2); color: #0d3b35; box-shadow: 0 0 40px rgba(45,212,191,.35); }
+.zi-parent__name { font-size: 16px; font-weight: 700; color: var(--zi-pink); }
+.zi-parent--b .zi-parent__name { color: #fff; }
+.zi-parent__z { margin-top: 4px; font: 13px var(--zi-mono); color: var(--zi-muted); }
+.zi-parent--b .zi-parent__z { color: rgba(255,255,255,.85); }
+.zi-child { position: absolute; left: 14px; top: 81px; width: 232px; height: 187px; padding: 16px 14px; border-radius: 10px; background: linear-gradient(160deg, #ea5a78, #d84c63); color: #fff; box-shadow: 0 0 34px rgba(232,87,118,.5); }
+.zi-child__name { font-size: 14px; font-weight: 700; }
+.zi-child__z { margin-top: 2px; font: 700 20px var(--zi-mono); }
+.zi-child__note { margin-top: 10px; font-size: 11.6px; line-height: 15px; color: rgba(255,255,255,.9); }
+.zi-parent__win { margin-top: 44px; font-size: 30px; font-weight: 800; color: #fff; letter-spacing: -.01em; }
+.zi-parent__note { margin-top: 10px; font-size: 14px; line-height: 17px; color: #fff; }
+.zi-parent__spark { position: absolute; right: 4px; top: 0; width: 84px; height: 84px; border-radius: 50%; background: radial-gradient(circle, rgba(210,200,70,.5), rgba(210,200,70,0) 68%); }
+.zi-chevron { font-size: 30px; font-weight: 800; color: #9a9aa5; line-height: 1; }
+
+/* ---- Rule 3: isolated components ------------------------------------------------------ */
+.zi-comp { position: absolute; width: 200px; height: 148px; padding: 14px 15px; border-radius: 10px; color: #fff; transition: transform .7s ease, opacity .7s ease; }
+.zi-comp--pink { background: rgba(216,76,99,.92); }
+.zi-comp--teal { background: rgba(31,195,176,.9); }
+.zi-comp--purple { background: rgba(117,77,209,.95); }
+.zi-comp__name { font-size: 18px; font-weight: 700; }
+.zi-comp__lines { position: absolute; left: 15px; bottom: 16px; }
+.zi-comp__lines i { display: block; height: 5px; border-radius: 3px; background: rgba(255,255,255,.35); margin-top: 7px; }
+.zi-comp__lines i:first-child { width: 132px; } .zi-comp__lines i:last-child { width: 100px; }
+.zi-comp__tag { position: absolute; right: 12px; top: 12px; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,.45); font: 700 10px var(--zi-mono); color: #eee; opacity: 0; transition: opacity .4s ease; }
+.zi-comp.is-isolated .zi-comp__tag { opacity: 1; }
+
+/* ---- Rule 4: DevTools layers panel ------------------------------------------------------ */
+.zi-devtools { width: 600px; height: 466px; border-radius: 8px; background: var(--zi-panel); border: 1px solid var(--zi-border); overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,.5); }
+.zi-devtools__bar { display: flex; align-items: center; height: 36px; padding: 0 14px 0 17px; background: #262630; font: 13px var(--zi-mono); color: #e6e6ea; }
+.zi-devtools__dots { display: flex; gap: 6px; margin-right: 12px; }
+.zi-devtools__dots i { width: 9px; height: 9px; border-radius: 50%; } .zi-devtools__dots i:nth-child(1) { background: #ff5f57; } .zi-devtools__dots i:nth-child(2) { background: #febc2e; } .zi-devtools__dots i:nth-child(3) { background: #28c840; }
+.zi-devtools__chip { margin-left: auto; padding: 3px 8px; border-radius: 4px; background: #2d405c; color: #5b9cff; font: 700 10px 'Inter', sans-serif; letter-spacing: .12em; }
+.zi-stack { position: relative; height: 430px; perspective: 800px; perspective-origin: 50% 20%; }
+.zi-layer { position: absolute; left: 50%; border: 2px solid; border-radius: 10px; transform: translateX(-50%) rotateX(38deg); transform-style: preserve-3d; opacity: 0; animation: zi-layer .6s ease both; animation-delay: var(--zi-delay, 0s); }
+@keyframes zi-layer { from { opacity: 0; transform: translateX(-50%) translateY(40px) rotateX(38deg); } to { opacity: 1; } }
+.zi-layer__name { position: absolute; left: 22px; top: 12px; font-size: 21px; font-weight: 700; }
+.zi-layer__n { position: absolute; right: 18px; top: 14px; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+.zi-layer__lines { position: absolute; left: 22px; bottom: 14px; }
+.zi-layer__lines i { display: block; height: 6px; border-radius: 3px; margin-top: 7px; opacity: .5; }
+.zi-layer__lines i:first-child { width: 290px; } .zi-layer__lines i:last-child { width: 190px; }
+.zi-layer--modal { border-color: #8b5cf6; background: rgba(139,92,246,.14); color: #a78bfa; box-shadow: 0 0 20px rgba(139,92,246,.35); }
+.zi-layer--modal .zi-layer__n { background: rgba(139,92,246,.3); color: #c4b5fd; } .zi-layer--modal .zi-layer__lines i { background: #8b5cf6; }
+.zi-layer--drop { border-color: #f0506e; background: rgba(240,80,110,.14); color: #f47a92; box-shadow: 0 0 20px rgba(240,80,110,.3); }
+.zi-layer--drop .zi-layer__n { background: rgba(240,80,110,.3); color: #fda4b4; } .zi-layer--drop .zi-layer__lines i { background: #f0506e; }
+.zi-layer--card { border-color: #2dd4bf; background: rgba(45,212,191,.12); color: #5eead4; box-shadow: 0 0 20px rgba(45,212,191,.3); }
+.zi-layer--card .zi-layer__n { background: rgba(45,212,191,.3); color: #99f6e4; } .zi-layer--card .zi-layer__lines i { background: #2dd4bf; }
+.zi-layer--body { border-color: #8a8a94; background: rgba(140,140,150,.12); color: #9a9aa5; }
+.zi-layer--body .zi-layer__n { background: rgba(140,140,150,.3); color: #c4c4cc; } .zi-layer--body .zi-layer__lines i { background: #9a9aa5; }
+
+/* ---- Hero: 3D dropdown + modal ------------------------------------------------------------ */
+.zi-stage3d { position: absolute; left: 0; top: 0; width: 720px; height: 1280px; perspective: 1100px; perspective-origin: 50% 45%; }
+.zi-dropdown { position: absolute; width: 330px; height: 220px; padding: 12px 14px; border-radius: 10px; background: #14141c; border: 1px solid rgba(232,87,118,.6); box-shadow: 0 0 30px rgba(232,87,118,.15); }
+.zi-dropdown__title { font-size: 15px; font-weight: 700; color: var(--zi-pink); }
+.zi-dropdown__item { margin-top: 8px; padding: 8px 12px; border-radius: 6px; background: #1f1f2a; font-size: 15px; font-weight: 600; width: 300px; }
+.zi-dropdown__item.is-danger { color: var(--zi-pink); }
+.zi-modal { position: absolute; width: 390px; height: 256px; padding: 74px 18px 0; border-radius: 12px; background: #1b1b25; border: 1px solid rgba(45,212,191,.6); box-shadow: 0 0 40px rgba(45,212,191,.15), 0 30px 60px rgba(0,0,0,.5); }
+.zi-modal__title { font-size: 22px; font-weight: 800; color: var(--zi-teal); }
+.zi-modal__text { margin-top: 8px; font-size: 15px; line-height: 19px; color: #a9a9b2; }
+.zi-modal__row { display: flex; gap: 12px; margin-top: 18px; }
+.zi-btn { height: 34px; padding: 0 16px; border: 0; border-radius: 7px; font: 700 14px/34px 'Inter', sans-serif; cursor: pointer; }
+.zi-btn--ghost { background: #2a2a36; color: #b7b7c0; }
+.zi-btn--teal { background: var(--zi-teal-deep); color: #062b26; }
+.zi-zbadge { position: absolute; padding: 3px 10px; border-radius: 6px; font: 700 14px/18px 'Inter', sans-serif; color: #fff; }
+.zi-zbadge--pink { background: var(--zi-pink); } .zi-zbadge--teal { background: #24ac92; }
+
+/* ---- Outro ------------------------------------------------------------------------------ */
+.zi-follow { display: inline-flex; align-items: center; gap: 10px; height: 50px; padding: 0 40px; border-radius: 999px; background: var(--zi-pink); color: #fff; font-size: 19px; font-weight: 700; box-shadow: 0 0 40px rgba(232,87,118,.45); }
+.zi-follow svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; }
+.zi-save { display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 22px; border-radius: 999px; background: #1f1a24; border: 1px solid rgba(255,255,255,.08); color: #c0c0c8; font-size: 15px; font-weight: 500; }
+.zi-save svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }

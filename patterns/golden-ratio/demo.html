@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Golden Ratio · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a0a0c; --grid: transparent; --accent: #cdaa46; --danger: #d9526a; }
+  .scene { color: #f2f1ee; }
+</style>
+</head>
+<body class="gr">
+
+<!-- 1 · Hook: before / after -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="gr-glow" style="top:560px;opacity:.7"></div>
+  <div class="gr-phone gr-phone--before" style="left:58px;top:438px;width:287px;height:432px">
+    <div class="gr-phone__lab">Before</div>
+    <i style="left:4px;top:3px;width:40px;height:5px"></i>
+    <span class="gr-dot" style="left:265px;top:4px;width:5px;height:5px"></span><span class="gr-dot" style="left:275px;top:4px;width:5px;height:5px"></span>
+    <b style="left:2px;top:22px;width:183px"></b>
+    <u style="left:2px;top:40px;width:112px;height:6px"></u>
+    <div class="gr-box" style="left:2px;top:54px;width:280px;height:48px">
+      <i style="left:6px;top:8px;width:229px"></i><i style="left:6px;top:21px;width:174px"></i><i style="left:6px;top:34px;width:202px"></i>
+    </div>
+    <div class="gr-btn" style="left:2px;top:110px;width:95px;height:34px"></div>
+    <div class="gr-btn" style="left:102px;top:110px;width:90px;height:34px"></div>
+    <div class="gr-btn" style="left:197px;top:110px;width:85px;height:34px"></div>
+    <div class="gr-cta" style="left:10px;top:400px;width:272px;height:26px"></div>
+  </div>
+  <div class="gr-phone gr-phone--after" style="left:378px;top:442px;width:280px;height:434px">
+    <div class="gr-phone__lab">After</div>
+    <i style="left:19px;top:12px;width:24px;height:5px"></i>
+    <span class="gr-dot is-gold" style="left:251px;top:12px"></span><span class="gr-dot" style="left:263px;top:12px"></span>
+    <b style="left:19px;top:54px;width:155px"></b>
+    <u style="left:19px;top:73px;width:92px;height:6px"></u>
+    <div class="gr-box" style="left:19px;top:103px;width:243px;height:55px">
+      <i style="left:8px;top:13px;width:190px"></i><i style="left:8px;top:27px;width:145px"></i><i style="left:8px;top:41px;width:165px"></i>
+    </div>
+    <div class="gr-btn" style="left:19px;top:188px;width:78px;height:34px"></div>
+    <div class="gr-btn" style="left:100px;top:188px;width:79px;height:34px"></div>
+    <div class="gr-btn" style="left:182px;top:188px;width:80px;height:34px"></div>
+    <div class="gr-cta" style="left:19px;top:380px;width:243px;height:34px"></div>
+  </div>
+  <!-- the spiral that traces over the After phone from 1.5s -->
+  <svg class="gr-spiral is-draw" data-cx="518" data-cy="600" data-r0="48" data-turns="1.6" style="left:0;top:0;width:720px;height:1280px;animation:gr-fade .4s 1.2s both"></svg>
+</section>
+
+<!-- 2 · 1.618 -->
+<section class="scene" data-t="3" data-shot="3.5">
+  <div class="gr-glow" style="top:600px"></div>
+  <div class="gr-big gr-pop" style="top:506px;font-size:138px">1.618</div>
+</section>
+
+<!-- 3 · The golden ratio: seashells, galaxies, the Mona Lisa -->
+<section class="scene" data-t="6" data-shot="9">
+  <div class="gr-glow" style="top:640px"></div>
+  <svg class="gr-spiral is-draw" data-cx="362" data-cy="655" data-r0="66" data-turns="2.2" style="left:0;top:0;width:720px;height:1280px"></svg>
+  <div class="gr-big" style="top:483px;font-size:64px">1.618</div>
+  <div class="gr-phi gr-fade" style="top:562px;animation-delay:.3s">φ</div>
+  <div class="gr-label gr-fade" style="top:596px;animation-delay:.5s">The golden ratio</div>
+  <div class="gr-chips" style="top:730px">
+    <span class="gr-chip gr-in" style="animation-delay:.6s">seashells</span>
+    <span class="gr-chip gr-in" style="animation-delay:1.4s">galaxies</span>
+    <span class="gr-chip gr-in" style="animation-delay:2.2s">the Mona Lisa</span>
+  </div>
+  <div class="gr-line gr-in" style="top:1004px;animation-delay:2.6s">Your brain is <em>literally wired</em> to find it beautiful.</div>
+</section>
+
+<!-- 4 · Secret 01: spacing scale -->
+<section class="scene" data-t="12" data-shot="16.5">
+  <div class="gr-glow" style="top:560px"></div>
+  <div class="gr-kicker">Secret 01</div>
+  <h1 class="gr-title">Spacing scale</h1>
+  <div class="gr-sub">Multiply by 1.618</div>
+  <div class="gr-scale" id="spacing" style="left:44px;top:546px;width:640px;height:220px"></div>
+  <svg class="gr-scale__brace gr-fade" style="left:600px;top:546px;width:40px;height:220px;animation-delay:1.8s" viewBox="0 0 40 220">
+    <path d="M12 16 Q26 33 12 50"/><path d="M12 62 Q26 79 12 96"/><path d="M12 108 Q26 125 12 142"/><path d="M12 154 Q26 173 12 192"/>
+  </svg>
+</section>
+
+<!-- 5 · Random vs golden spacing -->
+<section class="scene" data-t="18" data-shot="21">
+  <div class="gr-glow" style="top:560px"></div>
+  <div class="gr-kicker">Secret 01</div>
+  <h1 class="gr-title">Spacing scale</h1>
+  <div class="gr-sub">Multiply by 1.618</div>
+  <div class="gr-card gr-card--random gr-in" style="left:80px;top:583px;width:260px;height:142px;animation-delay:1.2s">
+    <div class="gr-card__lab">Random</div>
+    <span class="gr-card__bar" data-px="12px" style="left:23px;top:20px;width:130px"></span>
+    <span class="gr-card__bar" data-px="7px" style="left:23px;top:41px;width:140px"></span>
+    <span class="gr-card__bar" data-px="20px" style="left:23px;top:58px;width:152px"></span>
+    <span class="gr-card__bar" data-px="5px" style="left:23px;top:84px;width:162px"></span>
+    <span class="gr-card__bar" data-px="15px" style="left:23px;top:101px;width:172px"></span>
+  </div>
+  <div class="gr-card gr-card--golden gr-in" style="left:378px;top:583px;width:264px;height:144px;animation-delay:2.4s">
+    <div class="gr-card__lab" style="top:-33px">Golden</div>
+    <span class="gr-card__bar" data-px="8px" style="left:20px;top:19px;width:135px"></span>
+    <span class="gr-card__bar" data-px="13px" style="left:20px;top:38px;width:145px"></span>
+    <span class="gr-card__bar" data-px="21px" style="left:20px;top:60px;width:157px"></span>
+    <span class="gr-card__bar" data-px="13px" style="left:20px;top:87px;width:168px"></span>
+    <span class="gr-card__bar" data-px="8px" style="left:20px;top:109px;width:179px"></span>
+  </div>
+</section>
+
+<!-- 6 · Secret 02: layout proportions -->
+<section class="scene" data-t="24" data-shot="30">
+  <div class="gr-glow" style="top:600px"></div>
+  <div class="gr-kicker">Secret 02</div>
+  <h1 class="gr-title">Layout proportions</h1>
+  <div class="gr-sub">Split at the golden ratio</div>
+  <div class="gr-layout gr-fade" style="left:88px;top:463px;width:544px;height:372px">
+    <div class="gr-layout__split gr-grow" style="left:336px;animation-delay:1.6s;animation-name:gr-grow-y"></div>
+    <div class="gr-fade" style="animation-delay:3.6s">
+      <b style="left:18px;top:21px;width:240px"></b>
+      <u style="left:18px;top:47px;width:165px"></u>
+      <div class="gr-box" style="left:18px;top:75px;width:145px;height:78px"><i style="left:11px;top:13px;width:75px"></i><i style="left:11px;top:24px;width:98px;height:4px;background:#33353b"></i><span class="gr-tile" style="left:11px;top:52px"></span></div>
+      <div class="gr-box" style="left:174px;top:75px;width:145px;height:78px"><i style="left:11px;top:13px;width:75px"></i><i style="left:11px;top:24px;width:98px;height:4px;background:#33353b"></i><span class="gr-tile" style="left:11px;top:52px"></span></div>
+      <div class="gr-btn" style="left:18px;top:167px;width:95px;height:30px"></div>
+      <div class="gr-btn" style="left:120px;top:167px;width:95px;height:30px"></div>
+      <div class="gr-btn" style="left:222px;top:167px;width:95px;height:30px"></div>
+      <i style="left:18px;top:214px;width:180px;height:4px"></i><i style="left:18px;top:224px;width:210px;height:4px"></i><i style="left:18px;top:233px;width:230px;height:4px"></i><i style="left:18px;top:243px;width:252px;height:4px"></i>
+    </div>
+    <div class="gr-nav gr-fade" style="left:355px;top:19px;width:175px;height:340px;animation-delay:4.2s">
+      <div class="gr-nav__item is-on" style="top:0">Dashboard</div>
+      <div class="gr-nav__item" style="top:39px">Analytics</div>
+      <div class="gr-nav__item" style="top:80px">Settings</div>
+      <div class="gr-nav__item" style="top:121px">Profile</div>
+      <div class="gr-upgrade" style="left:0;top:310px;width:175px">Upgrade</div>
+    </div>
+  </div>
+  <div class="gr-pct gr-in" style="left:175px;top:851px;width:160px;animation-delay:2.2s"><b>61.8%</b><span>Content</span></div>
+  <div class="gr-pct gr-in" style="left:448px;top:851px;width:160px;animation-delay:2.4s"><b>38.2%</b><span>Actions</span></div>
+</section>
+
+<!-- 7 · Secret 03: type scale -->
+<section class="scene" data-t="33" data-shot="45">
+  <div class="gr-glow" style="top:560px"></div>
+  <div class="gr-kicker">Secret 03</div>
+  <h1 class="gr-title">Type scale</h1>
+  <div class="gr-sub">Each step multiplied by 1.618</div>
+  <div class="gr-type" style="top:526px">
+    <div class="gr-type__row gr-in" style="top:0;height:40px;animation-delay:1.5s"><div class="gr-type__meta">16px<span>Body</span></div><div class="gr-type__sample" style="top:18px;font-size:13px;font-weight:500">The quick brown fox</div></div>
+    <div class="gr-type__row gr-in" style="top:63px;height:47px;animation-delay:3s"><div class="gr-type__meta">26px<small>x1.618</small><span>Subheading</span></div><div class="gr-type__sample" style="top:20px;font-size:20px">Design principles</div></div>
+    <div class="gr-type__row gr-in" style="top:135px;height:61px;animation-delay:4.5s"><div class="gr-type__meta">42px<small>x1.618</small><span>Heading</span></div><div class="gr-type__sample" style="top:21px;font-size:30px">Golden Ratio</div></div>
+    <div class="gr-type__row gr-in" style="top:220px;height:74px;animation-delay:6s"><div class="gr-type__meta">68px<small>x1.618</small><span>Display</span></div><div class="gr-type__sample" style="top:22px;font-size:42px">1.618</div></div>
+  </div>
+  <div class="gr-brands gr-in" style="top:1013px;animation-delay:9s">
+    <span class="gr-brand">Stripe</span><span class="gr-brand">Linear</span><span class="gr-brand">Airbnb</span>
+  </div>
+</section>
+
+<!-- 8 · Outro -->
+<section class="scene" data-t="48" data-shot="49.5">
+  <div class="gr-glow" style="top:650px;width:900px;height:900px;margin:-450px 0 0 -450px"></div>
+  <svg class="gr-spiral" data-cx="372" data-cy="660" data-r0="120" data-turns="1.6" style="left:0;top:0;width:720px;height:1280px;opacity:.5"></svg>
+  <div class="gr-outro__t gr-in" style="top:560px">Follow for more <em>design rules</em></div>
+  <div class="gr-outro__s gr-in" style="top:620px;animation-delay:.2s">Save this for your next project</div>
+  <button class="gr-follow gr-in" id="follow" style="top:677px;animation-delay:.4s">Follow</button>
+</section>
+
+<script type="module">
+  import { GoldenSpiral, SpacingScale, FollowButton } from './pattern.js';
+  document.querySelectorAll('.gr-spiral').forEach(s => GoldenSpiral(s));
+  SpacingScale(document.getElementById('spacing'));
+  FollowButton(document.getElementById('follow'));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

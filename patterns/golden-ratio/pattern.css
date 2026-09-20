@@ -1,0 +1,125 @@
+/* Golden Ratio, rebuilt from the @designmotionhq reel "One layout looks cheap, the other expensive. The difference is 1.618."
+   Component classes are prefixed .gr- and depend only on the tokens below. */
+.gr {
+  --gr-bg: #0a0a0c; --gr-panel: #0e1116; --gr-panel-2: #171a20; --gr-border: rgba(255,255,255,.06);
+  --gr-text: #f2f1ee; --gr-muted: #8b8a92; --gr-gold: #cdaa46; --gr-gold-dim: rgba(205,170,70,.14);
+  --gr-pink: #d9526a; --gr-teal: #3ecf9b; --gr-phi: 1.618;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--gr-text);
+}
+
+/* ---- Warm glow behind every scene -------------------------------------- */
+.gr-glow { position: absolute; left: 50%; top: 50%; width: 760px; height: 760px; margin: -380px 0 0 -380px; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(205,170,70,.2) 0%, rgba(205,170,70,.11) 30%, rgba(205,170,70,.03) 52%, rgba(205,170,70,0) 66%); }
+
+/* ---- Big number + spiral ----------------------------------------------- */
+.gr-big { position: absolute; left: 0; right: 0; text-align: center; font-weight: 800; letter-spacing: -.02em; color: var(--gr-gold); line-height: 1;
+  text-shadow: 0 0 40px rgba(205,170,70,.45); }
+.gr-phi { position: absolute; left: 0; right: 0; text-align: center; color: var(--gr-gold); font-size: 30px; font-weight: 400; line-height: 1; }
+.gr-label { position: absolute; left: 0; right: 0; text-align: center; font-size: 15px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: #fff; }
+.gr-spiral { position: absolute; pointer-events: none; overflow: visible; }
+.gr-spiral path { fill: none; stroke: var(--gr-gold); stroke-width: 1.5; stroke-linecap: round; opacity: .36; }
+.gr-chips { position: absolute; left: 0; right: 0; display: flex; justify-content: center; gap: 30px; }
+.gr-chip { padding: 8px 14px; border-radius: 6px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.05); font-size: 19px; font-weight: 600; color: #b9b6b1; white-space: nowrap; }
+.gr-line { position: absolute; left: 0; right: 0; text-align: center; font-size: 23px; font-weight: 600; color: #b3afa7; }
+.gr-line em { font-style: normal; color: var(--gr-gold); }
+
+/* ---- Before / after phones ---------------------------------------------- */
+.gr-phone { position: absolute; border-radius: 10px; background: var(--gr-panel); }
+.gr-phone--before { background: #1a1c21; }
+.gr-phone__lab { position: absolute; left: 0; right: 0; top: -37px; text-align: center; font-size: 17px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+.gr-phone--before .gr-phone__lab { color: var(--gr-pink); }
+.gr-phone--after .gr-phone__lab { color: var(--gr-teal); }
+.gr-phone i, .gr-phone b, .gr-phone u { position: absolute; display: block; border-radius: 3px; }
+.gr-phone i { background: #4a4c53; height: 6px; }
+.gr-phone b { background: #dcdbe0; height: 12px; border-radius: 4px; }
+.gr-phone u { background: #4a4c53; height: 8px; border-radius: 4px; }
+.gr-phone .gr-dot { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: #3a3c42; }
+.gr-phone .gr-dot.is-gold { background: var(--gr-gold); }
+.gr-phone .gr-box { position: absolute; border-radius: 6px; background: #171a20; }
+.gr-phone--before .gr-box { background: #22252b; border-radius: 4px; }
+.gr-phone .gr-btn { position: absolute; border-radius: 6px; background: #171a20; }
+.gr-phone--before .gr-btn { background: #22252b; border-radius: 3px; }
+.gr-phone .gr-btn::after { content: ''; position: absolute; left: 50%; top: 50%; width: 40px; height: 5px; margin: -2px 0 0 -20px; border-radius: 3px; background: #8b8a92; }
+.gr-phone .gr-cta { position: absolute; border-radius: 8px; background: var(--gr-gold); box-shadow: 0 0 30px rgba(205,170,70,.35); }
+.gr-phone .gr-cta::after { content: ''; position: absolute; left: 50%; top: 50%; width: 44px; height: 6px; margin: -3px 0 0 -22px; border-radius: 3px; background: rgba(255,255,255,.9); }
+.gr-phone--before .gr-cta { background: #6b7079; border-radius: 6px; box-shadow: none; }
+
+/* ---- Secret header (kicker pill + title + sub) -------------------------- */
+.gr-kicker { position: absolute; top: 114px; left: 50%; transform: translateX(-50%); padding: 7px 15px; border-radius: 999px; font-size: 16px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gr-gold); background: #242015; white-space: nowrap; }
+.gr-title { position: absolute; margin: 0; top: 152px; left: 0; right: 0; text-align: center; font-size: 40px; font-weight: 800; letter-spacing: .05em; line-height: 1.15; text-transform: uppercase; color: #fff; }
+.gr-sub { position: absolute; top: 208px; left: 0; right: 0; text-align: center; font-size: 19px; font-weight: 500; color: #a09d99; }
+
+/* ---- Spacing scale bars ------------------------------------------------- */
+.gr-scale { position: absolute; }
+.gr-scale__row { position: absolute; left: 0; display: flex; align-items: center; height: 24px; white-space: nowrap; }
+.gr-scale__n { width: 51px; text-align: right; font-size: 24px; font-weight: 700; color: #fff; margin-right: 11px; letter-spacing: -.01em; }
+.gr-scale__bar { height: 22px; border-radius: 5px; background: var(--gr-gold); box-shadow: 0 0 14px rgba(205,170,70,.35); transform-origin: left; }
+.gr-scale__name { margin-left: 14px; font-size: 16px; color: #a09d99; line-height: 1.05; }
+.gr-scale__x { margin-left: 8px; font-size: 13px; font-weight: 700; color: var(--gr-gold); }
+.gr-scale__brace { position: absolute; overflow: visible; }
+.gr-scale__brace path { fill: none; stroke: var(--gr-gold); stroke-width: 1.5; stroke-linecap: round; opacity: .55; }
+
+/* ---- Random vs golden cards -------------------------------------------- */
+.gr-card { position: absolute; border-radius: 10px; background: var(--gr-panel); border: 1px solid var(--gr-border); }
+.gr-card__lab { position: absolute; left: 0; right: 0; top: -30px; text-align: center; font-size: 15px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+.gr-card--random { opacity: .42; }
+.gr-card--random .gr-card__lab { color: var(--gr-pink); }
+.gr-card--golden { border-color: rgba(205,170,70,.18); box-shadow: 0 0 40px rgba(205,170,70,.14); }
+.gr-card--golden .gr-card__lab { color: var(--gr-teal); }
+.gr-card__bar { position: absolute; height: 11px; border-radius: 6px; background: #64635f; }
+.gr-card--golden .gr-card__bar { background: #8f8e93; }
+.gr-card__bar::after { content: attr(data-px); position: absolute; left: 100%; top: -2px; margin-left: 7px; font-size: 12px; font-weight: 600; line-height: 1.2; }
+.gr-card--random .gr-card__bar::after { color: var(--gr-pink); }
+.gr-card--golden .gr-card__bar::after { color: var(--gr-gold); }
+
+/* ---- Layout proportions panel ----------------------------------------- */
+.gr-layout { position: absolute; border-radius: 10px; background: var(--gr-panel); }
+.gr-layout__split { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--gr-gold); box-shadow: 0 0 6px rgba(205,170,70,.35); transform-origin: top; }
+.gr-layout i, .gr-layout b, .gr-layout u { position: absolute; display: block; border-radius: 3px; background: #3b3d43; height: 5px; }
+.gr-layout b { background: #cbccd1; height: 13px; border-radius: 4px; }
+.gr-layout u { background: #4a4c53; height: 8px; border-radius: 4px; }
+.gr-layout .gr-box { position: absolute; border-radius: 6px; background: #171a20; }
+.gr-layout .gr-box i { background: #4a4c53; height: 6px; }
+.gr-layout .gr-tile { position: absolute; width: 32px; height: 16px; border-radius: 4px; background: var(--gr-gold); }
+.gr-layout .gr-btn { position: absolute; border-radius: 6px; background: #171a20; }
+.gr-layout .gr-btn::after { content: ''; position: absolute; left: 50%; top: 50%; width: 46px; height: 5px; margin: -2px 0 0 -23px; border-radius: 3px; background: #8b8a92; }
+.gr-nav { position: absolute; }
+.gr-nav__item { position: absolute; left: 0; right: 0; height: 30px; display: flex; align-items: center; gap: 8px; padding: 0 12px; border-radius: 6px; font-size: 13px; font-weight: 500; color: #8f8d90; }
+.gr-nav__item::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: #4a4c53; }
+.gr-nav__item.is-on { background: #292010; color: var(--gr-gold); font-weight: 600; box-shadow: inset 0 0 0 1px rgba(205,170,70,.2); }
+.gr-nav__item.is-on::before { background: var(--gr-gold); }
+.gr-upgrade { position: absolute; height: 30px; border-radius: 6px; background: var(--gr-gold); color: #1b1608; font-size: 13px; font-weight: 700; display: grid; place-items: center; box-shadow: 0 0 24px rgba(205,170,70,.35); }
+.gr-pct { position: absolute; text-align: center; white-space: nowrap; }
+.gr-pct b { display: block; font-size: 22px; font-weight: 700; color: var(--gr-gold); letter-spacing: .02em; }
+.gr-pct span { display: block; margin-top: 6px; font-size: 13px; letter-spacing: .16em; color: #6b6a70; text-transform: uppercase; }
+
+/* ---- Type scale ------------------------------------------------------- */
+.gr-type { position: absolute; left: 53px; width: 614px; }
+.gr-type__row { position: absolute; left: 0; right: 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+.gr-type__meta { display: flex; align-items: baseline; gap: 10px; font-size: 15px; font-weight: 700; color: var(--gr-gold); }
+.gr-type__meta small { font-size: 12px; font-weight: 600; color: rgba(205,170,70,.75); }
+.gr-type__meta span { margin-left: auto; font-size: 13px; font-weight: 500; color: #7c7b82; }
+.gr-type__sample { position: absolute; left: 0; font-weight: 700; color: #fff; line-height: 1; white-space: nowrap; letter-spacing: -.01em; }
+.gr-brands { position: absolute; left: 0; right: 0; display: flex; justify-content: center; gap: 22px; }
+.gr-brand { padding: 8px 20px; border-radius: 8px; background: #100e11; border: 1px solid rgba(255,255,255,.06); font-size: 16px; font-weight: 600; color: #8b8a92; }
+
+/* ---- Outro ------------------------------------------------------------ */
+.gr-outro__t { position: absolute; left: 0; right: 0; text-align: center; font-size: 30px; font-weight: 700; letter-spacing: -.01em; color: #fff; }
+.gr-outro__t em { font-style: normal; color: var(--gr-gold); }
+.gr-outro__s { position: absolute; left: 0; right: 0; text-align: center; font-size: 17px; color: #8b8a92; }
+.gr-follow { position: absolute; left: 50%; transform: translateX(-50%); width: 136px; height: 44px; border: 0; border-radius: 8px; background: var(--gr-gold); color: #fff; font: 700 17px 'Inter', sans-serif; cursor: pointer; box-shadow: 0 0 30px rgba(205,170,70,.4); transition: transform .12s ease, filter .18s ease; }
+.gr-follow:active { transform: translateX(-50%) scale(.96); }
+.gr-follow.is-on { filter: brightness(.85); }
+
+/* ---- Motion ----------------------------------------------------------- */
+@keyframes gr-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes gr-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes gr-pop { from { opacity: 0; transform: scale(.7); } to { opacity: 1; transform: scale(1); } }
+@keyframes gr-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes gr-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.gr-in { animation: gr-in .6s cubic-bezier(.2,.8,.2,1) both; }
+.gr-fade { animation: gr-fade .6s ease both; }
+.gr-pop { animation: gr-pop .45s cubic-bezier(.2,1.2,.3,1) both; }
+.gr-grow { animation: gr-grow .8s cubic-bezier(.2,.8,.2,1) both; }
+.gr-spiral.is-draw path { stroke-dasharray: 1; pathLength: 1; animation: gr-draw 2.4s ease-out both; }
+@keyframes gr-grow-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }

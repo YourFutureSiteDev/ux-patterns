@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Perfect Button · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0b070f; --grid: rgba(255,255,255,.028); --accent: #8b5cf6; --danger: #f0506e; }
+  .scene { color: #f2f0f7; font-family: var(--pb-ui); }
+  .pb-word { display: inline-block; opacity: 0; animation: pb-in .4s ease-out both; }
+</style>
+</head>
+<body class="pb">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-hand" viewBox="0 0 20 24"><path d="M7 12.5V4.2a1.7 1.7 0 0 1 3.4 0V11l1-.1a1.6 1.6 0 0 1 3.2.6l1 .1a1.6 1.6 0 0 1 3 .9v5.2c0 3.4-2.3 5.6-5.7 5.6h-1.6c-1.9 0-3.3-.8-4.3-2.3L3.6 16a1.5 1.5 0 0 1 2.3-1.9L7 15.4z" fill="#fff" stroke="#111" stroke-width="1.3" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<!-- 1 · Hook: before vs after -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="pb-glow" style="top:330px;left:110px;width:500px;height:500px;background:rgba(124,58,237,.1)"></div>
+  <div class="pb-label" style="left:205px;top:566px">Before</div>
+  <div class="pb-label pb-label--on" style="left:515px;top:566px;color:#5b4a86">After</div>
+  <div style="position:absolute;left:360px;top:540px;width:1px;height:140px;background:rgba(255,255,255,.08)"></div>
+  <div class="pb-vs" style="left:360px;top:608px">VS</div>
+  <button class="pb-btn pb-btn--flat" style="position:absolute;left:99px;top:596px;width:212px">Get Started</button>
+  <button class="pb-btn" data-live style="position:absolute;left:409px;top:596px;width:212px">Get Started</button>
+  <svg class="pb-hand" style="left:212px;top:618px"><use href="#i-hand"/></svg>
+  <div class="pb-cap">Same <mark>button,</mark> different</div>
+</section>
+<section class="scene" data-t="1.5" data-shot="1.5">
+  <div class="pb-glow" style="top:330px;left:110px;width:500px;height:500px;background:rgba(124,58,237,.1)"></div>
+  <div class="pb-label" style="left:205px;top:566px">Before</div>
+  <div class="pb-label pb-label--on" style="left:515px;top:566px">After</div>
+  <div style="position:absolute;left:360px;top:540px;width:1px;height:140px;background:rgba(255,255,255,.08)"></div>
+  <div class="pb-vs" style="left:360px;top:608px">VS</div>
+  <button class="pb-btn pb-btn--flat" style="position:absolute;left:99px;top:596px;width:212px">Get Started</button>
+  <button class="pb-btn is-hover" data-live style="position:absolute;left:409px;top:596px;width:212px">Get Started</button>
+  <svg class="pb-hand" style="left:502px;top:618px"><use href="#i-hand"/></svg>
+  <div class="pb-cap">feeling, <mark>three</mark> secrets</div>
+</section>
+
+<!-- 2 · Secret #1: hover states -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="pb-glow"></div>
+  <div class="pb-secret">SECRET #1</div>
+  <div class="pb-h">Hover States</div>
+  <div class="pb-label" style="left:240px;top:306px">Without</div>
+  <div class="pb-label pb-label--on" style="left:480px;top:306px;color:#c4b5fd">With</div>
+  <button class="pb-btn pb-btn--flat" style="position:absolute;left:147px;top:334px">Get Started</button>
+  <button class="pb-btn" data-live style="position:absolute;left:387px;top:334px">Get Started</button>
+  <svg class="pb-hand" style="left:205px;top:356px"><use href="#i-hand"/></svg>
+  <div class="pb-cap"><mark>hover</mark> states, a cheap</div>
+</section>
+<section class="scene" data-t="9" data-shot="10.5">
+  <div class="pb-glow"></div>
+  <div class="pb-secret">SECRET #1</div>
+  <div class="pb-h">Hover States</div>
+  <div class="pb-label" style="left:240px;top:306px">Without</div>
+  <div class="pb-label pb-label--on" style="left:480px;top:306px;color:#c4b5fd">With</div>
+  <button class="pb-btn pb-btn--flat" style="position:absolute;left:147px;top:334px">Get Started</button>
+  <button class="pb-btn is-hover" data-live style="position:absolute;left:387px;top:334px">Get Started</button>
+  <svg class="pb-hand" style="left:497px;top:358px"><use href="#i-hand"/></svg>
+  <div class="pb-chip" style="left:78px;top:441px">Scale +5%</div>
+  <div class="pb-chip" style="left:250px;top:441px">Shadow deepens</div>
+  <div class="pb-chip pb-chip--green" style="left:483px;top:441px">Subtle glow</div>
+  <div class="pb-cap">Scale it up <mark>5%</mark> on</div>
+</section>
+<section class="scene" data-t="12" data-shot="13.5">
+  <div class="pb-glow"></div>
+  <div class="pb-secret">SECRET #1</div>
+  <div class="pb-h">Hover States</div>
+  <div class="pb-label" style="left:240px;top:306px">Without</div>
+  <div class="pb-label pb-label--on" style="left:480px;top:306px;color:#c4b5fd">With</div>
+  <button class="pb-btn pb-btn--flat" style="position:absolute;left:147px;top:334px">Get Started</button>
+  <button class="pb-btn is-hover" data-live style="position:absolute;left:387px;top:334px">Get Started</button>
+  <svg class="pb-hand" style="left:497px;top:358px"><use href="#i-hand"/></svg>
+  <div class="pb-chip" style="left:78px;top:441px">Scale +5%</div>
+  <div class="pb-chip" style="left:250px;top:441px">Shadow deepens</div>
+  <div class="pb-chip pb-chip--green" style="left:483px;top:441px">Subtle glow</div>
+  <div class="pb-cap"><mark>depth,</mark> add a subtle</div>
+</section>
+
+<!-- 3 · Secret #2: press feedback -->
+<section class="scene" data-t="18" data-shot="18">
+  <div class="pb-glow"></div>
+  <div class="pb-secret">SECRET #2</div>
+  <div class="pb-h">Press Feedback</div>
+  <div class="pb-label" style="left:240px;top:306px">Flat</div>
+  <div class="pb-label pb-label--on" style="left:480px;top:306px;color:#c4b5fd">Spring</div>
+  <button class="pb-btn pb-btn--flat" style="position:absolute;left:147px;top:334px">Get Started</button>
+  <button class="pb-btn" data-live style="position:absolute;left:387px;top:334px">Get Started</button>
+  <svg class="pb-hand" style="left:208px;top:358px"><use href="#i-hand"/></svg>
+  <div class="pb-cap">When <mark>you</mark> click a</div>
+</section>
+<section class="scene" data-t="21" data-shot="22.5">
+  <div class="pb-glow"></div>
+  <div class="pb-secret">SECRET #2</div>
+  <div class="pb-h">Press Feedback</div>
+  <div class="pb-label" style="left:240px;top:306px">Flat</div>
+  <div class="pb-label pb-label--on" style="left:480px;top:306px;color:#c4b5fd">Spring</div>
+  <button class="pb-btn pb-btn--flat" style="position:absolute;left:147px;top:334px">Get Started</button>
+  <button class="pb-btn is-hover" data-live style="position:absolute;left:387px;top:334px">Get Started</button>
+  <svg class="pb-hand" style="left:497px;top:358px"><use href="#i-hand"/></svg>
+  <div class="pb-scale"><div class="pb-scale__v pb-scale__v--press"><b>0.95x</b><span>press</span></div><svg class="pb-scale__arrow" width="18" height="18"><use href="#i-arrow"/></svg><div class="pb-scale__v pb-scale__v--bounce"><b>1.05x</b><span>bounce</span></div></div>
+</section>
+<section class="scene" data-t="25.5" data-shot="27">
+  <div class="pb-glow"></div>
+  <div class="pb-secret">SECRET #2</div>
+  <div class="pb-h">Press Feedback</div>
+  <div class="pb-label" style="left:240px;top:306px">Flat</div>
+  <div class="pb-label pb-label--on" style="left:480px;top:306px;color:#c4b5fd">Spring</div>
+  <button class="pb-btn pb-btn--flat" style="position:absolute;left:147px;top:334px">Get Started</button>
+  <button class="pb-btn is-pressed" data-live style="position:absolute;left:387px;top:334px">Get Started</button>
+  <svg class="pb-hand" style="left:497px;top:358px"><use href="#i-hand"/></svg>
+  <div class="pb-scale"><div class="pb-scale__v pb-scale__v--press"><b>0.95x</b><span>press</span></div><svg class="pb-scale__arrow" width="18" height="18"><use href="#i-arrow"/></svg><div class="pb-scale__v pb-scale__v--bounce"><b>1.05x</b><span>bounce</span></div></div>
+  <div style="position:absolute;top:908px;left:0;right:0;text-align:center;font:600 30px/40px var(--pb-ui);color:#e6e4ec"><span class="pb-word" style="animation-delay:.3s">Tactile</span> <span class="pb-word" style="animation-delay:.9s;color:#9b98a6">feedback.</span></div>
+</section>
+
+<!-- 4 · Secret #3: ripple + easing -->
+<section class="scene" data-t="30" data-shot="30">
+  <div class="pb-glow"></div>
+  <div class="pb-secret">SECRET #3</div>
+  <div class="pb-h">Ripple + Easing</div>
+  <div class="pb-label" style="left:240px;top:293px">No Ripple</div>
+  <div class="pb-label pb-label--on" style="left:480px;top:293px;color:#c4b5fd">Ripple</div>
+  <button class="pb-btn pb-btn--flat" style="position:absolute;left:147px;top:321px">Get Started</button>
+  <button class="pb-btn" data-live style="position:absolute;left:387px;top:321px">Get Started</button>
+  <svg class="pb-hand" style="left:208px;top:356px"><use href="#i-hand"/></svg>
+  <div class="pb-cap"><mark>The</mark> ripple effect with</div>
+</section>
+<section class="scene pb-ease" data-t="33.3" data-shot="34.5">
+  <div class="pb-glow"></div>
+  <div class="pb-secret">SECRET #3</div>
+  <div class="pb-h">Ripple + Easing</div>
+  <div class="pb-label" style="left:240px;top:293px">No Ripple</div>
+  <div class="pb-label pb-label--on" style="left:480px;top:293px;color:#c4b5fd">Ripple</div>
+  <button class="pb-btn pb-btn--flat" style="position:absolute;left:147px;top:321px">Get Started</button>
+  <button class="pb-btn is-hover" data-live data-ripple style="position:absolute;left:387px;top:321px">Get Started<span class="pb-ripple" style="left:-120px;top:-165px;width:400px;height:400px;animation:pb-ripple 2.6s cubic-bezier(.2,.8,.2,1) infinite"></span></button>
+  <svg class="pb-hand" style="left:340px;top:358px"><use href="#i-hand"/></svg>
+  <div class="pb-slider" style="left:252px;top:452px"><div class="pb-slider__name">LINEAR</div><div class="pb-slider__track"></div><div class="pb-slider__knob"></div><div class="pb-slider__foot">Robotic</div></div>
+  <div class="pb-slider pb-slider--spring" style="left:386px;top:452px"><div class="pb-slider__name">SPRING</div><div class="pb-slider__track"></div><div class="pb-slider__knob"></div><div class="pb-slider__foot">Natural</div></div>
+  <div class="pb-cap">confirms the <mark>action</mark></div>
+</section>
+<section class="scene pb-ease" data-t="33.3" data-shot="39">
+  <div class="pb-glow"></div>
+  <div class="pb-secret">SECRET #3</div>
+  <div class="pb-h">Ripple + Easing</div>
+  <div class="pb-label" style="left:240px;top:293px">No Ripple</div>
+  <div class="pb-label pb-label--on" style="left:480px;top:293px;color:#c4b5fd">Ripple</div>
+  <button class="pb-btn pb-btn--flat" style="position:absolute;left:147px;top:321px">Get Started</button>
+  <button class="pb-btn is-hover" data-live style="position:absolute;left:387px;top:321px">Get Started<span class="pb-ripple" style="left:-120px;top:-165px;width:400px;height:400px;animation:pb-ripple 2.6s cubic-bezier(.2,.8,.2,1) -1.3s infinite"></span></button>
+  <svg class="pb-hand" style="left:497px;top:358px"><use href="#i-hand"/></svg>
+  <div class="pb-slider" style="left:252px;top:452px"><div class="pb-slider__name">LINEAR</div><div class="pb-slider__track"></div><div class="pb-slider__knob" style="animation-delay:-1.75s"></div><div class="pb-slider__foot">Robotic</div></div>
+  <div class="pb-slider pb-slider--spring" style="left:386px;top:452px"><div class="pb-slider__name">SPRING</div><div class="pb-slider__track"></div><div class="pb-slider__knob" style="animation-delay:-1.3s"></div><div class="pb-slider__foot">Natural</div></div>
+  <div class="pb-cap"><mark>robotic</mark></div>
+</section>
+<section class="scene pb-ease" data-t="33.3" data-shot="42">
+  <div class="pb-glow"></div>
+  <div class="pb-secret">SECRET #3</div>
+  <div class="pb-h">Ripple + Easing</div>
+  <div class="pb-label" style="left:240px;top:293px">No Ripple</div>
+  <div class="pb-label pb-label--on" style="left:480px;top:293px;color:#c4b5fd">Ripple</div>
+  <button class="pb-btn pb-btn--flat" style="position:absolute;left:147px;top:321px">Get Started</button>
+  <button class="pb-btn is-hover" data-live style="position:absolute;left:387px;top:321px">Get Started<span class="pb-ripple" style="left:-120px;top:-165px;width:400px;height:400px;animation:pb-ripple 2.6s cubic-bezier(.2,.8,.2,1) -.33s infinite"></span></button>
+  <svg class="pb-hand" style="left:497px;top:358px"><use href="#i-hand"/></svg>
+  <div class="pb-slider" style="left:252px;top:452px"><div class="pb-slider__name">LINEAR</div><div class="pb-slider__track"></div><div class="pb-slider__knob" style="animation-delay:-.6s"></div><div class="pb-slider__foot">Robotic</div></div>
+  <div class="pb-slider pb-slider--spring" style="left:386px;top:452px"><div class="pb-slider__name">SPRING</div><div class="pb-slider__track"></div><div class="pb-slider__knob" style="animation-delay:-.33s"></div><div class="pb-slider__foot">Natural</div></div>
+  <div class="pb-cap"><mark>fluid</mark></div>
+</section>
+<section class="scene pb-ease" data-t="33.3" data-shot="45">
+  <div class="pb-glow"></div>
+  <div class="pb-secret">SECRET #3</div>
+  <div class="pb-h">Ripple + Easing</div>
+  <div class="pb-label" style="left:240px;top:293px">No Ripple</div>
+  <div class="pb-label pb-label--on" style="left:480px;top:293px;color:#c4b5fd">Ripple</div>
+  <button class="pb-btn pb-btn--flat" style="position:absolute;left:147px;top:321px">Get Started</button>
+  <button class="pb-btn is-hover" data-live style="position:absolute;left:387px;top:321px">Get Started<span class="pb-ripple" style="left:-120px;top:-165px;width:400px;height:400px;animation:pb-ripple 2.6s cubic-bezier(.2,.8,.2,1) -.26s infinite"></span></button>
+  <svg class="pb-hand" style="left:497px;top:358px"><use href="#i-hand"/></svg>
+  <div class="pb-slider" style="left:252px;top:452px"><div class="pb-slider__name">LINEAR</div><div class="pb-slider__track"></div><div class="pb-slider__knob" style="animation-delay:-2.9s"></div><div class="pb-slider__foot">Robotic</div></div>
+  <div class="pb-slider pb-slider--spring" style="left:386px;top:452px"><div class="pb-slider__name">SPRING</div><div class="pb-slider__track"></div><div class="pb-slider__knob" style="animation-delay:-.26s"></div><div class="pb-slider__foot">Natural</div></div>
+  <div style="position:absolute;top:900px;left:0;right:0;text-align:center;font:600 28px/40px var(--pb-ui);color:#fff">One click.</div>
+  <div style="position:absolute;top:947px;left:0;right:0;text-align:center;font:600 28px/40px var(--pb-ui);color:#a78bfa">Maximum satisfaction.</div>
+</section>
+
+<!-- 5 · All three on a pricing card -->
+<section class="scene" data-t="45" data-shot="48">
+  <div class="pb-glow" style="top:420px;left:160px"></div>
+  <div class="pb-card pb-card--stagger">
+    <span class="pb-card__plan">PRO PLAN</span>
+    <div class="pb-card__price">$<b>29</b>/mo</div>
+    <div class="pb-card__rule"></div>
+    <ul class="pb-card__list"><li style="--i:0">Unlimited projects</li><li style="--i:1">Priority support</li><li style="--i:2">Advanced analytics</li><li style="--i:3">Custom integrations</li></ul>
+    <button class="pb-btn pb-btn--wide is-hover" data-live>Get Started</button>
+  </div>
+  <svg class="pb-hand" style="left:364px;top:762px"><use href="#i-hand"/></svg>
+  <div class="pb-cap">Press <mark>feedback</mark></div>
+</section>
+<section class="scene" data-t="49.5" data-shot="51">
+  <div class="pb-glow" style="top:420px;left:160px"></div>
+  <div class="pb-card">
+    <span class="pb-card__plan">PRO PLAN</span>
+    <div class="pb-card__price">$<b>29</b>/mo</div>
+    <div class="pb-card__rule"></div>
+    <ul class="pb-card__list"><li>Unlimited projects</li><li>Priority support</li><li>Advanced analytics</li><li>Custom integrations</li></ul>
+    <button class="pb-btn pb-btn--wide is-hover" data-live>Get Started</button>
+  </div>
+  <svg class="pb-hand" style="left:364px;top:762px"><use href="#i-hand"/></svg>
+  <div class="pb-cap" style="top:885px">button people tolerate</div>
+  <div class="pb-tag" style="left:214px;top:968px">1. Hover</div>
+</section>
+<section class="scene pb-final" data-t="52.5" data-shot="54">
+  <div class="pb-glow" style="top:420px;left:160px"></div>
+  <div class="pb-card">
+    <span class="pb-card__plan">PRO PLAN</span>
+    <div class="pb-card__price">$<b>29</b>/mo</div>
+    <div class="pb-card__rule"></div>
+    <ul class="pb-card__list"><li>Unlimited projects</li><li>Priority support</li><li>Advanced analytics</li><li>Custom integrations</li></ul>
+    <button class="pb-btn pb-btn--wide is-pressed" data-live data-final>Get Started</button>
+  </div>
+  <svg class="pb-hand" style="left:364px;top:762px"><use href="#i-hand"/></svg>
+  <div class="pb-tag" style="left:214px;top:968px">1. Hover</div>
+  <div class="pb-tag" style="left:314px;top:968px">2. Press</div>
+  <div class="pb-tag" style="left:415px;top:968px">3. Ripple</div>
+</section>
+
+<!-- 6 · Outro -->
+<section class="scene" data-t="55.5" data-shot="57">
+  <div class="pb-glow" style="top:400px;left:180px;width:360px;height:360px;background:rgba(124,58,237,.12)"></div>
+  <div class="pb-tile" style="left:171px;top:509px">🎨</div>
+  <div class="pb-tile" style="left:513px;top:532px;animation-delay:-1s">✨</div>
+  <div class="pb-tile" style="left:211px;top:728px;animation-delay:-2s">🖱️</div>
+  <div class="pb-tile" style="left:518px;top:753px;animation-delay:-3s">💎</div>
+  <div style="position:absolute;top:527px;left:0;right:0;text-align:center;font:700 28px/40px var(--pb-ui);letter-spacing:-.01em;color:#fff">Want more design secrets?</div>
+  <div style="position:absolute;top:579px;left:0;right:0;text-align:center;font:400 19px/26px var(--pb-ui);color:#9b98a6">Follow for daily tips</div>
+  <button class="pb-follow center" style="top:636px"><b>+</b>Follow</button>
+</section>
+
+<script type="module">
+  import { PerfectButton, autoplay } from './pattern.js';
+  // Every purple button is a real PerfectButton: hover it, press it, watch the ripple.
+  document.querySelectorAll('[data-live]').forEach(b => { b._api = PerfectButton(b); });
+  // The finale plays itself when reached live (frozen at the pressed state for the screenshot).
+  const fin = document.querySelector('.pb-final');
+  fin.addEventListener('scene:enter', e => { if (e.detail.t > 0 || fin._auto) return; const b = fin.querySelector('[data-final]'); b.classList.remove('is-pressed'); fin._auto = autoplay(b, b._api); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

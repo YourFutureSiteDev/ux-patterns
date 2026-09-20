@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dark Mode · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a090b; --grid: transparent; --accent: #8b5cf6; --danger: #ff3366; }
+  .scene { color: #e0e0e0; }
+  .glow { width: 600px; height: 600px; background: radial-gradient(circle, rgba(60,30,110,.22), transparent 70%); filter: blur(30px); }
+</style>
+</head>
+<body class="dm">
+
+<!-- 1 · Same app. Wrong vs right -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="glow" style="left:-100px;top:350px;background:radial-gradient(circle, rgba(120,20,60,.18), transparent 70%)"></div>
+  <div class="glow" style="left:220px;top:350px"></div>
+  <div class="dm-h" style="top:132px">Same app.</div>
+  <div class="dm-tag dm-tag--wrong" style="left:163px;top:244px">WRONG</div>
+  <div class="dm-tag dm-tag--right" style="left:449px;top:244px">RIGHT</div>
+  <div class="dm-app dm-app--wrong" style="position:absolute;left:95px;top:292px">
+    <div class="dm-app__head"><i></i>DarkApp</div>
+    <div class="dm-app__stats"><div class="dm-app__stat"><span>Users</span><b>2.4k</b></div><div class="dm-app__stat"><span>Revenue</span><b>$18k</b></div></div>
+    <div class="dm-app__btn">Get Started</div>
+  </div>
+  <div class="dm-app dm-app--right" style="position:absolute;left:375px;top:292px">
+    <div class="dm-app__head"><i></i>DarkApp</div>
+    <div class="dm-app__stats"><div class="dm-app__stat"><span>Users</span><b>2.4k</b></div><div class="dm-app__stat"><span>Revenue</span><b>$18k</b></div></div>
+    <div class="dm-app__btn">Get Started</div>
+  </div>
+</section>
+
+<!-- 1b · One feels premium. -->
+<section class="scene" data-t="1.5" data-shot="1.5">
+  <div class="glow" style="left:60px;top:350px"></div>
+  <div class="dm-h" style="top:132px">Same app.</div>
+  <div class="dm-sub" style="top:187px;font-size:22px">One feels premium.</div>
+  <div class="dm-tag dm-tag--right" style="left:303px;top:229px">RIGHT</div>
+  <div class="dm-app dm-app--right" style="position:absolute;left:235px;top:281px;transform:scale(1.16);transform-origin:top center">
+    <div class="dm-app__head"><i></i>DarkApp</div>
+    <div class="dm-app__stats"><div class="dm-app__stat"><span>Users</span><b>2.4k</b></div><div class="dm-app__stat"><span>Revenue</span><b>$18k</b></div></div>
+    <div class="dm-app__btn">Get Started</div>
+  </div>
+</section>
+
+<!-- 2 · Layered Surfaces -->
+<section class="scene" data-t="3" data-shot="10.5">
+  <div class="glow" style="left:60px;top:400px"></div>
+  <div class="dm-h" style="top:132px">Layered Surfaces</div>
+  <div class="dm-sub" style="top:185px">Dark mode is not black mode</div>
+  <div class="dm-layer dm-layer--base dm-in" style="position:absolute;left:163px;top:247px">Base<code>#121212</code></div>
+  <div class="dm-layer dm-layer--surface dm-in" style="position:absolute;left:163px;top:380px;animation-delay:1.5s">Surface<code>#1E1E1E</code></div>
+  <div class="dm-layer dm-layer--elevated dm-in" style="position:absolute;left:163px;top:514px;animation-delay:4.5s">Elevated<code>#2C2C2C</code></div>
+  <div class="dm-depth dm-in" style="left:543px;top:340px;animation-delay:6s"><i></i><i></i><span>DEPTH</span></div>
+</section>
+
+<!-- 3 · Soften Your Colors -->
+<section class="scene" data-t="15" data-shot="21">
+  <div class="glow" style="left:-80px;top:180px;background:radial-gradient(circle, rgba(120,20,60,.16), transparent 70%)"></div>
+  <div class="glow" style="left:200px;top:180px;background:radial-gradient(circle, rgba(20,110,60,.12), transparent 70%)"></div>
+  <div class="dm-h" style="top:132px">Soften Your Colors</div>
+  <div class="dm-sub" style="top:185px">Desaturate accent colors for dark UI</div>
+  <div class="dm-cta dm-cta--pink" style="position:absolute;left:130px;top:254px">Subscribe</div>
+  <div class="dm-cta dm-cta--pink-soft" style="position:absolute;left:422px;top:254px">Subscribe</div>
+  <div class="dm-arrow dm-in" style="left:330px;top:274px;animation-delay:1.2s"><i>⟶</i><b>-20%</b></div>
+  <div class="dm-sat dm-sat--pink dm-in" style="left:130px;top:313px;animation-delay:1.2s"><b>100% Saturation</b><code>#FF3366</code></div>
+  <div class="dm-sat dm-sat--green dm-in" style="left:422px;top:313px;animation-delay:1.2s"><b>80% Saturation</b><code>#CC4477</code></div>
+  <div class="dm-cta dm-cta--green dm-in" style="position:absolute;left:136px;top:391px;animation-delay:2.4s">Confirm</div>
+  <div class="dm-cta dm-cta--green-soft dm-in" style="position:absolute;left:424px;top:391px;animation-delay:2.4s">Confirm</div>
+  <div class="dm-arrow dm-in" style="left:330px;top:411px;animation-delay:4.5s"><i>⟶</i><b>-20%</b></div>
+  <div class="dm-sat dm-sat--green dm-in" style="left:133px;top:450px;animation-delay:4.5s"><b>100% Saturation</b><code>#00FF88</code></div>
+  <div class="dm-sat dm-sat--green dm-in" style="left:420px;top:450px;animation-delay:4.5s"><b>80% Saturation</b><code>#66DDAA</code></div>
+</section>
+
+<!-- 4 · Calibrate Your Text -->
+<section class="scene" data-t="22.5" data-shot="27">
+  <div class="glow" style="left:60px;top:420px"></div>
+  <div class="dm-h" style="top:132px">Calibrate Your Text</div>
+  <div class="dm-sub" style="top:185px">Never use pure white on dark backgrounds</div>
+  <div class="dm-sample dm-sample--pure dm-in" style="position:absolute;left:41px;top:240px"><div class="dm-sample__hex"><i></i>#FFFFFF</div><span class="dm-sample__badge dm-sample__badge--harsh">HARSH</span><p>This text is pure white. It creates eye strain on dark backgrounds and reduces reading comfort over time.</p></div>
+  <div class="dm-sample dm-sample--soft dm-in" style="position:absolute;left:41px;top:405px;animation-delay:1.2s"><div class="dm-sample__hex"><i></i>#E0E0E0</div><span class="dm-sample__badge dm-sample__badge--ok">COMFORTABLE</span><p>This text is 90% white. It feels natural, reduces glare, and keeps users comfortable for longer sessions.</p></div>
+  <div class="dm-tier dm-in" style="position:absolute;left:40px;top:585px;animation-delay:3.6s"><span>Headlines</span><b>Aa</b><small>90% white</small></div>
+  <div class="dm-tier dm-tier--body dm-in" style="position:absolute;left:367px;top:585px;animation-delay:3.9s"><span>Body Text</span><b>Aa</b><small>70% white</small></div>
+</section>
+
+<!-- 5 · Recap + follow -->
+<section class="scene" data-t="31.5" data-shot="33">
+  <div class="glow" style="left:60px;top:330px;background:radial-gradient(circle, rgba(90,50,170,.3), transparent 70%)"></div>
+  <div class="dm-row dm-in" style="position:absolute;left:40px;top:132px"><i>1</i><div><b>Layered Surfaces</b><span>Not pure black</span></div></div>
+  <div class="dm-row dm-in" style="position:absolute;left:40px;top:209px;animation-delay:.15s"><i>2</i><div><b>Soft Colors</b><span>Desaturate 20%</span></div></div>
+  <div class="dm-row dm-in" style="position:absolute;left:40px;top:286px;animation-delay:.3s"><i>3</i><div><b>Calibrated Text</b><span>Never pure white</span></div></div>
+  <div class="dm-h dm-in" style="top:527px;font-size:32px;animation-delay:.6s">@designmotionhq</div>
+  <div class="dm-sub dm-in" style="top:579px;font-size:20px;animation-delay:.7s">Follow + Save for more</div>
+  <div class="dm-follow dm-in" style="top:636px;animation-delay:.9s"><i>+</i>Follow</div>
+</section>
+
+<script type="module">
+  import { DarkTheme, surfaces, desaturate } from './pattern.js';
+  // The right-hand app card is themed by the module, not hand-coloured: base #121212, accent desaturated 20%.
+  document.querySelectorAll('.dm-app--right').forEach(el => DarkTheme(el, { base: '#121212', accent: '#7c3aed' }));
+  console.log(surfaces('#121212'), desaturate('#ff3366'), desaturate('#00ff88'));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

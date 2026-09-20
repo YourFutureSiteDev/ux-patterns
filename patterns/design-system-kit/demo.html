@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Design System Kit · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #09090b; --grid: transparent; --accent: #6366f1; --danger: #ef4444; }
+  .scene { color: #f4f4f5; }
+  .dk-glow { position: absolute; left: 60px; top: 300px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(64,62,140,.32), rgba(64,62,140,0) 70%); pointer-events: none; }
+</style>
+</head>
+<body class="dk">
+
+<!-- 1 · Intro: the five kit cards -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="dk-glow" style="left:40px;top:150px;width:640px;height:640px;background:radial-gradient(circle, rgba(130,28,40,.45), rgba(130,28,40,0) 70%)"></div>
+  <div class="dk-mini" style="--c:#6366f1;left:39px;top:206px;transform:rotate(-3deg)"><div class="dk-mini__dots"><i style="background:#5b5cf6"></i><i style="background:#8b5cf6"></i><i style="background:#22c55e"></i><i style="background:#ef4444"></i><i style="grid-column:2;background:#f59e0b"></i><i style="background:#ec4899"></i></div></div>
+  <div class="dk-mini" style="--c:#8b5cf6;left:352px;top:229px;transform:rotate(4deg)"><div class="dk-mini__aa"><b>Aa</b><span>Light &nbsp; Regular &nbsp; <b>Bold</b></span></div></div>
+  <div class="dk-mini" style="--c:#ec4899;left:74px;top:407px;transform:rotate(-8deg);animation-delay:-1s"><svg width="150" height="90" viewBox="0 0 150 90" fill="none" stroke="#ec4899" stroke-width="3" stroke-linecap="round"><path d="M10 80 C 30 30, 60 20, 70 34 S 120 10, 140 10"/><circle cx="10" cy="80" r="4" fill="#ec4899"/><circle cx="70" cy="34" r="4" fill="#ec4899"/><circle cx="140" cy="10" r="4" fill="#ec4899"/></svg></div>
+  <div class="dk-mini" style="--c:#22c55e;left:282px;top:526px;transform:rotate(-5deg);animation-delay:-2s"><div class="dk-mini__bars"><i data-v="4" style="width:28px"></i><i data-v="8" style="width:56px"></i><i data-v="16" style="width:96px"></i><i data-v="32" style="width:150px"></i></div></div>
+  <div class="dk-mini" style="--c:#f59e0b;left:345px;top:443px;transform:rotate(5deg);animation-delay:-3s"><div class="dk-mini__ui"><b>Button</b><i>Input…</i><div><span style="color:#4ade80;border-color:#22c55e">Active</span><span style="color:#f87171;border-color:#ef4444">Error</span></div></div></div>
+  <div class="dk-foot">CODE IN BIO</div>
+</section>
+
+<!-- 2 · 01 Colors: before / after -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="dk-glow"></div>
+  <div class="dk-sec">01 — COLORS</div>
+  <div class="dk-code dk-code--before" style="left:40px;top:196px"><div class="dk-code__tag">BEFORE</div><pre>color: <b>#3b82f6</b>;
+background: <b>#1a1a2e</b>;
+border: <b>#333333</b>;
+color: <b>#ef4444</b>;</pre></div>
+  <div class="dk-code dk-code--after" style="left:373px;top:196px"><div class="dk-code__tag">AFTER</div><pre>color: <b>var(--brand)</b>;
+background: <b>var(--bg-surface)</b>;
+border: <b>var(--border)</b>;
+color: <b>var(--error)</b>;</pre></div>
+  <div class="dk-foot">CODE IN BIO</div>
+</section>
+
+<!-- 3 · 01 Colors: scale + semantic tokens -->
+<section class="scene" data-t="7.5" data-shot="18">
+  <div class="dk-glow"></div>
+  <div class="dk-sec">01 — COLORS</div>
+  <div class="dk-code dk-code--before is-dim" style="left:40px;top:196px"><div class="dk-code__tag">BEFORE</div><pre>color: <b>#3b82f6</b>;
+background: <b>#1a1a2e</b>;
+border: <b>#333333</b>;
+color: <b>#ef4444</b>;</pre></div>
+  <div class="dk-code dk-code--after is-win" style="left:370px;top:194px;width:314px;height:230px"><div class="dk-code__tag">AFTER</div><pre>color: <b>var(--brand)</b>;
+background: <b>var(--bg-surface)</b>;
+border: <b>var(--border)</b>;
+color: <b>var(--error)</b>;</pre><div class="dk-check">✓</div></div>
+  <div class="dk-panel dk-scale" style="left:60px;top:440px">
+    <div class="dk-label">Primary scale</div>
+    <div class="dk-scale__row">
+      <div class="dk-swatch" style="background:#312e81;animation-delay:.0s">900</div><div class="dk-swatch" style="background:#3730a3;animation-delay:.05s">800</div><div class="dk-swatch" style="background:#4338ca;animation-delay:.1s">700</div><div class="dk-swatch" style="background:#4f46e5;animation-delay:.15s">600</div><div class="dk-swatch" style="background:#6366f1;animation-delay:.2s">500</div><div class="dk-swatch" style="background:#818cf8;animation-delay:.25s">400</div><div class="dk-swatch" style="background:#a5b4fc;animation-delay:.3s">300</div><div class="dk-swatch" style="background:#c7d2fe;animation-delay:.35s">200</div><div class="dk-swatch" style="background:#e0e7ff;animation-delay:.4s">100</div>
+    </div>
+  </div>
+  <div class="dk-panel dk-tokens" style="left:60px;top:592px">
+    <div class="dk-token"><span class="dk-token__dot" style="background:#09090B;box-shadow:inset 0 0 0 1.5px #2a2a30"></span><div><b>bg-primary</b><span>#09090B</span></div></div>
+    <div class="dk-token"><span class="dk-token__dot" style="background:#6366F1"></span><div><b>brand</b><span>#6366F1</span></div></div>
+    <div class="dk-token"><span class="dk-token__dot" style="background:#22C55E"></span><div><b>success</b><span>#22C55E</span></div></div>
+    <div class="dk-token"><span class="dk-token__dot" style="background:#EF4444"></span><div><b>error</b><span>#EF4444</span></div></div>
+  </div>
+  <div class="dk-foot">CODE IN BIO</div>
+</section>
+
+<!-- 4 · 02 Typography: before / after -->
+<section class="scene" data-t="21" data-shot="21">
+  <div class="dk-glow"></div>
+  <div class="dk-sec">02 — TYPOGRAPHY</div>
+  <div class="dk-type dk-type--before" style="left:40px;top:194px"><div class="dk-code__tag" style="color:#ef4444">BEFORE</div><h3>Heading</h3><p>Body text goes here</p><div class="dk-type__verdict">No hierarchy ✗</div></div>
+  <div class="dk-type dk-type--after" style="left:373px;top:194px"><div class="dk-code__tag" style="color:#22c55e">AFTER</div><h3>Heading</h3><p>Body text goes here</p><div class="dk-type__verdict">Clear hierarchy ✓</div></div>
+  <div class="dk-foot">CODE IN BIO</div>
+</section>
+
+<!-- 5 · 02 Typography: type scale + weights -->
+<section class="scene" data-t="24" data-shot="30">
+  <div class="dk-glow"></div>
+  <div class="dk-sec">02 — TYPOGRAPHY</div>
+  <div class="dk-type dk-type--before is-dim" style="left:40px;top:194px"><div class="dk-code__tag" style="color:#ef4444">BEFORE</div><h3>Heading</h3><p>Body text goes here</p><div class="dk-type__verdict">No hierarchy ✗</div></div>
+  <div class="dk-type dk-type--after dk-code is-win" style="left:370px;top:192px;width:314px;height:188px"><div class="dk-code__tag" style="color:#22c55e">AFTER</div><h3>Heading</h3><p>Body text goes here</p><div class="dk-type__verdict">Clear hierarchy ✓</div></div>
+  <div class="dk-panel dk-typescale" style="left:60px;top:392px">
+    <div class="dk-typescale__row" style="height:50px"><div class="dk-typescale__aa" style="font-size:38px;font-weight:800">Aa</div><div class="dk-typescale__meta">48px / 800 <span class="dk-chip">text-5xl</span></div></div>
+    <div class="dk-typescale__row" style="height:46px;margin-top:0"><div class="dk-typescale__aa" style="font-size:28px;font-weight:700">Aa</div><div class="dk-typescale__meta">36px / 700 <span class="dk-chip">text-4xl</span></div></div>
+    <div class="dk-typescale__row" style="height:32px;margin-top:0"><div class="dk-typescale__aa" style="font-size:22px;font-weight:700">Aa</div><div class="dk-typescale__meta">28px / 700 <span class="dk-chip">text-3xl</span></div></div>
+    <div class="dk-typescale__row" style="height:40px;margin-top:0"><div class="dk-typescale__aa" style="font-size:19px;font-weight:600">Aa</div><div class="dk-typescale__meta">22px / 600 <span class="dk-chip">text-2xl</span></div></div>
+    <div class="dk-typescale__row" style="height:30px;margin-top:0"><div class="dk-typescale__aa" style="font-size:18px;font-weight:400">Aa</div><div class="dk-typescale__meta">24px / 400 <span class="dk-chip">text-lg</span></div></div>
+    <div class="dk-typescale__row" style="height:40px;margin-top:0"><div class="dk-typescale__aa" style="font-size:16px;font-weight:400">Aa</div><div class="dk-typescale__meta">20px / 400 <span class="dk-chip">text-base</span></div></div>
+  </div>
+  <div class="dk-panel dk-weights" style="left:60px;top:684px">
+    <div><b style="font-weight:400">Regular</b><span>400</span></div><div><b style="font-weight:500">Medium</b><span>500</span></div><div><b style="font-weight:700">Bold</b><span>700</span></div><div><b style="font-weight:800">Extrabold</b><span>800</span></div>
+  </div>
+  <div class="dk-foot">CODE IN BIO</div>
+</section>
+
+<!-- 6 · 03 Spacing: random vs system -->
+<section class="scene" data-t="33" data-shot="33">
+  <div class="dk-glow"></div>
+  <div class="dk-sec">03 — SPACING</div>
+  <div class="dk-space dk-space--random" style="left:40px;top:199px"><div class="dk-space__tag">RANDOM</div><div class="dk-space__bar"><i>7px</i></div><div class="dk-space__bar" style="margin-top:7px"><i>23px</i></div><div class="dk-space__bar" style="margin-top:18px"></div></div>
+  <div class="dk-space dk-space--system" style="left:373px;top:199px"><div class="dk-space__tag">SYSTEM</div><div class="dk-space__bar"><i>16px</i></div><div class="dk-space__bar" style="margin-top:16px"><i>16px</i></div><div class="dk-space__bar" style="margin-top:14px"></div></div>
+  <div class="dk-foot">CODE IN BIO</div>
+</section>
+
+<!-- 7 · 03 Spacing: the 4px scale -->
+<section class="scene" data-t="36" data-shot="39">
+  <div class="dk-glow"></div>
+  <div class="dk-sec">03 — SPACING</div>
+  <div class="dk-panel dk-spacescale" style="left:60px;top:199px">
+    <div class="dk-spacescale__row"><div class="dk-spacescale__name">space-1</div><div class="dk-spacescale__px">4px</div><div class="dk-spacescale__track"><div class="dk-spacescale__fill" style="--v:4;animation-delay:.0s"></div></div></div>
+    <div class="dk-spacescale__row"><div class="dk-spacescale__name">space-2</div><div class="dk-spacescale__px">8px</div><div class="dk-spacescale__track"><div class="dk-spacescale__fill" style="--v:8;animation-delay:.1s"></div></div></div>
+    <div class="dk-spacescale__row"><div class="dk-spacescale__name">space-3</div><div class="dk-spacescale__px">12px</div><div class="dk-spacescale__track"><div class="dk-spacescale__fill" style="--v:12;animation-delay:.2s"></div></div></div>
+    <div class="dk-spacescale__row"><div class="dk-spacescale__name">space-4</div><div class="dk-spacescale__px">16px</div><div class="dk-spacescale__track"><div class="dk-spacescale__fill" style="--v:16;animation-delay:.3s"></div></div></div>
+    <div class="dk-spacescale__row"><div class="dk-spacescale__name">space-6</div><div class="dk-spacescale__px">24px</div><div class="dk-spacescale__track"><div class="dk-spacescale__fill" style="--v:24;animation-delay:.4s"></div></div></div>
+    <div class="dk-spacescale__row"><div class="dk-spacescale__name">space-8</div><div class="dk-spacescale__px">32px</div><div class="dk-spacescale__track"><div class="dk-spacescale__fill" style="--v:32;animation-delay:.5s"></div></div></div>
+    <div class="dk-spacescale__row"><div class="dk-spacescale__name">space-12</div><div class="dk-spacescale__px">48px</div><div class="dk-spacescale__track"><div class="dk-spacescale__fill" style="--v:48;animation-delay:.6s"></div></div></div>
+    <div class="dk-spacescale__row"><div class="dk-spacescale__name">space-16</div><div class="dk-spacescale__px">64px</div><div class="dk-spacescale__track"><div class="dk-spacescale__fill" style="--v:64;animation-delay:.7s"></div></div></div>
+  </div>
+  <div class="dk-panel dk-grid" style="left:60px;top:588px;opacity:.12">
+    <div class="dk-grid__head"><div class="dk-grid__avatar"></div><div class="dk-grid__lines"><i></i><i></i></div></div>
+    <div class="dk-grid__cards"><div class="dk-grid__card"><em></em><i></i><i></i></div><div class="dk-grid__card"><em></em><i></i><i></i></div><div class="dk-grid__card"><em></em><i></i><i></i></div></div>
+    <div class="dk-grid__foot"><div class="dk-grid__btn"></div></div>
+  </div>
+  <div class="dk-foot">CODE IN BIO</div>
+</section>
+
+<!-- 8 · 03 Spacing: everything on a 4px grid -->
+<section class="scene" data-t="42" data-shot="42">
+  <div class="dk-glow"></div>
+  <div class="dk-sec">03 — SPACING</div>
+  <div class="dk-panel dk-grid" style="left:60px;top:212px">
+    <div class="dk-grid__head"><div class="dk-grid__avatar"></div><div class="dk-grid__lines"><i></i><i></i></div></div>
+    <div class="dk-grid__cards"><div class="dk-grid__card"><em></em><i></i><i></i></div><div class="dk-grid__card"><em></em><i></i><i></i></div><div class="dk-grid__card"><em></em><i></i><i></i></div></div>
+    <div class="dk-grid__foot"><div class="dk-grid__btn"></div></div>
+    <div class="dk-grid__tag">4px GRID</div>
+  </div>
+  <div class="dk-foot">CODE IN BIO</div>
+</section>
+
+<!-- 9 · 04 Components: buttons -->
+<section class="scene" data-t="45" data-shot="45">
+  <div class="dk-glow"></div>
+  <div class="dk-sec">04 — COMPONENTS</div>
+  <div class="dk-panel dk-buttons" style="left:60px;top:194px">
+    <div class="dk-label">Buttons</div>
+    <div class="dk-btnrow"><button class="dk-btn dk-btn--primary">Primary</button><button class="dk-btn dk-btn--secondary">Secondary</button><button class="dk-btn dk-btn--ghost">Ghost</button><button class="dk-btn dk-btn--destructive">Destructive</button></div>
+    <div class="dk-btnrow"><button class="dk-btn dk-btn--primary dk-btn--sm">Small</button><button class="dk-btn dk-btn--primary dk-btn--md">Medium</button><button class="dk-btn dk-btn--primary dk-btn--lg">Large</button></div>
+  </div>
+  <div class="dk-foot">CODE IN BIO</div>
+</section>
+
+<!-- 10 · 04 Components: input, focus -->
+<section class="scene" data-t="46.5" data-shot="46.5">
+  <div class="dk-glow"></div>
+  <div class="dk-sec">04 — COMPONENTS</div>
+  <div class="dk-panel dk-buttons" style="left:60px;top:194px">
+    <div class="dk-label">Buttons</div>
+    <div class="dk-btnrow"><button class="dk-btn dk-btn--primary">Primary</button><button class="dk-btn dk-btn--secondary">Secondary</button><button class="dk-btn dk-btn--ghost">Ghost</button><button class="dk-btn dk-btn--destructive">Destructive</button></div>
+    <div class="dk-btnrow"><button class="dk-btn dk-btn--primary dk-btn--sm">Small</button><button class="dk-btn dk-btn--primary dk-btn--md">Medium</button><button class="dk-btn dk-btn--primary dk-btn--lg">Large</button></div>
+  </div>
+  <div class="dk-panel dk-field is-focus" style="left:60px;top:386px"><div class="dk-field__label">Email</div><input class="dk-field__input" placeholder="you@example.com"><div class="dk-field__msg">Required field</div><div class="dk-state">focus</div></div>
+  <div class="dk-foot">CODE IN BIO</div>
+</section>
+
+<!-- 11 · 04 Components: input, error -->
+<section class="scene" data-t="48" data-shot="48">
+  <div class="dk-glow"></div>
+  <div class="dk-sec">04 — COMPONENTS</div>
+  <div class="dk-panel dk-buttons" style="left:60px;top:194px">
+    <div class="dk-label">Buttons</div>
+    <div class="dk-btnrow"><button class="dk-btn dk-btn--primary">Primary</button><button class="dk-btn dk-btn--secondary">Secondary</button><button class="dk-btn dk-btn--ghost">Ghost</button><button class="dk-btn dk-btn--destructive">Destructive</button></div>
+    <div class="dk-btnrow"><button class="dk-btn dk-btn--primary dk-btn--sm">Small</button><button class="dk-btn dk-btn--primary dk-btn--md">Medium</button><button class="dk-btn dk-btn--primary dk-btn--lg">Large</button></div>
+  </div>
+  <div class="dk-panel dk-field is-error" style="left:60px;top:386px"><div class="dk-field__label">Email</div><input class="dk-field__input" placeholder=""><div class="dk-field__msg">Required field</div><div class="dk-state">error</div></div>
+  <div class="dk-panel dk-card" style="left:60px;top:606px;opacity:.12"><div class="dk-card__media"></div><div class="dk-card__body"><h4>Card Title</h4><p>A short description with just enough detail to preview the content inside.</p><button class="dk-btn dk-btn--primary" style="height:32px;padding:0 14px;font-size:16px">Action</button></div></div>
+  <div class="dk-foot">CODE IN BIO</div>
+</section>
+
+<!-- 12 · 04 Components: input disabled, card, badges -->
+<section class="scene" data-t="49.5" data-shot="54">
+  <div class="dk-glow"></div>
+  <div class="dk-sec">04 — COMPONENTS</div>
+  <div class="dk-panel dk-buttons" style="left:60px;top:194px">
+    <div class="dk-label">Buttons</div>
+    <div class="dk-btnrow"><button class="dk-btn dk-btn--primary">Primary</button><button class="dk-btn dk-btn--secondary">Secondary</button><button class="dk-btn dk-btn--ghost">Ghost</button><button class="dk-btn dk-btn--destructive">Destructive</button></div>
+    <div class="dk-btnrow"><button class="dk-btn dk-btn--primary dk-btn--sm">Small</button><button class="dk-btn dk-btn--primary dk-btn--md">Medium</button><button class="dk-btn dk-btn--primary dk-btn--lg">Large</button></div>
+  </div>
+  <div class="dk-panel dk-field is-disabled" id="fieldDemo" style="left:60px;top:386px"><div class="dk-field__label">Email</div><input class="dk-field__input" placeholder="you@example.com" disabled><div class="dk-field__msg">Required field</div><div class="dk-state">disabled</div></div>
+  <div class="dk-panel dk-card" style="left:60px;top:544px"><div class="dk-card__media"></div><div class="dk-card__body"><h4>Card Title</h4><p>A short description with just enough detail to preview the content inside.</p><button class="dk-btn dk-btn--primary" style="height:32px;padding:0 14px;font-size:16px">Action</button></div></div>
+  <div class="dk-badges center" style="top:792px"><span class="dk-badge dk-badge--new" style="animation-delay:.0s">New</span><span class="dk-badge dk-badge--active" style="animation-delay:.6s">Active</span><span class="dk-badge dk-badge--pending" style="animation-delay:1.2s">Pending</span><span class="dk-badge dk-badge--error" style="animation-delay:1.8s">Error</span></div>
+  <div class="dk-foot">CODE IN BIO</div>
+</section>
+
+<!-- 13 · 05 Motion: easing -->
+<section class="scene" data-t="57" data-shot="57">
+  <div class="dk-glow"></div>
+  <div class="dk-sec">05 — MOTION</div>
+  <div class="dk-panel dk-easing" style="left:60px;top:194px">
+    <div><b>ease-out</b><span>Enter / appear</span><div class="dk-ball dk-ball--out"></div></div>
+    <div><b>ease-in-out</b><span>Move / resize</span><div class="dk-ball dk-ball--inout"></div></div>
+    <div><b>ease-in</b><span>Exit / leave</span><div class="dk-ball dk-ball--in" style="background:#4b3fa8;box-shadow:none"></div></div>
+  </div>
+  <div class="dk-foot">CODE IN BIO</div>
+</section>
+
+<!-- 14 · 05 Motion: durations + transforms -->
+<section class="scene" data-t="60" data-shot="66">
+  <div class="dk-glow"></div>
+  <div class="dk-sec">05 — MOTION</div>
+  <div class="dk-panel dk-easing" style="left:60px;top:194px">
+    <div><b>ease-out</b><span>Enter / appear</span><div class="dk-ball dk-ball--out"></div></div>
+    <div><b>ease-in-out</b><span>Move / resize</span><div class="dk-ball dk-ball--inout"></div></div>
+    <div><b>ease-in</b><span>Exit / leave</span><div class="dk-ball dk-ball--in"></div></div>
+  </div>
+  <div class="dk-panel dk-durations" id="durations" style="left:60px;top:392px">
+    <div class="dk-dur" data-ms="100"><div class="dk-dur__ms">100ms</div><div class="dk-dur__track"><div class="dk-dur__fill" style="--v:100"></div></div><div class="dk-dur__desc">Micro — hover, toggle</div></div>
+    <div class="dk-dur" data-ms="200"><div class="dk-dur__ms">200ms</div><div class="dk-dur__track"><div class="dk-dur__fill" style="--v:200;animation-delay:.1s"></div></div><div class="dk-dur__desc">Small — button press</div></div>
+    <div class="dk-dur is-max" data-ms="300" style="margin-top:6px;margin-bottom:6px"><div class="dk-dur__ms">300ms</div><div class="dk-dur__track"><div class="dk-dur__fill" style="--v:300;animation-delay:.2s"></div></div><div class="dk-dur__desc">Medium — modal, dropdown</div><span class="dk-dur__max">MAX</span></div>
+    <div class="dk-dur" data-ms="400"><div class="dk-dur__ms">400ms</div><div class="dk-dur__track"><div class="dk-dur__fill" style="--v:400;animation-delay:.3s"></div></div><div class="dk-dur__desc">Large — page transition</div></div>
+    <div class="dk-dur" data-ms="500"><div class="dk-dur__ms">500ms</div><div class="dk-dur__track"><div class="dk-dur__fill" style="--v:500;animation-delay:.4s"></div></div><div class="dk-dur__desc">XL — complex</div></div>
+  </div>
+  <div class="dk-panel dk-transforms" style="left:60px;top:622px">
+    <div><div class="dk-tf dk-tf--fade"></div><span>fade-in</span></div>
+    <div><div class="dk-tf dk-tf--slide"></div><span>slide-up</span></div>
+    <div><div class="dk-tf dk-tf--scale"></div><span>scale-in</span></div>
+    <div><div class="dk-tf dk-tf--bounce"></div><span>bounce</span></div>
+  </div>
+  <div class="dk-foot">CODE IN BIO</div>
+</section>
+
+<!-- 15 · Outro -->
+<section class="scene" data-t="69" data-shot="70.5">
+  <div class="dk-glow" style="left:110px;top:370px;width:500px;height:500px;background:radial-gradient(circle, rgba(64,62,140,.42), rgba(64,62,140,0) 68%)"></div>
+  <div class="dk-outro" style="top:511px">
+    <h2>Design System Kit</h2>
+    <div class="dk-outro__price">$14</div>
+    <div class="dk-outro__tiles"><i><b style="display:block;width:18px;height:18px;border-radius:5px;background:#6366f1"></b></i><i>Aa</i><i><svg width="16" height="14" viewBox="0 0 16 14" stroke="#ddd" stroke-width="2" stroke-linecap="round"><path d="M2 2h12M2 7h12M2 12h12"/></svg></i><i><b style="display:block;width:22px;height:12px;border-radius:6px;border:2px solid #6366f1"></b></i><i><b style="display:block;width:14px;height:14px;border-radius:4px;background:#6366f1"></b></i></div>
+    <div class="dk-outro__cta">Link in bio</div>
+  </div>
+  <div class="dk-handle">@designmotionhq</div>
+  <div class="dk-foot">CODE IN BIO</div>
+</section>
+
+<script type="module">
+  import { applyTokens, FieldStates, DurationScale } from './pattern.js';
+  applyTokens();
+  // The input card cycles default → focus → error → disabled when its scene is played live (frozen at "disabled" for the screenshot).
+  const f = document.getElementById('fieldDemo');
+  f.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t > 0) return; if (f._fs) f._fs.stop(); f._fs = FieldStates(f, { state: 'disabled', cycle: 1500 }); });
+  DurationScale(document.getElementById('durations'), 300);
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

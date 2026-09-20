@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Border Radius · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a090b; --accent: #8b5cf6; --danger: #ef4444; --grid: transparent; }
+  .scene { color: #f2f2f5; }
+  .br-pop { animation: br-pop .4s ease-out both; animation-delay: var(--d, 0s); }
+</style>
+</head>
+<body class="br">
+
+<svg width="0" height="0" style="position:absolute"><symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></symbol></svg>
+
+<!-- 1 · Something's off: the same modal with mismatched corners -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="br-glow" style="top:320px"></div>
+  <h1 class="br-h br-h--soft" style="top:148px">Something's off...</h1>
+  <div class="br-modal br-modal--off" style="left:135px;top:220px">
+    <div class="br-modal__title">Edit Profile</div><div class="br-modal__close">x</div>
+    <div class="br-modal__group"><div class="br-modal__avatar"></div><div class="br-modal__name">John Doe</div><div class="br-modal__hint">Change avatar</div>
+      <div class="br-modal__input" style="top:60px">Full name</div><div class="br-modal__input" style="top:103px">Email address</div></div>
+    <div class="br-modal__btn" style="left:257px">Cancel</div><div class="br-modal__btn br-modal__btn--primary" style="left:358px">Save</div>
+  </div>
+</section>
+
+<!-- 2 · One rule: outer 16, inner 8, button 8 -->
+<section class="scene" data-t="1" data-shot="1.5">
+  <div class="br-glow" style="top:320px"></div>
+  <h1 class="br-h" style="top:148px">One rule.</h1>
+  <div class="br-modal br-modal--rule" style="left:135px;top:220px">
+    <div class="br-modal__title">Edit Profile</div><div class="br-modal__close">x</div>
+    <div class="br-modal__group"><div class="br-modal__avatar"></div><div class="br-modal__name">John Doe</div><div class="br-modal__hint">Change avatar</div>
+      <div class="br-modal__input" style="top:60px">Full name</div><div class="br-modal__input" style="top:103px">Email address</div></div>
+    <div class="br-modal__btn" style="left:257px">Cancel</div><div class="br-modal__btn br-modal__btn--primary" style="left:358px">Save</div>
+  </div>
+  <div class="br-tokens br-fade" style="left:256px;top:508px"><div class="br-token"><span>Outer</span><b>16px</b></div><div class="br-token"><span>Inner</span><b>8px</b></div><div class="br-token"><span>Button</span><b>8px</b></div></div>
+</section>
+
+<!-- 3 · The Rule: outer 16px, padding 8px -->
+<section class="scene" data-t="6" data-shot="7.5">
+  <div class="br-glow" style="left:80px;top:340px;width:560px;height:560px;background:rgba(34,211,238,.06)"></div>
+  <h1 class="br-h">The Rule</h1>
+  <div class="br-mark br-mark--pad br-fade" style="left:312px;top:196px;z-index:3;--d:.3s">padding:<br>8px</div>
+  <div class="br-line" style="left:282px;top:212px;width:18px;background:rgba(34,211,238,.5)"></div><div class="br-line" style="left:420px;top:212px;width:18px;background:rgba(34,211,238,.5)"></div>
+  <div class="br-rule br-pop" style="left:200px;top:213px"><div class="br-rule__inner" style="opacity:0"></div></div>
+  <div class="br-mark br-mark--purple br-fade" style="left:115px;top:234px;--d:.2s">outer<b>16px</b></div>
+  <div class="br-line br-fade" style="left:68px;top:252px;width:40px;background:var(--br-purple);--d:.2s"></div>
+</section>
+
+<!-- 3b · The Rule: 16 − 8 = 8 -->
+<section class="scene" data-t="9" data-shot="12">
+  <div class="br-glow" style="left:80px;top:340px;width:560px;height:560px;background:rgba(34,211,238,.06)"></div>
+  <h1 class="br-h">The Rule</h1>
+  <div class="br-mark br-mark--pad" style="left:312px;top:196px">padding:<br>8px</div>
+  <div class="br-line" style="left:282px;top:212px;width:18px;background:rgba(34,211,238,.5)"></div><div class="br-line" style="left:420px;top:212px;width:18px;background:rgba(34,211,238,.5)"></div>
+  <div class="br-rule" style="left:200px;top:213px" id="ruleCard" data-nest><div class="br-rule__inner"><div class="br-rule__av"></div><i style="left:56px;top:25px;width:96px;height:6px;background:#3a3a48"></i><i style="left:56px;top:37px;width:64px;height:4px;background:#2a2a36"></i><i style="left:16px;top:60px;width:244px"></i><i style="left:16px;top:79px;width:190px"></i><i style="left:16px;top:99px;width:134px"></i><div class="br-rule__btn"></div></div></div>
+  <div class="br-mark br-mark--purple" style="left:115px;top:234px">outer<b>16px</b></div>
+  <div class="br-line" style="left:68px;top:252px;width:40px;background:var(--br-purple)"></div>
+  <div class="br-mark br-mark--cyan br-fade" style="left:572px;top:280px;--d:.2s">inner<b>8px</b></div>
+  <div class="br-line br-fade" style="left:612px;top:298px;width:40px;background:var(--br-cyan);--d:.2s"></div>
+  <div class="br-eq br-fade" style="top:474px;--d:.6s"><span class="p">16</span>−<span class="c">8</span>=<span class="g">8</span><span class="g">✓</span></div>
+  <div class="br-bad br-fade" style="left:197px;top:553px;--d:1.2s"><i></i></div>
+  <div class="br-bad__note br-fade" style="left:342px;top:567px;--d:1.2s"><b>inner: 16px = outer</b><span>✗ Looks bloated</span></div>
+</section>
+
+<!-- 4 · Radius Scale: before -->
+<section class="scene" data-t="13.5" data-shot="15">
+  <div class="br-glow" style="top:380px"></div>
+  <h1 class="br-h">Radius Scale</h1>
+  <div class="br-scale">4 · 8 · 12 · 16 · 24</div>
+  <div class="br-tag br-tag--before br-fade" style="--d:.2s">Before</div>
+  <div class="br-bar br-bar--bad br-fade" style="left:240px;top:274px;width:160px;height:26px;--r:12px;--d:.4s">Tooltip<span>12px</span></div>
+  <div class="br-bar br-bar--bad br-fade" style="left:187px;top:315px;width:266px;height:31px;--r:20px;--d:.7s">Input<span>20px</span></div>
+  <div class="br-bar br-bar--bad br-fade" style="left:154px;top:363px;width:332px;height:50px;--r:6px;--d:1s">Card<span>6px</span></div>
+  <div class="br-bar br-bar--bad br-fade" style="left:134px;top:428px;width:373px;height:66px;--r:30px;--d:1.3s">Modal<span>30px</span></div>
+  <div class="br-bar br-bar--bad br-fade" style="left:114px;top:510px;width:412px;height:76px;--r:10px;--d:1.9s">Panel<span>10px</span></div>
+</section>
+
+<!-- 4b · Radius Scale: after -->
+<section class="scene" data-t="16.5" data-shot="19.5">
+  <div class="br-glow" style="top:380px"></div>
+  <h1 class="br-h">Radius Scale</h1>
+  <div class="br-scale">4 · 8 · 12 · 16 · 24</div>
+  <div class="br-tag br-tag--after br-fade" style="--d:1.2s">After</div>
+  <div class="br-bar" style="left:240px;top:274px;width:160px;height:26px;--r:4px">Tooltip<span>4px</span></div>
+  <div class="br-bar" style="left:187px;top:315px;width:266px;height:31px;--r:8px">Input<span>8px</span></div>
+  <div class="br-bar" style="left:154px;top:363px;width:332px;height:50px;--r:12px">Card<span>12px</span></div>
+  <div class="br-bar" style="left:134px;top:428px;width:373px;height:66px;--r:16px">Modal<span>16px</span></div>
+  <div class="br-bar" style="left:114px;top:510px;width:412px;height:76px;--r:24px">Panel<span>24px</span></div>
+  <div class="br-axis br-fade" style="left:555px;top:289px;height:275px;--d:1.4s">
+    <div class="br-axis__pt" style="top:0">4px</div><div class="br-axis__pt" style="top:69px">8px</div><div class="br-axis__pt" style="top:137px">12px</div><div class="br-axis__pt" style="top:205px">16px</div><div class="br-axis__pt" style="top:275px">24px</div>
+  </div>
+</section>
+
+<!-- 5 · Radius = Personality -->
+<section class="scene" data-t="22.5" data-shot="24">
+  <div class="br-glow" style="left:40px;top:380px;width:320px;height:320px;background:rgba(59,130,246,.06)"></div>
+  <div class="br-glow" style="left:380px;top:380px;width:320px;height:320px;background:rgba(196,100,147,.07)"></div>
+  <h1 class="br-h">Radius = Personality</h1>
+  <div class="br-divider" style="left:360px;top:207px;height:303px"></div>
+  <div class="br-card br-card--corp br-pop" style="left:66px;top:207px"><div class="br-card__av"></div><div class="br-card__name">Alex Johnson</div><div class="br-card__role">Product Designer</div><div class="br-card__stats"><div><b>24</b><span>Projects</span></div><div><b>128</b><span>Reviews</span></div></div><div class="br-card__btn">View Profile</div></div>
+  <div class="br-card br-card--friendly br-pop" style="left:388px;top:207px;--d:.15s"><div class="br-card__av"></div><div class="br-card__name">Alex Johnson</div><div class="br-card__role">Product Designer</div><div class="br-card__stats"><div><b>24</b><span>Projects</span></div><div><b>128</b><span>Reviews</span></div></div><div class="br-card__btn">View Profile</div></div>
+</section>
+
+<!-- 5b · Serious ↔ Playful -->
+<section class="scene" data-t="25.5" data-shot="27">
+  <div class="br-glow" style="left:40px;top:380px;width:320px;height:320px;background:rgba(59,130,246,.06)"></div>
+  <div class="br-glow" style="left:380px;top:380px;width:320px;height:320px;background:rgba(196,100,147,.07)"></div>
+  <h1 class="br-h">Radius = Personality</h1>
+  <div class="br-divider" style="left:360px;top:207px;height:303px"></div>
+  <div class="br-card br-card--corp" style="left:66px;top:207px"><div class="br-card__av"></div><div class="br-card__name">Alex Johnson</div><div class="br-card__role">Product Designer</div><div class="br-card__stats"><div><b>24</b><span>Projects</span></div><div><b>128</b><span>Reviews</span></div></div><div class="br-card__btn">View Profile</div></div>
+  <div class="br-card br-card--friendly" style="left:388px;top:207px"><div class="br-card__av"></div><div class="br-card__name">Alex Johnson</div><div class="br-card__role">Product Designer</div><div class="br-card__stats"><div><b>24</b><span>Projects</span></div><div><b>128</b><span>Reviews</span></div></div><div class="br-card__btn">View Profile</div></div>
+  <div class="br-mood br-mood--corp br-fade" style="left:112px;top:490px">Corporate</div>
+  <div class="br-mood br-mood--friendly br-fade" style="left:448px;top:490px;--d:.1s">Friendly</div>
+  <div class="br-slider br-fade" style="left:127px;top:566px;--d:.5s"><div class="br-slider__labels"><span>Serious</span><span>Playful</span></div><div class="br-slider__track" id="dialTrack"><div class="br-slider__thumb"></div></div></div>
+  <div class="br-choose br-fade" style="top:621px;--d:.7s">Choose for your brand</div>
+</section>
+
+<!-- 6 · Outro -->
+<section class="scene" data-t="30" data-shot="33">
+  <div class="br-glow" style="top:400px"></div>
+  <div class="br-row br-fade" style="top:162px"><i style="background:#162126;color:#22d3ee">=</i><b>Inner = Outer - Padding</b><span>The math rule</span></div>
+  <div class="br-row br-fade" style="top:241px;--d:.15s"><i style="background:#1a1530;color:#8b5cf6">#</i><b>4 · 8 · 12 · 16 · 24</b><span>The scale</span></div>
+  <div class="br-row br-fade" style="top:320px;--d:.3s"><i style="background:#2a1020;color:#e879b0">~</i><b>Match Your Brand</b><span>Perception</span></div>
+  <div class="br-handle br-fade" style="top:430px;--d:.6s">@designmotionhq</div>
+  <div class="br-cta br-fade" style="top:478px;--d:.8s">Follow for more CSS secrets</div>
+  <div class="br-save br-fade" style="top:544px;--d:1s"><svg><use href="#i-bookmark"/></svg>Save this</div>
+</section>
+
+<script type="module">
+  import { applyNesting, PersonalityDial, Slider } from './pattern.js';
+  // The rule card computes its own inner radius from --radius and padding (16 − 8 = 8).
+  applyNesting(document.getElementById('ruleCard'));
+  // Live: the Serious ↔ Playful slider drives both cards' radii. The shot keeps the reel's 45% position.
+  const track = document.getElementById('dialTrack'), scene = track.closest('.scene');
+  const dial = PersonalityDial([...scene.querySelectorAll('.br-card')]);
+  const frozen = new URLSearchParams(location.search).has('t');
+  const slider = Slider(track, frozen ? null : dial, .45);
+  if (!frozen) scene.addEventListener('scene:enter', () => { let v = .45, dir = 1; clearInterval(track._iv); track._iv = setInterval(() => { v += .02 * dir; if (v >= 1 || v <= 0) dir *= -1; slider.set(v); }, 60); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

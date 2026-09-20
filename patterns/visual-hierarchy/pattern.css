@@ -1,0 +1,122 @@
+/* Visual Hierarchy, rebuilt from the @designmotionhq reel "Five rules. That's all." (size, color, contrast, whitespace, weight).
+   Component classes are prefixed .vh- and depend only on the tokens below. */
+.vh {
+  --vh-bg: #0a090b; --vh-card: #10121a; --vh-card-2: #141525; --vh-tint: #171729; --vh-border: #1e2030; --vh-border-2: #262840;
+  --vh-text: #f7f6f8; --vh-muted: #8b8d97; --vh-dim: #5a5a63; --vh-faint: #3a3a42;
+  --vh-purple: #864ded; --vh-purple-soft: #c4b5fd; --vh-purple-dim: rgba(134,77,237,.16);
+  --vh-red: #e4536b; --vh-green: #22c55e; --vh-amber: #d97706; --vh-yellow: #f5b731;
+  --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--vh-text);
+}
+
+/* ---- Reel chrome: numbered rule label, save-for-later footer -------------------- */
+.vh-rule { position: absolute; left: 40px; top: 100px; display: flex; align-items: center; gap: 10px; }
+.vh-rule i { width: 32px; height: 32px; border-radius: 8px; background: var(--vh-purple); color: #fff; font-style: normal; font-size: 16px; font-weight: 700; display: grid; place-items: center; box-shadow: 0 0 18px rgba(134,77,237,.45); }
+.vh-rule span { font-size: 16px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: #b5b0c8; }
+.vh-save { position: absolute; left: 0; right: 0; top: 982px; text-align: center; font-size: 20px; color: var(--vh-faint); }
+.vh-save svg { width: 18px; height: 18px; vertical-align: -3px; margin-right: 6px; stroke: currentColor; fill: none; stroke-width: 2; }
+.vh-line { position: absolute; left: 0; right: 0; text-align: center; font-size: 20px; font-weight: 600; line-height: 1.2; }
+.vh-line em { font-style: normal; color: var(--vh-purple-soft); }
+.vh-line--dim { font-weight: 400; color: #9a9aa0; }
+.vh-big { position: absolute; left: 0; right: 0; text-align: center; font-size: 36px; font-weight: 800; letter-spacing: -.02em; line-height: 1.3; }
+.vh-big em { font-style: normal; color: var(--vh-purple); }
+.vh-big em.soft { color: #9d7cf0; }
+
+/* ---- Scene 1: no hierarchy vs clear hierarchy ------------------------------------ */
+.vh-vs { position: absolute; font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #5a5a66; }
+.vh-lbl { position: absolute; font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #6b6b70; }
+.vh-lbl--on { color: #aca6c8; }
+.vh-flat { position: absolute; width: 267px; height: 206px; border-radius: 8px; background: #0c0f12; border: 1px solid #1a1d20; padding: 12px 10px; font-size: 12px; color: #767a79; }
+.vh-flat > span { display: block; margin-bottom: 8px; }
+.vh-flat__card { height: 76px; border-radius: 6px; background: #111417; border: 1px solid #1c1f22; padding: 10px 12px; margin-bottom: 8px; }
+.vh-flat__card b { display: block; font-size: 13px; font-weight: 500; color: #8b8f8e; }
+.vh-flat__card span { display: block; font-size: 12px; color: #6b6f6e; margin-top: 5px; }
+.vh-flat__card i { display: inline-block; margin-top: 7px; padding: 3px 8px; border-radius: 4px; background: #262b2a; font-style: normal; font-size: 11px; color: #9a9e9d; }
+.vh-clear { position: absolute; width: 265px; height: 315px; border-radius: 12px; background: #0d0e1a; border: 1px solid #1f1f34; padding: 14px 13px; box-shadow: 0 0 40px rgba(134,77,237,.10); }
+.vh-clear > span { display: block; font-size: 15px; font-weight: 600; margin: 4px 0 14px; }
+.vh-clear__card { height: 117px; border-radius: 8px; background: var(--vh-tint); border: 1px solid var(--vh-border-2); padding: 14px 16px; margin-bottom: 12px; }
+.vh-clear__card b { display: block; font-size: 22px; font-weight: 700; letter-spacing: -.01em; }
+.vh-clear__card span { display: block; font-size: 13px; color: var(--vh-muted); margin-top: 8px; }
+.vh-clear__card i { display: inline-block; margin-top: 10px; padding: 6px 14px; border-radius: 6px; background: var(--vh-purple); font-style: normal; font-size: 13px; font-weight: 600; color: #fff; }
+
+/* ---- Scene 2: size ------------------------------------------------------------------ */
+.vh-hero { position: absolute; width: 614px; border-radius: 14px; background: var(--vh-card); padding: 34px 33px 30px; }
+.vh-hero__title { font-size: 40px; font-weight: 800; letter-spacing: -.02em; line-height: 1.15; margin: 0; transition: font-size .6s cubic-bezier(.2,.8,.2,1); }
+.vh-hero--small .vh-hero__title { font-size: 18px; font-weight: 500; letter-spacing: 0; }
+.vh-hero__body { font-size: 18px; line-height: 28px; color: #a4a4ac; margin: 12px 0 0; }
+.vh-hero__meta { font-size: 13px; color: var(--vh-dim); margin-top: 16px; }
+.vh-hero__badge { position: absolute; right: 34px; top: 27px; height: 22px; line-height: 22px; padding: 0 9px; border-radius: 5px; background: var(--vh-yellow); color: #2a1d00; font-size: 13px; font-weight: 700; }
+.vh-scale { position: absolute; display: flex; align-items: flex-end; gap: 14px; }
+.vh-scale div { width: 66px; text-align: center; font-size: 12px; font-weight: 500; }
+.vh-scale i { display: block; border-radius: 8px; margin-bottom: 8px; animation: vh-grow .7s cubic-bezier(.2,.8,.2,1) both; transform-origin: bottom; }
+@keyframes vh-grow { from { transform: scaleY(0); } }
+
+/* ---- Scene 3: color ------------------------------------------------------------------ */
+.vh-nav { position: absolute; width: 640px; height: 60px; border-radius: 10px; background: var(--vh-card); display: flex; align-items: center; justify-content: center; gap: 24px; font-size: 15px; color: var(--vh-muted); }
+.vh-nav span { padding: 0 12px; height: 32px; line-height: 32px; border-radius: 6px; }
+.vh-nav .on { background: var(--vh-purple); color: #fff; font-weight: 600; }
+.vh-nav--rainbow { gap: 8px; } .vh-nav--rainbow span { border: 1px solid; }
+.vh-nav--rainbow .r { color: var(--vh-red); background: #2a1218; border-color: #6b2a3a; } .vh-nav--rainbow .y { color: #e2a63a; background: #241a0c; border-color: #6a4a1c; }
+.vh-nav--rainbow .b { color: #6ea0ff; background: #0f1a33; border-color: #2a4a8a; } .vh-nav--rainbow .v { color: #a98cf5; background: #1a1230; border-color: #4a3a8a; }
+.vh-stat { position: absolute; width: 205px; height: 100px; border-radius: 10px; background: var(--vh-card); padding: 22px 22px; }
+.vh-stat span { display: block; font-size: 13px; color: var(--vh-muted); }
+.vh-stat b { display: block; font-size: 30px; font-weight: 700; letter-spacing: -.01em; margin-top: 6px; }
+.vh-stat--accent { background: #110c1e; border: 1px solid #2a1f45; box-shadow: 0 0 30px rgba(134,77,237,.12); } .vh-stat--accent b { color: var(--vh-purple-soft); }
+.vh-stat--red { background: #13070f; } .vh-stat--red b { color: var(--vh-red); }
+.vh-stat--green { background: #07120f; } .vh-stat--green b { color: var(--vh-green); }
+.vh-stat--dimpurple { background: #0e0a18; } .vh-stat--dimpurple b { color: #7a68b8; }
+
+/* ---- Scene 4: contrast ----------------------------------------------------------------- */
+.vh-plan { position: absolute; width: 626px; height: 175px; border-radius: 14px; background: var(--vh-card-2); padding: 28px 27px; }
+.vh-plan b { display: block; font-size: 28px; font-weight: 800; letter-spacing: -.02em; }
+.vh-plan span { display: block; font-size: 16px; color: var(--vh-muted); margin-top: 12px; }
+.vh-plan__btns { display: flex; gap: 12px; margin-top: 16px; }
+.vh-plan__btns i { font-style: normal; height: 38px; line-height: 38px; padding: 0 24px; border-radius: 8px; font-size: 15px; }
+.vh-plan__btns .fill { background: var(--vh-purple); color: #fff; font-weight: 700; box-shadow: 0 0 18px rgba(134,77,237,.35); }
+.vh-plan__btns .ghost { border: 1px solid #2a2a3a; color: var(--vh-muted); }
+.vh-pair { position: absolute; left: 47px; width: 626px; height: 62px; display: flex; align-items: center; gap: 20px; }
+.vh-pair > div { width: 284px; height: 62px; border-radius: 10px; background: var(--vh-card); display: grid; place-items: center; font-size: 20px; }
+.vh-pair > span { flex: 1; text-align: center; font-size: 12px; font-weight: 700; color: var(--vh-purple); }
+.vh-pair .bold { font-weight: 800; } .vh-pair .light { font-weight: 300; color: var(--vh-muted); }
+.vh-pair .filled { background: var(--vh-purple); font-weight: 600; box-shadow: 0 0 24px rgba(134,77,237,.3); } .vh-pair .outlined { background: transparent; border: 1px solid #2a2a3a; color: var(--vh-muted); }
+.vh-pair .white { font-size: 18px; font-weight: 700; } .vh-pair .grey { font-size: 18px; font-weight: 700; color: #4a4a6a; }
+
+/* ---- Scene 5: whitespace ---------------------------------------------------------------- */
+.vh-space { position: absolute; border-radius: 14px; background: #0f111a; }
+.vh-space__hero { position: absolute; border-radius: 8px; background: #1c1926; }
+.vh-space__hero b { display: block; font-weight: 700; }
+.vh-space__hero span { display: block; color: var(--vh-muted); }
+.vh-space__row { position: absolute; border-radius: 6px; background: #141520; color: #9a9aa4; display: flex; align-items: center; padding-left: 11px; }
+.vh-space__mark { position: absolute; left: 50%; width: 1px; background: var(--vh-amber); z-index: 2; }
+.vh-space__mark span { position: absolute; left: 50%; bottom: -12px; transform: translateX(-50%); font-size: 10px; font-weight: 600; color: var(--vh-amber); }
+
+/* ---- Scene 6: typography weight ----------------------------------------------------------- */
+.vh-weights { position: absolute; width: 640px; height: 230px; border-radius: 14px; background: #0f141b; padding: 25px 25px; }
+.vh-wrow { display: flex; align-items: center; gap: 16px; padding: 0 0 0; }
+.vh-wrow + .vh-wrow { border-top: 1px solid #1a1f27; }
+.vh-wrow code { width: 60px; height: 36px; line-height: 36px; text-align: center; border-radius: 8px; background: #171a22; color: var(--vh-muted); font: 13px var(--mono); flex: none; }
+.vh-wrow code.on { background: #1f1636; color: var(--vh-purple); border: 1px solid #2f2350; }
+.vh-wrow small { margin-left: auto; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #9a9aa4; flex: none; }
+.vh-wrow small.dim { color: #4a4a55; }
+.vh-wrow p { margin: 0; flex: 1; }
+.vh-wrow--h { height: 56px; } .vh-wrow--h p { font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
+.vh-wrow--b { height: 75px; } .vh-wrow--b p { font-size: 17px; line-height: 22px; color: #b0b0b8; max-width: 440px; }
+.vh-wrow--c { height: 62px; } .vh-wrow--c p { font-size: 13px; font-weight: 300; color: var(--vh-dim); }
+.vh-order { position: absolute; width: 640px; height: 143px; border-radius: 14px; background: var(--vh-card-2); padding: 28px 27px; }
+.vh-order b { display: block; font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+.vh-order p { margin: 12px 0 0; font-size: 17px; color: #b0b0b8; }
+.vh-order small { display: block; margin-top: 10px; font-size: 11px; font-weight: 300; color: #4a4a55; }
+.vh-order__dots { position: absolute; right: 20px; top: 28px; display: flex; flex-direction: column; gap: 5px; }
+.vh-order__dots i { width: 18px; height: 18px; border-radius: 50%; font-style: normal; font-size: 10px; font-weight: 700; display: grid; place-items: center; background: var(--vh-purple); color: #fff; }
+.vh-order__dots i:nth-child(2) { background: #4a3a8a; } .vh-order__dots i:nth-child(3) { background: #33305a; }
+
+/* ---- Scene 7: summary chips -------------------------------------------------------------- */
+.vh-chips { position: absolute; left: 0; right: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding: 0 120px; }
+.vh-chip { height: 36px; line-height: 34px; padding: 0 16px; border-radius: 8px; background: #110c1c; border: 1px solid #2a1f45; font-size: 15px; font-weight: 600; }
+.vh-chip i { font-style: normal; color: var(--vh-purple-soft); font-weight: 700; font-size: 14px; margin-right: 6px; }
+
+/* ---- Motion --------------------------------------------------------------------------------- */
+.vh-fade { animation: vh-fade .5s ease-out both; }
+@keyframes vh-fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.vh-in { animation: vh-in .4s ease-out both; }
+@keyframes vh-in { from { opacity: 0; } to { opacity: 1; } }

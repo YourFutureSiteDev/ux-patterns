@@ -1,0 +1,75 @@
+/* Dark Mode, rebuilt from the @designmotionhq reel "Same app, one inverts colors. The other feels premium."
+   Component classes are prefixed .dm- and depend only on the tokens below. */
+.dm {
+  --dm-bg: #0a090b; --dm-base: #121212; --dm-surface: #1e1e1e; --dm-elevated: #2c2c2c;
+  --dm-text: #e0e0e0; --dm-text-hi: rgba(255,255,255,.9); --dm-text-md: rgba(255,255,255,.7); --dm-muted: #9a9a9a;
+  --dm-accent: #8b5cf6; --dm-accent-soft: #a78bfa; --dm-pink: #ff3366; --dm-pink-soft: #cc4477; --dm-green: #22c55e;
+  --dm-mono: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--dm-text);
+}
+.dm-h { position: absolute; left: 0; right: 0; text-align: center; font-size: 36px; font-weight: 700; letter-spacing: -.01em; color: #fff; }
+.dm-sub { position: absolute; left: 0; right: 0; text-align: center; font-size: 18px; color: #a0a0a0; }
+.dm-in { animation: dm-in .5s ease both; }
+@keyframes dm-in { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
+
+/* ---- Hook: wrong vs right app card ------------------------------------------ */
+.dm-tag { position: absolute; height: 30px; padding: 0 16px; border-radius: 6px; font-size: 15px; font-weight: 700; letter-spacing: .2em; line-height: 30px; }
+.dm-tag--wrong { background: rgba(255,51,102,.12); color: var(--dm-pink); } .dm-tag--right { background: rgba(34,197,94,.14); color: var(--dm-green); }
+.dm-app { width: 250px; height: 190px; border-radius: 10px; overflow: hidden; position: relative; }
+.dm-app__head { height: 48px; display: flex; align-items: center; padding: 0 15px; gap: 9px; font-size: 16px; font-weight: 600; }
+.dm-app__head i { width: 20px; height: 20px; border-radius: 5px; }
+.dm-app__stats { display: flex; gap: 14px; padding: 15px 15px 0; }
+.dm-app__stat { flex: 1; height: 62px; border-radius: 6px; padding: 10px 10px; }
+.dm-app__stat span { display: block; font-size: 14px; } .dm-app__stat b { display: block; font-size: 20px; font-weight: 700; margin-top: 2px; }
+.dm-app__btn { margin: 14px 15px 0; height: 35px; border-radius: 6px; display: grid; place-items: center; font-size: 15px; font-weight: 700; }
+.dm-app--wrong { background: #000; } .dm-app--wrong .dm-app__head { background: #000; color: #fff; } .dm-app--wrong .dm-app__head i { background: #eb1f66; }
+.dm-app--wrong .dm-app__stat { background: #0d0c0e; } .dm-app--wrong .dm-app__stat span { color: #8c8c8c; } .dm-app--wrong .dm-app__stat b { color: #fff; }
+.dm-app--wrong .dm-app__btn { background: #f01a5f; color: #fff; box-shadow: 0 0 24px rgba(240,26,95,.35); }
+.dm-app--right { background: #1a1a1a; } .dm-app--right .dm-app__head { background: #1e1e1e; color: #ececec; } .dm-app--right .dm-app__head i { background: #6b39da; }
+.dm-app--right .dm-app__stat { background: #2c2c2c; } .dm-app--right .dm-app__stat span { color: #9a9a9a; } .dm-app--right .dm-app__stat b { color: #e6e6e6; }
+.dm-app--right .dm-app__btn { background: #6b39da; color: #f1eaff; }
+
+/* ---- Layered surfaces -------------------------------------------------------- */
+.dm-layer { width: 334px; height: 106px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; padding: 0 25px; border: 1px solid rgba(255,255,255,.05); font-size: 18px; font-weight: 600; color: #ededed; }
+.dm-layer code { font: 700 17px var(--dm-mono); color: var(--dm-accent); letter-spacing: .02em; }
+.dm-layer--base { background: var(--dm-base); }
+.dm-layer--surface { background: var(--dm-surface); box-shadow: 0 8px 24px rgba(0,0,0,.35); }
+.dm-layer--elevated { background: var(--dm-elevated); box-shadow: 0 14px 34px rgba(0,0,0,.5); }
+.dm-depth { position: absolute; width: 60px; height: 190px; }
+.dm-depth::before { content: ''; position: absolute; left: 0; top: 14px; bottom: 14px; border-left: 2px dashed rgba(139,92,246,.6); }
+.dm-depth i { position: absolute; left: -5px; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; }
+.dm-depth i:first-of-type { top: 0; border-bottom: 10px solid var(--dm-accent); } .dm-depth i:last-of-type { bottom: 0; border-top: 10px solid var(--dm-accent); }
+.dm-depth span { position: absolute; left: 14px; top: 18px; font-size: 13px; font-weight: 700; letter-spacing: .2em; color: var(--dm-accent); writing-mode: vertical-rl; }
+
+/* ---- Soften your colors ------------------------------------------------------- */
+.dm-cta { width: 167px; height: 49px; border-radius: 8px; display: grid; place-items: center; font-size: 18px; font-weight: 700; color: #fff; }
+.dm-cta--pink { background: var(--dm-pink); box-shadow: 0 0 26px rgba(255,51,102,.32); }
+.dm-cta--pink-soft { background: var(--dm-pink-soft); color: #f3dbe7; }
+.dm-cta--green { background: #00ff88; color: #eafff3; box-shadow: 0 0 26px rgba(0,255,136,.32); width: 161px; }
+.dm-cta--green-soft { background: #66ddaa; color: #f0fff7; width: 159px; }
+.dm-sat { position: absolute; width: 167px; text-align: center; }
+.dm-sat b { display: block; font-size: 15px; font-weight: 600; } .dm-sat code { display: block; margin-top: 4px; font: 13px var(--dm-mono); color: #8a8a8a; letter-spacing: .04em; }
+.dm-sat--pink b { color: var(--dm-pink); } .dm-sat--green b { color: var(--dm-green); }
+.dm-arrow { position: absolute; width: 60px; text-align: center; }
+.dm-arrow i { display: block; font-style: normal; font-size: 22px; line-height: 20px; color: var(--dm-accent-soft); }
+.dm-arrow b { display: inline-block; margin-top: 8px; padding: 4px 10px; border-radius: 6px; background: #260b42; color: var(--dm-accent-soft); font-size: 14px; font-weight: 700; }
+
+/* ---- Calibrate your text -------------------------------------------------------- */
+.dm-sample { width: 572px; height: 146px; border-radius: 10px; background: #0e1010; border: 1px solid rgba(255,255,255,.05); padding: 26px 26px 0; position: relative; }
+.dm-sample__hex { display: flex; align-items: center; gap: 10px; font: 700 17px var(--dm-mono); letter-spacing: .02em; }
+.dm-sample__hex i { width: 22px; height: 22px; border-radius: 6px; }
+.dm-sample__badge { position: absolute; right: 28px; top: 26px; height: 26px; padding: 0 12px; border-radius: 6px; font-size: 14px; font-weight: 700; letter-spacing: .06em; line-height: 26px; }
+.dm-sample__badge--harsh { background: #2a0a10; color: #ff3b5c; } .dm-sample__badge--ok { background: #062a12; color: var(--dm-green); }
+.dm-sample p { margin: 16px 0 0; font-size: 18px; line-height: 28px; }
+.dm-sample--pure { color: #fff; } .dm-sample--pure .dm-sample__hex i { background: #fff; }
+.dm-sample--soft { color: #e0e0e0; } .dm-sample--soft .dm-sample__hex i { background: #e0e0e0; }
+.dm-tier { width: 313px; height: 98px; border-radius: 10px; background: #100b1b; text-align: center; padding-top: 16px; }
+.dm-tier span { display: block; font-size: 15px; font-weight: 600; color: var(--dm-accent); } .dm-tier b { display: block; margin-top: 6px; font-size: 18px; font-weight: 700; } .dm-tier small { display: block; margin-top: 8px; font-size: 13px; color: #8a8a8a; }
+.dm-tier--body { background: #130e22; } .dm-tier--body b { color: #b3b3b3; }
+
+/* ---- Recap list + follow ------------------------------------------------------- */
+.dm-row { width: 640px; height: 68px; border-radius: 10px; background: #0f0c19; border: 1px solid rgba(139,92,246,.12); display: flex; align-items: center; gap: 15px; padding: 0 20px; }
+.dm-row i { width: 30px; height: 30px; border-radius: 7px; background: #231b30; color: #6d4fb0; display: grid; place-items: center; font-style: normal; font-size: 16px; font-weight: 700; flex: none; }
+.dm-row b { display: block; font-size: 17px; font-weight: 700; color: #fff; } .dm-row span { display: block; margin-top: 2px; font-size: 14px; color: var(--dm-muted); }
+.dm-follow { position: absolute; left: 272px; width: 176px; justify-content: center; height: 52px; border-radius: 12px; background: var(--dm-accent); color: #fff; font-size: 20px; font-weight: 600; display: flex; align-items: center; gap: 12px; box-shadow: 0 0 50px rgba(139,92,246,.45); white-space: nowrap; }
+.dm-follow i { font-style: normal; font-size: 24px; font-weight: 400; line-height: 1; }

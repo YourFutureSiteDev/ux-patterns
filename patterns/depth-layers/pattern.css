@@ -1,0 +1,74 @@
+/* Depth Layers, rebuilt from the @designmotionhq reel "Same layout. Same colors. 3 properties. That's it."
+   Component classes are prefixed .dl- . */
+.dl {
+  --dl-bg: #0a0c10; --dl-card: #161a2c; --dl-card-lit: #1a1d33; --dl-flat: #111419; --dl-border: #1e2229;
+  --dl-text: #f3f5f7; --dl-muted: #8b929b; --dl-purple: #7c6cf0; --dl-chip: #6c5ce7; --dl-red: #ee4b5f;
+  --dl-shadow: 0 2px 2px rgba(0,0,0,.45), 0 6px 12px rgba(0,0,0,.5), 0 16px 32px rgba(0,0,0,.6);
+  font-family: 'Inter', system-ui, sans-serif; color: var(--dl-text);
+}
+
+/* ---- Cards ------------------------------------------------------------ */
+.dl-card { position: relative; background: var(--dl-card); border-radius: 12px; color: var(--dl-text); font-weight: 700; display: flex; align-items: center; box-shadow: var(--dl-shadow); }
+.dl-card--flat { background: var(--dl-flat); border: 1px solid var(--dl-border); box-shadow: none; color: var(--dl-muted); font-weight: 600; }
+.dl-card--depth { background: #16192b; border: 1px solid #262a45; border-radius: 10px; }
+
+/* Compare: flat vs depth */
+.dl-compare { position: absolute; left: 52px; top: 465px; width: 616px; }
+.dl-compare__head { display: flex; justify-content: space-between; height: 20px; padding: 0 110px 0 118px; font-size: 13px; font-weight: 700; letter-spacing: .2em; }
+.dl-compare__head .flat { color: var(--dl-red); } .dl-compare__head .depth { color: var(--dl-purple); }
+.dl-compare__divider { position: absolute; left: 308px; top: 24px; width: 1px; height: 330px; background: #1a1e26; }
+.dl-compare__col { position: absolute; top: 34px; width: 280px; display: flex; flex-direction: column; gap: 12px; }
+.dl-compare__col--flat { left: 0; } .dl-compare__col--depth { left: 335px; top: 30px; gap: 11px; }
+.dl-compare__col .dl-card { height: 65px; padding-left: 20px; font-size: 18px; }
+.dl-compare__col .dl-card--depth { height: 66px; }
+.dl-tagline { position: absolute; left: 0; right: 0; top: 858px; text-align: center; font-size: 20px; font-weight: 600; color: var(--dl-purple); }
+
+/* Layer kicker: purple chip + label */
+.dl-layer { position: absolute; left: 0; right: 0; display: flex; justify-content: center; align-items: center; gap: 12px; }
+.dl-layer__chip { height: 30px; padding: 0 15px; border-radius: 6px; background: var(--dl-chip); color: #fff; font-size: 15px; font-weight: 700; line-height: 30px; }
+.dl-layer__name { font-size: 20px; font-weight: 600; color: var(--dl-purple); }
+
+/* Layer 1 · layered shadows */
+.dl-stack { position: absolute; left: 60px; top: 440px; width: 600px; display: flex; flex-direction: column; gap: 10.5px; }
+.dl-stack .dl-card { height: 103px; padding: 0 30px; font-size: 22px; border-radius: 14px; }
+.dl-dots { margin-left: auto; display: flex; gap: 8px; }
+.dl-dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--dl-purple); }
+.dl-dots.is-dim i { opacity: .2; }
+.dl-shadow-note { position: absolute; right: 32px; text-align: right; line-height: 1; animation: dl-fade .4s ease both; }
+.dl-shadow-note b { display: block; font-size: 16px; font-weight: 700; color: var(--dl-purple); }
+.dl-shadow-note span { display: block; margin-top: 5px; font-size: 12px; color: #6b7280; }
+
+/* Layer 2 · parallax */
+.dl-px { position: absolute; left: 0; top: 0; width: 720px; height: 1280px; overflow: hidden; }
+.dl-px__layer { position: absolute; left: 0; right: 0; will-change: transform; }
+.dl-px__bg { position: absolute; left: 60px; width: 600px; height: 133px; border-radius: 14px; background: var(--dl-card); box-shadow: var(--dl-shadow); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 500; color: var(--dl-muted); }
+.dl-px__line { position: absolute; left: 60px; width: 600px; height: 4px; border-radius: 2px; background: #12151f; }
+.dl-px__fg { position: absolute; left: 95px; width: 530px; height: 85px; border-radius: 10px; background: #0f1219; display: flex; align-items: center; padding-left: 26px; font-size: 20px; font-weight: 700; box-shadow: 0 2px 2px rgba(0,0,0,.5), 0 8px 16px rgba(0,0,0,.55), 0 20px 40px rgba(0,0,0,.7); }
+.dl-legend { position: absolute; right: 40px; top: 568px; text-align: right; line-height: 1; animation: dl-fade .4s ease both; }
+.dl-legend div { margin-bottom: 26px; }
+.dl-legend b { display: block; font-size: 13px; font-weight: 700; color: #6b7280; }
+.dl-legend span { display: block; margin-top: 4px; font-size: 10px; color: #6b7280; }
+.dl-legend .mid b { color: #c9ced5; } .dl-legend .fg b { color: var(--dl-purple); }
+@keyframes dl-px-bg { from { transform: translateY(0) } to { transform: translateY(-187px) } }
+@keyframes dl-px-fg { from { transform: translateY(0) } to { transform: translateY(-375px) } }
+.dl-px__layer--bg { animation: dl-px-bg 9s linear both; }
+.dl-px__layer--fg { animation: dl-px-fg 9s linear both; }
+
+/* Layer 3 · z-translation on hover */
+.dl-hover { position: absolute; left: 60px; top: 256px; width: 600px; display: flex; flex-direction: column; gap: 14px; perspective: 800px; }
+.dl-hover .dl-card { height: 93px; padding-left: 30px; font-size: 22px; font-weight: 600; color: var(--dl-muted); border: 1px solid transparent; transition: transform .35s cubic-bezier(.2,.8,.2,1), background .35s, color .35s, border-color .35s, box-shadow .35s; transform-origin: center; }
+.dl-hover .dl-card.is-lifted { background: var(--dl-card-lit); color: var(--dl-text); font-weight: 700; border-color: #3a3d66; box-shadow: 0 2px 2px rgba(0,0,0,.45), 0 10px 20px rgba(0,0,0,.55), 0 30px 60px rgba(0,0,0,.7), 0 0 40px rgba(124,108,240,.12); z-index: 2; }
+.dl-code { position: absolute; left: 0; right: 0; top: 1072px; text-align: center; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace; font-size: 16px; color: #6b7280; animation: dl-fade .4s ease both; }
+.dl-cursor { position: absolute; width: 22px; height: 26px; pointer-events: none; transition: top .5s cubic-bezier(.2,.8,.2,1); }
+
+/* Composite */
+.dl-chips { position: absolute; left: 0; right: 0; top: 377px; display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 13px; color: #6b7280; }
+.dl-chips b { height: 24px; padding: 0 10px; line-height: 24px; border-radius: 5px; background: var(--dl-chip); color: #fff; font-weight: 700; }
+.dl-final { position: absolute; left: 60px; top: 422px; width: 600px; display: flex; flex-direction: column; gap: 18px; }
+.dl-final .dl-card { height: 106px; padding-left: 30px; flex-direction: column; align-items: flex-start; justify-content: center; gap: 6px; animation: dl-rise .5s cubic-bezier(.2,.8,.2,1) both; }
+.dl-final .dl-card b { font-size: 24px; font-weight: 700; }
+.dl-final .dl-card span { font-size: 18px; font-weight: 400; color: var(--dl-muted); }
+.dl-final .dl-card:nth-child(2) { animation-delay: .15s; } .dl-final .dl-card:nth-child(3) { animation-delay: .3s; } .dl-final .dl-card:nth-child(4) { animation-delay: .45s; }
+.dl-halo { position: absolute; left: 60px; top: 80px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(108,92,231,.14), rgba(108,92,231,.05) 45%, rgba(0,0,0,0) 70%); pointer-events: none; }
+@keyframes dl-fade { from { opacity: 0 } to { opacity: 1 } }
+@keyframes dl-rise { from { opacity: 0; transform: translateY(24px) } to { opacity: 1; transform: none } }

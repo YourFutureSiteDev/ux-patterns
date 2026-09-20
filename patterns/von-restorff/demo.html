@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Von Restorff Effect · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a090b; --grid: transparent; --accent: #8b5cf6; --danger: #f2a93b; }
+  .scene { color: #f4f3f6; }
+  .title { top: 109px; font-size: 36px; font-weight: 700; letter-spacing: -.01em; }
+  .title em { color: #f2a93b; }
+  .sub { position: absolute; left: 0; right: 0; text-align: center; color: #8a8a90; }
+  .vr-glow { position: absolute; left: 150px; top: 420px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(70,35,130,.3), rgba(70,35,130,0) 70%); pointer-events: none; }
+  /* scene 2: the Pro card grows out of the uniform row, then the 3x stat lands */
+  .vr-pop { animation: vr-pop .6s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes vr-pop { from { transform: scale(1); background: #111014; box-shadow: none; } }
+  .vr-stat--in { animation: vr-in .5s ease both; animation-delay: 1.2s; }
+  @keyframes vr-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  /* scene 5: cards settle, then the target is isolated */
+  .vr-iso .vr-plan { animation: vr-quiet .5s ease both .4s; }
+  .vr-iso .vr-plan.is-target--soft { animation: vr-grow .5s ease both .4s; }
+  @keyframes vr-quiet { from { opacity: 1; } }
+  @keyframes vr-grow { from { transform: none; background: #111014; box-shadow: none; } }
+  .vr-tag--in { animation: vr-in .4s ease both 1s; }
+  /* scene 6: the submit lights up after the nav CTA */
+  .vr-form__submit.is-primary.vr-late { animation: vr-submit .5s ease both .8s; }
+  @keyframes vr-submit { from { background: #1f1835; color: rgba(255,255,255,.45); box-shadow: none; } }
+  .vr-follow { position: absolute; left: 0; right: 0; text-align: center; }
+</style>
+</head>
+<body class="vr">
+
+<!-- 1 · Nobody clicks (three identical cards) -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="vr-glow"></div>
+  <h1 class="title">Nobody clicks.</h1>
+  <div class="vr-plans" style="position:absolute;left:65px;top:205px">
+    <div class="vr-plan"><div class="vr-plan__name">Basic</div><div class="vr-plan__price">$9</div><div class="vr-plan__per">/month</div><div class="vr-plan__rule"></div><ul class="vr-plan__list"><li>5 projects</li><li>Basic support</li></ul><button class="vr-plan__btn">Choose Plan</button></div>
+    <div class="vr-plan"><div class="vr-plan__name">Pro</div><div class="vr-plan__price">$19</div><div class="vr-plan__per">/month</div><div class="vr-plan__rule"></div><ul class="vr-plan__list"><li>5 projects</li><li>Basic support</li></ul><button class="vr-plan__btn">Choose Plan</button></div>
+    <div class="vr-plan"><div class="vr-plan__name">Team</div><div class="vr-plan__price">$49</div><div class="vr-plan__per">/month</div><div class="vr-plan__rule"></div><ul class="vr-plan__list"><li>5 projects</li><li>Basic support</li></ul><button class="vr-plan__btn">Choose Plan</button></div>
+  </div>
+</section>
+
+<!-- 2 · 3x more conversions (Pro isolated) -->
+<section class="scene" data-t="1.5" data-shot="4.5">
+  <div class="vr-glow"></div>
+  <h1 class="title"><em>3x</em> more conversions</h1>
+  <div class="vr-plans" style="position:absolute;left:65px;top:205px">
+    <div class="vr-plan is-quiet"><div class="vr-plan__name">Basic</div><div class="vr-plan__price">$9</div><div class="vr-plan__per">/month</div><div class="vr-plan__rule"></div><ul class="vr-plan__list"><li>5 projects</li><li>Basic support</li></ul><button class="vr-plan__btn">Choose Plan</button></div>
+    <div class="vr-plan is-target vr-pop"><span class="vr-plan__badge">Most Popular</span><div class="vr-plan__name">Pro</div><div class="vr-plan__price">$19</div><div class="vr-plan__per">/month</div><div class="vr-plan__rule"></div><ul class="vr-plan__list"><li>Unlimited projects</li><li>Custom domains</li><li>Priority support</li></ul><button class="vr-plan__btn">Choose Plan</button></div>
+    <div class="vr-plan is-quiet"><div class="vr-plan__name">Team</div><div class="vr-plan__price">$49</div><div class="vr-plan__per">/month</div><div class="vr-plan__rule"></div><ul class="vr-plan__list"><li>5 projects</li><li>Basic support</li></ul><button class="vr-plan__btn">Choose Plan</button></div>
+  </div>
+  <div class="vr-stat vr-stat--in center" style="top:942px">3x</div>
+</section>
+
+<!-- 3 · The Von Restorff Effect (word list, one odd one out) -->
+<section class="scene" data-t="6" data-shot="7.5">
+  <div class="vr-glow" style="top:470px"></div>
+  <h1 class="title">The Von Restorff Effect</h1>
+  <div class="sub" style="top:181px;font-size:17px">What's different gets remembered</div>
+  <ul class="vr-words" id="words" style="position:absolute;left:0;right:0;top:237px">
+    <li>apple</li><li>banana</li><li>cherry</li><li class="is-odd"><i>|</i>violet<i>|</i></li><li>fig</li><li>grape</li><li>kiwi</li>
+  </ul>
+</section>
+
+<!-- 4 · Isolate Your Target (uniform baseline) -->
+<section class="scene" data-t="13.5" data-shot="13.5">
+  <div class="vr-glow"></div>
+  <h1 class="title">Isolate Your Target</h1>
+  <div class="vr-plans vr-plans--caps" style="position:absolute;left:68px;top:205px;gap:16px">
+    <div class="vr-plan"><div class="vr-plan__name">Basic</div><div class="vr-plan__price">$9<small>/mo</small></div><div class="vr-plan__rule"></div><ul class="vr-plan__list"><li>5 projects</li><li>Basic analytics</li><li>Email support</li><li class="is-off">Custom domains</li><li class="is-off">API access</li></ul><button class="vr-plan__btn">Choose Plan</button></div>
+    <div class="vr-plan is-hero"><div class="vr-plan__name">Pro</div><div class="vr-plan__price">$29<small>/mo</small></div><div class="vr-plan__rule"></div><ul class="vr-plan__list"><li>Unlimited projects</li><li>Advanced analytics</li><li>Priority support</li><li>Custom domains</li><li>API access</li></ul><button class="vr-plan__btn">Get Pro</button></div>
+    <div class="vr-plan"><div class="vr-plan__name">Enterprise</div><div class="vr-plan__price">$99<small>/mo</small></div><div class="vr-plan__rule"></div><ul class="vr-plan__list"><li>Unlimited everything</li><li>Dedicated manager</li><li>SLA guarantee</li><li>SSO &amp; SAML</li><li>Custom contracts</li></ul><button class="vr-plan__btn">Choose Plan</button></div>
+  </div>
+</section>
+
+<!-- 5 · Isolate Your Target (Pro isolated, "The target") -->
+<section class="scene" data-t="15" data-shot="16.5">
+  <div class="vr-glow"></div>
+  <h1 class="title">Isolate Your Target</h1>
+  <div class="vr-plans vr-plans--caps vr-iso" id="isoPlans" style="position:absolute;left:68px;top:205px;gap:16px">
+    <div class="vr-plan is-quiet"><div class="vr-plan__name">Basic</div><div class="vr-plan__price">$9<small>/mo</small></div><div class="vr-plan__rule"></div><ul class="vr-plan__list"><li>5 projects</li><li>Basic analytics</li><li>Email support</li><li class="is-off">Custom domains</li><li class="is-off">API access</li></ul><button class="vr-plan__btn">Choose Plan</button></div>
+    <div class="vr-plan is-hero is-target--soft"><span class="vr-plan__badge">Most Popular</span><div class="vr-plan__name">Pro</div><div class="vr-plan__price">$29<small>/mo</small></div><div class="vr-plan__rule"></div><ul class="vr-plan__list"><li>Unlimited projects</li><li>Advanced analytics</li><li>Priority support</li><li>Custom domains</li><li>API access</li></ul><button class="vr-plan__btn">Get Pro</button></div>
+    <div class="vr-plan is-quiet"><div class="vr-plan__name">Enterprise</div><div class="vr-plan__price">$99<small>/mo</small></div><div class="vr-plan__rule"></div><ul class="vr-plan__list"><li>Unlimited everything</li><li>Dedicated manager</li><li>SLA guarantee</li><li>SSO &amp; SAML</li><li>Custom contracts</li></ul><button class="vr-plan__btn">Choose Plan</button></div>
+  </div>
+  <div class="vr-tag vr-tag--in center" style="top:1003px">The target</div>
+</section>
+
+<!-- 6 · Break The Pattern (nav CTA + form submit) -->
+<section class="scene" data-t="24" data-shot="25.5">
+  <div class="vr-glow" style="top:120px;background:radial-gradient(circle, rgba(70,35,130,.25), rgba(70,35,130,0) 70%)"></div>
+  <h1 class="title">Break The Pattern</h1>
+  <nav class="vr-nav" style="position:absolute;left:60px;top:198px">
+    <div class="vr-nav__logo"><i></i>AppCo</div>
+    <div class="vr-nav__links"><span>Home</span><span>Features</span><span>Pricing</span><span>Blog</span></div>
+    <button class="vr-nav__cta is-primary">Get Started</button>
+  </nav>
+  <div class="vr-attn" id="attn" style="position:absolute;left:467px;top:263px">Attention: <i></i><i></i><i></i><i></i><b>80%</b></div>
+  <div class="sub" style="top:299px;font-size:18px;color:#b0aeb5">Different color. Different weight.</div>
+  <form class="vr-form" id="signup" style="position:absolute;left:196px;top:355px" onsubmit="return false">
+    <h3 class="vr-form__title">Create Account</h3>
+    <div class="vr-form__field">Email address</div>
+    <div class="vr-form__field">Password</div>
+    <button class="vr-form__submit is-primary vr-late" type="submit">Sign Up</button>
+  </form>
+</section>
+
+<!-- 7 · Outro summary -->
+<section class="scene" data-t="30" data-shot="33">
+  <div class="vr-glow" style="top:380px;background:radial-gradient(circle, rgba(70,35,130,.3), rgba(70,35,130,0) 70%)"></div>
+  <div class="vr-summary" style="position:absolute;left:127px;top:475px">
+    <div class="vr-summary__item"><div class="vr-summary__icon">$</div><div><b>Pricing</b><span>Isolate the target plan</span></div></div>
+    <div class="vr-summary__item"><div class="vr-summary__icon">→</div><div><b>Navigation</b><span>One CTA breaks the pattern</span></div></div>
+    <div class="vr-summary__item"><div class="vr-summary__icon">✓</div><div><b>Forms</b><span>Highlight the primary action</span></div></div>
+  </div>
+  <div class="vr-follow" style="top:745px;font-size:24px;font-weight:700">Follow for design psychology</div>
+  <div class="vr-follow" style="top:786px;font-size:18px;font-weight:500;color:#e0b35c">Save this 📌</div>
+</section>
+
+<script type="module">
+  import { IsolatePlan, RevealWords, PrimaryAction, AttentionMeter } from './pattern.js';
+  // Word list: when its scene is entered live, replay the reveal (frozen at the isolated state for screenshots).
+  const words = document.getElementById('words');
+  words.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t > 0) return; RevealWords(words, { odd: 3, step: 220, hold: 300 }); });
+  // Isolate scene: IsolatePlan drives the state live; the CSS keyframes handle the frozen screenshot.
+  const iso = IsolatePlan(document.getElementById('isoPlans'), { soft: true });
+  iso.target(1);
+  PrimaryAction(document.getElementById('signup'), document.querySelector('#signup .vr-form__submit'));
+  AttentionMeter(document.getElementById('attn')).set(80);
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

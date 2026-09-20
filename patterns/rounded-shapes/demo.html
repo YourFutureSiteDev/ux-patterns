@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Rounded Shapes · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a080b; --grid: transparent; --accent: #2fdb61; --danger: #e43852; }
+  .scene { color: #f2f0f3; }
+</style>
+</head>
+<body class="rs">
+
+<!-- 1 · Dangerous? Safe? -->
+<section class="scene" data-t="0" data-shot="4.5">
+  <div class="glow" style="left:100px;top:300px;width:520px;height:680px;background:rgba(70,45,90,.22)"></div>
+  <span class="rs-faint" style="left:132px;top:482px">🧠</span>
+  <span class="rs-faint" style="left:582px;top:497px">👁️</span>
+  <span class="rs-faint" style="left:580px;top:769px">💚</span>
+  <div class="rs-shape rs-shape--sharp rs-pop" style="position:absolute;left:193px;top:515px"></div>
+  <div class="rs-shape rs-shape--round rs-pop" style="position:absolute;left:397px;top:515px;animation-delay:.15s"></div>
+  <div class="rs-label rs-label--danger rs-fade" style="left:190px;top:668px;width:140px;animation-delay:.6s">Dangerous?</div>
+  <div class="rs-label rs-label--safe rs-fade" style="left:397px;top:668px;width:134px;animation-delay:.75s">Safe?</div>
+  <div class="rs-line rs-fade" style="top:738px;animation-delay:3s">Your brain decides in <b>milliseconds</b></div>
+</section>
+
+<!-- 2 · Your Amygdala -->
+<section class="scene" data-t="6" data-shot="12">
+  <h1 class="rs-title rs-fade" style="top:185px">Your <em class="danger">Amygdala</em></h1>
+  <div class="rs-sub rs-fade" style="top:236px;animation-delay:.2s">The brain's threat detector</div>
+  <div class="rs-emoji rs-pop" style="left:284px;top:580px;font-size:112px;animation-delay:.4s">🧠</div>
+  <div class="rs-threat rs-pop" style="left:163px;top:526px;animation-delay:1.6s"><span>🌵</span>Thorns</div>
+  <div class="rs-threat rs-pop" style="left:456px;top:540px;animation-delay:2.4s"><span>🦁</span>Claws</div>
+  <div class="rs-threat rs-pop" style="left:176px;top:700px;animation-delay:3.2s"><span>🦈</span>Teeth</div>
+  <div class="rs-threat rs-threat--dim rs-pop" style="left:443px;top:690px;animation-delay:4s"><span>🗡️</span>Sharp</div>
+  <div class="rs-cap rs-fade" style="top:1001px;animation-delay:5s">Evolution taught you to fear <em class="danger">sharp things</em></div>
+</section>
+
+<!-- 3 · Rounded = Safety -->
+<section class="scene" data-t="15" data-shot="19.5">
+  <h1 class="rs-title rs-fade" style="top:185px">Rounded = <em>Safety</em></h1>
+  <div class="rs-shape rs-shape--round rs-shape--big rs-pop" style="position:absolute;left:287px;top:567px;animation-delay:.3s"></div>
+  <div class="rs-threat rs-threat--safe rs-pop" style="left:190px;top:560px;animation-delay:1.2s"><span>☁️</span>Soft</div>
+  <div class="rs-threat rs-threat--safe rs-pop" style="left:430px;top:568px;animation-delay:2s"><span>🫧</span>Gentle</div>
+  <div class="rs-threat rs-threat--safe rs-pop" style="left:203px;top:667px;animation-delay:2.8s"><span>🌸</span>Harmless</div>
+  <div class="rs-threat rs-threat--safe rs-pop" style="left:416px;top:662px;animation-delay:3.6s"><span>💫</span>Friendly</div>
+  <div class="rs-cap rs-fade" style="top:1001px;animation-delay:4.2s">Something you can <em>touch without getting hurt</em></div>
+</section>
+
+<!-- 4 · UI evolved: 2010 -->
+<section class="scene" data-t="21" data-shot="22.5">
+  <h1 class="rs-title rs-fade" style="top:185px">UI evolved for a reason</h1>
+  <div class="rs-year rs-fade" style="top:597px;animation-delay:.3s">2010</div>
+  <button class="rs-buy rs-buy--2010 rs-fade" style="left:306px;top:648px;animation-delay:.5s">Buy Now</button>
+</section>
+
+<!-- 4b · UI evolved: 2024 -->
+<section class="scene" data-t="25.5" data-shot="28.5">
+  <h1 class="rs-title" style="top:185px">UI evolved for a reason</h1>
+  <div class="rs-year rs-year--now rs-fade" style="top:555px">2024</div>
+  <button class="rs-buy rs-buy--2024" id="buyNow" style="left:267px;top:605px">Buy Now</button>
+  <div class="rs-trust rs-fade" style="top:701px;animation-delay:1.2s">✓ Feels trustworthy</div>
+  <div class="rs-cap rs-cap--muted rs-fade" style="top:1003px;animation-delay:2.4s">Every major tech company made this shift</div>
+</section>
+
+<!-- 5 · Look around you -->
+<section class="scene" data-t="30" data-shot="34.5">
+  <h1 class="rs-title rs-fade" style="top:185px">Look around you</h1>
+  <button class="rs-btn rs-btn--primary rs-pop" style="left:199px;top:534px;animation-delay:.3s">Subscribe</button>
+  <button class="rs-btn rs-btn--ghost rs-pop" style="left:364px;top:534px;animation-delay:.5s">Learn More</button>
+  <div class="rs-notif rs-pop" style="left:233px;top:603px;animation-delay:1.3s"><i></i><div><b>Notification</b><span>You have a new message</span></div></div>
+  <div class="rs-search rs-pop" style="left:243px;top:693px;animation-delay:2.3s"><span class="rs-search__icon">🔍</span>Search...</div>
+  <label class="rs-toggle rs-pop" style="left:302px;top:760px;animation-delay:3.1s"><input type="checkbox" id="rsToggle" checked><span class="rs-toggle__track"></span><span class="rs-toggle__text">Enabled</span></label>
+  <div class="rs-cap rs-cap--muted rs-fade" style="top:1003px;animation-delay:3.8s">Every UI element. Rounded.</div>
+</section>
+
+<!-- 6 · Now you'll see it everywhere -->
+<section class="scene" data-t="36" data-shot="37.5">
+  <div class="rs-big rs-fade" style="top:501px">Now you'll see it<br><em>everywhere</em></div>
+  <div class="rs-line rs-line--muted rs-fade" style="top:639px;animation-delay:.4s">Every rounded corner. Every soft edge.</div>
+  <div class="rs-follow rs-fade" style="top:724px;animation-delay:.9s">Follow @designmotionhq</div>
+  <div class="rs-follow__sub rs-fade" style="top:755px;animation-delay:.9s">for more design psychology 🧠</div>
+</section>
+
+<script type="module">
+  import { morphRadius, SafeToggle } from './pattern.js';
+  // The 2024 button starts as the 2010 square and rounds off when its scene is entered live.
+  const buy = document.getElementById('buyNow');
+  buy.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t > 0) return; morphRadius(buy, 0, 12, 700); });
+  SafeToggle(document.getElementById('rsToggle'));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

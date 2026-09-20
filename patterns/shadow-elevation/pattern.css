@@ -1,0 +1,107 @@
+/* Shadow Elevation, rebuilt from the @designmotionhq reel "Shadows aren't decoration. They encode hierarchy and depth."
+   Component classes are prefixed .se- and depend only on the tokens below. */
+.se {
+  --se-bg: #06080e; --se-card: #0e1019; --se-card-2: #12141d; --se-inset: #14161d; --se-border: rgba(255,255,255,.06);
+  --se-text: #f2f3f7; --se-muted: #8b8f99; --se-dim: #5b5f6a;
+  --se-purple: #8b5cf6; --se-blue: #3b82f6; --se-green: #22c55e; --se-cyan: #22d3ee; --se-red: #ef4444;
+  --se-contact: 0 1px 3px rgba(0,0,0,.4); --se-mid: 0 8px 24px rgba(0,0,0,.3); --se-glow: 0 0 60px rgba(139,92,246,.15);
+  font-family: 'Inter', system-ui, sans-serif; color: var(--se-text);
+}
+.se code, .se pre { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; }
+
+/* ---- Reel chrome -------------------------------------------------------- */
+.se-title { position: absolute; left: 0; right: 0; margin: 0; text-align: center; font-size: 34px; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
+.se-sub { position: absolute; left: 0; right: 0; text-align: center; font-size: 17px; color: var(--se-muted); line-height: 1.2; }
+
+/* ---- Pricing cards: flat vs floats -------------------------------------- */
+.se-price { position: absolute; width: 282px; height: 299px; padding: 26px 22px; border-radius: 16px; background: var(--se-card); }
+.se-price--flat { background: #0d0f17; opacity: .8; }
+.se-price--pro { border: 1px solid rgba(139,92,246,.18); box-shadow: var(--se-contact), var(--se-mid), 0 0 60px rgba(139,92,246,.12); }
+.se-price__tier { font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--se-dim); line-height: 1; margin-top: 1px; }
+.se-price--pro .se-price__tier { color: var(--se-purple); }
+.se-price__amount { margin-top: 3px; font-size: 44px; font-weight: 800; letter-spacing: -.02em; line-height: 1; color: #5c5f68; }
+.se-price--pro .se-price__amount { color: #fff; }
+.se-price__amount span { font-size: 16px; font-weight: 500; color: var(--se-muted); margin-left: 4px; letter-spacing: 0; }
+.se-price__rule { height: 1px; background: rgba(255,255,255,.07); margin: 13px 0 9px; }
+.se-price__list { list-style: none; margin: 0; padding: 0; }
+.se-price__list li { display: flex; align-items: center; gap: 12px; height: 28px; font-size: 15px; color: var(--se-dim); }
+.se-price__list li.is-on { color: #f2f3f7; }
+.se-price__list i { width: 16px; height: 16px; border-radius: 4px; display: grid; place-items: center; font-style: normal; font-size: 10px; font-weight: 800; background: #171a24; color: var(--se-dim); flex: none; }
+.se-price--pro .se-price__list i { background: rgba(139,92,246,.22); color: var(--se-purple); }
+.se-price__btn { display: block; width: 100%; height: 42px; margin-top: 15px; border: 0; border-radius: 8px; font: 700 16px 'Inter', sans-serif; background: #1a1c25; color: #6b6f7a; cursor: pointer; }
+.se-price--pro .se-price__btn { background: var(--se-purple); color: #fff; box-shadow: 0 6px 20px rgba(139,92,246,.35); }
+.se-tag { position: absolute; padding: 0 22px; height: 36px; line-height: 36px; border-radius: 8px; font-size: 15px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; }
+.se-tag--flat { background: rgba(239,68,68,.12); color: var(--se-red); }
+.se-tag--floats { background: rgba(34,197,94,.1); color: var(--se-green); }
+
+/* ---- Premium card with the three layers --------------------------------------- */
+.se-card { position: absolute; width: 350px; padding: 20px; border-radius: 14px; background: var(--se-card-2); border: 1px solid var(--se-border); transform-origin: 50% 100%; transition: box-shadow .5s ease, transform .6s cubic-bezier(.2,.8,.2,1); }
+.se-card--contact { box-shadow: var(--se-contact), var(--se-mid); }
+.se-card--glow { box-shadow: var(--se-contact), var(--se-mid), var(--se-glow); }
+.se-card--dim { opacity: .72; }
+.se-card--lift { transform: perspective(1000px) rotateX(2deg) translateZ(20px); }
+.se-card__head { display: flex; align-items: center; gap: 12px; }
+.se-card__logo { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #7c5cf6 0%, #38bdf8 100%); display: grid; place-items: center; font-size: 20px; font-weight: 600; color: #fff; }
+.se-card__head b { display: block; font-size: 17px; font-weight: 700; line-height: 1.25; }
+.se-card__head span { display: block; font-size: 14px; color: var(--se-muted); line-height: 1.25; }
+.se-card__rule { height: 1px; background: rgba(255,255,255,.06); margin: 14px -20px 12px; }
+.se-card__body { margin: 0; font-size: 13.5px; letter-spacing: -.01em; line-height: 1.5; color: #a3a6b0; }
+.se-card__stats { display: flex; gap: 10px; margin-top: 14px; }
+.se-card__stats > div { flex: 1; height: 64px; padding: 11px 12px; border-radius: 8px; background: rgba(139,92,246,.08); }
+.se-card__stats span { display: block; font-size: 13px; color: var(--se-muted); line-height: 1.2; }
+.se-card__stats b { display: block; margin-top: 4px; font-size: 18px; font-weight: 700; color: var(--se-purple); line-height: 1.2; }
+.se-rise { animation: se-rise .6s cubic-bezier(.2,.8,.2,1) both; animation-delay: .3s; }
+@keyframes se-rise { from { top: 527px; } to { top: 474px; } }
+
+.se-layer { position: absolute; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.se-layer__badge { height: 26px; line-height: 26px; padding: 0 12px; border-radius: 6px; font-size: 13px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.se-layer--contact .se-layer__badge { background: var(--se-cyan); color: #06222a; }
+.se-layer--glow .se-layer__badge { background: var(--se-purple); color: #fff; }
+.se-layer--elevation .se-layer__badge { background: var(--se-green); color: #052e16; }
+.se-layer__code { padding: 7px 12px; border-radius: 6px; background: var(--se-inset); font-size: 13px; line-height: 1.45; color: #c3c6cf; text-align: right; white-space: nowrap; }
+.se-layer__note { font-size: 14px; color: var(--se-muted); line-height: 1.2; margin-top: 2px; }
+
+.se-css { position: absolute; width: 640px; height: 216px; padding: 22px; border-radius: 14px; background: #0a0c14; border: 1px solid #1a1d28; }
+.se-css__label { font-size: 13px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--se-purple); line-height: 1; }
+.se-css pre { margin: 14px 0 0; font-size: 14px; line-height: 21.5px; color: #b3b6bf; }
+.se-css pre b { font-weight: 500; color: #a78bfa; }
+
+/* ---- Tinted glow app cards ------------------------------------------------ */
+.se-app { position: absolute; width: 320px; padding: 20px 20px 18px; border-radius: 14px; background: var(--se-card-2); border: 1px solid var(--se-border); --tint: 139,92,246; box-shadow: var(--se-contact), var(--se-mid), 0 0 40px rgba(var(--tint), .35); }
+.se-app--purple { --tint: 139,92,246; --c: var(--se-purple); }
+.se-app--blue { --tint: 59,130,246; --c: var(--se-blue); }
+.se-app--green { --tint: 34,197,94; --c: var(--se-green); }
+.se-app__head { display: flex; align-items: center; gap: 12px; }
+.se-app__icon { width: 28px; height: 28px; border-radius: 7px; background: rgba(var(--tint), .18); position: relative; }
+.se-app__icon::after { content: ''; position: absolute; inset: 7px; border-radius: 4px; background: var(--c); }
+.se-app__head b { display: block; font-size: 17px; font-weight: 700; line-height: 1.2; }
+.se-app__head span { display: block; font-size: 12px; color: var(--se-muted); line-height: 1.3; }
+.se-app__row { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; }
+.se-app__row b { font-size: 14px; font-weight: 600; }
+.se-app__row em { font-style: normal; font-size: 14px; font-weight: 700; color: var(--c); }
+.se-app__row .se-app__big { font-size: 22px; }
+.se-bar { height: 5px; border-radius: 3px; background: #1b1e29; margin-top: 8px; overflow: hidden; }
+.se-bar i { display: block; height: 100%; border-radius: 3px; background: var(--c); animation: se-grow 1s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes se-grow { from { width: 0 } }
+.se-chips { display: flex; gap: 8px; margin-top: 12px; }
+.se-chips span { flex: 1; height: 31px; line-height: 31px; text-align: center; border-radius: 8px; background: #171a24; font-size: 12px; color: #b3b6bf; }
+.se-bars { display: flex; align-items: flex-end; gap: 6px; height: 34px; margin-top: 7px; }
+.se-bars i { flex: 1; border-radius: 3px; background: #192847; }
+.se-bars i.is-hot { background: var(--se-blue); }
+.se-app__axis { display: flex; justify-content: space-between; margin-top: 5px; font-size: 11px; color: var(--se-muted); }
+.se-health { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+.se-ring { width: 38px; height: 38px; transform: rotate(-90deg); }
+.se-ring circle { fill: none; stroke-width: 3.5; stroke: #14301c; }
+.se-ring .se-ring__val { stroke: var(--se-green); stroke-linecap: round; stroke-dasharray: calc(var(--p) * 1.005) 100.5; }
+.se-ring text { transform: rotate(90deg); transform-origin: 20px 20px; font-size: 9px; font-weight: 700; fill: var(--se-green); text-anchor: middle; }
+.se-health span { display: block; font-size: 12px; color: var(--se-muted); line-height: 1.5; }
+.se-health b { color: #fff; font-weight: 600; margin-left: 4px; }
+.se-code { position: absolute; left: 0; right: 0; text-align: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #b3b6bf; line-height: 1.2; }
+.se-code b { font-weight: 700; }
+.se-code--purple b { color: var(--se-purple); } .se-code--blue b { color: var(--se-blue); } .se-code--green b { color: var(--se-green); }
+
+/* ---- Motion ------------------------------------------------------------------- */
+.se-fade { animation: se-fade .5s ease-out both; }
+@keyframes se-fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.se-card.se-fade { animation-name: se-fade-card; }
+@keyframes se-fade-card { from { opacity: 0; } to { opacity: 1; } }

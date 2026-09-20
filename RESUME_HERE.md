@@ -1,19 +1,16 @@
 # UX Patterns: live state
 
-Started 20 Sep 2026. Goal: every @designmotionhq reel rebuilt as an exact HTML/CSS/JS replica, a deployed gallery, and the `ux-patterns` Claude skill that routes a design module to the best few patterns.
+Started 20 Sep 2026. Every @designmotionhq reel rebuilt as an exact HTML/CSS/JS replica, a deployed gallery, and the `ux-patterns` Claude skill that routes a design module to the best few patterns.
 
-## Done
-- 106 Instagram posts inventoried (102 reels), 76 site pages scraped with insights and do/don'ts, 65 Instagram-only reels downloaded. `catalog.json` = 112 patterns (76 site + 36 Instagram-only); 11 reels skipped on purpose (`source/skipped.json`: promos, algorithm explainers, dark-pattern psychology).
-- Frames every 1.5 s and 6x6 contact sheets for all 141 videos in `source/` (gitignored).
-- Shared stage (`patterns/_shared/`), screenshot-vs-frame tool (`tools/shot.mjs`), gallery builder (`tools/build-site.mjs`), builder contract (`BUILDING.md`).
-- Reference replica `patterns/optimistic-ui/` verified scene by scene.
-- Skill source in `skill/SKILL.md` (routing table by module).
+## Done (20 Sep 2026)
+- 112 patterns built and verified scene by scene against their source frames (`tools/shot.mjs`): 76 from the site breakdowns, 36 Instagram-only. 11 reels skipped on purpose (`source/skipped.json`).
+- Gallery live at https://ux-patterns.yourfuturesitedev.workers.dev. Repo public at github.com/YourFutureSiteDev/ux-patterns.
+- Skill installed at `~/.claude/skills/ux-patterns`, routed by `product-ui-module`, pushed to Claude-Skills.
 
-## In progress
-- Patterns being built in batches of four by parallel agents (`tools/batches.json`, 28 batches). Each is verified with `node tools/shot.mjs <slug>` and its compare images before it counts.
+## Known approximations (agents' own notes, all cosmetic)
+- Emoji glyphs render in Windows Segoe rather than Apple's set; raster art (sunsets, product photos) is SVG/CSS stand-ins; a few unidentified caption fonts are matched with Space Grotesk or Poppins.
+- Scenes shot mid-transition in the reel are frozen at the nearest fully drawn state.
 
-## Next
-- Install skill: copy `skill/` to `~/.claude/skills/ux-patterns/` and push the skills repo.
-- `node tools/build-site.mjs` then `npx wrangler pages deploy site --project-name ux-patterns`.
-- Push this repo to GitHub `YourFutureSiteDev/ux-patterns` (public; source media is gitignored).
-- Register in the Desktop map and write the project memory.
+## Next, when needed
+- New reel: download with yt-dlp, add to `catalog.json` (see `source/build-catalog.mjs`), extract frames (`ffmpeg -vf fps=1/1.5`), build per `BUILDING.md`, verify, `node tools/build-site.mjs`, redeploy, push.
+- Retheme rule for client work lives in the skill: port `pattern.css` rules into the project's own css, swap the tokens, never ship the reel palette.

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Perfect Card · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #080709; --grid: transparent; --accent: #8b5cf6; --danger: #ef4444; }
+  .scene { color: #e5e7eb; font-family: var(--pc-font); }
+  .scene.no-anim * { transition: none !important; }
+  .pc-in { opacity: 0; animation: pc-in .35s ease-out both; }
+  @keyframes pc-in { to { opacity: 1 } }
+</style>
+</head>
+<body class="pc">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-arrow" viewBox="0 0 16 22"><path d="M2 2l5 16 2.6-6L16 11z" fill="#fff" stroke="#111" stroke-width="1.2" stroke-linejoin="round"/></symbol>
+</svg>
+
+<!-- 1 · Basic vs premium -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="pc-card pc-card--basic" style="position:absolute;left:51px;top:320px">
+    <div class="pc-card__img"><i></i><i></i><i></i></div>
+    <span class="pc-card__tag">UI Design</span>
+    <h3 class="pc-card__title">Dashboard Redesign</h3>
+    <p class="pc-card__body">A modern analytics dashboard with real-time data visualization and responsive layout</p>
+    <div class="pc-card__meta"><span class="pc-card__avatar"></span><b>Alex Chen</b><span>· 2 days ago</span></div>
+  </div>
+  <div class="pc-card pc-card--premium" style="position:absolute;left:377px;top:320px">
+    <div class="pc-card__img"><i></i><i></i><i></i></div>
+    <span class="pc-card__tag">UI Design</span>
+    <h3 class="pc-card__title">Dashboard<br>Redesign</h3>
+    <p class="pc-card__body">A modern analytics dashboard with real-time data visualization and responsive layout</p>
+    <div class="pc-card__meta"><span class="pc-card__avatar"></span><b>Alex Chen</b><span>· 2 days ago</span></div>
+  </div>
+</section>
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="pc-label" style="left:196px;color:var(--pc-red)">BASIC</div>
+  <div class="pc-label" style="left:522px;color:var(--pc-green)">PREMIUM</div>
+  <div class="pc-vs">VS</div>
+  <div class="pc-card pc-card--basic" style="position:absolute;left:51px;top:320px">
+    <div class="pc-card__img"><i></i><i></i><i></i></div>
+    <span class="pc-card__tag">UI Design</span>
+    <h3 class="pc-card__title">Dashboard Redesign</h3>
+    <p class="pc-card__body">A modern analytics dashboard with real-time data visualization and responsive layout</p>
+    <div class="pc-card__meta"><span class="pc-card__avatar"></span><b>Alex Chen</b><span>· 2 days ago</span></div>
+  </div>
+  <div class="pc-card pc-card--premium" style="position:absolute;left:377px;top:320px">
+    <div class="pc-card__img"><i></i><i></i><i></i></div>
+    <span class="pc-card__tag">UI Design</span>
+    <h3 class="pc-card__title">Dashboard<br>Redesign</h3>
+    <p class="pc-card__body">A modern analytics dashboard with real-time data visualization and responsive layout</p>
+    <div class="pc-card__meta"><span class="pc-card__avatar"></span><b>Alex Chen</b><span>· 2 days ago</span></div>
+  </div>
+  <div class="pc-caption">The difference? <em>4 CSS changes.</em></div>
+</section>
+
+<!-- 2 · 01 Padding -->
+<section class="scene" data-t="7.5" data-shot="7.5">
+  <div class="pc-head"><span class="pc-head__n">01</span>Padding</div>
+  <div class="pc-card" style="position:absolute;left:114px;top:468px">
+    <div class="pc-card__img"><i></i><i></i><i></i></div>
+    <span class="pc-card__tag">UI Design</span>
+    <h3 class="pc-card__title">Dashboard Redesign</h3>
+    <p class="pc-card__body">A modern analytics dashboard with real-time data visualization and responsive layout</p>
+    <div class="pc-card__meta"><span class="pc-card__avatar"></span><b>Alex Chen</b><span>· 2 days ago</span></div>
+  </div>
+</section>
+<section class="scene" data-t="8.5" data-shot="12" data-steps="padding" data-delay="400">
+  <div class="pc-head"><span class="pc-head__n">01</span>Padding</div>
+  <div class="pc-tag pc-tag--z pc-in" style="left:536px;top:590px;animation-delay:.9s">padding: 40px</div>
+  <div class="pc-card" data-card style="position:absolute;left:114px;top:468px">
+    <div class="pc-card__img"><i></i><i></i><i></i></div>
+    <span class="pc-card__tag">UI Design</span>
+    <h3 class="pc-card__title">Dashboard Redesign</h3>
+    <p class="pc-card__body">A modern analytics dashboard with real-time data visualization and responsive layout</p>
+    <div class="pc-card__meta"><span class="pc-card__avatar"></span><b>Alex Chen</b><span>· 2 days ago</span></div>
+  </div>
+</section>
+
+<!-- 3 · 02 Typography -->
+<section class="scene" data-t="18" data-shot="18" data-steps="padding" data-delay="0">
+  <div class="pc-head"><span class="pc-head__n">02</span>Typography</div>
+  <div class="pc-card" data-card style="position:absolute;left:114px;top:415px">
+    <div class="pc-card__img"><i></i><i></i><i></i></div>
+    <span class="pc-card__tag">UI Design</span>
+    <h3 class="pc-card__title">Dashboard Redesign</h3>
+    <p class="pc-card__body">A modern analytics dashboard with real-time data visualization and responsive layout</p>
+    <div class="pc-card__meta"><span class="pc-card__avatar"></span><b>Alex Chen</b><span>· 2 days ago</span></div>
+  </div>
+</section>
+<section class="scene" data-t="19.5" data-shot="24" data-steps="padding typography" data-delay="400">
+  <div class="pc-head"><span class="pc-head__n">02</span>Typography</div>
+  <div class="pc-tag pc-tag--z pc-in" style="left:40px;top:615px;animation-delay:.8s">font-weight: 600</div>
+  <div class="pc-tag pc-in" style="left:538px;top:655px;animation-delay:1.2s">opacity: 0.55</div>
+  <div class="pc-card" data-card style="position:absolute;left:114px;top:415px">
+    <div class="pc-card__img"><i></i><i></i><i></i></div>
+    <span class="pc-card__tag">UI Design</span>
+    <h3 class="pc-card__title">Dashboard Redesign</h3>
+    <p class="pc-card__body">A modern analytics dashboard with real-time data visualization and responsive layout</p>
+    <div class="pc-card__meta"><span class="pc-card__avatar"></span><b>Alex Chen</b><span>· 2 days ago</span></div>
+  </div>
+</section>
+
+<!-- 4 · 03 Shadows -->
+<section class="scene" data-t="30" data-shot="30" data-steps="padding typography" data-delay="0">
+  <div class="pc-head"><span class="pc-head__n">03</span>Shadows</div>
+  <div class="pc-card" data-card style="position:absolute;left:114px;top:415px">
+    <div class="pc-card__img"><i></i><i></i><i></i></div>
+    <span class="pc-card__tag">UI Design</span>
+    <h3 class="pc-card__title">Dashboard Redesign</h3>
+    <p class="pc-card__body">A modern analytics dashboard with real-time data visualization and responsive layout</p>
+    <div class="pc-card__meta"><span class="pc-card__avatar"></span><b>Alex Chen</b><span>· 2 days ago</span></div>
+  </div>
+</section>
+<section class="scene" data-t="31.5" data-shot="33" data-steps="padding typography shadows" data-delay="400">
+  <div class="pc-head"><span class="pc-head__n">03</span>Shadows</div>
+  <div class="pc-tag pc-tag--z pc-in" style="left:455px;top:589px;animation-delay:.5s">box-shadow: 0 2px 8px</div>
+  <div class="pc-tag pc-in" style="left:455px;top:632px;animation-delay:2s">box-shadow: 0 20px 40px</div>
+  <div class="pc-tag pc-in" style="left:455px;top:675px;animation-delay:3s">border: 1px solid</div>
+  <div class="pc-card" data-card style="position:absolute;left:114px;top:415px">
+    <div class="pc-card__img"><i></i><i></i><i></i></div>
+    <span class="pc-card__tag">UI Design</span>
+    <h3 class="pc-card__title">Dashboard Redesign</h3>
+    <p class="pc-card__body">A modern analytics dashboard with real-time data visualization and responsive layout</p>
+    <div class="pc-card__meta"><span class="pc-card__avatar"></span><b>Alex Chen</b><span>· 2 days ago</span></div>
+  </div>
+</section>
+<section class="scene" data-t="31.5" data-shot="36" data-steps="padding typography shadows" data-delay="400">
+  <div class="pc-head"><span class="pc-head__n">03</span>Shadows</div>
+  <div class="pc-tag pc-tag--z pc-in" style="left:455px;top:589px;animation-delay:.5s">box-shadow: 0 2px 8px</div>
+  <div class="pc-tag pc-in" style="left:455px;top:632px;animation-delay:2s">box-shadow: 0 20px 40px</div>
+  <div class="pc-tag pc-in" style="left:455px;top:675px;animation-delay:3s">border: 1px solid</div>
+  <div class="pc-card" data-card style="position:absolute;left:114px;top:415px">
+    <div class="pc-card__img"><i></i><i></i><i></i></div>
+    <span class="pc-card__tag">UI Design</span>
+    <h3 class="pc-card__title">Dashboard Redesign</h3>
+    <p class="pc-card__body">A modern analytics dashboard with real-time data visualization and responsive layout</p>
+    <div class="pc-card__meta"><span class="pc-card__avatar"></span><b>Alex Chen</b><span>· 2 days ago</span></div>
+  </div>
+</section>
+
+<!-- 5 · 04 Hover state: lifts at 0.5 s, rests at 3 s -->
+<section class="scene pc-hover" data-t="43.5" data-shot="45" data-steps="padding typography shadows hover" data-delay="0">
+  <div class="pc-head"><span class="pc-head__n">04</span>Hover State</div>
+  <div class="pc-card" data-card style="position:absolute;left:114px;top:415px">
+    <div class="pc-card__img"><i></i><i></i><i></i></div>
+    <span class="pc-card__tag">UI Design</span>
+    <h3 class="pc-card__title">Dashboard Redesign</h3>
+    <p class="pc-card__body">A modern analytics dashboard with real-time data visualization and responsive layout</p>
+    <div class="pc-card__meta"><span class="pc-card__avatar"></span><b>Alex Chen</b><span>· 2 days ago</span></div>
+  </div>
+  <svg class="pc-cursor" style="left:402px;top:630px"><use href="#i-arrow"/></svg>
+</section>
+<section class="scene pc-hover" data-t="43.5" data-shot="48" data-steps="padding typography shadows hover" data-delay="0">
+  <div class="pc-head"><span class="pc-head__n">04</span>Hover State</div>
+  <div class="pc-card" data-card style="position:absolute;left:114px;top:415px">
+    <div class="pc-card__img"><i></i><i></i><i></i></div>
+    <span class="pc-card__tag">UI Design</span>
+    <h3 class="pc-card__title">Dashboard Redesign</h3>
+    <p class="pc-card__body">A modern analytics dashboard with real-time data visualization and responsive layout</p>
+    <div class="pc-card__meta"><span class="pc-card__avatar"></span><b>Alex Chen</b><span>· 2 days ago</span></div>
+  </div>
+  <svg class="pc-cursor" style="left:402px;top:630px"><use href="#i-arrow"/></svg>
+</section>
+
+<!-- 6 · Same content. Four changes. -->
+<section class="scene" data-t="52.5" data-shot="55.5" data-steps="padding typography shadows hover" data-delay="0">
+  <div style="position:absolute;top:172px;left:0;right:0;text-align:center;font:600 30px/40px var(--pc-font);color:#fff">Same content.</div>
+  <div style="position:absolute;top:213px;left:0;right:0;text-align:center;font:600 30px/40px var(--pc-font);color:#7655ed">Four changes.</div>
+  <div style="position:absolute;top:260px;left:0;right:0;text-align:center;font:400 20px/30px var(--pc-font);color:#9ca3af">That's it.</div>
+  <div class="pc-card" data-card style="position:absolute;left:114px;top:415px;transform:scale(.9)">
+    <div class="pc-card__img"><i></i><i></i><i></i></div>
+    <span class="pc-card__tag">UI Design</span>
+    <h3 class="pc-card__title">Dashboard Redesign</h3>
+    <p class="pc-card__body">A modern analytics dashboard with real-time data visualization and responsive layout</p>
+    <div class="pc-card__meta"><span class="pc-card__avatar"></span><b>Alex Chen</b><span>· 2 days ago</span></div>
+  </div>
+  <button class="pc-follow">Follow @designmotionhq</button>
+</section>
+
+<script type="module">
+  import { PerfectCard } from './pattern.js';
+  // Each scene lists the steps its card has (data-steps). The last step is applied `data-delay` ms after the scene
+  // enters live, so the change plays; frozen screenshots get the finished state instantly.
+  document.querySelectorAll('.scene[data-steps]').forEach(s => {
+    const card = PerfectCard(s.querySelector('[data-card]')), steps = s.dataset.steps.split(' '), delay = Number(s.dataset.delay) || 0;
+    s.addEventListener('scene:enter', e => {
+      const frozen = e.detail.t > 0; card.reset();
+      s.classList.toggle('no-anim', frozen); void s.offsetWidth;
+      steps.slice(0, -1).forEach(st => card.apply(st));
+      if (frozen || !delay) card.apply(steps[steps.length - 1]); else setTimeout(() => card.apply(steps[steps.length - 1]), delay);
+      if (s.classList.contains('pc-hover')) { const el = s.querySelector('[data-card]'), t = e.detail.t - Number(s.dataset.t); if (frozen) el.classList.toggle('is-lifted', t < 3); else { el.classList.remove('is-lifted'); setTimeout(() => el.classList.add('is-lifted'), 500); setTimeout(() => el.classList.remove('is-lifted'), 3000); } }
+      if (frozen) { void s.offsetWidth; requestAnimationFrame(() => s.classList.remove('no-anim')); }
+    });
+  });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

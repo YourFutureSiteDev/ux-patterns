@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Grid System · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #06090e; --grid: transparent; --accent: #8b5cf6; --danger: #ef4b5f; }
+  .scene { color: #f2f2f5; }
+</style>
+</head>
+<body class="gs">
+
+<!-- 1 · Hook: chaos snaps to the grid -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <h1 class="gs-h" style="top:55px;font-size:36px">The Grid Nobody Teaches</h1>
+  <div class="gs-pill gs-pill--grid gs-fade" style="top:112px;animation-delay:.9s">Grid</div>
+  <div class="gs-mock is-snap" id="mock" style="left:160px;top:152px;width:400px;height:550px">
+    <div class="gs-bar" style="left:0;top:0;width:400px;height:46px;--from:translate(-20px,22px) rotate(-3deg)">
+      <span class="gs-logo" style="position:absolute;left:12px;top:13px"></span><span class="gs-line" style="position:absolute;left:42px;top:19px;width:66px"></span>
+      <span class="gs-navtext" style="position:absolute;right:13px;top:15px">Home Stats Settings</span>
+    </div>
+    <div class="gs-bar" style="left:3px;top:56px;width:90px;height:484px;--from:translate(6px,10px) rotate(3deg)">
+      <span class="gs-line is-purple" style="position:absolute;left:9px;top:19px;width:66px"></span><span class="gs-line" style="position:absolute;left:9px;top:40px;width:52px;height:7px"></span><span class="gs-line" style="position:absolute;left:9px;top:62px;width:60px;height:7px"></span><span class="gs-line" style="position:absolute;left:9px;top:84px;width:60px;height:7px"></span><span class="gs-line" style="position:absolute;left:9px;top:106px;width:64px;height:7px"></span>
+    </div>
+    <div class="gs-tile" style="left:107px;top:58px;width:90px;background:#8b4dff;--from:translate(-10px,-2px) rotate(-4deg) scale(.85)">Revenue</div>
+    <div class="gs-tile" style="left:203px;top:58px;width:90px;background:#22d3d3;--from:translate(-4px,-8px) rotate(4deg) scale(1.05)">Users</div>
+    <div class="gs-tile" style="left:300px;top:58px;width:90px;background:#3ee07a;--from:translate(6px,16px) rotate(3deg) scale(.8)">Uptime</div>
+    <div class="gs-card" style="left:107px;top:128px;width:283px;height:210px;--from:translate(-6px,6px) rotate(-2deg) scale(.92)">
+      <h5>Revenue Overview</h5>
+      <div class="gs-mbars"><i style="height:100px"></i><i style="height:60px"></i><i style="height:120px"></i><i style="height:85px"></i><i style="height:140px"></i><i style="height:110px"></i><i style="height:75px"></i><i style="height:125px"></i></div>
+    </div>
+    <div class="gs-card" style="left:107px;top:348px;width:283px;height:192px;--from:translate(-14px,-2px) rotate(2deg) scale(1.03)">
+      <div class="gs-row" style="top:20px"><i></i>Alex Johnson<b>$120</b></div>
+      <div class="gs-row" style="top:57px"><i></i>Sarah Chen<b>$165</b></div>
+      <div class="gs-row" style="top:93px"><i></i>Mike Torres<b>$89</b></div>
+      <div class="gs-row" style="top:130px"><i></i>Lisa Park<b>$210</b></div>
+    </div>
+  </div>
+  <div class="gs-cap gs-fade" style="top:1052px;animation-delay:1.1s">Same content.<b class="is-green">Different structure.</b></div>
+</section>
+
+<!-- 2 · Ratio 4:8 -->
+<section class="scene" data-t="3" data-shot="6">
+  <h1 class="gs-h" style="top:65px;font-size:32px">It's a Ratio System</h1>
+  <div class="gs-ratio-pill" style="top:135px">4<span>:</span>8</div>
+  <div class="gs-sub" style="top:193px">Narrow sidebar, wide content area</div>
+  <div class="gs-ratio gs-in" data-side="4" style="left:40px;top:228px;width:640px;height:760px"></div>
+  <div class="gs-cols gs-cols--side" style="left:40px;top:1170px">4 cols</div>
+  <div class="gs-cols gs-cols--main" style="right:40px;top:1170px">8 cols</div>
+</section>
+
+<!-- 3 · Ratio 6:6 -->
+<section class="scene" data-t="9" data-shot="10.5">
+  <h1 class="gs-h" style="top:65px;font-size:32px">It's a Ratio System</h1>
+  <div class="gs-ratio-pill" style="top:135px">6<span>:</span>6</div>
+  <div class="gs-sub" style="top:193px">Equal weight, balanced layout</div>
+  <div class="gs-ratio" data-side="6" style="left:40px;top:228px;width:640px;height:760px"></div>
+  <div class="gs-cols gs-cols--side" style="left:40px;top:1170px">6 cols</div>
+  <div class="gs-cols gs-cols--main" style="right:40px;top:1170px">6 cols</div>
+</section>
+
+<!-- 4 · Ratio 3:9 -->
+<section class="scene" data-t="13.5" data-shot="15">
+  <h1 class="gs-h" style="top:65px;font-size:32px">It's a Ratio System</h1>
+  <div class="gs-ratio-pill" style="top:135px">3<span>:</span>9</div>
+  <div class="gs-sub" style="top:193px">Minimal sidebar, dominant content</div>
+  <div class="gs-ratio" data-side="3" style="left:40px;top:228px;width:640px;height:760px"></div>
+  <div class="gs-cols gs-cols--side" style="left:40px;top:1170px">3 cols</div>
+  <div class="gs-cols gs-cols--main" style="right:40px;top:1170px">9 cols</div>
+</section>
+
+<!-- 5 · Reconfigures: 1280px / 12 cols -->
+<section class="scene" data-t="18" data-shot="19.5">
+  <h1 class="gs-h" style="top:135px;font-size:30px">The Grid Reconfigures</h1>
+  <div class="gs-bp" style="top:186px;color:#8b5cf6">1280px<small>12 cols</small></div>
+  <div class="gs-resp gs-in" data-cols="12" style="left:55px;top:258px;width:610px"></div>
+  <div class="gs-px" style="top:547px">920px</div>
+</section>
+
+<!-- 6 · 768px / 6 cols -->
+<section class="scene" data-t="21" data-shot="21">
+  <h1 class="gs-h" style="top:135px;font-size:30px">The Grid Reconfigures</h1>
+  <div class="gs-bp" style="top:186px;color:#25c4c9">768px<small>6 cols</small></div>
+  <div class="gs-resp" data-cols="6" style="left:128px;top:258px;width:465px;--frame:rgba(37,196,201,.4);--frame-glow:rgba(37,196,201,.12)"></div>
+  <div class="gs-px" style="top:655px">699px</div>
+</section>
+
+<!-- 7 · 480px / 4 cols -->
+<section class="scene" data-t="24" data-shot="24">
+  <h1 class="gs-h" style="top:135px;font-size:30px">The Grid Reconfigures</h1>
+  <div class="gs-bp" style="top:186px;color:#3ee07a">480px<small>4 cols</small></div>
+  <div class="gs-resp" data-cols="4" style="left:196px;top:258px;width:327px;--frame:rgba(62,224,122,.4);--frame-glow:rgba(62,224,122,.12)"></div>
+  <div class="gs-px" style="top:1012px">498px</div>
+</section>
+
+<!-- 8 · 320px / 1 col -->
+<section class="scene" data-t="27" data-shot="27">
+  <h1 class="gs-h" style="top:135px;font-size:30px">The Grid Reconfigures</h1>
+  <div class="gs-bp" style="top:186px;color:#ef4b5f">320px<small>1 col</small></div>
+  <div class="gs-resp" data-cols="1" style="left:247px;top:258px;width:227px;--frame:rgba(239,75,95,.45);--frame-glow:rgba(239,75,95,.14)"></div>
+  <div class="gs-px" style="top:1012px">340px</div>
+</section>
+
+<!-- 9 · Gutter 8px -->
+<section class="scene" data-t="31.5" data-shot="33">
+  <h1 class="gs-h" style="top:151px;font-size:26px">The Space Between</h1>
+  <div class="gs-tabs" style="top:200px"><span class="is-on is-teal">8px</span><span>24px</span><span>40px</span></div>
+  <div class="gs-gut is-teal" style="top:246px">8px</div>
+  <div class="gs-mood" style="top:305px;background:#0f2326">Dense / Technical</div>
+  <div class="gs-gaptag is-teal" style="left:252px;top:348px;background:#0f3a3d">8px</div><div class="gs-gaptag is-teal" style="left:468px;top:348px;background:#0f3a3d">8px</div>
+  <div class="gs-gapline is-teal" style="left:252px;top:370px;height:122px"></div><div class="gs-gapline is-teal" style="left:468px;top:370px;height:122px"></div>
+  <div class="gs-gapcards" style="left:40px;top:372px;width:640px;gap:8px">
+    <div class="gs-gapcard"><span>Analytics</span><b>$24.8K</b><small>Monthly revenue</small></div>
+    <div class="gs-gapcard"><span>Growth</span><b>+18.2%</b><small>User acquisition</small></div>
+    <div class="gs-gapcard"><span>Retention</span><b>94.7%</b><small>30-day average</small></div>
+  </div>
+  <div class="gs-mini" style="left:272px;top:880px">
+    <div class="is-on is-teal"><i style="width:43px;height:16px;background:#1f9ea3"></i>8px</div>
+    <div><i style="width:40px;height:50px;background:#161428"></i>24px</div>
+    <div><i style="width:43px;height:82px;background:#0e2317"></i>40px</div>
+  </div>
+  <div class="gs-cap" style="top:1004px;font-size:18px">Same cards. <b class="is-teal">Different feeling.</b></div>
+</section>
+
+<!-- 10 · Gutter 24px -->
+<section class="scene" data-t="36" data-shot="36">
+  <h1 class="gs-h" style="top:151px;font-size:26px">The Space Between</h1>
+  <div class="gs-tabs" style="top:200px"><span>8px</span><span class="is-on is-purple">24px</span><span>40px</span></div>
+  <div class="gs-gut is-purple" style="top:246px;color:#8b5cf6">24px</div>
+  <div class="gs-mood" style="top:305px;background:#1d1830;color:#c9c2dc">Balanced / Clean</div>
+  <div class="gs-gaptag" style="left:250px;top:348px;background:#2a2050;color:#a78bfa">24px</div><div class="gs-gaptag" style="left:470px;top:348px;background:#2a2050;color:#a78bfa">24px</div>
+  <div class="gs-gapline" style="left:250px;top:370px;height:122px;color:#8b5cf6"></div><div class="gs-gapline" style="left:470px;top:370px;height:122px;color:#8b5cf6"></div>
+  <div class="gs-gapcards" style="left:40px;top:372px;width:640px;gap:24px">
+    <div class="gs-gapcard"><span>Analytics</span><b>$24.8K</b><small>Monthly revenue</small></div>
+    <div class="gs-gapcard"><span>Growth</span><b>+18.2%</b><small>User acquisition</small></div>
+    <div class="gs-gapcard"><span>Retention</span><b>94.7%</b><small>30-day average</small></div>
+  </div>
+  <div class="gs-mini" style="left:272px;top:880px">
+    <div><i style="width:43px;height:16px;background:#0f2326"></i>8px</div>
+    <div class="is-on" style="color:#a78bfa"><i style="width:40px;height:50px;background:#7c52d6"></i>24px</div>
+    <div><i style="width:43px;height:82px;background:#0e2317"></i>40px</div>
+  </div>
+  <div class="gs-cap" style="top:1004px;font-size:18px">Same cards. <b style="color:#a78bfa">Different feeling.</b></div>
+</section>
+
+<!-- 11 · Gutter 40px -->
+<section class="scene" data-t="42" data-shot="42">
+  <h1 class="gs-h" style="top:151px;font-size:26px">The Space Between</h1>
+  <div class="gs-tabs" style="top:200px"><span>8px</span><span>24px</span><span class="is-on is-green">40px</span></div>
+  <div class="gs-gut is-green" style="top:246px">40px</div>
+  <div class="gs-mood" style="top:305px;background:#0f2a1c;color:#c2d6c8">Editorial / Premium</div>
+  <div class="gs-gaptag is-green" style="left:246px;top:348px;background:#0f3a24">40px</div><div class="gs-gaptag is-green" style="left:474px;top:348px;background:#0f3a24">40px</div>
+  <div class="gs-gapline is-green" style="left:246px;top:370px;height:122px"></div><div class="gs-gapline is-green" style="left:474px;top:370px;height:122px"></div>
+  <div class="gs-gapcards" style="left:40px;top:372px;width:640px;gap:40px">
+    <div class="gs-gapcard"><span>Analytics</span><b>$24.8K</b><small>Monthly revenue</small></div>
+    <div class="gs-gapcard"><span>Growth</span><b>+18.2%</b><small>User acquisition</small></div>
+    <div class="gs-gapcard"><span>Retention</span><b>94.7%</b><small>30-day average</small></div>
+  </div>
+  <div class="gs-mini" style="left:272px;top:880px">
+    <div><i style="width:43px;height:16px;background:#0f2326"></i>8px</div>
+    <div><i style="width:40px;height:50px;background:#161428"></i>24px</div>
+    <div class="is-on is-green"><i style="width:43px;height:82px;background:#3ee07a"></i>40px</div>
+  </div>
+  <div class="gs-cap" style="top:1004px;font-size:18px">Same cards. <b class="is-green">Different feeling.</b></div>
+</section>
+
+<!-- 12 · Clean grid layout -->
+<section class="scene gs-page" data-t="45" data-shot="45">
+  <h1 class="gs-h" style="top:110px;font-size:28px">Clean Grid Layout</h1>
+  <div class="gs-topbar" style="left:38px;top:167px;width:642px"><i>D</i>Dashboard<span>Home Stats Settings</span></div>
+  <div class="gs-stat2" style="left:38px;top:276px;width:206px"><span>Analytics</span><b class="is-purple">12.4K</b></div>
+  <div class="gs-stat2" style="left:256px;top:276px;width:206px"><span>Revenue</span><b class="is-teal">$8.2K</b></div>
+  <div class="gs-stat2" style="left:474px;top:276px;width:206px"><span>Users</span><b class="is-green">3.1K</b></div>
+  <div class="gs-hero" style="left:96px;top:453px;width:528px;height:175px"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6" fill="#8b5cf6" stroke="none"/><path d="M21 16l-5-5-8 8"/></svg>Hero Image</div>
+  <div class="gs-quote" style="left:147px;top:677px;width:423px"><p>"Design is not just what it looks like — design is how it works."</p><small>— Steve Jobs</small></div>
+</section>
+
+<!-- 13 · Know when to break it -->
+<section class="scene gs-page" data-t="48" data-shot="51">
+  <h1 class="gs-h" style="top:110px;font-size:28px">Know When to Break It</h1>
+  <div class="gs-topbar" style="left:38px;top:167px;width:642px"><i>D</i>Dashboard<span>Home Stats Settings</span></div>
+  <div class="gs-stat2" style="left:38px;top:276px;width:206px"><span>Analytics</span><b class="is-purple">12.4K</b></div>
+  <div class="gs-stat2" style="left:256px;top:276px;width:206px"><span>Revenue</span><b class="is-teal">$8.2K</b></div>
+  <div class="gs-stat2" style="left:474px;top:276px;width:206px"><span>Users</span><b class="is-green">3.1K</b></div>
+  <div class="gs-hero is-bleed" style="left:96px;top:453px;width:528px;height:175px"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6" fill="#8b5cf6" stroke="none"/><path d="M21 16l-5-5-8 8"/></svg>Hero Image</div>
+  <div class="gs-tag gs-tag--bleed gs-fade" style="left:588px;top:585px;animation-delay:1.2s">Full-bleed</div>
+  <div class="gs-quote" style="left:17px;top:677px;width:609px;--q:20px"><p>"Design is not just what it looks like — design is how it works."</p><small>— Steve Jobs</small></div>
+  <div class="gs-tag gs-tag--quote gs-fade" style="left:10px;top:667px;animation-delay:2s">Pull quote</div>
+  <div class="gs-note is-green gs-fade" style="left:55px;top:948px;animation-delay:2.4s">Not chaos</div>
+  <div class="gs-note is-teal gs-fade" style="right:50px;top:948px;animation-delay:2.4s">Contrast</div>
+  <div class="gs-caption gs-in" style="top:1006px;animation-delay:2.6s">Pros know <b>when</b> to break the rules</div>
+</section>
+
+<!-- 14 · Outro -->
+<section class="scene gs-page" data-t="57" data-shot="58.5">
+  <div class="gs-glow" style="top:600px"></div>
+  <div class="gs-handle gs-in" style="top:465px">@designmotionhq</div>
+  <div class="gs-outro-t gs-in" style="top:538px;animation-delay:.15s">The grid is a <em>superpower</em></div>
+  <div class="gs-outro-s gs-in" style="top:591px;animation-delay:.3s">Master it. Then break it on purpose.</div>
+  <button class="gs-follow gs-in" id="follow" style="top:645px;animation-delay:.45s"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg><span>Follow</span></button>
+  <div class="gs-save gs-in" style="top:732px;animation-delay:.6s"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-1px;margin-right:6px"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Save this for your next project</div>
+</section>
+
+<script type="module">
+  import { RatioDashboard, ResponsiveDashboard, ColumnGuides, FollowButton } from './pattern.js';
+  document.querySelectorAll('.gs-ratio').forEach(r => RatioDashboard(r, { side: Number(r.dataset.side) }));
+  document.querySelectorAll('.gs-resp').forEach(r => ResponsiveDashboard(r, Number(r.dataset.cols)));
+  ColumnGuides(document.getElementById('mock'), { cols: 12, gutter: 4, span: 400, color: 'rgba(62,224,122,.07)' });
+  document.querySelectorAll('.gs-page').forEach(s => ColumnGuides(s, { cols: 12, gutter: 8, inset: 38, span: 720, color: 'rgba(124,82,214,.14)' }));
+  FollowButton(document.getElementById('follow'));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

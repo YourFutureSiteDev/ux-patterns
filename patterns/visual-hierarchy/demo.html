@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Visual Hierarchy · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a090b; --grid: transparent; --accent: #864ded; --danger: #e4536b; }
+  .scene { color: #f7f6f8; }
+</style>
+</head>
+<body class="vh">
+
+<svg width="0" height="0" style="position:absolute"><symbol id="v-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol></svg>
+
+<!-- 1 · Hook: no hierarchy vs clear hierarchy -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="vh-lbl vh-fade" style="left:157px;top:334px">No hierarchy</div>
+  <div class="vh-lbl vh-lbl--on vh-fade" style="left:431px;top:334px;animation-delay:.2s">Clear hierarchy</div>
+  <div class="vh-flat vh-fade" style="left:68px;top:420px"><span>dashboard</span>
+    <div class="vh-flat__card"><b>revenue</b><span>$12,450 this month</span><i>view</i></div>
+    <div class="vh-flat__card"><b>users</b><span>2,847 active today</span><i>manage</i></div>
+  </div>
+  <div class="vh-vs" style="left:352px;top:517px">VS</div>
+  <div class="vh-clear vh-fade" style="left:386px;top:367px;animation-delay:.2s"><span>Dashboard</span>
+    <div class="vh-clear__card"><b>Revenue</b><span>$12,450 this month</span><i>View Report</i></div>
+    <div class="vh-clear__card"><b>Users</b><span>2,847 active today</span><i>Manage</i></div>
+  </div>
+  <div class="vh-big vh-fade" style="top:703px;animation-delay:.5s">Five rules. <em class="soft">That's all.</em></div>
+  <div class="vh-line vh-line--dim vh-fade" style="top:755px;animation-delay:.7s">Same content. Completely different feel.</div>
+  <div class="vh-save"><svg><use href="#v-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 2 · Size: before -->
+<section class="scene" data-t="6" data-shot="10.5">
+  <div class="vh-rule"><i>1</i><span>Size</span></div>
+  <div class="vh-hero vh-hero--small vh-fade" id="sizeHero" style="left:53px;top:385px;height:188px;padding-top:30px">
+    <h2 class="vh-hero__title">Monthly Revenue</h2>
+    <p class="vh-hero__body">Track your earnings across all channels and compare with previous periods.</p>
+    <div class="vh-hero__meta">Updated 2 hours ago</div>
+  </div>
+  <div class="vh-scale" style="left:207px;top:598px">
+    <div style="color:#8f8f8f"><i style="width:66px;height:25px;background:#535353"></i>Caption</div>
+    <div style="color:#c9c9c9"><i style="width:66px;height:52px;background:#8f8f8f;animation-delay:.15s"></i>Body</div>
+    <div style="color:#d9cffb"><i style="width:66px;height:105px;background:#c0acf7;animation-delay:.3s"></i>Heading</div>
+    <div style="color:#a98cf5"><i style="width:66px;height:172px;background:#864ded;animation-delay:.45s"></i>Display</div>
+  </div>
+  <div class="vh-save"><svg><use href="#v-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 2b · Size: heading at 2x -->
+<section class="scene" data-t="12" data-shot="13.5">
+  <div class="vh-rule"><i>1</i><span>Size</span></div>
+  <div class="vh-hero" style="left:53px;top:371px;height:216px">
+    <span class="vh-hero__badge vh-in">2x</span>
+    <h2 class="vh-hero__title">Monthly Revenue</h2>
+    <p class="vh-hero__body">Track your earnings across all channels and compare with previous periods.</p>
+    <div class="vh-hero__meta">Updated 2 hours ago</div>
+  </div>
+  <div class="vh-scale" style="left:207px;top:611px">
+    <div style="color:#8f8f8f"><i style="width:66px;height:25px;background:#535353"></i>Caption</div>
+    <div style="color:#c9c9c9"><i style="width:66px;height:52px;background:#8f8f8f"></i>Body</div>
+    <div style="color:#d9cffb"><i style="width:66px;height:105px;background:#c0acf7"></i>Heading</div>
+    <div style="color:#a98cf5"><i style="width:66px;height:172px;background:#864ded"></i>Display</div>
+  </div>
+  <div class="vh-save"><svg><use href="#v-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 3 · Color: rainbow -->
+<section class="scene" data-t="15" data-shot="19.5">
+  <div class="vh-rule"><i>2</i><span>Color</span></div>
+  <div class="vh-nav vh-nav--rainbow vh-fade" style="left:40px;top:472px"><span class="r">Home</span><span class="y">Products</span><span class="on">Pricing</span><span class="b">About</span><span class="v">Contact</span></div>
+  <div class="vh-stat vh-stat--red vh-fade" style="left:40px;top:558px;animation-delay:.2s"><span>Revenue</span><b>$12.4k</b></div>
+  <div class="vh-stat vh-stat--green vh-fade" style="left:258px;top:558px;animation-delay:.35s"><span>Users</span><b>2,847</b></div>
+  <div class="vh-stat vh-stat--dimpurple vh-fade" style="left:475px;top:565px;animation-delay:.5s"><span>Growth</span><b>+24%</b></div>
+  <div class="vh-save"><svg><use href="#v-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 3b · Color: one accent -->
+<section class="scene" data-t="21" data-shot="22.5">
+  <div class="vh-rule"><i>2</i><span>Color</span></div>
+  <div class="vh-nav" id="accentNav" style="left:40px;top:472px"><span>Home</span><span>Products</span><span class="on">Pricing</span><span>About</span><span>Contact</span></div>
+  <div class="vh-stat" style="left:40px;top:558px"><span>Revenue</span><b>$12.4k</b></div>
+  <div class="vh-stat" style="left:258px;top:558px"><span>Users</span><b>2,847</b></div>
+  <div class="vh-stat vh-stat--accent" style="left:475px;top:558px"><span>Growth</span><b>+24%</b></div>
+  <div class="vh-line vh-fade" style="top:683px;animation-delay:.4s">One accent color. <em>Only where it matters.</em></div>
+  <div class="vh-save"><svg><use href="#v-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 4 · Contrast -->
+<section class="scene" data-t="24" data-shot="36">
+  <div class="vh-rule"><i>3</i><span>Contrast</span></div>
+  <div class="vh-plan vh-fade" style="left:47px;top:360px"><b>Premium Plan</b><span>Everything you need to scale your business to the next level</span><div class="vh-plan__btns"><i class="fill">Get Started</i><i class="ghost">Learn More</i></div></div>
+  <div class="vh-pair vh-fade" style="top:555px;animation-delay:.6s"><div class="bold">Bold 800</div><span>vs</span><div class="light">Light 300</div></div>
+  <div class="vh-pair vh-fade" style="top:634px;animation-delay:1.6s"><div class="filled">Filled</div><span>vs</span><div class="outlined">Outlined</div></div>
+  <div class="vh-pair vh-fade" style="top:711px;animation-delay:3.6s"><div class="white">#FFFFFF</div><span>vs</span><div class="grey">#4a4a6a</div></div>
+  <div class="vh-line vh-fade" style="top:790px;animation-delay:4.6s">Bigger difference = <em>stronger signal</em></div>
+  <div class="vh-save"><svg><use href="#v-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 5 · Whitespace: cramped -->
+<section class="scene" data-t="33" data-shot="40.5">
+  <div class="vh-rule"><i>4</i><span>Whitespace</span></div>
+  <div class="vh-space vh-fade" style="left:40px;top:472px;width:640px;height:191px">
+    <div class="vh-space__hero" style="left:12px;top:12px;width:616px;height:52px;padding:9px 8px"><b style="font-size:15px">Start Free Trial</b><span style="font-size:11px;margin-top:2px">No credit card required</span></div>
+    <div class="vh-space__row" style="left:12px;top:71px;width:616px;height:35px;font-size:15px">Features</div>
+    <div class="vh-space__row" style="left:12px;top:108px;width:616px;height:35px;font-size:15px">Pricing</div>
+    <div class="vh-space__row" style="left:12px;top:145px;width:616px;height:35px;font-size:15px">Documentation</div>
+  </div>
+  <div class="vh-save"><svg><use href="#v-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 5b · Whitespace: intentional -->
+<section class="scene" data-t="42" data-shot="46.5">
+  <div class="vh-rule"><i>4</i><span>Whitespace</span></div>
+  <div class="vh-space" id="spaceCard" style="left:40px;top:397px;width:640px;height:345px">
+    <div class="vh-space__mark" style="top:3px;height:28px"><span>48px</span></div>
+    <div class="vh-space__hero" style="left:32px;top:33px;width:576px;height:100px;padding:24px 25px"><b style="font-size:22px">Start Free Trial</b><span style="font-size:13px;margin-top:8px">No credit card required</span></div>
+    <div class="vh-space__row" style="left:32px;top:177px;width:576px;height:34px;font-size:15px">Features</div>
+    <div class="vh-space__row" style="left:32px;top:228px;width:576px;height:34px;font-size:15px">Pricing</div>
+    <div class="vh-space__row" style="left:32px;top:279px;width:576px;height:34px;font-size:15px">Documentation</div>
+  </div>
+  <div class="vh-line vh-fade" style="top:760px;animation-delay:.6s">Not empty. <em>Intentional.</em></div>
+  <div class="vh-save"><svg><use href="#v-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 6 · Typography weight -->
+<section class="scene" data-t="51" data-shot="55.5">
+  <div class="vh-rule"><i>5</i><span>Typography weight</span></div>
+  <div class="vh-weights vh-fade" style="left:40px;top:387px">
+    <div class="vh-wrow vh-wrow--h"><code class="on">800</code><p>Monthly Revenue Report</p><small>Heading</small></div>
+    <div class="vh-wrow vh-wrow--b"><code>400</code><p>Track your earnings across all channels and compare performance metrics.</p><small class="dim">Body</small></div>
+    <div class="vh-wrow vh-wrow--c"><code>300</code><p>Last updated 2 hours ago · Q4 2025</p><small>Caption</small></div>
+  </div>
+  <div class="vh-order vh-fade" style="left:40px;top:642px;animation-delay:2s"><b>You read this first</b><p>Then this paragraph gives you context</p><small>And finally the small details down here</small><div class="vh-order__dots"><i>1</i><i>2</i><i>3</i></div></div>
+  <div class="vh-save"><svg><use href="#v-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 7 · Five rules. One clear hierarchy. -->
+<section class="scene" data-t="60" data-shot="61.5">
+  <div class="vh-big vh-fade" style="top:535px">Five rules.<br><em>One clear hierarchy.</em></div>
+  <div class="vh-chips" style="top:660px">
+    <span class="vh-chip vh-fade" style="animation-delay:.3s"><i>1</i>Size</span><span class="vh-chip vh-fade" style="animation-delay:.45s"><i>2</i>Color</span><span class="vh-chip vh-fade" style="animation-delay:.6s"><i>3</i>Contrast</span><span class="vh-chip vh-fade" style="animation-delay:.75s"><i>4</i>Whitespace</span><span class="vh-chip vh-fade" style="animation-delay:.9s"><i>5</i>Weight</span>
+  </div>
+  <div class="vh-save"><svg><use href="#v-bookmark"/></svg>Save for later</div>
+</section>
+
+<script type="module">
+  import { emphasize, spendAccent, breathe } from './pattern.js';
+  const live = (el, fn) => el.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t === 0) fn(); });
+  // 2 · the heading grows to 2x body when the scene is entered live
+  live(document.getElementById('sizeHero'), () => setTimeout(() => emphasize(document.getElementById('sizeHero'), { scale: 2 }), 1500));
+  // 3b · one accent only: the nav gets its single accent on the active item
+  live(document.getElementById('accentNav'), () => spendAccent(document.getElementById('accentNav'), '.on'));
+  // 5b · the cramped list breathes out to 48px gaps
+  live(document.getElementById('spaceCard'), () => breathe(document.getElementById('spaceCard'), 48));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

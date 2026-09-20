@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dark Mode Surfaces · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0b0e11; --grid: rgba(255,255,255,.03); --accent: #2dc09f; --danger: #d43c76; }
+  .scene { color: #f2f4f6; }
+</style>
+</head>
+<body class="ds">
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="ds-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b2a6b"/><stop offset=".55" stop-color="#8b4a8c"/><stop offset="1" stop-color="#e07a5f"/></linearGradient>
+    <radialGradient id="ds-sun" cx=".5" cy=".5" r=".5"><stop offset=".6" stop-color="#f7ecc0"/><stop offset="1" stop-color="#f7ecc0" stop-opacity="0"/></radialGradient>
+  </defs>
+  <symbol id="ds-hero" viewBox="0 0 584 172" preserveAspectRatio="none">
+    <rect width="584" height="172" fill="url(#ds-sky)"/>
+    <circle cx="362" cy="62" r="60" fill="url(#ds-sun)" opacity=".55"/><circle cx="362" cy="62" r="40" fill="#f6e9b6"/>
+    <path d="M0 96 L90 62 L170 96 L250 58 L330 96 L410 66 L490 100 L584 70 L584 172 L0 172z" fill="#6b4a8a"/>
+    <path d="M0 126 L70 104 L150 130 L230 108 L310 134 L400 110 L480 136 L584 112 L584 172 L0 172z" fill="#4d3570"/>
+    <path d="M0 150 L120 140 L240 152 L360 142 L480 154 L584 146 L584 172 L0 172z" fill="#3a2a55"/>
+  </symbol>
+  <symbol id="ds-lamp-light" viewBox="0 0 156 80"><path d="M14 74h128" stroke="#3a3f47" stroke-width="3" stroke-linecap="round"/><rect x="16" y="66" width="34" height="8" rx="3" fill="#e0a92b"/><path d="M32 66 L44 30" stroke="#e0a92b" stroke-width="4" stroke-linecap="round"/><path d="M40 30 L88 20 L96 42 L46 46z" fill="#f2c94c"/><rect x="104" y="48" width="30" height="24" rx="4" fill="#e0473a"/><circle cx="112" cy="40" r="11" fill="#3cb371"/><circle cx="126" cy="36" r="12" fill="#2f9e5f"/><circle cx="120" cy="48" r="9" fill="#3cb371"/></symbol>
+  <symbol id="ds-lamp-dark" viewBox="0 0 156 80"><path d="M14 74h128" stroke="#4a4f57" stroke-width="3" stroke-linecap="round"/><rect x="16" y="66" width="34" height="8" rx="3" fill="#5a6069"/><path d="M32 66 L44 30" stroke="#5a6069" stroke-width="4" stroke-linecap="round"/><path d="M40 30 L88 20 L96 42 L46 46z" fill="#6f757e"/><rect x="104" y="48" width="30" height="24" rx="4" fill="#3a3f47"/><circle cx="112" cy="40" r="11" fill="#2dc09f"/><circle cx="126" cy="36" r="12" fill="#22a688"/><circle cx="120" cy="48" r="9" fill="#2dc09f"/></symbol>
+  <symbol id="i-dl" viewBox="0 0 24 24"><path d="M12 3v12M6 11l6 6 6-6M4 21h16"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 2h8l5 5v15H6z"/><path d="M14 2v5h5"/></symbol>
+  <symbol id="i-batt" viewBox="0 0 24 24"><rect x="2" y="7" width="17" height="10" rx="2"/><path d="M22 10v4M5 10v4M8 10v4M11 10v4"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5M3 17l9 5 9-5"/></symbol>
+  <symbol id="i-follow" viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M2 21a8 8 0 0 1 14-4M19 8v6M16 11h6"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+</svg>
+
+<template id="ds-dash-tpl">
+  <div class="ds-dash__avatar">MT</div><div class="ds-dash__name">Maya Torres</div><div class="ds-dash__org">Acme Analytics</div>
+  <div class="ds-dash__export"><svg><use href="#i-dl"/></svg>Export report</div>
+  <div class="ds-dash__value">$48,250</div>
+  <div class="ds-dash__delta"><svg><use href="#i-up"/></svg>+12.4% vs last month</div>
+  <div class="ds-dash__bars"><i style="--h:22px"></i><i style="--h:40px"></i><i style="--h:34px"></i><i style="--h:52px"></i><i style="--h:46px"></i><i style="--h:62px"></i><i style="--h:74px"></i></div>
+  <div class="ds-dash__copy">Net revenue after refunds and fees.<br>Updated 4 minutes ago.</div>
+  <div class="ds-dash__lock"><svg><use href="#i-lock"/></svg>Forecast available on Pro</div>
+  <div class="ds-dash__search"><svg><use href="#i-search"/></svg>Search transactions</div>
+</template>
+
+<!-- 1 · Hook A: Black background. -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="ds-kicker ds-kicker--pink">DARK MODE · 01</div>
+  <div class="ds-title">Black background.</div>
+  <div class="ds-page-card ds-page-card--black" style="left:28px;top:316px;width:664px;height:810px"></div>
+  <div class="ds-hero" style="left:68px;top:430px;width:584px;height:172px;overflow:visible"><svg><use href="#ds-hero"/></svg><span class="ds-hero__tag">#000 / #FFF</span></div>
+  <div class="ds-dash ds-dash--black" data-dash style="left:68px;top:602px;border-radius:0 0 12px 12px"></div>
+  <div class="ds-term ds-term--typing" style="left:67px;top:973px;width:586px">maya@acme ~ % <b data-type="dark-mode --invert" data-cps="7">d</b></div>
+  <div class="ds-cap ds-cap--pink" style="top:1032px">#000 + #FFF = zero depth</div>
+</section>
+
+<!-- 1b · Hook B: Not dark mode. A terminal. -->
+<section class="scene" data-t="2" data-shot="3">
+  <div class="ds-kicker ds-kicker--pink">DARK MODE · 01</div>
+  <div class="ds-title">Not dark mode.<br><span class="prompt">&gt;_</span><span class="pink">A terminal.</span></div>
+  <div class="ds-page-card ds-page-card--black" style="left:28px;top:316px;width:664px;height:810px"></div>
+  <div class="ds-hero" style="left:68px;top:430px;width:584px;height:172px;overflow:visible"><svg><use href="#ds-hero"/></svg><span class="ds-hero__tag">#000 / #FFF</span></div>
+  <div class="ds-dash ds-dash--black ds-dash--mono" data-dash style="left:68px;top:602px;border-radius:0 0 12px 12px"></div>
+  <div class="ds-term ds-term--typing" style="left:67px;top:973px;width:586px">maya@acme ~ % <b>dark-mode --invert</b></div>
+  <div class="ds-cap ds-cap--pink" style="top:1032px">#000 + #FFF = zero depth</div>
+</section>
+
+<!-- 2 · 01 Surface: pure black -->
+<section class="scene" data-t="5" data-shot="9">
+  <div class="ds-kicker">DARK MODE · 01 SURFACE</div>
+  <div class="ds-title">Near black, not black.</div>
+  <div class="ds-pill" style="left:188px;top:313px">page <code>L</code><code>0%</code></div>
+  <div class="ds-pill" style="left:308px;top:313px">card <code>L</code><code>0%</code></div>
+  <div class="ds-pill" style="left:427px;top:313px">chip <code>L</code><code>0%</code></div>
+  <div class="ds-slab ds-fade" style="top:417px"><div class="ds-slab__label">page<code>#000000</code></div></div>
+  <div class="ds-slab ds-fade" style="top:363px;animation-delay:.3s"><div class="ds-slab__label">card<code>#000000</code></div></div>
+  <div class="ds-slab ds-fade" style="top:310px;animation-delay:.6s"><div class="ds-slab__label">chip<code>#000000</code></div></div>
+  <div class="ds-check ds-in" style="top:773px;animation-delay:1.2s"><svg><use href="#i-batt"/></svg>saves OLED battery<b class="ok">✓</b></div>
+  <div class="ds-check ds-in" style="top:842px;animation-delay:2s"><svg><use href="#i-layers"/></svg>kills depth<b class="no">✕</b></div>
+  <div class="ds-cap ds-in" style="animation-delay:2.8s">OLED wins battery. You lose depth.</div>
+</section>
+
+<!-- 2b · 01 Surface: near black -->
+<section class="scene" data-t="13.5" data-shot="15">
+  <div class="ds-glow"></div>
+  <div class="ds-kicker ds-kicker--teal">DARK MODE · 01 SURFACE</div>
+  <div class="ds-title">Near black, not black.</div>
+  <div class="ds-pill" style="left:184px;top:313px">page <code>L</code><code class="teal">5%</code></div>
+  <div class="ds-pill" style="left:305px;top:313px">card <code>L</code><code class="teal">9%</code></div>
+  <div class="ds-pill" style="left:424px;top:313px">chip <code>L</code><code class="teal">12%</code></div>
+  <div class="ds-slab ds-slab--lit" style="top:415px;background:#0b0d10"><div class="ds-slab__label">page<code>#0B0D10</code></div></div>
+  <div class="ds-slab ds-slab--lit" style="top:350px;background:#13161b"><div class="ds-slab__label">card<code>#13161B</code></div></div>
+  <div class="ds-slab ds-slab--lit" style="top:285px;background:#1a1e25"><div class="ds-slab__label">chip<code>#1A1E25</code></div></div>
+  <div class="ds-check" style="top:773px"><svg><use href="#i-batt"/></svg>saves OLED battery<b class="ok">✓</b></div>
+  <div class="ds-check" style="top:842px"><svg><use href="#i-layers"/></svg>kills depth<b class="no">✕</b></div>
+  <div class="ds-cap ds-cap--teal ds-in" style="animation-delay:.6s">#0B0D10 · room for layers</div>
+</section>
+
+<!-- 3 · 02 Elevation: shadow -->
+<section class="scene" data-t="17" data-shot="22.5">
+  <div class="ds-kicker">DARK MODE · 02 ELEVATION</div>
+  <div class="ds-title">Lightness is elevation.</div>
+  <div class="ds-code ds-code--strike" style="top:280px">box-shadow: 0 24px 64px #000</div>
+  <div class="ds-page-card" style="left:42px;top:340px;width:636px;height:384px;box-shadow:0 24px 64px #000"></div>
+  <div class="ds-dash" data-dash style="left:68px;top:362px"></div>
+  <div class="ds-swatch ds-in--plain" style="left:85px;top:918px;height:61px;background:#0b0d10;animation-delay:1s"><b><i>0</i>page</b><code>#0B0D10</code></div>
+  <div class="ds-swatch ds-in--plain" style="left:226px;top:900px;height:79px;background:#13161b;animation-delay:1.2s"><b><i>1</i>card</b><code>#13161B</code></div>
+  <div class="ds-swatch ds-in--plain" style="left:367px;top:882px;height:97px;background:#1a1e25;animation-delay:1.4s"><b><i>2</i>menu</b><code>#1A1E25</code></div>
+  <div class="ds-swatch ds-in--plain" style="left:508px;top:865px;height:114px;background:#222730;animation-delay:1.6s"><b><i>3</i>modal</b><code>#222730</code></div>
+  <div class="ds-cap ds-in" style="animation-delay:2s">Raise with lightness, not shadow</div>
+</section>
+
+<!-- 3b · 02 Elevation: lightness -->
+<section class="scene" data-t="23.5" data-shot="24">
+  <div class="ds-glow"></div>
+  <div class="ds-kicker ds-kicker--teal">DARK MODE · 02 ELEVATION</div>
+  <div class="ds-title">Lightness is elevation.</div>
+  <div class="ds-code ds-code--strike" style="top:280px">box-shadow: 0 24px 64px #000</div>
+  <div class="ds-page-card" style="left:42px;top:340px;width:636px;height:384px"></div>
+  <div class="ds-dash" data-dash data-menu style="left:68px;top:362px"></div>
+  <div class="ds-swatch ds-swatch--lit" style="left:85px;top:918px;height:61px;background:#0b0d10"><b><i>0</i>page</b><code>#0B0D10</code></div>
+  <div class="ds-swatch ds-swatch--lit" style="left:226px;top:900px;height:79px;background:#13161b"><b><i>1</i>card</b><code>#13161B</code></div>
+  <div class="ds-swatch ds-swatch--lit" style="left:367px;top:882px;height:97px;background:#1a1e25"><b><i>2</i>menu</b><code>#1A1E25</code></div>
+  <div class="ds-swatch ds-swatch--lit" style="left:508px;top:865px;height:114px;background:#222730"><b><i>3</i>modal</b><code>#222730</code></div>
+  <div class="ds-cap ds-cap--teal">Raise with lightness, not shadow</div>
+</section>
+
+<!-- 4 · 03 Text: pure white -->
+<section class="scene" data-t="28" data-shot="30">
+  <div class="ds-kicker">DARK MODE · 03 TEXT</div>
+  <div class="ds-title">Three tiers of white.</div>
+  <div class="ds-page-card" style="left:22px;top:288px;width:676px;height:434px"></div>
+  <div class="ds-dash" data-dash style="left:36px;top:316px;zoom:1.11"></div>
+  <div class="ds-code ds-in" style="top:741px;animation-delay:.4s">color: #FFFFFF;</div>
+  <div class="ds-panel ds-in--plain" style="top:796px;height:142px;animation-delay:.8s">
+    <div class="ds-row" style="top:14px"><span>primary</span><i></i><code>100%</code></div>
+    <div class="ds-row" style="top:55px"><span>secondary</span><i></i><code>100%</code></div>
+    <div class="ds-row" style="top:97px"><span>disabled</span><i></i><code>100%</code></div>
+  </div>
+  <div class="ds-cap ds-in" style="animation-delay:1.4s">Never pure white</div>
+</section>
+
+<!-- 4b · 03 Text: three alphas -->
+<section class="scene" data-t="37.5" data-shot="40.5">
+  <div class="ds-glow"></div>
+  <div class="ds-kicker ds-kicker--teal">DARK MODE · 03 TEXT</div>
+  <div class="ds-title">Three tiers of white.</div>
+  <div class="ds-page-card" style="left:22px;top:288px;width:676px;height:434px"></div>
+  <div class="ds-dash ds-dash--tiers" data-dash style="left:36px;top:316px;zoom:1.11"></div>
+  <div class="ds-tier" style="left:553px;top:419px"><b>87%</b>primary</div>
+  <div class="ds-tier" style="left:531px;top:531px"><b>60%</b>secondary</div>
+  <div class="ds-tier" style="left:547px;top:579px"><b>38%</b>disabled</div>
+  <div class="ds-bracket ds-in--plain" style="left:678px;top:435px;height:163px;animation-delay:.5s"></div>
+  <div class="ds-code ds-code--teal ds-in" style="top:741px;animation-delay:.5s">color: rgb(255 255 255 / .87);</div>
+  <div class="ds-panel" style="top:796px;height:142px">
+    <div class="ds-row" style="top:14px"><span>primary</span><i style="--a:.87"></i><code class="teal">87%</code></div>
+    <div class="ds-row" style="top:55px"><span>secondary</span><i style="--a:.6"></i><code class="teal">60%</code></div>
+    <div class="ds-row" style="top:97px"><span>disabled</span><i style="--a:.38"></i><code class="teal">38%</code></div>
+  </div>
+  <div class="ds-cap ds-cap--teal ds-in" style="animation-delay:1s">One color, three alphas</div>
+</section>
+
+<!-- 5 · 04 Accent: saturated -->
+<section class="scene" data-t="42" data-shot="45">
+  <div class="ds-kicker">DARK MODE · 04 ACCENT</div>
+  <div class="ds-title">Calm the accent.</div>
+  <div class="ds-page-card" style="left:42px;top:287px;width:636px;height:403px;overflow:hidden"><div class="ds-dash ds-dash--stolen" data-dash style="left:0;top:49px;zoom:1.09;border-radius:14px 14px 0 0"></div></div>
+  <div class="ds-code ds-in" style="top:715px;animation-delay:.4s"><i style="background:#2563eb"></i>#2563EB · S 85%</div>
+  <div class="ds-hsl ds-in--plain" style="top:795px;animation-delay:.8s">
+    <div class="ds-hsl__swatch"></div>
+    <div class="ds-hsl__row ds-hsl__row--h" style="top:18px"><span>H</span><i style="--v:60%"></i><code>218</code></div>
+    <div class="ds-hsl__row" style="top:42px"><span>S</span><i style="--v:85%"></i><code>85%</code></div>
+    <div class="ds-hsl__row" style="top:67px"><span>L</span><i style="--v:48%"></i><code>48%</code></div>
+  </div>
+  <div class="ds-cap ds-in" style="animation-delay:1.4s">Saturated glows past its edges</div>
+</section>
+
+<!-- 5b · 04 Accent: calm -->
+<section class="scene" data-t="49.5" data-shot="52.5">
+  <div class="ds-glow"></div>
+  <div class="ds-kicker ds-kicker--teal">DARK MODE · 04 ACCENT</div>
+  <div class="ds-title">Calm the accent.</div>
+  <div class="ds-page-card" style="left:42px;top:287px;width:636px;height:403px;overflow:hidden"><div class="ds-dash ds-dash--calm ds-dash--tiers" data-dash style="left:0;top:49px;zoom:1.09;border-radius:14px 14px 0 0"></div></div>
+  <div class="ds-code ds-code--teal" style="top:715px"><i style="background:#7fa6e8"></i>#7FA6E8 · S 45%</div>
+  <div class="ds-lock ds-in--plain" style="left:467px;top:776px;animation-delay:.6s"><svg><use href="#i-lock"/></svg>H 218 locked</div>
+  <div class="ds-hsl ds-hsl--calm" style="top:795px">
+    <div class="ds-hsl__swatch"></div>
+    <div class="ds-hsl__row ds-hsl__row--h" style="top:18px"><span>H</span><i style="--v:60%"></i><code>218</code></div>
+    <div class="ds-hsl__row" style="top:42px"><span>S</span><i style="--v:45%"></i><code>45%</code></div>
+    <div class="ds-hsl__row" style="top:67px"><span>L</span><i style="--v:70%"></i><code>70%</code></div>
+  </div>
+  <div class="ds-cap ds-cap--teal ds-in" style="animation-delay:1s">Same hue · lighter · softer</div>
+</section>
+
+<!-- 6 · 05 Hairline: none -->
+<section class="scene" data-t="54" data-shot="54">
+  <div class="ds-kicker">DARK MODE · 05 HAIRLINE</div>
+  <div class="ds-title" style="color:#c9ced5">Alpha hairlines.</div>
+  <div class="ds-code" style="top:280px">border: none</div>
+  <div class="ds-page-card" style="left:28px;top:296px;width:664px;height:390px"></div>
+  <div class="ds-dash ds-dash--calm" data-dash data-dashed style="left:42px;top:316px;zoom:1.09"></div>
+  <div class="ds-cap" style="opacity:.5">No edge, no shape</div>
+</section>
+
+<!-- 6b · 05 Hairline: alpha -->
+<section class="scene" data-t="58.5" data-shot="60">
+  <div class="ds-glow"></div>
+  <div class="ds-kicker ds-kicker--teal">DARK MODE · 05 HAIRLINE</div>
+  <div class="ds-title">Alpha hairlines.</div>
+  <div class="ds-page-card" style="left:28px;top:290px;width:664px;height:396px;border:1px solid rgba(255,255,255,.06)"></div>
+  <div class="ds-dash ds-dash--calm ds-dash--hair" data-dash data-hair style="left:42px;top:312px;zoom:1.09"></div>
+  <div class="ds-code ds-code--teal" style="top:708px">1px · rgb(255 255 255 / .08)</div>
+  <div class="ds-hair ds-in--plain" style="top:797px;animation-delay:.4s"><code>fixed gray #2A2A2A</code><i></i><em>Δ 9</em></div>
+  <div class="ds-hair ds-hair--alpha ds-in--plain" style="top:886px;animation-delay:.7s"><code>alpha 8%</code><i></i><em>Δ constant</em></div>
+  <div class="ds-cap ds-cap--teal ds-in" style="animation-delay:1.1s">Alpha adapts. Hex doesn't.</div>
+</section>
+
+<!-- 7 · 06 Images: bright -->
+<section class="scene" data-t="64.5" data-shot="66">
+  <div class="ds-kicker">DARK MODE · 06 IMAGES</div>
+  <div class="ds-title">Dim the photos.</div>
+  <div class="ds-page-card" style="left:42px;top:282px;width:636px;height:363px;overflow:hidden">
+    <div class="ds-hero" style="left:26px;top:20px;width:584px;height:172px"><svg><use href="#ds-hero"/></svg></div>
+    <div class="ds-dash ds-dash--calm" data-dash style="left:26px;top:192px;border-radius:0"></div>
+    <div style="position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(transparent, rgba(16,21,26,.9))"></div>
+  </div>
+  <div class="ds-code ds-in" style="top:693px;animation-delay:.4s">filter: none · brightness 100%</div>
+  <div class="ds-variant ds-variant--light ds-in--plain" style="top:767px;animation-delay:.8s"><svg><use href="#ds-lamp-light"/></svg><div><b>LIGHT VARIANT</b><code>illustration · light variant</code></div></div>
+  <div class="ds-variant ds-variant--dark ds-in--plain" style="top:895px;animation-delay:1s"><svg style="opacity:.35"><use href="#ds-lamp-dark"/></svg><div><b>DARK VARIANT</b><code>illustration · dark variant</code></div></div>
+  <div class="ds-cap ds-in" style="animation-delay:.8s">Bright image, stolen attention</div>
+</section>
+
+<!-- 7b · 06 Images: dimmed -->
+<section class="scene" data-t="70.5" data-shot="72">
+  <div class="ds-glow"></div>
+  <div class="ds-kicker ds-kicker--teal">DARK MODE · 06 IMAGES</div>
+  <div class="ds-title">Dim the photos.</div>
+  <div class="ds-page-card" style="left:42px;top:282px;width:636px;height:363px;overflow:hidden">
+    <div class="ds-hero ds-hero--dim" style="left:26px;top:20px;width:584px;height:172px"><svg><use href="#ds-hero"/></svg></div>
+    <div class="ds-dash ds-dash--calm" data-dash style="left:26px;top:192px;border-radius:0"></div>
+    <div style="position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(transparent, rgba(16,21,26,.9))"></div>
+  </div>
+  <div class="ds-code ds-code--teal" style="top:693px">filter: brightness(.9)</div>
+  <div class="ds-variant ds-variant--light is-dim" style="top:767px"><svg><use href="#ds-lamp-light"/></svg><div><b>LIGHT VARIANT</b><code>filter: brightness(.9) · still glare</code></div></div>
+  <div class="ds-variant ds-variant--dark is-on ds-in--plain" style="top:895px;animation-delay:.5s"><svg><use href="#ds-lamp-dark"/></svg><div><b>DARK VARIANT</b><code>redrawn dark variant</code></div></div>
+  <div class="ds-cap ds-cap--teal ds-in" style="animation-delay:1s">Photos: dim. Illustrations: redraw.</div>
+</section>
+
+<!-- 8 · System -->
+<section class="scene" data-t="75" data-shot="76.5">
+  <div class="ds-glow" style="top:600px"></div>
+  <div class="ds-kicker ds-kicker--teal">DARK MODE · SYSTEM</div>
+  <div class="ds-title">Dark mode is a system.</div>
+  <div class="ds-page-card" style="left:105px;top:287px;width:510px;height:440px;overflow:hidden">
+    <div class="ds-hero" style="left:27px;top:21px;width:456px;height:134px"><svg><use href="#ds-hero"/></svg></div>
+    <div class="ds-dash ds-dash--calm ds-dash--tiers" data-dash style="left:27px;top:155px;zoom:.78;border-radius:0 0 12px 12px"></div>
+  </div>
+  <div class="ds-tick ds-in--plain" style="left:68px;top:757px"><i>✓</i>Surface</div>
+  <div class="ds-tick ds-in--plain" style="left:366px;top:757px;animation-delay:.1s"><i>✓</i>Elevation</div>
+  <div class="ds-tick ds-in--plain" style="left:68px;top:808px;animation-delay:.2s"><i>✓</i>Text</div>
+  <div class="ds-tick ds-in--plain" style="left:366px;top:808px;animation-delay:.3s"><i>✓</i>Accent</div>
+  <div class="ds-tick ds-in--plain" style="left:68px;top:859px;animation-delay:.4s"><i>✓</i>Hairline</div>
+  <div class="ds-tick ds-in--plain" style="left:366px;top:859px;animation-delay:.5s"><i>✓</i>Images</div>
+  <div class="ds-title ds-in--plain" style="top:960px;font-size:30px;animation-delay:.7s">@designmotionhq</div>
+  <div class="ds-cta ds-in--plain" style="left:220px;top:1010px;width:140px;animation-delay:.9s"><svg><use href="#i-follow"/></svg>Follow</div>
+  <div class="ds-cta ds-in--plain" style="left:375px;top:1010px;width:127px;animation-delay:1s"><svg><use href="#i-save"/></svg>Save</div>
+</section>
+
+<script type="module">
+  import { DarkSystem, Typewriter, calmAccent, hsl } from './pattern.js';
+  // Every dashboard is stamped from one template; modifiers on the placeholder pick the state.
+  const tpl = document.getElementById('ds-dash-tpl');
+  document.querySelectorAll('[data-dash]').forEach(el => {
+    el.append(tpl.content.cloneNode(true));
+    if (el.hasAttribute('data-menu')) { el.querySelector('.ds-dash__bars').style.opacity = '.35'; el.insertAdjacentHTML('beforeend', '<div class="ds-menu"><b>EXPORT</b><div><svg><use href="#i-file"/></svg>CSV</div><div><svg><use href="#i-file"/></svg>PDF</div></div>'); }
+    if (el.hasAttribute('data-dashed')) el.querySelector('.ds-dash__search').classList.add('ds-dash__search--dashed');
+    if (el.hasAttribute('data-hair')) el.querySelector('.ds-dash__search').classList.add('ds-dash__search--hair');
+    if (el.classList.contains('ds-dash--stolen')) el.querySelector('.ds-dash__value').style.cssText = 'color:#8b939d;text-shadow:none';
+  });
+  // The whole reel's tokens come from the module (page 5% L → modal 16% L, three alphas, calmed accent).
+  DarkSystem(document.body, { hue: 220, accent: '#2563eb' });
+  console.log('calmAccent(#2563eb) →', calmAccent('#2563eb'), hsl('#2563eb'), hsl('#7fa6e8'));
+  // Terminal types "dark-mode --invert" from the first scene; frozen at the right character for screenshots.
+  document.querySelectorAll('[data-type]').forEach(b => { const tw = Typewriter(b, b.dataset.type, { cps: Number(b.dataset.cps) || 10, delay: -.15 }); const scene = b.closest('.scene'); const frozen = new URLSearchParams(location.search).has('t'); scene.addEventListener('scene:enter', e => tw.play(frozen ? e.detail.t - Number(scene.dataset.t) : undefined)); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

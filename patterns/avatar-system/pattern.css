@@ -1,0 +1,157 @@
+/* Avatar system, rebuilt from the @designmotionhq reel "Avatar UI tips".
+   Component classes are prefixed .av- and depend only on the tokens below. */
+.av {
+  --av-bg: #0b0e11; --av-panel: #12161b; --av-panel-2: #171c21; --av-border: #262b31; --av-text: #f3f4f6; --av-muted: #9ca3af; --av-dim: #6b7280;
+  --av-green: #34d399; --av-green-dim: #123b32; --av-pink: #f43f5e; --av-pink-dim: #3a1a2a; --av-sky: #38bdf8; --av-amber: #d4a04c;
+  --av-mono: 'JetBrains Mono', Consolas, 'Cascadia Mono', Menlo, monospace;
+  --sky: linear-gradient(160deg, #38bdf8, #0ea5e9 60%, #0284c7); --pink: linear-gradient(160deg, #f472b6, #db2777); --grn: linear-gradient(160deg, #34d399, #10b981); --vio: linear-gradient(160deg, #a78bfa, #6d5ce8);
+  font-family: 'Inter', system-ui, sans-serif; color: var(--av-text);
+}
+
+/* ---- Reel chrome ------------------------------------------------------ */
+.av-kicker { position: absolute; left: 50%; top: 143px; transform: translateX(-50%); height: 34px; padding: 0 20px; border-radius: 999px; display: flex; align-items: center; font-size: 14px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--av-green); background: #0c2020; border: 1px solid rgba(52,211,153,.3); white-space: nowrap; }
+.av-kicker--grey { color: var(--av-muted); background: #1a1f25; border-color: #2a3036; }
+.av-title { position: absolute; left: 0; right: 0; top: 190px; margin: 0; text-align: center; font-size: 36px; font-weight: 800; letter-spacing: -.02em; line-height: 1.12; padding: 0 40px; }
+.av-title em { font-style: normal; color: var(--av-green); }
+.av-cap { position: absolute; left: 50%; transform: translateX(-50%); top: 1013px; height: 56px; padding: 0 26px; border-radius: 12px; display: flex; align-items: center; gap: 10px; font-size: 21px; letter-spacing: -.01em; font-weight: 700; color: var(--av-green); background: #122727; border: 1px solid rgba(52,211,153,.25); white-space: nowrap; box-shadow: 0 0 40px rgba(52,211,153,.08); }
+.av-cap svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.av-cap i { width: 14px; height: 14px; border-radius: 50%; background: var(--av-sky); }
+.av-cap--pink { color: #f472b6; background: var(--av-pink-dim); border-color: rgba(244,63,94,.25); font-size: 17px; font-weight: 600; height: 44px; }
+.av-mono-label { position: absolute; font: 15px var(--av-mono); letter-spacing: .2em; text-transform: uppercase; color: var(--av-dim); }
+.av-glow { position: absolute; left: 60px; top: 200px; width: 600px; height: 600px; border-radius: 50%; background: rgba(52,211,153,.13); filter: blur(100px); pointer-events: none; }
+.av-panel { position: absolute; background: var(--av-panel); border: 1px solid #1c2127; border-radius: 12px; }
+.av-panel--green { border-color: rgba(52,211,153,.3); background: #10151a; } .av-panel--pink { border-color: rgba(244,63,94,.3); background: #10151a; }
+.av-chip { position: absolute; left: 50%; transform: translateX(-50%); height: 30px; padding: 0 14px; border-radius: 999px; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+.av-chip--green { color: var(--av-green); background: var(--av-green-dim); border: 1px solid rgba(52,211,153,.35); } .av-chip--pink { color: var(--av-pink); background: var(--av-pink-dim); border: 1px solid rgba(244,63,94,.35); }
+
+/* ---- The avatar -------------------------------------------------------- */
+.av-avatar { --size: 32px; width: var(--size); height: var(--size); border-radius: 50%; display: inline-grid; place-items: center; background: var(--sky); color: #fff; font-weight: 800; font-size: calc(var(--size) * .36); letter-spacing: -.01em; line-height: 1; overflow: hidden; flex: none; box-shadow: 0 4px 14px rgba(0,0,0,.35); position: relative; }
+.av-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.av-avatar[data-fallback="icon"] { background: #22262c; color: #9ca3af; } .av-avatar[data-fallback="icon"] svg { width: 50%; height: 50%; }
+.av-avatar--img { background: #1e4c58; color: rgba(255,255,255,.35); } .av-avatar--img svg { width: 50%; height: 50%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.av-avatar--icon { background: #22262c; color: #9ca3af; } .av-avatar--icon svg { width: 50%; height: 50%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.av-avatar--more { background: #1f2429; color: var(--av-green); font-size: calc(var(--size) * .33); }
+.av-avatar--pink { background: var(--pink); } .av-avatar--green { background: var(--grn); } .av-avatar--violet { background: var(--vio); }
+.av-avatar--rose { background: linear-gradient(160deg, #fb7185, #e0506a); } .av-avatar--amber { background: linear-gradient(160deg, #fbbf24, #f59e0b); } .av-avatar--indigo { background: linear-gradient(160deg, #818cf8, #6366f1); } .av-avatar--purple { background: linear-gradient(160deg, #c084fc, #a855f7); } .av-avatar--orange { background: linear-gradient(160deg, #fb923c, #f97316); }
+/* presence on the ring: a gap then a coloured ring, one signal */
+.av-avatar--ring { overflow: visible; }
+.av-avatar--ring::after { content: ''; position: absolute; inset: calc(var(--ring-gap, 4px) * -1 - var(--ring-w, 4px)); border-radius: 50%; border: var(--ring-w, 4px) solid var(--ring, var(--av-green)); box-shadow: 0 0 0 var(--ring-gap, 4px) var(--av-bg) inset; pointer-events: none; }
+.av-avatar--ring[data-status="online"] { --ring: var(--av-green); } .av-avatar--ring[data-status="away"] { --ring: var(--av-amber); } .av-avatar--ring[data-status="offline"] { --ring: #6b7280; }
+.av-avatar--ring[data-status="online"] { box-shadow: 0 0 26px rgba(52,211,153,.45); }
+.av-ring { position: absolute; border-radius: 50%; border: 5px solid var(--av-green); pointer-events: none; }
+.av-check { position: absolute; width: 24px; height: 24px; border-radius: 50%; background: var(--av-green); color: #062018; display: grid; place-items: center; border: 2px solid var(--av-panel-2); }
+.av-check svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.av-dot { position: absolute; width: 24px; height: 24px; border-radius: 50%; background: var(--av-green); border: 4px solid #10151a; }
+
+/* ---- Fallback chain ---------------------------------------------------- */
+.av-step { position: absolute; width: 120px; height: 162px; background: var(--av-panel-2); border: 1px solid var(--av-border); border-radius: 14px; text-align: center; }
+.av-step--bad { background: #3d252f; border-color: rgba(244,63,94,.4); }
+.av-step--up { height: 182px; }
+.av-step__n { position: absolute; left: 50%; top: -11px; transform: translateX(-50%); width: 22px; height: 22px; border-radius: 50%; background: #2a3038; color: #e5e7eb; font-size: 11px; font-weight: 700; display: grid; place-items: center; }
+.av-step__n--bad { background: var(--av-pink); color: #fff; }
+.av-step .av-avatar { --size: 76px; position: absolute; left: 22px; top: 17px; }
+.av-step__name { position: absolute; left: 0; right: 0; top: 104px; font-size: 17px; font-weight: 700; line-height: 1.15; }
+.av-step__sub { position: absolute; left: 0; right: 0; top: 128px; font-size: 14px; color: var(--av-muted); }
+.av-step__sub--pink { color: var(--av-pink); }
+.av-arrow { position: absolute; color: #4b5563; font-size: 22px; }
+.av-nope { position: absolute; width: 30px; height: 30px; border-radius: 50%; border: 3px solid var(--av-pink); }
+.av-nope::after { content: ''; position: absolute; left: 50%; top: 50%; width: 26px; height: 3px; background: var(--av-pink); transform: translate(-50%, -50%) rotate(-45deg); }
+.av-slash { position: absolute; height: 3px; background: var(--av-pink); transform-origin: left center; }
+.av-bar { position: absolute; height: 60px; background: var(--av-panel); border-radius: 10px; display: flex; align-items: center; padding: 0 23px; }
+.av-bar__order { margin-left: auto; font: 17px var(--av-mono); color: var(--av-green); }
+.av-bar__order i { font-style: normal; color: #4b5563; padding: 0 6px; }
+.av-bar__order s { color: var(--av-pink); text-decoration-thickness: 2px; }
+
+/* ---- Deterministic colour ------------------------------------------------ */
+.av-pipe { position: absolute; display: flex; align-items: center; gap: 0; }
+.av-pipe__box { height: 46px; padding: 0 14px; border-radius: 8px; display: flex; align-items: center; gap: 10px; background: var(--av-panel); border: 1px solid #1c2127; white-space: nowrap; }
+.av-pipe__box--name { background: #1c2127; font-size: 17px; font-weight: 700; }
+.av-pipe__box--hash { font: 17px var(--av-mono); color: var(--av-muted); }
+.av-pipe__box--mod { font: 17px var(--av-mono); color: var(--av-green); background: #0d2320; border-color: rgba(52,211,153,.25); }
+.av-pipe__box--out { border-color: rgba(56,189,248,.35); font: 16px var(--av-mono); color: var(--av-sky); padding: 0 12px; }
+.av-pipe__box--out .av-avatar { --size: 36px; font-size: 13px; }
+.av-pipe__arrow { width: 40px; text-align: center; color: #4b5563; font-size: 20px; flex: none; }
+.av-row-label { position: absolute; display: flex; align-items: center; gap: 8px; font: 15px var(--av-mono); letter-spacing: .1em; text-transform: uppercase; }
+.av-row-label i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.av-row-label svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; }
+.av-cards { position: absolute; display: flex; gap: 4px; }
+.av-card { width: 197px; height: 103px; background: var(--av-panel); border: 1px solid #1c2127; border-radius: 10px; position: relative; }
+.av-card__ctx { position: absolute; left: 17px; top: 15px; display: flex; align-items: center; gap: 7px; font: 12px var(--av-mono); letter-spacing: .15em; text-transform: uppercase; color: var(--av-dim); }
+.av-card__ctx svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; }
+.av-card .av-avatar { --size: 44px; position: absolute; left: 17px; top: 42px; font-size: 16px; }
+.av-card__name { position: absolute; left: 73px; top: 44px; font-size: 16px; font-weight: 700; }
+.av-card__sub { position: absolute; left: 73px; top: 66px; font-size: 14px; color: var(--av-muted); }
+
+/* ---- Initials ------------------------------------------------------------ */
+.av-name { position: absolute; left: 0; right: 0; text-align: center; font-size: 34px; font-weight: 700; color: var(--av-muted); letter-spacing: -.01em; }
+.av-name b { color: var(--av-green); }
+.av-people { position: absolute; display: flex; gap: 56px; }
+.av-person { text-align: center; width: 76px; } .av-person .av-avatar { --size: 76px; font-size: 27px; } .av-person em { display: block; margin-top: 16px; font-size: 15px; font-style: normal; color: var(--av-muted); white-space: nowrap; }
+.av-sizes { position: absolute; left: 72px; width: 576px; top: 573px; height: 1px; background: #2a2f36; }
+.av-sizes__item { position: absolute; bottom: 27px; text-align: center; }
+.av-sizes__item .av-avatar { margin: 0 auto; }
+.av-sizes__item em { font-style: normal; position: absolute; left: 50%; transform: translateX(-50%); top: calc(100% + 11px); font: 14px var(--av-mono); color: var(--av-muted); white-space: nowrap; }
+.av-sizes__item--pink em { color: var(--av-pink); }
+.av-judge { position: absolute; width: 264px; height: 262px; border-radius: 14px; }
+.av-judge .av-avatar { --size: 100px; position: absolute; left: 82px; top: 68px; font-size: 40px; }
+.av-judge__row { position: absolute; left: 18px; right: 20px; top: 185px; min-height: 47px; background: #1a1f25; border-radius: 8px; display: flex; align-items: center; gap: 10px; padding: 8px 12px; font-size: 15px; color: var(--av-muted); line-height: 1.15; }
+.av-judge__row .av-avatar { position: static; --size: 24px; font-size: 9px; }
+
+/* ---- Stack / overflow ---------------------------------------------------- */
+.av-stack { --size: 32px; --overlap: calc(var(--size) * -.4); display: inline-flex; align-items: center; }
+.av-stack .av-avatar { border: 4px solid var(--av-bg); box-shadow: none; margin-left: var(--overlap); box-sizing: content-box; }
+.av-stack .av-avatar:first-child { margin-left: 0; }
+.av-stack .av-avatar { position: relative; }
+.av-stack .av-avatar:nth-child(1) { z-index: 5; } .av-stack .av-avatar:nth-child(2) { z-index: 4; } .av-stack .av-avatar:nth-child(3) { z-index: 3; } .av-stack .av-avatar:nth-child(4) { z-index: 2; } .av-stack .av-avatar:nth-child(5) { z-index: 1; }
+.av-stack--big { --size: 92px; } .av-stack--big .av-avatar { font-size: 34px; }
+.av-stack--mid { --size: 84px; } .av-stack--mid .av-avatar { font-size: 32px; }
+.av-stack--sm { --size: 36px; --overlap: -8px; } .av-stack--sm .av-avatar { font-size: 13px; border-width: 3px; }
+.av-stats { position: absolute; display: flex; gap: 14px; }
+.av-stat { height: 32px; padding: 0 14px; border-radius: 6px; background: var(--av-panel); display: flex; align-items: center; gap: 8px; font: 13px var(--av-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--av-dim); }
+.av-stat b { color: var(--av-green); font-weight: 700; letter-spacing: 0; text-transform: none; }
+.av-review { position: absolute; height: 73px; background: var(--av-panel); border: 1px solid #1c2127; border-radius: 10px; }
+.av-review__title { position: absolute; left: 23px; top: 15px; font-size: 18px; font-weight: 700; }
+.av-review__sub { position: absolute; left: 23px; top: 42px; font-size: 14px; color: var(--av-muted); display: flex; align-items: center; gap: 6px; }
+.av-review__sub svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
+.av-review .av-stack { position: absolute; right: 22px; top: 50%; transform: translateY(-50%); }
+
+/* ---- Presence ------------------------------------------------------------- */
+.av-pres { position: absolute; width: 292px; height: 282px; border-radius: 14px; }
+.av-pres__cap { position: absolute; left: 0; right: 0; top: 240px; text-align: center; font-size: 16px; color: var(--av-muted); }
+.av-badge { position: absolute; height: 26px; padding: 0 10px; border-radius: 999px; background: #1a1f25; border: 1px solid #2a3036; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #e5e7eb; white-space: nowrap; }
+.av-badge i { width: 8px; height: 8px; border-radius: 50%; background: var(--av-green); }
+.av-badge--muted { color: var(--av-muted); font-weight: 500; }
+.av-warn { position: absolute; width: 24px; height: 24px; color: var(--av-pink); }
+.av-warn svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linejoin: round; }
+.av-legend { position: absolute; height: 100px; background: var(--av-panel); border: 1px solid #1c2127; border-radius: 12px; display: flex; align-items: center; padding: 0 34px; gap: 0; }
+.av-legend__item { display: flex; align-items: center; gap: 20px; width: 187px; }
+.av-legend__item .av-avatar { --size: 56px; font-size: 20px; --ring-w: 4px; --ring-gap: 5px; }
+.av-legend__item div b { display: block; font: 700 16px var(--av-mono); letter-spacing: .05em; } .av-legend__item div span { display: block; font-size: 14px; color: var(--av-dim); margin-top: 2px; }
+
+/* ---- Size scale -------------------------------------------------------------- */
+.av-baseline { position: absolute; left: 60px; width: 600px; top: 581px; height: 2px; background: #2fa37f; }
+.av-tick { position: absolute; width: 1px; height: 14px; background: #4b5563; }
+.av-size-chip { position: absolute; height: 32px; padding: 0 16px; border-radius: 999px; background: #12201d; border: 1px solid rgba(52,211,153,.3); display: flex; align-items: center; gap: 7px; font: 13px var(--av-mono); letter-spacing: .15em; text-transform: uppercase; color: var(--av-dim); white-space: nowrap; }
+.av-size-chip b { font-size: 17px; color: var(--av-green); letter-spacing: 0; }
+.av-list { position: absolute; display: flex; gap: 10px; }
+.av-list__card { width: 192px; height: 70px; background: var(--av-panel); border: 1px solid #1c2127; border-radius: 10px; display: flex; align-items: center; gap: 11px; padding: 0 16px; white-space: nowrap; }
+.av-list__card div b { display: block; font-size: 15px; font-weight: 700; } .av-list__card div span { display: block; font-size: 13px; color: var(--av-muted); margin-top: 2px; }
+.av-list__card .av-avatar { font-size: calc(var(--size) * .38); }
+.av-online { position: absolute; right: -2px; bottom: -2px; width: 12px; height: 12px; border-radius: 50%; background: var(--av-green); border: 2px solid var(--av-panel); }
+
+/* ---- Outro -------------------------------------------------------------------- */
+.av-outro__h { position: absolute; left: 0; right: 0; top: 196px; text-align: center; font-size: 50px; font-weight: 800; color: var(--av-green); letter-spacing: -.02em; }
+.av-outro__sub { position: absolute; left: 0; right: 0; top: 273px; text-align: center; font-size: 20px; color: var(--av-muted); }
+.av-feature { position: absolute; width: 292px; height: 72px; background: var(--av-panel); border: 1px solid #1c2127; border-radius: 10px; }
+.av-feature i { position: absolute; left: 18px; top: 16px; width: 40px; height: 40px; border-radius: 8px; background: var(--av-green-dim); border: 1px solid rgba(52,211,153,.3); color: var(--av-green); display: grid; place-items: center; }
+.av-feature svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.av-feature b { position: absolute; left: 73px; top: 16px; font-size: 17px; font-weight: 700; } .av-feature span { position: absolute; left: 73px; top: 40px; font-size: 14px; color: var(--av-muted); }
+.av-site { position: absolute; left: 0; right: 0; top: 720px; display: flex; justify-content: center; align-items: center; gap: 12px; font: 700 28px var(--av-mono); color: #f3f4f6; }
+.av-site svg { width: 26px; height: 26px; fill: none; stroke: var(--av-green); stroke-width: 2; }
+.av-btn { position: absolute; height: 50px; padding: 0 22px; border-radius: 999px; display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; }
+.av-btn--green { background: var(--av-green); color: #062018; box-shadow: 0 0 30px rgba(52,211,153,.35); } .av-btn--dark { background: #1a1f25; color: #f3f4f6; }
+.av-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
+.av-handle { position: absolute; left: 0; right: 0; top: 845px; text-align: center; font-size: 15px; color: #4b5563; }
+.av-fade { animation: av-fade .5s ease-out both; animation-delay: var(--d, 0s); }
+@keyframes av-fade { from { opacity: 0; translate: 0 10px; } to { opacity: 1; translate: 0 0; } }
+@keyframes av-pop { from { scale: .6; opacity: 0; } to { scale: 1; opacity: 1; } }
