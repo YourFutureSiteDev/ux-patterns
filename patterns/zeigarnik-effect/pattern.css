@@ -1,0 +1,114 @@
+/* Zeigarnik Effect, rebuilt from the @designmotionhq reel "Your brain forgets what's finished, and won't stop nagging about what's not."
+   Component classes are prefixed .zg- and depend only on the tokens below. */
+.zg {
+  --zg-bg: #0a0a0c; --zg-panel: #0d1015; --zg-row: #171a21; --zg-border: rgba(255,255,255,.06); --zg-text: #f2f2f4; --zg-muted: #8a8a92;
+  --zg-pink: #d44c72; --zg-pink-hi: #e0506e; --zg-pink-dim: #33151f; --zg-green: #23c756; --zg-yellow: #f0b62e; --zg-red: #e05a5a;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--zg-text);
+}
+
+/* ---- Reel chrome ------------------------------------------------------------------ */
+.zg-kicker { position: absolute; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 8px; padding: 9px 20px; border-radius: 999px; background: var(--zg-pink-dim); color: var(--zg-pink); font-size: 14px; font-weight: 700; letter-spacing: .12em; white-space: nowrap; }
+.zg-kicker svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+.zg-kicker--yellow { background: #382016; color: var(--zg-yellow); }
+.zg-h1 { position: absolute; left: 0; right: 0; text-align: center; font-size: 36px; font-weight: 800; letter-spacing: -.02em; line-height: 1.1; }
+.zg-h1 em { font-style: normal; color: var(--zg-pink); } .zg-h1 em.yellow { color: var(--zg-yellow); }
+.zg-cap { position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; text-align: center; }
+.zg-pill { position: absolute; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 12px; padding: 14px 26px; border-radius: 10px; background: var(--zg-panel); border: 1px solid var(--zg-border); font-size: 17px; font-weight: 700; white-space: nowrap; }
+
+/* ---- Open-loop meter (the core component) ------------------------------------------ */
+.zg-loop { position: absolute; width: 358px; height: 215px; padding: 26px 24px; border-radius: 10px; background: var(--zg-panel); border: 1px solid rgba(212,76,114,.45); box-shadow: 0 0 70px rgba(212,76,114,.6), 0 0 0 1px rgba(212,76,114,.15); }
+.zg-loop__label { font-size: 15px; font-weight: 700; letter-spacing: .14em; color: var(--zg-pink); }
+.zg-bar { position: relative; height: 14px; border-radius: 7px; background: var(--zg-row); overflow: hidden; }
+.zg-bar__fill { position: absolute; left: 0; top: 0; bottom: 0; width: var(--p, 80%); border-radius: 7px; background: linear-gradient(90deg, #8f2f4c, #e0506e); box-shadow: 0 0 16px rgba(224,80,110,.7); transition: width .8s cubic-bezier(.2,.8,.2,1); }
+.zg-bar--sm { height: 10px; border-radius: 5px; } .zg-bar--sm .zg-bar__fill { border-radius: 5px; }
+.zg-bar--xs { height: 6px; border-radius: 3px; background: #2a2a33; } .zg-bar--xs .zg-bar__fill { border-radius: 3px; box-shadow: none; }
+.zg-bar--grey .zg-bar__fill { background: #3a373e; box-shadow: none; }
+.zg-bar--green .zg-bar__fill { background: linear-gradient(90deg, #1a8f43, #23c756); box-shadow: 0 0 12px rgba(35,199,86,.6); }
+.zg-bar--red .zg-bar__fill { background: #9b3741; }
+.zg-loop .zg-bar { margin-top: 18px; }
+.zg-loop__pct { margin-top: 20px; font-size: 44px; font-weight: 800; color: var(--zg-pink); line-height: 1; letter-spacing: -.02em; }
+.zg-loop__pct small { font-size: 22px; font-weight: 700; }
+.zg-loop__sub { margin-top: 14px; font-size: 17px; font-weight: 600; color: var(--zg-pink); }
+
+/* ---- Active memory cards --------------------------------------------------------- */
+.zg-mem { position: absolute; width: 305px; height: 147px; padding: 20px 18px; border-radius: 10px; background: #140e12; border: 1px solid var(--zg-border); opacity: .38; }
+.zg-mem--hot { background: #0f1014; opacity: 1; border-color: rgba(212,76,114,.5); box-shadow: 0 0 34px rgba(212,76,114,.35); }
+.zg-mem__tag { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; letter-spacing: .1em; color: var(--zg-muted); }
+.zg-mem__tag svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+.zg-mem--hot .zg-mem__tag { color: var(--zg-pink); }
+.zg-mem__task { margin-top: 10px; font-size: 16px; font-weight: 500; color: var(--zg-muted); text-decoration: line-through; }
+.zg-mem--hot .zg-mem__task { color: #fff; font-weight: 600; text-decoration: none; }
+.zg-mem__recall { margin-top: 18px; display: flex; align-items: baseline; gap: 8px; font-size: 13px; font-weight: 700; letter-spacing: .1em; color: var(--zg-muted); }
+.zg-mem__recall b { font-size: 30px; font-weight: 800; color: #6a6a72; letter-spacing: -.02em; }
+.zg-mem--hot .zg-mem__recall b { color: var(--zg-pink); text-shadow: 0 0 18px rgba(212,76,114,.7); }
+.zg-brain { position: absolute; left: 50%; transform: translateX(-50%); width: 52px; height: 52px; color: var(--zg-pink); filter: drop-shadow(0 0 10px rgba(212,76,114,.7)); }
+.zg-brain svg { width: 52px; height: 52px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
+
+/* ---- Set-up checklists ------------------------------------------------------------ */
+.zg-setup { position: absolute; width: 305px; height: 355px; padding: 22px 19px; border-radius: 10px; background: #0f0d10; border: 1px solid var(--zg-border); opacity: .45; }
+.zg-setup--open { background: #130e15; opacity: 1; border-color: rgba(212,76,114,.5); box-shadow: 0 0 34px rgba(212,76,114,.35); }
+.zg-setup__head { display: flex; align-items: center; justify-content: space-between; }
+.zg-setup__title { font-size: 19px; font-weight: 700; }
+.zg-setup__state { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; letter-spacing: .1em; color: var(--zg-muted); }
+.zg-setup__state svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; }
+.zg-setup--open .zg-setup__state { padding: 4px 10px; border-radius: 999px; background: rgba(212,76,114,.2); color: var(--zg-pink-hi); }
+.zg-setup .zg-bar { margin-top: 16px; }
+.zg-check { display: flex; align-items: center; gap: 12px; height: 37px; margin-top: 10px; padding: 0 10px; border-radius: 6px; background: var(--zg-row); border: 1px solid transparent; font-size: 15px; font-weight: 500; color: var(--zg-muted); text-decoration: line-through; }
+.zg-check:first-of-type { margin-top: 14px; }
+.zg-check i { flex: none; width: 18px; height: 18px; border-radius: 4px; background: var(--zg-green); display: grid; place-items: center; }
+.zg-check i svg { width: 12px; height: 12px; fill: none; stroke: #fff; stroke-width: 3; }
+.zg-check.is-open { color: #fff; font-weight: 600; text-decoration: none; border-color: rgba(212,76,114,.6); background: #1a1219; }
+.zg-check.is-open i { background: transparent; border: 2px solid var(--zg-pink-hi); }
+.zg-check.is-open i svg { display: none; }
+.zg-setup__foot { margin-top: 16px; text-align: center; font-size: 15px; font-weight: 700; color: var(--zg-muted); display: flex; justify-content: center; align-items: center; gap: 6px; }
+.zg-setup--open .zg-setup__foot { color: var(--zg-pink-hi); }
+.zg-setup__foot svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+/* ---- Profile card (light) ------------------------------------------------------------ */
+.zg-profile { position: absolute; width: 584px; height: 331px; border-radius: 8px; background: #fcffff; color: #111; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,.5); }
+.zg-profile__cover { height: 24px; background: linear-gradient(90deg, #0a6fb5, #0f8fc8); }
+.zg-profile__avatar { position: absolute; left: 26px; top: 30px; width: 68px; height: 68px; border-radius: 50%; background: #e8edf0; display: grid; place-items: center; font-size: 28px; font-weight: 800; color: #135fb3; letter-spacing: -.02em; }
+.zg-profile__name { position: absolute; left: 20px; top: 112px; font-size: 22px; font-weight: 800; letter-spacing: -.02em; }
+.zg-profile__role { position: absolute; left: 20px; top: 141px; font-size: 14px; color: #333; }
+.zg-profile__meta { position: absolute; left: 20px; top: 162px; font-size: 12px; color: #666; display: flex; gap: 14px; }
+.zg-profile__meta span { display: inline-flex; align-items: center; gap: 4px; } .zg-profile__meta svg { width: 11px; height: 11px; fill: none; stroke: #666; stroke-width: 1.8; }
+.zg-strength { position: absolute; left: 12px; right: 12px; top: 194px; height: 122px; padding: 14px 16px; border-radius: 8px; background: #f9f1ef; border: 1px solid #f0d8dc; }
+.zg-strength__row { display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 700; }
+.zg-strength__row b { font-size: 18px; font-weight: 800; color: var(--zg-pink-hi); }
+.zg-strength .zg-bar { margin-top: 10px; background: #1e171f; }
+.zg-strength .zg-bar__fill { background: linear-gradient(90deg, #6b2a45, #e0506e); box-shadow: 0 0 10px rgba(224,80,110,.6); }
+.zg-nudge { position: absolute; left: 10px; right: 10px; top: 62px; height: 42px; display: flex; align-items: center; gap: 10px; padding: 0 12px 0 10px; border-radius: 6px; background: #fff; border: 1px solid rgba(224,80,110,.5); }
+.zg-nudge i { flex: none; width: 20px; height: 20px; border-radius: 4px; background: var(--zg-pink-hi); color: #fff; display: grid; place-items: center; font-size: 15px; font-weight: 700; font-style: normal; line-height: 1; }
+.zg-nudge b { display: block; font-size: 13px; font-weight: 700; } .zg-nudge span { display: block; font-size: 11px; color: #666; }
+.zg-nudge svg { margin-left: auto; width: 14px; height: 14px; fill: none; stroke: var(--zg-pink-hi); stroke-width: 2; }
+.zg-notif { position: absolute; width: 304px; height: 48px; display: flex; align-items: center; gap: 11px; padding: 0 12px; border-radius: 8px; background: #080b10; border: 1px solid var(--zg-border); }
+.zg-notif i { flex: none; width: 24px; height: 24px; border-radius: 5px; background: #1d6fd4; display: grid; place-items: center; }
+.zg-notif i svg { width: 13px; height: 13px; fill: #fff; }
+.zg-notif b { display: block; font-size: 13px; font-weight: 700; white-space: nowrap; } .zg-notif span { display: block; font-size: 11px; color: var(--zg-muted); white-space: nowrap; }
+
+/* ---- Fit cards ---------------------------------------------------------------------- */
+.zg-fit { position: absolute; width: 305px; height: 205px; padding: 18px 19px; border-radius: 10px; background: #0d0d12; border: 1px solid rgba(224,90,90,.35); box-shadow: 0 0 40px rgba(224,90,90,.22); }
+.zg-fit--right { background: #0a0b0f; border-color: rgba(35,199,86,.4); box-shadow: 0 0 40px rgba(35,199,86,.28); }
+.zg-fit__tag { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; letter-spacing: .15em; color: var(--zg-red); }
+.zg-fit--right .zg-fit__tag { color: var(--zg-green); }
+.zg-fit__inner { margin-top: 12px; height: 90px; padding: 12px 11px; border-radius: 8px; background: #1a1a22; }
+.zg-fit--right .zg-fit__inner { background: #14171c; }
+.zg-fit__from { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--zg-muted); }
+.zg-fit__from svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+.zg-fit--right .zg-fit__from { color: #fff; font-weight: 600; } .zg-fit--right .zg-fit__from svg { stroke: var(--zg-green); }
+.zg-fit__title { margin-top: 5px; font-size: 15px; font-weight: 600; color: var(--zg-muted); }
+.zg-fit--right .zg-fit__title { color: #fff; }
+.zg-fit__prog { margin-top: 7px; font-size: 11px; font-weight: 700; letter-spacing: .1em; color: #6a6a72; }
+.zg-fit--right .zg-fit__prog { color: var(--zg-green); }
+.zg-fit .zg-bar { margin-top: 5px; }
+.zg-fit__verdict { margin-top: 16px; text-align: center; font-size: 15px; font-weight: 600; color: var(--zg-muted); line-height: 1.35; }
+.zg-fit__verdict b { display: block; color: var(--zg-red); font-weight: 700; }
+.zg-fit--right .zg-fit__verdict { color: #fff; } .zg-fit--right .zg-fit__verdict b { color: var(--zg-green); }
+
+/* ---- Motion ---------------------------------------------------------------------- */
+.zg-in { opacity: 0; animation: zg-in .5s cubic-bezier(.2,.8,.2,1) forwards; animation-delay: var(--d, 0s); }
+@keyframes zg-in { from { opacity: 0; transform: translateY(12px) } to { opacity: 1; transform: none } }
+.zg-fade { opacity: 0; animation: zg-fade .45s ease forwards; animation-delay: var(--d, 0s); }
+@keyframes zg-fade { to { opacity: 1 } }
+.zg-pulse { animation: zg-pulse 2.2s ease-in-out infinite; }
+@keyframes zg-pulse { 0%, 100% { box-shadow: 0 0 34px rgba(212,76,114,.35) } 50% { box-shadow: 0 0 52px rgba(212,76,114,.55) } }

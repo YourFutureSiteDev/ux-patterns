@@ -1,0 +1,108 @@
+/* Accordion Disclosure, rebuilt from the @designmotionhq reel "One glides. One jumps."
+   Component classes are prefixed .ac- and depend only on the tokens below. */
+.ac {
+  --ac-bg: #0d1113; --ac-panel: #111619; --ac-panel-2: #171c21; --ac-border: rgba(255,255,255,.05);
+  --ac-text: #eaeff2; --ac-muted: #8b9298; --ac-dim: #6b7378;
+  --ac-teal: #2ed3a5; --ac-teal-dim: rgba(46,211,165,.16); --ac-pink: #ef4d7f; --ac-pink-dim: rgba(239,77,127,.16);
+  --ac-dur: .3s; --ac-ease: cubic-bezier(.2,.8,.2,1);
+  font-family: 'Inter', system-ui, sans-serif; color: var(--ac-text);
+}
+
+/* ---- Item: header <button> + grid-row panel -------------------------------
+   The panel animates grid-template-rows 0fr -> 1fr, so height:auto never has to. */
+.ac-list { display: flex; flex-direction: column; gap: 14px; }
+.ac-item { background: var(--ac-panel); border: 1px solid var(--ac-border); border-radius: 12px; transition: border-color var(--ac-dur) var(--ac-ease), box-shadow var(--ac-dur) var(--ac-ease); }
+.ac-item__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; padding: 29px 26px; background: none; border: 0; color: inherit; font: 600 20px/1.2 'Inter', system-ui, sans-serif; text-align: left; cursor: pointer; border-radius: inherit; }
+.ac-item__head:focus-visible { outline: 2px solid var(--ac-teal); outline-offset: -2px; }
+.ac-chev { flex: none; width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; background: #23292e; color: #aab2b8; transition: background var(--ac-dur) var(--ac-ease), color var(--ac-dur) var(--ac-ease); }
+.ac-chev svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: transform var(--ac-dur) var(--ac-ease); }
+.ac-item__head[aria-expanded="true"] .ac-chev { background: var(--ac-teal-dim); color: var(--ac-teal); }
+.ac-item__head[aria-expanded="true"] .ac-chev svg { transform: rotate(180deg); }
+.ac-item__panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--ac-dur) var(--ac-ease); }
+.ac-item__panel > div { overflow: hidden; }
+.ac-item__body { padding: 0 26px 30px; font-size: 16px; line-height: 26px; color: var(--ac-muted); }
+.ac-item.is-open .ac-item__panel { grid-template-rows: 1fr; }
+/* the snapping control for the hook: no transition, pink accents */
+.ac-item--snap .ac-item__panel, .ac-item--snap .ac-chev, .ac-item--snap .ac-chev svg { transition: none; }
+.ac-item--snap .ac-item__head[aria-expanded="true"] .ac-chev { background: var(--ac-pink-dim); color: var(--ac-pink); }
+/* compact variants */
+.ac-item--md .ac-item__head { padding: 18px 19px; font-size: 18px; }
+.ac-item--md .ac-item__body { padding: 0 19px 22px; font-size: 14px; line-height: 22px; }
+.ac-item--md .ac-chev { width: 24px; height: 24px; border-radius: 50%; }
+.ac-item--md .ac-chev svg { width: 11px; height: 11px; }
+.ac-item--sm .ac-item__head { padding: 16px 19px; font-size: 16px; }
+.ac-item--sm .ac-item__body { padding: 4px 19px 28px; font-size: 14px; line-height: 18px; }
+.ac-item--sm .ac-chev { width: 22px; height: 22px; border-radius: 6px; }
+.ac-item--sm .ac-chev svg { width: 11px; height: 11px; }
+.ac-item.is-focus { border-color: rgba(46,211,165,.55); box-shadow: 0 0 0 1px rgba(46,211,165,.2), 0 0 30px rgba(46,211,165,.12); }
+
+/* ---- Column labels ---------------------------------------------------- */
+.ac-col { position: absolute; text-align: center; }
+.ac-col b { display: block; font-size: 18px; font-weight: 700; color: #aab2b8; }
+.ac-col b.is-teal { color: var(--ac-teal); }
+.ac-col small { display: block; margin-top: 4px; font-size: 13px; font-weight: 600; letter-spacing: .14em; color: var(--ac-dim); text-transform: uppercase; }
+.ac-tag { position: absolute; font-size: 15px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; text-align: center; }
+.ac-tag--teal { color: var(--ac-teal); } .ac-tag--pink { color: var(--ac-pink); }
+
+/* ---- Code window ------------------------------------------------------- */
+.ac-code { width: 546px; border-radius: 10px; background: #0e1316; border: 1px solid var(--ac-border); font: 500 15px/30px 'JetBrains Mono', ui-monospace, Menlo, monospace; color: #d0d6da; box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+.ac-code__bar { display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 17px; font-size: 12px; line-height: 1; color: #5e666b; }
+.ac-code__bar i { width: 8px; height: 8px; border-radius: 50%; background: #2c3338; }
+.ac-code__bar span { margin-left: 8px; }
+.ac-code__lines { padding: 10px 0 12px; }
+.ac-code__line { position: relative; padding: 0 19px; white-space: pre; }
+.ac-code__line--in { padding-left: 33px; }
+.ac-code__line.is-del { color: var(--ac-pink); text-decoration: line-through; opacity: .85; }
+.ac-code__line.is-add { background: rgba(46,211,165,.07); box-shadow: inset 3px 0 0 var(--ac-teal); }
+.ac-code__line em { font-style: normal; color: var(--ac-teal); }
+.ac-code__line b { font-weight: 500; color: #e5dcb8; }
+.ac-code__line u { text-decoration: none; color: #8b92be; }
+.ac-mark { position: absolute; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-size: 14px; font-weight: 800; }
+.ac-mark--x { background: var(--ac-pink); box-shadow: 0 0 20px rgba(239,77,127,.5); }
+.ac-mark--ok { background: var(--ac-teal); color: #062018; box-shadow: 0 0 20px rgba(46,211,165,.5); }
+.ac-mark svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---- Timing curves ----------------------------------------------------- */
+.ac-curve { position: absolute; overflow: visible; }
+.ac-curve path { fill: none; stroke-width: 3; stroke-linecap: round; }
+.ac-curve .panel { stroke: #7d868c; } .ac-curve .chev { stroke: var(--ac-teal); }
+.ac-curve .chev--lag { stroke: var(--ac-pink); stroke-dasharray: 8 7; }
+.ac-note { position: absolute; width: 300px; text-align: center; font-size: 15px; line-height: 20px; color: var(--ac-muted); }
+.ac-legend { position: absolute; display: flex; gap: 22px; font-size: 15px; color: var(--ac-muted); }
+.ac-legend span::before { content: ""; display: inline-block; width: 20px; height: 2px; vertical-align: middle; margin-right: 8px; background: #7d868c; }
+.ac-legend span.is-teal::before { background: var(--ac-teal); }
+
+/* ---- ARIA read-out ----------------------------------------------------- */
+.ac-aria { margin-top: 6px; font: 500 13px 'JetBrains Mono', ui-monospace, Menlo, monospace; color: var(--ac-teal); }
+.ac-aria i { font-style: normal; color: var(--ac-dim); margin: 0 6px; }
+.ac-aria code { padding: 2px 7px; border-radius: 4px; background: #23292e; color: #aab2b8; font-weight: 700; }
+.ac-aria code.is-true { background: var(--ac-teal-dim); color: var(--ac-teal); }
+.ac-aria-line { position: absolute; font: 500 15px 'JetBrains Mono', ui-monospace, Menlo, monospace; color: #7d868c; white-space: nowrap; }
+.ac-aria-line em { font-style: normal; color: var(--ac-teal); } .ac-aria-line b { font-weight: 500; color: #e8ecee; } .ac-aria-line i { font-style: normal; color: var(--ac-teal); }
+.ac-quote { margin-top: 12px; padding-left: 15px; border-left: 2px solid var(--ac-teal); font-size: 15px; line-height: 24px; color: var(--ac-muted); }
+.ac-keys { position: absolute; display: flex; gap: 19px; }
+.ac-key { text-align: center; font-size: 14px; color: var(--ac-dim); }
+.ac-key b { display: grid; place-items: center; height: 49px; min-width: 86px; padding: 0 20px; margin-bottom: 8px; border-radius: 10px; background: #1b2126; border: 1px solid rgba(255,255,255,.06); box-shadow: 0 3px 0 #0b0f11; font-size: 16px; font-weight: 700; color: #eef2f4; }
+
+/* ---- Help Center phone (anchored scroll) ------------------------------ */
+.ac-phone { width: 289px; height: 505px; border-radius: 14px; background: #0f1418; border: 1px solid rgba(255,255,255,.07); overflow: hidden; }
+.ac-phone__bar { height: 42px; padding: 0 14px; display: flex; align-items: center; font-size: 16px; font-weight: 600; background: #151a1e; }
+.ac-phone__scroll { height: 463px; overflow: hidden; }
+.ac-phone__list { padding: 14px 12px; display: flex; flex-direction: column; gap: 11px; transition: transform var(--ac-dur) var(--ac-ease); }
+.ac-phone .ac-item { border-radius: 8px; background: #141a1e; }
+.ac-phone .ac-item__head { padding: 15px 14px 15px 16px; font-size: 15px; white-space: nowrap; gap: 6px; }
+.ac-phone .ac-item__body { padding: 9px 16px 27px; font-size: 14px; line-height: 23px; }
+.ac-phone .ac-chev { width: 16px; height: 16px; background: none; color: #aab2b8; }
+.ac-phone .ac-chev svg { width: 12px; height: 12px; }
+.ac-phone .ac-item.is-open { border-color: rgba(46,211,165,.55); }
+.ac-phone--pink .ac-item.is-open { border-color: rgba(255,255,255,.08); }
+.ac-phone--pink .ac-item__head[aria-expanded="true"] .ac-chev { color: var(--ac-pink); background: none; }
+.ac-phone .ac-item__head[aria-expanded="true"] .ac-chev { background: none; }
+.ac-phone .ac-item__body p { margin: 0; opacity: 0; transform: translateY(6px); animation: ac-in .35s var(--ac-ease) forwards; }
+.ac-phone .ac-item__body p:nth-child(2) { animation-delay: .08s; } .ac-phone .ac-item__body p:nth-child(3) { animation-delay: .16s; }
+.ac-phone--pink .ac-item__body p { animation: none; opacity: 1; transform: none; }
+@keyframes ac-in { to { opacity: 1; transform: none } }
+
+/* ---- Outro pills ------------------------------------------------------- */
+.ac-pill { display: inline-flex; align-items: center; gap: 12px; height: 45px; padding: 0 20px; border-radius: 10px; background: #1a2024; border: 1px solid rgba(255,255,255,.05); font-size: 19px; font-weight: 600; white-space: nowrap; }
+.ac-pill svg { width: 20px; height: 20px; fill: none; stroke: var(--ac-teal); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }

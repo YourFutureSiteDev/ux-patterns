@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Serial Position · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a0c10; --accent: #2fe0ad; --danger: #e0507a; }
+  .scene { color: #f3f5f7; background-image: none; }
+  /* This reel's chrome: pink pill kicker, 40px headline, both placed per scene. */
+  .kicker { padding: 0 20px; height: 36px; display: flex; align-items: center; gap: 8px; font-size: 15px; letter-spacing: .16em; color: var(--danger); background: #2a1a20; }
+  .kicker svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .title { margin: 0; font-size: 40px; line-height: 1.0; letter-spacing: -.025em; }
+  .title em.danger { color: var(--danger); }
+  .glow { filter: blur(70px); }
+</style>
+</head>
+<body class="sp">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-brain" viewBox="0 0 24 24"><path d="M9 4a3 3 0 0 0-3 3v1a3 3 0 0 0-2 3 3 3 0 0 0 1 2.2A3 3 0 0 0 6 18a3 3 0 0 0 3 3h3V4zM15 4a3 3 0 0 1 3 3v1a3 3 0 0 1 2 3 3 3 0 0 1-1 2.2A3 3 0 0 1 18 18a3 3 0 0 1-3 3h-3V4z"/></symbol>
+  <symbol id="i-hex" viewBox="0 0 24 24"><path d="M12 2l8.7 5v10L12 22l-8.7-5V7z"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16v4M17 18h4M6 17v3M4.5 18.5h3"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2zM19 15v4M17 17h4"/><circle cx="6" cy="18" r="1.5"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0M16 4.5a3.5 3.5 0 0 1 0 7M22 20a7 7 0 0 0-5-6.7"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8M9 18h6"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.5L6 21z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8 3.4 4.5 7 4.5c2 0 3.4 1 5 2.8 1.6-1.8 3-2.8 5-2.8 3.6 0 6 3.5 4.5 7.3C19.5 16.4 12 21 12 21z"/></symbol>
+</svg>
+
+<!-- 1 · Hook: you'll only remember 1 & 9 -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:120px;top:280px;width:480px;height:360px;background:rgba(47,224,173,.13)"></div>
+  <div class="glow" style="left:120px;top:660px;width:480px;height:400px;background:rgba(51,212,92,.12)"></div>
+  <div class="glow" style="left:140px;top:400px;width:440px;height:480px;background:rgba(224,80,122,.16)"></div>
+  <div class="kicker" style="top:90px;height:40px;font-size:16px;padding:0 26px;letter-spacing:.18em">Serial position</div>
+  <div class="sp-menu" id="menu" style="left:82px;top:378px;width:556px">
+    <div class="sp-item"><span class="sp-item__n">1</span>Home<span class="sp-tag sp-tag--solid-teal">Primacy</span></div>
+    <div class="sp-item"><span class="sp-item__n">2</span>Discover</div>
+    <div class="sp-item"><span class="sp-item__n">3</span>Pricing</div>
+    <div class="sp-item"><span class="sp-item__n">4</span>Templates</div>
+    <div class="sp-item"><span class="sp-item__n">5</span>Resources</div>
+    <div class="sp-item"><span class="sp-item__n">6</span>Changelog</div>
+    <div class="sp-item"><span class="sp-item__n">7</span>Blog</div>
+    <div class="sp-item"><span class="sp-item__n">8</span>Login</div>
+    <div class="sp-item" style="margin:0 6px"><span class="sp-item__n">9</span>Sign up →<span class="sp-tag sp-tag--solid-green">Recency</span></div>
+  </div>
+  <div class="center" style="top:1100px;font-size:26px;font-weight:700;white-space:nowrap">You'll only remember <span style="color:var(--accent)">1</span> &amp; <span style="color:#33d45c">9</span>.</div>
+</section>
+
+<!-- 2 · Recall data: memory is U-shaped -->
+<section class="scene" data-t="3" data-shot="10.5">
+  <div class="glow" style="left:140px;top:150px;width:440px;height:440px;background:rgba(224,80,122,.09)"></div>
+  <div class="kicker" style="top:421px"><svg><use href="#i-brain"/></svg>Recall data · 9 items</div>
+  <h1 class="title" style="top:466px">Memory is <em>U-shaped.</em></h1>
+  <div class="sp-chart" id="chart" style="left:55px;top:530px;width:610px;height:285px">
+    <span class="sp-chart__axis" style="top:170px">RECALL %</span>
+    <svg class="sp-chart__curve" style="left:0;top:0;width:610px;height:285px" viewBox="0 0 610 285"><path d=""/></svg>
+    <div class="sp-bars" style="left:47px;bottom:50px"></div>
+  </div>
+  <div class="sp-legend" style="left:94px;top:838px"><span class="sp-tag sp-tag--teal">Primacy · #1</span><span class="sp-tag sp-tag--mid">Middle · #2–#8</span><span class="sp-tag sp-tag--green">Recency · #9</span></div>
+</section>
+
+<!-- 3 · Application 1: navbars -->
+<section class="scene" data-t="12" data-shot="19.5">
+  <div class="glow" style="left:80px;top:180px;width:560px;height:560px;background:rgba(47,224,173,.06)"></div>
+  <div class="glow" style="left:200px;top:700px;width:420px;height:420px;background:rgba(224,80,122,.06)"></div>
+  <div class="kicker" style="top:464px">Application 1 · Navbars</div>
+  <h1 class="title" style="top:507px">Logo first. <em class="danger">CTA last.</em></h1>
+  <div class="sp-browser" style="left:35px;top:570px;width:650px;height:85px">
+    <div class="sp-browser__bar"><i style="background:#f25f58"></i><i style="background:#f8bd2e"></i><i style="background:#33d45c"></i><span class="sp-browser__url">flowboard.app</span></div>
+    <div class="sp-nav" id="nav">
+      <span class="sp-nav__logo"><svg><use href="#i-hex"/></svg>FlowBoard</span>
+      <span class="sp-nav__links"><span>Features</span><span>Pricing</span><span>Templates</span><span>Resources</span><span>Blog</span></span>
+      <span class="sp-nav__cta"><svg><use href="#i-spark"/></svg>Start free</span>
+    </div>
+  </div>
+  <div class="sp-stats" style="left:50px;top:680px">
+    <div class="sp-stat sp-stat--teal"><b>LOGO</b><strong>89%</strong><span>PRIMACY</span></div>
+    <div class="sp-stat sp-stat--mid"><b>NAV ITEMS</b><strong>12%</strong><span>SKIPPED</span></div>
+    <div class="sp-stat sp-stat--green"><b>CTA</b><strong>76%</strong><span>RECENCY</span></div>
+  </div>
+  <div class="sp-note" style="top:797px">Strongest links → <b class="teal">edges</b><i>·</i>weakest → <b>middle</b></div>
+</section>
+
+<!-- 4 · Application 2: landing pages -->
+<section class="scene" data-t="22.5" data-shot="31.5">
+  <div class="glow" style="left:60px;top:80px;width:600px;height:500px;background:rgba(47,224,173,.06)"></div>
+  <div class="glow" style="left:160px;top:760px;width:400px;height:400px;background:rgba(51,212,92,.06)"></div>
+  <div class="kicker" style="top:328px">Application 2 · Landing pages</div>
+  <h1 class="title" style="top:372px;padding:0 60px">Strongest USP first. <em class="danger">Strongest proof last.</em></h1>
+  <div class="sp-page" style="left:45px;top:470px">
+    <div class="sp-page__hero">
+      <span class="sp-page__beta">⚡ NOW IN BETA</span>
+      <div class="sp-page__h1">Ship code <em>10× faster.</em></div>
+      <div class="sp-page__p">Your AI engineer for shipping production code.</div>
+      <span class="sp-page__btn">Try it free →</span>
+    </div>
+    <div class="sp-page__skip">
+      <div class="sp-page__row">How it works</div><div class="sp-page__row">3 ways to integrate</div><div class="sp-page__row">Use cases</div><div class="sp-page__row">FAQ</div><div class="sp-page__row">Comparison vs competitors</div>
+    </div>
+    <div class="sp-page__quote"><div class="sp-page__stars">★★★★★</div><p>"Cut our shipping time by 70%. Felt like getting a 10× engineer."</p><div class="sp-page__who"><i>S</i><b>Sarah Liu</b><span>CTO @ Vercel</span></div></div>
+    <div class="sp-page__trust">TRUSTED BY <span>Stripe</span><span>Linear</span><span>Vercel</span><span>Notion</span></div>
+  </div>
+  <div class="sp-callout sp-callout--teal" style="left:422px;top:478px"><b>PRIMACY</b><strong>Strongest USP</strong><span>Hero copy + value prop. Locks in expectation.</span></div>
+  <div class="sp-skip" style="left:422px;top:688px;width:253px"><b>SKIP ZONE</b><span>Filler. Necessary.<br>Not memorable.</span></div>
+  <div class="sp-callout sp-callout--green" style="left:422px;top:843px"><b>RECENCY</b><strong>Strongest proof</strong><span>Testimonial · logo wall · case study.</span></div>
+  <div class="center" style="top:950px;font-size:18px;font-weight:600;white-space:nowrap">Don't bury the gold <span style="color:var(--danger)">in the middle.</span></div>
+</section>
+
+<!-- 5 · Application 3: onboarding -->
+<section class="scene" data-t="34.5" data-shot="42">
+  <div class="glow" style="left:60px;top:100px;width:600px;height:500px;background:rgba(224,80,122,.07)"></div>
+  <div class="glow" style="left:0;top:560px;width:360px;height:360px;background:rgba(47,224,173,.08)"></div>
+  <div class="glow" style="left:360px;top:560px;width:360px;height:360px;background:rgba(51,212,92,.08)"></div>
+  <div class="kicker" style="top:449px">Application 3 · Onboarding</div>
+  <h1 class="title" style="top:492px">Slide 1 hooks. <em class="danger">Slide N pays off.</em></h1>
+  <div class="sp-slides" id="slides" style="left:28px;top:553px">
+    <div class="sp-slide"><span class="sp-slide__n">1/5</span><span class="sp-tag sp-tag--solid-teal">Hook</span><div class="sp-slide__icon"><svg><use href="#i-sparkle"/></svg></div><div class="sp-slide__t">Welcome</div><div class="sp-slide__s">Your team will love this</div></div>
+    <svg class="sp-slides__arrow"><use href="#i-arrow"/></svg>
+    <div class="sp-slide"><span class="sp-slide__n">2/5</span><div class="sp-slide__icon"><svg><use href="#i-gear"/></svg></div><div class="sp-slide__t">Pick a<br>workspace</div><div class="sp-slide__s">Free or pro</div></div>
+    <svg class="sp-slides__arrow"><use href="#i-arrow"/></svg>
+    <div class="sp-slide"><span class="sp-slide__n">3/5</span><div class="sp-slide__icon"><svg><use href="#i-users"/></svg></div><div class="sp-slide__t">Invite<br>teammates</div><div class="sp-slide__s">Or skip for now</div></div>
+    <svg class="sp-slides__arrow"><use href="#i-arrow"/></svg>
+    <div class="sp-slide"><span class="sp-slide__n">4/5</span><div class="sp-slide__icon"><svg><use href="#i-db"/></svg></div><div class="sp-slide__t">Connect<br>data</div><div class="sp-slide__s">5 integrations<br>available</div></div>
+    <svg class="sp-slides__arrow"><use href="#i-arrow"/></svg>
+    <div class="sp-slide"><span class="sp-slide__n">5/5</span><span class="sp-tag sp-tag--solid-green">Payoff</span><div class="sp-slide__icon"><svg><use href="#i-trophy"/></svg></div><div class="sp-slide__t">You're set</div><div class="sp-slide__s">Time to ship</div></div>
+  </div>
+  <div class="sp-note" style="top:810px;height:40px">Magic at the bookends.<i>·</i><b>Filler in the middle.</b></div>
+</section>
+
+<!-- 6 · Outro -->
+<section class="scene" data-t="43.5" data-shot="46.5">
+  <div class="glow" style="left:100px;top:280px;width:520px;height:560px;background:rgba(224,80,122,.14)"></div>
+  <div class="glow" style="left:380px;top:860px;width:340px;height:340px;background:rgba(47,224,173,.06)"></div>
+  <div class="center" style="top:466px;display:flex;align-items:center;gap:8px;font-size:16px;font-weight:700;letter-spacing:.18em;color:var(--danger);white-space:nowrap"><svg style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round"><use href="#i-brain"/></svg>SERIAL POSITION</div>
+  <div class="title" style="top:500px;font-size:46px;line-height:1.17">Strongest first.<br><em class="danger">Strongest last.</em></div>
+  <div class="center" style="top:647px;display:flex;gap:11px;white-space:nowrap"><span class="sp-tag sp-tag--teal" style="height:41px;padding:0 20px;font-size:15px">Primacy</span><span class="sp-tag sp-tag--green" style="height:41px;padding:0 20px;font-size:15px">Recency</span><span class="sp-tag sp-tag--pink" style="height:41px;padding:0 20px;font-size:15px">Bookends</span></div>
+  <div class="sp-cta center" style="top:728px"><svg><use href="#i-bookmark"/></svg>Save for your next layout</div>
+  <div class="sp-follow center" style="top:797px"><svg><use href="#i-heart"/></svg>FOLLOW FOR MORE DESIGN PSYCHOLOGY</div>
+</section>
+
+<script type="module">
+  import { RecallChart, markEdges } from './pattern.js';
+  markEdges(document.getElementById('menu'));                        // Home and Sign up become the edges, 2–8 dim
+  markEdges(document.getElementById('slides'), { itemSelector: '.sp-slide' }); // Welcome and You're set become the edges
+  const chart = RecallChart(document.getElementById('chart'));       // bars grow in on scene enter
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

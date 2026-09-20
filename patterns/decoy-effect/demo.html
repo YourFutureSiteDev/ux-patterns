@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Decoy Effect · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Poppins:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a0811; --accent: #6366f2; --danger: #ee4345; --grid: transparent; }
+  .scene { background-image: none; }
+  .glow { width: 560px; height: 560px; filter: blur(110px); }
+  .glow--purple { background: rgba(79,69,229,.16); }
+  .glow--red { background: rgba(238,67,69,.10); }
+</style>
+</head>
+<body class="de">
+
+<!-- 1 · Hook: three cards, this is not a real choice -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow glow--purple" style="left:80px;top:250px"></div>
+  <div class="de-h" style="top:476px;font-size:22px">How apps use the <em>decoy effect</em></div>
+  <div class="de-tiers" style="left:88px;top:534px" data-tiers="sm" data-roles='{"target":2}'></div>
+  <svg class="cursor" style="left:546px;top:648px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="de-h de-h--muted" style="top:718px;font-size:28px;line-height:36px">This is not</div>
+  <div class="de-h" style="top:764px;font-size:28px;line-height:36px;color:var(--de-orange)">a real choice.</div>
+  <div class="de-cap" data-cap="It's the decoy effect" data-hi="2"></div>
+</section>
+
+<!-- 2 · Two options, most people pick basic -->
+<section class="scene" data-t="3" data-shot="7.5">
+  <div class="de-h de-h--muted" style="top:384px;font-size:22px;line-height:30px">Two options. Simple choice.</div>
+  <div class="de-tiers de-tiers--lg" style="left:97px;top:441px" data-tiers="two" data-roles='{"target":1}'></div>
+  <div class="de-split de-split--tight" style="top:731px" data-split='[["Choose Basic",80,"orange"],["Choose Premium",20,"purple"]]' data-delay="1.5"></div>
+  <div class="de-cap" data-cap="Most people pick basic" data-hi="3"></div>
+</section>
+
+<!-- 3 · Now add a third option: the gap -->
+<section class="scene" data-t="9" data-shot="10.5">
+  <div class="de-h de-h--muted" style="top:426px;font-size:22px;line-height:30px">Now add a third option...</div>
+  <div class="de-tiers de-tiers--md" style="left:67px;top:498px" data-tiers="three-gap" data-roles='{"target":2}'></div>
+  <div class="de-cap" data-cap="Now add a third option" data-hi="4"></div>
+</section>
+
+<!-- 4 · The decoy lands -->
+<section class="scene" data-t="12" data-shot="13.5">
+  <div class="glow glow--red" style="left:80px;top:230px"></div>
+  <div class="de-h de-h--muted" style="top:426px;font-size:22px;line-height:30px">Now add a third option...</div>
+  <div class="de-tiers de-tiers--md" style="left:67px;top:498px" data-tiers="three" data-roles='{"decoy":1,"target":2}'></div>
+  <div class="de-h" style="top:749px;font-size:16px;line-height:22px;color:var(--de-red)">Almost same price as Premium...</div>
+  <div class="de-h de-h--muted" style="top:772px;font-size:15px;line-height:22px;font-weight:500">but way fewer features</div>
+  <div class="de-cap" data-cap="Fewer features than" data-hi="2"></div>
+</section>
+
+<!-- 5 · Now watch what happens -->
+<section class="scene" data-t="15" data-shot="16.5">
+  <div class="glow glow--red" style="left:80px;top:230px"></div>
+  <div class="de-h de-h--muted" style="top:426px;font-size:22px;line-height:30px">Now add a third option...</div>
+  <div class="de-tiers de-tiers--md" style="left:67px;top:498px" data-tiers="three" data-roles='{"decoy":1,"target":2}'></div>
+  <div class="de-h" style="top:749px;font-size:16px;line-height:22px;color:var(--de-red)">Almost same price as Premium...</div>
+  <div class="de-h de-h--muted" style="top:772px;font-size:15px;line-height:22px;font-weight:500">but way fewer features</div>
+  <div class="de-h" style="top:822px;font-size:24px;line-height:32px;color:var(--de-orange)">Now watch what happens...</div>
+  <div class="de-cap" data-cap="Suddenly 60% choose" data-hi="0"></div>
+</section>
+
+<!-- 6 · The Shift: 2 options -->
+<section class="scene" data-t="18" data-shot="19.5">
+  <div class="de-h" style="top:416px;font-size:28px;line-height:36px;font-weight:700">The Shift</div>
+  <div class="de-h" style="top:477px;font-size:15px;line-height:20px;color:var(--de-purple)">2 options →</div>
+  <div class="de-split" style="top:523px" data-split='[["Choose Basic",80,"grey"],["Choose Pro (decoy)",0,"red"],["Choose Premium",20,"purple"]]' data-delay="0"></div>
+  <div class="de-cap" data-cap="What happened?" data-hi="1"></div>
+</section>
+
+<!-- 7 · The Shift: with decoy, Premium jumps 20% → 60% -->
+<section class="scene" data-t="20.5" data-shot="21">
+  <div class="glow glow--purple" style="left:80px;top:250px;opacity:.7"></div>
+  <div class="de-h" style="top:416px;font-size:28px;line-height:36px;font-weight:700">The Shift</div>
+  <div class="de-h" style="top:477px;font-size:15px;line-height:20px;color:var(--de-purple)">With decoy →</div>
+  <div class="de-split" style="top:523px" data-split='[["Choose Basic",20,"grey"],["Choose Pro (decoy)",20,"red"],["Choose Premium",60,"purple"]]' data-delay="0"></div>
+  <div class="de-jump">Premium jumps from 20% → 60%</div>
+</section>
+
+<!-- 8 · It's everywhere: Economist, iCloud -->
+<section class="scene" data-t="22.5" data-shot="24">
+  <div class="de-h" style="top:346px;font-size:26px;line-height:34px">It’s everywhere.</div>
+  <div class="de-ex" style="top:400px"><div class="de-ex__title">The Economist</div><div class="de-ex__tiles">
+    <div class="de-tile"><b>Web Only</b><strong>$59</strong></div>
+    <div class="de-tile de-tile--decoy"><b>Print Only</b><strong>$125</strong><small>DECOY</small></div>
+    <div class="de-tile de-tile--target"><b>Web + Print</b><strong>$125</strong><small>TARGET ✓</small></div></div></div>
+  <div class="de-ex" style="top:585px"><div class="de-ex__title">Apple iCloud</div><div class="de-ex__tiles">
+    <div class="de-tile"><b>Free</b><strong>5 GB</strong></div>
+    <div class="de-tile de-tile--decoy"><b>iCloud+</b><strong>50 GB / $0.99</strong><small>DECOY</small></div>
+    <div class="de-tile de-tile--target"><b>iCloud+</b><strong>200 GB / $2.99</strong><small>TARGET ✓</small></div></div></div>
+  <div class="de-cap" data-cap="Apple does this, Netflix" data-hi="2"></div>
+</section>
+
+<!-- 9 · It's everywhere: + Netflix -->
+<section class="scene" data-t="25" data-shot="25.5">
+  <div class="de-h" style="top:346px;font-size:26px;line-height:34px">It’s everywhere.</div>
+  <div class="de-ex" style="top:400px"><div class="de-ex__title">The Economist</div><div class="de-ex__tiles">
+    <div class="de-tile"><b>Web Only</b><strong>$59</strong></div>
+    <div class="de-tile de-tile--decoy"><b>Print Only</b><strong>$125</strong><small>DECOY</small></div>
+    <div class="de-tile de-tile--target"><b>Web + Print</b><strong>$125</strong><small>TARGET ✓</small></div></div></div>
+  <div class="de-ex" style="top:585px"><div class="de-ex__title">Apple iCloud</div><div class="de-ex__tiles">
+    <div class="de-tile"><b>Free</b><strong>5 GB</strong></div>
+    <div class="de-tile de-tile--decoy"><b>iCloud+</b><strong>50 GB / $0.99</strong><small>DECOY</small></div>
+    <div class="de-tile de-tile--target"><b>iCloud+</b><strong>200 GB / $2.99</strong><small>TARGET ✓</small></div></div></div>
+  <div class="de-ex" style="top:770px"><div class="de-ex__title">Netflix</div><div class="de-ex__tiles">
+    <div class="de-tile"><b>Standard w/ Ads</b><strong>$6.99</strong></div>
+    <div class="de-tile de-tile--decoy"><b>Standard</b><strong>$15.49</strong><small>DECOY</small></div>
+    <div class="de-tile de-tile--target"><b>Premium</b><strong>$22.99</strong><small>TARGET ✓</small></div></div></div>
+</section>
+
+<!-- 10 · Your brain compares what's comparable -->
+<section class="scene" data-t="27" data-shot="31.5">
+  <div class="glow glow--purple" style="left:80px;top:200px;opacity:.5"></div>
+  <div class="de-h de-h--muted" style="top:436px;font-size:22px;line-height:30px">Your brain compares what’s <em>comparable</em></div>
+  <div class="de-cmp" data-cmp></div>
+  <div class="de-h de-h--muted" style="top:788px;font-size:20px;line-height:26px;opacity:.45">Pro vs Premium? Easy. Premium wins.</div>
+  <div class="de-cap" data-cap="$2 more, way more value" data-hi="0"></div>
+</section>
+
+<!-- 11 · Basic? Already forgotten. -->
+<section class="scene" data-t="33" data-shot="34.5">
+  <div class="glow glow--purple" style="left:80px;top:200px;opacity:.5"></div>
+  <div class="de-h de-h--muted" style="top:436px;font-size:22px;line-height:30px">Your brain compares what’s <em>comparable</em></div>
+  <div class="de-cmp" data-cmp></div>
+  <div class="de-h" style="top:787px;font-size:20px;line-height:26px">Pro vs Premium? Easy. Premium wins.</div>
+  <div class="de-h de-h--muted" style="top:822px;font-size:17px;line-height:24px;font-weight:500">Basic? Already forgotten.</div>
+  <div class="de-cap" data-cap="Basic gets forgotten" data-hi="1"></div>
+</section>
+
+<!-- 12 · Outro: Next time you see 3 options -->
+<section class="scene" data-t="36" data-shot="37.5">
+  <div class="glow glow--purple" style="left:80px;top:360px;opacity:.6"></div>
+  <div class="de-h" style="top:526px;font-size:30px;line-height:38px">Next time you see 3 options...</div>
+  <div class="de-h de-h--muted" style="top:580px;font-size:18px;line-height:24px;font-weight:500">You’ll know. Follow for more.</div>
+  <button class="de-follow" type="button"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Follow</button>
+  <div class="de-cap" data-cap="options, now you know" data-hi="0"></div>
+</section>
+
+<script type="module">
+  import { findDecoy, renderTiers, renderSplit, renderComparison, caption } from './pattern.js';
+
+  const TIERS = {
+    sm: [{ name: 'Basic', price: 8, features: ['5 pages', 'Basic support'] }, { name: 'Pro', price: 14, features: ['20 pages', 'Email support'] }, { name: 'Premium', price: 16, features: ['Unlimited', 'Priority support'] }],
+    two: [{ name: 'Basic', price: 8, features: ['5 pages', 'Email support', '1 user'] }, { name: 'Premium', price: 16, features: ['Unlimited', 'Priority support', '10 users'] }],
+    three: [{ name: 'Basic', price: 8, features: ['5 pages', 'Email support', '1 user'] }, { name: 'Pro', price: 14, features: ['15 pages', 'Email support', '3 users'] }, { name: 'Premium', price: 16, features: ['Unlimited', 'Priority support', '10 users'] }],
+  };
+  TIERS['three-gap'] = [TIERS.three[0], TIERS.three[2]];
+  for (const el of document.querySelectorAll('[data-tiers]')) {
+    const key = el.dataset.tiers, roles = JSON.parse(el.dataset.roles || '{}');
+    renderTiers(el, TIERS[key], roles);
+    if (key === 'three-gap') el.children[0].insertAdjacentHTML('afterend', '<div class="de-gap"></div>');
+  }
+  // findDecoy on the real tier list confirms the reel's roles: Pro is the decoy, Premium the target.
+  console.assert(findDecoy(TIERS.three)?.decoy === 1, 'Pro should be detected as the decoy');
+
+  for (const el of document.querySelectorAll('[data-cap]')) caption(el, el.dataset.cap, Number(el.dataset.hi));
+  for (const el of document.querySelectorAll('[data-cmp]')) renderComparison(el, { decoy: { name: 'Pro' }, target: { name: 'Premium' }, rows: [['15', 'Pages', 'Unlimited'], ['Email', 'Support', 'Priority'], ['3', 'Users', '10']], price: [14, 16], note: 'Only $2 more for way more value' });
+
+  // Bars animate from 0 when the scene is entered live; a frozen shot (?t=) jumps to the final values.
+  const q = new URLSearchParams(location.search);
+  for (const el of document.querySelectorAll('[data-split]')) {
+    const rows = JSON.parse(el.dataset.split).map(([label, value, tone]) => ({ label, value, tone })), delay = Number(el.dataset.delay) || 0;
+    const scene = el.closest('.scene'), t0 = Number(scene.dataset.t) || 0;
+    const enter = t => { const elapsed = t - t0; renderSplit(el, rows, elapsed >= delay + 1.2 ? { animate: false } : { animate: true, delay: Math.max(0, delay - elapsed) }); };
+    scene.addEventListener('scene:enter', e => enter(e.detail.t));
+    enter(scene.classList.contains('active') && q.has('t') ? Number(q.get('t')) : 0);
+  }
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

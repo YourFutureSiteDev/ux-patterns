@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Focus States · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #090c0d; --accent: #22c194; --danger: #e0405c; }
+  .scene { color: #f3f5f7; }
+  .fs-h { position: absolute; left: 0; right: 0; text-align: center; font-size: 40px; font-weight: 800; letter-spacing: -.02em; white-space: nowrap; }
+  .fs-h em { font-style: normal; color: #22c194; }
+  .fs-glow { position: absolute; left: -40px; top: 200px; width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(circle, rgba(34,193,148,.18), rgba(34,193,148,0) 68%); pointer-events: none; }
+  .fs-leader { position: absolute; border-left: 2px dashed rgba(34,193,148,.7); }
+  .fs-skip-hidden { position: absolute; left: 90px; top: 42px; width: 313px; height: 48px; border-radius: 10px; background: #0f2a25; opacity: .55; display: flex; align-items: center; justify-content: center; color: #22c194; font-size: 17px; font-weight: 700; }
+</style>
+</head>
+<body class="fs">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 10.6a2 2 0 0 0 2.8 2.8M9.9 5.1A10 10 0 0 1 12 5c5 0 9 4 10 7a11 11 0 0 1-2.7 3.9M6.6 6.6A11 11 0 0 0 2 12c1 3 5 7 10 7a10 10 0 0 0 4.1-.9"/></symbol>
+  <symbol id="i-a11y" viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="2"/><path d="M4 9l8 1.5L20 9M12 10.5V15l-3 6M12 15l3 6"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></symbol>
+</svg>
+
+<!-- 1 · Hook -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="fs-glow" style="top:300px"></div>
+  <div class="fs-h" style="top:176px">Press Tab. <em>Where's the focus?</em></div>
+  <div class="fs-card" style="position:absolute;left:74px;top:374px;width:572px;height:358px">
+    <div class="fs-card__head"><div class="fs-card__title"><svg><use href="#i-lock"/></svg>Checkout</div><div class="fs-card__amt">$49.00</div></div>
+    <div class="fs-label" style="margin-top:22px">Email</div>
+    <div class="fs-input"><svg><use href="#i-mail"/></svg>sarah@acme.co</div>
+    <div class="fs-label">Card number</div>
+    <div class="fs-input" id="hookCard"><svg><use href="#i-card"/></svg>4242 4242 4242 4242</div>
+    <button class="fs-btn fs-btn--primary" style="width:100%;height:58px;margin-top:28px">Pay $49</button>
+  </div>
+  <div class="fs-key center" style="top:944px;min-width:126px">Tab</div>
+  <div class="center" style="top:1028px;font-size:20px;font-weight:600;color:#6a7179;white-space:nowrap">Your keyboard users see nothing.</div>
+</section>
+
+<!-- 2 · The focus ring: outline none -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="fs-glow"></div>
+  <div class="fs-kicker" style="top:150px">The focus ring</div>
+  <div class="fs-h" style="top:200px">Don't kill the <em>ring.</em></div>
+  <div class="fs-code" style="position:absolute;left:107px;top:313px;width:506px;height:167px">
+    <div class="fs-code__bar"><i><b></b></i>styles.css</div>
+    <pre><span class="k">button:focus</span> <span class="p">{</span>
+  <span class="p">outline</span><span class="p">:</span> <span class="v">none;</span><span class="c"></span></pre>
+  </div>
+  <button class="fs-btn is-focused is-focused--none" style="position:absolute;left:157px;top:528px;width:186px;height:55px;background:#171d22">Sign in</button>
+  <div class="fs-chip fs-chip--pink" style="position:absolute;left:364px;top:535px;height:40px;width:204px;justify-content:center;padding:0 18px;letter-spacing:.04em;font-size:15px"><svg><use href="#i-warn"/></svg>WCAG 2.4.7 FAIL</div>
+  <div class="fs-swatch fs-swatch--light" style="position:absolute;left:74px;top:748px"><div class="fs-swatch__label">On light</div><span class="fs-swatch__chip">✓ 3.2:1</span><button class="fs-btn fs-btn--dark is-focused">Sign in</button></div>
+  <div class="fs-swatch fs-swatch--dark" style="position:absolute;left:374px;top:748px"><div class="fs-swatch__label">On dark</div><span class="fs-swatch__chip">✓ 3.2:1</span><button class="fs-btn is-focused">Sign in</button></div>
+  <div class="fs-cap" style="top:1006px">Kill it? Ship a better one.</div>
+</section>
+
+<!-- 3 · The focus ring: 2px width, 2px offset, 3:1 contrast -->
+<section class="scene" data-t="7.5" data-shot="9">
+  <div class="fs-glow"></div>
+  <div class="fs-kicker" style="top:150px">The focus ring</div>
+  <div class="fs-h" style="top:200px">Don't kill the <em>ring.</em></div>
+  <div class="fs-chip fs-chip--mono" style="position:absolute;left:96px;top:377px">2px width</div>
+  <div class="fs-chip fs-chip--mono" style="position:absolute;left:486px;top:377px">2px offset</div>
+  <div class="fs-chip fs-chip--mono" style="position:absolute;left:287px;top:588px">3:1 contrast</div>
+  <div class="fs-leader" style="left:206px;top:412px;height:30px;transform:rotate(-30deg);transform-origin:top"></div>
+  <div class="fs-leader" style="left:514px;top:412px;height:30px;transform:rotate(30deg);transform-origin:top"></div>
+  <div class="fs-leader" style="left:359px;top:530px;height:56px"></div>
+  <button class="fs-btn is-focused is-focused--thick" style="position:absolute;left:216px;top:444px;width:288px;height:80px;border-radius:14px;font-size:20px;background:#20262d">Continue</button>
+  <div class="fs-swatch fs-swatch--light" style="position:absolute;left:74px;top:748px"><div class="fs-swatch__label">On light</div><span class="fs-swatch__chip">✓ 3.2:1</span><button class="fs-btn fs-btn--dark is-focused">Sign in</button></div>
+  <div class="fs-swatch fs-swatch--dark" style="position:absolute;left:374px;top:748px"><div class="fs-swatch__label">On dark</div><span class="fs-swatch__chip">✓ 3.2:1</span><button class="fs-btn is-focused">Sign in</button></div>
+  <div class="fs-cap" style="top:1006px">Kill it? Ship a better one.</div>
+</section>
+
+<!-- 4 · :focus-visible -->
+<section class="scene" data-t="12" data-shot="13.5">
+  <div class="fs-glow"></div>
+  <div class="fs-kicker" style="top:150px">:focus-visible</div>
+  <div class="fs-h" style="top:200px">Ring for those who <em>need it.</em></div>
+  <div class="fs-panel" style="position:absolute;left:42px;top:326px"><span class="fs-chip">Mouse</span><button class="fs-btn" id="mouseBtn">Subscribe</button><div class="fs-panel__note">click → no ring</div></div>
+  <svg class="cursor" style="left:186px;top:534px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="fs-panel" style="position:absolute;left:375px;top:326px"><span class="fs-chip fs-chip--teal">Keyboard</span><button class="fs-btn is-focused" id="kbBtn">Subscribe</button><span class="fs-key fs-key--sm is-on" id="kbTab">Tab</span><div class="fs-panel__note is-teal">tab → ring</div></div>
+  <div class="fs-code" style="position:absolute;left:95px;top:753px;width:530px;height:162px">
+    <div class="fs-code__bar"><i><b></b></i>focus.css</div>
+    <pre style="font-size:17px;line-height:1.9;padding-top:10px"><span class="k">button:focus-visible</span> <span class="p">{</span>
+  <span class="p">outline</span><span class="p">:</span> 2px solid <span class="t">#14B8A6</span><span class="p">;</span>
+<span class="p">}</span></pre>
+  </div>
+  <div class="fs-cap" style="top:1006px">Click, no ring. Tab, ring.</div>
+</section>
+
+<!-- 5 · Tab order: CSS reorder teleports -->
+<section class="scene" data-t="24" data-shot="25.5">
+  <div class="fs-kicker fs-kicker--grey" style="top:150px">Tab order</div>
+  <div class="fs-h" style="top:200px">Focus follows the <em>DOM.</em></div>
+  <div class="fs-stat" style="position:absolute;left:74px;top:320px"><div class="fs-stat__label">Revenue</div><div class="fs-stat__value">$12.4k</div><div class="fs-stat__bar"></div><span class="fs-stat__n">1</span></div>
+  <div class="fs-stat" style="position:absolute;left:374px;top:320px"><div class="fs-stat__label">Orders</div><div class="fs-stat__value">382</div><div class="fs-stat__bar"></div><span class="fs-stat__n">3</span></div>
+  <div class="fs-stat" style="position:absolute;left:74px;top:534px"><div class="fs-stat__label">Customers</div><div class="fs-stat__value">1,208</div><div class="fs-stat__bar"></div><span class="fs-stat__n">4</span></div>
+  <div class="fs-stat is-focused is-focused--thick" style="position:absolute;left:374px;top:534px"><div class="fs-stat__label">Refunds</div><div class="fs-stat__value">14</div><div class="fs-stat__bar"></div><span class="fs-stat__n">2</span></div>
+  <svg style="position:absolute;left:0;top:0;width:720px;height:1280px;pointer-events:none"><path d="M210 410L510 628" stroke="#e0405c" stroke-width="2.5" stroke-dasharray="10 8" fill="none"/></svg>
+  <div class="fs-legend is-pink" style="position:absolute;left:80px;top:762px;width:270px"><i></i>CSS reorder — teleports</div>
+  <div class="fs-legend fs-legend--solid" style="position:absolute;left:374px;top:762px;width:266px"><i></i>DOM reordered — flows</div>
+  <div class="fs-cap" style="top:1006px">Visual order = DOM order</div>
+</section>
+
+<!-- 6 · Tab order: DOM reordered flows -->
+<section class="scene" data-t="28.5" data-shot="30">
+  <div class="fs-kicker fs-kicker--grey" style="top:150px">Tab order</div>
+  <div class="fs-h" style="top:200px">Focus follows the <em>DOM.</em></div>
+  <div class="fs-stat" style="position:absolute;left:74px;top:320px"><div class="fs-stat__label">Revenue</div><div class="fs-stat__value">$12.4k</div><div class="fs-stat__bar"></div><span class="fs-stat__n is-teal">1</span></div>
+  <div class="fs-stat is-focused is-focused--thick" style="position:absolute;left:374px;top:320px"><div class="fs-stat__label">Orders</div><div class="fs-stat__value">382</div><div class="fs-stat__bar"></div><span class="fs-stat__n is-teal">2</span></div>
+  <div class="fs-stat" style="position:absolute;left:74px;top:534px"><div class="fs-stat__label">Customers</div><div class="fs-stat__value">1,208</div><div class="fs-stat__bar"></div><span class="fs-stat__n is-teal">3</span></div>
+  <div class="fs-stat" style="position:absolute;left:374px;top:534px"><div class="fs-stat__label">Refunds</div><div class="fs-stat__value">14</div><div class="fs-stat__bar"></div><span class="fs-stat__n is-teal">4</span></div>
+  <svg style="position:absolute;left:0;top:0;width:720px;height:1280px;pointer-events:none"><path d="M210 412H510" stroke="#22c194" stroke-width="2.5" fill="none"/></svg>
+  <div class="fs-legend" style="position:absolute;left:80px;top:762px;width:270px"><i></i>CSS reorder — teleports</div>
+  <div class="fs-legend fs-legend--solid is-teal" style="position:absolute;left:374px;top:762px;width:266px"><i></i>DOM reordered — flows</div>
+  <div class="fs-cap" style="top:1006px">Visual order = DOM order</div>
+</section>
+
+<!-- 7 · Focus trap: Delete focused -->
+<section class="scene" data-t="33" data-shot="34.5">
+  <div class="fs-glow"></div>
+  <div class="fs-kicker" style="top:150px">Focus trap</div>
+  <div class="fs-h" style="top:200px">Lock focus <em>inside.</em></div>
+  <div class="fs-settings is-dim" style="position:absolute;left:74px;top:313px">
+    <div class="fs-settings__title">Account settings</div>
+    <div class="fs-settings__row" style="margin-top:16px"><span>Profile</span><span>Sarah Chen</span></div>
+    <div class="fs-settings__row"><span>Email</span><span>sarah@acme.co</span></div>
+    <div class="fs-settings__row"><span>Plan</span><span>Pro — $12/mo</span></div>
+  </div>
+  <div class="fs-backdrop"></div>
+  <div class="fs-dialog" style="position:absolute;left:127px;top:350px">
+    <div class="fs-dialog__title">Delete account?</div>
+    <div class="fs-dialog__body">This removes all data for sarah@acme.co. It cannot be undone.</div>
+    <span class="fs-dialog__close">✕</span>
+    <div class="fs-dialog__actions"><button class="fs-btn" style="background:#101618">Cancel</button><button class="fs-btn fs-btn--danger is-focused is-focused--thick">Delete</button></div>
+  </div>
+  <div class="fs-key is-on" style="position:absolute;left:234px;top:740px">Tab</div>
+  <div class="fs-key" style="position:absolute;left:374px;top:740px">Esc</div>
+  <div class="fs-cap" style="top:1006px">Escape hands focus back.</div>
+</section>
+
+<!-- 8 · Focus trap: wraps to Cancel -->
+<section class="scene" data-t="37.5" data-shot="39">
+  <div class="fs-glow"></div>
+  <div class="fs-kicker" style="top:150px">Focus trap</div>
+  <div class="fs-h" style="top:200px">Lock focus <em>inside.</em></div>
+  <div class="fs-settings is-dim" style="position:absolute;left:74px;top:313px">
+    <div class="fs-settings__title">Account settings</div>
+    <div class="fs-settings__row" style="margin-top:16px"><span>Profile</span><span>Sarah Chen</span></div>
+    <div class="fs-settings__row"><span>Email</span><span>sarah@acme.co</span></div>
+    <div class="fs-settings__row"><span>Plan</span><span>Pro — $12/mo</span></div>
+  </div>
+  <div class="fs-backdrop"></div>
+  <div class="fs-dialog" id="dialog" style="position:absolute;left:127px;top:350px">
+    <div class="fs-dialog__title">Delete account?</div>
+    <div class="fs-dialog__body">This removes all data for sarah@acme.co. It cannot be undone.</div>
+    <span class="fs-dialog__close">✕</span>
+    <div class="fs-dialog__actions"><button class="fs-btn is-focused is-focused--thick" style="background:#101618">Cancel</button><button class="fs-btn fs-btn--danger">Delete</button></div>
+  </div>
+  <div class="fs-key is-on" style="position:absolute;left:234px;top:740px">Tab</div>
+  <div class="fs-key is-on" style="position:absolute;left:374px;top:740px">Esc</div>
+  <div class="fs-cap" style="top:1006px">Escape hands focus back.</div>
+</section>
+
+<!-- 9 · Focus trap: Escape returns focus to the opener -->
+<section class="scene" data-t="40.5" data-shot="40.5">
+  <div class="fs-glow"></div>
+  <div class="fs-kicker" style="top:150px">Focus trap</div>
+  <div class="fs-h" style="top:200px">Lock focus <em>inside.</em></div>
+  <div class="fs-settings" style="position:absolute;left:74px;top:313px">
+    <div class="fs-settings__title">Account settings</div>
+    <div class="fs-settings__row" style="margin-top:16px"><span>Profile</span><span>Sarah Chen</span></div>
+    <div class="fs-settings__row"><span>Email</span><span>sarah@acme.co</span></div>
+    <div class="fs-settings__row"><span>Plan</span><span>Pro — $12/mo</span></div>
+    <button class="fs-btn fs-btn--danger-soft is-focused is-focused--thick" id="openDialog" style="position:absolute;left:176px;top:284px;width:220px;height:59px"><svg><use href="#i-trash"/></svg>Delete account</button>
+  </div>
+  <div class="fs-key" style="position:absolute;left:234px;top:740px">Tab</div>
+  <div class="fs-key" style="position:absolute;left:374px;top:740px">Esc</div>
+  <div class="fs-cap" style="top:1006px">Escape hands focus back.</div>
+</section>
+
+<!-- 10 · Skip link: focused -->
+<section class="scene" data-t="42" data-shot="43.5">
+  <div class="fs-glow"></div>
+  <div class="fs-kicker" style="top:150px">Skip link</div>
+  <div class="fs-h" style="top:200px">Jump the header in <em>one press.</em></div>
+  <div class="fs-browser" style="position:absolute;left:74px;top:306px">
+    <div class="fs-browser__bar"><i><b></b></i>acme.co</div>
+    <div class="fs-browser__head">
+      <button class="fs-btn fs-btn--skip is-focused is-focused--thick" style="position:absolute;left:16px;top:4px;width:313px;height:48px">Skip to main content</button>
+      <span class="fs-chip fs-chip--pink" style="position:absolute;right:20px;top:9px;padding:5px 12px;font-size:13px;letter-spacing:0;text-transform:none"><svg><use href="#i-link"/></svg>40 links before content</span>
+      <div class="fs-nav" style="margin-top:45px"><span>Products</span><span>Pricing</span><span>Docs</span><span>Blog</span><span>About</span><span>Careers</span><span>Support</span></div>
+      <div class="fs-nav"><span>Legal</span><span>Changelog</span><span>Status</span><span>Partners</span><span>Login</span></div>
+    </div>
+    <div class="fs-browser__main">
+      <div class="fs-browser__h">Latest releases</div>
+      <div class="fs-release"><b>Design tokens v3</b><span>Shipped by Alex Rivera · 2d ago</span></div>
+      <div class="fs-release"><b>Dark mode audit</b><span>Shipped by Sarah Chen · 5d ago</span></div>
+    </div>
+  </div>
+  <div class="fs-key is-on" style="position:absolute;left:227px;top:780px">Tab</div>
+  <div class="fs-key" style="position:absolute;left:367px;top:780px;min-width:126px">Enter</div>
+  <div class="fs-cap" style="top:1006px"><svg><use href="#i-eye-off"/></svg>Invisible until focused.</div>
+</section>
+
+<!-- 11 · Skip link: pressed, 40 links skipped -->
+<section class="scene" data-t="46.5" data-shot="49.5">
+  <div class="fs-glow"></div>
+  <div class="fs-kicker" style="top:150px">Skip link</div>
+  <div class="fs-h" style="top:200px">Jump the header in <em>one press.</em></div>
+  <div class="fs-browser" style="position:absolute;left:74px;top:306px">
+    <div class="fs-browser__bar"><i><b></b></i>acme.co</div>
+    <div class="fs-browser__head">
+      <div class="fs-skip-hidden" style="left:16px;top:4px">Skip to main content</div>
+      <span class="fs-chip fs-chip--teal" style="position:absolute;right:20px;top:9px;padding:5px 12px;font-size:13px;letter-spacing:0;text-transform:none"><svg><use href="#i-link"/></svg>40 links skipped</span>
+      <div class="fs-nav" style="margin-top:45px"><span>Products</span><span>Pricing</span><span>Docs</span><span>Blog</span><span>About</span><span>Careers</span><span>Support</span></div>
+      <div class="fs-nav"><span>Legal</span><span>Changelog</span><span>Status</span><span>Partners</span><span>Login</span></div>
+    </div>
+    <div class="fs-browser__main">
+      <div class="fs-browser__h is-focused is-focused--thick" id="main" tabindex="-1" style="color:#f3f5f7;padding:8px 14px;margin:-8px -14px 8px">Latest releases</div>
+      <div class="fs-release"><b>Design tokens v3</b><span>Shipped by Alex Rivera · 2d ago</span></div>
+      <div class="fs-release"><b>Dark mode audit</b><span>Shipped by Sarah Chen · 5d ago</span></div>
+    </div>
+  </div>
+  <div class="fs-key" style="position:absolute;left:227px;top:780px">Tab</div>
+  <div class="fs-key is-on" style="position:absolute;left:367px;top:780px;min-width:126px">Enter</div>
+  <div class="fs-cap" style="top:1006px"><svg><use href="#i-eye-off"/></svg>Invisible until focused.</div>
+</section>
+
+<!-- 12 · Outro -->
+<section class="scene" data-t="51" data-shot="55.5">
+  <div class="fs-glow" style="top:100px"></div>
+  <div class="fs-card" style="position:absolute;left:100px;top:718px;width:520px;height:330px;padding:24px;filter:blur(5px);opacity:.7">
+    <div class="fs-card__head"><div class="fs-card__title"><svg><use href="#i-lock"/></svg>Checkout</div><div class="fs-card__amt">$49.00</div></div>
+    <div class="fs-label" style="margin-top:18px">Email</div>
+    <div class="fs-input is-focused"><svg><use href="#i-mail"/></svg>sarah@acme.co</div>
+    <div class="fs-label">Card number</div>
+    <div class="fs-input"><svg><use href="#i-card"/></svg>4242 4242 4242 4242</div>
+    <button class="fs-btn fs-btn--primary" style="width:100%;height:54px;margin-top:24px">Pay $49</button>
+  </div>
+  <div class="center" style="top:478px;font-size:16px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#22c194;white-space:nowrap">UX Engineering · A11Y</div>
+  <div class="fs-h" style="top:510px;font-size:44px">Focus is a <em>feature.</em></div>
+  <div class="fs-cta center" style="top:600px"><svg><use href="#i-a11y"/></svg>Follow for more UX engineering</div>
+  <div class="fs-save center" style="top:678px"><svg><use href="#i-bookmark"/></svg>Save this for your next accessibility pass</div>
+</section>
+
+<script type="module">
+  import { FocusTrap, KeyHints } from './pattern.js';
+  // Live behaviour: the dialog in scene 8 is a real trap; the keyboard panel button gets a ring only via :focus-visible.
+  const dialog = document.getElementById('dialog'), trap = FocusTrap(dialog);
+  document.getElementById('openDialog').addEventListener('click', e => { dialog.hidden = false; trap.open(e.currentTarget); });
+  KeyHints({ Tab: document.getElementById('kbTab') });
+</script>
+<script src="../_shared/stage.js" defer></script>
+</body>
+</html>

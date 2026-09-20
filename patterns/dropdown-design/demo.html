@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dropdown Design · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a090c; --accent: #2ee6a6; --danger: #e8446b; --grid: transparent; }
+  .scene { color: #f3f3f6; }
+  .kicker { top: 94px; padding: 0; background: none; color: #8a8a96; font-size: 16px; font-weight: 600; letter-spacing: .22em; }
+  .title { top: 118px; margin: 0; font-size: 40px; font-weight: 800; letter-spacing: -.025em; }
+  .title--hook { font-size: 44px; top: 116px; }
+  .caption { top: 1113px; background: none; box-shadow: none; padding: 0; font-size: 20px; font-weight: 700; }
+  .caption .b { color: #4a7df0; } .caption .g { color: #3ecf5c; }
+  .glow { width: 620px; height: 620px; filter: blur(110px); }
+</style>
+</head>
+<body class="dd">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+</svg>
+
+<!-- 1 · Hook -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="glow" style="left:50px;top:330px;background:rgba(232,68,107,.10)"></div>
+  <div class="title title--hook">Your dropdown is <span class="dd-g">broken</span>.</div>
+  <div class="dd-menu is-open dd-menu--premium" style="position:absolute;left:196px;top:490px;width:340px">
+    <button class="dd-trigger" style="height:50px;font-size:17px">Account<svg class="dd-caret" style="transform:rotate(180deg)"><use href="#i-chev"/></svg></button>
+    <div class="dd-list" style="top:58px;height:209px;padding-top:8px">
+      <div class="dd-item" style="height:49px;font-size:17px">Profile</div>
+      <div class="dd-item is-active" style="height:49px;font-size:17px">Settings</div>
+      <div class="dd-item" style="height:49px;font-size:17px">Billing</div>
+      <div class="dd-item" style="height:49px;font-size:17px">Sign out</div>
+    </div>
+  </div>
+  <div class="dd-tag dd-tag--ok center" style="top:770px">PREMIUM</div>
+</section>
+
+<!-- 2 · Rule 1: Make it clickable -->
+<section class="scene" data-t="1.5" data-shot="9">
+  <div class="glow" style="left:50px;top:330px;background:rgba(232,68,107,.09)"></div>
+  <div class="kicker">Rule 1</div>
+  <h1 class="title">Make it <span class="dd-g">clickable</span>.</h1>
+  <div class="dd-col dd-col--before" style="position:absolute;left:87px;top:374px;width:253px">
+    <div class="dd-col__label">Before</div>
+    <div class="dd-cheap">Select option<span class="dd-cheap__caret">▾</span></div>
+    <ul class="dd-notes"><li>30px height (too small)</li><li>Low contrast border</li><li>No hover feedback</li></ul>
+  </div>
+  <div class="dd-col dd-col--after" style="position:absolute;left:380px;top:374px;width:253px">
+    <div class="dd-col__label">After</div>
+    <div class="dd-menu dd-menu--premium"><button class="dd-trigger is-hover" style="height:42px">Account<svg class="dd-caret"><use href="#i-chev"/></svg></button></div>
+    <ul class="dd-notes dd-notes--ok"><li>48px touch target</li><li>Clear caret icon</li><li>Hover state feedback</li></ul>
+  </div>
+  <svg class="cursor dd-cursor" style="left:358px;top:628px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+</section>
+
+<!-- 3 · Rule 2: Flip on edge (clipped) -->
+<section class="scene" data-t="12" data-shot="12">
+  <div class="glow" style="left:50px;top:330px;background:rgba(232,68,107,.08)"></div>
+  <div class="kicker">Rule 2</div>
+  <h1 class="title">Flip on <span class="dd-g">edge</span>.</h1>
+  <div class="dd-window" style="position:absolute;left:128px;top:248px">
+    <div class="dd-window__bar"><i></i><i></i><i></i></div>
+    <div class="dd-window__lines"><b></b><i style="width:384px"></i><i style="width:362px"></i><i style="width:298px"></i></div>
+    <div class="dd-menu dd-menu--premium is-open" style="position:absolute;left:20px;top:466px;width:424px">
+      <button class="dd-trigger" style="height:42px">Select option<svg class="dd-caret dd-caret--fixed"><use href="#i-chev"/></svg></button>
+      <div class="dd-list dd-list--clipped" style="top:50px;height:170px;padding:0 8px">
+        <div class="dd-item" style="height:40px">Option A<span class="dd-clip">✗ CLIPPED</span></div>
+        <div class="dd-item">Option B</div><div class="dd-item">Option C</div><div class="dd-item">Option D</div><div class="dd-item">Option E</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3b · Rule 2: flipped up -->
+<section class="scene" data-t="15" data-shot="16.5">
+  <div class="glow" style="left:50px;top:330px;background:rgba(46,230,166,.06)"></div>
+  <div class="kicker">Rule 2</div>
+  <h1 class="title">Flip on <span class="dd-g">edge</span>.</h1>
+  <div class="dd-window" style="position:absolute;left:128px;top:248px">
+    <div class="dd-window__bar"><i></i><i></i><i></i></div>
+    <div class="dd-window__lines"><b></b><i style="width:384px"></i><i style="width:362px"></i><i style="width:298px"></i></div>
+    <div class="dd-menu dd-menu--premium is-open is-up" style="position:absolute;left:20px;top:466px;width:424px">
+      <button class="dd-trigger" style="height:42px">Select option<svg class="dd-caret dd-caret--fixed"><use href="#i-chev"/></svg></button>
+      <div class="dd-list dd-list--teal" style="bottom:58px;height:174px;padding-top:7px">
+        <div class="dd-item">Option A</div><div class="dd-item">Option B</div><div class="dd-item is-active">Option C</div><div class="dd-item">Option D</div><div class="dd-item">Option E</div>
+      </div>
+    </div>
+  </div>
+  <div class="caption">Detect edge. <em>Flip the menu up.</em></div>
+</section>
+
+<!-- 4 · Rule 3: Keyboard always -->
+<section class="scene" data-t="18" data-shot="18">
+  <div class="glow" style="left:50px;top:330px;background:rgba(168,85,247,.08)"></div>
+  <div class="kicker">Rule 3</div>
+  <h1 class="title">Keyboard <span class="dd-g dd-g--purple">always</span>.</h1>
+  <div class="dd-menu dd-menu--premium is-open" style="position:absolute;left:221px;top:287px;width:278px">
+    <button class="dd-trigger" style="height:43px">Account menu<span class="dd-caret dd-caret--tri">▾</span></button>
+    <div class="dd-list" style="top:51px;height:206px;padding-top:2px">
+      <div class="dd-item dd-item--kb is-active" style="height:40px">Dashboard</div>
+      <div class="dd-item dd-item--kb" style="height:40px">Projects</div>
+      <div class="dd-item dd-item--kb" style="height:40px">Settings</div>
+      <div class="dd-item dd-item--kb" style="height:40px">Team</div>
+      <div class="dd-item dd-item--kb" style="height:40px">Sign out</div>
+    </div>
+  </div>
+  <div class="dd-keys" style="position:absolute;left:237px;top:968px">
+    <div class="dd-key"><kbd style="width:61px">↓</kbd><span>navigate</span></div>
+    <div class="dd-key"><kbd style="width:74px">Enter</kbd><span>select</span></div>
+    <div class="dd-key"><kbd style="width:72px">Esc</kbd><span>close</span></div>
+  </div>
+</section>
+
+<!-- 4b · Rule 3: arrow pressed, Settings highlighted -->
+<section class="scene" data-t="21" data-shot="21">
+  <div class="glow" style="left:50px;top:330px;background:rgba(168,85,247,.08)"></div>
+  <div class="kicker">Rule 3</div>
+  <h1 class="title">Keyboard <span class="dd-g dd-g--purple">always</span>.</h1>
+  <div class="dd-menu dd-menu--premium is-open" style="position:absolute;left:221px;top:287px;width:278px">
+    <button class="dd-trigger" style="height:43px">Account menu<span class="dd-caret dd-caret--tri">▾</span></button>
+    <div class="dd-list" style="top:51px;height:206px;padding-top:2px">
+      <div class="dd-item dd-item--kb" style="height:40px">Dashboard</div>
+      <div class="dd-item dd-item--kb" style="height:40px">Projects</div>
+      <div class="dd-item dd-item--kb is-active" style="height:40px">Settings</div>
+      <div class="dd-item dd-item--kb" style="height:40px">Team</div>
+      <div class="dd-item dd-item--kb" style="height:40px">Sign out</div>
+    </div>
+  </div>
+  <div class="dd-keys" style="position:absolute;left:237px;top:968px">
+    <div class="dd-key is-down"><kbd style="width:61px">↓</kbd><span>navigate</span></div>
+    <div class="dd-key"><kbd style="width:74px">Enter</kbd><span>select</span></div>
+    <div class="dd-key"><kbd style="width:72px">Esc</kbd><span>close</span></div>
+  </div>
+</section>
+
+<!-- 4c · Rule 3: caption -->
+<section class="scene" data-t="24" data-shot="25.5">
+  <div class="glow" style="left:50px;top:330px;background:rgba(168,85,247,.08)"></div>
+  <div class="kicker">Rule 3</div>
+  <h1 class="title">Keyboard <span class="dd-g dd-g--purple">always</span>.</h1>
+  <div class="dd-menu dd-menu--premium is-open" style="position:absolute;left:221px;top:287px;width:278px">
+    <button class="dd-trigger" style="height:43px">Account menu<span class="dd-caret dd-caret--tri">▾</span></button>
+    <div class="dd-list" style="top:51px;height:206px;padding-top:2px">
+      <div class="dd-item dd-item--kb" style="height:40px">Dashboard</div>
+      <div class="dd-item dd-item--kb" style="height:40px">Projects</div>
+      <div class="dd-item dd-item--kb is-active" style="height:40px">Settings</div>
+      <div class="dd-item dd-item--kb" style="height:40px">Team</div>
+      <div class="dd-item dd-item--kb" style="height:40px">Sign out</div>
+    </div>
+  </div>
+  <div class="dd-keys" style="position:absolute;left:237px;top:968px">
+    <div class="dd-key"><kbd style="width:61px">↓</kbd><span>navigate</span></div>
+    <div class="dd-key"><kbd style="width:74px">Enter</kbd><span>select</span></div>
+    <div class="dd-key"><kbd style="width:72px">Esc</kbd><span>close</span></div>
+  </div>
+  <div class="caption"><em class="p">Every user.</em> Every time.</div>
+</section>
+
+<!-- 5 · Rule 4: 10+ items = search -->
+<section class="scene" data-t="27" data-shot="27">
+  <div class="glow" style="left:50px;top:330px;background:rgba(74,125,240,.07)"></div>
+  <div class="kicker">Rule 4</div>
+  <h1 class="title">10+ items = <span class="dd-g dd-g--blue">search</span>.</h1>
+  <div class="dd-search" style="position:absolute;left:194px;top:287px;width:332px;height:356px">
+    <div class="dd-search__field"><svg><use href="#i-search"/></svg><span class="dd-search__ph">Search countries...</span><i class="dd-search__cursor"></i></div>
+    <div class="dd-search__list">
+      <div class="dd-item dd-item--sr">Argentina</div><div class="dd-item dd-item--sr">Australia</div><div class="dd-item dd-item--sr">Austria</div><div class="dd-item dd-item--sr">Belgium</div><div class="dd-item dd-item--sr">Brazil</div><div class="dd-item dd-item--sr">Canada</div><div class="dd-item dd-item--sr">Chile</div><div class="dd-item dd-item--sr">China</div><div class="dd-item dd-item--sr">Colombia</div>
+    </div>
+  </div>
+</section>
+
+<!-- 5b · Rule 4: filtered to France -->
+<section class="scene" data-t="30" data-shot="33">
+  <div class="glow" style="left:50px;top:330px;background:rgba(74,125,240,.07)"></div>
+  <div class="kicker">Rule 4</div>
+  <h1 class="title">10+ items = <span class="dd-g dd-g--blue">search</span>.</h1>
+  <div class="dd-search is-filtered" style="position:absolute;left:194px;top:287px;width:332px;height:97px">
+    <div class="dd-search__field"><svg><use href="#i-search"/></svg><span class="dd-search__q">Fra</span><b class="dd-search__count">1</b></div>
+    <div class="dd-search__list" style="padding:6px 8px">
+      <div class="dd-item dd-item--sr is-match">France</div>
+    </div>
+  </div>
+  <div class="caption">Filter beats <span class="b">scroll.</span> Always.</div>
+</section>
+
+<!-- 6 · Rule 5: Hit 150ms (500ms menu open) -->
+<section class="scene" data-t="34.5" data-shot="36">
+  <div class="glow" style="left:50px;top:330px;background:rgba(232,68,107,.08)"></div>
+  <div class="kicker">Rule 5</div>
+  <h1 class="title">Hit <span class="dd-g">150ms</span>.</h1>
+  <div class="dd-race" style="position:absolute;left:57px;top:308px">
+    <div class="dd-lane dd-lane--red"><div class="dd-lane__ms">50ms</div>
+      <div class="dd-menu"><button class="dd-trigger dd-trigger--sm">Menu<span class="dd-caret dd-caret--tri">▾</span></button>
+        <div class="dd-list dd-list--sm"><div class="dd-item is-hover">Option 1</div><div class="dd-item">Option 2</div><div class="dd-item">Option 3</div><div class="dd-item">Option 4</div></div></div>
+      <div class="dd-lane__verdict">Too fast</div></div>
+    <div class="dd-lane dd-lane--green"><div class="dd-lane__ms">150ms</div>
+      <div class="dd-menu"><button class="dd-trigger dd-trigger--sm">Menu<span class="dd-caret dd-caret--tri">▾</span></button>
+        <div class="dd-list dd-list--sm"><div class="dd-item is-hover">Option 1</div><div class="dd-item">Option 2</div><div class="dd-item">Option 3</div><div class="dd-item">Option 4</div></div></div>
+      <div class="dd-lane__verdict">Just right</div></div>
+    <div class="dd-lane dd-lane--orange"><div class="dd-lane__ms">500ms</div>
+      <div class="dd-menu is-open"><button class="dd-trigger dd-trigger--sm">Menu<span class="dd-caret dd-caret--tri">▾</span></button>
+        <div class="dd-list dd-list--sm"><div class="dd-item is-hover">Option 1</div><div class="dd-item">Option 2</div><div class="dd-item">Option 3</div><div class="dd-item">Option 4</div></div></div>
+      <div class="dd-lane__verdict">Too slow</div></div>
+  </div>
+</section>
+
+<!-- 6b · Rule 5: 50ms and 150ms open, caption -->
+<section class="scene" data-t="39" data-shot="42">
+  <div class="glow" style="left:50px;top:330px;background:rgba(232,68,107,.08)"></div>
+  <div class="kicker">Rule 5</div>
+  <h1 class="title">Hit <span class="dd-g">150ms</span>.</h1>
+  <div class="dd-race" id="race" style="position:absolute;left:57px;top:308px">
+    <div class="dd-lane dd-lane--red" data-ms="50"><div class="dd-lane__ms">50ms</div>
+      <div class="dd-menu is-open"><button class="dd-trigger dd-trigger--sm">Menu<span class="dd-caret dd-caret--tri">▾</span></button>
+        <div class="dd-list dd-list--sm"><div class="dd-item is-hover">Option 1</div><div class="dd-item">Option 2</div><div class="dd-item">Option 3</div><div class="dd-item">Option 4</div></div></div>
+      <div class="dd-lane__verdict">Too fast</div></div>
+    <div class="dd-lane dd-lane--green" data-ms="150"><div class="dd-lane__ms">150ms</div>
+      <div class="dd-menu is-open"><button class="dd-trigger dd-trigger--sm">Menu<span class="dd-caret dd-caret--tri">▾</span></button>
+        <div class="dd-list dd-list--sm"><div class="dd-item is-hover">Option 1</div><div class="dd-item">Option 2</div><div class="dd-item">Option 3</div><div class="dd-item">Option 4</div></div></div>
+      <div class="dd-lane__verdict">Just right</div></div>
+    <div class="dd-lane dd-lane--orange" data-ms="500"><div class="dd-lane__ms">500ms</div>
+      <div class="dd-menu"><button class="dd-trigger dd-trigger--sm">Menu<span class="dd-caret dd-caret--tri">▾</span></button>
+        <div class="dd-list dd-list--sm"><div class="dd-item is-hover">Option 1</div><div class="dd-item">Option 2</div><div class="dd-item">Option 3</div><div class="dd-item">Option 4</div></div></div>
+      <div class="dd-lane__verdict">Too slow</div></div>
+  </div>
+  <div class="caption">Fast to feel instant. <span class="g">Smooth to feel real.</span></div>
+</section>
+
+<script type="module">
+  import { Dropdown, SearchDropdown, TimingRace } from './pattern.js';
+  // Every trigger in the demo is a working dropdown: click, arrow keys, Enter, Esc, and flip-on-edge.
+  document.querySelectorAll('.dd-menu').forEach(m => Dropdown(m));
+  document.querySelectorAll('.dd-search').forEach(s => SearchDropdown(s));
+  // Rule 5: the three menus reopen in a loop when the scene plays live (frozen for screenshots).
+  const race = document.getElementById('race');
+  race.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t === 0) TimingRace(race); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

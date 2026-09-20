@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Navigation Patterns · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a0b0e; --grid: transparent; --accent: #ef4f7e; --danger: #f2b33d; }
+  .scene { color: #f3f5f7; }
+  .glow { width: 420px; height: 420px; filter: blur(80px); }
+  .nv-in { animation: nv-rise .5s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes nv-rise { from { opacity: 0; transform: translateY(18px) } to { opacity: 1; transform: none } }
+  .nv-hook-title { position: absolute; top: 1020px; left: 0; right: 0; text-align: center; font-size: 42px; font-weight: 800; letter-spacing: -.02em; }
+  .nv-hook-title em { font-style: normal; color: #ef4f7e; }
+</style>
+</head>
+<body class="nv">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M2 2l20 20M10.6 10.6a2 2 0 0 0 2.8 2.8M6.5 6.5C4 8 2 12 2 12s3.5 7 10 7c1.6 0 3-.4 4.3-1M9.6 5.2A10 10 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-2.6 3.6"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+  <symbol id="i-collapse" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M16 9l-3 3 3 3"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-cmd" viewBox="0 0 24 24"><path d="M9 6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0M16 4.5a3.5 3.5 0 0 1 0 7M22 20a7 7 0 0 0-5-6.7"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-shrink" viewBox="0 0 24 24"><path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-library" viewBox="0 0 24 24"><path d="M4 4h4v16H4zM10 4h4v16h-4zM16 5l4-1 3 15-4 1z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12l3 3 5-6"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.5M12 17h.01"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h5M15 8l4 4-4 4M19 12H9"/></symbol>
+  <symbol id="i-theme" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c-4 1-8-3-9-9z"/><path d="M17 3v3M15.5 4.5h3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8 3.4 4.5 7 4.5c2 0 3.4 1 5 2.8 1.6-1.8 3-2.8 5-2.8 3.6 0 6 3.5 4.5 7.3C19.5 16.4 12 21 12 21z"/></symbol>
+</svg>
+
+<!-- 1 · Hook: five nav patterns collage -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:0;top:120px;background:rgba(239,79,126,.16)"></div>
+  <div class="glow" style="left:330px;top:150px;background:rgba(46,230,173,.12)"></div>
+  <div class="glow" style="left:-40px;top:520px;background:rgba(242,179,61,.12)"></div>
+  <div class="glow" style="left:330px;top:460px;background:rgba(181,124,245,.14)"></div>
+  <div class="glow" style="left:150px;top:720px;background:rgba(110,168,247,.12)"></div>
+  <div class="kicker" style="top:150px;padding:10px 26px;font-size:17px;letter-spacing:.14em;background:rgba(239,79,126,.16)">5 nav patterns</div>
+
+  <div class="nv-phone" style="position:absolute;left:105px;top:205px;width:203px;height:340px">
+    <div class="nv-phone__status">9:41<i><b></b><b></b><b></b><em></em></i></div>
+    <div class="nv-phone__bar">App<span class="nv-phone__bell"><svg><use href="#i-bell"/></svg></span></div>
+    <div class="nv-phone__list"><div class="nv-phone__card"><span class="nv-skel" style="width:150px"></span><span class="nv-skel" style="width:110px"></span></div><div class="nv-phone__card"><span class="nv-skel" style="width:130px"></span><span class="nv-skel" style="width:95px"></span></div><div class="nv-phone__card"><span class="nv-skel" style="width:145px"></span><span class="nv-skel" style="width:120px"></span></div></div>
+    <nav class="nv-tabs"><button class="nv-tab is-active"><span class="nv-tab__pulse"></span><svg><use href="#i-home"/></svg>Home</button><button class="nv-tab"><svg><use href="#i-search"/></svg>Search</button><button class="nv-tab"><svg><use href="#i-library"/></svg>Library</button><button class="nv-tab"><svg><use href="#i-user"/></svg>Profile</button></nav>
+  </div>
+
+  <div class="nv-app" style="position:absolute;left:344px;top:275px;width:336px;height:228px;--card-h:60px">
+    <aside class="nv-side" style="width:158px"><div class="nv-side__brand"><span class="nv-side__logo"></span>Acme</div>
+      <button class="nv-side__item is-active"><svg><use href="#i-grid"/></svg>Dashboard</button><button class="nv-side__item"><svg><use href="#i-folder"/></svg>Projects</button><button class="nv-side__item"><svg><use href="#i-check"/></svg>Tasks</button><button class="nv-side__item"><svg><use href="#i-cal"/></svg>Calendar</button><button class="nv-side__item"><svg><use href="#i-chart"/></svg>Reports</button><button class="nv-side__item"><svg><use href="#i-gear"/></svg>Settings</button>
+    </aside>
+    <div class="nv-main"><div class="nv-main__bar">Dashboard<span class="nv-main__toggle"></span></div>
+      <div class="nv-grid" style="gap:10px;padding:14px 14px 0 14px"><div class="nv-card" style="padding:8px"><span class="nv-skel" style="width:40px"></span><div class="nv-card__blob is-pink" style="width:18px;height:14px;margin-top:5px"></div><div class="nv-card__bar" style="left:8px;right:8px;bottom:8px"><i style="--w:62%"></i></div></div><div class="nv-card" style="padding:8px"><span class="nv-skel" style="width:40px"></span><div class="nv-card__blob" style="width:18px;height:14px;margin-top:5px"></div><div class="nv-card__bar" style="left:8px;right:8px;bottom:8px"><i style="--w:45%"></i></div></div><div class="nv-card" style="padding:8px"><span class="nv-skel" style="width:40px"></span><div class="nv-card__blob" style="width:18px;height:14px;margin-top:5px"></div><div class="nv-card__bar" style="left:8px;right:8px;bottom:8px"><i style="--w:80%"></i></div></div><div class="nv-card" style="padding:8px"><span class="nv-skel" style="width:40px"></span><div class="nv-card__blob" style="width:18px;height:14px;margin-top:5px"></div><div class="nv-card__bar" style="left:8px;right:8px;bottom:8px"><i style="--w:70%"></i></div></div></div>
+    </div>
+  </div>
+
+  <div class="nv-ham" style="position:absolute;left:55px;top:505px;transform:scale(.63);transform-origin:top left">
+    <div class="nv-ham__phone"><div class="nv-ham__bar"><span class="nv-ham__btn"><svg><use href="#i-menu"/></svg></span>Account<span class="nv-ham__avatar"></span></div>
+      <div class="nv-ham__rows"><div class="nv-ham__row"><span class="nv-skel" style="width:110px"></span><span class="nv-skel" style="width:90px"></span></div><div class="nv-ham__row"><span class="nv-skel" style="width:90px"></span><span class="nv-skel" style="width:120px"></span></div><div class="nv-ham__row"><span class="nv-skel" style="width:115px"></span><span class="nv-skel" style="width:100px"></span></div><div class="nv-ham__row"><span class="nv-skel" style="width:100px"></span><span class="nv-skel" style="width:70px"></span></div></div></div>
+    <span class="nv-ham__chev"><svg><use href="#i-chev"/></svg></span>
+    <div class="nv-drawer"><div class="nv-drawer__panel"><div class="nv-drawer__head">Menu<b>×</b></div>
+      <button class="nv-drawer__item"><svg><use href="#i-user"/></svg>Profile</button><button class="nv-drawer__item is-active"><svg><use href="#i-gear"/></svg>Settings</button><button class="nv-drawer__item"><svg><use href="#i-card"/></svg>Billing</button><button class="nv-drawer__item"><svg><use href="#i-bell"/></svg>Notifications</button><button class="nv-drawer__item"><svg><use href="#i-help"/></svg>Help center</button><button class="nv-drawer__item"><svg><use href="#i-logout"/></svg>Sign out</button></div></div>
+  </div>
+
+  <div class="nv-window" style="position:absolute;left:362px;top:530px;width:303px;height:210px">
+    <div class="nv-palette nv-palette--sm" style="left:12px;top:-11px;width:280px">
+      <div class="nv-palette__search"><svg><use href="#i-search"/></svg><span>Type a command</span><span class="nv-palette__caret"></span><span class="nv-kbd" style="margin-left:auto">⌘ K</span></div>
+      <div class="nv-palette__list"><button class="nv-cmd is-active"><span class="nv-cmd__icon"><svg><use href="#i-folder"/></svg></span>Search project files<span class="nv-cmd__hint">GO TO</span></button><button class="nv-cmd"><span class="nv-cmd__icon"><svg><use href="#i-gear"/></svg></span>Open settings<span class="nv-cmd__hint">ACTION</span></button><button class="nv-cmd"><span class="nv-cmd__icon"><svg><use href="#i-theme"/></svg></span>Switch theme<span class="nv-cmd__hint">ACTION</span></button><button class="nv-cmd"><span class="nv-cmd__icon"><svg><use href="#i-clock"/></svg></span>Recent files<span class="nv-cmd__hint">VIEW</span></button></div>
+    </div>
+  </div>
+
+  <div class="nv-page" style="position:absolute;left:172px;top:775px;width:376px;height:175px">
+    <ol class="nv-crumbs"><li class="is-chip"><a href="#">Workspace</a></li><li><a href="#">Projects</a></li><li><a href="#">Acme</a></li><li class="is-current"><a href="#">Dashboard</a></li></ol>
+    <div class="nv-page__head"><span class="nv-page__star"><svg><use href="#i-star"/></svg></span>Dashboard</div>
+    <div class="nv-page__desc">Overview of all active projects</div>
+    <div class="nv-page__cards"><div class="nv-page__card"><span class="nv-skel"></span></div><div class="nv-page__card"><span class="nv-skel"></span></div><div class="nv-page__card"><span class="nv-skel"></span></div></div>
+  </div>
+
+  <div class="nv-hook-title">Pick wrong, <em>lose users.</em></div>
+</section>
+
+<!-- 2 · Bottom tabs -->
+<section class="scene" data-t="3" data-shot="6">
+  <div class="glow" style="left:150px;top:380px;background:rgba(239,79,126,.14)"></div>
+  <div class="nv-head" style="--c:var(--nv-pink)"><span class="nv-head__dots"><i class="is-on"></i><i></i><i></i><i></i><i></i></span><span class="nv-head__n">01 / 05</span><span class="nv-head__sep"></span><span class="nv-head__label">TABS</span></div>
+  <h1 class="nv-title" style="--c:var(--nv-pink)">Bottom tabs</h1>
+  <div class="nv-sub">Always visible · thumb-reach navigation</div>
+  <div class="nv-phone" id="tabsPhone" style="position:absolute;left:242px;top:468px">
+    <div class="nv-phone__status">9:41<i><b></b><b></b><b></b><em></em></i></div>
+    <div class="nv-phone__bar">App<span class="nv-phone__bell"><svg><use href="#i-bell"/></svg></span></div>
+    <div class="nv-phone__list"><div class="nv-phone__card"><span class="nv-skel" style="width:150px"></span><span class="nv-skel" style="width:110px"></span></div><div class="nv-phone__card"><span class="nv-skel" style="width:130px"></span><span class="nv-skel" style="width:95px"></span></div><div class="nv-phone__card"><span class="nv-skel" style="width:145px"></span><span class="nv-skel" style="width:120px"></span></div></div>
+    <nav class="nv-tabs" id="tabsNav"><button class="nv-tab is-active" data-id="home"><span class="nv-tab__pulse"></span><svg><use href="#i-home"/></svg>Home</button><button class="nv-tab" data-id="search"><svg><use href="#i-search"/></svg>Search</button><button class="nv-tab" data-id="library"><svg><use href="#i-library"/></svg>Library</button><button class="nv-tab" data-id="profile"><svg><use href="#i-user"/></svg>Profile</button></nav>
+  </div>
+  <div class="nv-pill nv-pill--wrap nv-in" style="left:55px;top:762px;width:610px;animation-delay:.2s"><span class="nv-pill__icon"><svg><use href="#i-phone"/></svg></span><span class="nv-pill__tag">RULE</span><span>3-5 destinations · mobile only · always visible</span></div>
+  <div class="nv-pill nv-pill--wrap nv-pill--avoid nv-in" style="left:55px;top:843px;width:610px;animation-delay:2.4s"><span class="nv-pill__icon"><svg><use href="#i-eye-off"/></svg></span><span class="nv-pill__tag">AVOID</span><span>Hidden in a hamburger drops engagement 40%</span></div>
+</section>
+
+<!-- 3 · Persistent sidebar -->
+<section class="scene" data-t="12" data-shot="15">
+  <div class="glow" style="left:150px;top:400px;background:rgba(46,230,173,.12)"></div>
+  <div class="nv-head" style="--c:var(--nv-teal)"><span class="nv-head__dots"><i></i><i class="is-on"></i><i></i><i></i><i></i></span><span class="nv-head__n">02 / 05</span><span class="nv-head__sep"></span><span class="nv-head__label">SIDEBAR</span></div>
+  <h1 class="nv-title" style="--c:var(--nv-teal)">Persistent sidebar</h1>
+  <div class="nv-sub">Hierarchical content · always in view</div>
+  <div class="nv-app" style="position:absolute;left:138px;top:468px">
+    <aside class="nv-side" id="sideNav"><div class="nv-side__brand"><span class="nv-side__logo"></span>Acme</div>
+      <button class="nv-side__item is-active"><svg><use href="#i-grid"/></svg>Dashboard</button><button class="nv-side__item"><svg><use href="#i-folder"/></svg>Projects</button><button class="nv-side__item"><svg><use href="#i-check"/></svg>Tasks</button><button class="nv-side__item"><svg><use href="#i-cal"/></svg>Calendar</button><button class="nv-side__item"><svg><use href="#i-chart"/></svg>Reports</button><button class="nv-side__item"><svg><use href="#i-gear"/></svg>Settings</button>
+    </aside>
+    <div class="nv-main"><div class="nv-main__bar">Dashboard<span class="nv-main__toggle"></span></div>
+      <div class="nv-grid"><div class="nv-card"><span class="nv-skel"></span><div class="nv-card__blob is-pink"></div><div class="nv-card__bar"><i style="--w:62%"></i></div></div><div class="nv-card"><span class="nv-skel"></span><div class="nv-card__blob"></div><div class="nv-card__bar"><i style="--w:45%"></i></div></div><div class="nv-card"><span class="nv-skel"></span><div class="nv-card__blob"></div><div class="nv-card__bar"><i style="--w:80%"></i></div></div><div class="nv-card"><span class="nv-skel"></span><div class="nv-card__blob"></div><div class="nv-card__bar"><i style="--w:70%"></i></div></div></div>
+    </div>
+  </div>
+  <div class="nv-pill nv-in" style="left:115px;top:810px;--c:var(--nv-teal);animation-delay:.2s"><span class="nv-pill__icon"><svg><use href="#i-monitor"/></svg></span><span class="nv-pill__tag">RULE</span><span>Persistent · desktop · 5+ sections</span></div>
+  <div class="nv-pill nv-pill--avoid nv-in" style="left:70px;top:871px;animation-delay:2.4s"><span class="nv-pill__icon"><svg><use href="#i-collapse"/></svg></span><span class="nv-pill__tag">AVOID</span><span>Collapsed by default kills discoverability</span></div>
+</section>
+
+<!-- 4 · Hidden menu -->
+<section class="scene" data-t="21" data-shot="24">
+  <div class="glow" style="left:150px;top:400px;background:rgba(242,179,61,.12)"></div>
+  <div class="nv-head" style="--c:var(--nv-amber)"><span class="nv-head__dots"><i></i><i></i><i class="is-on"></i><i></i><i></i></span><span class="nv-head__n">03 / 05</span><span class="nv-head__sep"></span><span class="nv-head__label">HAMBURGER</span></div>
+  <h1 class="nv-title" style="--c:var(--nv-amber)">Hidden menu</h1>
+  <div class="nv-sub">Secondary nav, never primary</div>
+  <div class="nv-ham" style="position:absolute;left:120px;top:440px">
+    <div class="nv-ham__phone"><div class="nv-ham__bar"><button class="nv-ham__btn" id="hamBtn" aria-label="Menu"><svg><use href="#i-menu"/></svg></button>Account<span class="nv-ham__avatar"></span></div>
+      <div class="nv-ham__rows"><div class="nv-ham__row"><span class="nv-skel" style="width:110px"></span><span class="nv-skel" style="width:90px"></span></div><div class="nv-ham__row"><span class="nv-skel" style="width:90px"></span><span class="nv-skel" style="width:120px"></span></div><div class="nv-ham__row"><span class="nv-skel" style="width:115px"></span><span class="nv-skel" style="width:100px"></span></div><div class="nv-ham__row"><span class="nv-skel" style="width:100px"></span><span class="nv-skel" style="width:70px"></span></div></div></div>
+    <span class="nv-ham__chev"><svg><use href="#i-chev"/></svg></span>
+    <div class="nv-drawer" id="drawer"><div class="nv-drawer__panel"><div class="nv-drawer__head">Menu<b>×</b></div>
+      <button class="nv-drawer__item"><svg><use href="#i-user"/></svg>Profile</button><button class="nv-drawer__item is-active"><svg><use href="#i-gear"/></svg>Settings</button><button class="nv-drawer__item"><svg><use href="#i-card"/></svg>Billing</button><button class="nv-drawer__item"><svg><use href="#i-bell"/></svg>Notifications</button><button class="nv-drawer__item"><svg><use href="#i-help"/></svg>Help center</button><button class="nv-drawer__item"><svg><use href="#i-logout"/></svg>Sign out</button></div></div>
+  </div>
+  <div class="nv-pill nv-in" style="left:105px;top:785px;--c:var(--nv-amber);animation-delay:.2s"><span class="nv-pill__icon"><svg><use href="#i-menu"/></svg></span><span class="nv-pill__tag">RULE</span><span>Mobile only · secondary navigation</span></div>
+  <div class="nv-pill nv-pill--wrap nv-pill--avoid nv-in" style="left:55px;top:843px;width:610px;animation-delay:2.4s"><span class="nv-pill__icon"><svg><use href="#i-x"/></svg></span><span class="nv-pill__tag">AVOID</span><span>Desktop hamburger drops engagement 56%</span></div>
+</section>
+
+<!-- 5 · Command palette -->
+<section class="scene" data-t="30" data-shot="33">
+  <div class="glow" style="left:150px;top:400px;background:rgba(181,124,245,.14)"></div>
+  <div class="nv-head" style="--c:var(--nv-purple)"><span class="nv-head__dots"><i></i><i></i><i></i><i class="is-on"></i><i></i></span><span class="nv-head__n">04 / 05</span><span class="nv-head__sep"></span><span class="nv-head__label">COMMAND PALETTE</span></div>
+  <h1 class="nv-title" style="--c:var(--nv-purple)">Command palette</h1>
+  <div class="nv-sub">Cmd K · search-driven shortcut</div>
+  <div class="nv-window" style="position:absolute;left:120px;top:468px">
+    <div class="nv-window__tabs"><i></i><i></i><i></i></div>
+    <div class="nv-palette" id="palette" style="left:21px;top:52px">
+      <div class="nv-palette__search"><svg><use href="#i-search"/></svg><input class="nv-palette__input" placeholder="Type a command" aria-label="Type a command"><span class="nv-palette__caret"></span><span class="nv-kbd">⌘ K</span></div>
+      <div class="nv-palette__list"><button class="nv-cmd"><span class="nv-cmd__icon"><svg><use href="#i-folder"/></svg></span>Search project files<span class="nv-cmd__hint">GO TO</span></button><button class="nv-cmd is-active"><span class="nv-cmd__icon"><svg><use href="#i-gear"/></svg></span>Open settings<span class="nv-cmd__hint">ACTION</span></button><button class="nv-cmd"><span class="nv-cmd__icon"><svg><use href="#i-theme"/></svg></span>Switch theme<span class="nv-cmd__hint">ACTION</span></button><button class="nv-cmd"><span class="nv-cmd__icon"><svg><use href="#i-clock"/></svg></span>Recent files<span class="nv-cmd__hint">VIEW</span></button></div>
+    </div>
+  </div>
+  <div class="nv-pill nv-in" style="left:96px;top:812px;--c:var(--nv-purple);animation-delay:.2s"><span class="nv-pill__icon"><svg><use href="#i-cmd"/></svg></span><span class="nv-pill__tag">RULE</span><span>Power users · Cmd K · search-driven</span></div>
+  <div class="nv-pill nv-pill--avoid nv-in" style="left:123px;top:872px;animation-delay:2.4s"><span class="nv-pill__icon"><svg><use href="#i-users"/></svg></span><span class="nv-pill__tag">AVOID</span><span>New users don't know it exists</span></div>
+</section>
+
+<!-- 6 · Breadcrumbs -->
+<section class="scene" data-t="40.5" data-shot="42">
+  <div class="glow" style="left:150px;top:400px;background:rgba(110,168,247,.12)"></div>
+  <div class="nv-head" style="--c:var(--nv-blue)"><span class="nv-head__dots"><i></i><i></i><i></i><i></i><i class="is-on"></i></span><span class="nv-head__n">05 / 05</span><span class="nv-head__sep"></span><span class="nv-head__label">BREADCRUMBS</span></div>
+  <h1 class="nv-title" style="--c:var(--nv-blue)">Breadcrumbs</h1>
+  <div class="nv-sub">Show position in deep hierarchies</div>
+  <div class="nv-page" style="position:absolute;left:82px;top:468px">
+    <ol class="nv-crumbs" id="crumbs"><li><a href="#">Workspace</a></li><li><a href="#">Projects</a></li><li class="is-chip"><a href="#">Acme</a></li><li class="is-current"><a href="#">Dashboard</a></li></ol>
+    <div class="nv-page__head"><span class="nv-page__star"><svg><use href="#i-star"/></svg></span>Dashboard</div>
+    <div class="nv-page__desc">Overview of all active projects</div>
+    <div class="nv-page__cards"><div class="nv-page__card"><span class="nv-skel"></span><div class="nv-card__blob is-pink"></div></div><div class="nv-page__card"><span class="nv-skel"></span><div class="nv-card__blob"></div></div><div class="nv-page__card"><span class="nv-skel"></span><div class="nv-card__blob"></div></div></div>
+  </div>
+  <div class="nv-pill nv-in" style="left:152px;top:812px;--c:var(--nv-blue);animation-delay:.2s"><span class="nv-pill__icon"><svg><use href="#i-chev"/></svg></span><span class="nv-pill__tag">RULE</span><span>Hierarchy depth &gt; 2 levels</span></div>
+  <div class="nv-pill nv-pill--avoid nv-in" style="left:86px;top:872px;animation-delay:1.2s"><span class="nv-pill__icon"><svg><use href="#i-shrink"/></svg></span><span class="nv-pill__tag">AVOID</span><span>Flat structure breadcrumbs add noise</span></div>
+</section>
+
+<!-- 7 · Outro: 5 patterns, 1 system -->
+<section class="scene" data-t="51" data-shot="54">
+  <div class="glow" style="left:40px;top:80px;width:640px;height:640px;background:rgba(239,79,126,.13)"></div>
+  <div class="glow" style="left:300px;top:800px;background:rgba(46,230,173,.1)"></div>
+  <div class="center" style="top:438px;font-size:17px;font-weight:700;letter-spacing:.16em;color:#ef4f7e;white-space:nowrap">5 PATTERNS · 1 SYSTEM</div>
+  <div class="title" style="top:472px;font-size:46px;line-height:1.16;letter-spacing:-.02em">Mobile = tabs.<br>Desktop = <em style="color:#2ee6ad">sidebar.</em></div>
+  <div class="nv-chips center" style="top:622px"><span class="nv-chip" style="--c:var(--nv-pink)">TABS</span><span class="nv-chip" style="--c:var(--nv-teal)">SIDEBAR</span><span class="nv-chip" style="--c:var(--nv-amber)">HAMBURGER</span><span class="nv-chip" style="--c:var(--nv-purple)">COMMAND</span><span class="nv-chip" style="--c:var(--nv-blue)">BREADCRUMBS</span></div>
+  <div class="nv-cta center" style="top:758px"><svg><use href="#i-bookmark"/></svg>Save this for your next IA decision</div>
+  <div class="nv-follow center" style="top:826px"><svg><use href="#i-heart"/></svg>FOLLOW FOR MORE SYSTEM THINKING</div>
+</section>
+
+<script type="module">
+  import { BottomTabs, Sidebar, Drawer, CommandPalette, Breadcrumbs } from './pattern.js';
+  BottomTabs(document.getElementById('tabsNav'));
+  Sidebar(document.getElementById('sideNav'));
+  Drawer(document.getElementById('drawer'), document.getElementById('hamBtn'));
+  CommandPalette(document.getElementById('palette'), { hotkey: false });
+  // Breadcrumbs(document.getElementById('crumbs'), [...]) rebuilds the trail; the static markup above is the frame's state.
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

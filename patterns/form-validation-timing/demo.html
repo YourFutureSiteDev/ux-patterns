@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Form Validation Timing · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0c1013; --grid: rgba(255,255,255,.04); --accent: #2fd9a8; --danger: #ee4b7a; }
+  .scene { color: #f3f5f7; }
+</style>
+</head>
+<body class="fvt">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.2h.01"/></symbol>
+  <symbol id="i-check-c" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.2l2.8 2.8L16.5 9.3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/></symbol>
+  <symbol id="i-enter" viewBox="0 0 24 24"><path d="M20 5v6a2 2 0 0 1-2 2H5M9 9l-4 4 4 4"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16M13 5l7 7-7 7"/></symbol>
+  <symbol id="i-plus-user" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 13l2 2 4-4"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.5L6 21z"/></symbol>
+</svg>
+
+<!-- 1 · Hook -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:60px;top:380px;width:600px;height:640px;background:rgba(238,75,122,.2)"></div>
+  <div class="title" style="top:196px;font-size:37px">Still typing. <em class="pink">Already wrong?</em></div>
+  <div class="fvt-field is-error" style="position:absolute;left:73px;top:539px;width:573px">
+    <div class="fvt-label">Email</div>
+    <div class="fvt-box"><span class="fvt-value">alex@ema</span><span class="fvt-icon"><svg><use href="#i-alert"/></svg></span></div>
+    <div class="fvt-help"><svg><use href="#i-alert"/></svg>Invalid email</div>
+  </div>
+  <div class="fvt-note center" style="top:1010px">The timing is the whole thing.</div>
+</section>
+
+<!-- 2 · On submit: clean form -->
+<section class="scene" data-t="3" data-shot="3">
+  <div class="fvt-kicker fvt-kicker--pink center" style="top:148px">On submit</div>
+  <div class="title" style="top:196px;font-size:44px">Errors all at once</div>
+  <form class="fvt-form" id="submitForm" novalidate style="position:absolute;left:87px;top:312px;width:546px">
+    <div class="fvt-field fvt-field--sm"><div class="fvt-label">Full name</div><div class="fvt-box"><span class="fvt-value">Alex Carter</span><span class="fvt-icon"><svg><use href="#i-alert"/></svg></span></div><div class="fvt-help" data-error="Required"></div></div>
+    <div class="fvt-field fvt-field--sm"><div class="fvt-label">Email</div><div class="fvt-box"><span class="fvt-value">alex@ema</span><span class="fvt-icon"><svg><use href="#i-alert"/></svg></span></div><div class="fvt-help" data-error="Invalid email"></div></div>
+    <div class="fvt-field fvt-field--sm"><div class="fvt-label">Password</div><div class="fvt-box"><span class="fvt-value">••••</span><span class="fvt-icon"><svg><use href="#i-alert"/></svg></span></div><div class="fvt-help" data-error="Too short"></div></div>
+    <div class="fvt-field fvt-field--sm"><div class="fvt-label">Country</div><div class="fvt-box"><span class="fvt-value">France</span></div><div class="fvt-help"></div></div>
+    <div class="fvt-field fvt-field--sm"><div class="fvt-label">Phone</div><div class="fvt-box"><span class="fvt-value">06 12 34</span><span class="fvt-icon"><svg><use href="#i-alert"/></svg></span></div><div class="fvt-help" data-error="Invalid number"></div></div>
+    <button type="submit" class="fvt-submit"><svg><use href="#i-send"/></svg>Submit</button>
+  </form>
+  <div class="fvt-caption fvt-caption--pink center" style="top:1007px">Too late.</div>
+</section>
+
+<!-- 3 · On submit: every error at once -->
+<section class="scene" data-t="6" data-shot="7.5">
+  <div class="fvt-kicker fvt-kicker--pink center" style="top:148px">On submit</div>
+  <div class="title" style="top:196px;font-size:44px">Errors all at once</div>
+  <form class="fvt-form is-submitted" novalidate style="position:absolute;left:87px;top:312px;width:546px">
+    <div class="fvt-field fvt-field--sm is-error"><div class="fvt-label">Full name</div><div class="fvt-box"><span class="fvt-value">Alex Carter</span><span class="fvt-icon"><svg><use href="#i-alert"/></svg></span></div><div class="fvt-help">Required</div></div>
+    <div class="fvt-field fvt-field--sm is-error"><div class="fvt-label">Email</div><div class="fvt-box"><span class="fvt-value">alex@ema</span><span class="fvt-icon"><svg><use href="#i-alert"/></svg></span></div><div class="fvt-help">Invalid email</div></div>
+    <div class="fvt-field fvt-field--sm is-error"><div class="fvt-label">Password</div><div class="fvt-box"><span class="fvt-value">••••</span><span class="fvt-icon"><svg><use href="#i-alert"/></svg></span></div><div class="fvt-help">Too short</div></div>
+    <div class="fvt-field fvt-field--sm is-error"><div class="fvt-label">Country</div><div class="fvt-box"><span class="fvt-value">France</span></div><div class="fvt-help"></div></div>
+    <div class="fvt-field fvt-field--sm is-error"><div class="fvt-label">Phone</div><div class="fvt-box"><span class="fvt-value">06 12 34</span><span class="fvt-icon"><svg><use href="#i-alert"/></svg></span></div><div class="fvt-help">Invalid number</div></div>
+    <button type="submit" class="fvt-submit is-spent" disabled><svg><use href="#i-send"/></svg>Submit</button>
+  </form>
+  <div class="fvt-caption fvt-caption--pink center" style="top:1007px">Too late.</div>
+</section>
+
+<!-- 4 · On keystroke -->
+<section class="scene" data-t="12" data-shot="16.5" id="keystrokeScene">
+  <div class="glow" style="left:100px;top:320px;background:rgba(238,75,122,.10)"></div>
+  <div class="fvt-kicker fvt-kicker--pink center" style="top:148px">On keystroke</div>
+  <div class="title" style="top:196px;font-size:44px">Wrong before they finish</div>
+  <div class="fvt-field is-error" id="ksField" style="position:absolute;left:73px;top:480px;width:573px">
+    <div class="fvt-label">Email</div>
+    <div class="fvt-box"><span class="fvt-value" id="ksValue">alex</span><i class="fvt-caret" style="animation-delay:-.2s"></i><span class="fvt-icon"><svg><use href="#i-alert"/></svg></span></div>
+    <div class="fvt-help"><svg><use href="#i-alert"/></svg>Invalid email</div>
+  </div>
+  <div class="fvt-counter center" style="top:637px"><b id="ksCount">4</b>checks fired · 1 per key</div>
+  <div class="fvt-caption fvt-caption--pink center" style="top:1007px">Correct, but cruel.</div>
+</section>
+
+<!-- 5 · On blur: still typing, nothing fires -->
+<section class="scene" data-t="21" data-shot="21">
+  <div class="glow" style="left:60px;top:400px;width:600px;height:700px;background:rgba(47,217,168,.16)"></div>
+  <div class="fvt-kicker center" style="top:148px">On blur</div>
+  <div class="title" style="top:196px;font-size:44px">Check when they leave</div>
+  <div class="fvt-field is-focus" style="position:absolute;left:73px;top:574px;width:573px">
+    <div class="fvt-label">Email</div>
+    <div class="fvt-box"><span class="fvt-value">al</span><i class="fvt-caret"></i></div>
+  </div>
+</section>
+
+<!-- 5b · On blur: tab away, then check -->
+<section class="scene" data-t="24" data-shot="24">
+  <div class="glow" style="left:60px;top:400px;width:600px;height:700px;background:rgba(47,217,168,.16)"></div>
+  <div class="fvt-kicker center" style="top:148px">On blur</div>
+  <div class="title" style="top:196px;font-size:44px">Check when they leave</div>
+  <div class="fvt-key" style="position:absolute;left:582px;top:548px"><svg><use href="#i-enter"/></svg>Tab</div>
+  <div class="fvt-field is-success" style="position:absolute;left:73px;top:572px;width:573px">
+    <div class="fvt-label">Email</div>
+    <div class="fvt-box"><span class="fvt-value">alex@email.com</span><span class="fvt-icon"><svg><use href="#i-check-c"/></svg></span></div>
+    <div class="fvt-help"><svg><use href="#i-check-c"/></svg>Looks good</div>
+  </div>
+  <div class="fvt-badge" style="position:absolute;left:620px;top:667px"><svg><use href="#i-check"/></svg></div>
+  <div class="fvt-caption center" style="top:1007px">Check on blur.</div>
+</section>
+
+<!-- 6 · After an error: the field errored on blur -->
+<section class="scene" data-t="30" data-shot="30">
+  <div class="glow" style="left:60px;top:400px;width:600px;height:700px;background:rgba(47,217,168,.14)"></div>
+  <div class="fvt-kicker center" style="top:148px">After an error</div>
+  <div class="title" style="top:196px;font-size:44px">Then escalate to live</div>
+  <div class="fvt-field is-error" style="position:absolute;left:73px;top:467px;width:573px">
+    <div class="fvt-label">Email</div>
+    <div class="fvt-box"><span class="fvt-value">alex@ema</span><span class="fvt-icon"><svg><use href="#i-alert"/></svg></span></div>
+    <div class="fvt-help"><svg><use href="#i-alert"/></svg>Invalid email</div>
+  </div>
+  <div class="fvt-caption center" style="top:1007px">After an error, go live.</div>
+</section>
+
+<!-- 6b · After an error: now live, clears the moment it is fixed -->
+<section class="scene" data-t="33" data-shot="34.5">
+  <div class="glow" style="left:60px;top:400px;width:600px;height:700px;background:rgba(47,217,168,.16)"></div>
+  <div class="fvt-kicker center" style="top:148px">After an error</div>
+  <div class="title" style="top:196px;font-size:44px">Then escalate to live</div>
+  <div class="fvt-field is-success" style="position:absolute;left:73px;top:467px;width:573px">
+    <div class="fvt-label">Email</div>
+    <div class="fvt-box"><span class="fvt-value">alex@email.com</span><span class="fvt-icon"><svg><use href="#i-check-c"/></svg></span></div>
+    <div class="fvt-help"><svg><use href="#i-check-c"/></svg>Looks good</div>
+  </div>
+  <div class="fvt-modes center" style="top:620px"><span class="fvt-mode">On error</span><svg><use href="#i-arrow"/></svg><span class="fvt-mode is-live">Live</span></div>
+  <div class="fvt-caption center" style="top:1007px">After an error, go live.</div>
+</section>
+
+<!-- 7 · On success: silence -->
+<section class="scene" data-t="39" data-shot="39">
+  <div class="glow" style="left:60px;top:400px;width:600px;height:700px;background:rgba(47,217,168,.14)"></div>
+  <div class="fvt-kicker center" style="top:148px">On success</div>
+  <div class="title" style="top:196px;font-size:44px;padding:0 90px">Confirm it, don't just flag wrong</div>
+  <div class="fvt-field" style="position:absolute;left:73px;top:487px;width:573px">
+    <div class="fvt-label">Email</div>
+    <div class="fvt-box"><span class="fvt-value">alex@email.com</span></div>
+  </div>
+  <div class="fvt-badge fvt-badge--quiet" style="position:absolute;left:666px;top:523px"><svg><use href="#i-help"/></svg></div>
+  <div class="fvt-toggle center" style="top:910px"><span class="fvt-toggle__opt is-on"><b>Silence</b><span>feels judged</span></span><span class="fvt-toggle__opt is-ok"><b>Confirm</b><span>feels safe</span></span></div>
+  <div class="fvt-caption center" style="top:1007px">Confirm right, not only wrong.</div>
+</section>
+
+<!-- 7b · On success: confirm -->
+<section class="scene" data-t="42" data-shot="42">
+  <div class="glow" style="left:60px;top:400px;width:600px;height:700px;background:rgba(47,217,168,.16)"></div>
+  <div class="fvt-kicker center" style="top:148px">On success</div>
+  <div class="title" style="top:196px;font-size:44px;padding:0 90px">Confirm it, don't just flag wrong</div>
+  <div class="fvt-field is-success" style="position:absolute;left:73px;top:487px;width:573px">
+    <div class="fvt-label">Email</div>
+    <div class="fvt-box"><span class="fvt-value">alex@email.com</span><span class="fvt-icon"><svg><use href="#i-check-c"/></svg></span></div>
+    <div class="fvt-help"><svg><use href="#i-check-c"/></svg>Looks good</div>
+  </div>
+  <div class="fvt-badge fvt-badge--lg" style="position:absolute;left:660px;top:515px"><svg><use href="#i-check"/></svg></div>
+  <div class="fvt-toggle center" style="top:910px"><span class="fvt-toggle__opt"><b>Silence</b><span>feels judged</span></span><span class="fvt-toggle__opt is-on is-ok"><b>Confirm</b><span>feels safe</span></span></div>
+  <div class="fvt-caption center" style="top:1007px">Confirm right, not only wrong.</div>
+</section>
+
+<!-- 8 · Outro -->
+<section class="scene" data-t="48" data-shot="48">
+  <div class="glow" style="left:60px;top:250px;width:600px;height:700px;background:rgba(47,217,168,.16)"></div>
+  <div class="fvt-eyebrow center" style="top:455px">Form UX · Timing</div>
+  <div class="title" style="top:482px;font-size:48px">Timing is the <em>UX.</em></div>
+  <div class="fvt-field is-success" id="liveField" style="position:absolute;left:107px;top:574px;width:506px">
+    <label class="fvt-label" for="liveInput">Email</label>
+    <div class="fvt-box"><input class="fvt-input" id="liveInput" type="email" value="alex@email.com" autocomplete="off" spellcheck="false"><span class="fvt-icon"><svg><use href="#i-check-c"/></svg></span></div>
+    <div class="fvt-help"><svg><use href="#i-check-c"/></svg>Looks good</div>
+  </div>
+  <div class="fvt-cta center" style="top:737px"><svg><use href="#i-plus-user"/></svg>Follow for more form UX</div>
+  <div class="fvt-follow center" style="top:808px"><svg><use href="#i-bookmark"/></svg>Save this for your next build</div>
+</section>
+
+<script type="module">
+  import { ValidationField, typeInto } from './pattern.js';
+  // Outro field is live: blur validates, and after an error it revalidates on every keystroke.
+  ValidationField(document.getElementById('liveField'), { timing: 'blur-then-live' });
+  // Keystroke scene replays the cruel version when entered live: a, l, e, x -> 1..4 checks fired.
+  const ks = document.getElementById('keystrokeScene');
+  ks.addEventListener('scene:enter', e => {
+    if (e.detail.t > 0) return;
+    const v = document.getElementById('ksValue'), n = document.getElementById('ksCount');
+    v.textContent = ''; n.textContent = '0';
+    typeInto(v, 'alex', { interval: 600, onKey: i => { n.textContent = i; } });
+  });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

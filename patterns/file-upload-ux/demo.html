@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>File Upload UX · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #090c0d; --accent: #23d5a3; --danger: #e04a70; --grid: rgba(255,255,255,.03); }
+  .scene { color: #f2f4f7; }
+  .kicker { top: 154px; background: none; color: #5b636d; font-size: 15px; font-weight: 600; letter-spacing: .2em; padding: 0; }
+  .title { top: 210px; font-size: 34px; font-weight: 700; line-height: 1.15; margin: 0; letter-spacing: -.01em; }
+  .title em.grey { color: #8b93a1; } .title em.pink { color: #e04a70; }
+  .caption { top: 1086px; background: none; box-shadow: none; padding: 0; font-size: 21px; font-weight: 600; color: #d0d4da; }
+</style>
+</head>
+<body class="fu">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-cloud-up" viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1-.6-7.95A6 6 0 0 1 18 9a4.5 4.5 0 0 1 1 8.9"/><path d="M12 13v8M8.5 16.5L12 13l3.5 3.5"/></symbol>
+  <symbol id="i-tray-up" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 9"/></symbol>
+  <symbol id="i-film" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l3.5-4.5"/><path d="M8 20h8"/></symbol>
+  <symbol id="i-pct" viewBox="0 0 24 24"><path d="M19 5L5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/></symbol>
+  <symbol id="i-steps" viewBox="0 0 24 24"><path d="M6 16v-3a3 3 0 0 1 6 0v3"/><path d="M12 10V7a3 3 0 0 1 6 0v3"/><path d="M6 16h6M12 10h6"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-retry" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4.5h4.5"/></symbol>
+  <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M2 2l20 20M9 16.5a5 5 0 0 1 6 0M5.5 12.5a10 10 0 0 1 4.6-2.6M2 8.5a15 15 0 0 1 6-3.4M15.7 9.6A15 15 0 0 1 22 8.5M12 20h.01"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4.5L5 21V4a1 1 0 0 1 1-1z"/></symbol>
+</svg>
+
+<!-- 1a · Hook: same file dragged over both zones -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="fu-zone fu-zone--dead" style="position:absolute;left:70px;top:213px;height:265px"><span class="fu-zone__icon"><svg class="ic"><use href="#i-cloud-up"/></svg></span></div>
+  <div class="fu-ring" style="left:379px;top:304px"></div>
+  <svg class="cursor" style="left:390px;top:313px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="fu-ghost fu-ghost--sm" style="left:412px;top:338px"><svg class="ic"><use href="#i-doc"/></svg><div><b>brief.pdf</b><span>1.2 MB</span></div></div>
+  <div class="fu-zone fu-zone--safe" style="position:absolute;left:70px;top:735px;height:263px"><span class="fu-zone__icon"><svg class="ic"><use href="#i-cloud-up"/></svg></span></div>
+  <div class="fu-ring" style="left:375px;top:824px"></div>
+  <svg class="cursor" style="left:386px;top:833px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="fu-ghost fu-ghost--sm" style="left:410px;top:860px"><svg class="ic"><use href="#i-doc"/></svg><div><b>brief.pdf</b><span>1.2 MB</span></div></div>
+</section>
+
+<!-- 1b · Hook: one feels broken, one feels safe -->
+<section class="scene" data-t="1.5" data-shot="1.5">
+  <div class="fu-zone fu-zone--dead" style="position:absolute;left:70px;top:213px;height:265px;gap:16px"><span class="fu-zone__tag fu-zone__tag--pink">Broken</span><span class="fu-spinner"></span><span class="fu-zone__sub" style="font-size:15px;color:#8b93a1">Uploading…</span></div>
+  <svg class="cursor" style="left:432px;top:292px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="fu-zone fu-zone--done" style="position:absolute;left:70px;top:735px;height:263px;gap:18px"><span class="fu-zone__tag fu-zone__tag--teal">Safe</span><span class="fu-done"><svg class="ic"><use href="#i-check"/></svg></span><span style="font-size:15px;font-weight:600">brief.pdf uploaded</span></div>
+  <svg class="cursor" style="left:440px;top:812px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+</section>
+
+<!-- 2a · Drag feedback: nothing reacts -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="kicker">Signal 01 — Drag feedback</div>
+  <h1 class="title">Nothing <em class="grey">reacts.</em></h1>
+  <div class="fu-zone" style="position:absolute;left:70px;top:430px"><span class="fu-zone__icon"><svg class="ic"><use href="#i-cloud-up"/></svg></span><span class="fu-zone__title">Drop your file here</span><span class="fu-zone__sub">PNG, JPG, PDF — up to 50 MB</span></div>
+  <div class="fu-ghost" style="left:338px;top:578px"><svg class="ic"><use href="#i-image"/></svg><div><b>hero-banner.png</b><span>2.4 MB</span></div></div>
+  <svg class="cursor" style="left:322px;top:560px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="caption" style="color:#9aa0a8">Users hesitate when nothing moves.</div>
+</section>
+
+<!-- 2b · Drag feedback: border, glow, copy -->
+<section class="scene" data-t="7.5" data-shot="10.5">
+  <div class="kicker">Signal 01 — Drag feedback</div>
+  <h1 class="title">It has to <em>answer back.</em></h1>
+  <div class="fu-zone is-over" id="zone" style="position:absolute;left:70px;top:430px;gap:20px"><span class="fu-zone__icon" style="margin-top:128px"><svg class="ic"><use href="#i-tray-up"/></svg></span><span class="fu-zone__title">Release to upload</span><span class="fu-zone__sub">hero-banner.png — 2.4 MB</span></div>
+  <div class="fu-ghost" style="left:378px;top:590px"><svg class="ic"><use href="#i-image"/></svg><div><b>hero-banner.png</b><span>2.4 MB</span></div></div>
+  <svg class="cursor" style="left:362px;top:574px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div style="position:absolute;left:147px;top:830px;display:flex;gap:20px"><span class="fu-num"><i>1</i>Border</span><span class="fu-num"><i>2</i>Glow</span><span class="fu-num"><i>3</i>Copy</span></div>
+  <div class="caption" style="color:#9aa0a8">Users hesitate when nothing moves.</div>
+</section>
+
+<!-- 2c · Drag feedback: three signals, before the drop -->
+<section class="scene" data-t="12" data-shot="12">
+  <div class="kicker">Signal 01 — Drag feedback</div>
+  <h1 class="title">It has to <em>answer back.</em></h1>
+  <div class="fu-zone is-over" style="position:absolute;left:70px;top:430px;gap:20px"><span class="fu-zone__icon" style="margin-top:128px"><svg class="ic"><use href="#i-tray-up"/></svg></span><span class="fu-zone__title">Release to upload</span><span class="fu-zone__sub">hero-banner.png — 2.4 MB</span></div>
+  <div class="fu-ghost" style="left:378px;top:590px"><svg class="ic"><use href="#i-image"/></svg><div><b>hero-banner.png</b><span>2.4 MB</span></div></div>
+  <svg class="cursor" style="left:362px;top:574px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div style="position:absolute;left:147px;top:830px;display:flex;gap:20px"><span class="fu-num"><i>1</i>Border</span><span class="fu-num"><i>2</i>Glow</span><span class="fu-num"><i>3</i>Copy</span></div>
+  <div class="caption">Three signals, <em>before the drop.</em></div>
+</section>
+
+<!-- 3a · Honest progress: 4% -->
+<section class="scene" data-t="13.5" data-shot="13.5">
+  <div class="kicker">Signal 02 — Honest progress</div>
+  <h1 class="title">A spinner <em class="grey">hides the truth.</em></h1>
+  <div class="fu-card fu-card--dim" style="position:absolute;left:42px;top:375px;width:310px;height:425px">
+    <span class="fu-tag fu-tag--pink" style="position:absolute;left:22px;top:20px">Mystery</span>
+    <div class="fu-mystery"><div class="fu-mystery__ring"><svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="48"/><circle class="arc" cx="50" cy="50" r="48"/></svg><span class="fu-mystery__q">?</span></div><div class="fu-mystery__lbl">Uploading…</div></div>
+    <div class="fu-mystery__rows"><div>time left<span>??</span></div><div>progress<span>??</span></div></div>
+  </div>
+  <div class="fu-card fu-card--teal" style="position:absolute;left:368px;top:375px;width:310px;height:425px;padding:20px 22px">
+    <span class="fu-tag fu-tag--teal">Honest</span>
+    <div class="fu-file" style="margin-top:22px"><div class="fu-file__icon"><svg class="ic"><use href="#i-film"/></svg></div><div><b>demo-recording.mp4</b><span>48 MB</span></div></div>
+    <div class="fu-pct" style="margin-top:22px">4%</div>
+    <div class="fu-bar" style="margin-top:26px"><i style="--w:4%"></i></div>
+  </div>
+</section>
+
+<!-- 3b · Honest progress: 60%, 8s left -->
+<section class="scene" data-t="16.5" data-shot="18">
+  <div class="kicker">Signal 02 — Honest progress</div>
+  <h1 class="title">A spinner <em class="grey">hides the truth.</em></h1>
+  <div class="fu-card fu-card--dim" style="position:absolute;left:42px;top:375px;width:310px;height:425px">
+    <span class="fu-tag fu-tag--pink" style="position:absolute;left:22px;top:20px">Mystery</span>
+    <div class="fu-mystery"><div class="fu-mystery__ring"><svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="48"/><circle class="arc" cx="50" cy="50" r="48"/></svg><span class="fu-mystery__q">?</span></div><div class="fu-mystery__lbl">Uploading…</div></div>
+    <div class="fu-mystery__rows"><div>time left<span>??</span></div><div>progress<span>??</span></div></div>
+  </div>
+  <div class="fu-card" style="position:absolute;left:368px;top:375px;width:310px;height:425px;padding:20px 22px">
+    <span class="fu-tag fu-tag--teal">Honest</span>
+    <div class="fu-file" style="margin-top:22px"><div class="fu-file__icon"><svg class="ic"><use href="#i-film"/></svg></div><div><b>demo-recording.mp4</b><span>48 MB</span></div></div>
+    <div class="fu-pct" style="margin-top:22px">60%</div>
+    <div class="fu-bar" style="margin-top:26px"><i style="--w:60%"></i></div>
+    <div class="fu-stat" style="margin-top:22px"><svg class="ic"><use href="#i-clock"/></svg>8s left</div>
+    <div class="fu-stat" style="margin-top:14px"><svg class="ic"><use href="#i-gauge"/></svg>2.5 MB/s</div>
+  </div>
+  <div style="position:absolute;left:104px;top:892px;display:flex;gap:8px"><span class="fu-chip"><svg class="ic"><use href="#i-pct"/></svg>percent</span><span class="fu-chip"><svg class="ic"><use href="#i-clock"/></svg>time left</span><span class="fu-chip fu-chip--dim"><svg class="ic"><use href="#i-steps"/></svg>wait or walk away</span></div>
+</section>
+
+<!-- 3c · Honest progress: 99%, let them decide -->
+<section class="scene" data-t="21" data-shot="21">
+  <div class="kicker">Signal 02 — Honest progress</div>
+  <h1 class="title">A spinner <em class="grey">hides the truth.</em></h1>
+  <div class="fu-card fu-card--dim" style="position:absolute;left:42px;top:375px;width:310px;height:425px">
+    <span class="fu-tag fu-tag--pink" style="position:absolute;left:22px;top:20px">Mystery</span>
+    <div class="fu-mystery"><div class="fu-mystery__ring"><svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="48"/><circle class="arc" cx="50" cy="50" r="48"/></svg><span class="fu-mystery__q">?</span></div><div class="fu-mystery__lbl">Uploading…</div></div>
+    <div class="fu-mystery__rows"><div>time left<span>??</span></div><div>progress<span>??</span></div></div>
+  </div>
+  <div class="fu-card" style="position:absolute;left:368px;top:375px;width:310px;height:425px;padding:20px 22px">
+    <span class="fu-tag fu-tag--teal">Honest</span>
+    <div class="fu-file" style="margin-top:22px"><div class="fu-file__icon"><svg class="ic"><use href="#i-film"/></svg></div><div><b>demo-recording.mp4</b><span>48 MB</span></div></div>
+    <div class="fu-pct" style="margin-top:22px">99%</div>
+    <div class="fu-bar" style="margin-top:26px"><i style="--w:99%"></i></div>
+    <div class="fu-stat" style="margin-top:22px"><svg class="ic"><use href="#i-clock"/></svg>0s left</div>
+    <div class="fu-stat" style="margin-top:14px"><svg class="ic"><use href="#i-gauge"/></svg>1.9 MB/s</div>
+  </div>
+  <div style="position:absolute;left:104px;top:892px;display:flex;gap:8px"><span class="fu-chip"><svg class="ic"><use href="#i-pct"/></svg>percent</span><span class="fu-chip"><svg class="ic"><use href="#i-clock"/></svg>time left</span><span class="fu-chip"><svg class="ic"><use href="#i-steps"/></svg>wait or walk away</span></div>
+  <div class="caption">Let them decide — <em>wait, or walk away.</em></div>
+</section>
+
+<!-- 4a · Inline retry: uploading -->
+<section class="scene" data-t="22.5" data-shot="22.5">
+  <div class="kicker">Signal 03 — Inline retry</div>
+  <h1 class="title">It dies at <em class="grey">ninety percent.</em></h1>
+  <div class="fu-card fu-upload" style="position:absolute;left:68px;top:373px;height:161px">
+    <div class="fu-upload__head"><div class="fu-file__icon"><svg class="ic"><use href="#i-film"/></svg></div><div class="fu-file"><div><b>demo-recording.mp4</b><span>48 MB — video/mp4</span></div></div><span class="fu-upload__pct">76%</span></div>
+    <div class="fu-bar"><i style="--w:76%"></i></div>
+    <div class="fu-upload__status">Uploading…</div>
+  </div>
+</section>
+
+<!-- 4b · Inline retry: failed at 90%, file kept in memory -->
+<section class="scene" data-t="24" data-shot="25.5">
+  <div class="glow" style="left:100px;top:400px;background:rgba(224,74,112,.08)"></div>
+  <div class="kicker">Signal 03 — Inline retry</div>
+  <h1 class="title">It dies at <em class="pink">ninety percent.</em></h1>
+  <div class="fu-card fu-upload" id="retryCard" style="position:absolute;left:68px;top:373px;height:244px;border-color:rgba(224,74,112,.2)">
+    <div class="fu-upload__head"><div class="fu-file__icon"><svg class="ic"><use href="#i-film"/></svg></div><div class="fu-file"><div><b>demo-recording.mp4</b><span>48 MB — video/mp4</span></div></div><span class="fu-upload__pct fu-upload__pct--pink">90%</span></div>
+    <div class="fu-bar fu-bar--pink"><i style="--w:90%"></i></div>
+    <div class="fu-upload__status fu-upload__status--pink">Paused at 90% — file kept in memory</div>
+    <div class="fu-fail"><svg class="ic"><use href="#i-warn"/></svg><div><b>Upload failed</b><span>Connection lost</span></div><button class="fu-btn"><svg class="ic"><use href="#i-retry"/></svg>Retry</button></div>
+  </div>
+  <div style="position:absolute;left:78px;top:826px;display:flex;gap:20px"><span class="fu-chip fu-chip--sans fu-chip--muted"><svg class="ic"><use href="#i-wifi-off"/></svg>connection lost</span><span class="fu-chip fu-chip--sans"><svg class="ic" style="color:#d0d4da"><use href="#i-film"/></svg>file kept loaded</span></div>
+  <svg class="cursor" style="left:636px;top:1040px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="caption">Never make them <em>start over.</em></div>
+</section>
+
+<!-- 4c · Inline retry: resuming from 90% -->
+<section class="scene" data-t="27" data-shot="28.5">
+  <div class="kicker">Signal 03 — Inline retry</div>
+  <h1 class="title">It dies at <em class="grey">ninety percent.</em></h1>
+  <div class="fu-card fu-upload" style="position:absolute;left:68px;top:373px;height:161px">
+    <div class="fu-upload__head"><div class="fu-file__icon"><svg class="ic"><use href="#i-film"/></svg></div><div class="fu-file"><div><b>demo-recording.mp4</b><span>48 MB — video/mp4</span></div></div><span class="fu-upload__pct">99%</span></div>
+    <div class="fu-bar"><i style="--w:99%"></i></div>
+    <div class="fu-upload__status fu-upload__status--teal">Resuming from 90%…</div>
+  </div>
+  <div style="position:absolute;left:78px;top:826px;display:flex;gap:20px"><span class="fu-chip fu-chip--sans fu-chip--muted"><svg class="ic"><use href="#i-wifi-off"/></svg>connection lost</span><span class="fu-chip fu-chip--sans"><svg class="ic" style="color:#d0d4da"><use href="#i-film"/></svg>file kept loaded</span><span class="fu-chip fu-chip--sans fu-chip--teal"><svg class="ic"><use href="#i-retry"/></svg>one tap resumes</span></div>
+  <div class="caption">Never make them <em>start over.</em></div>
+</section>
+
+<!-- 4d · Inline retry: complete -->
+<section class="scene" data-t="30" data-shot="30">
+  <div class="kicker">Signal 03 — Inline retry</div>
+  <h1 class="title">It dies at <em class="grey">ninety percent.</em></h1>
+  <div class="fu-card fu-upload" style="position:absolute;left:68px;top:373px;height:171px">
+    <div class="fu-upload__head"><div class="fu-file__icon"><svg class="ic"><use href="#i-film"/></svg></div><div class="fu-file"><div><b>demo-recording.mp4</b><span>48 MB — video/mp4</span></div></div><span class="fu-upload__pct fu-upload__pct--teal">100%</span></div>
+    <div class="fu-bar"><i style="--w:100%"></i></div>
+    <div class="fu-upload__status fu-upload__status--done" style="margin-top:16px"><svg class="ic"><use href="#i-check"/></svg>Upload complete</div>
+  </div>
+  <div style="position:absolute;left:78px;top:826px;display:flex;gap:20px"><span class="fu-chip fu-chip--sans fu-chip--muted"><svg class="ic"><use href="#i-wifi-off"/></svg>connection lost</span><span class="fu-chip fu-chip--sans"><svg class="ic" style="color:#d0d4da"><use href="#i-film"/></svg>file kept loaded</span><span class="fu-chip fu-chip--sans fu-chip--teal"><svg class="ic"><use href="#i-retry"/></svg>one tap resumes</span></div>
+  <div class="caption">Never make them <em>start over.</em></div>
+</section>
+
+<!-- 5a · Upload preview -->
+<section class="scene" data-t="33" data-shot="33">
+  <div class="kicker">Signal 04 — Upload preview</div>
+  <h1 class="title">A filename is <em class="grey">not feedback.</em></h1>
+  <div class="fu-textonly" style="position:absolute;left:68px;top:368px"><span class="fu-corner fu-corner--pink">Text only</span><svg class="ic"><use href="#i-check"/></svg>IMG_4032.jpg uploaded</div>
+  <div class="fu-card fu-card--teal fu-preview" style="position:absolute;left:68px;top:548px">
+    <span class="fu-corner fu-corner--teal">Preview</span>
+    <div class="fu-thumb"><svg class="ic"><use href="#i-image"/></svg><span class="fu-thumb__dims">4032 × 3024</span></div>
+    <div class="fu-preview__meta"><h3>IMG_4032.jpg</h3><div class="fu-preview__row"><span class="fu-type">JPG</span>2.4 MB</div><div class="fu-preview__ok"><svg class="ic"><use href="#i-check"/></svg>Uploaded just now</div></div>
+  </div>
+  <div class="fu-legend center" style="top:1038px">Thumbnail <i>·</i> Type <i>·</i> Size <i>·</i> <span class="off">Proof</span></div>
+</section>
+
+<!-- 5b · Upload preview with actions -->
+<section class="scene" data-t="36" data-shot="37.5">
+  <div class="kicker">Signal 04 — Upload preview</div>
+  <h1 class="title">A filename is <em class="grey">not feedback.</em></h1>
+  <div class="fu-textonly" style="position:absolute;left:68px;top:368px"><span class="fu-corner fu-corner--pink">Text only</span><svg class="ic"><use href="#i-check"/></svg>IMG_4032.jpg uploaded</div>
+  <div class="fu-card fu-card--teal fu-preview" style="position:absolute;left:68px;top:548px">
+    <span class="fu-corner fu-corner--teal">Preview</span>
+    <div class="fu-thumb"><svg class="ic"><use href="#i-image"/></svg><span class="fu-thumb__dims">4032 × 3024</span></div>
+    <div class="fu-preview__meta"><h3>IMG_4032.jpg</h3><div class="fu-preview__row"><span class="fu-type">JPG</span>2.4 MB</div><div class="fu-preview__ok"><svg class="ic"><use href="#i-check"/></svg>Uploaded just now</div></div>
+    <div class="fu-preview__actions"><button class="fu-btn"><svg class="ic"><use href="#i-retry"/></svg>Replace</button><button class="fu-btn fu-btn--ghost"><svg class="ic"><use href="#i-trash"/></svg>Remove</button></div>
+  </div>
+  <div class="fu-legend center" style="top:1038px">Thumbnail <i>·</i> Type <i>·</i> Size <i>·</i> <span class="on">Proof</span></div>
+</section>
+
+<!-- 6a · Independent queue: starting -->
+<section class="scene" data-t="39" data-shot="39">
+  <div class="kicker">Signal 05 — Independent queue</div>
+  <h1 class="title">Every file, <em>its own lane.</em></h1>
+  <div class="fu-queue" style="position:absolute;left:66px;top:319px">
+    <div class="fu-queue__head">Uploading 5 files<span class="fu-count">0 of 5 done</span></div>
+    <div class="fu-lane"><div class="fu-file__icon"><svg class="ic"><use href="#i-doc"/></svg></div><div class="fu-lane__body"><div class="fu-lane__name">brief.pdf<small>1.2 MB</small></div><div class="fu-bar"><i style="--w:15%"></i></div></div><span class="fu-lane__pct">15%</span></div>
+    <div class="fu-lane"><div class="fu-file__icon"><svg class="ic"><use href="#i-image"/></svg></div><div class="fu-lane__body"><div class="fu-lane__name">hero-banner.png<small>2.4 MB</small></div><div class="fu-bar"><i style="--w:7%"></i></div></div><span class="fu-lane__pct">7%</span></div>
+    <div class="fu-lane"><div class="fu-file__icon"><svg class="ic"><use href="#i-film"/></svg></div><div class="fu-lane__body"><div class="fu-lane__name">demo-recording.mp4<small>48 MB</small></div><div class="fu-bar"><i style="--w:11%"></i></div></div><span class="fu-lane__pct">11%</span></div>
+    <div class="fu-lane"><div class="fu-file__icon"><svg class="ic"><use href="#i-doc"/></svg></div><div class="fu-lane__body"><div class="fu-lane__name">invoice-2026.pdf<small>340 KB</small></div><div class="fu-bar"><i style="--w:28%"></i></div></div><span class="fu-lane__pct">28%</span></div>
+    <div class="fu-lane is-loading"><div class="fu-file__icon"><svg class="ic"><use href="#i-image"/></svg></div><div class="fu-lane__body"><div class="fu-lane__name">avatar-photo.jpg<small>860 KB</small></div><div class="fu-bar"><i style="--w:0%"></i></div></div><span class="fu-lane__pct">0%</span></div>
+  </div>
+</section>
+
+<!-- 6b · Independent queue: one failed, four done -->
+<section class="scene" data-t="42" data-shot="43.5">
+  <div class="kicker">Signal 05 — Independent queue</div>
+  <h1 class="title">Every file, <em>its own lane.</em></h1>
+  <div class="fu-queue" style="position:absolute;left:66px;top:319px">
+    <div class="fu-queue__head">Uploading 5 files<span class="fu-count fu-count--pink">4 of 5 — 1 failed</span></div>
+    <div class="fu-lane"><div class="fu-file__icon"><svg class="ic"><use href="#i-doc"/></svg></div><div class="fu-lane__body"><div class="fu-lane__name">brief.pdf<small>1.2 MB</small></div><div class="fu-bar"><i style="--w:100%"></i></div></div><span class="fu-lane__ok"><svg class="ic"><use href="#i-check"/></svg></span></div>
+    <div class="fu-lane"><div class="fu-file__icon"><svg class="ic"><use href="#i-image"/></svg></div><div class="fu-lane__body"><div class="fu-lane__name">hero-banner.png<small>2.4 MB</small></div><div class="fu-bar"><i style="--w:100%"></i></div></div><span class="fu-lane__ok"><svg class="ic"><use href="#i-check"/></svg></span></div>
+    <div class="fu-lane is-failed"><div class="fu-file__icon"><svg class="ic"><use href="#i-film"/></svg></div><div class="fu-lane__body"><div class="fu-lane__name">demo-recording.mp4<small>48 MB</small></div><div class="fu-bar fu-bar--pink"><i style="--w:45%"></i></div></div><button class="fu-btn fu-btn--retry" style="margin-left:auto"><svg class="ic"><use href="#i-retry"/></svg>Retry</button></div>
+    <div class="fu-lane"><div class="fu-file__icon"><svg class="ic"><use href="#i-doc"/></svg></div><div class="fu-lane__body"><div class="fu-lane__name">invoice-2026.pdf<small>340 KB</small></div><div class="fu-bar"><i style="--w:100%"></i></div></div><span class="fu-lane__ok"><svg class="ic"><use href="#i-check"/></svg></span></div>
+    <div class="fu-lane"><div class="fu-file__icon"><svg class="ic"><use href="#i-image"/></svg></div><div class="fu-lane__body"><div class="fu-lane__name">avatar-photo.jpg<small>860 KB</small></div><div class="fu-bar"><i style="--w:100%"></i></div></div><span class="fu-lane__ok"><svg class="ic"><use href="#i-check"/></svg></span></div>
+  </div>
+  <svg class="cursor" style="left:574px;top:624px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="caption">One failure never blocks <em>the others.</em></div>
+</section>
+
+<!-- 6c · Independent queue: all done -->
+<section class="scene" data-t="45" data-shot="46.5">
+  <div class="kicker">Signal 05 — Independent queue</div>
+  <h1 class="title">Every file, <em>its own lane.</em></h1>
+  <div class="fu-queue" style="position:absolute;left:66px;top:319px">
+    <div class="fu-queue__head">Uploading 5 files<span class="fu-count" style="color:#23d5a3;background:#0f2e2a">5 of 5 done</span></div>
+    <div class="fu-lane"><div class="fu-file__icon"><svg class="ic"><use href="#i-doc"/></svg></div><div class="fu-lane__body"><div class="fu-lane__name">brief.pdf<small>1.2 MB</small></div><div class="fu-bar"><i style="--w:100%"></i></div></div><span class="fu-lane__ok"><svg class="ic"><use href="#i-check"/></svg></span></div>
+    <div class="fu-lane"><div class="fu-file__icon"><svg class="ic"><use href="#i-image"/></svg></div><div class="fu-lane__body"><div class="fu-lane__name">hero-banner.png<small>2.4 MB</small></div><div class="fu-bar"><i style="--w:100%"></i></div></div><span class="fu-lane__ok"><svg class="ic"><use href="#i-check"/></svg></span></div>
+    <div class="fu-lane"><div class="fu-file__icon"><svg class="ic"><use href="#i-film"/></svg></div><div class="fu-lane__body"><div class="fu-lane__name">demo-recording.mp4<small>48 MB</small></div><div class="fu-bar"><i style="--w:100%"></i></div></div><span class="fu-lane__ok"><svg class="ic"><use href="#i-check"/></svg></span></div>
+    <div class="fu-lane"><div class="fu-file__icon"><svg class="ic"><use href="#i-doc"/></svg></div><div class="fu-lane__body"><div class="fu-lane__name">invoice-2026.pdf<small>340 KB</small></div><div class="fu-bar"><i style="--w:100%"></i></div></div><span class="fu-lane__ok"><svg class="ic"><use href="#i-check"/></svg></span></div>
+    <div class="fu-lane"><div class="fu-file__icon"><svg class="ic"><use href="#i-image"/></svg></div><div class="fu-lane__body"><div class="fu-lane__name">avatar-photo.jpg<small>860 KB</small></div><div class="fu-bar"><i style="--w:100%"></i></div></div><span class="fu-lane__ok"><svg class="ic"><use href="#i-check"/></svg></span></div>
+  </div>
+  <div class="caption">One failure never blocks <em>the others.</em></div>
+</section>
+
+<!-- 7 · Outro -->
+<section class="scene" data-t="48" data-shot="49.5">
+  <div class="glow" style="left:100px;top:380px;background:rgba(35,213,163,.10)"></div>
+  <div class="fu-stack" style="position:absolute;left:300px;top:450px"><svg class="ic"><use href="#i-doc"/></svg>brief.pdf<span class="fu-stack__ok"><svg class="ic"><use href="#i-check"/></svg></span></div>
+  <div class="fu-stack" style="position:absolute;left:267px;top:505px"><svg class="ic"><use href="#i-image"/></svg>hero-banner.png<span class="fu-stack__ok"><svg class="ic"><use href="#i-check"/></svg></span></div>
+  <div class="fu-stack" style="position:absolute;left:250px;top:553px"><svg class="ic"><use href="#i-film"/></svg>demo-recording.mp4<span class="fu-stack__ok"><svg class="ic"><use href="#i-check"/></svg></span></div>
+  <div class="center" style="top:620px;font-size:14px;font-weight:700;letter-spacing:.18em;color:var(--accent);white-space:nowrap">@DESIGNMOTIONHQ</div>
+  <div class="title" style="top:652px;font-size:36px;font-weight:700;line-height:1.25">Follow for more<br><em>UX engineering.</em></div>
+  <div class="center" style="top:768px;font-size:17px;color:#8b93a1;white-space:nowrap">Save this for your next upload flow.</div>
+  <div class="fu-save center" style="top:822px"><svg class="ic"><use href="#i-bookmark"/></svg>Save</div>
+</section>
+
+<script type="module">
+  import { Dropzone, Upload, fakeSend } from './pattern.js';
+  // Live behaviour when served over http: the dropzone answers back on dragover; the retry card resumes on click.
+  if (location.protocol !== 'file:') {
+    const z = document.getElementById('zone'); if (z) Dropzone(z, { copy: { idle: 'Drop your file here', over: 'Release to upload' } });
+    const c = document.getElementById('retryCard');
+    if (c) { const bar = c.querySelector('.fu-bar i'), pct = c.querySelector('.fu-upload__pct'), st = c.querySelector('.fu-upload__status');
+      const up = Upload(new File([new ArrayBuffer(48e6)], 'demo-recording.mp4', { type: 'video/mp4' }), { send: fakeSend({ failAt: null }),
+        onProgress: p => { bar.style.setProperty('--w', p.pct + '%'); pct.textContent = p.pct + '%'; if (p.status === 'uploading') { st.textContent = 'Resuming from 90%…'; st.className = 'fu-upload__status fu-upload__status--teal'; c.querySelector('.fu-fail')?.remove(); c.querySelector('.fu-bar').classList.remove('fu-bar--pink'); pct.className = 'fu-upload__pct'; } },
+        onDone: () => { st.textContent = 'Upload complete'; pct.className = 'fu-upload__pct fu-upload__pct--teal'; } });
+      c.querySelector('.fu-btn').addEventListener('click', () => up.retry()); }
+  }
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

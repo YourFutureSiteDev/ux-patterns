@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Disabled Buttons · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0e1114; --accent: #2fd9b6; --danger: #df5159; --grid: rgba(255,255,255,.03); }
+  .scene { color: #f3f5f7; }
+  .kicker { top: 148px; font-size: 14px; letter-spacing: .16em; padding: 8px 18px; }
+  .kicker--plain { color: #b9c0c9; background: #1e2328; }
+  .title { top: 191px; margin: 0; font-size: 34px; letter-spacing: -.025em; }
+  .title .dim { color: #8b93a1; }
+  .caption { top: 1014px; font-size: 20px; padding: 14px 26px; background: #141a1f; color: var(--accent); display: inline-flex; align-items: center; gap: 10px; }
+  .caption--grey { color: #c9ced5; }
+  .caption svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+  /* scene 1: three blind clicks, one every half second */
+  .s1 .db-log__row { opacity: 0; animation: db-in .2s ease forwards; }
+  .s1 .db-log__row:nth-child(2) { animation-delay: .5s } .s1 .db-log__row:nth-child(3) { animation-delay: 1s }
+  @keyframes db-in { to { opacity: 1; } }
+  /* scene 8: outro rows stagger in */
+  .s8 .db-item { opacity: 0; transform: translateY(10px); animation: db-up .45s ease forwards; }
+  .s8 .db-item:nth-child(2) { animation-delay: .12s } .s8 .db-item:nth-child(3) { animation-delay: .24s } .s8 .db-item:nth-child(4) { animation-delay: .36s }
+  @keyframes db-up { to { opacity: 1; transform: none; } }
+</style>
+</head>
+<body class="db">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-spk" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5zM15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></symbol>
+  <symbol id="i-cursor" viewBox="0 0 24 24"><path d="M4 3l7.5 18 2.5-7.5L21.5 11z"/></symbol>
+  <symbol id="i-skip" viewBox="0 0 24 24"><path d="M5 4l10 8-10 8V4zM19 5v14"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-loader" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.2-8.6"/></symbol>
+  <symbol id="i-kbd" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/></symbol>
+  <symbol id="i-tip-off" viewBox="0 0 24 24"><path d="M4 4h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-6l-4 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M3 3l18 18"/></symbol>
+  <symbol id="i-listcheck" viewBox="0 0 24 24"><path d="M3 6l2 2 3-3M3 12l2 2 3-3M3 18l2 2 3-3M12 6h9M12 12h9M12 18h9"/></symbol>
+  <symbol id="i-follow" viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M2 21a8 8 0 0 1 14-4M19 8v6M16 11h6"/></symbol>
+</svg>
+
+<!-- 1 · Hook: clicking the disabled button, nothing happens -->
+<section class="scene s1" data-t="0" data-shot="1.5">
+  <div class="db-mono" style="position:absolute;left:70px;top:166px;font-size:15px;color:#8b93a1">acme-cloud <span style="color:#3a4048">/</span> projects <span style="color:#3a4048">/</span> <b style="color:#f3f5f7">new</b></div>
+  <div class="db-form" style="position:absolute;left:68px;top:220px;padding-top:10px;padding-bottom:20px">
+    <div class="db-form__head" style="margin-bottom:25px"><div><div class="db-form__title">New project</div><div class="db-form__sub">acme-cloud · production</div></div></div>
+    <div class="db-field"><label class="db-label">Project name</label><div class="db-input db-input--mono">northwind-api</div></div>
+    <div class="db-field"><label class="db-label">Region</label><div class="db-input db-input--placeholder">Select a region<svg class="db-ico chev"><use href="#i-chev"/></svg></div></div>
+    <div class="db-field"><label class="db-label">Team</label><div class="db-input">Core platform<svg class="db-ico chev"><use href="#i-chev"/></svg></div></div>
+    <div class="db-field"><label class="db-label">Terms</label><div class="db-input db-input--placeholder"><span class="db-check"></span>Accept the terms</div></div>
+    <div class="db-divider" style="margin-top:10px"></div>
+    <button class="db-submit db-submit--disabled" disabled>Create project</button><br>
+    <span class="db-cancel" style="margin-top:14px">Cancel</span>
+  </div>
+  <svg class="cursor" style="left:266px;top:632px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="db-panel" style="position:absolute;left:68px;top:738px;padding:16px 16px 2px 16px">
+    <div class="db-panel__head"><span class="db-panel__title db-panel__title--lg db-mono">onClick</span><span style="display:flex;gap:9px"><span class="db-chip"><svg class="db-ico" style="width:13px;height:13px"><use href="#i-cursor"/></svg>clicks <b id="clickN" style="font-weight:500;color:#d5dae1">3</b></span><span class="db-chip">events 0</span></span></div>
+    <div class="db-log" style="margin-top:8px">
+      <div class="db-log__row">click 1<i></i><span><svg class="db-ico" style="width:13px;height:13px"><use href="#i-ban"/></svg>no state change</span></div>
+      <div class="db-log__row">click 2<i></i><span><svg class="db-ico" style="width:13px;height:13px"><use href="#i-ban"/></svg>no state change</span></div>
+      <div class="db-log__row">click 3<i></i><span><svg class="db-ico" style="width:13px;height:13px"><use href="#i-ban"/></svg>no state change</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · Tab order: stop 1/5 -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="kicker kicker--plain">Tab order</div>
+  <h1 class="title">The keyboard <span class="dim">skips right past it.</span></h1>
+  <div class="db-form" style="position:absolute;left:68px;top:258px;padding-top:10px;padding-bottom:20px">
+    <div class="db-form__head" style="margin-bottom:25px"><div><div class="db-form__title">New project</div><div class="db-form__sub">acme-cloud · production</div></div><div class="db-form__stop">stop 1/5<span class="db-key">Tab</span></div></div>
+    <div class="db-field"><label class="db-label">Project name</label><div class="db-input db-input--mono is-focus">northwind-api</div></div>
+    <div class="db-field"><label class="db-label">Region</label><div class="db-input db-input--placeholder">Select a region<svg class="db-ico chev"><use href="#i-chev"/></svg></div></div>
+    <div class="db-field"><label class="db-label">Team</label><div class="db-input">Core platform<svg class="db-ico chev"><use href="#i-chev"/></svg></div></div>
+    <div class="db-field"><label class="db-label">Terms</label><div class="db-input db-input--placeholder"><span class="db-check"></span>Accept the terms</div></div>
+    <div class="db-divider" style="margin-top:10px"></div>
+    <button class="db-submit db-submit--disabled" disabled>Create project</button><br>
+    <span class="db-cancel" style="margin-top:14px">Cancel</span>
+  </div>
+  <div class="db-panel" style="position:absolute;left:68px;top:770px;padding:10px 16px 17px 16px">
+    <div class="db-panel__head"><span class="db-panel__title">Screen reader</span><span class="db-chip">announced</span></div>
+    <div class="db-sr" style="margin-top:9px"><span class="db-sr__spk"><svg class="db-ico"><use href="#i-spk"/></svg></span><span class="db-sr__wave"><i style="--h:.2"></i><i style="--h:.6"></i><i style="--h:.4"></i><i style="--h:.9"></i><i style="--h:.5"></i><i style="--h:.3"></i><i style="--h:.8"></i><i style="--h:1"></i><i style="--h:.4"></i><i style="--h:.7"></i><i style="--h:.3"></i><i style="--h:.9"></i><i style="--h:.5"></i><i style="--h:.2"></i><i style="--h:.7"></i><i style="--h:.4"></i><i style="--h:.8"></i><i style="--h:.3"></i></span><span class="db-sr__quote">"Project name, edit text, northwind-api"</span></div>
+  </div>
+  <div class="db-panel" style="position:absolute;left:68px;top:884px;padding:15px 16px 42px 16px">
+    <div class="db-panel__head"><span class="db-panel__title">Label contrast</span><span class="db-chip">measuring…</span></div>
+    <div class="db-contrast" style="margin-top:8px"><span class="db-contrast__sample">Create project</span><span class="db-contrast__ratio">—:1</span><span class="db-contrast__req"><b>4.5:1 required</b><span>grey label on grey surface</span></span></div>
+    <div class="db-contrast__bar" style="--p:0"><i></i><span class="min"><span>4.5 min</span></span></div>
+  </div>
+</section>
+
+<!-- 2b · Tab order: stop 5/5, the button was skipped -->
+<section class="scene" data-t="9" data-shot="10.5">
+  <div class="kicker kicker--plain">Tab order</div>
+  <h1 class="title">The keyboard <span class="dim">skips right past it.</span></h1>
+  <div class="db-form" style="position:absolute;left:68px;top:258px;padding-top:10px;padding-bottom:20px">
+    <div class="db-form__head" style="margin-bottom:25px"><div><div class="db-form__title">New project</div><div class="db-form__sub">acme-cloud · production</div></div><div class="db-form__stop">stop 5/5<span class="db-key">Tab</span></div></div>
+    <div class="db-field"><label class="db-label">Project name</label><div class="db-input db-input--mono">northwind-api</div></div>
+    <div class="db-field"><label class="db-label">Region</label><div class="db-input db-input--placeholder">Select a region<svg class="db-ico chev"><use href="#i-chev"/></svg></div></div>
+    <div class="db-field"><label class="db-label">Team</label><div class="db-input">Core platform<svg class="db-ico chev"><use href="#i-chev"/></svg></div></div>
+    <div class="db-field"><label class="db-label">Terms</label><div class="db-input db-input--placeholder"><span class="db-check"></span>Accept the terms</div></div>
+    <div class="db-divider" style="margin-top:10px"></div>
+    <button class="db-submit db-submit--disabled" disabled>Create project</button><br>
+    <span class="db-cancel is-focus" style="margin-top:14px">Cancel</span>
+    <div class="db-skipped" style="left:413px;top:391px"><b><svg class="db-ico"><use href="#i-skip"/></svg>skipped</b><span>tabindex -1</span></div>
+    <svg class="db-jump" style="left:150px;top:360px" width="480" height="140" viewBox="0 0 480 140"><path d="M410 10 C 470 10, 470 108, 410 110 L 8 110" /><path class="tip" d="M6 110 l 12 -7 v 14 z"/></svg>
+  </div>
+  <div class="db-panel" style="position:absolute;left:68px;top:770px;padding:10px 16px 17px 16px">
+    <div class="db-panel__head"><span class="db-panel__title">Screen reader</span><span class="db-chip">announced</span></div>
+    <div class="db-sr" style="margin-top:9px"><span class="db-sr__spk"><svg class="db-ico"><use href="#i-spk"/></svg></span><span class="db-sr__wave"><i style="--h:.2"></i><i style="--h:.6"></i><i style="--h:.4"></i><i style="--h:.9"></i><i style="--h:.5"></i><i style="--h:.3"></i><i style="--h:.8"></i><i style="--h:1"></i><i style="--h:.4"></i><i style="--h:.7"></i><i style="--h:.3"></i><i style="--h:.9"></i><i style="--h:.5"></i><i style="--h:.2"></i><i style="--h:.7"></i><i style="--h:.4"></i><i style="--h:.8"></i><i style="--h:.3"></i></span><span class="db-sr__quote">"Cancel, link"</span></div>
+  </div>
+  <div class="db-panel" style="position:absolute;left:68px;top:884px;padding:15px 16px 42px 16px">
+    <div class="db-panel__head"><span class="db-panel__title">Label contrast</span><span class="db-chip">measuring…</span></div>
+    <div class="db-contrast" style="margin-top:8px"><span class="db-contrast__sample">Create project</span><span class="db-contrast__ratio">—:1</span><span class="db-contrast__req"><b>4.5:1 required</b><span>grey label on grey surface</span></span></div>
+    <div class="db-contrast__bar" style="--p:0"><i></i><span class="min"><span>4.5 min</span></span></div>
+  </div>
+</section>
+
+<!-- 2c · Tab order: the label fails contrast at 1.9:1 -->
+<section class="scene" data-t="12" data-shot="13.5">
+  <div class="kicker kicker--plain">Tab order</div>
+  <h1 class="title">The keyboard <span class="dim">skips right past it.</span></h1>
+  <div class="db-form" style="position:absolute;left:68px;top:258px;padding-top:10px;padding-bottom:20px">
+    <div class="db-form__head" style="margin-bottom:25px"><div><div class="db-form__title">New project</div><div class="db-form__sub">acme-cloud · production</div></div><div class="db-form__stop">stop 5/5<span class="db-key">Tab</span></div></div>
+    <div class="db-field"><label class="db-label">Project name</label><div class="db-input db-input--mono">northwind-api</div></div>
+    <div class="db-field"><label class="db-label">Region</label><div class="db-input db-input--placeholder">Select a region<svg class="db-ico chev"><use href="#i-chev"/></svg></div></div>
+    <div class="db-field"><label class="db-label">Team</label><div class="db-input">Core platform<svg class="db-ico chev"><use href="#i-chev"/></svg></div></div>
+    <div class="db-field"><label class="db-label">Terms</label><div class="db-input db-input--placeholder"><span class="db-check"></span>Accept the terms</div></div>
+    <div class="db-divider" style="margin-top:10px"></div>
+    <span style="position:relative;display:inline-block"><button class="db-submit db-submit--disabled" disabled>Create project</button><span class="db-outline-red"></span></span><br>
+    <span class="db-cancel is-focus" style="margin-top:14px">Cancel</span>
+    <div class="db-skipped" style="left:413px;top:391px"><b><svg class="db-ico"><use href="#i-skip"/></svg>skipped</b><span>tabindex -1</span></div>
+    <svg class="db-jump" style="left:150px;top:360px" width="480" height="140" viewBox="0 0 480 140"><path d="M410 10 C 470 10, 470 108, 410 110 L 8 110" /><path class="tip" d="M6 110 l 12 -7 v 14 z"/></svg>
+  </div>
+  <div class="db-panel" style="position:absolute;left:68px;top:770px;padding:10px 16px 17px 16px">
+    <div class="db-panel__head"><span class="db-panel__title">Screen reader</span><span class="db-chip">announced</span></div>
+    <div class="db-sr" style="margin-top:9px"><span class="db-sr__spk"><svg class="db-ico"><use href="#i-spk"/></svg></span><span class="db-sr__wave is-quiet"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="db-sr__quote">"Cancel, link"</span></div>
+  </div>
+  <div class="db-panel" style="position:absolute;left:68px;top:884px;padding:15px 16px 42px 16px">
+    <div class="db-panel__head"><span class="db-panel__title">Label contrast</span><span class="db-chip db-chip--red">FAIL · WCAG AA</span></div>
+    <div class="db-contrast" style="margin-top:8px"><span class="db-contrast__sample">Create project</span><span class="db-contrast__ratio is-fail">1.9:1</span><span class="db-contrast__req"><b>4.5:1 required</b><span>grey label on grey surface</span></span></div>
+    <div class="db-contrast__bar" style="--p:.27"><i></i><span class="min"><span>4.5 min</span></span></div>
+  </div>
+</section>
+
+<!-- 3 · Pointer events: the tooltip never fires -->
+<section class="scene" data-t="15" data-shot="19.5">
+  <div class="kicker kicker--plain">Pointer events</div>
+  <h1 class="title">The tooltip <span class="dim">never fires.</span></h1>
+  <div class="db-form" style="position:absolute;left:68px;top:252px;height:496px;padding-top:10px">
+    <div class="db-form__head" style="margin-bottom:25px"><div><div class="db-form__title">New project</div><div class="db-form__sub">acme-cloud · production</div></div></div>
+    <div class="db-field"><label class="db-label">Project name</label><div class="db-input db-input--mono">northwind-api</div></div>
+    <div class="db-field"><label class="db-label">Region</label><div class="db-input db-input--placeholder">Select a region<svg class="db-ico chev"><use href="#i-chev"/></svg></div></div>
+    <div class="db-field"><label class="db-label">Team</label><div class="db-input">Core platform<svg class="db-ico chev"><use href="#i-chev"/></svg></div></div>
+    <div class="db-field"><label class="db-label">Terms</label><div class="db-input db-input--placeholder"><span class="db-check"></span>Accept the terms</div></div>
+    <div class="db-divider" style="margin-top:10px"></div>
+    <button class="db-submit db-submit--disabled" disabled>Create project</button>
+    <div class="db-annot" style="left:394px;top:395px"><span style="color:#8b93a1">◂--</span> pointer-events
+<span style="color:#8b93a1">   </span>: <em>none</em></div>
+    <div class="db-ghost-tip" style="left:59px;top:456px;width:294px"><svg class="db-ico"><use href="#i-info"/></svg>Pick a region first</div>
+  </div>
+  <svg class="cursor" style="left:266px;top:666px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="db-panel" style="position:absolute;left:68px;top:772px;padding:14px 16px 18px 16px">
+    <div class="db-panel__title" style="text-transform:uppercase">Hover test · same tooltip, two buttons</div>
+    <div class="db-hover" style="margin-top:10px">
+      <div class="db-hover__col"><div class="db-hover__state">ENABLED</div><div class="db-tip">Saves to your drafts</div><button class="db-hover__btn db-hover__btn--live">Save draft</button><div class="db-hover__res">hover → tooltip</div></div>
+      <div class="db-hover__col"><div class="db-hover__state is-off">DISABLED</div><div class="db-tip db-tip--none">no event</div><button class="db-hover__btn db-hover__btn--dead" disabled>Save draft<span class="db-ripple" style="left:76px;top:9px"></span></button><div class="db-hover__res is-off">hover → nothing</div></div>
+    </div>
+  </div>
+  <svg class="cursor" style="left:493px;top:900px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="caption caption--grey"><svg viewBox="0 0 24 24"><use href="#i-ban"/></svg>no pointer events, no reason</div>
+</section>
+
+<!-- 4 · Validate on click: nothing blocked yet -->
+<section class="scene" data-t="24" data-shot="25.5">
+  <div class="glow" style="left:100px;top:600px;background:rgba(19,183,166,.08)"></div>
+  <div class="kicker">Validate on click</div>
+  <h1 class="title">Keep it live. <em>Explain.</em></h1>
+  <div class="db-form db-form--msgs" id="form4a" style="position:absolute;left:68px;top:245px;padding-top:10px;padding-bottom:22px">
+    <div class="db-form__head" style="margin-bottom:26px"><div><div class="db-form__title">New project</div><div class="db-form__sub">acme-cloud · production</div></div></div>
+    <div class="db-field"><label class="db-label" style="margin-top:0">Project name</label><div class="db-input db-input--mono">northwind-api</div><div class="db-msg"></div></div>
+    <div class="db-field"><label class="db-label">Region</label><div class="db-input db-input--placeholder">Select a region<svg class="db-ico chev"><use href="#i-chev"/></svg></div><div class="db-msg"></div></div>
+    <div class="db-field"><label class="db-label">Team</label><div class="db-input">Core platform<svg class="db-ico chev"><use href="#i-chev"/></svg></div><div class="db-msg"></div></div>
+    <div class="db-field"><label class="db-label">Terms</label><div class="db-input db-input--placeholder"><span class="db-check"></span>Accept the terms</div><div class="db-msg"></div></div>
+    <div class="db-divider" style="margin-top:3px"></div>
+    <button class="db-submit db-submit--live">Create project</button><br>
+    <span class="db-cancel" style="margin-top:14px">Cancel</span>
+  </div>
+  <svg class="cursor" style="left:290px;top:728px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="db-panel" style="position:absolute;left:68px;top:868px;height:120px;padding:8px 16px 0 16px">
+    <div class="db-panel__head"><span class="db-panel__title">Validation</span><span class="db-chip">runs on submit</span></div>
+    <div class="db-val"><div class="db-val__empty">Nothing is blocked yet — press Create to check.</div></div>
+  </div>
+  <div class="caption"><svg viewBox="0 0 24 24"><use href="#i-shield"/></svg>same protection, no dead end</div>
+</section>
+
+<!-- 4b · Validate on click: two blockers lit, focus moved to the first -->
+<section class="scene" data-t="27" data-shot="28.5">
+  <div class="glow" style="left:100px;top:600px;background:rgba(19,183,166,.08)"></div>
+  <div class="kicker">Validate on click</div>
+  <h1 class="title">Keep it live. <em>Explain.</em></h1>
+  <div class="db-form db-form--msgs" style="position:absolute;left:68px;top:245px;padding-top:10px;padding-bottom:22px">
+    <div class="db-form__head" style="margin-bottom:26px"><div><div class="db-form__title">New project</div><div class="db-form__sub">acme-cloud · production</div></div></div>
+    <div class="db-field"><label class="db-label" style="margin-top:0">Project name</label><div class="db-input db-input--mono">northwind-api</div><div class="db-msg"></div></div>
+    <div class="db-field"><label class="db-label" style="color:#e0a63a">Region</label><div class="db-input db-input--placeholder is-invalid is-focus">Select a region<svg class="db-ico chev"><use href="#i-chev"/></svg></div><div class="db-msg db-msg--warn"><svg class="db-ico"><use href="#i-warn"/></svg>Pick a region</div></div>
+    <div class="db-field"><label class="db-label">Team</label><div class="db-input">Core platform<svg class="db-ico chev"><use href="#i-chev"/></svg></div><div class="db-msg"></div></div>
+    <div class="db-field"><label class="db-label" style="color:#e0a63a">Terms</label><div class="db-input db-input--placeholder is-invalid"><span class="db-check"></span>Accept the terms</div><div class="db-msg db-msg--warn"><svg class="db-ico"><use href="#i-warn"/></svg>Accept the terms</div></div>
+    <div class="db-divider" style="margin-top:3px"></div>
+    <button class="db-submit db-submit--live">Create project</button><br>
+    <span class="db-cancel" style="margin-top:14px">Cancel</span>
+  </div>
+  <svg class="cursor" style="left:266px;top:760px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="db-panel" style="position:absolute;left:68px;top:868px;height:120px;padding:8px 16px 0 16px">
+    <div class="db-panel__head"><span class="db-panel__title">Validation</span><span class="db-chip db-chip--amber">2 to fix</span></div>
+    <div class="db-val" style="margin-top:6px">
+      <div class="db-val__row"><span class="db-val__icon db-val__icon--warn"><svg class="db-ico"><use href="#i-warn"/></svg></span><b>Region</b><span>— Pick a region</span><em class="is-focus">focus →</em></div>
+      <div class="db-val__row"><span class="db-val__icon db-val__icon--warn"><svg class="db-ico"><use href="#i-warn"/></svg></span><b>Terms</b><span>— Accept the terms</span><em>queued</em></div>
+    </div>
+  </div>
+  <div class="caption"><svg viewBox="0 0 24 24"><use href="#i-shield"/></svg>same protection, no dead end</div>
+</section>
+
+<!-- 4c · Validate on click: both fixed, all clear -->
+<section class="scene" data-t="33" data-shot="34.5">
+  <div class="glow" style="left:100px;top:600px;background:rgba(19,183,166,.08)"></div>
+  <div class="kicker">Validate on click</div>
+  <h1 class="title">Keep it live. <em>Explain.</em></h1>
+  <div class="db-form db-form--msgs" style="position:absolute;left:68px;top:245px;padding-top:10px;padding-bottom:22px">
+    <div class="db-form__head" style="margin-bottom:26px"><div><div class="db-form__title">New project</div><div class="db-form__sub">acme-cloud · production</div></div></div>
+    <div class="db-field"><label class="db-label" style="margin-top:0">Project name</label><div class="db-input db-input--mono">northwind-api</div><div class="db-msg"></div></div>
+    <div class="db-field"><label class="db-label">Region</label><div class="db-input">eu-west-1<svg class="db-ico chev" style="margin-left:190px"><use href="#i-chev"/></svg><svg class="db-ico" style="margin-left:auto;color:#2fd9b6"><use href="#i-check"/></svg></div><div class="db-msg db-msg--ok"><svg class="db-ico"><use href="#i-check"/></svg>Region set to eu-west-1</div></div>
+    <div class="db-field"><label class="db-label">Team</label><div class="db-input">Core platform<svg class="db-ico chev"><use href="#i-chev"/></svg></div><div class="db-msg"></div></div>
+    <div class="db-field"><label class="db-label">Terms</label><div class="db-input is-focus"><span class="db-check is-on"><svg class="db-ico"><use href="#i-check"/></svg></span>Accept the terms</div><div class="db-msg db-msg--ok"><svg class="db-ico"><use href="#i-check"/></svg>Terms accepted</div></div>
+    <div class="db-divider" style="margin-top:3px"></div>
+    <button class="db-submit db-submit--live">Create project</button><br>
+    <span class="db-cancel" style="margin-top:14px">Cancel</span>
+  </div>
+  <svg class="cursor" style="left:108px;top:668px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="db-panel" style="position:absolute;left:68px;top:868px;height:120px;padding:8px 16px 0 16px">
+    <div class="db-panel__head"><span class="db-panel__title">Validation</span><span class="db-chip db-chip--teal">all clear</span></div>
+    <div class="db-val" style="margin-top:6px">
+      <div class="db-val__row is-fixed"><span class="db-val__icon db-val__icon--ok"><svg class="db-ico"><use href="#i-check"/></svg></span><b>Region</b><span>— Pick a region</span><em class="is-ok">fixed</em></div>
+      <div class="db-val__row is-fixed"><span class="db-val__icon db-val__icon--ok"><svg class="db-ico"><use href="#i-check"/></svg></span><b>Terms</b><span>— Accept the terms</span><em class="is-ok">fixed</em></div>
+    </div>
+  </div>
+  <div class="caption"><svg viewBox="0 0 24 24"><use href="#i-shield"/></svg>same protection, no dead end</div>
+</section>
+
+<!-- 5 · Loading state: busy is not disabled -->
+<section class="scene" data-t="36" data-shot="39">
+  <div class="glow" style="left:100px;top:300px;background:rgba(19,183,166,.08)"></div>
+  <div class="kicker">Loading state</div>
+  <h1 class="title">Busy is <em>not</em> disabled.</h1>
+  <div class="db-state" style="position:absolute;left:68px;top:258px">
+    <div class="db-state__head"><span class="db-state__name">disabled</span><span class="db-chip">disabled</span></div>
+    <div class="db-state__row" style="margin-top:7px"><button class="db-state__btn db-state__btn--disabled" disabled>Create project</button><span class="db-state__focus"><svg class="db-ico x"><use href="#i-x"/></svg>focus lost</span></div>
+    <div class="db-state__bar db-state__bar--stub"><i></i></div>
+  </div>
+  <div class="db-state db-state--busy" style="position:absolute;left:68px;top:410px">
+    <div class="db-state__head"><span class="db-state__name">busy</span><span class="db-chip db-chip--mono-teal">aria-busy="true"</span></div>
+    <div class="db-state__row" style="margin-top:7px"><button class="db-state__btn db-state__btn--teal is-focus" aria-busy="true"><span class="db-spin"></span>Creating…</button><span class="db-state__focus"><span class="box"></span>focus kept</span></div>
+    <div class="db-state__bar db-state__bar--shimmer"><i></i></div>
+  </div>
+  <div class="db-state" style="position:absolute;left:68px;top:562px;height:132px">
+    <div class="db-state__head"><span class="db-state__name">done</span><span class="db-chip db-chip--mono-teal">aria-busy="false"</span></div>
+    <div class="db-state__row" style="margin-top:7px"><button class="db-state__btn db-state__btn--teal"><svg class="db-ico" style="stroke-width:2.5"><use href="#i-check"/></svg>Project created</button><span class="db-state__focus"><svg class="db-ico ok"><use href="#i-check"/></svg>focus kept</span></div>
+    <div class="db-state__bar db-state__bar--full"><i></i></div>
+  </div>
+  <div class="db-audit" style="position:absolute;left:68px;top:723px;height:225px">
+    <div class="db-audit__head"><span class="db-panel__title">State audit</span><span class="db-audit__note">one request, three ways to render it</span></div>
+    <table>
+      <tr><th></th><th class="is-off">Disabled</th><th>Busy</th><th>Done</th></tr>
+      <tr><td>in the tab order</td><td><span class="db-cell db-cell--no"><svg class="db-ico"><use href="#i-x"/></svg>no</span></td><td><span class="db-cell db-cell--yes"><svg class="db-ico"><use href="#i-check"/></svg>yes</span></td><td><span class="db-cell db-cell--yes"><svg class="db-ico"><use href="#i-check"/></svg>yes</span></td></tr>
+      <tr><td>announces progress</td><td><span class="db-cell db-cell--no"><svg class="db-ico"><use href="#i-x"/></svg>no</span></td><td><span class="db-cell db-cell--yes"><svg class="db-ico"><use href="#i-check"/></svg>yes</span></td><td><span class="db-cell db-cell--na"><svg class="db-ico"><use href="#i-ban"/></svg>n/a</span></td></tr>
+      <tr><td>keeps the user's place</td><td><span class="db-cell db-cell--no"><svg class="db-ico"><use href="#i-x"/></svg>no</span></td><td><span class="db-cell db-cell--yes"><svg class="db-ico"><use href="#i-check"/></svg>yes</span></td><td><span class="db-cell db-cell--yes"><svg class="db-ico"><use href="#i-check"/></svg>yes</span></td></tr>
+    </table>
+  </div>
+  <div class="caption"><svg viewBox="0 0 24 24"><use href="#i-loader"/></svg>busy keeps the focus</div>
+</section>
+
+<!-- 6 · Outro -->
+<section class="scene s8" data-t="45" data-shot="46.5">
+  <div class="glow" style="left:100px;top:520px;background:rgba(19,183,166,.12)"></div>
+  <div class="title" style="top:187px;font-size:40px;color:var(--accent)">Don't disable. Explain.</div>
+  <div class="db-list" style="position:absolute;left:80px;top:308px">
+    <div class="db-item"><span class="db-item__icon"><svg class="db-ico"><use href="#i-kbd"/></svg></span><div><div class="db-item__t">Out of the tab order</div><div class="db-item__s">The keyboard jumps straight past the block</div></div><span class="db-item__n">01</span></div>
+    <div class="db-item"><span class="db-item__icon"><svg class="db-ico"><use href="#i-tip-off"/></svg></span><div><div class="db-item__t">The tooltip never fires</div><div class="db-item__s">Pointer events are dead on a disabled element</div></div><span class="db-item__n">02</span></div>
+    <div class="db-item is-on"><span class="db-item__icon"><svg class="db-ico"><use href="#i-listcheck"/></svg></span><div><div class="db-item__t">Explain the blocker</div><div class="db-item__s">Validate on click, light the fields, move focus</div></div><span class="db-item__n">03</span></div>
+    <div class="db-item is-on"><span class="db-item__icon"><svg class="db-ico"><use href="#i-loader"/></svg></span><div><div class="db-item__t">Busy is not disabled</div><div class="db-item__s">Hold the focus, spin, report aria-busy</div></div><span class="db-item__n">04</span></div>
+  </div>
+  <div class="db-handle center" style="top:800px"><span class="db-handle__avatar"><svg class="db-ico"><use href="#i-ban"/></svg></span>@designmotionhq</div>
+  <div class="db-follow center" style="top:876px"><svg class="db-ico"><use href="#i-follow"/></svg>Follow</div>
+</section>
+
+<script type="module">
+  import { ValidateOnClick, BusyButton } from './pattern.js';
+  // Scene 4: the live Create button validates on click, lights the blockers and moves focus to the first.
+  const f = document.getElementById('form4a');
+  ValidateOnClick(f.querySelector('.db-submit'), [
+    { field: f.querySelectorAll('.db-field')[1], message: 'Pick a region', valid: () => false },
+    { field: f.querySelectorAll('.db-field')[3], message: 'Accept the terms', valid: () => false }
+  ]);
+  // Busy demo: any live submit in the page becomes a busy button when clicked with everything valid.
+  document.querySelectorAll('.db-state__btn--teal.is-focus').forEach(b => BusyButton(b, { label: 'Creating…', done: 'Project created', request: () => new Promise(r => setTimeout(r, 1500)) }));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

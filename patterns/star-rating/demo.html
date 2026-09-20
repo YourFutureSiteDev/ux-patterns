@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Star Rating · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #090c0d; --accent: #20c9a4; --danger: #e04169; }
+  .scene { color: #f3f5f7; }
+  .sr-h { position: absolute; left: 0; right: 0; text-align: center; font-size: 34px; font-weight: 700; letter-spacing: -.01em; }
+</style>
+</head>
+<body class="sr">
+
+<!-- 1 · Hook: Sarah Chen rates her order -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="glow" style="left:100px;top:400px;background:rgba(32,201,164,.08)"></div>
+  <div class="sr-card sr-card--teal" style="position:absolute;left:61px;top:313px;height:216px;padding:26px 24px 30px">
+    <div class="sr-card__head"><div class="sr-card__avatar">SC</div><div><div class="sr-card__name">Sarah Chen</div><div class="sr-card__sub">Order #4821 — Aria Coffee Roasters</div></div></div>
+    <div class="sr-card__prompt" style="margin-top:34px">Rate your order</div>
+    <div class="sr-stars" id="hookStars" data-value="2" style="--sr-size:47px;--sr-gap:24px;margin:16px 0 0 4px"></div>
+  </div>
+  <svg class="cursor" style="left:184px;top:475px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+</section>
+
+<!-- 2 · Hover should preview -->
+<section class="scene" data-t="3" data-shot="7.5">
+  <div class="sr-h" style="top:160px">Hover should preview</div>
+  <div class="sr-card sr-card--pink" style="position:absolute;left:60px;top:266px;height:314px;padding:26px 24px">
+    <div class="sr-card__head"><div class="sr-card__avatar">MW</div><div><div class="sr-card__name">Marcus Webb</div><div class="sr-card__sub">Flat White × 2 — pickup</div></div></div>
+    <span class="sr-card__pill sr-pill sr-pill--pink">reacts on click</span>
+    <div class="sr-card__hr"></div>
+    <div class="sr-card__prompt" style="margin-top:14px;font-size:15px">Tap a star to rate</div>
+    <div class="sr-stars sr-stars--pink sr-stars--flat" data-value="4" style="--sr-size:47px;--sr-gap:11.5px;margin:60px 0 0 0"></div>
+  </div>
+  <div class="sr-card sr-card--teal" style="position:absolute;left:60px;top:660px;height:314px;padding:26px 24px">
+    <div class="sr-card__head"><div class="sr-card__avatar">PN</div><div><div class="sr-card__name">Priya Nair</div><div class="sr-card__sub">Cold Brew — delivery</div></div></div>
+    <span class="sr-card__pill sr-pill sr-pill--teal">previews on hover</span>
+    <div class="sr-card__hr"></div>
+    <div class="sr-card__prompt" style="margin-top:14px;font-size:15px">Hover to preview your rating</div>
+    <div class="sr-stars" id="hoverStars" data-value="4" style="--sr-size:47px;--sr-gap:11.5px;margin:60px 0 0 0"></div>
+  </div>
+  <svg class="cursor" style="left:336px;top:872px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+</section>
+
+<!-- 3 · Preview ≠ committed: cursor on the 4th star -->
+<section class="scene" data-t="9" data-shot="10.5">
+  <div class="sr-h" style="top:162px">Preview ≠ committed</div>
+  <div class="sr-card" style="position:absolute;left:60px;top:292px;height:466px;padding:40px 43px">
+    <div class="sr-layer">Preview layer<span>follows the cursor</span></div>
+    <div class="sr-stars" data-value="4" style="--sr-size:40px;--sr-gap:18.5px;margin:48px 0 0 4px"></div>
+    <div class="sr-layer" style="margin-top:62px">Committed layer<span>the real saved value</span></div>
+    <div class="sr-stars sr-stars--white" data-value="3" style="--sr-size:40px;--sr-gap:18.5px;margin:66px 0 0 4px"></div>
+  </div>
+  <svg class="cursor" style="left:296px;top:420px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+</section>
+
+<!-- 3b · Pointer leaves: preview snaps back to the committed 3 -->
+<section class="scene" data-t="12" data-shot="13.5">
+  <div class="sr-h" style="top:162px">Preview ≠ committed</div>
+  <div class="sr-card" style="position:absolute;left:60px;top:292px;height:466px;padding:40px 43px">
+    <div class="sr-layer">Preview layer<span>follows the cursor</span></div>
+    <div class="sr-stars" data-value="3" style="--sr-size:40px;--sr-gap:18.5px;margin:48px 0 0 4px"></div>
+    <div class="sr-layer" style="margin-top:62px">Committed layer<span>the real saved value</span></div>
+    <div class="sr-stars sr-stars--white" data-value="3" style="--sr-size:40px;--sr-gap:18.5px;margin:66px 0 0 4px"></div>
+  </div>
+  <svg class="cursor" style="left:646px;top:396px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="sr-chip sr-chip--teal center" style="top:920px">leaves → snaps back to 3</div>
+</section>
+
+<!-- 3c · The broken build: preview stuck at 4 -->
+<section class="scene" data-t="15" data-shot="16.5">
+  <div class="sr-h" style="top:162px">Preview ≠ committed</div>
+  <div class="sr-card" style="position:absolute;left:60px;top:292px;height:466px;padding:40px 43px">
+    <div class="sr-layer">Preview layer<span>follows the cursor</span></div>
+    <div class="sr-stars sr-stars--red" data-value="4" style="--sr-size:40px;--sr-gap:18.5px;margin:48px 0 0 4px"></div>
+    <div class="sr-layer" style="margin-top:62px">Committed layer<span>the real saved value</span></div>
+    <div class="sr-stars sr-stars--white" data-value="3" style="--sr-size:40px;--sr-gap:18.5px;margin:66px 0 0 4px"></div>
+  </div>
+  <svg class="cursor" style="left:658px;top:424px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="sr-chip sr-chip--pink center" style="top:920px">broken: stuck at 4, value flickers</div>
+</section>
+
+<!-- 4 · 4.4 true average: rounded up vs the truth -->
+<section class="scene" data-t="18" data-shot="22.5">
+  <div class="glow" style="left:100px;top:480px;background:rgba(32,201,164,.06)"></div>
+  <div class="center" style="top:176px;font-size:96px;font-weight:800;letter-spacing:-.02em;line-height:1">4.4</div>
+  <div class="center" style="top:286px;font-size:17px;color:#8a9199;white-space:nowrap">true average rating</div>
+  <div class="sr-card sr-card--pink" style="position:absolute;left:60px;top:373px;height:195px;padding:26px 33px">
+    <div><span class="sr-pill sr-pill--pink">what most apps show</span></div>
+    <div class="sr-stars sr-stars--red" data-value="5" style="--sr-size:47px;--sr-gap:14px;margin:18px 0 0 2px"></div>
+    <div style="font-size:15px;color:#8f9197;margin-top:15px">4.4 rounded up to 5 full stars</div>
+  </div>
+  <div class="sr-card sr-card--teal" style="position:absolute;left:64px;top:721px;width:592px;height:191px;padding:26px 32px">
+    <div><span class="sr-pill sr-pill--teal">the truth</span></div>
+    <div class="sr-stars" data-value="4.44" style="--sr-size:47px;--sr-gap:14px;margin:18px 0 0 2px"></div>
+    <div style="font-size:15px;color:#8f9197;margin-top:13px">4 full + one star filled 44%</div>
+  </div>
+</section>
+
+<!-- 5 · The 30ms that feels alive -->
+<section class="scene" data-t="24" data-shot="27">
+  <div class="glow" style="left:100px;top:380px;background:rgba(32,201,164,.06)"></div>
+  <div class="sr-h" style="top:166px">The 30ms that feels alive</div>
+  <div class="sr-card sr-card--pink" style="position:absolute;left:60px;top:287px;height:238px;padding:26px 32px">
+    <div><span class="sr-pill sr-pill--pink">all at once</span></div>
+    <div style="font-size:15px;color:#6a7078;margin-top:6px">0ms delay — flat, lifeless</div>
+    <div class="sr-stars sr-stars--pink sr-stars--flat is-committing" data-value="5" style="--sr-size:49px;--sr-gap:17.5px;margin:46px 0 0 11px"></div>
+  </div>
+  <div class="sr-card sr-card--teal" style="position:absolute;left:60px;top:687px;height:240px;padding:26px 32px">
+    <div><span class="sr-pill sr-pill--teal">30ms stagger</span></div>
+    <div style="font-size:15px;color:#6a7078;margin-top:6px">fills left to right — satisfying</div>
+    <div style="display:flex;align-items:center;gap:20px;margin:46px 0 0 11px"><div class="sr-stars is-committing" data-value="5" style="--sr-size:49px;--sr-gap:17.5px"></div><span class="sr-chip sr-chip--sm">+30ms</span></div>
+  </div>
+</section>
+
+<!-- 6 · Stars to rate, a ring to summarize -->
+<section class="scene" data-t="34.5" data-shot="37.5">
+  <div class="sr-product" style="position:absolute;left:55px;top:313px;height:500px">
+    <div class="sr-product__title">Aria Coffee Roasters</div>
+    <div class="sr-product__sub">Ethiopia Guji — Single Origin</div>
+    <div class="sr-product__hr"></div>
+    <div class="sr-product__label">Rate this product</div>
+    <div class="sr-stars" id="productStars" data-value="0" style="--sr-size:39px;--sr-gap:16px;margin-left:1px"></div>
+    <div class="sr-product__hr" style="margin-top:24px"></div>
+    <div class="sr-product__summary" style="margin-top:21px">
+      <div class="sr-ring" id="ring" style="--sr-p:.9">
+        <svg viewBox="0 0 204 204"><circle class="sr-ring__track" cx="102" cy="102" r="95.5" pathLength="1"/><circle class="sr-ring__arc" cx="102" cy="102" r="95.5" pathLength="1"/></svg>
+        <div class="sr-ring__val"><b style="font-size:58px">4.5</b><span>/ 5</span></div>
+      </div>
+      <div class="sr-dist" id="dist" style="width:296px;margin-top:-6px"></div>
+    </div>
+  </div>
+  <div class="center" style="top:860px;font-size:26px;font-weight:700;white-space:nowrap;letter-spacing:-.01em">Stars to rate, a ring to summarize.</div>
+</section>
+
+<!-- 7 · Outro -->
+<section class="scene" data-t="42" data-shot="43.5">
+  <div class="glow" style="left:100px;top:230px;background:rgba(32,201,164,.07)"></div>
+  <div class="sr-ring is-glow center" style="top:370px;--sr-ring:240px;--sr-ring-w:14;--sr-ring-f:76px;--sr-ring-s:22px;--sr-p:.9">
+    <svg viewBox="0 0 240 240"><circle class="sr-ring__track" cx="120" cy="120" r="113" pathLength="1"/><circle class="sr-ring__arc" cx="120" cy="120" r="113" pathLength="1"/></svg>
+    <div class="sr-ring__val"><b>4.5</b><span>/ 5</span></div>
+  </div>
+  <div class="center" style="top:652px;font-size:44px;font-weight:800;color:#20c9a4;white-space:nowrap;letter-spacing:-.02em">Stop rounding up.</div>
+  <div class="center" style="top:745px;font-size:18px;font-weight:500;color:#aab0b7;white-space:nowrap">Save this before you ship another rating.</div>
+  <div class="sr-pill sr-pill--dark center" style="top:810px;font-size:16px;font-weight:700;padding:10px 20px;color:#e6eaee">@designmotionhq</div>
+</section>
+
+<script type="module">
+  import { renderStars, StarRating, ClickOnlyRating, Distribution } from './pattern.js';
+  document.querySelectorAll('.sr-stars[data-value]').forEach(el => renderStars(el, Number(el.dataset.value)));
+  Distribution(document.getElementById('dist'), [{ stars: 5, pct: 60 }, { stars: 4, pct: 25 }, { stars: 3, pct: 9 }, { stars: 2, pct: 4 }, { stars: 1, pct: 2 }]);
+  // Live behaviour: the hook, hover and product cards are real inputs.
+  StarRating(document.getElementById('hookStars'), { value: 2 });
+  StarRating(document.getElementById('hoverStars'), { value: 4 });
+  StarRating(document.getElementById('productStars'), { value: 0 });
+</script>
+<script src="../_shared/stage.js" defer></script>
+</body>
+</html>

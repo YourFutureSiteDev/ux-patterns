@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bottom Sheets · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0d1113; --accent: #2fd6bd; --danger: #e04a76; --grid: rgba(255,255,255,.03); }
+  .scene { color: #eaeff2; }
+  .title { top: 188px; margin: 0; font-size: 36px; line-height: 42px; font-weight: 800; letter-spacing: -.015em; }
+  .title em.pink { color: #e04a76; }
+</style>
+</head>
+<body class="bs">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M10 4H5v16h5M14 8l4 4-4 4M18 12H9"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8 3.4 4.5 7 4.5c2 0 3.4 1 5 2.8 1.6-1.8 3-2.8 5-2.8 3.6 0 6 3.5 4.5 7.3C19.5 16.4 12 21 12 21z"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.6M8.2 13.2l7.6 4.6"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-4 0M14 10V4a2 2 0 0 0-4 0v2M10 10.5V6a2 2 0 0 0-4 0v8M18 8a2 2 0 0 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-1.5-6-3.5L3 15a2 2 0 0 1 3-2.5L8 15"/></symbol>
+  <symbol id="i-point" viewBox="0 0 24 24"><path d="M22 14a8 8 0 0 1-8 8M18 11v-1a2 2 0 0 0-4 0M14 10V9a2 2 0 0 0-4 0v1M10 9.5V4a2 2 0 0 0-4 0v10M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+  <symbol id="i-queue" viewBox="0 0 24 24"><path d="M3 6h13M3 12h13M3 18h8M19 14v6M16 17h6"/></symbol>
+  <symbol id="i-chevs" viewBox="0 0 24 24"><path d="M6 6l6 6 6-6M6 13l6 6 6-6"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v4M12 17.5h.01"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></symbol>
+</svg>
+
+<!-- 1 · Hook: the menu lives where the thumb can't go -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:100px;top:400px;width:520px;height:520px;background:rgba(224,74,118,.08)"></div>
+  <div class="bs-phone bs-phone--pink" style="left:214px;top:362px;width:292px;height:600px">
+    <div class="bs-screen">
+      <div class="bs-status">9:41<span><i><b style="height:5px"></b><b style="height:7px"></b><b style="height:9px"></b><b style="height:11px"></b></i><u></u></span></div>
+      <div class="bs-app"><div class="bs-app__title">Feed</div><div class="bs-feed"><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div></div></div>
+      <div class="bs-scrim"></div>
+      <div class="bs-menu"><div><svg><use href="#i-user"/></svg>Account</div><div><svg><use href="#i-bell"/></svg>Notifications</div><div class="is-on"><svg><use href="#i-gear"/></svg>Settings</div><div><svg><use href="#i-out"/></svg>Log out</div></div>
+      <svg class="bs-hand" style="left:52px;top:224px" viewBox="0 0 24 24"><use href="#i-point"/></svg>
+      <div class="bs-home"></div>
+    </div>
+  </div>
+  <div class="title" style="top:1038px">Your thumb <em class="pink">can't reach.</em></div>
+</section>
+
+<!-- 2 · The problem: a taller phone, the same thumb -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="bs-kicker bs-kicker--grey" style="top:147px">The problem</div>
+  <h1 class="title">Phones grew. <em class="pink">Your thumb didn't.</em></h1>
+  <div class="bs-phone" id="growPhone" style="left:220px;top:375px;width:280px;height:640px">
+    <div class="bs-screen">
+      <div class="bs-status">9:41<span><i><b style="height:5px"></b><b style="height:7px"></b><b style="height:9px"></b><b style="height:11px"></b></i><u></u></span></div>
+      <div class="bs-app"><div class="bs-app__title">Feed</div><div class="bs-feed"><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div></div></div>
+      <div class="bs-home"></div>
+    </div>
+  </div>
+  <div class="bs-cap bs-cap--pink" style="top:1035px"><svg><use href="#i-up"/></svg>Menus still live up there</div>
+</section>
+
+<!-- 2b · The problem: reach stays the same -->
+<section class="scene" data-t="7.5" data-shot="9">
+  <div class="bs-kicker bs-kicker--grey" style="top:147px">The problem</div>
+  <h1 class="title">Phones grew. <em class="pink">Your thumb didn't.</em></h1>
+  <div class="bs-phone" style="left:220px;top:375px;width:280px;height:640px">
+    <div class="bs-screen">
+      <div class="bs-status">9:41<span><i><b style="height:5px"></b><b style="height:7px"></b><b style="height:9px"></b><b style="height:11px"></b></i><u></u></span></div>
+      <div class="bs-app"><div class="bs-app__title">Feed</div><div style="position:absolute;left:16px;top:8px;width:30px;height:30px;border-radius:7px;background:rgba(224,74,118,.35);box-shadow:0 0 0 1px rgba(224,74,118,.6);z-index:3"></div><div class="bs-feed"><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div></div></div>
+      <div class="bs-zone bs-zone--pink" style="top:40px;height:300px"></div>
+      <div class="bs-zone bs-zone--teal" style="top:330px;height:310px"></div>
+      <div class="bs-iconbtn" style="left:226px;top:51px"><svg><use href="#i-up"/></svg></div>
+      <svg class="bs-arc" style="left:0;top:0" width="280" height="640" viewBox="0 0 280 640"><path d="M12 470 C 60 400, 160 340, 270 337"/></svg>
+      <div class="bs-tag bs-tag--teal" style="left:42px;top:563px">Reach stays the same</div>
+      <div class="bs-home"></div>
+    </div>
+  </div>
+  <div class="bs-cap bs-cap--pink" style="top:1035px"><svg><use href="#i-up"/></svg>Menus still live up there</div>
+</section>
+
+<!-- 3 · The fix: heat zones, the menu still up top -->
+<section class="scene" data-t="12" data-shot="15">
+  <div class="bs-kicker" style="top:147px">The fix</div>
+  <h1 class="title">Bring actions <em>to the hand</em></h1>
+  <div class="bs-phone bs-phone--teal" style="left:213px;top:382px;width:294px;height:613px">
+    <div class="bs-screen">
+      <div class="bs-status">9:41<span><i><b style="height:5px"></b><b style="height:7px"></b><b style="height:9px"></b><b style="height:11px"></b></i><u></u></span></div>
+      <div class="bs-app"><div class="bs-app__title">Feed</div><div class="bs-feed"><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div></div></div>
+      <div class="bs-zone bs-zone--pink" style="top:40px;height:198px"></div>
+      <div class="bs-zone bs-zone--amber" style="top:238px;height:175px"></div>
+      <div class="bs-zone bs-zone--teal" style="top:413px;height:200px"></div>
+      <div class="bs-menu bs-menu--pink" style="padding:8px 6px"><div><svg><use href="#i-heart"/></svg>Like</div><div><svg><use href="#i-share"/></svg>Share</div><div><svg><use href="#i-bookmark"/></svg>Save</div></div>
+      <div class="bs-home"></div>
+    </div>
+  </div>
+  <div class="bs-cap" style="top:1035px"><svg><use href="#i-hand"/></svg>Bottom third = comfort zone</div>
+</section>
+
+<!-- 3b · The fix: actions move into the bottom sheet -->
+<section class="scene" data-t="18" data-shot="19.5">
+  <div class="bs-kicker" style="top:147px">The fix</div>
+  <h1 class="title">Bring actions <em>to the hand</em></h1>
+  <div class="bs-phone bs-phone--teal" style="left:213px;top:382px;width:294px;height:613px">
+    <div class="bs-screen">
+      <div class="bs-status">9:41<span><i><b style="height:5px"></b><b style="height:7px"></b><b style="height:9px"></b><b style="height:11px"></b></i><u></u></span></div>
+      <div class="bs-app"><div class="bs-app__title">Feed</div><div class="bs-feed"><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div></div></div>
+      <div class="bs-zone bs-zone--pink" style="top:40px;height:198px"></div>
+      <div class="bs-zone bs-zone--amber" style="top:238px;height:175px"></div>
+      <div class="bs-sheet" id="fixSheet" data-snap="full" style="height:200px"><div class="bs-sheet__title">Actions</div><div class="bs-sheet__row"><i><svg><use href="#i-heart"/></svg></i>Like</div><div class="bs-sheet__row"><i><svg><use href="#i-share"/></svg></i>Share</div><div class="bs-sheet__row"><i><svg><use href="#i-bookmark"/></svg></i>Save</div></div>
+      <div class="bs-home"></div>
+    </div>
+  </div>
+  <div class="bs-cap" style="top:1035px"><svg><use href="#i-hand"/></svg>Bottom third = comfort zone</div>
+</section>
+
+<!-- 4 · Modal vs sheet: a sheet keeps your place -->
+<section class="scene" data-t="21" data-shot="25.5">
+  <div class="bs-kicker" style="top:147px">Modal vs sheet</div>
+  <h1 class="title">A sheet keeps <em>your place</em></h1>
+  <div class="bs-phone bs-phone--pink" style="left:105px;top:422px;width:240px;height:490px;border-radius:34px">
+    <div class="bs-screen" style="border-radius:26px">
+      <div class="bs-status" style="padding:0 16px 0 20px">9:41<span><i><b style="height:5px"></b><b style="height:7px"></b><b style="height:9px"></b><b style="height:11px"></b></i><u></u></span></div>
+      <div class="bs-modal"><div class="bs-modal__head">Details<svg><use href="#i-x"/></svg></div><div class="bs-modal__img"></div><div class="bs-modal__row"><svg><use href="#i-pin"/></svg>Address</div><div class="bs-modal__row"><svg><use href="#i-clock"/></svg>Open until 9pm</div><div class="bs-modal__row"><svg><use href="#i-star"/></svg>4.8 rating</div><div class="bs-modal__gone">PAGE GONE</div></div>
+      <div class="bs-home" style="width:80px"></div>
+    </div>
+  </div>
+  <div class="bs-phone bs-phone--teal" style="left:374px;top:422px;width:240px;height:490px;border-radius:34px">
+    <div class="bs-screen" style="border-radius:26px">
+      <div class="bs-status" style="padding:0 16px 0 20px">9:41<span><i><b style="height:5px"></b><b style="height:7px"></b><b style="height:9px"></b><b style="height:11px"></b></i><u></u></span></div>
+      <div class="bs-app"><div class="bs-app__title">Places</div><div class="bs-feed"><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div></div></div>
+      <div class="bs-scrim"></div>
+      <div class="bs-sheet" id="placeSheet" data-snap="full" style="height:264px"><div class="bs-sheet__title">Details</div><div class="bs-sheet__row" style="height:50px;margin-bottom:10px"><i style="width:28px;height:28px"><svg><use href="#i-pin"/></svg></i>Address</div><div class="bs-sheet__row" style="height:50px;margin-bottom:10px"><i style="width:28px;height:28px"><svg><use href="#i-clock"/></svg></i>Open until 9pm</div><div class="bs-sheet__row" style="height:50px;margin-bottom:10px"><i style="width:28px;height:28px"><svg><use href="#i-star"/></svg></i>4.8 rating</div></div>
+      <div class="bs-home" style="width:80px"></div>
+    </div>
+  </div>
+  <div class="bs-label bs-label--pink" style="left:157px;top:925px">Full modal</div>
+  <div class="bs-label bs-label--teal" style="left:413px;top:925px">Bottom sheet</div>
+  <div class="bs-cap" style="top:1035px"><svg><use href="#i-pin"/></svg>Context stays</div>
+</section>
+
+<!-- 5 · Snap points: peek -->
+<section class="scene" data-t="30" data-shot="31.5">
+  <div class="bs-kicker" style="top:147px">Snap points</div>
+  <h1 class="title">Peek, expand, <em>dismiss</em></h1>
+  <div class="bs-phone bs-phone--teal" style="left:200px;top:382px;width:294px;height:613px">
+    <div class="bs-screen">
+      <div class="bs-status">9:41<span><i><b style="height:5px"></b><b style="height:7px"></b><b style="height:9px"></b><b style="height:11px"></b></i><u></u></span></div>
+      <div class="bs-app"><div class="bs-app__title">Library</div><div class="bs-feed"><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div></div></div>
+      <div class="bs-snaplabel" style="left:8px;top:214px;opacity:.35">FULL</div>
+      <div class="bs-snaplabel" style="left:8px;top:414px">PEEK</div>
+      <div class="bs-sheet" id="snapSheet" data-snap="peek" style="height:380px"><div class="bs-sheet__title">Now Playing</div><div class="bs-sheet__row"><i><svg><use href="#i-music"/></svg></i>Now playing</div><div class="bs-sheet__row"><i><svg><use href="#i-queue"/></svg></i>Up next</div><div class="bs-sheet__row"><i><svg><use href="#i-heart"/></svg></i>Liked songs</div></div>
+      <div class="bs-home"></div>
+    </div>
+  </div>
+  <div class="bs-snapdot" style="left:508px;top:593px"></div>
+  <div class="bs-snapdot is-on" style="left:508px;top:793px"></div>
+  <div class="bs-cap" style="top:1035px"><svg><use href="#i-chevs"/></svg>Drag to dismiss</div>
+</section>
+
+<!-- 5b · Snap points: full -->
+<section class="scene" data-t="33" data-shot="34.5">
+  <div class="bs-kicker" style="top:147px">Snap points</div>
+  <h1 class="title">Peek, expand, <em>dismiss</em></h1>
+  <div class="bs-phone bs-phone--teal" style="left:200px;top:382px;width:294px;height:613px">
+    <div class="bs-screen">
+      <div class="bs-status">9:41<span><i><b style="height:5px"></b><b style="height:7px"></b><b style="height:9px"></b><b style="height:11px"></b></i><u></u></span></div>
+      <div class="bs-app"><div class="bs-app__title">Library</div><div class="bs-feed"><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div></div></div>
+      <div class="bs-scrim" style="background:rgba(6,9,11,.35)"></div>
+      <div class="bs-snaplabel" style="left:8px;top:214px">FULL</div>
+      <div class="bs-sheet" id="snapSheet2" data-snap="full" style="height:380px"><div class="bs-sheet__title">Now Playing</div><div class="bs-sheet__row"><i><svg><use href="#i-music"/></svg></i>Now playing</div><div class="bs-sheet__row"><i><svg><use href="#i-queue"/></svg></i>Up next</div><div class="bs-sheet__row"><i><svg><use href="#i-heart"/></svg></i>Liked songs</div></div>
+      <div class="bs-home"></div>
+    </div>
+  </div>
+  <div class="bs-snapdot is-on" style="left:508px;top:593px"></div>
+  <div class="bs-snapdot" style="left:508px;top:793px"></div>
+  <div class="bs-cap" style="top:1035px"><svg><use href="#i-chevs"/></svg>Drag to dismiss</div>
+</section>
+
+<!-- 6 · Scrim and scroll lock: page locked -->
+<section class="scene" data-t="39" data-shot="45">
+  <div class="bs-kicker" style="top:147px">Scrim &amp; scroll lock</div>
+  <h1 class="title">Dim, then <em>lock scroll</em></h1>
+  <div class="bs-phone bs-phone--teal" style="left:213px;top:382px;width:294px;height:613px">
+    <div class="bs-screen">
+      <div class="bs-status">9:41<span><i><b style="height:5px"></b><b style="height:7px"></b><b style="height:9px"></b><b style="height:11px"></b></i><u></u></span></div>
+      <div class="bs-app" id="lockPage"><div class="bs-app__title">Feed</div><div class="bs-feed"><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div></div></div>
+      <div class="bs-scrim" style="background:rgba(6,9,11,.72)"></div>
+      <div class="bs-tag bs-tag--teal" style="left:83px;top:79px;height:23px;padding:0 10px;font-size:11px;letter-spacing:.1em;text-transform:uppercase"><svg><use href="#i-lock"/></svg>Page locked</div>
+      <div class="bs-sheet" id="lockSheet" data-snap="full" style="height:355px"><div class="bs-sheet__title" style="margin-bottom:13px">Comments</div><div class="bs-comment bs-comment--dim"><i></i><i></i></div><div class="bs-comment bs-comment--dim"><i></i><i></i></div><div class="bs-comment bs-comment--dim"><i></i><i></i></div><div class="bs-comment bs-comment--dim"><i></i><i></i></div><div class="bs-comment bs-comment--dim"><i></i><i></i></div></div>
+      <div class="bs-home"></div>
+    </div>
+  </div>
+  <div class="bs-cap" style="top:1035px"><svg><use href="#i-lock"/></svg>Lock the page</div>
+</section>
+
+<!-- 6b · Skip the lock: both scrolling -->
+<section class="scene" data-t="46.5" data-shot="48">
+  <div class="bs-kicker" style="top:147px">Scrim &amp; scroll lock</div>
+  <h1 class="title">Dim, then <em>lock scroll</em></h1>
+  <div class="bs-phone bs-phone--pink" style="left:213px;top:382px;width:294px;height:613px">
+    <div class="bs-screen">
+      <div class="bs-status">9:41<span><i><b style="height:5px"></b><b style="height:7px"></b><b style="height:9px"></b><b style="height:11px"></b></i><u></u></span></div>
+      <div class="bs-app" style="animation:bs-jitter 1.2s ease-in-out infinite"><div class="bs-app__title">Feed</div><div class="bs-feed"><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div></div></div>
+      <div class="bs-scrim" style="background:rgba(70,14,36,.72)"></div>
+      <div class="bs-tag bs-tag--warn" style="left:79px;top:80px;height:35px;padding:0 12px"><svg style="width:11px;height:11px"><use href="#i-warn"/></svg><span>Both<br>scrolling</span></div>
+      <div class="bs-sheet" data-snap="full" style="height:355px"><div class="bs-sheet__title" style="margin-bottom:13px">Comments</div><div style="animation:bs-jitter 1.2s ease-in-out infinite reverse"><div class="bs-comment bs-comment--dim"><i></i><i></i></div><div class="bs-comment bs-comment--dim"><i></i><i></i></div><div class="bs-comment bs-comment--dim"><i></i><i></i></div><div class="bs-comment bs-comment--dim"><i></i><i></i></div></div></div>
+      <div class="bs-home"></div>
+    </div>
+  </div>
+  <div class="bs-cap bs-cap--pink" style="top:1035px"><svg><use href="#i-warn"/></svg>Skip it — chaos</div>
+</section>
+
+<!-- 7 · Outro: build for the thumb -->
+<section class="scene" data-t="49.5" data-shot="51">
+  <div class="glow" style="left:100px;top:400px;width:520px;height:520px;background:rgba(47,214,189,.08)"></div>
+  <div class="bs-kicker" style="top:194px;height:auto;padding:0;background:none;font-size:14px;letter-spacing:.2em">Bottom sheets</div>
+  <div class="title" style="top:228px;font-size:40px">Build for the <em>thumb.</em></div>
+  <div class="bs-phone bs-phone--teal" style="left:263px;top:490px;width:194px;height:400px;border-radius:30px;padding:7px">
+    <div class="bs-screen" style="border-radius:24px">
+      <div class="bs-status" style="padding:0 12px 0 16px;font-size:13px">9:41<span><i><b style="height:5px"></b><b style="height:7px"></b><b style="height:9px"></b></i><u style="width:18px;height:10px"></u></span></div>
+      <div class="bs-app" style="padding:0 12px"><div class="bs-app__title" style="font-size:16px">Player</div><div class="bs-feed"><div class="bs-post"><i></i><i></i><u></u></div><div class="bs-post"><i></i><i></i><u></u></div></div></div>
+      <div class="bs-sheet" id="outroSheet" data-snap="full" style="height:175px;padding:24px 12px 12px"><div class="bs-sheet__title">Now Playing</div><div class="bs-sheet__row"><i><svg><use href="#i-heart"/></svg></i>Like</div><div class="bs-sheet__row"><i><svg><use href="#i-queue"/></svg></i>Up next</div></div>
+      <div class="bs-home" style="width:70px"></div>
+    </div>
+  </div>
+  <div class="bs-cta center" style="top:998px"><svg viewBox="0 0 24 24"><use href="#i-bookmark"/></svg>Save this for your next app</div>
+  <div class="center" style="top:1060px;display:flex;align-items:center;gap:8px;font-size:16px;font-weight:600;color:#8b939c;white-space:nowrap"><svg style="width:15px;height:15px;fill:none;stroke:#2fd6bd;stroke-width:2" viewBox="0 0 24 24"><use href="#i-phone"/></svg>Follow for more mobile UX</div>
+</section>
+
+<style>@keyframes bs-jitter { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-10px) } }</style>
+<script type="module">
+  import { BottomSheet } from './pattern.js';
+  const loop = (scene, fn, ms) => scene.addEventListener('scene:enter', e => { clearInterval(scene._iv); if (e.detail.t > 0) return; scene._iv = setInterval(fn, ms); });
+  // The fix: the Actions sheet rises into the comfort zone.
+  const fix = BottomSheet(document.getElementById('fixSheet'), { peek: 200 });
+  loop(document.getElementById('fixSheet').closest('.scene'), () => fix.snap ? fix.close() : fix.open('full'), 2200);
+  // Modal vs sheet: the Details sheet keeps the Places list visible behind the scrim.
+  const place = BottomSheet(document.getElementById('placeSheet'), { scrim: document.querySelector('#placeSheet ~ .bs-scrim, #placeSheet').previousElementSibling });
+  loop(document.getElementById('placeSheet').closest('.scene'), () => place.snap ? place.close() : place.open('full'), 2600);
+  // Snap points: peek -> full -> dismiss, and drag it yourself.
+  const s1 = BottomSheet(document.getElementById('snapSheet'), { peek: 180 }), s2 = BottomSheet(document.getElementById('snapSheet2'), { peek: 180 });
+  const order = ['peek', 'full', null]; let k = 0;
+  loop(document.getElementById('snapSheet').closest('.scene'), () => { k = (k + 1) % 3; s1.snapTo(order[k]); }, 1800);
+  document.getElementById('snapSheet').addEventListener('bs:snap', e => { const scene = e.target.closest('.scene'); scene.querySelectorAll('.bs-snapdot').forEach((d, i) => d.classList.toggle('is-on', e.detail.snap === (i ? 'peek' : 'full'))); });
+  // Scroll lock: the page behind the Comments sheet gets overflow: hidden while it is open.
+  BottomSheet(document.getElementById('lockSheet'), { page: document.getElementById('lockPage'), scrim: document.getElementById('lockSheet').previousElementSibling.previousElementSibling });
+  BottomSheet(document.getElementById('outroSheet'), { peek: 120 });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

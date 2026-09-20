@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Drag and Drop Tips · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0c1013; --accent: #2fd9b6; --danger: #e8506a; --grid: rgba(255,255,255,.03); }
+  .scene { color: #f3f5f7; }
+  .kicker { top: 155px; padding: 0; background: none; font-size: 15px; letter-spacing: .2em; color: #6b737d; }
+  .title { top: 208px; margin: 0; font-size: 36px; letter-spacing: -.02em; }
+  .title .dim { color: #8b93a1; } .title em.pink { color: var(--danger); }
+  .tail { position: absolute; left: 0; right: 0; top: 1086px; text-align: center; font-size: 22px; font-weight: 600; letter-spacing: -.01em; }
+  .tail em { font-style: normal; color: var(--accent); }
+  @property --p { syntax: '<number>'; inherits: true; initial-value: 0; }
+  /* scene 1: the chip drifts in over the zones */
+  .s1 .dt-chip { animation: dt-drift 1.5s ease-out forwards; }
+  @keyframes dt-drift { from { transform: translate(0, 0) rotate(-3deg); } to { transform: translate(-24px, 14px) rotate(-1deg); } }
+  /* scene 2b: border, glow, copy land one after another */
+  .s2b .dt-sig { opacity: 0; animation: dt-in .3s ease forwards; }
+  .s2b .dt-sig:nth-of-type(1) { animation-delay: .4s } .s2b .dt-sig:nth-of-type(2) { animation-delay: 1.2s } .s2b .dt-sig:nth-of-type(3) { animation-delay: 2s }
+  .s2b .tail { opacity: 0; animation: dt-in .3s ease 2.6s forwards; }
+  @keyframes dt-in { to { opacity: 1; } }
+  /* scene 3: the honest bar fills as the number climbs (JS drives the number) */
+  .s3 .tail { opacity: 0; animation: dt-in .3s ease 5.6s forwards; }
+  /* scene 4: retry bar drains to the pause point */
+  .s4 .dt-alert { opacity: 0; animation: dt-in .25s ease .6s forwards; }
+  /* scene 6: bars fill toward their frozen values */
+  .s6 .dt-bar i { animation: dt-fill 2.4s ease-out forwards; }
+  @keyframes dt-fill { from { width: 0; } }
+  /* scene 7: the three pills stack in */
+  .s7 .dt-pill { opacity: 0; transform: translateY(14px); animation: dt-up .4s ease forwards; }
+  .s7 .dt-pill:nth-of-type(2) { animation-delay: .2s } .s7 .dt-pill:nth-of-type(3) { animation-delay: .4s }
+  @keyframes dt-up { to { opacity: 1; transform: none; } }
+</style>
+</head>
+<body class="dt">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a4.5 4.5 0 0 1-.8-8.9A6 6 0 0 1 17.7 8 4 4 0 0 1 18 16h-1"/><path d="M12 12v9M8.5 15.5L12 12l3.5 3.5"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></symbol>
+  <symbol id="i-img" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></symbol>
+  <symbol id="i-film" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 3v18M17 3v18M3 8h4M3 12h4M3 16h4M17 8h4M17 12h4M17 16h4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l4-5"/></symbol>
+  <symbol id="i-pct" viewBox="0 0 24 24"><path d="M19 5L5 19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></symbol>
+  <symbol id="i-walk" viewBox="0 0 24 24"><circle cx="13" cy="4" r="1.5"/><path d="M10 22l2-7-3-2 1-5 3-1 2 3 3 1M8 13l-2 3-2 6M14 13l2 3 3 1"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-retry" viewBox="0 0 24 24"><path d="M3 7v6h6"/><path d="M3 13a9 9 0 1 0 3-7.7L3 8"/></symbol>
+  <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M1 1l22 22M8.5 16.5a5 5 0 0 1 7 0M5 12.5a10 10 0 0 1 5.2-2.7M12 20h.01M1.5 9a15 15 0 0 1 4.2-2.7M16.8 9.8A15 15 0 0 1 22.5 9"/></symbol>
+  <symbol id="i-replace" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.5 6.3M3 12a9 9 0 0 1 15.5-6.3M18 3v5h-5M6 21v-5h5"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+</svg>
+
+<!-- 1 · Hook: same drag, two zones -->
+<section class="scene s1" data-t="0" data-shot="0">
+  <div class="dt-zone is-dead" style="position:absolute;left:68px;top:213px"><span class="dt-zone__icon"><svg class="dt-ico"><use href="#i-cloud"/></svg></span></div>
+  <div class="dt-chip" style="left:408px;top:336px"><svg class="dt-ico"><use href="#i-doc"/></svg><div><b>brief.pdf</b><span>1.2 MB</span></div></div>
+  <span class="dt-ring" style="left:381px;top:305px"></span>
+  <svg class="cursor" style="left:392px;top:314px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="dt-zone is-over" style="position:absolute;left:68px;top:735px"><span class="dt-zone__icon"><svg class="dt-ico"><use href="#i-cloud"/></svg></span></div>
+  <div class="dt-chip" style="left:405px;top:855px"><svg class="dt-ico"><use href="#i-doc"/></svg><div><b>brief.pdf</b><span>1.2 MB</span></div></div>
+  <span class="dt-ring" style="left:377px;top:826px"></span>
+  <svg class="cursor" style="left:388px;top:834px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+</section>
+
+<!-- 1b · Hook: broken vs safe -->
+<section class="scene" data-t="1.5" data-shot="1.5">
+  <div class="dt-zone is-dead" style="position:absolute;left:68px;top:213px"><span class="dt-zone__tag dt-zone__tag--pink">Broken</span><span class="dt-spin"></span><div class="dt-zone__hint" style="font-size:17px;color:#8b93a1;margin-top:14px">Uploading...</div></div>
+  <svg class="cursor" style="left:432px;top:292px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="dt-zone is-safe" style="position:absolute;left:68px;top:735px"><span class="dt-zone__tag dt-zone__tag--teal">Safe</span><span class="dt-check-big"><svg class="dt-ico"><use href="#i-check"/></svg></span><div class="dt-zone__title" style="font-size:17px;margin-top:14px">brief.pdf uploaded</div></div>
+  <svg class="cursor" style="left:440px;top:812px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+</section>
+
+<!-- 2 · Signal 01: nothing reacts -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="kicker">Signal 01 — Drag feedback</div>
+  <h1 class="title">Nothing <span class="dim">reacts.</span></h1>
+  <div class="dt-zone is-dead" style="position:absolute;left:68px;top:428px;height:332px"><span class="dt-zone__icon"><svg class="dt-ico"><use href="#i-cloud"/></svg></span><div class="dt-zone__title" style="color:#b9c0c9">Drop your file here</div><div class="dt-zone__hint">PNG, JPG, PDF — up to 50 MB</div></div>
+  <div class="dt-chip" style="left:340px;top:578px"><svg class="dt-ico"><use href="#i-img"/></svg><div><b>hero-banner.png</b><span>2.4 MB</span></div></div>
+  <svg class="cursor" style="left:326px;top:558px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="tail">Users hesitate when nothing moves.</div>
+</section>
+
+<!-- 2b · Signal 01: it has to answer back -->
+<section class="scene s2b" data-t="9" data-shot="12">
+  <div class="kicker">Signal 01 — Drag feedback</div>
+  <h1 class="title">It has to <em>answer back.</em></h1>
+  <div class="dt-zone is-over" style="position:absolute;left:68px;top:428px;height:332px;padding-top:130px"><span class="dt-zone__icon"><svg class="dt-ico"><use href="#i-cloud"/></svg></span><div class="dt-zone__title">Release to upload</div><div class="dt-zone__hint">hero-banner.png — 2.4 MB</div></div>
+  <div class="dt-chip" style="left:345px;top:598px"><svg class="dt-ico"><use href="#i-img"/></svg><div><b>hero-banner.png</b><span>2.4 MB</span></div></div>
+  <svg class="cursor" style="left:331px;top:578px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="dt-sig" style="position:absolute;left:147px;top:828px"><i>1</i>Border</div>
+  <div class="dt-sig" style="position:absolute;left:306px;top:828px"><i>2</i>Glow</div>
+  <div class="dt-sig" style="position:absolute;left:448px;top:828px"><i>3</i>Copy</div>
+  <div class="tail">Three signals, <em>before the drop.</em></div>
+</section>
+
+<!-- 3 · Signal 02: honest progress -->
+<section class="scene s3" data-t="15" data-shot="21">
+  <div class="kicker">Signal 02 — Honest progress</div>
+  <h1 class="title">A spinner <span class="dim">hides the truth.</span></h1>
+  <div class="dt-card" style="position:absolute;left:41px;top:375px">
+    <span class="dt-tag dt-tag--pink">Mystery</span>
+    <div class="dt-mystery"><div class="dt-mystery__ring"><svg viewBox="0 0 104 104"><circle cx="52" cy="52" r="48"/><circle class="arc" cx="52" cy="52" r="48"/></svg><span class="dt-mystery__q">?</span></div><div class="dt-mystery__label">Uploading...</div></div>
+    <div class="dt-mystery__rows"><div><span>time left</span><span>??</span></div><div><span>progress</span><span>??</span></div></div>
+  </div>
+  <div class="dt-card dt-card--honest" id="honest" style="position:absolute;left:368px;top:375px">
+    <span class="dt-tag dt-tag--teal">Honest</span>
+    <div class="dt-file"><span class="dt-file__icon"><svg class="dt-ico"><use href="#i-film"/></svg></span><div><div class="dt-file__name">demo-recording.mp4</div><div class="dt-file__size">48 MB</div></div></div>
+    <div class="dt-pct"><span class="n">99</span><small>%</small></div>
+    <div class="dt-bar" style="--p:99"><i></i></div>
+    <div class="dt-stat"><svg class="dt-ico"><use href="#i-clock"/></svg><span class="left">0s left</span></div>
+    <div class="dt-stat"><svg class="dt-ico"><use href="#i-gauge"/></svg><span class="speed">1.9 MB/s</span></div>
+  </div>
+  <div class="dt-mchip" style="position:absolute;left:104px;top:893px"><svg class="dt-ico"><use href="#i-pct"/></svg>percent</div>
+  <div class="dt-mchip" style="position:absolute;left:240px;top:893px"><svg class="dt-ico"><use href="#i-clock"/></svg>time left</div>
+  <div class="dt-mchip" style="position:absolute;left:395px;top:893px"><svg class="dt-ico"><use href="#i-walk"/></svg>wait or walk away</div>
+  <div class="tail">Let them decide — <em>wait, or walk away.</em></div>
+</section>
+
+<!-- 4 · Signal 03: it dies at ninety percent -->
+<section class="scene s4" data-t="24" data-shot="25.5">
+  <div class="glow" style="left:100px;top:420px;background:rgba(232,80,106,.06)"></div>
+  <div class="kicker">Signal 03 — Inline retry</div>
+  <h1 class="title">It dies at <em class="pink">ninety percent.</em></h1>
+  <div class="dt-retry" id="retry" style="position:absolute;left:68px;top:375px">
+    <div class="dt-retry__head"><span class="dt-retry__icon"><svg class="dt-ico"><use href="#i-film"/></svg></span><div><div class="dt-retry__name">demo-recording.mp4</div><div class="dt-retry__meta">48 MB — video/mp4</div></div><span class="dt-retry__pct"><span class="n">90</span><small>%</small></span></div>
+    <div class="dt-bar" style="--p:90"><i></i></div>
+    <div class="dt-retry__status">Paused at 90% — file kept in memory</div>
+    <div class="dt-alert"><svg class="dt-ico"><use href="#i-warn"/></svg><div><b>Upload failed</b><span>Connection lost</span></div><button type="button"><svg class="dt-ico"><use href="#i-retry"/></svg>Retry</button></div>
+  </div>
+  <div class="dt-ichip dt-ichip--pink" style="position:absolute;left:77px;top:828px"><svg class="dt-ico"><use href="#i-wifi-off"/></svg>connection lost</div>
+  <div class="dt-ichip" style="position:absolute;left:270px;top:828px"><svg class="dt-ico"><use href="#i-film"/></svg>file kept loaded</div>
+  <svg class="cursor" style="left:636px;top:1042px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="tail">Never make them <em>start over.</em></div>
+</section>
+
+<!-- 4b · Signal 03: one tap resumes -->
+<section class="scene" data-t="27" data-shot="28.5">
+  <div class="kicker">Signal 03 — Inline retry</div>
+  <h1 class="title">It dies at <span class="dim">ninety percent.</span></h1>
+  <div class="dt-retry is-resuming" style="position:absolute;left:68px;top:375px">
+    <div class="dt-retry__head"><span class="dt-retry__icon"><svg class="dt-ico"><use href="#i-film"/></svg></span><div><div class="dt-retry__name">demo-recording.mp4</div><div class="dt-retry__meta">48 MB — video/mp4</div></div><span class="dt-retry__pct"><span class="n">99</span><small>%</small></span></div>
+    <div class="dt-bar" style="--p:99"><i></i></div>
+    <div class="dt-retry__status">Resuming from 90%…</div>
+  </div>
+  <div class="dt-ichip dt-ichip--pink" style="position:absolute;left:77px;top:828px"><svg class="dt-ico"><use href="#i-wifi-off"/></svg>connection lost</div>
+  <div class="dt-ichip" style="position:absolute;left:270px;top:828px"><svg class="dt-ico"><use href="#i-film"/></svg>file kept loaded</div>
+  <div class="dt-ichip dt-ichip--teal" style="position:absolute;left:460px;top:828px"><svg class="dt-ico"><use href="#i-retry"/></svg>one tap resumes</div>
+  <div class="tail">Never make them <em>start over.</em></div>
+</section>
+
+<!-- 5 · Signal 04: upload preview -->
+<section class="scene" data-t="30" data-shot="36">
+  <div class="kicker">Signal 04 — Upload preview</div>
+  <h1 class="title">A filename is <span class="dim">not feedback.</span></h1>
+  <div class="dt-textonly" style="position:absolute;left:68px;top:365px"><span class="dt-corner dt-corner--pink">Text only</span><svg class="dt-ico"><use href="#i-check"/></svg>IMG_4032.jpg uploaded</div>
+  <div class="dt-preview" style="position:absolute;left:68px;top:548px">
+    <span class="dt-corner dt-corner--teal">Preview</span>
+    <div class="dt-preview__thumb"><svg class="dt-ico"><use href="#i-img"/></svg><span class="dt-preview__dims">4032 × 3024</span></div>
+    <div class="dt-preview__info">
+      <div class="dt-preview__name">IMG_4032.jpg</div>
+      <div class="dt-preview__meta"><span class="dt-preview__type">JPG</span>2.4 MB</div>
+      <div class="dt-preview__proof"><i><svg class="dt-ico"><use href="#i-check"/></svg></i>Uploaded just now</div>
+    </div>
+    <div class="dt-preview__foot"><button class="dt-btn" type="button"><svg class="dt-ico"><use href="#i-replace"/></svg>Replace</button><button class="dt-btn dt-btn--ghost" type="button"><svg class="dt-ico"><use href="#i-trash"/></svg>Remove</button></div>
+  </div>
+  <div class="dt-summary center" style="top:1038px">Thumbnail<i></i>Type<i></i>Size<i></i><em>Proof</em></div>
+</section>
+
+<!-- 6 · Signal 05: independent queue (one failed) -->
+<section class="scene s6" data-t="39" data-shot="42">
+  <div class="kicker">Signal 05 — Independent queue</div>
+  <h1 class="title">Every file, <em>its own lane.</em></h1>
+  <div class="dt-queue__head" style="position:absolute;left:66px;top:320px"><span class="dt-queue__title">Uploading 5 files</span><span class="dt-count dt-count--pink">2 of 5 — 1 failed</span></div>
+  <div id="queue" style="position:absolute;left:68px;top:388px">
+    <div class="dt-row is-done"><span class="dt-row__icon"><svg class="dt-ico"><use href="#i-doc"/></svg></span><div class="dt-row__body"><div class="dt-row__name">brief.pdf<span>1.2 MB</span></div><div class="dt-bar" style="--p:100"><i></i></div></div><div class="dt-row__status"><span class="dt-row__ok"><svg class="dt-ico"><use href="#i-check"/></svg></span></div></div>
+    <div class="dt-row"><span class="dt-row__icon"><svg class="dt-ico"><use href="#i-img"/></svg></span><div class="dt-row__body"><div class="dt-row__name">hero-banner.png<span>2.4 MB</span></div><div class="dt-bar" style="--p:100"><i></i></div></div><div class="dt-row__status"><span class="dt-row__pct">100%</span></div></div>
+    <div class="dt-row is-failed"><span class="dt-row__icon"><svg class="dt-ico"><use href="#i-film"/></svg></span><div class="dt-row__body"><div class="dt-row__name">demo-recording.mp4<span>48 MB</span></div><div class="dt-bar" style="--p:45"><i></i></div></div><div class="dt-row__status"><button class="dt-row__retry" type="button"><svg class="dt-ico"><use href="#i-retry"/></svg>Retry</button></div></div>
+    <div class="dt-row is-done"><span class="dt-row__icon"><svg class="dt-ico"><use href="#i-doc"/></svg></span><div class="dt-row__body"><div class="dt-row__name">invoice-2026.pdf<span>340 KB</span></div><div class="dt-bar" style="--p:100"><i></i></div></div><div class="dt-row__status"><span class="dt-row__ok"><svg class="dt-ico"><use href="#i-check"/></svg></span></div></div>
+    <div class="dt-row"><span class="dt-row__icon"><svg class="dt-ico"><use href="#i-img"/></svg></span><div class="dt-row__body"><div class="dt-row__name">avatar-photo.jpg<span>860 KB</span></div><div class="dt-bar" style="--p:93"><i></i></div></div><div class="dt-row__status"><span class="dt-row__pct">93%</span></div></div>
+  </div>
+  <svg class="cursor" style="left:632px;top:1084px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="tail">One failure never blocks <em>the others.</em></div>
+</section>
+
+<!-- 6b · Signal 05: the retry resumed, four done -->
+<section class="scene" data-t="45" data-shot="45">
+  <div class="kicker">Signal 05 — Independent queue</div>
+  <h1 class="title">Every file, <em>its own lane.</em></h1>
+  <div class="dt-queue__head" style="position:absolute;left:66px;top:320px"><span class="dt-queue__title">Uploading 5 files</span><span class="dt-count">4 of 5 done</span></div>
+  <div style="position:absolute;left:68px;top:388px">
+    <div class="dt-row is-done"><span class="dt-row__icon"><svg class="dt-ico"><use href="#i-doc"/></svg></span><div class="dt-row__body"><div class="dt-row__name">brief.pdf<span>1.2 MB</span></div><div class="dt-bar" style="--p:100"><i></i></div></div><div class="dt-row__status"><span class="dt-row__ok"><svg class="dt-ico"><use href="#i-check"/></svg></span></div></div>
+    <div class="dt-row is-done"><span class="dt-row__icon"><svg class="dt-ico"><use href="#i-img"/></svg></span><div class="dt-row__body"><div class="dt-row__name">hero-banner.png<span>2.4 MB</span></div><div class="dt-bar" style="--p:100"><i></i></div></div><div class="dt-row__status"><span class="dt-row__ok"><svg class="dt-ico"><use href="#i-check"/></svg></span></div></div>
+    <div class="dt-row"><span class="dt-row__icon"><svg class="dt-ico"><use href="#i-film"/></svg></span><div class="dt-row__body"><div class="dt-row__name">demo-recording.mp4<span>48 MB</span></div><div class="dt-bar" style="--p:91"><i></i></div></div><div class="dt-row__status"><span class="dt-row__pct">91%</span></div></div>
+    <div class="dt-row is-done"><span class="dt-row__icon"><svg class="dt-ico"><use href="#i-doc"/></svg></span><div class="dt-row__body"><div class="dt-row__name">invoice-2026.pdf<span>340 KB</span></div><div class="dt-bar" style="--p:100"><i></i></div></div><div class="dt-row__status"><span class="dt-row__ok"><svg class="dt-ico"><use href="#i-check"/></svg></span></div></div>
+    <div class="dt-row is-done"><span class="dt-row__icon"><svg class="dt-ico"><use href="#i-img"/></svg></span><div class="dt-row__body"><div class="dt-row__name">avatar-photo.jpg<span>860 KB</span></div><div class="dt-bar" style="--p:100"><i></i></div></div><div class="dt-row__status"><span class="dt-row__ok"><svg class="dt-ico"><use href="#i-check"/></svg></span></div></div>
+  </div>
+  <div class="tail">One failure never blocks <em>the others.</em></div>
+</section>
+
+<!-- 7 · Outro -->
+<section class="scene s7" data-t="48" data-shot="49.5">
+  <div class="glow" style="left:100px;top:380px;background:rgba(47,217,182,.12)"></div>
+  <div class="dt-pill" style="left:300px;top:448px"><svg class="dt-ico"><use href="#i-doc"/></svg>brief.pdf<i><svg class="dt-ico"><use href="#i-check"/></svg></i></div>
+  <div class="dt-pill" style="left:267px;top:502px"><svg class="dt-ico"><use href="#i-img"/></svg>hero-banner.png<i><svg class="dt-ico"><use href="#i-check"/></svg></i></div>
+  <div class="dt-pill" style="left:250px;top:550px"><svg class="dt-ico"><use href="#i-film"/></svg>demo-recording.mp4<i><svg class="dt-ico"><use href="#i-check"/></svg></i></div>
+  <div class="kicker" style="top:622px;color:var(--accent);font-size:14px;letter-spacing:.22em">@designmotionhq</div>
+  <div class="title" style="top:652px;font-size:38px;line-height:1.18">Follow for more<br><em>UX engineering.</em></div>
+  <div class="tail" style="top:768px;font-size:18px;font-weight:500;color:#a5adb8">Save this for your next upload flow.</div>
+  <div class="dt-save center" style="top:822px"><svg class="dt-ico"><use href="#i-bookmark"/></svg>Save</div>
+</section>
+
+<script type="module">
+  import { HonestProgress, InlineRetry } from './pattern.js';
+  const onEnter = (scene, fn) => { scene.addEventListener('scene:enter', fn); if (scene.classList.contains('active')) { const q = new URLSearchParams(location.search); fn({ detail: { t: q.has('t') ? Number(q.get('t')) : 0 } }); } };
+  // Signal 02: the honest card climbs 10 → 31 → 60 → 70 → 99 → 100 like the reel; frozen at ?t.
+  const h = HonestProgress(document.getElementById('honest'), { total: 48 });
+  const keys = [[0, 10, 2.5], [1.5, 31, 2.5], [3, 60, 2.5], [4.5, 70, 2.3], [6, 99, 1.9], [7.5, 100, 1.9]];
+  const at = t => { for (let i = 1; i < keys.length; i++) { const [t0, p0, s0] = keys[i - 1], [t1, p1, s1] = keys[i]; if (t <= t1) { const k = (t - t0) / (t1 - t0); return [p0 + (p1 - p0) * k, s0 + (s1 - s0) * k]; } } return [100, 1.9]; };
+  onEnter(h.root.closest('.scene'), e => {
+    const set = local => { const [p, s] = at(local); h.set(p, { speed: s, secondsLeft: p >= 99 ? 0 : Math.round((100 - p) * 48 / 100 / s) }); };
+    if (e.detail.t > 0) return set(e.detail.t - 15);
+    const t0 = performance.now(); const tick = () => { const l = (performance.now() - t0) / 1000; set(l); if (l < 7.5) requestAnimationFrame(tick); }; tick();
+  });
+  // Signal 03: Retry resumes from the pause point instead of starting over.
+  InlineRetry(document.getElementById('retry'), { from: 90, request: () => new Promise(r => setTimeout(r, 1200)) });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

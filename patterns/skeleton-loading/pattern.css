@@ -1,0 +1,107 @@
+/* Skeleton Loading, rebuilt from the @designmotionhq reel "Your loading spinner is making the wait feel longer".
+   Component classes are prefixed .sk- and depend only on the tokens below. */
+.sk {
+  --sk-bg: #0a0a0c; --sk-panel: #0d1015; --sk-bone: #25282f; --sk-bone-2: #2a2d34; --sk-border: rgba(255,255,255,.05);
+  --sk-text: #f2f2f4; --sk-muted: #8d8f97; --sk-pink: #f0395a; --sk-pink-dim: rgba(240,57,90,.16);
+  --sk-green: #2ee56b; --sk-green-dim: rgba(46,229,107,.14); --sk-orange: #f59e0b;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--sk-text);
+}
+
+/* ---- Reel chrome: numbered secret, wide title, subtitle -------------------- */
+.sk-secret { position: absolute; left: 50%; transform: translateX(-50%); padding: 6px 16px; border-radius: 999px; background: var(--sk-pink-dim); color: var(--sk-pink); font-size: 16px; font-weight: 700; letter-spacing: .12em; white-space: nowrap; }
+.sk-h1 { position: absolute; left: 0; right: 0; text-align: center; font-size: 40px; font-weight: 800; letter-spacing: .06em; line-height: 1; white-space: nowrap; }
+.sk-sub { position: absolute; left: 0; right: 0; text-align: center; font-size: 18px; color: var(--sk-muted); }
+.sk-label { position: absolute; font-size: 15px; font-weight: 700; letter-spacing: .14em; white-space: nowrap; }
+.sk-label--pink { color: var(--sk-pink); } .sk-label--green { color: var(--sk-green); } .sk-label--orange { color: var(--sk-orange); }
+.sk-tag { position: absolute; left: 50%; transform: translateX(-50%); padding: 7px 16px; border-radius: 6px; font-size: 15px; font-weight: 700; letter-spacing: .2em; white-space: nowrap; }
+.sk-tag--pink { background: var(--sk-pink-dim); color: var(--sk-pink); } .sk-tag--green { background: var(--sk-green-dim); color: var(--sk-green); }
+.sk-chip { position: absolute; padding: 4px 9px; border-radius: 5px; font-size: 11px; font-weight: 700; letter-spacing: .12em; }
+.sk-chip--pink { background: var(--sk-pink-dim); color: var(--sk-pink); } .sk-chip--green { background: var(--sk-green-dim); color: var(--sk-green); }
+
+/* ---- Skeleton primitives ------------------------------------------------------ */
+.sk-card { position: absolute; background: var(--sk-panel); border: 1px solid var(--sk-border); border-radius: 10px; }
+.sk-bone { position: absolute; background: var(--sk-bone); border-radius: 4px; overflow: hidden; }
+.sk-bone--circle { border-radius: 50%; }
+.sk-bone--block { border-radius: 8px; }
+.sk-bone::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent); animation: sk-shimmer 1.6s linear infinite; }
+.sk-bone.is-reversed::after { animation-name: sk-shimmer-rev; }
+.sk-bone.is-static::after { animation: none; }
+@keyframes sk-shimmer { to { transform: translateX(100%) } }
+@keyframes sk-shimmer-rev { from { transform: translateX(100%) } to { transform: translateX(-100%) } }
+/* Whole-card sweep (the reel shimmers the card, not each bone) */
+.sk-sweep { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; }
+.sk-sweep::after { content: ''; position: absolute; top: 0; bottom: 0; width: 45%; left: 0; transform: translateX(-120%); background: linear-gradient(90deg, transparent, rgba(255,255,255,.05), transparent); animation: sk-sweep 1.8s ease-in-out infinite; }
+.sk-sweep.is-reversed::after { animation-name: sk-sweep-rev; }
+@keyframes sk-sweep { to { transform: translateX(340%) } }
+@keyframes sk-sweep-rev { from { transform: translateX(340%) } to { transform: translateX(-120%) } }
+
+/* ---- Spinner --------------------------------------------------------------------- */
+.sk-spinner { position: absolute; border-radius: 50%; border: 3px solid rgba(255,255,255,.12); border-top-color: var(--sk-pink); animation: sk-spin .9s linear infinite; }
+.sk-spinner--arc { border-color: transparent; border-top-color: var(--sk-pink); border-right-color: var(--sk-pink); }
+.sk-spinner--grey { border-top-color: #9a9ca4; }
+@keyframes sk-spin { to { transform: rotate(360deg) } }
+
+/* ---- Loaded post content ------------------------------------------------------- */
+.sk-avatar { position: absolute; border-radius: 50%; background: linear-gradient(135deg, #f0395a, #2ee56b); display: grid; place-items: center; font-weight: 700; color: #fff; }
+.sk-avatar--pink { background: var(--sk-pink); }
+.sk-name { position: absolute; font-weight: 700; white-space: nowrap; }
+.sk-meta { position: absolute; color: var(--sk-muted); white-space: nowrap; }
+.sk-text { position: absolute; white-space: nowrap; color: #e6e7ea; }
+.sk-media { position: absolute; border-radius: 8px; background: linear-gradient(90deg, #7a3247 0%, #4a4c50 50%, #1f6a5a 100%); display: grid; place-items: center; }
+.sk-media--dim { background: linear-gradient(90deg, rgba(122,50,71,.55), rgba(40,44,48,.6) 50%, rgba(31,106,90,.55)); }
+.sk-media svg { width: 28px; height: 28px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; }
+.sk-actions { position: absolute; display: flex; align-items: center; gap: 20px; color: var(--sk-muted); font-size: 15px; }
+.sk-actions span { display: inline-flex; align-items: center; gap: 8px; }
+.sk-actions svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+.sk-actions .sk-heart { color: var(--sk-pink); }
+.sk-actions .sk-heart.is-liked { color: #e11d3c; font-weight: 600; }
+.sk-actions .sk-heart.is-liked svg { fill: #e11d3c; stroke: #e11d3c; }
+.sk-actions--icons svg { width: 16px; height: 16px; }
+.sk-actions--icons span { width: 22px; height: 22px; border-radius: 50%; background: #16181d; display: grid; place-items: center; }
+.sk-actions--icons .sk-heart { color: var(--sk-pink); }
+
+/* ---- Perceived-time bar ------------------------------------------------------------ */
+.sk-perceived { position: absolute; width: 252px; text-align: center; font-size: 14px; color: var(--sk-muted); }
+.sk-perceived i { display: block; height: 4px; border-radius: 2px; background: #1a2224; margin-bottom: 8px; overflow: hidden; }
+.sk-perceived i::after { content: ''; display: block; height: 100%; width: var(--fill, 60%); border-radius: 2px; background: var(--sk-orange); }
+.sk-perceived--green i::after { background: #37dd61; }
+
+/* ---- Brain: stress vs engagement circles ------------------------------------------- */
+.sk-orb { position: absolute; width: 184px; height: 184px; border-radius: 50%; background: var(--sk-panel); border: 2px solid var(--sk-pink); box-shadow: 0 0 24px rgba(240,57,90,.25); }
+.sk-orb--green { border-color: var(--sk-green); box-shadow: 0 0 24px rgba(46,229,107,.25); }
+.sk-meter { position: absolute; width: 186px; height: 6px; border-radius: 3px; background: #1a1b20; overflow: hidden; }
+.sk-meter::after { content: ''; display: block; height: 100%; width: var(--fill, 75%); border-radius: 3px; background: linear-gradient(90deg, #f59e0b, #f0395a); transition: width .6s ease; }
+.sk-meter--green::after { background: linear-gradient(90deg, #f0395a, #2ee56b); }
+
+/* ---- Timeline (optimistic) ------------------------------------------------------------- */
+.sk-tl { position: absolute; background: var(--sk-panel); border: 1px solid var(--sk-border); border-radius: 10px; }
+.sk-tl__title { position: absolute; font-size: 17px; font-weight: 700; letter-spacing: .12em; display: flex; align-items: center; gap: 10px; }
+.sk-tl__title::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.sk-tl__title--green { color: var(--sk-green); } .sk-tl__title--pink { color: var(--sk-pink); }
+.sk-tl__title--center { left: 0; right: 0; justify-content: center; font-size: 16px; letter-spacing: .15em; }
+.sk-tl__title--center::before { display: none; }
+.sk-dot { position: absolute; width: 16px; height: 16px; border-radius: 50%; background: var(--sk-green); box-shadow: 0 0 10px rgba(46,229,107,.6); transform: translate(-50%, -50%); }
+.sk-dot--sm { width: 12px; height: 12px; background: #2fd48a; box-shadow: 0 0 8px rgba(47,212,138,.5); }
+.sk-line { position: absolute; height: 2px; background: var(--sk-green); border-radius: 1px; }
+.sk-line--fade { background: linear-gradient(90deg, var(--sk-green) 55%, #2a2d33); }
+.sk-line--thin { height: 1px; background: rgba(47,212,138,.35); }
+.sk-tl__lbl { position: absolute; transform: translateX(-50%); font-size: 15px; font-weight: 500; white-space: nowrap; }
+.sk-tl__lbl--sm { font-size: 12px; }
+.sk-tl__count { position: absolute; display: flex; align-items: center; gap: 8px; color: #e11d3c; font-size: 13px; font-weight: 600; }
+.sk-tl__count svg { width: 18px; height: 18px; fill: #e11d3c; }
+.sk-ms { position: absolute; transform: translateX(-50%); padding: 3px 10px; border-radius: 5px; background: rgba(46,229,107,.12); color: #4fe08a; font-size: 14px; font-weight: 700; }
+
+/* ---- Step boxes -------------------------------------------------------------------- */
+.sk-step { position: absolute; width: 102px; height: 132px; border-radius: 10px; background: var(--sk-panel); border: 1px solid var(--sk-border); }
+.sk-step__lbl { position: absolute; left: 50%; transform: translateX(-50%); top: 140px; font-size: 14px; font-weight: 700; letter-spacing: .12em; white-space: nowrap; }
+.sk-arrow { position: absolute; color: #8a8c94; font-size: 22px; transform: translate(-50%, -50%); }
+
+/* ---- Outro ----------------------------------------------------------------------- */
+.sk-follow { position: absolute; left: 50%; transform: translateX(-50%); padding: 10px 40px; border-radius: 999px; background: var(--sk-pink); color: #fff; font-size: 20px; font-weight: 700; box-shadow: 0 8px 30px rgba(240,57,90,.35); }
+
+/* ---- Timed reveals (scene motion) ----------------------------------------------- */
+.sk-in { opacity: 0; animation: sk-in .5s ease forwards; animation-delay: var(--d, 0s); }
+.sk-out { opacity: 1; animation: sk-out .4s ease forwards; animation-delay: var(--d, 0s); }
+@keyframes sk-in { to { opacity: 1 } }
+@keyframes sk-out { to { opacity: 0 } }
+.sk-dim { opacity: .35; }

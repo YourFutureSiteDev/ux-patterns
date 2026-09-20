@@ -1,0 +1,165 @@
+/* Button Feedback, rebuilt from the @designmotionhq reel "This button feels good. That's not an accident."
+   Three secrets (easing, feedback, anticipation) as .bf- components that depend only on the tokens below. */
+.bf {
+  --bf-bg: #0b090e; --bf-panel: #13121a; --bf-panel-2: #1a1922; --bf-border: rgba(255,255,255,.06);
+  --bf-text: #f4f4f6; --bf-muted: #8a8f99; --bf-dim: #5c5960;
+  --bf-blue: #51a1fa; --bf-blue-deep: #337fd3; --bf-blue-dim: #1b2433;
+  --bf-green: #55f384; --bf-pink: #eb6272; --bf-purple: #a78bfa; --bf-gray: #3a3843;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--bf-text);
+}
+
+/* ---- Toggle switch ---------------------------------------------------- */
+.bf-toggle { position: relative; width: 157px; height: 79px; border-radius: 40px; border: 0; padding: 0; background: var(--bf-gray); cursor: pointer; transition: background .3s ease; box-shadow: 0 0 0 0 rgba(81,161,250,0); }
+.bf-toggle__knob { position: absolute; top: 10px; left: 10px; width: 58px; height: 58px; border-radius: 50%; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,.35); transition: transform .38s cubic-bezier(.34,1.45,.64,1); }
+.bf-toggle.is-on { background: var(--bf-blue); box-shadow: 0 0 26px rgba(81,161,250,.35); }
+.bf-toggle.is-on .bf-toggle__knob { transform: translateX(79px); }
+.bf-toggle--auto { animation: bf-toggle-bg 3s ease-in-out infinite; }
+.bf-toggle--auto .bf-toggle__knob { animation: bf-toggle-knob 3s cubic-bezier(.34,1.45,.64,1) infinite; }
+@keyframes bf-toggle-bg { 0%, 40% { background: var(--bf-blue); box-shadow: 0 0 34px rgba(81,161,250,.45) } 50%, 90% { background: var(--bf-gray); box-shadow: 0 0 0 rgba(81,161,250,0) } 100% { background: var(--bf-blue); box-shadow: 0 0 34px rgba(81,161,250,.45) } }
+@keyframes bf-toggle-knob { 0%, 40% { transform: translateX(79px) } 50%, 90% { transform: translateX(0) } 100% { transform: translateX(79px) } }
+.bf-toggle--mini { width: 34px; height: 18px; border-radius: 9px; background: var(--bf-blue); }
+.bf-toggle--mini .bf-toggle__knob { top: 3px; left: 3px; width: 12px; height: 12px; box-shadow: none; transform: translateX(16px); }
+
+/* ---- Floating tiles (hook) ------------------------------------------- */
+.bf-tile { position: absolute; width: 64px; height: 64px; border-radius: 16px; background: #14131b; border: 1px solid var(--bf-border); box-shadow: 0 14px 30px rgba(0,0,0,.5); display: grid; place-items: center; animation: bf-bob 3.2s ease-in-out infinite alternate; }
+@keyframes bf-bob { from { translate: 0 -5px } to { translate: 0 5px } }
+.bf-tile__ring { width: 30px; height: 30px; border-radius: 50%; border: 4px solid rgba(81,161,250,.18); border-top-color: var(--bf-blue); animation: bf-spin 1s linear infinite; }
+@keyframes bf-spin { to { transform: rotate(360deg) } }
+.bf-tile__heart { width: 26px; height: 26px; fill: var(--bf-pink); }
+.bf-tile__check { width: 26px; height: 26px; border-radius: 50%; background: var(--bf-green); display: grid; place-items: center; }
+.bf-tile__check svg { width: 14px; height: 14px; fill: none; stroke: #0b3d1e; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---- Showcase card ----------------------------------------------------- */
+.bf-card { position: relative; width: 334px; height: 188px; border-radius: 24px; background: var(--bf-panel); border: 1px solid var(--bf-border); box-shadow: 0 24px 60px rgba(0,0,0,.55); }
+.bf-card__label { position: absolute; left: 0; right: 0; top: 206px; text-align: center; font-size: 20px; font-weight: 600; letter-spacing: .03em; color: var(--bf-blue); }
+
+/* Pulse button */
+.bf-pulse { position: absolute; height: 40px; padding: 0 20px; border: 0; border-radius: 20px; background: var(--bf-blue); color: #fff; font: 600 17px/40px 'Inter', sans-serif; cursor: pointer; box-shadow: 0 0 26px rgba(81,161,250,.55); }
+.bf-pulse::after { content: ''; position: absolute; inset: -2px; border-radius: inherit; border: 2px solid var(--bf-blue); animation: bf-ring 1.6s cubic-bezier(.2,.7,.3,1) infinite; }
+@keyframes bf-ring { 0% { transform: scale(1); opacity: .9 } 100% { transform: scale(1.55, 1.9); opacity: 0 } }
+
+/* Toast */
+.bf-toast { position: absolute; display: flex; align-items: center; gap: 12px; width: 190px; height: 52px; padding: 0 0 0 22px; border-radius: 10px; background: #18171f; box-shadow: 0 10px 30px rgba(0,0,0,.55); overflow: hidden; animation: bf-toast-in .5s cubic-bezier(.2,.8,.2,1) both; }
+.bf-toast::before { content: ''; position: absolute; left: 0; top: 4px; bottom: 4px; width: 3px; border-radius: 2px; background: var(--bf-green); }
+.bf-toast__check { width: 20px; height: 20px; border-radius: 50%; background: rgba(85,243,132,.16); display: grid; place-items: center; flex: none; }
+.bf-toast__check svg { width: 11px; height: 11px; fill: none; stroke: var(--bf-green); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.bf-toast b { font-size: 16px; font-weight: 600; white-space: nowrap; }
+@keyframes bf-toast-in { from { transform: translateX(40px); opacity: 0 } to { transform: none; opacity: 1 } }
+
+/* Instant feedback pair */
+.bf-heart { position: absolute; width: 64px; height: 64px; fill: var(--bf-pink); filter: drop-shadow(0 0 14px rgba(235,98,114,.5)); animation: bf-pop .9s cubic-bezier(.34,1.56,.64,1) both; transform-origin: center; }
+.bf-check { position: absolute; width: 76px; height: 76px; border-radius: 50%; background: var(--bf-green); display: grid; place-items: center; box-shadow: 0 0 30px rgba(85,243,132,.55); animation: bf-pop .9s .15s cubic-bezier(.34,1.56,.64,1) both; }
+.bf-check svg { width: 34px; height: 34px; fill: none; stroke: #fff; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+@keyframes bf-pop { 0% { transform: scale(.4); opacity: 0 } 60% { opacity: 1 } 100% { transform: scale(1); opacity: 1 } }
+
+/* ---- Secret headers ------------------------------------------------------ */
+.bf-secret { position: absolute; top: 127px; left: 50%; transform: translateX(-50%); height: 34px; padding: 0 16px; border-radius: 17px; background: var(--bf-blue-dim); color: var(--bf-blue); font-size: 16px; font-weight: 700; letter-spacing: .06em; line-height: 34px; white-space: nowrap; }
+.bf-secret-title { position: absolute; top: 166px; left: 0; right: 0; text-align: center; font-size: 40px; font-weight: 800; letter-spacing: .08em; line-height: 48px; }
+.bf-secret-sub { position: absolute; top: 222px; left: 0; right: 0; text-align: center; font-size: 20px; font-weight: 500; color: #a9aeb8; line-height: 24px; }
+.bf-chip { position: absolute; height: 40px; padding: 0 18px; border-radius: 20px; border: 1.5px solid #454650; color: #6e7280; font-size: 15px; font-weight: 700; letter-spacing: .12em; line-height: 37px; white-space: nowrap; }
+.bf-chip--on { border-color: var(--bf-blue); color: var(--bf-blue); }
+.bf-chip--sm { height: 33px; line-height: 30px; font-size: 14px; letter-spacing: .1em; padding: 0 16px; }
+.bf-chip--pill { height: 30px; line-height: 30px; border: 0; background: #161419; color: var(--bf-dim); font-size: 13px; letter-spacing: .1em; padding: 0 14px; }
+.bf-chip--pill.bf-chip--on { background: var(--bf-blue-dim); color: var(--bf-blue); }
+.bf-divider { position: absolute; width: 1px; background: #38363b; }
+
+/* ---- Easing race ---------------------------------------------------------- */
+.bf-track { position: absolute; width: 276px; height: 44px; border-radius: 8px; background: var(--bf-panel); }
+.bf-track__knob { position: absolute; top: 5px; left: 9px; width: 34px; height: 34px; border-radius: 8px; background: var(--bf-gray); }
+.bf-track--alive .bf-track__knob { background: var(--bf-blue); box-shadow: 0 0 18px rgba(81,161,250,.6); }
+.bf-race .bf-track__knob { animation: bf-slide 3.8s linear infinite; animation-delay: var(--bf-race-delay, 0s); }
+.bf-race .bf-track--alive .bf-track__knob { animation-name: bf-slide-ease; }
+@keyframes bf-slide { 0% { transform: translateX(0) } 52.6% { transform: translateX(224px) } 52.7%, 100% { transform: translateX(0) } }
+@keyframes bf-slide-ease { 0% { transform: translateX(0); animation-timing-function: cubic-bezier(.5,1,.89,1) } 52.6% { transform: translateX(224px) } 52.7%, 100% { transform: translateX(0) } }
+.bf-graph { position: absolute; width: 112px; height: 112px; }
+.bf-graph svg { width: 112px; height: 112px; overflow: visible; }
+.bf-graph__grid { stroke: rgba(255,255,255,.07); stroke-width: 1; }
+.bf-graph__axis { stroke: #c9ccd3; stroke-width: 1.5; }
+.bf-graph__trail { fill: none; stroke: #9a9ea8; stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.bf-graph--alive .bf-graph__trail { stroke: var(--bf-blue); }
+.bf-graph__dot { position: absolute; left: 0; top: 0; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 0 14px rgba(255,255,255,.7); offset-path: path('M0 112 L112 0'); offset-rotate: 0deg; }
+.bf-graph--alive .bf-graph__dot { offset-path: path('M0 112 C 56 112, 96 78, 112 0'); }
+.bf-race .bf-graph__trail { animation: bf-draw 3.8s linear infinite; animation-delay: var(--bf-race-delay, 0s); }
+.bf-race .bf-graph__dot { animation: bf-travel 3.8s linear infinite; animation-delay: var(--bf-race-delay, 0s); }
+.bf-race .bf-graph--alive .bf-graph__trail { animation-name: bf-draw-ease; }
+.bf-race .bf-graph--alive .bf-graph__dot { animation-name: bf-travel-ease; }
+@keyframes bf-draw { 0% { stroke-dashoffset: 1 } 52.6% { stroke-dashoffset: 0 } 52.7%, 100% { stroke-dashoffset: 1 } }
+@keyframes bf-draw-ease { 0% { stroke-dashoffset: 1; animation-timing-function: cubic-bezier(.5,1,.89,1) } 52.6% { stroke-dashoffset: 0 } 52.7%, 100% { stroke-dashoffset: 1 } }
+@keyframes bf-travel { 0% { offset-distance: 0% } 52.6% { offset-distance: 100% } 52.7%, 100% { offset-distance: 0% } }
+@keyframes bf-travel-ease { 0% { offset-distance: 0%; animation-timing-function: cubic-bezier(.5,1,.89,1) } 52.6% { offset-distance: 100% } 52.7%, 100% { offset-distance: 0% } }
+.bf-graph__name { position: absolute; left: -40px; right: -40px; top: 140px; text-align: center; font-size: 20px; font-weight: 600; color: #b0b4bd; }
+.bf-graph--alive .bf-graph__name { color: var(--bf-blue); }
+
+/* ---- Submit with ripple -------------------------------------------------- */
+.bf-btn { position: relative; overflow: hidden; width: 133px; height: 49px; border: 0; border-radius: 10px; background: var(--bf-gray); color: #b3b1b8; font: 700 19px 'Inter', sans-serif; cursor: pointer; transition: transform .15s ease, box-shadow .3s ease, background .3s ease; }
+.bf-btn:active { transform: scale(.96); }
+.bf-btn--primary { background: var(--bf-blue-deep); color: #fff; }
+.bf-btn--primary.is-lit { background: var(--bf-blue); box-shadow: 0 0 22px rgba(81,161,250,.6); }
+.bf-ripple { position: absolute; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; background: rgba(255,255,255,.45); transform: scale(0); animation: bf-ripple .7s cubic-bezier(.2,.7,.3,1) forwards; pointer-events: none; }
+@keyframes bf-ripple { to { transform: scale(12); opacity: 0 } }
+.bf-btn--loop { animation: bf-lit 2.6s linear infinite; }
+.bf-btn--loop::after { content: ''; position: absolute; left: 50%; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; background: rgba(255,255,255,.45); animation: bf-ripple-loop 2.6s cubic-bezier(.2,.7,.3,1) infinite; }
+@keyframes bf-lit { 0%, 20% { background: var(--bf-blue-deep); box-shadow: 0 0 0 rgba(81,161,250,0) } 30%, 60% { background: var(--bf-blue); box-shadow: 0 0 22px rgba(81,161,250,.6) } 80%, 100% { background: var(--bf-blue-deep); box-shadow: 0 0 0 rgba(81,161,250,0) } }
+@keyframes bf-ripple-loop { 0%, 22% { transform: scale(0); opacity: 1 } 50%, 100% { transform: scale(12); opacity: 0 } }
+.bf-status { position: absolute; font-size: 16px; font-weight: 500; color: var(--bf-dim); text-align: center; width: 160px; margin-left: -80px; }
+.bf-status--ok { color: #4dd67f; font-weight: 600; }
+
+/* ---- Squash blob ----------------------------------------------------------- */
+.bf-blob { position: absolute; width: 80px; height: 80px; border-radius: 26px; background: #686673; transform-origin: 50% 100%; }
+.bf-blob--alive { background: var(--bf-blue); box-shadow: 0 0 30px rgba(81,161,250,.55); }
+.bf-blob__eye { position: absolute; top: 26px; width: 12px; height: 15px; border-radius: 50%; background: #fff; }
+.bf-blob__eye::after { content: ''; position: absolute; left: 4px; top: 4px; width: 6px; height: 8px; border-radius: 50%; background: #0b090e; }
+.bf-blob__eye--l { left: 21px; } .bf-blob__eye--r { left: 47px; }
+.bf-blob__mouth { position: absolute; left: 31px; top: 49px; width: 18px; height: 10px; border-radius: 0 0 10px 10px; background: #34333c; }
+.bf-blob--alive .bf-blob__mouth { background: #1b3c66; }
+.bf-floor { position: absolute; height: 2px; width: 118px; background: #3a3843; }
+.bf-floor--alive { background: #2b4a75; }
+.bf-drop .bf-blob { animation: bf-drop 6s linear infinite; }
+.bf-drop .bf-blob--alive { animation-name: bf-drop-squash; }
+@keyframes bf-drop { 0%, 6% { transform: translateY(134px) } 7% { animation-timing-function: cubic-bezier(.2,.7,.3,1) } 14%, 84% { transform: translateY(0) } 85% { animation-timing-function: cubic-bezier(.6,0,.9,.5) } 93%, 100% { transform: translateY(134px) } }
+@keyframes bf-drop-squash {
+  0%, 4% { transform: translateY(134px) scale(1.07,.93) }
+  8% { transform: translateY(134px) scale(.96,1.06); animation-timing-function: cubic-bezier(.2,.7,.3,1) }
+  14% { transform: translateY(0) scale(.92,1.1) }
+  18% { transform: translateY(0) scale(1.04,.97) } 22%, 78% { transform: translateY(0) scale(1) }
+  82% { transform: translateY(6px) scale(1.12,.86) }
+  86% { transform: translateY(-14px) scale(.9,1.14); animation-timing-function: cubic-bezier(.6,0,.9,.5) }
+  93% { transform: translateY(134px) scale(.94,1.08) }
+  96%, 100% { transform: translateY(134px) scale(1.07,.93) }
+}
+.bf-verdict { position: absolute; width: 200px; margin-left: -100px; text-align: center; font-size: 17px; font-weight: 600; color: #6b6e78; }
+.bf-verdict--alive { color: var(--bf-blue); font-weight: 700; }
+
+/* ---- Payment card (all three together) ------------------------------------ */
+.bf-pay { position: absolute; width: 334px; height: 285px; border-radius: 22px; background: var(--bf-panel); border: 1px solid var(--bf-border); box-shadow: 0 24px 60px rgba(0,0,0,.55); }
+.bf-pay__title { position: absolute; left: 27px; top: 25px; font-size: 21px; font-weight: 700; }
+.bf-pay__row { position: absolute; left: 27px; width: 280px; border-radius: 8px; background: var(--bf-bg); display: flex; align-items: center; padding: 0 13px; }
+.bf-pay__row--amount { top: 72px; height: 49px; justify-content: space-between; }
+.bf-pay__row--to { top: 135px; height: 60px; gap: 10px; }
+.bf-pay__k { font-size: 14px; color: var(--bf-muted); }
+.bf-pay__amt { font-size: 22px; font-weight: 700; letter-spacing: -.01em; }
+.bf-pay__avatar { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, #a78bfa, #60a5fa); flex: none; }
+.bf-pay__to small { display: block; font-size: 12px; color: var(--bf-muted); }
+.bf-pay__to b { font-size: 15px; font-weight: 700; }
+.bf-pay__btn { position: absolute; left: 21px; top: 214px; width: 292px; height: 43px; border: 0; border-radius: 10px; background: var(--bf-blue); color: #fff; font: 700 17px 'Inter', sans-serif; cursor: pointer; box-shadow: 0 0 22px rgba(81,161,250,.45); display: grid; place-items: center; transition: transform .15s cubic-bezier(.34,1.56,.64,1), background .35s ease, box-shadow .35s ease; }
+.bf-pay__btn:active { transform: scale(.96); }
+.bf-pay__btn > * { grid-area: 1 / 1; transition: opacity .25s ease; }
+.bf-pay__btn svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+.bf-pay__btn.is-done { background: var(--bf-green); box-shadow: 0 0 26px rgba(85,243,132,.55); }
+.bf-pay__btn.is-done span { opacity: 0; } .bf-pay__btn.is-done svg { opacity: 1; }
+.bf-pay--auto .bf-pay__btn { animation: bf-pay-btn 6s linear infinite; }
+.bf-pay--auto .bf-pay__btn span { animation: bf-pay-label 6s linear infinite; }
+.bf-pay--auto .bf-pay__btn svg { animation: bf-pay-tick 6s linear infinite; }
+@keyframes bf-pay-btn { 0%, 36% { background: var(--bf-blue); box-shadow: 0 0 22px rgba(81,161,250,.45); transform: scale(1) } 38% { transform: scale(.96) } 42%, 92% { background: var(--bf-green); box-shadow: 0 0 26px rgba(85,243,132,.55); transform: scale(1) } 100% { background: var(--bf-blue); box-shadow: 0 0 22px rgba(81,161,250,.45) } }
+@keyframes bf-pay-label { 0%, 38% { opacity: 1 } 42%, 92% { opacity: 0 } 96%, 100% { opacity: 1 } }
+@keyframes bf-pay-tick { 0%, 40% { opacity: 0 } 44%, 92% { opacity: 1 } 96%, 100% { opacity: 0 } }
+.bf-tag { position: absolute; height: 31px; padding: 0 14px; border-radius: 8px; border: 1.5px solid; font-size: 15px; font-weight: 700; line-height: 28px; white-space: nowrap; }
+.bf-tag--easing { border-color: #2a4a75; color: var(--bf-blue); background: #101a2a; }
+.bf-tag--antic { border-color: #5b3f8a; color: var(--bf-purple); background: #1a1428; }
+.bf-tag--feedback { border-color: #2a6a45; color: var(--bf-green); background: #0f2418; }
+.bf-pay--auto ~ .bf-tag--feedback { animation: bf-tag-in 6s linear infinite; }
+@keyframes bf-tag-in { 0%, 40% { opacity: 0; transform: translateY(6px) } 46%, 92% { opacity: 1; transform: none } 96%, 100% { opacity: 0 } }
+
+/* ---- Outro ---------------------------------------------------------------- */
+.bf-follow { position: absolute; width: 190px; height: 59px; border: 0; border-radius: 12px; background: var(--bf-blue); color: #fff; font: 700 20px 'Inter', sans-serif; cursor: pointer; box-shadow: 0 0 30px rgba(81,161,250,.5); display: inline-flex; align-items: center; justify-content: center; gap: 12px; }
+.bf-follow svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; }

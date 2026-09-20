@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Settings System · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a0e11; --accent: #2dd4bf; --danger: #e5484d; --grid: rgba(255,255,255,.03); }
+  .scene { color: #f3f5f7; }
+  .big { position: absolute; left: 0; right: 0; text-align: center; font-weight: 800; letter-spacing: -.025em; white-space: nowrap; }
+  .big em { font-style: normal; color: var(--accent); } .big em.danger { color: var(--danger); }
+  .k { position: absolute; left: 50%; top: 147px; transform: translateX(-50%); }
+  .cap { position: absolute; left: 50%; top: 1010px; transform: translateX(-50%); }
+  .tog { margin-left: auto; }
+  /* Hook: the settings list scrolls to its danger zone while the headline fades in. */
+  @keyframes ss-scroll { from { transform: translateY(0) } to { transform: translateY(-453px) } }
+  @keyframes ss-fade { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
+  #hookList { animation: ss-scroll 1.4s cubic-bezier(.4,0,.2,1) .1s forwards; }
+  #hookHead { animation: ss-fade .6s ease .8s both; }
+  @keyframes ss-scroll2 { from { transform: translateY(0) } to { transform: translateY(-405px) } }
+  #flatList { animation: ss-scroll2 1.4s cubic-bezier(.4,0,.2,1) forwards; }
+</style>
+</head>
+<body class="ss">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-density" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="4" rx="1"/><rect x="4" y="11" width="16" height="4" rx="1"/><rect x="4" y="17" width="16" height="3" rx="1"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></symbol>
+  <symbol id="i-devices" viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="10" rx="1.5"/><rect x="17" y="9" width="4" height="10" rx="1"/><path d="M7 19h6"/></symbol>
+  <symbol id="i-bellring" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0M3 8a9 9 0 0 1 2-4M21 8a9 9 0 0 0-2-4"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0M16 4.5a3.5 3.5 0 0 1 0 7M22 20a7 7 0 0 0-5-6.7"/></symbol>
+  <symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M10 4h4v3a2 2 0 1 0 4 0h2v6h-3a2 2 0 1 0 0 4h3v3h-6v-3a2 2 0 1 0-4 0v3H4v-6h3a2 2 0 1 0 0-4H4V7h6z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v4M12 17.5h.01"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-chevd" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 10v4h3l5 4V6L7 10zM15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2l1.5 3 3.3-.6 1 3.2 3 1.5-1.4 3 1.4 3-3 1.5-1 3.2-3.3-.6L12 22l-1.5-3-3.3.6-1-3.2-3-1.5 1.4-3-1.4-3 3-1.5 1-3.2 3.3.6z"/></symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 1.5-2s0-2 1.5-2h1.5a4 4 0 0 0 4-4 10 10 0 0 0-8.5-10z"/><circle cx="7.5" cy="12" r="1"/><circle cx="10" cy="7.5" r="1"/><circle cx="15" cy="7.5" r="1"/></symbol>
+  <symbol id="i-type" viewBox="0 0 24 24"><path d="M5 5h14v3M12 5v14M9 19h6"/></symbol>
+  <symbol id="i-lines" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M4 10a8 8 0 1 1 2.3 5.7M4 4v6h6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></symbol>
+  <symbol id="i-at" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 12v1.5a2.5 2.5 0 0 0 5 0V12a9 9 0 1 0-3.5 7.1"/></symbol>
+  <symbol id="i-mega" viewBox="0 0 24 24"><path d="M3 10v4h3l8 4V6l-8 4zM17 9a4 4 0 0 1 0 6M6 14v5h3v-4"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M4 20h16"/></symbol>
+  <symbol id="i-eyeoff" viewBox="0 0 24 24"><path d="M3 3l18 18M10 6.5A10 10 0 0 1 21 12s-1.5 3-4.5 5M6.5 8.5C4 10.5 3 12 3 12s3.5 7 9 7c1.5 0 2.8-.4 4-1M9.5 9.5a3.5 3.5 0 0 0 5 5"/></symbol>
+  <symbol id="i-enter" viewBox="0 0 24 24"><path d="M20 5v6a3 3 0 0 1-3 3H5M8 10l-4 4 4 4"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-tree" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M6.5 10v5a2 2 0 0 0 2 2H14"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v4h4M9 12h6M9 16h6"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></symbol>
+  <symbol id="i-userplus" viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M2 21a8 8 0 0 1 14-4M19 8v6M16 11h6"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 12h4M12 12h8M4 17h12M20 17h0"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="17" r="2"/></symbol>
+  <symbol id="i-hook" viewBox="0 0 24 24"><path d="M12 3v10a4 4 0 0 1-8 0M8 7l4-4 4 4"/></symbol>
+  <symbol id="i-braces" viewBox="0 0 24 24"><path d="M8 3H7a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2 2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h1M16 3h1a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2 2 2 0 0 0-2 2v4a2 2 0 0 1-2 2h-1"/></symbol>
+  <symbol id="i-cmd" viewBox="0 0 24 24"><path d="M9 9V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3z"/></symbol>
+  <symbol id="i-shieldcheck" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+</svg>
+
+<!-- 1 · Hook: most of it is harmless -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div id="hookHead">
+    <div class="big" style="top:143px;font-size:30px;font-weight:700;color:#a6adb5">Most of it is harmless.</div>
+    <div class="big" style="top:192px;font-size:40px;color:#c9ced5">Settings is a system.</div>
+  </div>
+  <div class="ss-panel" style="position:absolute;left:68px;top:254px;width:584px;height:742px">
+    <div class="ss-panel__head" style="padding:18px 21px 12px"><div><div class="ss-panel__title">Settings</div><div class="ss-panel__sub">acme-workspace</div></div></div>
+    <div class="ss-scroll" style="height:667px">
+      <div class="ss-panel__body" id="hookList">
+        <div class="ss-section">Preferences</div>
+        <div class="ss-row"><div class="ss-row__icon"><svg><use href="#i-moon"/></svg></div><div class="ss-row__text"><div class="ss-row__name is-mod" style="padding-left:12px">Dark mode</div><div class="ss-row__desc">Match the interface to low-light environments</div></div><span class="ss-pill ss-pill--teal" style="height:32px;padding:0 16px;font-size:16px;font-weight:700;gap:6px;margin-right:2px"><svg style="width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5"><use href="#i-check"/></svg>Saved</span><button class="ss-toggle is-on"></button></div>
+        <div class="ss-row"><div class="ss-row__icon"><svg><use href="#i-bell"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Notifications</div><div class="ss-row__desc">Push and in-app alerts for mentions</div></div><button class="ss-toggle is-on"></button></div>
+        <div class="ss-row"><div class="ss-row__icon"><svg><use href="#i-density"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Compact density</div><div class="ss-row__desc">Tighter spacing for large lists</div></div><button class="ss-toggle"></button></div>
+        <div class="ss-section">Account</div>
+        <div class="ss-row"><div class="ss-row__icon"><svg><use href="#i-globe"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Language</div><div class="ss-row__desc">Interface and email language</div></div><span class="ss-chip">English (US)<svg><use href="#i-chevd"/></svg></span></div>
+        <div class="ss-row"><div class="ss-row__icon"><svg><use href="#i-clock"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Timezone</div><div class="ss-row__desc">Used for digests and reminders</div></div><span class="ss-chip">GMT+1 · Paris<svg><use href="#i-chevd"/></svg></span></div>
+        <div class="ss-row"><div class="ss-row__icon"><svg><use href="#i-mail"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Email digest</div><div class="ss-row__desc">Weekly summary to sarah@acme.co</div></div><button class="ss-toggle is-on"></button></div>
+        <div class="ss-row"><div class="ss-row__icon"><svg><use href="#i-user"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Public profile</div><div class="ss-row__desc">Show your profile outside the workspace</div></div><button class="ss-toggle"></button></div>
+        <div class="ss-section">Security</div>
+        <div class="ss-row"><div class="ss-row__icon"><svg><use href="#i-shield"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Two-factor auth</div><div class="ss-row__desc">Authenticator app · enabled</div></div><span class="ss-chip">Enabled<svg><use href="#i-chev"/></svg></span></div>
+        <div class="ss-row"><div class="ss-row__icon"><svg><use href="#i-devices"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Active sessions</div><div class="ss-row__desc">Devices signed in to this account</div></div><span class="ss-chip">3 devices<svg><use href="#i-chev"/></svg></span></div>
+        <div class="ss-row"><div class="ss-row__icon"><svg><use href="#i-bellring"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Login alerts</div><div class="ss-row__desc">Email on sign-in from a new device</div></div><button class="ss-toggle is-on"></button></div>
+        <div class="ss-section">Workspace</div>
+        <div class="ss-row"><div class="ss-row__icon"><svg><use href="#i-users"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Members</div><div class="ss-row__desc">Roles and pending invitations</div></div><span class="ss-chip">12 members<svg><use href="#i-chev"/></svg></span></div>
+        <div class="ss-row"><div class="ss-row__icon"><svg><use href="#i-puzzle"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Integrations</div><div class="ss-row__desc">Connected apps and webhooks</div></div><span class="ss-chip">4 connected<svg><use href="#i-chev"/></svg></span></div>
+        <div class="ss-danger" style="margin:18px -1px 16px -1px">
+          <div class="ss-danger__head"><div class="ss-danger__title"><svg><use href="#i-warn"/></svg>Danger zone</div></div>
+          <div class="ss-row"><div class="ss-row__icon"><svg><use href="#i-trash"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Delete workspace</div><div class="ss-row__desc">Permanently remove acme-workspace and all its data</div></div><button class="ss-btn ss-btn--danger" style="height:32px">Delete</button></div>
+        </div>
+      </div>
+      <div class="ss-scroll__bar" style="top:270px;height:120px"></div>
+    </div>
+  </div>
+  <svg class="cursor" style="left:640px;top:636px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+</section>
+
+<!-- 2 · Apply model: instant or explicit -->
+<section class="scene" data-t="3" data-shot="10.5">
+  <div class="glow" style="left:100px;top:500px;background:rgba(20,184,166,.08)"></div>
+  <span class="ss-kicker k">Apply model</span>
+  <div class="big" style="top:195px;font-size:40px">Instant. Or explicit.</div>
+  <span class="ss-tag" style="position:absolute;left:473px;top:277px"><b>low stakes</b><span>→</span><b>instant</b></span>
+  <div class="ss-panel" style="position:absolute;left:68px;top:306px;width:584px;height:246px">
+    <div class="ss-panel__head" style="padding:22px 21px 14px;border:0"><div class="ss-panel__title">Preferences</div><span style="display:flex;align-items:center;gap:6px;font-size:14px;color:#8b93a1"><svg style="width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2"><use href="#i-bolt"/></svg>Applies instantly</span></div>
+    <div class="ss-panel__body" style="padding:0 37px 0 36px">
+      <div class="ss-row" style="height:78px"><div class="ss-row__icon"><svg><use href="#i-menu"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Compact mode</div><div class="ss-row__desc">Denser rows and tighter spacing</div></div><button class="ss-toggle is-on" id="tCompact"></button></div>
+      <div class="ss-row" style="height:84px"><div class="ss-row__icon"><svg><use href="#i-volume"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Sound effects</div><div class="ss-row__desc">Play a sound on key actions</div></div><button class="ss-toggle is-on" id="tSound"></button></div>
+    </div>
+  </div>
+  <span class="ss-tag" style="position:absolute;left:491px;top:600px"><b style="color:#9aa2a9">identity</b><span>→</span><b>explicit</b></span>
+  <div class="ss-panel" style="position:absolute;left:68px;top:632px;width:584px;height:183px;overflow:visible">
+    <div class="ss-panel__head" style="padding:22px 21px 18px"><div><div class="ss-panel__title">Account</div><div class="ss-panel__sub">Sarah Chen · owner</div></div><span class="ss-chip ss-chip--mono">acme-workspace</span></div>
+    <div class="ss-row" id="emailRow" style="height:71px;margin:14px 18px 0;padding:0 18px 0 16px;border:1px solid rgba(20,184,166,.35);border-radius:10px;background:#151b1f"><div class="ss-row__icon"><svg><use href="#i-mail"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Email</div><div class="ss-row__desc" style="white-space:nowrap">Used to sign in to acme-workspace</div></div><span class="ss-dot" id="emailDot"></span><div class="ss-input" style="width:196px;margin-left:5px"><input id="emailInput" value="sarah@lumen.dev" style="all:unset;font:inherit;color:inherit;width:15ch" spellcheck="false"><span class="ss-caret"></span></div></div>
+  </div>
+  <div class="ss-unsaved" id="unsaved" style="position:absolute;left:88px;top:828px;width:544px">You have unsaved changes<span class="spacer"></span><button class="ss-btn ss-btn--ghost" id="btnCancel">Cancel</button><button class="ss-btn ss-btn--teal" id="btnSave" style="width:97px">Save</button></div>
+  <svg class="cursor" style="left:566px;top:852px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <span class="ss-caption cap" style="width:586px;justify-content:center">instant for preferences · explicit for identity</span>
+</section>
+
+<!-- 3a · Structure: one flat list -->
+<section class="scene" data-t="12" data-shot="13.5">
+  <span class="ss-kicker ss-kicker--grey k">Structure</span>
+  <div class="big" style="top:195px;font-size:40px">Forty settings, zero map</div>
+  <div class="ss-panel" style="position:absolute;left:68px;top:284px;width:584px;height:588px">
+    <div class="ss-panel__head" style="padding:24px 19px 18px 23px"><div><div class="ss-panel__title">Workspace settings</div><div class="ss-panel__sub">acme-workspace · Sarah Chen</div></div><span class="ss-pill ss-pill--pink">one flat list</span></div>
+    <div class="ss-scroll" style="height:508px">
+      <div class="ss-panel__body" id="flatList" style="padding:14px 31px 0 36px">
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 1 — Display name</div><span class="ss-row__val" style="margin-left:auto">Sarah</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 2 — Avatar shape</div><span class="ss-row__val" style="margin-left:auto">Round</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 3 — Language</div><span class="ss-row__val" style="margin-left:auto">en</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 4 — Push alerts</div><span class="ss-row__val" style="margin-left:auto">On</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 5 — Sound effects</div><span class="ss-row__val" style="margin-left:auto">On</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 6 — Compact mode</div><span class="ss-row__val" style="margin-left:auto">Off</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 7 — Two-factor auth</div><span class="ss-row__val" style="margin-left:auto">On</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 8 — API keys</div><span class="ss-row__val" style="margin-left:auto">2</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 9 — Digest frequency</div><span class="ss-row__val" style="margin-left:auto">Weekly</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 10 — Session timeout</div><span class="ss-row__val" style="margin-left:auto">30 min</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 11 — Theme contrast</div><span class="ss-row__val" style="margin-left:auto">Auto</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 12 — Export format</div><span class="ss-row__val" style="margin-left:auto">CSV</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 13 — Webhook retries</div><span class="ss-row__val" style="margin-left:auto">3</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 14 — Locale override</div><span class="ss-row__val" style="margin-left:auto">en-US</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 15 — Time zone</div><span class="ss-row__val" style="margin-left:auto">UTC+1</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 16 — Beta features</div><span class="ss-row__val" style="margin-left:auto">Off</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 17 — Email cadence</div><span class="ss-row__val" style="margin-left:auto">Daily</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 18 — Sound volume</div><span class="ss-row__val" style="margin-left:auto">80%</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 19 — Retention</div><span class="ss-row__val" style="margin-left:auto">90 d</span></div>
+        <div class="ss-row ss-row--sm" style="height:50.7px"><div class="ss-row__icon ss-row__icon--sm" style="background:none;color:#5d666c"><svg><use href="#i-gear"/></svg></div><div class="ss-row__name">Setting 20 — Log level</div><span class="ss-row__val" style="margin-left:auto">info</span></div>
+      </div>
+      <div class="ss-scroll__bar" style="top:14px;height:60px"></div>
+    </div>
+  </div>
+  <span class="ss-caption ss-caption--grey cap"><svg><use href="#i-tree"/></svg>group by task, not by table</span>
+</section>
+
+<!-- 3b · Structure: grouped by task -->
+<section class="scene" data-t="16.5" data-shot="19.5">
+  <span class="ss-kicker ss-kicker--grey k">Structure</span>
+  <div class="big" style="top:195px;font-size:40px">Forty settings, zero map</div>
+  <div class="ss-panel" style="position:absolute;left:68px;top:284px;width:584px;height:588px">
+    <div class="ss-panel__head" style="padding:22px 19px 12px 21px"><div><div class="ss-panel__title">Workspace settings</div><div class="ss-panel__sub">acme-workspace · Sarah Chen</div></div><span class="ss-pill ss-pill--teal">grouped by task</span></div>
+    <div class="ss-panel__body" style="padding:0 31px 0 23px">
+      <div class="ss-section" style="padding:8px 0 4px">Notifications</div>
+      <div class="ss-row ss-row--sm"><div class="ss-row__icon ss-row__icon--sm"><svg><use href="#i-bell"/></svg></div><div class="ss-row__name">Push alerts</div><button class="ss-toggle is-on tog" style="width:42px;height:22px"></button></div>
+      <div class="ss-row ss-row--sm"><div class="ss-row__icon ss-row__icon--sm"><svg><use href="#i-mail"/></svg></div><div class="ss-row__name">Mentions</div><button class="ss-toggle tog" style="width:42px;height:22px"></button></div>
+      <div class="ss-row ss-row--sm"><div class="ss-row__icon ss-row__icon--sm"><svg><use href="#i-moon"/></svg></div><div class="ss-row__name">Quiet hours</div><span class="ss-row__val" style="margin-left:auto">22:00–07:00</span></div>
+      <div class="ss-section" style="padding:16px 0 4px">Billing</div>
+      <div class="ss-row ss-row--sm"><div class="ss-row__icon ss-row__icon--sm"><svg><use href="#i-card"/></svg></div><div class="ss-row__name">Payment method</div><span class="ss-row__val" style="margin-left:auto">Visa ·· 4242</span></div>
+      <div class="ss-row ss-row--sm"><div class="ss-row__icon ss-row__icon--sm"><svg><use href="#i-doc"/></svg></div><div class="ss-row__name">Invoices</div><span class="ss-row__val" style="margin-left:auto">12 docs</span></div>
+      <div class="ss-row ss-row--sm" id="advRow" style="margin-top:14px;cursor:pointer"><div class="ss-row__icon ss-row__icon--sm"><svg><use href="#i-sliders"/></svg></div><div class="ss-row__name">Advanced</div><span class="ss-row__chev" style="margin-left:auto;color:#2dd4bf"><svg><use href="#i-chevd"/></svg></span></div>
+      <div class="ss-sub" id="advBody" style="margin-top:2px">
+        <div class="ss-row"><div class="ss-row__icon"><svg><use href="#i-hook"/></svg></div><div class="ss-row__name">Webhook signing</div><span class="ss-row__val" style="margin-left:auto">whsec_9f…c2</span></div>
+        <div class="ss-row"><div class="ss-row__icon"><svg><use href="#i-braces"/></svg></div><div class="ss-row__name">API version</div><span class="ss-row__val" style="margin-left:auto">2026-07-01</span></div>
+        <div class="ss-row"><div class="ss-row__icon"><svg><use href="#i-download"/></svg></div><div class="ss-row__name">Data export</div><span class="ss-row__val" style="margin-left:auto">CSV · async</span></div>
+      </div>
+    </div>
+    <div class="ss-scroll__bar" style="top:380px;height:90px"></div>
+  </div>
+  <div style="position:absolute;left:0;right:0;top:885px;text-align:center;font:500 13px var(--ss-mono);color:#8b93a1;letter-spacing:.04em">the Stripe pattern — one tab per job</div>
+  <div class="ss-tabs" style="position:absolute;left:148px;top:912px"><span class="ss-tab"><svg><use href="#i-card"/></svg>Payments</span><span class="ss-tab is-on"><svg><use href="#i-doc"/></svg>Billing</span><span class="ss-tab"><svg><use href="#i-users"/></svg>Team</span></div>
+  <span class="ss-caption cap"><svg><use href="#i-tree"/></svg>group by task, not by table</span>
+</section>
+
+<!-- 4a · Search: the full list -->
+<section class="scene" data-t="21" data-shot="22.5">
+  <div class="glow" style="left:100px;top:600px;background:rgba(20,184,166,.07)"></div>
+  <span class="ss-kicker k">Search</span>
+  <div class="big" style="top:195px;font-size:40px">Nobody scrolls to row 40.</div>
+  <div class="ss-panel" style="position:absolute;left:60px;top:313px;width:600px;height:539px">
+    <div class="ss-panel__head" style="padding:20px 21px 18px;border:0"><div><div class="ss-panel__title">Settings</div><div class="ss-panel__sub">acme-workspace</div></div><div class="ss-search"><svg><use href="#i-search"/></svg><span class="ph">Search settings</span></div></div>
+    <div class="ss-panel__body" style="padding:0 34px 0 24px">
+      <div class="ss-section" style="padding:6px 0 2px">Workspace</div>
+      <div class="ss-row ss-row--xs"><div class="ss-row__icon"><svg><use href="#i-user"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Profile</div><div class="ss-row__desc">Name, avatar, timezone</div></div><span class="ss-row__chev"><svg><use href="#i-chev"/></svg></span></div>
+      <div class="ss-row ss-row--xs"><div class="ss-row__icon"><svg><use href="#i-palette"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Appearance</div><div class="ss-row__desc">Theme, density, contrast</div></div><span class="ss-row__chev"><svg><use href="#i-chev"/></svg></span></div>
+      <div class="ss-row ss-row--xs"><div class="ss-row__icon"><svg><use href="#i-bell"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Notifications</div><div class="ss-row__desc">Push and desktop alerts</div></div><button class="ss-toggle is-on" style="width:40px;height:22px"></button></div>
+      <div class="ss-section" style="padding:14px 0 2px">Email</div>
+      <div class="ss-row ss-row--xs"><div class="ss-row__icon"><svg><use href="#i-mail"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Email digest</div><div class="ss-row__desc">Weekly summary every Monday morning</div></div><button class="ss-toggle is-on" style="width:40px;height:22px"></button></div>
+      <div class="ss-row ss-row--xs"><div class="ss-row__icon"><svg><use href="#i-at"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Mentions</div><div class="ss-row__desc">Email me when I'm mentioned</div></div><button class="ss-toggle is-on" style="width:40px;height:22px"></button></div>
+      <div class="ss-row ss-row--xs"><div class="ss-row__icon"><svg><use href="#i-mega"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Marketing</div><div class="ss-row__desc">Product news and tips</div></div><button class="ss-toggle" style="width:40px;height:22px"></button></div>
+    </div>
+  </div>
+  <div style="position:absolute;left:592px;top:388px;width:36px;height:36px;border-radius:50%;border:2px solid rgba(20,184,166,.6)"></div>
+  <svg class="cursor" style="left:606px;top:404px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <span class="ss-caption cap"><svg><use href="#i-cmd"/></svg>type to filter · enter to jump</span>
+</section>
+
+<!-- 4b · Search: one result -->
+<section class="scene" data-t="24" data-shot="28.5">
+  <div class="glow" style="left:100px;top:600px;background:rgba(20,184,166,.07)"></div>
+  <span class="ss-kicker k">Search</span>
+  <div class="big" style="top:195px;font-size:40px">Nobody scrolls to row 40.</div>
+  <div class="ss-panel" id="searchPanel" style="position:absolute;left:60px;top:487px;width:600px;height:245px;overflow:visible">
+    <div class="ss-panel__head" style="padding:20px 21px 18px;border:0"><div><div class="ss-panel__title">Settings</div><div class="ss-panel__sub">acme-workspace</div></div><div class="ss-search"><svg><use href="#i-search"/></svg><input id="searchInput" value="digest" style="all:unset;font:700 16px var(--ss-mono);color:inherit;width:6ch" spellcheck="false"><span class="ss-caret" style="margin-left:-6px"></span></div></div>
+    <div class="ss-panel__body" style="padding:0 22px 0 24px">
+      <div class="ss-section" style="padding:18px 0 4px">Email</div>
+      <div class="ss-crumb">Workspace<i>›</i>Email<i>›</i><b>Digest</b></div>
+      <div class="ss-row ss-row--xs is-hit" style="height:59px;margin-top:9px;margin-left:-2px;margin-right:0"><div class="ss-row__icon" style="color:#2dd4bf"><svg><use href="#i-mail"/></svg></div><div class="ss-row__text"><div class="ss-row__name" id="hitName">Email <span class="ss-mark">digest</span></div><div class="ss-row__desc">Weekly summary every Monday morning</div></div><button class="ss-toggle is-on" style="width:40px;height:22px"></button></div>
+    </div>
+    <span class="ss-pill ss-pill--teal" style="position:absolute;right:19px;bottom:14px;height:28px;gap:6px"><svg style="width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2"><use href="#i-search"/></svg>1 result</span>
+  </div>
+  <svg class="cursor" style="left:284px;top:712px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div style="position:absolute;left:180px;top:806px;display:flex;gap:13px"><span class="ss-note"><svg><use href="#i-eyeoff"/></svg>39 settings hidden</span><span class="ss-note ss-note--teal"><svg><use href="#i-enter"/></svg>Enter opens it</span></div>
+  <span class="ss-caption cap"><svg><use href="#i-cmd"/></svg>type to filter · enter to jump</span>
+</section>
+
+<!-- 5 · Modified state -->
+<section class="scene" data-t="30" data-shot="34.5">
+  <div class="glow" style="left:100px;top:600px;background:rgba(20,184,166,.07)"></div>
+  <span class="ss-kicker k">Modified state</span>
+  <div class="big" style="top:195px;font-size:40px">Changed. Visibly.</div>
+  <div class="ss-panel" id="modPanel" style="position:absolute;left:68px;top:300px;width:584px;height:350px">
+    <div class="ss-panel__head" style="padding:24px 21px 18px"><div><div class="ss-panel__title">Appearance</div><div class="ss-panel__sub">acme-workspace · Sarah Chen</div></div><span class="ss-pill ss-pill--teal" id="modCount" style="font-weight:700;height:27px">2 modified</span></div>
+    <div class="ss-panel__body" style="padding:14px 37px 0 36px">
+      <div class="ss-row" style="height:72px" data-key="theme"><div class="ss-row__icon"><svg><use href="#i-palette"/></svg></div><div class="ss-row__text"><div class="ss-row__name is-mod" style="padding-left:12px">Theme</div><div class="ss-row__desc">Interface color scheme</div></div><button class="ss-reset is-on" data-reset="theme" aria-label="Reset theme"><svg><use href="#i-undo"/></svg></button><span class="ss-select" style="margin-left:8px" id="themeSel">Dark<svg><use href="#i-chevd"/></svg></span></div>
+      <div class="ss-row" style="height:84px" data-key="font"><div class="ss-row__icon"><svg><use href="#i-type"/></svg></div><div class="ss-row__text"><div class="ss-row__name is-mod" style="padding-left:12px">Font size</div><div class="ss-row__desc">Editor text size in pixels</div></div><button class="ss-reset is-on" data-reset="font" aria-label="Reset font size"><svg><use href="#i-undo"/></svg></button><div class="ss-slider" style="margin-left:9px;--p:50%"><div class="ss-slider__track"></div><div class="ss-slider__fill"></div><div class="ss-slider__thumb"></div></div><span style="font-size:15px;width:36px;text-align:right" id="fontVal">16px</span></div>
+      <div class="ss-row" style="height:84px" data-key="line"><div class="ss-row__icon"><svg><use href="#i-lines"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Line height</div><div class="ss-row__desc">Vertical rhythm of text</div></div><span class="ss-valbox">1.5</span></div>
+    </div>
+  </div>
+  <div class="ss-code" style="position:absolute;left:88px;top:768px">
+    <div class="ss-code__head"><span style="display:flex;align-items:center;gap:6px"><svg style="width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2"><use href="#i-braces"/></svg>settings.json</span><span>VS Code does this</span></div>
+    <div class="ss-code__body"><div class="ss-code__line is-mod">"workbench.colorTheme": "Acme Dark",</div><div class="ss-code__line is-mod">"editor.fontSize": 16,</div><div class="ss-code__line is-dim">"editor.lineHeight": 1.5,</div></div>
+  </div>
+  <svg class="cursor" style="left:630px;top:724px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <span class="ss-caption cap"><svg><use href="#i-undo"/></svg>undo is one click away</span>
+</section>
+
+<!-- 6a · Danger zone: pinned last -->
+<section class="scene" data-t="39" data-shot="40.5">
+  <div class="glow" style="left:100px;top:700px;background:rgba(229,72,77,.10)"></div>
+  <span class="ss-kicker ss-kicker--grey k">Danger zone</span>
+  <div class="big" style="top:195px;font-size:40px">Quarantine the <em class="danger">destructive.</em></div>
+  <div style="position:absolute;left:88px;top:290px;width:544px">
+    <div class="ss-section is-dim" style="padding:0 0 6px;opacity:.12">Workspace</div>
+    <div class="ss-row ss-row--sm is-dim" style="height:49px"><div class="ss-row__icon ss-row__icon--sm" style="background:none"><svg><use href="#i-download"/></svg></div><div class="ss-row__name" style="font-weight:500;margin-left:6px">Export workspace data</div><span class="ss-row__chev" style="margin-left:auto"><svg><use href="#i-chev"/></svg></span></div>
+    <div class="ss-row ss-row--sm is-dim" style="height:49px"><div class="ss-row__icon ss-row__icon--sm" style="background:none"><svg><use href="#i-users"/></svg></div><div class="ss-row__name" style="font-weight:500;margin-left:6px">Transfer ownership</div><span class="ss-row__chev" style="margin-left:auto"><svg><use href="#i-chev"/></svg></span></div>
+  </div>
+  <div class="ss-danger ss-danger--inline" style="position:absolute;left:68px;top:428px;width:584px;height:142px">
+    <div class="ss-danger__head" style="height:58px;padding:0 19px 0 20px"><div class="ss-danger__title ss-danger__title--plain"><svg><use href="#i-warn"/></svg>Danger zone</div><span class="ss-danger__meta">Owner only</span></div>
+    <div class="ss-row" style="height:82px"><div class="ss-row__icon ss-row__icon--bare"><svg><use href="#i-trash"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Delete this workspace</div><div class="ss-row__desc">All data, members and integrations are removed.</div></div><button class="ss-btn ss-btn--danger" id="btnDelete">Delete workspace</button></div>
+  </div>
+  <div class="ss-page" style="position:absolute;left:240px;top:636px"><i></i><i></i><i></i><i></i><i></i><i class="is-danger"><svg><use href="#i-trash"/></svg></i></div>
+  <div style="position:absolute;left:335px;top:841px;font-size:14px;line-height:19px;color:#6b737b;width:130px">every screen of the page,<br><b style="color:#e5484d;font-weight:600">danger pinned last</b></div>
+  <svg class="cursor" style="left:494px;top:782px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <span class="ss-caption ss-caption--grey cap"><svg><use href="#i-shieldcheck"/></svg>friction scales with severity</span>
+</section>
+
+<!-- 6b · Danger zone: type the name to confirm -->
+<section class="scene" data-t="45" data-shot="46.5">
+  <div class="glow" style="left:100px;top:700px;background:rgba(229,72,77,.10)"></div>
+  <span class="ss-kicker ss-kicker--grey k">Danger zone</span>
+  <div class="big" style="top:195px;font-size:40px">Quarantine the <em class="danger">destructive.</em></div>
+  <div style="position:absolute;left:0;top:0;width:720px;height:1280px;opacity:.4">
+    <div style="position:absolute;left:88px;top:290px;width:544px">
+      <div class="ss-row ss-row--sm is-dim" style="height:49px;margin-top:22px"><div class="ss-row__icon ss-row__icon--sm" style="background:none"><svg><use href="#i-download"/></svg></div><div class="ss-row__name" style="font-weight:500;margin-left:6px">Export workspace data</div></div>
+      <div class="ss-row ss-row--sm is-dim" style="height:49px"><div class="ss-row__icon ss-row__icon--sm" style="background:none"><svg><use href="#i-users"/></svg></div><div class="ss-row__name" style="font-weight:500;margin-left:6px">Transfer ownership</div></div>
+    </div>
+    <div class="ss-danger ss-danger--inline" style="position:absolute;left:68px;top:428px;width:584px;height:142px;border-color:rgba(229,72,77,.5);box-shadow:none">
+      <div class="ss-danger__head" style="height:58px;padding:0 19px 0 20px"><div class="ss-danger__title ss-danger__title--plain"><svg><use href="#i-warn"/></svg>Danger zone</div><span class="ss-danger__meta">Owner only</span></div>
+      <div class="ss-row" style="height:82px"><div class="ss-row__icon ss-row__icon--bare"><svg><use href="#i-trash"/></svg></div><div class="ss-row__text"><div class="ss-row__name">Delete this workspace</div><div class="ss-row__desc">All data, members and integrations are removed.</div></div><button class="ss-btn ss-btn--danger">Delete workspace</button></div>
+    </div>
+  </div>
+  <div class="ss-modal" id="modal" style="position:absolute;left:100px;top:688px">
+    <h3>Delete acme-workspace?</h3>
+    <p>This cannot be undone.<br>Type the workspace name to confirm.</p>
+    <label>Workspace name</label>
+    <div class="ss-input"><input id="confirmInput" value="acme-workspace" style="all:unset;font:inherit;color:inherit;width:14ch" spellcheck="false" autocomplete="off"><span class="ss-caret"></span></div>
+    <div class="ss-progress"><div class="ss-progress__bar"><div class="ss-progress__fill" id="confirmFill" style="--p:100%"></div></div><span class="ss-progress__n" id="confirmN">14/14</span></div>
+    <button class="ss-btn ss-btn--delete" id="btnForever"><svg><use href="#i-lock"/></svg>Delete forever</button>
+  </div>
+  <svg class="cursor" style="left:668px;top:788px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <span class="ss-caption ss-caption--grey cap"><svg><use href="#i-shieldcheck"/></svg>friction scales with severity</span>
+</section>
+
+<!-- 7 · Outro -->
+<section class="scene" data-t="48" data-shot="51">
+  <div class="glow" style="left:100px;top:500px;background:rgba(20,184,166,.10)"></div>
+  <div class="big" style="top:180px;font-size:40px;color:var(--accent)">Settings is a system.</div>
+  <div class="ss-list" style="position:absolute;left:88px;top:372px">
+    <div class="ss-item"><div class="ss-item__icon"><svg><use href="#i-bolt"/></svg></div><div><b>Instant vs explicit</b><span>Light toggles apply live, heavy forms save</span></div><span class="ss-item__n">01</span></div>
+    <div class="ss-item"><div class="ss-item__icon"><svg><use href="#i-grid"/></svg></div><div><b>Group by task</b><span>Sections match user intent, not org charts</span></div><span class="ss-item__n">02</span></div>
+    <div class="ss-item"><div class="ss-item__icon"><svg><use href="#i-search"/></svg></div><div><b>Searchable</b><span>One query beats six nested menus</span></div><span class="ss-item__n">03</span></div>
+    <div class="ss-item"><div class="ss-item__icon"><svg><use href="#i-undo"/></svg></div><div><b>Reset per setting</b><span>Back to default without nuking everything</span></div><span class="ss-item__n">04</span></div>
+    <div class="ss-item"><div class="ss-item__icon ss-item__icon--red"><svg><use href="#i-warn"/></svg></div><div><b>Danger zone</b><span>Destructive actions live behind a wall</span></div><span class="ss-item__n">05</span></div>
+  </div>
+  <div class="ss-handle" style="position:absolute;left:221px;top:861px"><i><svg><use href="#i-gear"/></svg></i>@designmotionhq</div>
+  <div class="ss-follow" style="position:absolute;left:196px;top:936px"><svg><use href="#i-userplus"/></svg>Follow</div>
+</section>
+
+<script type="module">
+  import { InstantToggle, ExplicitForm, SettingsSearch, ModifiedSettings, DangerConfirm, Collapsible } from './pattern.js';
+  const $ = id => document.getElementById(id);
+  // Apply model: toggles commit instantly; the email field needs an explicit Save.
+  InstantToggle($('tCompact')); InstantToggle($('tSound'));
+  ExplicitForm({ input: $('emailInput'), initial: 'sarah@acme.co', bar: $('unsaved'), dot: $('emailDot'), save: $('btnSave'), cancel: $('btnCancel') });
+  Collapsible($('advRow'), $('advBody'), { open: true });
+  SettingsSearch($('searchInput'), { name: $('hitName'), label: 'Email digest' });
+  ModifiedSettings($('modPanel'), { count: $('modCount'), defaults: { theme: 'System', font: 14 }, values: { theme: 'Dark', font: 16 }, render: { theme: v => $('themeSel').firstChild.textContent = v, font: v => { $('fontVal').textContent = v + 'px'; $('modPanel').querySelector('.ss-slider').style.setProperty('--p', ((v - 10) / 12 * 100) + '%'); } } });
+  for (const el of [$('emailInput'), $('searchInput'), $('confirmInput')]) el.addEventListener('input', () => el.style.width = Math.max(1, el.value.length) + 'ch');
+  DangerConfirm({ input: $('confirmInput'), name: 'acme-workspace', fill: $('confirmFill'), counter: $('confirmN'), button: $('btnForever') });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

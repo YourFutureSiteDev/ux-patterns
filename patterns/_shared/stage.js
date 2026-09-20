@@ -1,7 +1,7 @@
 // Scene player. ?scene=N shows only scene N (used by tools/shot.mjs); ?t=SECONDS fast-forwards
 // that scene's animations so a screenshot matches the source frame at that time.
 // Each scene may define its own timeline by listening for the 'scene:enter' event with detail.t.
-(() => {
+const stageInit = () => {
   const q = new URLSearchParams(location.search);
   const scenes = [...document.querySelectorAll('.scene')];
   const n = q.has('scene') ? Number(q.get('scene')) : null;
@@ -25,4 +25,6 @@
   document.body.appendChild(nav);
   document.body.classList.add('single'); show(0);
   document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') show(i + 1); if (e.key === 'ArrowLeft') show(i - 1); });
-})();
+};
+// Module scripts run before DOMContentLoaded, so their scene:enter listeners are registered before the first dispatch.
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', stageInit); else stageInit();

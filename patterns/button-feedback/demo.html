@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Button Feedback · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0b090e; --accent: #51a1fa; --danger: #eb6272; --grid: transparent; }
+  .scene { color: #f4f4f6; }
+  .bf-showcase-title { position: absolute; top: 134px; left: 0; right: 0; text-align: center; font-size: 25px; font-weight: 700; color: #b4b9c2; }
+</style>
+</head>
+<body class="bf">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21.4l-1.5-1.3C5.4 15.5 2 12.4 2 8.6 2 5.5 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.5 22 8.6c0 3.8-3.4 6.9-8.5 11.5L12 21.4z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+</svg>
+
+<!-- 1 · Hook -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:100px;top:300px;background:rgba(40,95,190,.13)"></div>
+  <div class="bf-tile" style="left:115px;top:306px;transform:rotate(-8deg)"><div class="bf-toggle bf-toggle--mini"><div class="bf-toggle__knob"></div></div></div>
+  <div class="bf-tile" style="left:515px;top:358px;transform:rotate(8deg);animation-delay:-1.2s"><div class="bf-tile__ring"></div></div>
+  <div class="bf-tile" style="left:141px;top:908px;transform:rotate(-6deg);animation-delay:-2s"><svg class="bf-tile__heart"><use href="#i-heart"/></svg></div>
+  <div class="bf-tile" style="left:528px;top:871px;transform:rotate(6deg);animation-delay:-.6s"><div class="bf-tile__check"><svg><use href="#i-check"/></svg></div></div>
+  <button class="bf-toggle is-on" id="heroToggle" aria-label="Toggle" style="position:absolute;left:281px;top:517px"><div class="bf-toggle__knob"></div></button>
+  <div class="title" style="top:628px;font-size:38px;letter-spacing:-.01em">This button feels good.</div>
+  <div class="title" style="top:683px;font-size:24px;font-weight:700;color:#8b8f98">That's not an accident.</div>
+</section>
+
+<!-- 2 · Showcase: button pulse -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="glow" style="left:60px;top:60px;width:600px;height:1140px;background:rgba(150,160,185,.075)"></div>
+  <div class="bf-showcase-title">The details you feel but never see</div>
+  <div class="bf-card" style="position:absolute;left:193px;top:518px">
+    <button class="bf-pulse" style="left:107px;top:74px">Subscribe</button>
+    <div class="bf-card__label">Button Pulse</div>
+  </div>
+</section>
+
+<!-- 3 · Showcase: notification -->
+<section class="scene" data-t="5.5" data-shot="6">
+  <div class="glow" style="left:60px;top:60px;width:600px;height:1140px;background:rgba(150,160,185,.075)"></div>
+  <div class="bf-showcase-title">The details you feel but never see</div>
+  <div class="bf-card" style="position:absolute;left:193px;top:518px">
+    <div class="bf-toast" style="left:72px;top:70px"><div class="bf-toast__check"><svg><use href="#i-check"/></svg></div><b>Changes saved!</b></div>
+    <div class="bf-card__label">Notification</div>
+  </div>
+</section>
+
+<!-- 4 · Showcase: toggle switch -->
+<section class="scene" data-t="8" data-shot="9">
+  <div class="glow" style="left:60px;top:60px;width:600px;height:1140px;background:rgba(150,160,185,.075)"></div>
+  <div class="bf-showcase-title">The details you feel but never see</div>
+  <div class="bf-card" style="position:absolute;left:193px;top:518px">
+    <div class="bf-toggle bf-toggle--auto is-on" style="position:absolute;left:89px;top:55px"><div class="bf-toggle__knob"></div></div>
+    <div class="bf-card__label">Toggle Switch</div>
+  </div>
+</section>
+
+<!-- 5 · Showcase: instant feedback -->
+<section class="scene" data-t="10" data-shot="10.5">
+  <div class="glow" style="left:60px;top:60px;width:600px;height:1140px;background:rgba(150,160,185,.075)"></div>
+  <div class="bf-showcase-title">The details you feel but never see</div>
+  <div class="bf-card" style="position:absolute;left:193px;top:518px">
+    <svg class="bf-heart" style="left:95px;top:58px"><use href="#i-heart"/></svg>
+    <div class="bf-check" style="left:169px;top:56px"><svg><use href="#i-check"/></svg></div>
+    <div class="bf-card__label">Instant Feedback</div>
+  </div>
+</section>
+
+<!-- 6 · Secret 1: easing -->
+<section class="scene bf-race" data-t="11.5" data-shot="16.5" style="--bf-race-delay:-.2s">
+  <div class="bf-secret">SECRET 1</div>
+  <div class="bf-secret-title">EASING</div>
+  <div class="bf-secret-sub">Why cheap apps feel... off</div>
+  <div class="bf-chip" style="left:140px;top:470px">LINEAR</div>
+  <div class="bf-chip bf-chip--on" style="left:448px;top:470px">EASE OUT</div>
+  <div class="bf-track" style="left:222px;top:544px"><div class="bf-track__knob"></div></div>
+  <div class="bf-track bf-track--alive" style="left:222px;top:601px"><div class="bf-track__knob"></div></div>
+  <div class="bf-graph" style="left:143px;top:700px">
+    <svg viewBox="0 0 112 112"><g class="bf-graph__grid"><path d="M28 0v112M56 0v112M84 0v112M0 28h112M0 56h112M0 84h112"/></g><path class="bf-graph__axis" d="M0 0v112h112" fill="none"/><path class="bf-graph__trail" pathLength="1" d="M0 112 L112 0"/></svg>
+    <div class="bf-graph__dot"></div>
+    <div class="bf-graph__name">Robotic</div>
+  </div>
+  <div class="bf-graph bf-graph--alive" style="left:463px;top:700px">
+    <svg viewBox="0 0 112 112"><g class="bf-graph__grid"><path d="M28 0v112M56 0v112M84 0v112M0 28h112M0 56h112M0 84h112"/></g><path class="bf-graph__axis" d="M0 0v112h112" fill="none"/><path class="bf-graph__trail" pathLength="1" d="M0 112 C 56 112, 96 78, 112 0"/></svg>
+    <div class="bf-graph__dot"></div>
+    <div class="bf-graph__name">Alive</div>
+  </div>
+</section>
+
+<!-- 7 · Secret 2: feedback -->
+<section class="scene" data-t="19.5" data-shot="22.5">
+  <div class="bf-secret">SECRET 2</div>
+  <div class="bf-secret-title">FEEDBACK</div>
+  <div class="bf-secret-sub">Silence = anxiety</div>
+  <div class="bf-divider" style="left:360px;top:535px;height:265px"></div>
+  <div class="bf-chip bf-chip--pill" style="left:185px;top:599px">NO RESPONSE</div>
+  <button class="bf-btn" id="silentBtn" style="position:absolute;left:186px;top:648px">Submit</button>
+  <div class="bf-status" style="left:252px;top:714px">...hello?</div>
+  <div class="bf-chip bf-chip--pill bf-chip--on" style="left:405px;top:599px">WITH RIPPLE</div>
+  <button class="bf-btn bf-btn--primary bf-btn--loop" id="rippleBtn" style="position:absolute;left:402px;top:648px">Submit</button>
+  <div class="bf-status bf-status--ok" style="left:468px;top:714px">Confirmed!</div>
+</section>
+
+<!-- 8 · Secret 3: anticipation (blobs up) -->
+<section class="scene bf-drop" data-t="27" data-shot="30">
+  <div class="bf-secret">SECRET 3</div>
+  <div class="bf-secret-title">ANTICIPATION</div>
+  <div class="bf-secret-sub">Disney knew this in 1937</div>
+  <div class="bf-divider" style="left:360px;top:498px;height:334px"></div>
+  <div class="bf-chip bf-chip--sm" style="left:205px;top:514px">NO PREP</div>
+  <div class="bf-chip bf-chip--sm bf-chip--on" style="left:408px;top:514px">SQUASH</div>
+  <div class="bf-floor" style="left:200px;top:761px"></div>
+  <div class="bf-floor bf-floor--alive" style="left:402px;top:761px"></div>
+  <div class="bf-blob" style="left:219px;top:569px"><div class="bf-blob__eye bf-blob__eye--l"></div><div class="bf-blob__eye bf-blob__eye--r"></div><div class="bf-blob__mouth"></div></div>
+  <div class="bf-blob bf-blob--alive" style="left:420px;top:569px"><div class="bf-blob__eye bf-blob__eye--l"></div><div class="bf-blob__eye bf-blob__eye--r"></div><div class="bf-blob__mouth"></div></div>
+  <div class="bf-verdict" style="left:259px;top:801px">Flat. Lifeless.</div>
+  <div class="bf-verdict bf-verdict--alive" style="left:460px;top:801px">Satisfying.</div>
+</section>
+
+<!-- 8b · Secret 3: anticipation (blobs landed) -->
+<section class="scene bf-drop" data-t="27" data-shot="33">
+  <div class="bf-secret">SECRET 3</div>
+  <div class="bf-secret-title">ANTICIPATION</div>
+  <div class="bf-secret-sub">Disney knew this in 1937</div>
+  <div class="bf-divider" style="left:360px;top:498px;height:334px"></div>
+  <div class="bf-chip bf-chip--sm" style="left:205px;top:514px">NO PREP</div>
+  <div class="bf-chip bf-chip--sm bf-chip--on" style="left:408px;top:514px">SQUASH</div>
+  <div class="bf-floor" style="left:200px;top:761px"></div>
+  <div class="bf-floor bf-floor--alive" style="left:402px;top:761px"></div>
+  <div class="bf-blob" style="left:219px;top:569px"><div class="bf-blob__eye bf-blob__eye--l"></div><div class="bf-blob__eye bf-blob__eye--r"></div><div class="bf-blob__mouth"></div></div>
+  <div class="bf-blob bf-blob--alive" style="left:420px;top:569px"><div class="bf-blob__eye bf-blob__eye--l"></div><div class="bf-blob__eye bf-blob__eye--r"></div><div class="bf-blob__mouth"></div></div>
+  <div class="bf-verdict" style="left:259px;top:801px">Flat. Lifeless.</div>
+  <div class="bf-verdict bf-verdict--alive" style="left:460px;top:801px">Satisfying.</div>
+</section>
+
+<!-- 9 · All three together: send payment -->
+<section class="scene" data-t="34.5" data-shot="36">
+  <div class="title" style="top:398px;font-size:28px;font-weight:700;letter-spacing:-.01em">Now watch them work together</div>
+  <div class="bf-pay bf-pay--auto" style="left:193px;top:465px">
+    <div class="bf-pay__title">Payment Details</div>
+    <div class="bf-pay__row bf-pay__row--amount"><span class="bf-pay__k">Amount</span><span class="bf-pay__amt">$249.00</span></div>
+    <div class="bf-pay__row bf-pay__row--to"><div class="bf-pay__avatar"></div><div class="bf-pay__to"><small>To</small><b>Alex Johnson</b></div></div>
+    <button class="bf-pay__btn"><span>Send Payment</span><svg><use href="#i-check"/></svg></button>
+  </div>
+  <div class="bf-tag bf-tag--easing" style="left:207px;top:782px">Easing</div>
+  <div class="bf-tag bf-tag--antic" style="left:295px;top:782px">Anticipation</div>
+  <div class="bf-tag bf-tag--feedback" style="left:421px;top:782px">Feedback</div>
+</section>
+
+<!-- 9b · Confirmed -->
+<section class="scene" data-t="34.5" data-shot="39">
+  <div class="title" style="top:398px;font-size:28px;font-weight:700;letter-spacing:-.01em">Now watch them work together</div>
+  <div class="bf-pay bf-pay--auto" style="left:193px;top:465px">
+    <div class="bf-pay__title">Payment Details</div>
+    <div class="bf-pay__row bf-pay__row--amount"><span class="bf-pay__k">Amount</span><span class="bf-pay__amt">$249.00</span></div>
+    <div class="bf-pay__row bf-pay__row--to"><div class="bf-pay__avatar"></div><div class="bf-pay__to"><small>To</small><b>Alex Johnson</b></div></div>
+    <button class="bf-pay__btn"><span>Send Payment</span><svg><use href="#i-check"/></svg></button>
+  </div>
+  <div class="bf-tag bf-tag--easing" style="left:207px;top:782px">Easing</div>
+  <div class="bf-tag bf-tag--antic" style="left:295px;top:782px">Anticipation</div>
+  <div class="bf-tag bf-tag--feedback" style="left:421px;top:782px">Feedback</div>
+</section>
+
+<!-- 10 · Without them -->
+<section class="scene" data-t="40" data-shot="40.5">
+  <div class="title" style="top:549px;font-size:28px;font-weight:700;color:#b5b8c0;letter-spacing:-.01em">Without them, an app feels dead.</div>
+</section>
+
+<!-- 11 · Outro -->
+<section class="scene" data-t="41.5" data-shot="42">
+  <div class="title" style="top:521px;font-size:36px;font-weight:700;letter-spacing:-.01em">Want more UI secrets?</div>
+  <div class="title" style="top:580px;font-size:21px;font-weight:500;color:#9aa0aa">Follow for daily tips</div>
+  <button class="bf-follow" id="followBtn" style="left:265px;top:634px"><svg><use href="#i-plus"/></svg>Follow</button>
+</section>
+
+<script type="module">
+  import { Toggle, ripple, squash, confirmButton } from './pattern.js';
+  Toggle(document.getElementById('heroToggle'));
+  ripple(document.getElementById('rippleBtn'));
+  squash(document.getElementById('heroToggle'));
+  document.querySelectorAll('.bf-pay__btn').forEach(b => { squash(b); });
+  const f = document.getElementById('followBtn'); ripple(f); squash(f);
+  // The silent button on purpose does nothing: that is the point of the scene.
+  confirmButton(document.getElementById('silentBtn'), { silent: true });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

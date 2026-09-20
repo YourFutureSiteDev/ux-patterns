@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Input Masking · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0c1013; --grid: rgba(255,255,255,.04); --accent: #2fd9a8; --danger: #ee4b7a; }
+  .scene { color: #f3f5f7; }
+</style>
+</head>
+<body class="im">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5L1.8 20.5h20.4z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+  <symbol id="i-keys" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 13l2 2 4-4"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v16M5 13l7 7 7-7"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.5L6 21z"/></symbol>
+</svg>
+
+<!-- 1 · Hook -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:100px;top:300px;background:rgba(47,217,168,.16)"></div>
+  <div class="im-card im-card--hero" style="position:absolute;left:73px;top:515px;width:573px">
+    <input class="im-input" id="heroInput" inputmode="numeric" autocomplete="cc-number" value="4242 4242 4242 4242" spellcheck="false">
+    <span class="im-brand" id="heroBrand" data-brand="visa"></span>
+  </div>
+  <div class="title" style="top:652px;font-size:38px">16 digits become a <em>card</em></div>
+</section>
+
+<!-- 2 · Group them four by four -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="title" style="top:64px;font-size:30px">Group them <em>four by four</em></div>
+  <div class="im-tag im-tag--bad" style="position:absolute;left:104px;top:522px"><svg><use href="#i-x"/></svg>Hard to read</div>
+  <div class="im-panel im-panel--bad" style="position:absolute;left:27px;top:575px;width:320px;height:134px"><span class="im-digits">4242424242424242</span></div>
+  <div class="im-tag im-tag--ok" style="position:absolute;left:463px;top:522px"><svg><use href="#i-check"/></svg>Readable</div>
+  <div class="im-panel im-panel--ok" style="position:absolute;left:373px;top:575px;width:320px;height:134px"><span class="im-digits">4242 4242 4242 4242</span></div>
+</section>
+
+<!-- 3 · First digit names the brand: empty -->
+<section class="scene" data-t="9" data-shot="9">
+  <div class="title" style="top:64px;font-size:30px">First digit names the <em>brand</em></div>
+  <div class="im-brands" style="position:absolute;left:87px;top:425px">
+    <div class="im-brand-row"><b>4</b><span>Visa</span><i class="im-brand" data-brand="visa"></i></div>
+    <div class="im-brand-row"><b>5</b><span>Mastercard</span><i class="im-brand" data-brand="mastercard"></i></div>
+    <div class="im-brand-row"><b>3</b><span>Amex</span><i class="im-brand" data-brand="amex"></i></div>
+  </div>
+  <div class="im-label" style="position:absolute;left:87px;top:707px">Card number</div>
+  <div class="im-card is-focus" style="position:absolute;left:87px;top:738px;width:546px;height:70px"><span class="im-value"></span></div>
+</section>
+
+<!-- 3b · First digit names the brand: 5 = Mastercard -->
+<section class="scene" data-t="12" data-shot="12">
+  <div class="title" style="top:64px;font-size:30px">First digit names the <em>brand</em></div>
+  <div class="im-brands" style="position:absolute;left:87px;top:425px">
+    <div class="im-brand-row"><b>4</b><span>Visa</span><i class="im-brand" data-brand="visa"></i></div>
+    <div class="im-brand-row is-on"><b>5</b><span>Mastercard</span><i class="im-brand" data-brand="mastercard"></i></div>
+    <div class="im-brand-row"><b>3</b><span>Amex</span><i class="im-brand" data-brand="amex"></i></div>
+  </div>
+  <div class="im-label" style="position:absolute;left:87px;top:707px">Card number</div>
+  <div class="im-card is-focus" style="position:absolute;left:87px;top:738px;width:546px;height:70px"><span class="im-value">5</span><span class="im-brand" data-brand="mastercard"></span></div>
+</section>
+
+<!-- 4 · Keep the caret where it was -->
+<section class="scene" data-t="15" data-shot="18">
+  <div class="title" style="top:64px;font-size:30px">Keep the <em>caret</em> where it was</div>
+  <div class="im-tag im-tag--bad" style="position:absolute;left:75px;top:470px"><svg><use href="#i-x"/></svg>Caret jumps</div>
+  <div class="im-card im-card--lg is-error" style="position:absolute;left:73px;top:517px;width:573px"><span class="im-value">4242 4</span><i class="im-caret im-caret--pink" style="margin-left:80px"></i></div>
+  <div class="im-tag im-tag--ok" style="position:absolute;left:75px;top:633px"><svg><use href="#i-check"/></svg>Caret held</div>
+  <div class="im-card im-card--lg is-focus" style="position:absolute;left:73px;top:680px;width:573px"><span class="im-value">4242 4</span><i class="im-caret im-caret--teal"></i></div>
+</section>
+
+<!-- 5 · Validate on blur, not keystroke: both typing -->
+<section class="scene" data-t="24" data-shot="27">
+  <div class="title" style="top:64px;font-size:30px">Validate on <em>blur</em>, not keystroke</div>
+  <div class="im-tag im-tag--bad" style="position:absolute;left:75px;top:470px"><svg><use href="#i-x"/></svg>Premature</div>
+  <div class="im-chip" style="position:absolute;left:543px;top:472px"><svg><use href="#i-keys"/></svg>typing…</div>
+  <div class="im-card im-card--md is-error" style="position:absolute;left:73px;top:517px;width:573px"><span class="im-value">4242 42</span><i class="im-caret"></i><span class="im-icon"><svg><use href="#i-warn"/></svg></span></div>
+  <div class="im-help im-help--bad" style="position:absolute;left:73px;top:596px">Invalid card number</div>
+  <div class="im-tag im-tag--ok" style="position:absolute;left:75px;top:649px"><svg><use href="#i-check"/></svg>Patient</div>
+  <div class="im-chip" style="position:absolute;left:543px;top:651px"><svg><use href="#i-keys"/></svg>typing…</div>
+  <div class="im-card im-card--md is-focus" style="position:absolute;left:73px;top:695px;width:573px"><span class="im-value">4242 42</span><i class="im-caret im-caret--teal"></i></div>
+</section>
+
+<!-- 5b · Validate on blur: patient one blurred, looks good -->
+<section class="scene" data-t="30" data-shot="30">
+  <div class="title" style="top:64px;font-size:30px">Validate on <em>blur</em>, not keystroke</div>
+  <div class="im-tag im-tag--bad" style="position:absolute;left:75px;top:456px"><svg><use href="#i-x"/></svg>Premature</div>
+  <div class="im-chip" style="position:absolute;left:543px;top:458px"><svg><use href="#i-keys"/></svg>typing…</div>
+  <div class="im-card im-card--md is-error" style="position:absolute;left:73px;top:503px;width:573px"><span class="im-value">4242 42</span><i class="im-caret"></i><span class="im-icon"><svg><use href="#i-warn"/></svg></span></div>
+  <div class="im-help im-help--bad" style="position:absolute;left:73px;top:582px">Invalid card number</div>
+  <div class="im-tag im-tag--ok" style="position:absolute;left:75px;top:635px"><svg><use href="#i-check"/></svg>Patient</div>
+  <div class="im-chip im-chip--ok" style="position:absolute;left:576px;top:637px"><svg><use href="#i-check"/></svg>blur</div>
+  <div class="im-card im-card--md is-success" style="position:absolute;left:73px;top:681px;width:573px"><span class="im-value">4242 4242 4242 4242</span><span class="im-badge"><svg><use href="#i-check"/></svg></span></div>
+  <div class="im-help im-help--ok" style="position:absolute;left:73px;top:761px">Looks good</div>
+</section>
+
+<!-- 6 · Strip pasted junk -->
+<section class="scene" data-t="33" data-shot="34.5">
+  <div class="glow" style="left:100px;top:380px;background:rgba(47,217,168,.12)"></div>
+  <div class="title" style="top:64px;font-size:30px">Strip pasted <em>junk</em></div>
+  <div class="im-chip im-chip--ok im-chip--paste" style="position:absolute;left:540px;top:515px"><svg><use href="#i-clip"/></svg>Pasted</div>
+  <div class="im-card im-card--paste is-focus" style="position:absolute;left:73px;top:596px;width:573px"><span class="im-value">4242 4242 4242 4242</span></div>
+  <div class="im-note center" style="top:709px">dashes removed · <em>re-grouped</em></div>
+</section>
+
+<!-- 7 · Show formatted, store raw -->
+<section class="scene" data-t="39" data-shot="40.5">
+  <div class="glow" style="left:100px;top:350px;background:rgba(47,217,168,.10)"></div>
+  <div class="title" style="top:64px;font-size:30px">Show formatted, <em>store raw</em></div>
+  <div class="im-label im-label--icon" style="position:absolute;left:73px;top:442px"><svg><use href="#i-eye"/></svg>What the user sees</div>
+  <div class="im-card im-card--md is-focus" style="position:absolute;left:73px;top:470px;width:573px;height:75px"><span class="im-value">4242 4242 4242 4242</span></div>
+  <div class="im-arrow center" style="top:561px"><svg><use href="#i-down"/></svg></div>
+  <div class="im-label im-label--icon" style="position:absolute;left:73px;top:610px"><svg><use href="#i-db"/></svg>What you store</div>
+  <pre class="im-code" style="position:absolute;left:73px;top:641px;width:573px;height:151px">{
+  <em>"cardNumber"</em>: <b>"4242424242424242"</b>
+}</pre>
+</section>
+
+<!-- 8 · Outro -->
+<section class="scene" data-t="45" data-shot="46.5">
+  <div class="glow" style="left:100px;top:230px;background:rgba(47,217,168,.14)"></div>
+  <div class="im-card im-card--outro" style="position:absolute;left:127px;top:447px;width:466px"><span class="im-value">4242 4242 4242 4242</span><span class="im-brand" data-brand="visa"></span></div>
+  <div class="title" style="top:562px;font-size:44px">Follow for more <em>form UX</em></div>
+  <div class="im-sub center" style="top:650px">Save this for your <em>next checkout</em></div>
+  <div class="im-cta center" style="top:709px"><svg viewBox="0 0 24 24"><use href="#i-bookmark"/></svg>Follow @designmotionhq</div>
+</section>
+
+<script type="module">
+  import { CardMask } from './pattern.js';
+  // Hook field is live: type or paste any digits, dashes or spaces; it regroups 4x4, keeps the caret, and names the brand.
+  const brand = document.getElementById('heroBrand');
+  CardMask(document.getElementById('heroInput'), { onBrand: b => { brand.dataset.brand = b || ''; } });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

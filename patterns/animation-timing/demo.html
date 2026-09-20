@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Animation Timing · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a090b; --accent: #e14a70; --danger: #e63c50; --grid: rgba(255,255,255,0); }
+  .scene { color: #f2f2f4; }
+  .at-glow--pink { background: radial-gradient(circle, rgba(225,74,112,.22), rgba(225,74,112,.06) 45%, transparent 70%); }
+  .at-glow--teal { background: radial-gradient(circle, rgba(47,217,168,.16), rgba(47,217,168,.05) 45%, transparent 70%); }
+  .at-glow--orange { background: radial-gradient(circle, rgba(240,162,31,.14), rgba(240,162,31,.04) 45%, transparent 70%); }
+  .at-glow--red { background: radial-gradient(circle, rgba(230,60,80,.2), rgba(230,60,80,.05) 45%, transparent 70%); }
+  .at-dialog--500 { animation: at-cycle-700 3s linear infinite; }
+  .at-dialog--250 { animation: at-cycle-250 3s linear infinite; }
+  .at-sheet__row { animation: at-row-in .3s cubic-bezier(.16,1,.3,1) both; animation-delay: calc(var(--i) * 60ms + .2s); }
+  .at-sheet--faded .at-sheet__row { animation: none; }
+  @keyframes at-row-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+</style>
+</head>
+<body class="at">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5L2.5 20h19z"/><path d="M12 10v5M12 17.5h.01"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 2h-15z"/><path d="M10 21a2 2 0 0 0 4 0M12 3v2"/></symbol>
+  <symbol id="i-cursor" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></symbol>
+</svg>
+
+<!-- 1 · Hook: same modal, 500ms vs 250ms -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="at-glow at-glow--pink" style="left:40px;top:480px"></div>
+  <div class="at-phone" style="left:54px;top:82px;--c:var(--at-red)"><div class="at-phone__label">500ms</div><div class="at-phone__bar"><span>9:41</span><span>100%</span></div>
+    <div class="at-dialog at-dialog--500"><div class="at-dialog__h">Confirm</div><div class="at-dialog__p">Delete this item permanently?</div><div class="at-dialog__row"><button class="at-btn">Cancel</button><button class="at-btn at-btn--red">Confirm</button></div></div></div>
+  <div class="at-phone" style="left:374px;top:82px;--c:var(--at-pink)"><div class="at-phone__label">250ms</div><div class="at-phone__bar"><span>9:41</span><span>100%</span></div>
+    <div class="at-dialog at-dialog--250"><div class="at-dialog__h">Confirm</div><div class="at-dialog__p">Delete this item permanently?</div><div class="at-dialog__row"><button class="at-btn">Cancel</button><button class="at-btn at-btn--pink">Confirm</button></div></div></div>
+</section>
+
+<!-- 2 · Secret 01 Entrance: 50 / 250 / 700ms -->
+<section class="scene" data-t="3" data-shot="6">
+  <div class="at-glow at-glow--pink" style="left:40px;top:420px;opacity:.6"></div>
+  <div class="at-kicker">SECRET 01</div><div class="at-title">ENTRANCE</div><div class="at-sub">200-300ms is the sweet spot</div>
+  <div class="at-col at-col--red" style="left:38px;top:281px"><div class="at-col__tag">TOO FAST</div><div class="at-col__ms">50ms</div></div>
+  <div class="at-col at-col--pink" style="left:268px;top:281px"><div class="at-col__tag">PERFECT</div><div class="at-col__ms">250ms</div></div>
+  <div class="at-col at-col--orange" style="left:498px;top:281px"><div class="at-col__tag">TOO SLOW</div><div class="at-col__ms">700ms</div></div>
+  <div class="at-panel" style="left:38px;top:348px;width:184px;height:212px"></div>
+  <div class="at-panel" style="left:268px;top:348px;width:184px;height:212px"></div>
+  <div class="at-panel" style="left:498px;top:348px;width:184px;height:212px"></div>
+  <div class="at-modal at-modal--50" style="position:absolute;left:50px;top:395px;animation-delay:-1.5s"><div class="at-modal__h">Modal</div><div class="at-modal__p">Hello world.</div><div class="at-modal__row"><button class="at-btn">Cancel</button><button class="at-btn at-btn--red">Confirm</button></div></div>
+  <div class="at-modal at-modal--250" style="position:absolute;left:280px;top:395px;animation-delay:-1.5s"><div class="at-modal__h">Modal</div><div class="at-modal__p">Hello world.</div><div class="at-modal__row"><button class="at-btn">Cancel</button><button class="at-btn at-btn--pink">Confirm</button></div></div>
+  <div class="at-modal at-modal--700" style="position:absolute;left:510px;top:395px;animation-delay:-.4s"><div class="at-modal__h">Modal</div><div class="at-modal__p">Hello world.</div><div class="at-modal__row"><button class="at-btn">Cancel</button><button class="at-btn at-btn--orange">Confirm</button></div></div>
+</section>
+
+<!-- 2b · 200-300ms -->
+<section class="scene" data-t="12" data-shot="12">
+  <div class="at-glow at-glow--pink" style="left:40px;top:260px"></div>
+  <div class="at-kicker">SECRET 01</div><div class="at-title">ENTRANCE</div><div class="at-sub">200-300ms is the sweet spot</div>
+  <div class="at-big" style="top:608px;font-size:106px">200 - 300</div>
+  <div class="at-big__unit" style="top:716px;font-size:40px">ms</div>
+  <div class="at-line" style="top:784px">Page transitions. Modals. Panels.</div>
+</section>
+
+<!-- 3 · Secret 02 Exit: correct vs wrong -->
+<section class="scene" data-t="13.5" data-shot="15">
+  <div class="at-glow at-glow--teal" style="left:40px;top:340px;opacity:.7"></div>
+  <div class="at-kicker" style="--c:var(--at-teal)">SECRET 02</div><div class="at-title">EXIT</div><div class="at-sub">Faster than entrance</div>
+  <div class="at-verdict at-verdict--green" style="left:203px;top:397px"><span class="at-verdict__pill">CORRECT</span><span class="at-verdict__spec">IN <b>250MS</b> / OUT <em>150MS</em></span></div>
+  <div class="at-panel" style="left:33px;top:434px;width:654px;height:210px"></div>
+  <div class="at-toast at-toast--out150" style="position:absolute;left:227px;top:460px"><div class="at-toast__h">Saved!</div><div class="at-toast__p">Your changes have been saved.</div><div class="at-toast__row"><button class="at-btn">Cancel</button><button class="at-btn at-btn--green">Confirm</button></div></div>
+  <div class="at-verdict at-verdict--red" style="left:210px;top:673px"><span class="at-verdict__pill">WRONG</span><span class="at-verdict__spec">IN <b>250MS</b> / OUT <em>250MS</em></span></div>
+  <div class="at-panel" style="left:33px;top:710px;width:654px;height:210px"></div>
+  <div class="at-toast at-toast--out250" style="position:absolute;left:227px;top:736px"><div class="at-toast__h">Saved!</div><div class="at-toast__p">Your changes have been saved.</div><div class="at-toast__row"><button class="at-btn">Cancel</button><button class="at-btn at-btn--red">Confirm</button></div></div>
+  <div class="at-line at-line--italic" style="top:932px;color:var(--at-red);font-size:15px;font-weight:600">Same speed = sluggish exit</div>
+</section>
+
+<!-- 3b · 250 in, 150 out -->
+<section class="scene" data-t="21" data-shot="22.5">
+  <div class="at-glow at-glow--teal" style="left:40px;top:320px"></div>
+  <div class="at-kicker" style="--c:var(--at-teal)">SECRET 02</div><div class="at-title">EXIT</div><div class="at-sub">Faster than entrance</div>
+  <div class="at-inout" style="top:550px">
+    <div class="at-inout__n">250<small>IN</small></div>
+    <svg class="at-inout__arrow" viewBox="0 0 70 20"><line x1="2" y1="10" x2="56" y2="10"/><path d="M50 3l8 7-8 7"/></svg>
+    <div class="at-inout__n is-out">150<small>OUT</small></div>
+  </div>
+  <div class="at-line" style="top:712px;font-size:26px;font-weight:700;color:#a7a5ad;--c:var(--at-teal)">Exits are <b>30% faster</b></div>
+  <div class="at-line at-line--italic" style="top:773px;font-size:18px">The user already decided.</div>
+</section>
+
+<!-- 4 · Secret 03 Feedback: 200 / 100 / 50ms -->
+<section class="scene" data-t="24" data-shot="25.5">
+  <div class="at-glow at-glow--pink" style="left:40px;top:400px;opacity:.5"></div>
+  <div class="at-kicker">SECRET 03</div><div class="at-title">FEEDBACK</div><div class="at-sub">The Doherty threshold</div>
+  <div class="at-col at-col--red" style="left:38px;top:281px"><div class="at-col__tag">LAGGY</div><div class="at-col__ms">200ms</div></div>
+  <div class="at-col at-col--orange" style="left:268px;top:281px"><div class="at-col__tag">OK</div><div class="at-col__ms">100ms</div></div>
+  <div class="at-col at-col--green" style="left:498px;top:281px"><div class="at-col__tag">INSTANT</div><div class="at-col__ms">50ms</div></div>
+  <div class="at-panel" style="left:38px;top:355px;width:184px;height:185px"></div>
+  <div class="at-panel" style="left:268px;top:355px;width:184px;height:185px"></div>
+  <div class="at-panel" style="left:498px;top:355px;width:184px;height:185px"></div>
+  <button class="at-cta at-cta--red at-cta--loop" style="position:absolute;left:64px;top:427px;--dur:200ms;animation-delay:.2s">Click me</button>
+  <button class="at-cta at-cta--orange at-cta--loop" style="position:absolute;left:294px;top:427px;--dur:100ms;animation-delay:.1s">Click me</button>
+  <button class="at-cta at-cta--green at-cta--loop" style="position:absolute;left:524px;top:427px;--dur:50ms;animation-delay:.05s">Click me</button>
+  <svg class="at-cursor" style="left:142px;top:440px"><use href="#i-cursor"/></svg>
+  <svg class="at-cursor" style="left:372px;top:440px"><use href="#i-cursor"/></svg>
+  <svg class="at-cursor" style="left:602px;top:440px"><use href="#i-cursor"/></svg>
+</section>
+
+<!-- 4b · <100ms -->
+<section class="scene" data-t="31.5" data-shot="33">
+  <div class="at-glow at-glow--pink" style="left:40px;top:260px"></div>
+  <div class="at-kicker">SECRET 03</div><div class="at-title">FEEDBACK</div><div class="at-sub">The Doherty threshold</div>
+  <div class="at-big" style="top:550px;font-size:124px">&lt;100</div>
+  <div class="at-big__unit" style="top:672px;font-size:38px">ms</div>
+  <div class="at-line at-line--white" style="top:738px">Press. Hover. Toggle.</div>
+  <div class="at-line at-line--italic" style="top:789px">The Doherty threshold — feels instant.</div>
+</section>
+
+<!-- 5 · Secret 04 Attention: smooth fade vs bouncy + shake -->
+<section class="scene" data-t="34.5" data-shot="36">
+  <div class="at-glow at-glow--orange" style="left:40px;top:380px"></div>
+  <div class="at-kicker" style="--c:var(--at-orange)">SECRET 04</div><div class="at-title">ATTENTION</div><div class="at-sub">500-800ms with bounce</div>
+  <div class="at-tag" style="top:504px">SMOOTH FADE — BORING</div>
+  <div class="at-panel" style="left:33px;top:540px;width:654px;height:120px"></div>
+  <div class="at-note at-note--fade" style="position:absolute;left:233px;top:565px"><div class="at-note__icon"><svg><use href="#i-warn"/></svg></div><div><div class="at-note__h">Error</div><div class="at-note__p">Something needs your attention.</div></div></div>
+  <div class="at-tag at-tag--orange" style="top:701px">BOUNCY + SHAKE — EYE-CATCHING</div>
+  <div class="at-panel" style="left:33px;top:737px;width:654px;height:120px"></div>
+  <div class="at-note at-note--hot at-note--bounce" style="position:absolute;left:233px;top:762px"><div class="at-note__icon"><svg><use href="#i-warn"/></svg></div><div><div class="at-note__h">Error</div><div class="at-note__p">Something needs your attention.</div></div></div>
+</section>
+
+<!-- 5b · 500-800ms + bounce -->
+<section class="scene" data-t="40.5" data-shot="42">
+  <div class="at-glow at-glow--orange" style="left:40px;top:300px"></div>
+  <div class="at-kicker" style="--c:var(--at-orange)">SECRET 04</div><div class="at-title">ATTENTION</div><div class="at-sub">500-800ms with bounce</div>
+  <div class="at-bell" style="left:322px;top:525px"><svg><use href="#i-bell"/></svg></div>
+  <div class="at-big" style="top:641px;font-size:86px;--c:var(--at-orange);letter-spacing:-.02em">500 - 800ms</div>
+  <div class="at-big__unit" style="top:743px;font-size:24px;--c:var(--at-orange);letter-spacing:.06em">+ bounce</div>
+  <div class="at-line" style="top:795px;--c:var(--at-orange)">Errors. Alerts. <b>Slow enough to notice.</b></div>
+</section>
+
+<!-- 6 · Secret 05 Stagger: 30 / 50 / 100ms -->
+<section class="scene" data-t="45" data-shot="46.5">
+  <div class="at-glow at-glow--teal" style="left:40px;top:340px"></div>
+  <div class="at-kicker" style="--c:var(--at-teal)">SECRET 05</div><div class="at-title">STAGGER</div><div class="at-sub">50ms between items</div>
+  <div class="at-col at-col--red" style="left:38px;top:281px"><div class="at-col__tag">TOO FAST</div><div class="at-col__ms">30ms</div></div>
+  <div class="at-col at-col--teal" style="left:268px;top:281px"><div class="at-col__tag">PERFECT</div><div class="at-col__ms">50ms</div></div>
+  <div class="at-col at-col--orange" style="left:498px;top:281px"><div class="at-col__tag">TOO SLOW</div><div class="at-col__ms">100ms</div></div>
+  <div class="at-panel" style="left:20px;top:343px;width:220px;height:244px"></div>
+  <div class="at-panel" style="left:250px;top:343px;width:220px;height:244px"></div>
+  <div class="at-panel" style="left:480px;top:343px;width:220px;height:244px"></div>
+  <div class="at-list at-list--red" style="left:31px;top:354px;--gap:30ms" data-items></div>
+  <div class="at-list at-list--teal" style="left:261px;top:354px;--gap:50ms" data-items></div>
+  <div class="at-list at-list--orange" style="left:491px;top:354px;--gap:100ms" data-items></div>
+</section>
+
+<!-- 6b · 50ms -->
+<section class="scene" data-t="51" data-shot="51">
+  <div class="at-glow at-glow--teal" style="left:40px;top:300px"></div>
+  <div class="at-kicker" style="--c:var(--at-teal)">SECRET 05</div><div class="at-title">STAGGER</div><div class="at-sub">50ms between items</div>
+  <div class="at-big" style="top:572px;font-size:136px;--c:var(--at-teal)">50</div>
+  <div class="at-big__unit" style="top:698px;font-size:36px;--c:var(--at-teal)">ms</div>
+  <div class="at-line" style="top:766px;font-size:22px;--c:var(--at-teal)">Lists. Menus. <b>The sweet spot.</b></div>
+</section>
+
+<!-- 7 · Cheat sheet -->
+<section class="scene" data-t="52.5" data-shot="54">
+  <div class="at-glow at-glow--pink" style="left:40px;top:400px;opacity:.5"></div>
+  <div class="at-sheet" style="left:127px;top:174px">
+    <div class="at-sheet__title">CHEAT SHEET</div>
+    <div class="at-sheet__row at-sheet__row--pink" style="--i:0">Entrance<b>250ms</b></div>
+    <div class="at-sheet__row at-sheet__row--teal" style="--i:1">Exit<b>150ms</b></div>
+    <div class="at-sheet__row at-sheet__row--pink" style="--i:2">Feedback<b>&lt;100ms</b></div>
+    <div class="at-sheet__row at-sheet__row--orange" style="--i:3">Attention<b>500-800ms + bounce</b></div>
+    <div class="at-sheet__row at-sheet__row--teal" style="--i:4">Stagger<b>50ms</b></div>
+  </div>
+</section>
+
+<!-- 7b · Outro -->
+<section class="scene" data-t="55.5" data-shot="55.5">
+  <div class="at-glow at-glow--pink" style="left:40px;top:300px;opacity:.7"></div>
+  <div class="at-sheet at-sheet--faded" style="left:127px;top:174px;transform:translate(0,-70px) scale(.7);transform-origin:50% 0;opacity:.35">
+    <div class="at-sheet__title">CHEAT SHEET</div>
+    <div class="at-sheet__row at-sheet__row--pink">Entrance<b>250ms</b></div>
+    <div class="at-sheet__row at-sheet__row--teal">Exit<b>150ms</b></div>
+    <div class="at-sheet__row at-sheet__row--pink">Feedback<b>&lt;100ms</b></div>
+    <div class="at-sheet__row at-sheet__row--orange">Attention<b>500-800ms + bounce</b></div>
+    <div class="at-sheet__row at-sheet__row--teal">Stagger<b>50ms</b></div>
+  </div>
+  <div class="at-big" style="top:1018px;font-size:44px;letter-spacing:-.02em">Save these numbers.</div>
+  <div class="at-follow" style="top:1080px">Follow <em>@designmotionhq</em></div>
+</section>
+
+<script type="module">
+  import { pressFeedback, stagger, TIMING } from './pattern.js';
+  // Stagger lists: six settings rows, entrance delay = index × gap (30 / 50 / 100ms per column).
+  const ITEMS = ['Account', 'Notifications', 'Privacy', 'Display', 'Storage', 'About'];
+  document.querySelectorAll('[data-items]').forEach(list => { list.innerHTML = ITEMS.map((t, i) => `<div class="at-item" style="--i:${i}"><span class="at-item__sw"></span>${t}<span class="at-item__chev">›</span></div>`).join(''); });
+  // Feedback buttons respond to real presses at their column's duration (200 / 100 / 50ms).
+  document.querySelectorAll('.at-cta').forEach(b => pressFeedback(b, { duration: parseInt(b.style.getPropertyValue('--dur')) || TIMING.feedback }));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

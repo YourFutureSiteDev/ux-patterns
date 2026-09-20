@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Resizable Panels · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0b0e11; --accent: #2ad4a6; --danger: #e5477c; --grid: rgba(255,255,255,.04); }
+  .scene { color: #f2f4f7; }
+  .kicker { top: 141px; font-size: 13px; padding: 10px 22px; }
+  .kicker--plain { color: #b6bcc4; background: #1a1f24; }
+  .title { top: 163px; font-size: 41px; line-height: 1.05; letter-spacing: -.025em; }
+  .scene .note { position: absolute; top: 1025px; left: 50%; transform: translateX(-50%); }
+  .glow-teal { background: rgba(42,212,166,.08); width: 640px; height: 640px; }
+</style>
+</head>
+<body class="rsp">
+
+<!-- 1 · Hook: a split view -->
+<section class="scene" data-t="0" data-shot="0">
+  <div id="w1" style="position:absolute;left:38px;top:174px;height:484px"></div>
+  <div class="title" style="top:806px;font-size:30px;font-weight:700;color:#8b93a1;letter-spacing:-.01em">A split view. Looks fine.</div>
+</section>
+
+<!-- 1b · Hook: dragged shut, width 0 -->
+<section class="scene" data-t="1.5" data-shot="1.5">
+  <div id="w2" style="position:absolute;left:38px;top:174px;height:484px"></div>
+  <div class="title" style="top:806px;font-size:30px;font-weight:700;color:#8b93a1;letter-spacing:-.01em">A split view. Looks fine.</div>
+</section>
+
+<!-- 2 · Hit area -->
+<section class="scene" data-t="3" data-shot="6">
+  <div class="kicker">Hit area</div>
+  <h1 class="title">Grow the <em>grab</em> zone.</h1>
+  <div id="w3" style="position:absolute;left:38px;top:284px;height:350px"></div>
+  <div class="rsp-panel" style="position:absolute;left:40px;top:672px;width:640px;height:236px">
+    <div class="rsp-panel__title" style="position:absolute;left:28px;top:20px">Cross-section</div>
+    <div class="rsp-mono teal" style="position:absolute;left:0;right:0;top:50px;text-align:center">- 12px grab -</div>
+    <div class="rsp-section" style="position:absolute;left:260px;top:66px"></div>
+    <div class="rsp-mono" style="position:absolute;left:335px;top:178px;display:flex;align-items:center;gap:10px"><i style="width:24px;height:1.5px;background:#5c6470"></i>1px line</div>
+  </div>
+  <div class="rsp-note note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M4 12h16"/></svg>1px line, 12px grab target.</div>
+</section>
+
+<!-- 3 · Clamp at 340 -->
+<section class="scene" data-t="12" data-shot="12">
+  <div class="kicker">Clamp</div>
+  <h1 class="title">Limits are the <em>feature</em>.</h1>
+  <div id="w4" style="position:absolute;left:38px;top:291px;height:443px"></div>
+  <div class="rsp-panel" style="position:absolute;left:40px;top:782px;width:640px;height:126px">
+    <div style="position:absolute;left:30px;top:26px;font-size:17px;font-weight:600">sidebar width</div>
+    <div class="rsp-value" style="position:absolute;right:30px;top:21px">340px</div>
+    <div class="rsp-mono" style="position:absolute;left:30px;top:65px;font-size:13px">240</div>
+    <div class="rsp-mono" style="position:absolute;right:30px;top:65px;font-size:13px">640</div>
+    <div class="rsp-slider" style="position:absolute;left:30px;top:84px;width:580px"><div class="rsp-slider__fill" style="width:145px"></div><div class="rsp-slider__thumb" style="left:145px"></div></div>
+  </div>
+  <div class="rsp-note note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Clamp between min and max.</div>
+</section>
+
+<!-- 3b · Clamp hits max 640 -->
+<section class="scene" data-t="13.5" data-shot="15">
+  <div class="kicker">Clamp</div>
+  <h1 class="title">Limits are the <em>feature</em>.</h1>
+  <div id="w5" style="position:absolute;left:38px;top:291px;height:443px"></div>
+  <div class="rsp-panel" style="position:absolute;left:40px;top:782px;width:640px;height:126px">
+    <div style="position:absolute;left:30px;top:26px;font-size:17px;font-weight:600">sidebar width</div>
+    <div class="rsp-value is-teal" style="position:absolute;right:30px;top:21px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>640px</div>
+    <div class="rsp-mono" style="position:absolute;left:30px;top:65px;font-size:13px">240</div>
+    <div class="rsp-mono teal" style="position:absolute;right:30px;top:65px;font-size:13px">640</div>
+    <div class="rsp-slider" style="position:absolute;left:30px;top:84px;width:580px"><div class="rsp-slider__fill" style="width:580px"></div><div class="rsp-slider__thumb is-lit" style="left:580px"></div></div>
+  </div>
+  <div class="rsp-note note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Clamp between min and max.</div>
+</section>
+
+<!-- 4 · Snap -->
+<section class="scene" data-t="21" data-shot="24">
+  <div class="kicker kicker--plain">Snap</div>
+  <h1 class="title">Commit to <em>open</em> or <em>shut</em>.</h1>
+  <div class="rsp-label is-pink" style="position:absolute;left:101px;top:283px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 9a4 4 0 0 1 8 0v6a4 4 0 0 1-8 0zM3 13h5M16 13h5M4 6l4 3M20 6l-4 3M4 20l4-3M20 20l-4-3"/></svg>Halfway = bug</div>
+  <div class="rsp-label is-teal" style="position:absolute;left:449px;top:283px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>Snap closed</div>
+  <div id="w6" style="position:absolute;left:38px;top:317px;height:442px"></div>
+  <div id="w7" style="position:absolute;left:375px;top:317px;height:442px"></div>
+  <div class="rsp-verdict is-pink" style="position:absolute;left:94px;top:770px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 9a4 4 0 0 1 8 0v6a4 4 0 0 1-8 0zM3 13h5M16 13h5M4 6l4 3M20 6l-4 3M4 20l4-3M20 20l-4-3"/></svg>reads as broken</div>
+  <div class="rsp-verdict is-teal" style="position:absolute;left:422px;top:770px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>clearly intentional</div>
+  <div class="rsp-note note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>Snap closed, never a sliver.</div>
+</section>
+
+<!-- 5 · Overlay off: iframe ate the mouse -->
+<section class="scene" data-t="27" data-shot="30">
+  <div class="kicker kicker--plain">Overlay</div>
+  <h1 class="title">Cover the page <em>mid-drag</em>.</h1>
+  <div id="w8" style="position:absolute;left:38px;top:285px;height:414px"></div>
+  <div class="rsp-panel" style="position:absolute;left:40px;top:728px;width:640px;height:76px">
+    <div style="position:absolute;left:24px;top:22px;display:flex;align-items:center;gap:14px;font-size:20px;font-weight:700"><svg viewBox="0 0 24 24" fill="none" stroke="#b9c3cc" stroke-width="1.8" stroke-linejoin="round" style="width:24px;height:24px"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5M3 17l9 5 9-5"/></svg>drag overlay</div>
+    <div class="rsp-toggle" style="position:absolute;left:375px;top:23px"></div>
+    <div class="rsp-pill is-pink" style="position:absolute;right:26px;top:21px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>panel froze</div>
+  </div>
+  <div class="rsp-note note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5M3 17l9 5 9-5"/></svg>Overlay the page while dragging.</div>
+</section>
+
+<!-- 5b · Overlay on: pointer-events none -->
+<section class="scene" data-t="33" data-shot="36">
+  <div class="kicker kicker--plain">Overlay</div>
+  <h1 class="title">Cover the page <em>mid-drag</em>.</h1>
+  <div id="w9" style="position:absolute;left:38px;top:285px;height:414px"></div>
+  <div class="rsp-panel" style="position:absolute;left:40px;top:728px;width:640px;height:76px">
+    <div style="position:absolute;left:24px;top:22px;display:flex;align-items:center;gap:14px;font-size:20px;font-weight:700"><svg viewBox="0 0 24 24" fill="none" stroke="#2ad4a6" stroke-width="1.8" stroke-linejoin="round" style="width:24px;height:24px"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5M3 17l9 5 9-5"/></svg>drag overlay</div>
+    <div class="rsp-toggle is-on" style="position:absolute;left:375px;top:23px"></div>
+    <div class="rsp-pill is-teal" style="position:absolute;right:26px;top:21px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>drag held</div>
+  </div>
+  <div class="rsp-note note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5M3 17l9 5 9-5"/></svg>Overlay the page while dragging.</div>
+</section>
+
+<!-- 6 · Cursor -->
+<section class="scene" data-t="37.5" data-shot="40.5">
+  <div class="kicker kicker--plain">Cursor</div>
+  <h1 class="title">No flicker on <em>drift</em>.</h1>
+  <div class="rsp-label is-pink" style="position:absolute;left:112px;top:283px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M5 3l7 17 2.5-6.5L21 11z"/></svg>Handle only</div>
+  <div class="rsp-label is-teal" style="position:absolute;left:452px;top:283px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Whole body</div>
+  <div id="w10" style="position:absolute;left:38px;top:317px;height:396px"></div>
+  <div id="w11" style="position:absolute;left:375px;top:317px;height:396px"></div>
+  <div class="rsp-verdict is-pink" style="position:absolute;left:64px;top:720px;width:254px;height:40px;z-index:0"></div>
+  <div class="rsp-verdict is-teal" style="position:absolute;left:396px;top:720px;width:264px;height:40px;z-index:0"></div>
+  <div class="rsp-code" style="position:absolute;left:32px;top:731px;z-index:1"><span class="pink">.handle</span> { cursor: <b>col-resize</b> }</div>
+  <div class="rsp-code" style="position:absolute;left:385px;top:731px;z-index:1"><span class="teal">body</span> { cursor: <b>col-resize</b> }</div>
+  <div class="rsp-note note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M4 12h16"/></svg>Lock the cursor on the body.</div>
+</section>
+
+<!-- 7 · Persist -->
+<section class="scene" data-t="46.5" data-shot="49.5">
+  <div class="kicker kicker--plain">Persist</div>
+  <h1 class="title">Survive the <em>reload</em>.</h1>
+  <div class="rsp-label is-pink" style="position:absolute;left:106px;top:283px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>Reload → reset</div>
+  <div class="rsp-label is-teal" style="position:absolute;left:427px;top:283px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>Reload → restored</div>
+  <div id="w12" style="position:absolute;left:38px;top:317px;height:396px"></div>
+  <div id="w13" style="position:absolute;left:375px;top:317px;height:396px"></div>
+  <div class="rsp-chip is-pink" style="position:absolute;left:125px;top:728px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>panelW: <b>—</b></div>
+  <div class="rsp-chip is-teal" style="position:absolute;left:443px;top:728px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>panelW: <b>460px</b></div>
+  <div class="rsp-note note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Remember the width.</div>
+</section>
+
+<!-- 8 · Outro -->
+<section class="scene" data-t="51" data-shot="52.5">
+  <div class="glow glow-teal" style="left:40px;top:260px"></div>
+  <div class="title" style="top:152px;color:var(--accent);font-size:46px">Handles are UI.</div>
+  <div class="title" style="top:226px;font-size:19px;font-weight:500;color:#8b93a1;letter-spacing:0">Six rules for one drag.</div>
+  <div class="rsp-card" style="position:absolute;left:46px;top:287px"><div class="rsp-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M4 12h16"/></svg></div><div><b>Hit area</b><small>1px line, 12px grab</small></div><em>01</em></div>
+  <div class="rsp-card" style="position:absolute;left:368px;top:287px"><div class="rsp-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><div><b>Clamp</b><small>between min and max</small></div><em>02</em></div>
+  <div class="rsp-card" style="position:absolute;left:46px;top:408px"><div class="rsp-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3l7 7-7 7M3 10h18M10 21l-7-7"/></svg></div><div><b>Snap</b><small>closed, never a sliver</small></div><em>03</em></div>
+  <div class="rsp-card" style="position:absolute;left:368px;top:408px"><div class="rsp-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5M3 17l9 5 9-5"/></svg></div><div><b>Overlay</b><small>the page mid-drag</small></div><em>04</em></div>
+  <div class="rsp-card" style="position:absolute;left:46px;top:530px"><div class="rsp-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M5 3l7 17 2.5-6.5L21 11z"/></svg></div><div><b>Cursor</b><small>locked on the body</small></div><em>05</em></div>
+  <div class="rsp-card" style="position:absolute;left:368px;top:530px"><div class="rsp-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div><div><b>Persist</b><small>remember the width</small></div><em>06</em></div>
+  <div class="rsp-brand" style="position:absolute;left:168px;top:834px"><div class="rsp-brand__logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M10 4v16"/></svg></div><b>designmotionhq.com</b></div>
+  <div class="rsp-cta" style="position:absolute;left:262px;top:912px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg>Link in bio</div>
+</section>
+
+<script type="module">
+  import { renderSplit, ResizablePanel } from './pattern.js';
+  const $ = id => document.getElementById(id);
+  renderSplit($('w1'), { width: 141, handle: 'pink-hover' });
+  renderSplit($('w2'), { width: 4, tone: 'pink', handle: 'pink-drag', tag: { text: 'width: 0', tone: 'pink', icon: 'ban', x: 16, y: 209 } });
+  renderSplit($('w3'), { width: 227, handle: 'grip', cursor: { x: 242, y: 196 } });
+  $('w3').querySelector('.rsp-handle').classList.add('is-hot');
+  renderSplit($('w4'), { width: 227, handle: 'grip', minmax: [160, 427], cursor: { x: 229, y: 249 } });
+  renderSplit($('w5'), { width: 427, handle: 'drag', minmax: [160, 427], cursor: { x: 458, y: 242, kind: 'col' } });
+  renderSplit($('w6'), { compact: true, url: null, width: 29, tone: 'pink', handle: 'pink-drag', rows: 'short', tag: { text: '44px sliver', tone: 'pink', x: 40, y: 194 } });
+  renderSplit($('w7'), { compact: true, url: null, width: 0, tone: 'teal', handle: 'grip', rows: 'short', tag: { text: 'width: 0', tone: 'teal', icon: 'check', x: 41, y: 194 }, cursor: { x: 25, y: 238 } });
+  renderSplit($('w8'), { width: 361, tone: 'pink', url: 'halyard.app/embed', handle: 'pink-drag', iframe: { x: 335, y: 30, text: 'iframe ate the mouse', tone: 'pink', icon: 'ban' }, cursor: { x: 470, y: 225, kind: 'col' } });
+  renderSplit($('w9'), { width: 468, tone: 'teal', url: 'halyard.app/embed', handle: 'drag', tint: true, iframe: { x: 335, y: 30, text: 'pointer-events: none', tone: 'teal', icon: 'check' }, cursor: { x: 470, y: 225, kind: 'col' } });
+  renderSplit($('w10'), { compact: true, url: null, width: 98, tone: 'pink', handle: 'pink-drag', rows: 'short', cursor: { x: 107, y: 213 } });
+  renderSplit($('w11'), { compact: true, url: null, width: 98, tone: 'teal', handle: 'drag', rows: 'short', tint: true, cursor: { x: 105, y: 210, kind: 'col' } });
+  renderSplit($('w12'), { compact: true, url: 'halyard.app', width: 228, tone: 'pink', handle: 'grip', rows: 'short', tag: { text: 'reset to 340', tone: 'pink', icon: 'x', x: 44, y: 171 } });
+  renderSplit($('w13'), { compact: true, url: 'halyard.app', width: 400, tone: 'teal', handle: 'grip', rows: 'none', tag: { text: 'kept 460', tone: 'teal', icon: 'check', x: 45, y: 171 } });
+  // The hook window is live: drag the handle. Clamp 240..640, snaps shut under 120, overlay + body cursor while dragging, width persisted.
+  ResizablePanel($('w1'), { min: 240, max: 640, snap: 120, key: 'rsp-demo-width', width: 211 });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

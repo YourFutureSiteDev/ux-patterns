@@ -5,10 +5,20 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { execFileSync } from 'node:child_process';
+import http from 'node:http';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const catalog = JSON.parse(fs.readFileSync(path.join(root, 'catalog.json'), 'utf8'));
 const exe = path.join(process.env.LOCALAPPDATA, 'ms-playwright', 'chromium_headless_shell-1234', 'chrome-headless-shell-win64', 'chrome-headless-shell.exe');
+// Serve the repo over http so <script type="module"> imports work (they are blocked over file://).
+const mime = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.mjs': 'text/javascript', '.json': 'application/json', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.woff2': 'font/woff2' };
+const server = http.createServer((req, res) => {
+  const file = path.join(root, decodeURIComponent(new URL(req.url, 'http://x').pathname));
+  if (!file.startsWith(root) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) { res.writeHead(404); return res.end(); }
+  res.writeHead(200, { 'content-type': mime[path.extname(file)] || 'application/octet-stream' }); fs.createReadStream(file).pipe(res);
+});
+await new Promise(r => server.listen(0, '127.0.0.1', r));
+const base = `http://127.0.0.1:${server.address().port}`;
 const browser = await chromium.launch({ executablePath: exe });
 
 for (const slug of process.argv.slice(2)) {
@@ -19,7 +29,7 @@ for (const slug of process.argv.slice(2)) {
   const out = path.join(root, 'tools', 'shots', slug);
   fs.rmSync(out, { recursive: true, force: true }); fs.mkdirSync(out, { recursive: true });
   const page = await browser.newPage({ viewport: { width: 720, height: 1280 }, deviceScaleFactor: 1 });
-  const url = pathToFileURL(demo).href;
+  const url = `${base}/patterns/${slug}/demo.html`;
   await page.goto(url);
   const scenes = await page.$$eval('.scene', els => els.map(e => ({ t: Number(e.dataset.t) || 0, shot: e.dataset.shot ? Number(e.dataset.shot) : null })));
   for (let i = 0; i < scenes.length; i++) {
@@ -36,3 +46,4 @@ for (const slug of process.argv.slice(2)) {
   await page.close();
 }
 await browser.close();
+server.close();

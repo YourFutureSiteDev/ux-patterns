@@ -1,0 +1,101 @@
+/* Dropdown Design, rebuilt from the @designmotionhq reel "Your dropdown is broken. Five rules separate cheap from premium."
+   Component classes are prefixed .dd- and depend only on the tokens below. */
+.dd {
+  --dd-bg: #0a090c; --dd-panel: #13141b; --dd-panel-2: #1a1c25; --dd-border: rgba(255,255,255,.09);
+  --dd-text: #f3f3f6; --dd-muted: #8a8a96; --dd-pink: #e8446b; --dd-pink-dim: rgba(232,68,107,.14);
+  --dd-teal: #2ee6a6; --dd-teal-dim: rgba(46,230,166,.09); --dd-green: #3ecf5c; --dd-red: #e83a52;
+  --dd-purple: #a855f7; --dd-blue: #4a7df0; --dd-blue-dim: rgba(74,125,240,.14); --dd-orange: #f5a623;
+  --dd-speed: 150ms;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--dd-text);
+}
+.dd-g { background: linear-gradient(90deg, var(--dd-pink), var(--dd-teal)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.dd-g--purple { background-image: linear-gradient(90deg, var(--dd-pink), var(--dd-purple)); }
+.dd-g--blue { background-image: linear-gradient(90deg, var(--dd-pink), var(--dd-blue)); }
+.caption em.p { color: var(--dd-purple); }
+
+/* ---- Menu: trigger + list ---------------------------------------------- */
+.dd-menu { position: relative; width: 100%; }
+.dd-trigger { display: flex; align-items: center; width: 100%; height: 48px; padding: 0 16px; border-radius: 8px; border: 1.5px solid var(--dd-border); background: var(--dd-panel); color: var(--dd-text); font: 600 15px/1 'Inter', system-ui, sans-serif; text-align: left; cursor: pointer; transition: border-color var(--dd-speed), box-shadow var(--dd-speed), background var(--dd-speed); }
+.dd-trigger:hover, .dd-trigger.is-hover, .dd-menu.is-open > .dd-trigger { border-color: var(--dd-pink); box-shadow: 0 0 0 1px rgba(232,68,107,.25), 0 0 26px rgba(232,68,107,.28); }
+.dd-menu--premium > .dd-trigger { border-color: rgba(232,68,107,.42); box-shadow: 0 0 0 1px rgba(232,68,107,.1), 0 0 24px rgba(232,68,107,.22); }
+.dd-caret { margin-left: auto; width: 16px; height: 16px; color: var(--dd-pink); transition: transform var(--dd-speed); }
+.dd-caret--tri { font-size: 14px; line-height: 1; }
+.dd-menu.is-open > .dd-trigger > svg.dd-caret { transform: rotate(180deg); }
+.dd-caret--fixed { transform: none !important; }
+.dd-list { position: absolute; left: 0; right: 0; top: calc(100% + 8px); padding: 6px 8px; border-radius: 8px; border: 1px solid var(--dd-border); background: var(--dd-panel); box-shadow: 0 16px 40px rgba(0,0,0,.45); transform-origin: top center; transition: opacity var(--dd-speed) ease, transform var(--dd-speed) ease, filter var(--dd-speed) ease; }
+.dd-menu:not(.is-open) > .dd-list { opacity: 0; transform: translateY(-6px) scale(.98); pointer-events: none; }
+.dd-menu.is-up > .dd-list { top: auto; bottom: calc(100% + 8px); transform-origin: bottom center; }
+.dd-menu.is-up:not(.is-open) > .dd-list { transform: translateY(6px) scale(.98); }
+.dd-list--teal { border-color: var(--dd-teal); box-shadow: 0 0 0 1px rgba(46,230,166,.15), 0 0 24px rgba(46,230,166,.18); }
+.dd-list--clipped { border-color: rgba(232,68,107,.55); overflow: visible; }
+.dd-item { display: flex; align-items: center; height: 32px; padding: 0 10px; border-radius: 6px; font-size: 15px; font-weight: 500; color: var(--dd-text); cursor: pointer; }
+.dd-item:hover, .dd-item.is-hover { background: rgba(255,255,255,.04); }
+.dd-item.is-active { color: var(--dd-pink); background: var(--dd-pink-dim); }
+.dd-list--teal .dd-item.is-active { color: var(--dd-teal); background: var(--dd-teal-dim); }
+.dd-item--kb { padding: 0 8px; border-radius: 6px; }
+.dd-item--kb.is-active::after { content: ''; margin-left: auto; width: 6px; height: 6px; border-radius: 50%; background: var(--dd-pink); }
+.dd-clip { margin-left: auto; margin-right: 176px; font-size: 11px; font-weight: 700; letter-spacing: .12em; color: var(--dd-pink); }
+.dd-tag { font-size: 15px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+.dd-tag--ok { color: var(--dd-green); }
+
+/* ---- Rule 1 columns --------------------------------------------------- */
+.dd-col__label { font-size: 15px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 9px; }
+.dd-col--before .dd-col__label { color: var(--dd-red); } .dd-col--after .dd-col__label { color: var(--dd-green); }
+.dd-cheap { display: flex; align-items: center; height: 29px; padding: 0 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,.14); background: #121218; font-size: 13px; color: #b3b3bd; }
+.dd-cheap__caret { margin-left: auto; font-size: 10px; color: #8a8a96; }
+.dd-notes { list-style: none; margin: 14px 0 0; padding: 0 0 0 2px; font-size: 13px; font-weight: 500; color: var(--dd-red); line-height: 21px; }
+.dd-notes li::before { content: '✕ '; font-size: 12px; }
+.dd-notes--ok { color: var(--dd-green); margin-top: 16px; padding-left: 0; }
+.dd-notes--ok li::before { content: '✓ '; }
+
+/* ---- Rule 2 browser window ------------------------------------------- */
+.dd-window { width: 464px; height: 544px; border-radius: 10px; background: #0d0f15; border: 1px solid rgba(255,255,255,.07); overflow: hidden; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+.dd-window__bar { height: 28px; background: var(--dd-panel-2); display: flex; align-items: center; gap: 5px; padding-left: 10px; }
+.dd-window__bar i { width: 7px; height: 7px; border-radius: 50%; background: #ff5f57; }
+.dd-window__bar i:nth-child(2) { background: #febc2e; } .dd-window__bar i:nth-child(3) { background: #28c840; }
+.dd-window__lines { position: absolute; left: 20px; top: 52px; }
+.dd-window__lines b { display: block; width: 212px; height: 12px; border-radius: 3px; background: rgba(232,68,107,.22); margin-bottom: 14px; }
+.dd-window__lines i { display: block; height: 6px; border-radius: 3px; background: rgba(255,255,255,.06); margin-bottom: 9px; }
+
+/* ---- Rule 3 keys --------------------------------------------------------- */
+.dd-keys { display: flex; gap: 18px; }
+.dd-key { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.dd-key kbd { display: grid; place-items: center; height: 38px; border-radius: 7px; background: #24262e; border: 1px solid rgba(255,255,255,.06); border-bottom-color: rgba(0,0,0,.6); font: 500 15px 'JetBrains Mono', ui-monospace, monospace; color: #c5c6cf; letter-spacing: .04em; transition: background var(--dd-speed), color var(--dd-speed), box-shadow var(--dd-speed); }
+.dd-key span { font-size: 12px; color: var(--dd-muted); }
+.dd-key.is-down kbd { background: var(--dd-pink); color: #fff; box-shadow: 0 0 22px rgba(232,68,107,.55); }
+
+/* ---- Rule 4 search list ------------------------------------------------ */
+.dd-search { border-radius: 8px; border: 1px solid rgba(74,125,240,.35); background: var(--dd-panel); box-shadow: 0 0 0 1px rgba(74,125,240,.08), 0 0 30px rgba(74,125,240,.12); overflow: hidden; }
+.dd-search__field { display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 16px; border-bottom: 1px solid var(--dd-border); font-size: 15px; }
+.dd-search__field svg { width: 15px; height: 15px; color: var(--dd-muted); flex: none; }
+.dd-search__ph { color: var(--dd-muted); white-space: nowrap; }
+.dd-search__q { color: var(--dd-text); font-weight: 500; }
+.dd-search__cursor { width: 1.5px; height: 18px; background: var(--dd-pink); animation: dd-blink 1s steps(2) infinite; }
+@keyframes dd-blink { 50% { opacity: 0 } }
+.dd-search__count { margin-left: auto; min-width: 16px; height: 14px; padding: 0 4px; border-radius: 3px; background: var(--dd-blue); color: #fff; font-size: 10px; font-weight: 700; display: grid; place-items: center; }
+.dd-search__list { padding: 4px 8px; }
+.dd-item--sr { height: 40px; padding: 0 9px; }
+.dd-item--sr.is-match { height: 36px; color: var(--dd-blue); background: var(--dd-blue-dim); border: 1px solid rgba(74,125,240,.35); }
+.dd-search input { all: unset; flex: 1; color: var(--dd-text); font: 500 15px 'Inter', sans-serif; }
+.dd-search input[hidden] { display: none; }
+
+/* ---- Rule 5 timing race ---------------------------------------------- */
+.dd-race { display: flex; gap: 25px; }
+.dd-lane { width: 185px; text-align: center; position: relative; }
+.dd-lane__ms { font: 700 21px 'JetBrains Mono', ui-monospace, monospace; margin-bottom: 16px; }
+.dd-lane__verdict { position: absolute; left: 0; top: 236px; width: 185px; font-size: 14px; font-weight: 500; }
+.dd-lane .dd-menu { text-align: left; }
+.dd-trigger--sm { height: 35px; padding: 0 12px; font-size: 14px; }
+.dd-lane--red { --dd-pink: var(--dd-red); --dd-pink-dim: rgba(232,58,82,.14); color: var(--dd-red); }
+.dd-lane--green { --dd-pink: var(--dd-green); --dd-pink-dim: rgba(62,207,92,.14); color: var(--dd-green); }
+.dd-lane--orange { --dd-pink: var(--dd-orange); --dd-pink-dim: rgba(245,166,35,.14); color: var(--dd-orange); }
+.dd-lane .dd-trigger { border-color: color-mix(in srgb, var(--dd-pink) 45%, transparent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--dd-pink) 12%, transparent), 0 0 18px color-mix(in srgb, var(--dd-pink) 18%, transparent); }
+.dd-lane .dd-menu.is-open > .dd-trigger { border-color: color-mix(in srgb, var(--dd-pink) 70%, transparent); }
+.dd-list--sm { top: calc(100% + 10px); height: 142px; padding: 1px 8px; border-color: color-mix(in srgb, var(--dd-pink) 22%, transparent); }
+.dd-list--sm .dd-item { height: 30px; padding: 0 5px; font-size: 13px; color: #d9d9e0; }
+.dd-lane--red .dd-menu { --dd-speed: 50ms; }
+.dd-lane--green .dd-menu { --dd-speed: 150ms; }
+.dd-lane--orange .dd-menu { --dd-speed: 500ms; }
+.dd-lane--orange .dd-menu:not(.is-open) > .dd-list { filter: blur(2px); transform: translateY(-10px) scaleY(.6); }
+
+.dd-cursor { filter: drop-shadow(0 1px 2px rgba(0,0,0,.6)); }

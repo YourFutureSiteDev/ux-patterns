@@ -1,0 +1,121 @@
+/* Animation Timing, rebuilt from the @designmotionhq reel "Same modal, two timings".
+   Five numbers: entrance 200-300ms, exit ~40% faster, feedback <100ms, attention 500-800ms + bounce, stagger 50ms.
+   Component classes are prefixed .at- and depend only on the tokens below. */
+.at {
+  --at-bg: #0a090b; --at-panel: #0d0f15; --at-card: #15171c; --at-card-2: #1a1a1f; --at-btn: #26282e;
+  --at-border: rgba(255,255,255,.07); --at-text: #f2f2f4; --at-muted: #8b8f98; --at-dim: #4a4d55;
+  --at-pink: #e14a70; --at-red: #e63c50; --at-orange: #f0a21f; --at-green: #2fd66f; --at-teal: #2fd9a8;
+  --at-ease-out: cubic-bezier(.16,1,.3,1); --at-spring: cubic-bezier(.34,1.56,.64,1);
+  --at-enter: 250ms; --at-exit: 150ms; --at-feedback: 80ms; --at-attention: 650ms; --at-stagger: 50ms;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--at-text);
+}
+
+/* ---- Reel chrome: kicker, title, subtitle, column labels -------------------------- */
+.at-kicker { position: absolute; left: 50%; transform: translateX(-50%); top: 116px; padding: 8px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; letter-spacing: .16em; white-space: nowrap; color: var(--c, var(--at-pink)); background: color-mix(in srgb, var(--c, var(--at-pink)) 18%, transparent); box-shadow: 0 0 24px color-mix(in srgb, var(--c, var(--at-pink)) 25%, transparent); }
+.at-title { position: absolute; left: 0; right: 0; top: 154px; text-align: center; font-size: 40px; font-weight: 800; letter-spacing: .08em; line-height: 1.1; }
+.at-sub { position: absolute; left: 0; right: 0; top: 210px; text-align: center; font-size: 18px; font-weight: 500; color: var(--at-muted); }
+.at-col { position: absolute; width: 184px; text-align: center; }
+.at-col__tag { font-size: 13px; font-weight: 700; letter-spacing: .14em; color: var(--c); }
+.at-col__ms { margin-top: 12px; font-size: 24px; font-weight: 800; color: var(--c); }
+.at-col--red { --c: var(--at-red); } .at-col--pink { --c: var(--at-pink); } .at-col--orange { --c: var(--at-orange); } .at-col--green { --c: var(--at-green); } .at-col--teal { --c: var(--at-teal); }
+.at-panel { position: absolute; background: var(--at-panel); border: 1px dashed rgba(255,255,255,.06); border-radius: 12px; }
+.at-glow { position: absolute; width: 640px; height: 640px; border-radius: 50%; filter: blur(70px); pointer-events: none; }
+.at-big { position: absolute; left: 0; right: 0; text-align: center; font-weight: 800; letter-spacing: -.02em; line-height: 1; color: var(--c, var(--at-pink)); text-shadow: 0 0 28px color-mix(in srgb, var(--c, var(--at-pink)) 70%, transparent), 0 0 60px color-mix(in srgb, var(--c, var(--at-pink)) 35%, transparent); white-space: nowrap; }
+.at-big__unit { position: absolute; left: 0; right: 0; text-align: center; font-weight: 700; letter-spacing: .04em; color: var(--c, var(--at-pink)); }
+.at-line { position: absolute; left: 0; right: 0; text-align: center; font-size: 20px; font-weight: 500; color: var(--at-muted); white-space: nowrap; }
+.at-line b { color: var(--c, var(--at-text)); font-weight: 700; }
+.at-line--white { color: var(--at-text); font-weight: 700; font-size: 22px; }
+.at-line--italic { font-style: italic; font-size: 16px; }
+
+/* ---- Modal (entrance) ------------------------------------------------------------ */
+.at-modal { width: 160px; background: var(--at-card); border: 1px solid var(--at-border); border-radius: 10px; padding: 20px 18px 18px; box-shadow: 0 16px 40px rgba(0,0,0,.5); }
+.at-modal__h { font-size: 18px; font-weight: 700; }
+.at-modal__p { font-size: 14px; color: var(--at-muted); margin-top: 8px; }
+.at-modal__row { display: flex; gap: 8px; margin-top: 16px; }
+.at-btn { height: 32px; padding: 0 10px; border: 0; border-radius: 6px; font: 600 14px 'Inter', sans-serif; color: var(--at-text); background: var(--at-btn); display: inline-flex; align-items: center; justify-content: center; }
+.at-btn--pink { background: var(--at-pink); } .at-btn--red { background: var(--at-red); } .at-btn--orange { background: var(--at-orange); color: #1a1205; } .at-btn--green { background: var(--at-green); color: #052312; }
+.at-modal.is-entering { animation: at-modal-in var(--dur, var(--at-enter)) var(--at-ease-out) both; }
+@keyframes at-modal-in { from { opacity: 0; transform: translateY(14px) scale(.94); } to { opacity: 1; transform: none; } }
+/* looping demo cycle (3 s): enter over the column's duration, hold, then leave */
+.at-modal--50 { animation: at-cycle-50 3s linear infinite; } .at-modal--250 { animation: at-cycle-250 3s linear infinite; } .at-modal--700 { animation: at-cycle-700 3s linear infinite; }
+@keyframes at-cycle-50 { 0% { opacity: 0; transform: translateY(14px) scale(.94); } 1.7%, 80% { opacity: 1; transform: none; } 85%, 100% { opacity: 0; transform: translateY(6px) scale(.97); } }
+@keyframes at-cycle-250 { 0% { opacity: 0; transform: translateY(14px) scale(.94); } 8.3%, 80% { opacity: 1; transform: none; } 85%, 100% { opacity: 0; transform: translateY(6px) scale(.97); } }
+@keyframes at-cycle-700 { 0% { opacity: 0; transform: translateY(14px) scale(.94); } 23.3%, 80% { opacity: 1; transform: none; } 85%, 100% { opacity: 0; transform: translateY(6px) scale(.97); } }
+
+/* ---- Phone frame (hook) ------------------------------------------------------------ */
+.at-phone { position: absolute; width: 292px; height: 544px; border-radius: 36px; border: 2px solid rgba(225,74,112,.75); background: #131217; box-shadow: 0 0 40px rgba(225,74,112,.18); }
+.at-phone__bar { position: absolute; top: 18px; left: 30px; right: 30px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; color: #6d6f76; }
+.at-phone__label { position: absolute; left: 0; right: 0; top: -36px; text-align: center; font-size: 44px; font-weight: 800; letter-spacing: -.02em; color: var(--c); text-shadow: 0 0 24px color-mix(in srgb, var(--c) 60%, transparent); }
+.at-dialog { position: absolute; left: 28px; top: 195px; width: 236px; background: var(--at-card-2); border: 1px solid var(--at-border); border-radius: 12px; padding: 18px 17px 16px; box-shadow: 0 20px 50px rgba(0,0,0,.5); }
+.at-dialog__h { font-size: 18px; font-weight: 700; }
+.at-dialog__p { font-size: 14.5px; color: #b0b3ba; margin-top: 8px; white-space: nowrap; letter-spacing: -.01em; }
+.at-dialog__row { display: flex; gap: 9px; margin-top: 16px; }
+.at-dialog__row .at-btn { flex: 1; height: 34px; font-size: 15px; }
+
+/* ---- Toast (exit) ------------------------------------------------------------------- */
+.at-toast { width: 266px; background: var(--at-card); border: 1px solid var(--at-border); border-radius: 12px; padding: 20px 18px 17px; box-shadow: 0 16px 40px rgba(0,0,0,.5); }
+.at-toast__h { font-size: 20px; font-weight: 700; }
+.at-toast__p { font-size: 15px; color: var(--at-muted); margin-top: 8px; }
+.at-toast__row { display: flex; gap: 8px; margin-top: 24px; }
+.at-toast__row .at-btn { height: 34px; border-radius: 8px; font-size: 15px; }
+.at-toast__row .at-btn:first-child { width: 111px; background: #242930; } .at-toast__row .at-btn:last-child { width: 108px; }
+.at-verdict { position: absolute; display: flex; align-items: center; gap: 15px; font-size: 15px; font-weight: 700; letter-spacing: .1em; }
+.at-verdict__pill { padding: 6px 12px; border-radius: 4px; color: var(--c); background: color-mix(in srgb, var(--c) 22%, transparent); }
+.at-verdict__spec { color: var(--at-muted); } .at-verdict__spec b { color: var(--at-text); } .at-verdict__spec em { font-style: normal; color: var(--c); }
+.at-verdict--green { --c: var(--at-green); } .at-verdict--red { --c: var(--at-red); }
+.at-toast--out150 { animation: at-toast-150 3s linear infinite; } .at-toast--out250 { animation: at-toast-250 3s linear infinite; }
+@keyframes at-toast-150 { 0% { opacity: 0; transform: translateY(12px) scale(.96); } 8.3%, 70% { opacity: 1; transform: none; } 75%, 100% { opacity: 0; transform: translateY(8px) scale(.97); } }
+@keyframes at-toast-250 { 0% { opacity: 0; transform: translateY(12px) scale(.96); } 8.3%, 70% { opacity: 1; transform: none; } 78.3%, 100% { opacity: 0; transform: translateY(8px) scale(.97); } }
+.at-inout { position: absolute; left: 0; right: 0; display: flex; justify-content: center; align-items: center; gap: 22px; }
+.at-inout__n { font-size: 84px; font-weight: 800; letter-spacing: -.03em; line-height: 1; position: relative; }
+.at-inout__n small { position: absolute; left: 0; right: 0; top: 100px; text-align: center; font-size: 16px; font-weight: 700; letter-spacing: .2em; color: var(--at-muted); }
+.at-inout__n.is-out { color: var(--at-teal); text-shadow: 0 0 28px rgba(47,217,168,.7), 0 0 60px rgba(47,217,168,.35); }
+.at-inout__arrow { width: 70px; height: 20px; }
+.at-inout__arrow line, .at-inout__arrow path { stroke: var(--at-teal); stroke-width: 3; stroke-linecap: round; fill: none; }
+
+/* ---- Feedback button ----------------------------------------------------------------- */
+.at-cta { width: 132px; height: 44px; border: 0; border-radius: 8px; font: 700 17px 'Inter', sans-serif; color: #fff; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: transform var(--dur, var(--at-feedback)) ease-out, filter var(--dur, var(--at-feedback)) ease-out; }
+.at-cta:active, .at-cta.is-pressed { transform: scale(.94); filter: brightness(1.2); }
+.at-cta--red { background: var(--at-red); box-shadow: 0 0 30px rgba(230,60,80,.35); }
+.at-cta--orange { background: var(--at-orange); box-shadow: 0 0 30px rgba(240,162,31,.35); }
+.at-cta--green { background: var(--at-green); box-shadow: 0 0 30px rgba(47,214,111,.35); }
+.at-cursor { position: absolute; width: 22px; height: 26px; filter: drop-shadow(0 2px 3px rgba(0,0,0,.6)); animation: at-cursor 3s ease-in-out infinite; }
+@keyframes at-cursor { 0%, 20% { transform: translate(6px, 34px); } 35%, 65% { transform: none; } 80%, 100% { transform: translate(6px, 34px); } }
+.at-cta--loop { animation: at-press 3s linear infinite; }
+@keyframes at-press { 0%, 54% { transform: none; filter: none; } 57%, 64% { transform: scale(.94); filter: brightness(1.2); } 68%, 100% { transform: none; filter: none; } }
+
+/* ---- Attention toast ------------------------------------------------------------------ */
+.at-note { width: 254px; height: 70px; display: flex; align-items: center; gap: 13px; padding: 0 16px; background: var(--at-card); border: 1px solid #3a3f47; border-radius: 10px; box-shadow: 0 16px 40px rgba(0,0,0,.5); }
+.at-note__icon { width: 32px; height: 32px; border-radius: 8px; background: #23262c; display: grid; place-items: center; color: #7d828b; flex: none; }
+.at-note__icon svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
+.at-note__h { font-size: 16px; font-weight: 700; line-height: 1.1; }
+.at-note__p { font-size: 12px; color: var(--at-muted); margin-top: 4px; white-space: nowrap; }
+.at-note--hot { border-color: var(--at-orange); box-shadow: 0 0 0 1px rgba(240,162,31,.25), 0 0 34px rgba(240,162,31,.45), 0 16px 40px rgba(0,0,0,.5); }
+.at-note--hot .at-note__icon { background: #3e2907; color: var(--at-orange); }
+.at-tag { position: absolute; left: 50%; transform: translateX(-50%); padding: 6px 14px; border-radius: 4px; font-size: 13px; font-weight: 700; letter-spacing: .12em; white-space: nowrap; color: #8b8f98; background: #232227; }
+.at-tag--orange { color: var(--at-orange); background: #3e2907; }
+.at-note--fade { animation: at-fade 3s linear infinite; }
+@keyframes at-fade { 0% { opacity: 0; } 16.7%, 75% { opacity: 1; } 85%, 100% { opacity: 0; } }
+.at-note--bounce { animation: at-bounce 3s linear infinite; }
+@keyframes at-bounce { 0% { opacity: 0; transform: translateY(-40px) scale(.9); } 8% { opacity: 1; transform: translateY(6px) scale(1.03); } 12% { transform: translateX(-7px); } 15% { transform: translateX(6px); } 18% { transform: translateX(-4px); } 21% { transform: translateX(2px); } 23.3%, 75% { transform: none; opacity: 1; } 85%, 100% { opacity: 0; transform: translateY(8px); } }
+.at-bell { position: absolute; width: 90px; height: 90px; border-radius: 50%; border: 2px solid var(--at-orange); display: grid; place-items: center; color: var(--at-orange); box-shadow: 0 0 30px rgba(240,162,31,.35); animation: at-ring 3s ease-in-out infinite; }
+.at-bell svg { width: 40px; height: 40px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+@keyframes at-ring { 0%, 60% { transform: none; } 65% { transform: rotate(-12deg); } 70% { transform: rotate(10deg); } 75% { transform: rotate(-6deg); } 80%, 100% { transform: none; } }
+
+/* ---- Stagger list ------------------------------------------------------------------- */
+.at-list { position: absolute; width: 198px; }
+.at-item { display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 12px 0 10px; margin-bottom: 9px; background: #14161b; border: 1px solid rgba(255,255,255,.04); border-radius: 6px; font-size: 13px; font-weight: 600; }
+.at-item__sw { width: 12px; height: 12px; border-radius: 3px; background: var(--sw); border: 1px solid color-mix(in srgb, var(--c) 45%, transparent); flex: none; }
+.at-item__chev { margin-left: auto; color: var(--at-dim); font-size: 13px; }
+.at-list--red { --c: var(--at-red); --sw: #44181c; } .at-list--teal { --c: var(--at-teal); --sw: #0b3d33; } .at-list--orange { --c: var(--at-orange); --sw: #463211; }
+.at-list .at-item { animation: at-item 3s linear infinite; animation-delay: calc(var(--i) * var(--gap, 50ms)); }
+@keyframes at-item { 0% { opacity: 0; transform: translateY(8px); } 8.3%, 70% { opacity: 1; transform: none; } 78%, 100% { opacity: 0; transform: translateY(8px); } }
+
+/* ---- Cheat sheet ---------------------------------------------------------------------- */
+.at-sheet { position: absolute; width: 466px; }
+.at-sheet__title { text-align: center; font-size: 18px; font-weight: 700; letter-spacing: .16em; color: var(--at-muted); margin-bottom: 20px; }
+.at-sheet__row { display: flex; align-items: center; justify-content: space-between; height: 50px; padding: 0 22px; margin-bottom: 12.5px; background: var(--at-panel); border: 1px solid rgba(255,255,255,.05); border-radius: 8px; font-size: 18px; font-weight: 600; }
+.at-sheet__row b { font-weight: 700; color: var(--c); }
+.at-sheet__row--pink { --c: var(--at-pink); } .at-sheet__row--teal { --c: var(--at-teal); } .at-sheet__row--orange { --c: var(--at-orange); }
+.at-follow { position: absolute; left: 50%; transform: translateX(-50%); padding: 10px 20px; border-radius: 999px; background: #1c1a1f; font-size: 20px; font-weight: 700; white-space: nowrap; }
+.at-follow em { font-style: normal; color: var(--at-pink); }

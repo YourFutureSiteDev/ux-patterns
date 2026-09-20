@@ -1,0 +1,165 @@
+/* Undo UX, rebuilt from the @designmotionhq reel "Deleted. You have five seconds."
+   Component classes are prefixed .ud- and depend only on the tokens below. */
+.ud {
+  --ud-bg: #090d0e; --ud-panel: #111619; --ud-panel-2: #171f22; --ud-row: #171a1f; --ud-border: rgba(255,255,255,.06);
+  --ud-text: #f2f4f5; --ud-muted: #8c8f96; --ud-green: #22cba0; --ud-green-dim: #0b2621; --ud-red: #e0506e; --ud-red-btn: #ca4755; --ud-red-dim: rgba(224,80,94,.16);
+  --ud-mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--ud-text);
+}
+
+/* ---- Reel chrome -------------------------------------------------------------- */
+.ud-kicker { position: absolute; left: 50%; transform: translateX(-50%); padding: 9px 20px; border-radius: 999px; background: #181c1d; color: var(--ud-muted); font-size: 15px; font-weight: 700; letter-spacing: .14em; white-space: nowrap; }
+.ud-kicker--green { background: var(--ud-green-dim); color: var(--ud-green); }
+.ud-h1 { position: absolute; left: 0; right: 0; text-align: center; font-size: 40px; font-weight: 800; letter-spacing: -.02em; line-height: 1.08; }
+.ud-h1 em { font-style: normal; color: var(--ud-green); } .ud-h1 em.red { color: var(--ud-red); }
+.ud-cap { position: absolute; left: 50%; transform: translateX(-50%); padding: 14px 28px; border-radius: 10px; background: #171a1f; color: #b8bec4; font-size: 24px; font-weight: 700; white-space: nowrap; }
+.ud-cap--green { background: #091f1c; color: var(--ud-green); }
+.ud-abs { position: absolute; }
+
+/* ---- Undo toast (the core component) ------------------------------------------- */
+.ud-toast { display: flex; align-items: center; gap: 14px; width: 416px; height: 68px; padding: 0 22px 0 24px; border-radius: 12px; background: var(--ud-panel-2); border: 1px solid var(--ud-border); box-shadow: 0 16px 40px rgba(0,0,0,.45); }
+.ud-toast__ring { position: relative; flex: none; width: 26px; height: 26px; }
+.ud-toast__ring svg { width: 26px; height: 26px; transform: rotate(-90deg); }
+.ud-toast__ring circle { fill: none; stroke-width: 3.5; }
+.ud-toast__ring .track { stroke: rgba(34,203,160,.25); }
+.ud-toast__ring .fill { stroke: var(--ud-green); stroke-linecap: round; stroke-dasharray: 56.5; stroke-dashoffset: 0; }
+.ud-toast__ring.is-counting .fill { animation: ud-ring var(--ud-window, 5s) linear forwards; }
+@keyframes ud-ring { to { stroke-dashoffset: 56.5 } }
+.ud-toast__ring i { position: absolute; inset: 0; display: grid; place-items: center; }
+.ud-toast__ring i svg { width: 12px; height: 12px; transform: none; fill: none; stroke: var(--ud-green); stroke-width: 2; stroke-linecap: round; }
+.ud-toast__label { flex: 1; font-size: 19px; font-weight: 600; }
+.ud-toast__undo { padding: 8px 18px; border: 0; border-radius: 999px; background: var(--ud-green); color: #062b22; font-size: 17px; font-weight: 700; cursor: pointer; }
+.ud-toast__undo:hover { filter: brightness(1.08); }
+.ud-toast--sm { width: 254px; height: 51px; padding: 0 14px 0 18px; gap: 10px; }
+.ud-toast--sm .ud-toast__label { font-size: 16px; } .ud-toast--sm .ud-toast__undo { padding: 5px 14px; font-size: 15px; }
+
+/* ---- File rows ------------------------------------------------------------------ */
+.ud-file { position: absolute; display: flex; align-items: center; gap: 18px; height: 80px; padding: 0 16px; border-radius: 10px; background: var(--ud-row); border: 1px solid var(--ud-border); }
+.ud-file__icon { width: 52px; height: 52px; border-radius: 10px; background: #1f2428; display: grid; place-items: center; color: var(--ud-muted); }
+.ud-file__icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; }
+.ud-file__name { font-size: 19px; font-weight: 600; } .ud-file__meta { font-size: 14px; color: var(--ud-muted); margin-top: 4px; }
+.ud-file__del { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 8px; background: rgba(217,72,95,.14); color: #d9485f; font-size: 16px; font-weight: 600; border: 0; cursor: pointer; }
+.ud-file__del svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; }
+.ud-file.is-gone { opacity: 0; transform: translateX(-20px); }
+
+/* ---- Confirm vs undo panels ------------------------------------------------------ */
+.ud-panel { position: absolute; width: 310px; height: 463px; border-radius: 12px; background: #0d1114; border: 1px solid var(--ud-border); }
+.ud-panel__tag { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); padding: 6px 18px; border-radius: 999px; font-size: 15px; font-weight: 700; letter-spacing: .12em; }
+.ud-panel__tag--red { background: #291c23; color: #e0506e; } .ud-panel__tag--green { background: #11302b; color: var(--ud-green); }
+.ud-panel__screen { position: absolute; left: 16px; top: 65px; width: 278px; height: 264px; border-radius: 8px; background: #090d0e; }
+.ud-panel__foot { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); padding: 10px 18px; border-radius: 8px; font-size: 16px; font-weight: 600; white-space: nowrap; }
+.ud-panel__foot--red { background: rgba(224,80,94,.12); color: #e0506e; } .ud-panel__foot--green { background: rgba(34,203,160,.12); color: var(--ud-green); }
+.ud-mini { position: absolute; left: 12px; top: 10px; right: 12px; height: 50px; display: flex; align-items: center; gap: 10px; padding: 0 12px; border-radius: 8px; background: #101418; }
+.ud-mini svg { width: 18px; height: 18px; fill: none; stroke: var(--ud-muted); stroke-width: 1.8; }
+.ud-mini b { font-size: 15px; font-weight: 600; display: block; } .ud-mini span { font-size: 12px; color: var(--ud-muted); }
+.ud-mini__trash { margin-left: auto; width: 26px; height: 26px; border-radius: 50%; background: rgba(224,80,94,.2); display: grid; place-items: center; color: #e0506e; }
+.ud-mini__trash svg { width: 13px; height: 13px; stroke: currentColor; }
+.ud-dialog { position: absolute; left: 27px; top: 53px; width: 226px; height: 159px; border-radius: 8px; background: #1e2327; box-shadow: 0 16px 40px rgba(0,0,0,.5); padding: 16px; }
+.ud-dialog b { display: block; font-size: 17px; font-weight: 700; } .ud-dialog p { margin: 8px 0 0; font-size: 13px; line-height: 1.3; color: var(--ud-muted); }
+.ud-dialog__btns { display: flex; gap: 8px; margin-top: 16px; }
+.ud-dialog__btns span { flex: 1; height: 35px; border-radius: 7px; display: grid; place-items: center; font-size: 14px; font-weight: 600; background: #2a3035; }
+.ud-dialog__btns span.red { background: #d9485f; }
+
+/* ---- Soft delete --------------------------------------------------------------------- */
+.ud-card { position: absolute; border-radius: 12px; background: var(--ud-panel); border: 1px solid var(--ud-border); }
+.ud-card__label { position: absolute; left: 19px; font-size: 13px; font-weight: 700; letter-spacing: .1em; color: var(--ud-muted); display: flex; align-items: center; gap: 8px; }
+.ud-card__label svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; }
+.ud-row { position: absolute; left: 18px; right: 18px; height: 41px; border-radius: 8px; background: var(--ud-panel-2); display: flex; align-items: center; gap: 12px; padding: 0 14px; }
+.ud-row svg { width: 16px; height: 16px; fill: none; stroke: var(--ud-muted); stroke-width: 1.8; }
+.ud-row b { font-size: 16px; font-weight: 600; } .ud-row span { margin-left: auto; font-size: 13px; color: var(--ud-muted); }
+.ud-db { position: absolute; left: 0; right: 0; font-family: var(--ud-mono); font-size: 14px; color: #d6dadd; display: grid; grid-template-columns: 46px 270px 1fr; align-items: center; height: 34px; padding: 0 29px; border-radius: 6px; }
+.ud-db--head { font-size: 12px; color: #5f666b; }
+.ud-db .null { color: #5f666b; } .ud-db .val { color: var(--ud-green); font-weight: 600; }
+.ud-db.is-set { background: rgba(34,203,160,.06); }
+.ud-db.is-purged { color: #6b3a45; text-decoration: line-through; text-decoration-color: #d9485f; background: rgba(217,72,95,.05); }
+.ud-db.is-purged .val { color: #6b3a45; }
+.ud-life { position: absolute; left: 100px; top: 878px; width: 520px; }
+.ud-life__label { position: absolute; left: 0; right: 0; top: -32px; text-align: center; font-size: 13px; font-weight: 700; letter-spacing: .15em; color: #3a5a55; }
+.ud-life__track { position: absolute; left: 0; right: 0; top: -1px; height: 3px; background: #2a3336; border-radius: 2px; }
+.ud-life__fill { position: absolute; left: 0; top: -1px; height: 3px; width: 0; background: var(--ud-green); border-radius: 2px; transition: width .6s ease; }
+.ud-life__fill--red { left: 50%; background: #d9485f; }
+.ud-life__dot { position: absolute; top: -29px; width: 18px; height: 18px; border-radius: 50%; border: 2px solid #3a4448; background: #0b1213; transform: translateX(-50%); transition: background .3s, border-color .3s, box-shadow .3s; }
+.ud-life__dot.is-on { background: var(--ud-green); border-color: var(--ud-green); box-shadow: 0 0 14px rgba(34,203,160,.6); }
+.ud-life__dot.is-red { background: #d9485f; border-color: #d9485f; box-shadow: 0 0 14px rgba(217,72,95,.6); }
+.ud-life__lbl { position: absolute; top: -4px; transform: translateX(-50%); text-align: center; white-space: nowrap; color: #5f666b; }
+.ud-life__lbl b { display: block; font-size: 15px; font-weight: 700; } .ud-life__lbl span { font-size: 12px; }
+.ud-life__lbl.is-on { color: #fff; } .ud-life__lbl.is-on span { color: var(--ud-muted); }
+
+/* ---- Type to confirm ------------------------------------------------------------------ */
+.ud-confirm { position: absolute; width: 574px; height: 337px; border-radius: 12px; background: var(--ud-panel); border: 1px solid rgba(224,80,94,.22); padding: 26px 26px; }
+.ud-confirm__title { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 700; }
+.ud-confirm__title svg { width: 20px; height: 20px; fill: none; stroke: var(--ud-red); stroke-width: 2; stroke-linejoin: round; }
+.ud-confirm__repo { display: flex; align-items: center; gap: 8px; margin-top: 5px; font-family: var(--ud-mono); font-size: 14px; color: var(--ud-muted); }
+.ud-confirm__repo svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; }
+.ud-confirm__warn { margin-top: 13px; padding: 11px 16px; border-radius: 8px; background: #24191d; border: 1px solid rgba(224,80,94,.3); font-size: 14px; line-height: 1.45; color: #e3e6e8; }
+.ud-confirm__warn b { color: var(--ud-red); }
+.ud-confirm__hint { margin-top: 15px; font-size: 14px; color: var(--ud-muted); } .ud-confirm__hint code { font-family: var(--ud-mono); color: #6f767b; }
+.ud-confirm__input { margin-top: 8px; height: 50px; border-radius: 8px; background: #090d0e; border: 1px solid #262e31; padding: 0 16px; display: flex; align-items: center; font-family: var(--ud-mono); font-size: 19px; color: #fff; transition: border-color .3s; }
+.ud-confirm__input::after { content: ''; width: 2px; height: 22px; margin-left: 2px; background: #fff; }
+.ud-confirm.is-ready .ud-confirm__input { border-color: rgba(224,80,94,.6); }
+@keyframes ud-blink { 50% { opacity: 0 } }
+.ud-confirm__btn { margin-top: 17px; height: 47px; border-radius: 8px; display: grid; place-items: center; font-size: 16px; font-weight: 700; background: #1f191d; color: #a0304a; border: 1px solid rgba(224,80,94,.18); transition: background .3s, color .3s; }
+.ud-confirm.is-ready .ud-confirm__btn { background: var(--ud-red-btn); color: #fff; border-color: transparent; box-shadow: 0 8px 24px rgba(202,71,85,.35); }
+.ud-friction { position: absolute; left: 107px; top: 867px; width: 506px; }
+.ud-friction__label { position: absolute; left: 0; right: 0; top: -34px; text-align: center; font-size: 13px; font-weight: 700; letter-spacing: .15em; color: #4a5558; }
+.ud-friction__track { height: 4px; border-radius: 2px; background: linear-gradient(90deg, #22cba0, #d9b23c 50%, #d9485f); }
+.ud-friction__knob { position: absolute; top: -5px; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 0 10px rgba(255,255,255,.5); transform: translateX(-50%); transition: left .8s cubic-bezier(.2,.8,.2,1); }
+.ud-friction__lbl { position: absolute; top: 18px; transform: translateX(-50%); text-align: center; white-space: nowrap; color: #b8bec4; }
+.ud-friction__lbl b { display: block; font-size: 15px; font-weight: 700; } .ud-friction__lbl span { font-size: 12px; color: #6f767b; }
+.ud-friction__lbl.is-on { color: #fff; }
+
+/* ---- Undo stack (canvas + history) ------------------------------------------------------ */
+.ud-canvas { position: absolute; width: 390px; height: 413px; border-radius: 10px; background: var(--ud-panel); border: 1px solid var(--ud-border); overflow: hidden; background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px); background-size: 22px 22px; background-position: 6px 46px; }
+.ud-canvas__bar { height: 38px; background: #171f22; display: flex; align-items: center; gap: 9px; padding: 0 16px; color: #6f767b; font-size: 12px; }
+.ud-canvas__bar i { width: 9px; height: 9px; border: 1.5px solid #6f767b; border-radius: 2px; } .ud-canvas__bar i:nth-child(2) { border-radius: 50%; } .ud-canvas__bar i:nth-child(3) { height: 0; border-width: 1.5px 0 0; width: 10px; }
+.ud-canvas__bar span { margin-left: auto; }
+.ud-canvas svg { position: absolute; left: 0; top: 0; width: 390px; height: 413px; overflow: visible; }
+.ud-canvas .shape { transition: opacity .3s, transform .5s cubic-bezier(.2,.8,.2,1); }
+.ud-canvas .shape.is-hidden { opacity: 0; }
+.ud-history { position: absolute; width: 200px; border-radius: 10px; background: #0a1a1a; border: 1px solid rgba(34,203,160,.14); padding: 14px 13px 18px; }
+.ud-history__title { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 700; letter-spacing: .1em; color: var(--ud-muted); margin-bottom: 8px; }
+.ud-history__title svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; }
+.ud-history__item { position: relative; display: flex; align-items: center; gap: 10px; height: 35px; padding: 0 10px; margin-top: 8px; border-radius: 6px; background: #182628; font-size: 14px; font-weight: 600; transition: background .3s, color .3s; }
+.ud-history__item svg { width: 13px; height: 13px; fill: none; stroke: var(--ud-green); stroke-width: 2; stroke-linecap: round; }
+.ud-history__item.is-undone { background: transparent; color: #3a4448; }
+.ud-history__item.is-undone svg { stroke: #3a4448; }
+.ud-history__item.is-undone::after { content: ''; position: absolute; left: 10px; right: 10px; top: 50%; height: 1px; background: #4a5558; }
+.ud-key { position: absolute; width: 61px; height: 61px; border-radius: 10px; background: #1e252b; border: 1px solid rgba(255,255,255,.08); display: grid; place-items: center; font-size: 26px; font-weight: 700; box-shadow: 0 6px 16px rgba(0,0,0,.4); }
+.ud-count { position: absolute; height: 37px; padding: 0 14px; border-radius: 8px; background: #2a3236; color: #5f666b; display: grid; place-items: center; font-size: 15px; font-weight: 700; transition: background .3s, color .3s; }
+.ud-count.is-on { background: #14473e; color: #3bd6aa; }
+
+/* ---- Delayed send -------------------------------------------------------------------- */
+.ud-mail { position: absolute; width: 572px; height: 412px; border-radius: 10px; background: #0e191b; border: 1px solid var(--ud-border); overflow: hidden; transition: opacity .4s, transform .4s; }
+.ud-mail.is-sending { opacity: .55; transform: scale(.985); }
+.ud-mail__bar { height: 40px; background: #141c1f; display: flex; align-items: center; padding: 0 18px; font-size: 15px; font-weight: 600; }
+.ud-mail__bar span { margin-left: auto; color: #6f767b; font-size: 14px; letter-spacing: .4em; }
+.ud-mail__to { position: absolute; left: 19px; top: 50px; display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--ud-muted); }
+.ud-mail__to b { padding: 6px 12px; border-radius: 6px; background: #1b2528; color: #e3e6e8; font-size: 14px; font-weight: 600; }
+.ud-mail__subject { position: absolute; left: 19px; top: 97px; font-size: 15px; font-weight: 600; }
+.ud-mail__line { position: absolute; left: 18px; right: 18px; top: 130px; height: 1px; background: rgba(255,255,255,.06); }
+.ud-mail__body { position: absolute; left: 19px; top: 143px; font-size: 17px; line-height: 28px; color: #e3e6e8; }
+.ud-mail__body .typo { padding: 0 4px; border-radius: 3px; background: rgba(224,80,94,.18); box-shadow: 0 0 0 1px rgba(224,80,94,.5); }
+.ud-mail__body .fixed { padding: 0 2px; color: var(--ud-green); font-weight: 600; }
+.ud-mail__send { position: absolute; left: 18px; top: 357px; display: inline-flex; align-items: center; gap: 10px; height: 41px; padding: 0 22px 0 20px; border-radius: 8px; background: var(--ud-green); color: #062b22; font-size: 16px; font-weight: 700; transition: background .3s, color .3s; }
+.ud-mail__send svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; }
+.ud-mail.is-sending .ud-mail__send { background: #1b2528; color: #6f767b; }
+.ud-mail__attach { position: absolute; left: 142px; top: 362px; display: inline-flex; align-items: center; gap: 8px; height: 31px; padding: 0 14px; border-radius: 6px; background: #1b2528; color: var(--ud-muted); font-size: 14px; }
+.ud-mail__attach svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; }
+.ud-sending { position: absolute; width: 574px; height: 66px; border-radius: 10px; background: #162022; border: 1px solid var(--ud-border); display: flex; align-items: center; gap: 16px; padding: 0 20px 0 21px; }
+.ud-sending__label { font-size: 17px; font-weight: 600; }
+.ud-sending__track { width: 305px; height: 6px; border-radius: 3px; background: #1f272a; overflow: hidden; }
+.ud-sending__fill { height: 100%; width: var(--p, 0%); background: #19c094; border-radius: 3px; transition: width .2s linear; }
+.ud-sending__time { width: 26px; font-size: 15px; color: var(--ud-muted); text-align: right; }
+.ud-sending__undo { margin-left: auto; padding: 8px 18px; border: 0; border-radius: 999px; background: #0a5c48; color: #3bd6aa; font-size: 16px; font-weight: 700; cursor: pointer; }
+
+/* ---- Outro ----------------------------------------------------------------------------- */
+.ud-follow { position: absolute; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 10px; padding: 16px 30px; border-radius: 999px; background: #2fbf9b; color: #062b22; font-size: 18px; font-weight: 700; white-space: nowrap; box-shadow: 0 0 40px rgba(34,203,160,.35); }
+.ud-follow svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+/* ---- Motion ------------------------------------------------------------------------------ */
+.ud-in { opacity: 0; animation: ud-in .45s cubic-bezier(.2,.8,.2,1) forwards; animation-delay: var(--d, 0s); }
+@keyframes ud-in { from { opacity: 0; transform: translateY(12px) } to { opacity: 1; transform: none } }
+.ud-fade { opacity: 0; animation: ud-fade .4s ease forwards; animation-delay: var(--d, 0s); }
+@keyframes ud-fade { to { opacity: 1 } }
+.ud-out { animation: ud-out .3s ease forwards; animation-delay: var(--d, 0s); }
+@keyframes ud-out { to { opacity: 0 } }

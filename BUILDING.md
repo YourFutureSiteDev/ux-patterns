@@ -41,3 +41,7 @@ writes `tools/shots/<slug>/compare-N.jpg` with the source frame on the left and 
 ## Credit
 
 The README's second line links the designmotionhq page (if it exists) and the Instagram reel from `catalog.json`. The code is our own implementation of the pattern; none of their files are copied or committed.
+
+## Note on JS in screenshots
+
+`tools/shot.mjs` serves the repo over local http, so `<script type="module">` and `import './pattern.js'` work inside the screenshots. Drive JS-built scenes from `pattern.js` directly; there is no need for inline copies of its functions in demo.html.

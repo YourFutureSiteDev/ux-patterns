@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Text Truncation · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #090c0f; --accent: #2fd9ab; --danger: #e4505e; --grid: rgba(255,255,255,.012); }
+  .scene { color: #f2f4f7; }
+  .scene::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 55% 42% at 50% 52%, rgba(255,255,255,.05), transparent 72%); pointer-events: none; }
+  .glow--red { width: 560px; height: 560px; background: rgba(160,40,60,.22); filter: blur(110px); }
+  /* the four rows fade / slide in one after another when a scene is entered live */
+  .tx-in { animation: tx-in .4s ease-out both; }
+  @keyframes tx-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+</style>
+</head>
+<body class="tx">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M15.5 4.6a3.5 3.5 0 0 1 0 6.8M17 13.6a6.5 6.5 0 0 1 4.5 6.4"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+</svg>
+
+<!-- 1 · Hook: team members, then a 30 character name -->
+<section class="scene" data-t="0" data-shot="3">
+  <div class="glow glow--red" style="left:380px;top:330px"></div>
+  <div class="tx-head tx-head--plain" style="position:absolute;left:47px;top:165px"><svg><use href="#i-users"/></svg><div class="tx-head__title">Team members</div></div>
+  <div class="tx-guide tx-guide--red" style="left:600px;top:212px;height:512px"></div>
+  <div class="tx-hatch" style="left:600px;top:530px;width:120px;height:80px"></div>
+  <div class="tx-row is-dim" style="position:absolute;left:47px;top:226px"><div class="tx-row__avatar">S</div><div class="tx-row__who"><div class="tx-row__name">Sarah Chen</div><div class="tx-row__mail">sarah@northwind.io</div></div><span class="tx-pill">Pro</span><span class="tx-btn">Manage</span></div>
+  <div class="tx-row is-dim" style="position:absolute;left:47px;top:327px"><div class="tx-row__avatar">M</div><div class="tx-row__who"><div class="tx-row__name">Marcus Webb</div><div class="tx-row__mail">marcus@northwind.io</div></div><span class="tx-pill">Pro</span><span class="tx-btn">Manage</span></div>
+  <div class="tx-row is-dim" style="position:absolute;left:47px;top:428px"><div class="tx-row__avatar">P</div><div class="tx-row__who"><div class="tx-row__name">Priya Raman</div><div class="tx-row__mail">priya@vellum.co</div></div><span class="tx-pill">Team</span><span class="tx-btn">Manage</span></div>
+  <div class="tx-row is-hot is-broken" style="position:absolute;left:47px;top:530px"><div class="tx-row__avatar">B</div><div class="tx-row__who"><div class="tx-row__name">Bartholomew Vandermeer-Okonkwo</div><div class="tx-row__mail">bartholomew@vellum.co</div></div><span class="tx-pill">Team</span><span class="tx-btn">Manage</span></div>
+  <div class="tx-row is-dim" style="position:absolute;left:47px;top:631px"><div class="tx-row__avatar">A</div><div class="tx-row__who"><div class="tx-row__name">Ada Okoro</div><div class="tx-row__mail">ada@fielded.dev</div></div><span class="tx-pill">Free</span><span class="tx-btn">Manage</span></div>
+  <div class="tx-note tx-note--red" style="left:47px;top:753px"><span class="dash"></span>30 characters. Nothing else changed.</div>
+  <div class="tx-big" style="top:880px">Real content breaks layouts.</div>
+  <div class="tx-sub" style="top:985px">your test data is 10 characters long</div>
+</section>
+
+<!-- 2a · 01 the ellipsis that never fires (broken) -->
+<section class="scene" data-t="4.5" data-shot="9">
+  <div class="glow glow--red" style="left:300px;top:300px"></div>
+  <div class="tx-head" style="position:absolute;left:47px;top:132px"><span class="tx-head__tag">01</span><div class="tx-head__title">the ellipsis that never fires</div></div>
+  <div class="tx-guide tx-guide--red" style="left:600px;top:200px;height:100px"></div>
+  <div class="tx-hatch" style="left:600px;top:210px;width:120px;height:80px"></div>
+  <div class="tx-row is-hot is-broken" style="position:absolute;left:47px;top:210px"><div class="tx-row__avatar">B</div><div class="tx-row__who"><div class="tx-row__name">Bartholomew Vandermeer-Okonkwo</div><div class="tx-row__mail">bartholomew@vellum.co</div></div><span class="tx-pill">Team</span><span class="tx-btn">Manage</span></div>
+  <div class="tx-ghost" style="left:418px;top:343px;width:53px;height:25px;border-radius:999px"></div>
+  <div class="tx-ghost" style="left:486px;top:340px;width:95px;height:40px;border-radius:8px"></div>
+  <div class="tx-bar tx-bar--teal" style="left:122px;top:342px;width:282px"><span class="tx-bar__label">available</span></div>
+  <div class="tx-bar tx-bar--red" style="left:122px;top:401px;width:392px"><span class="tx-bar__label">content — refuses to shrink</span></div>
+  <div class="tx-code" style="position:absolute;left:47px;top:478px">
+    <div class="tx-code__line"><span class="s">.name {</span></div>
+    <div class="tx-code__line is-in"><span class="p">overflow</span><span class="c">: </span><span class="v">hidden</span><span class="c">;</span></div>
+    <div class="tx-code__line is-in is-struck"><span class="p">text-overflow</span><span class="c">: </span><span class="v">ellipsis</span><span class="c">;</span></div>
+    <div class="tx-code__line is-in is-dim"><span class="p">min-width</span><span class="c">: </span><span class="v">0</span><span class="c">;</span></div>
+    <div class="tx-code__line"><span class="s">}</span></div>
+  </div>
+  <div class="tx-note tx-note--red" style="left:47px;top:697px"><span class="dot"></span>Manage — pushed outside the card</div>
+  <div class="tx-note" style="left:47px;top:739px">flex children default to min-width: auto</div>
+  <div class="tx-tabs" style="position:absolute;left:47px;top:934px"><div class="tx-tab is-active">min-width</div><div class="tx-tab">truncate</div><div class="tx-tab">tabular</div><div class="tx-tab">wrap</div></div>
+</section>
+
+<!-- 2b · min-width: 0 applied -->
+<section class="scene" data-t="12" data-shot="13.5">
+  <div class="tx-head" style="position:absolute;left:47px;top:132px"><span class="tx-head__tag">01</span><div class="tx-head__title">the ellipsis that never fires</div></div>
+  <div class="tx-guide" style="left:600px;top:200px;height:100px"><span class="tx-guide__label">fits</span></div>
+  <div class="tx-row is-hot" style="position:absolute;left:47px;top:210px"><div class="tx-row__avatar">B</div><div class="tx-row__who"><div class="tx-row__name">Bartholomew Vandermeer-Okonkwo</div><div class="tx-row__mail">bartholomew@vellum.co</div></div><span class="tx-pill">Team</span><span class="tx-btn">Manage</span></div>
+  <div class="tx-ghost" style="left:418px;top:343px;width:53px;height:25px;border-radius:999px"></div>
+  <div class="tx-ghost" style="left:486px;top:340px;width:95px;height:40px;border-radius:8px"></div>
+  <div class="tx-bar tx-bar--teal" style="left:122px;top:342px;width:282px"><span class="tx-bar__label">available</span></div>
+  <div class="tx-bar tx-bar--red" style="left:122px;top:401px;width:392px"><span class="tx-bar__label">content — refuses to shrink</span></div>
+  <div class="tx-code" style="position:absolute;left:47px;top:478px">
+    <div class="tx-code__line"><span class="s">.name {</span></div>
+    <div class="tx-code__line is-in"><span class="p">overflow</span><span class="c">: </span><span class="v">hidden</span><span class="c">;</span></div>
+    <div class="tx-code__line is-in"><span class="p">text-overflow</span><span class="c">: </span><span class="v">ellipsis</span><span class="c">;</span></div>
+    <div class="tx-code__line is-in is-on"><span class="p">min-width</span><span class="c">: </span><span class="v">0</span><span class="c">;</span></div>
+    <div class="tx-code__line"><span class="s">}</span></div>
+  </div>
+  <div class="tx-note tx-note--teal" style="left:47px;top:697px"><span class="dot"></span>Manage — inside the card</div>
+  <div class="tx-note" style="left:47px;top:739px">flex children default to min-width: auto</div>
+  <div class="tx-big" style="top:815px">min-width: 0, or no ellipsis.</div>
+  <div class="tx-tabs" style="position:absolute;left:47px;top:934px"><div class="tx-tab is-active">min-width</div><div class="tx-tab">truncate</div><div class="tx-tab">tabular</div><div class="tx-tab">wrap</div></div>
+</section>
+
+<!-- 3a · 02 cut the middle, not the end (end-truncated) -->
+<section class="scene" data-t="16.5" data-shot="21">
+  <div class="glow glow--red" style="left:300px;top:300px;background:rgba(160,40,60,.14)"></div>
+  <div class="tx-head" style="position:absolute;left:47px;top:132px"><span class="tx-head__tag">02</span><div class="tx-head__title">cut the middle, not the end</div></div>
+  <div class="tx-file" style="position:absolute;left:47px;top:212px"><svg><use href="#i-file"/></svg><span>quarterly_report_fina…</span></div>
+  <div class="tx-file" style="position:absolute;left:47px;top:297px"><svg><use href="#i-file"/></svg><span>design_system_tokens_…</span></div>
+  <div class="tx-file" style="position:absolute;left:47px;top:382px"><svg><use href="#i-file"/></svg><span>screenshot_2026_07_30…</span></div>
+  <div class="tx-file" style="position:absolute;left:47px;top:483px"><svg><use href="#i-mail"/></svg><span>bartholomew.vandermee…</span></div>
+  <div class="tx-file__spill" style="left:613px;top:232px">.pdf</div>
+  <div class="tx-file__spill" style="left:613px;top:317px">.json</div>
+  <div class="tx-file__spill" style="left:613px;top:402px">.png</div>
+  <div class="tx-split" style="position:absolute;left:47px;top:600px"><div class="tx-split__keep">quarterly_rep</div><div class="tx-split__drop">ort_fi</div><div class="tx-split__keep">nal_v3.pdf</div></div>
+  <div class="tx-split__labels" style="position:absolute;left:47px;top:644px"><span class="k">keep</span><span class="d">drop</span><span class="k">keep</span></div>
+  <div class="tx-tabs" style="position:absolute;left:47px;top:934px"><div class="tx-tab is-done"><span class="tx-tab__tick"></span>min-width</div><div class="tx-tab is-active">truncate</div><div class="tx-tab">tabular</div><div class="tx-tab">wrap</div></div>
+</section>
+
+<!-- 3b · middle-truncated -->
+<section class="scene" data-t="22.5" data-shot="25.5">
+  <div class="tx-head" style="position:absolute;left:47px;top:132px"><span class="tx-head__tag">02</span><div class="tx-head__title">cut the middle, not the end</div></div>
+  <div class="tx-file is-fixed" style="position:absolute;left:47px;top:212px"><svg><use href="#i-file"/></svg><span>quarterly_rep…nal_v3<span class="ext">.pdf</span></span></div>
+  <div class="tx-file is-fixed" style="position:absolute;left:47px;top:297px"><svg><use href="#i-file"/></svg><span>design_system…xport<span class="ext">.json</span></span></div>
+  <div class="tx-file is-fixed" style="position:absolute;left:47px;top:382px"><svg><use href="#i-file"/></svg><span>screenshot_20…_14_22<span class="ext">.png</span></span></div>
+  <div class="tx-file is-fixed" style="position:absolute;left:47px;top:483px"><svg><use href="#i-mail"/></svg><span>bartholomew.v…<span class="ext">@northwind.io</span></span></div>
+  <div class="tx-split" style="position:absolute;left:47px;top:600px"><div class="tx-split__keep">quarterly_rep</div><div class="tx-split__drop">ort_fi</div><div class="tx-split__keep">nal_v3.pdf</div></div>
+  <div class="tx-split__labels" style="position:absolute;left:47px;top:644px"><span class="k">keep</span><span class="d">drop</span><span class="k">keep</span></div>
+  <div class="tx-big" style="top:815px">Both ends carry meaning.</div>
+  <div class="tx-tabs" style="position:absolute;left:47px;top:934px"><div class="tx-tab is-done"><span class="tx-tab__tick"></span>min-width</div><div class="tx-tab is-active">truncate</div><div class="tx-tab">tabular</div><div class="tx-tab">wrap</div></div>
+</section>
+
+<!-- 4a · 03 numbers that twitch (proportional) -->
+<section class="scene" data-t="27" data-shot="28.5" id="twitch">
+  <div class="glow glow--red" style="left:300px;top:400px;background:rgba(160,40,60,.14)"></div>
+  <div class="tx-head" style="position:absolute;left:47px;top:132px"><span class="tx-head__tag">03</span><div class="tx-head__title">numbers that twitch</div></div>
+  <div class="tx-metric" style="position:absolute;left:47px;top:220px"><div class="tx-metric__label">Active users</div><div class="tx-metric__value" data-metric="1000,9999">9,575</div><div class="tx-metric__unit">online</div></div>
+  <div class="tx-metric" style="position:absolute;left:47px;top:305px"><div class="tx-metric__label">Requests / min</div><div class="tx-metric__value" data-metric="1000,9999">4,889</div><div class="tx-metric__unit">req</div></div>
+  <div class="tx-metric" style="position:absolute;left:47px;top:390px"><div class="tx-metric__label">p95 latency</div><div class="tx-metric__value" data-metric="1000,9999">9,202</div><div class="tx-metric__unit">ms</div></div>
+  <div class="tx-widths" style="position:absolute;left:47px;top:507px"><div class="tx-widths__n">1,111</div><div class="tx-widths__n">8,888</div><div class="tx-widths__note">five characters, two widths</div></div>
+  <div class="tx-tabs" style="position:absolute;left:47px;top:934px"><div class="tx-tab is-done"><span class="tx-tab__tick"></span>min-width</div><div class="tx-tab is-done"><span class="tx-tab__tick"></span>truncate</div><div class="tx-tab is-active">tabular</div><div class="tx-tab">wrap</div></div>
+</section>
+
+<!-- 4b · tabular-nums applied -->
+<section class="scene" data-t="31.5" data-shot="34.5" id="tabular">
+  <div class="tx-head" style="position:absolute;left:47px;top:132px"><span class="tx-head__tag">03</span><div class="tx-head__title">numbers that twitch</div></div>
+  <div class="tx-metric is-tabular" style="position:absolute;left:47px;top:220px"><div class="tx-metric__label">Active users</div><div class="tx-metric__value" data-metric="1000,9999">7,752</div><div class="tx-metric__unit">online</div></div>
+  <div class="tx-metric is-tabular" style="position:absolute;left:47px;top:305px"><div class="tx-metric__label">Requests / min</div><div class="tx-metric__value" data-metric="1000,9999">3,066</div><div class="tx-metric__unit">req</div></div>
+  <div class="tx-metric is-tabular" style="position:absolute;left:47px;top:390px"><div class="tx-metric__label">p95 latency</div><div class="tx-metric__value" data-metric="1000,9999">7,379</div><div class="tx-metric__unit">ms</div></div>
+  <div class="tx-widths is-tabular" style="position:absolute;left:47px;top:507px"><div class="tx-widths__n">1,111</div><div class="tx-widths__n">8,888</div><div class="tx-widths__note">five characters, one width</div></div>
+  <div class="tx-code" style="position:absolute;left:47px;top:655px">
+    <div class="tx-code__line"><span class="s">.metric {</span></div>
+    <div class="tx-code__line is-in is-on"><span class="p">font-variant-numeric</span><span class="c">: </span><span class="v">tabular-nums</span><span class="c">;</span></div>
+    <div class="tx-code__line"><span class="s">}</span></div>
+  </div>
+  <div class="tx-big" style="top:815px">Digits should never move.</div>
+  <div class="tx-tabs" style="position:absolute;left:47px;top:934px"><div class="tx-tab is-done"><span class="tx-tab__tick"></span>min-width</div><div class="tx-tab is-done"><span class="tx-tab__tick"></span>truncate</div><div class="tx-tab is-active">tabular</div><div class="tx-tab">wrap</div></div>
+</section>
+
+<!-- 5a · 04 one word, no break (URL overflows, break-all rejected) -->
+<section class="scene" data-t="36" data-shot="43.5">
+  <div class="glow glow--red" style="left:340px;top:200px"></div>
+  <div class="tx-head" style="position:absolute;left:47px;top:132px"><span class="tx-head__tag">04</span><div class="tx-head__title">one word, no break</div></div>
+  <div class="tx-guide tx-guide--red" style="left:600px;top:200px;height:266px"></div>
+  <div class="tx-hatch" style="left:600px;top:212px;width:120px;height:254px"></div>
+  <div class="tx-msg is-broken" style="position:absolute;left:47px;top:212px"><div class="tx-msg__avatar">P</div><div class="tx-msg__body"><div class="tx-msg__from">Priya Raman</div><div class="tx-msg__text">Can you check the July invoice before Friday?<br><a href="#">https://app.northwind.io/workspace/7f3a9c/settings/billing/invoices/2026-07</a></div></div></div>
+  <div class="tx-note tx-note--red" style="left:47px;top:480px"><span class="dot"></span>0 spaces in that URL — 0 break opportunities</div>
+  <div class="tx-code" style="position:absolute;left:47px;top:538px">
+    <div class="tx-code__line"><span class="s">.message {</span></div>
+    <div class="tx-code__line is-in is-struck"><span class="p">word-break</span><span class="c">: </span><span class="v">break-all</span><span class="c">;</span></div>
+    <div class="tx-code__line is-in is-dim"><span class="p">overflow-wrap</span><span class="c">: </span><span class="v">anywhere</span><span class="c">;</span></div>
+    <div class="tx-code__line"><span class="s">}</span></div>
+  </div>
+  <div class="tx-note" style="left:47px;top:715px;line-height:24px"><span class="red">break-all</span> chops normal words in half too.<br><span class="teal">anywhere</span> only breaks when there is no other option.</div>
+  <div class="tx-tabs" style="position:absolute;left:47px;top:934px"><div class="tx-tab is-done"><span class="tx-tab__tick"></span>min-width</div><div class="tx-tab is-done"><span class="tx-tab__tick"></span>truncate</div><div class="tx-tab is-done"><span class="tx-tab__tick"></span>tabular</div><div class="tx-tab is-active">wrap</div></div>
+</section>
+
+<!-- 5b · overflow-wrap: anywhere applied -->
+<section class="scene" data-t="45" data-shot="46.5">
+  <div class="tx-head" style="position:absolute;left:47px;top:132px"><span class="tx-head__tag">04</span><div class="tx-head__title">one word, no break</div></div>
+  <div class="tx-guide" style="left:600px;top:200px;height:266px"><span class="tx-guide__label">fits</span></div>
+  <div class="tx-msg is-fixed" style="position:absolute;left:47px;top:212px"><div class="tx-msg__avatar">P</div><div class="tx-msg__body"><div class="tx-msg__from">Priya Raman</div><div class="tx-msg__text">Can you check the July invoice before Friday?<br><a href="#">https://app.northwind.io/workspace/7f3a9c/settings/billing/invoices/2026-07</a></div></div></div>
+  <div class="tx-note tx-note--teal" style="left:47px;top:480px"><span class="dot"></span>breaks anywhere it has to</div>
+  <div class="tx-code" style="position:absolute;left:47px;top:538px">
+    <div class="tx-code__line"><span class="s">.message {</span></div>
+    <div class="tx-code__line is-in is-struck"><span class="p">word-break</span><span class="c">: </span><span class="v">break-all</span><span class="c">;</span></div>
+    <div class="tx-code__line is-in is-on"><span class="p">overflow-wrap</span><span class="c">: </span><span class="v">anywhere</span><span class="c">;</span></div>
+    <div class="tx-code__line"><span class="s">}</span></div>
+  </div>
+  <div class="tx-note" style="left:47px;top:715px;line-height:24px"><span class="red">break-all</span> chops normal words in half too.<br><span class="teal">anywhere</span> only breaks when there is no other option.</div>
+  <div class="tx-big" style="top:815px;font-size:39px">Long strings need permission.</div>
+  <div class="tx-tabs" style="position:absolute;left:47px;top:934px"><div class="tx-tab is-done"><span class="tx-tab__tick"></span>min-width</div><div class="tx-tab is-done"><span class="tx-tab__tick"></span>truncate</div><div class="tx-tab is-done"><span class="tx-tab__tick"></span>tabular</div><div class="tx-tab is-active">wrap</div></div>
+</section>
+
+<!-- 6 · Outro: the four fixes -->
+<section class="scene" data-t="48" data-shot="49.5">
+  <div class="tx-kicker" style="position:absolute;left:47px;top:176px">THE FOUR FIXES</div>
+  <div class="tx-fix" style="position:absolute;left:47px;top:224px"><div class="tx-fix__check"></div><div class="tx-fix__name">min-width: 0</div><div class="tx-fix__where">flex children that must shrink</div></div>
+  <div class="tx-fix" style="position:absolute;left:47px;top:299px"><div class="tx-fix__check"></div><div class="tx-fix__name">truncate the middle</div><div class="tx-fix__where">filenames, emails, paths</div></div>
+  <div class="tx-fix" style="position:absolute;left:47px;top:374px"><div class="tx-fix__check"></div><div class="tx-fix__name">tabular-nums</div><div class="tx-fix__where">anything that updates live</div></div>
+  <div class="tx-fix" style="position:absolute;left:47px;top:448px"><div class="tx-fix__check"></div><div class="tx-fix__name">overflow-wrap: anywhere</div><div class="tx-fix__where">URLs, tokens, IDs</div></div>
+  <div style="position:absolute;left:47px;top:553px;font-size:18px;font-weight:600;color:#aab1ba">Ship none of it untested. Three fixtures:</div>
+  <div style="position:absolute;left:47px;top:595px;display:flex;gap:12px"><span class="tx-chip">empty</span><span class="tx-chip">1 character</span><span class="tx-chip">40 characters + an emoji</span></div>
+  <div class="tx-big" style="top:750px;font-size:44px">Follow for more UI systems.</div>
+  <div style="position:absolute;left:0;right:0;top:875px;text-align:center;font-size:22px;font-weight:500;color:#7f8792">Save this before your next demo.</div>
+  <div style="position:absolute;left:0;right:0;top:960px;text-align:center;font:18px/1 var(--tx-mono);color:#3e4650;letter-spacing:.04em">@designmotionhq</div>
+</section>
+
+<script type="module">
+  import { liveMetrics } from './pattern.js';
+  // Numbers twitch live when the proportional scene is entered; frozen at the frame's values for screenshots.
+  for (const id of ['twitch', 'tabular']) {
+    const s = document.getElementById(id);
+    s.addEventListener('scene:enter', e => { if (e.detail.t > 0) return; s._lm?.stop(); s._lm = liveMetrics(s, { interval: 900 }); });
+  }
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

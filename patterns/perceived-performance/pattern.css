@@ -1,0 +1,101 @@
+/* Perceived Performance, rebuilt from the @designmotionhq reel "Same loading time. Different feeling."
+   Component classes are prefixed .pp- and depend only on the tokens below. */
+.pp {
+  --pp-bg: #0f0c11; --pp-card: #16141d; --pp-card-2: #1c1a24; --pp-track: #2f2d38; --pp-border: rgba(255,255,255,.06);
+  --pp-text: #f3f2f6; --pp-muted: #9a9aa5; --pp-dim: #6b6b76;
+  --pp-purple: #8b5cf6; --pp-purple-dim: rgba(139,92,246,.18);
+  --pp-cyan: #22d3ee; --pp-red: #ef4444; --pp-green: #22c55e;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--pp-text);
+}
+
+/* ---- Reel furniture ------------------------------------------------------------ */
+.pp-secret { position: absolute; left: 0; right: 0; text-align: center; font-size: 15px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--pp-purple); }
+.pp-h { position: absolute; left: 0; right: 0; text-align: center; font-size: 30px; font-weight: 800; letter-spacing: -.04em; }
+.pp-h--sm { font-size: 24px; font-weight: 700; color: #d8d7de; letter-spacing: -.035em; }
+.pp-cap { position: absolute; left: 0; right: 0; text-align: center; font-size: 21px; font-weight: 600; color: var(--pp-muted); letter-spacing: -.03em; }
+.pp-cap--strong { font-size: 23px; font-weight: 700; color: var(--pp-text); }
+.pp-cap--purple { color: var(--pp-purple); }
+.pp-tag { position: absolute; font-size: 12px; font-weight: 700; white-space: nowrap; }
+.pp-tag--lg { font-size: 17px; }
+.pp-tag--red { color: var(--pp-red); } .pp-tag--green { color: var(--pp-green); }
+.pp-emoji { position: absolute; width: 46px; height: 46px; border-radius: 12px; background: var(--pp-card); border: 1px solid var(--pp-border); display: grid; place-items: center; font-size: 20px; line-height: 1; }
+.pp-emoji--float { animation: pp-float 4s ease-in-out infinite; }
+@keyframes pp-float { 50% { transform: translateY(-6px); } }
+
+/* ---- Hook: two bars, same duration ------------------------------------------------- */
+.pp-bar { height: 8px; border-radius: 4px; background: var(--pp-track); overflow: hidden; }
+.pp-bar__fill { height: 100%; border-radius: 4px; width: 0; }
+.pp-bar--cyan .pp-bar__fill { background: var(--pp-cyan); animation: pp-linear 3.3s linear infinite; }
+.pp-bar--purple .pp-bar__fill { background: var(--pp-purple); animation: pp-fast 3.3s cubic-bezier(.1,.8,.3,1) infinite; }
+@keyframes pp-linear { 0% { width: 0 } 90%, 100% { width: 100% } }
+@keyframes pp-fast { 0% { width: 0 } 85%, 100% { width: 100% } }
+
+/* ---- Intro cards ------------------------------------------------------------------------ */
+.pp-intro { position: absolute; width: 336px; height: 226px; border-radius: 16px; background: var(--pp-card); border: 1px solid var(--pp-border); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; box-shadow: 0 20px 60px rgba(0,0,0,.35); }
+.pp-intro__emoji { font-size: 52px; line-height: 1; }
+.pp-intro__title { font-size: 22px; font-weight: 700; }
+
+/* ---- Secret 1: skeleton screens ------------------------------------------------------------ */
+.pp-blank { position: absolute; width: 252px; height: 213px; border-radius: 10px; background: var(--pp-card); border: 1px solid var(--pp-border); display: grid; place-items: center; }
+.pp-spin { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #3a3744; border-top-color: var(--pp-purple); animation: pp-rotate 1s linear infinite; }
+@keyframes pp-rotate { to { transform: rotate(360deg); } }
+.pp-post { position: absolute; width: 252px; height: 235px; border-radius: 10px; background: var(--pp-card); border: 1px solid var(--pp-border); padding: 12px; }
+.pp-post__head { display: flex; align-items: center; gap: 8px; height: 24px; }
+.pp-post__head > div { flex: 1; text-align: center; padding-right: 24px; }
+.pp-post__avatar { width: 24px; height: 24px; border-radius: 50%; background: var(--pp-purple); display: grid; place-items: center; font-size: 10px; font-weight: 700; color: #fff; }
+.pp-post__name { font-size: 10px; font-weight: 700; line-height: 1.2; }
+.pp-post__handle { font-size: 9px; color: var(--pp-dim); }
+.pp-post__text { font-size: 9.5px; line-height: 1.5; color: #c9c8d1; margin: 6px 0 0; text-align: center; }
+.pp-post__img { margin-top: 8px; height: 88px; border-radius: 6px; background: linear-gradient(120deg, #4c2d86 0%, #2a3d6e 55%, #0f6b7a 100%); display: grid; place-items: center; font-size: 22px; }
+.pp-post__foot { display: flex; gap: 18px; margin-top: 9px; font-size: 9px; color: var(--pp-dim); }
+.pp-post__foot span { display: inline-flex; align-items: center; gap: 4px; }
+.pp-post__skel { position: absolute; inset: 12px; }
+.pp-bone { position: absolute; border-radius: 4px; background: #262430; overflow: hidden; }
+.pp-bone::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent); transform: translateX(-100%); animation: pp-shimmer 1.6s ease-in-out infinite; }
+@keyframes pp-shimmer { to { transform: translateX(100%); } }
+.pp-post.is-loading .pp-post__content { visibility: hidden; }
+.pp-post:not(.is-loading) .pp-post__skel { display: none; }
+
+/* ---- Secret 2: optimistic like --------------------------------------------------------------- */
+.pp-like { position: absolute; width: 186px; height: 98px; border-radius: 12px; background: var(--pp-card); border: 1px solid var(--pp-border); display: flex; align-items: center; justify-content: center; gap: 14px; cursor: pointer; }
+.pp-like__heart { width: 44px; height: 44px; color: #4a4653; transition: color .15s, transform .15s; display: grid; place-items: center; }
+.pp-like__heart svg { width: 44px; height: 44px; fill: currentColor; }
+.pp-like.is-liked .pp-like__heart { color: var(--pp-red); }
+.pp-like.is-pending .pp-like__heart { color: #4a4653; }
+.pp-like__count { font-size: 32px; font-weight: 700; color: var(--pp-red); letter-spacing: -.01em; }
+
+/* ---- Secret 3: progress illusions ------------------------------------------------------------ */
+.pp-prog { position: absolute; width: 335px; height: 251px; border-radius: 16px; background: var(--pp-card); border: 1px solid var(--pp-border); padding: 30px 34px; box-shadow: 0 20px 60px rgba(0,0,0,.35); }
+.pp-prog__row { margin-bottom: 30px; }
+.pp-prog__title { font-size: 17px; font-weight: 700; }
+.pp-prog__title--red { color: var(--pp-red); } .pp-prog__title--green { color: var(--pp-green); }
+.pp-prog__meta { display: flex; justify-content: space-between; width: 186px; margin-top: 12px; font-size: 13px; color: var(--pp-muted); }
+.pp-prog__meta b { color: var(--pp-text); font-weight: 700; }
+.pp-prog__bar { width: 186px; margin-top: 7px; height: 10px; border-radius: 5px; }
+.pp-prog__bar .pp-bar__fill { animation: none; transition: width .3s linear; }
+.pp-prog__bar--cyan .pp-bar__fill { background: var(--pp-cyan); } .pp-prog__bar--purple .pp-bar__fill { background: var(--pp-purple); }
+.pp-chip { position: absolute; display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 20px; border-radius: 10px; background: var(--pp-card); border: 1px solid var(--pp-border); font-size: 14px; font-weight: 700; color: #c9c8d1; white-space: nowrap; }
+.pp-chip--green { color: var(--pp-green); }
+
+/* ---- All three combined: the upload card ------------------------------------------------------ */
+.pp-upload { position: absolute; width: 335px; height: 309px; border-radius: 14px; background: var(--pp-card); border: 1px solid var(--pp-border); padding: 24px 25px; box-shadow: 0 20px 60px rgba(0,0,0,.35); transition: border-color .3s; }
+.pp-upload.is-done { border-color: var(--pp-green); box-shadow: 0 0 40px rgba(34,197,94,.25), 0 0 100px rgba(34,197,94,.12); }
+.pp-upload__img { height: 146px; border-radius: 8px; background: #2a2830; display: grid; place-items: center; font-size: 30px; color: #55535f; }
+.pp-upload__ph svg { width: 26px; height: 26px; fill: none; stroke: #5a5864; stroke-width: 2; stroke-linejoin: round; }
+.pp-upload.is-done .pp-upload__img { background: linear-gradient(120deg, #4c2d86 0%, #2a3d6e 55%, #0f6b7a 100%); color: inherit; }
+.pp-upload__img .pp-upload__ph { display: block; } .pp-upload__img .pp-upload__photo { display: none; }
+.pp-upload.is-done .pp-upload__ph { display: none; } .pp-upload.is-done .pp-upload__photo { display: block; }
+.pp-upload__row { display: flex; justify-content: space-between; align-items: baseline; margin-top: 18px; font-size: 13px; font-weight: 700; }
+.pp-upload__row span { font-weight: 600; color: var(--pp-muted); }
+.pp-upload.is-done .pp-upload__row span { color: var(--pp-green); }
+.pp-upload__size { font-size: 11px; color: var(--pp-dim); margin-top: 3px; }
+.pp-upload__bar { height: 6px; margin-top: 12px; }
+.pp-upload__bar .pp-bar__fill { background: var(--pp-purple); animation: none; transition: width .3s linear; }
+.pp-upload.is-done .pp-upload__bar .pp-bar__fill { background: var(--pp-green); }
+.pp-upload__chips { display: flex; gap: 6px; margin-top: 14px; }
+.pp-upload__chips span { display: inline-flex; align-items: center; gap: 5px; height: 24px; padding: 0 10px; border-radius: 6px; background: var(--pp-purple-dim); border: 1px solid rgba(139,92,246,.35); font-size: 10.5px; font-weight: 600; color: #c4b5fd; white-space: nowrap; }
+.pp-upload.is-done .pp-upload__chips { display: none; }
+.pp-upload.is-done { height: auto; padding-bottom: 26px; }
+
+/* ---- Outro ------------------------------------------------------------------------------------------ */
+.pp-follow { position: absolute; display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 180px; height: 51px; border-radius: 12px; background: var(--pp-purple); color: #fff; font-size: 18px; font-weight: 700; box-shadow: 0 10px 40px rgba(139,92,246,.4); }

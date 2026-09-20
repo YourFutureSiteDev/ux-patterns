@@ -1,0 +1,124 @@
+/* Peak-End Rule, rebuilt from the @designmotionhq reel "Users don't average an experience. They remember its peak and its end."
+   Component classes are prefixed .pe- and depend only on the tokens below. */
+.pe {
+  --pe-bg: #0a090b; --pe-panel: #0f1116; --pe-panel-2: #14171d; --pe-chip: #1a1d23; --pe-border: #1c1f26;
+  --pe-text: #f3f5f7; --pe-muted: #8b93a1; --pe-dim: #5f6771;
+  --pe-pink: #ee4b7a; --pe-pink-dim: rgba(238,75,122,.16); --pe-red: #f11c4e; --pe-green: #33cf5d; --pe-green-dim: rgba(51,207,93,.16); --pe-teal: #14d49d; --pe-teal-dim: rgba(20,212,157,.16);
+  font-family: 'Inter', system-ui, sans-serif; color: var(--pe-text);
+}
+
+/* ---- Kicker pills and labels ------------------------------------------------------- */
+.pe-kicker { position: absolute; left: 50%; transform: translateX(-50%); height: 35px; padding: 0 18px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; background: rgba(238,75,122,.12); color: var(--pe-pink); }
+.pe-kicker--teal { background: var(--pe-teal-dim); color: var(--pe-teal); }
+.pe-kicker--bare { background: none; padding: 0; height: auto; font-size: 15px; }
+.pe-kicker svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.pe-axis { position: absolute; font-size: 11px; font-weight: 600; letter-spacing: .18em; color: var(--pe-dim); transform: rotate(-90deg); transform-origin: left top; white-space: nowrap; }
+
+/* ---- Satisfaction charts ------------------------------------------------------------- */
+.pe-chart { position: absolute; background: var(--pe-panel); border: 1px solid var(--pe-border); border-radius: 14px; overflow: hidden; }
+.pe-chart svg { position: absolute; left: 0; top: 0; overflow: visible; }
+.pe-chart__head { position: absolute; left: 22px; right: 22px; top: 22px; display: flex; align-items: center; justify-content: space-between; font-size: 17px; font-weight: 700; }
+.pe-chart__head i { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 10px; vertical-align: 2px; }
+.pe-chart__head span { font-size: 13px; font-weight: 600; letter-spacing: .1em; color: var(--pe-muted); }
+.pe-line { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.pe-line--pink { stroke: var(--pe-red); stroke-width: 3.5; filter: drop-shadow(0 0 4px rgba(241,28,78,.9)) drop-shadow(0 0 10px rgba(241,28,78,.5)); }
+.pe-line--green { stroke: var(--pe-green); stroke-width: 3.5; filter: drop-shadow(0 0 4px rgba(51,207,93,.9)) drop-shadow(0 0 10px rgba(51,207,93,.5)); }
+.pe-line--dim { stroke: var(--pe-pink); opacity: .4; filter: none; }
+.pe-dot { fill: var(--pe-panel); stroke-width: 2; }
+.pe-dot--pink { stroke: var(--pe-red); } .pe-dot--green { stroke: var(--pe-green); } .pe-dot--dim { stroke: var(--pe-pink); opacity: .4; }
+.pe-end { position: absolute; width: 18px; height: 18px; border-radius: 50%; }
+.pe-end--pink { background: var(--pe-red); box-shadow: 0 0 16px rgba(241,28,78,.7); }
+.pe-end--green { background: var(--pe-green); box-shadow: 0 0 16px rgba(51,207,93,.7); }
+.pe-end__label { position: absolute; font-size: 11px; font-weight: 800; letter-spacing: .12em; }
+.pe-mark { position: absolute; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; }
+.pe-mark--teal { background: var(--pe-teal); box-shadow: 0 0 22px rgba(20,212,157,.7); }
+.pe-mark--green { background: var(--pe-green); box-shadow: 0 0 22px rgba(51,207,93,.7); }
+.pe-mark span { position: absolute; left: 50%; top: -30px; transform: translateX(-50%); font-size: 15px; font-weight: 800; letter-spacing: .14em; white-space: nowrap; }
+.pe-mark--teal span { color: var(--pe-teal); } .pe-mark--green span { color: var(--pe-green); }
+.pe-memory { position: absolute; left: 22px; right: 22px; display: flex; align-items: baseline; justify-content: space-between; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--pe-muted); }
+.pe-memory b { font-size: 22px; font-weight: 800; letter-spacing: 0; color: var(--pe-red); }
+.pe-memory b small { font-size: 12px; font-weight: 600; color: var(--pe-muted); margin-left: 3px; }
+.pe-bar { position: absolute; height: 6px; border-radius: 3px; background: #1a1d23; overflow: hidden; }
+.pe-bar i { display: block; height: 100%; border-radius: 3px; background: var(--pe-red); width: 0; }
+
+/* ---- Formula ------------------------------------------------------------------------ */
+.pe-formula { position: absolute; height: 56px; padding: 0 24px; border-radius: 8px; background: #1a1c22; display: inline-flex; align-items: center; gap: 14px; font-size: 22px; font-weight: 800; letter-spacing: .06em; white-space: nowrap; }
+.pe-formula .teal { color: var(--pe-teal); } .pe-formula .green { color: var(--pe-green); } .pe-formula .pink { color: var(--pe-pink); } .pe-formula .op { color: var(--pe-muted); font-weight: 600; }
+.pe-strike { position: absolute; left: 0; right: 0; text-align: center; font-size: 15px; font-weight: 700; letter-spacing: .12em; color: var(--pe-dim); text-decoration: line-through; text-decoration-color: var(--pe-pink); text-decoration-thickness: 2px; }
+
+/* ---- Checkout phones ---------------------------------------------------------------- */
+.pe-phone { position: absolute; width: 276px; height: 516px; border-radius: 22px; background: #0b0d12; border: 1.5px solid #2a1a20; overflow: hidden; }
+.pe-phone--joy { border-color: rgba(51,207,93,.6); box-shadow: 0 0 60px rgba(51,207,93,.25); }
+.pe-phone__status { position: absolute; left: 20px; right: 20px; top: 12px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; color: #c9ced5; }
+.pe-phone__title { position: absolute; left: 20px; top: 40px; font-size: 17px; font-weight: 700; }
+.pe-summary { position: absolute; left: 20px; right: 20px; top: 78px; height: 78px; padding: 10px 12px; border-radius: 8px; background: #14171d; font-size: 11px; }
+.pe-summary div { display: flex; justify-content: space-between; height: 17px; align-items: center; color: var(--pe-muted); }
+.pe-summary div b { color: #e6eaee; font-weight: 600; }
+.pe-summary div.total { margin-top: 6px; padding-top: 5px; border-top: 1px solid #1f232a; color: #e6eaee; font-weight: 700; }
+.pe-field { position: absolute; left: 20px; right: 20px; height: 22px; padding: 0 8px; border-radius: 5px; background: #111419; font-size: 10px; line-height: 22px; color: #3a4149; }
+.pe-phone__home { position: absolute; left: 50%; bottom: 8px; width: 62px; height: 3px; margin-left: -31px; border-radius: 2px; background: #2a3038; }
+.pe-cold { position: absolute; left: 0; right: 0; top: 365px; text-align: center; color: #8b93a1; font-size: 14px; }
+.pe-cold svg { width: 20px; height: 20px; fill: none; stroke: #8b93a1; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; display: block; margin: 0 auto 8px; }
+.pe-joy { position: absolute; left: 0; right: 0; top: 265px; text-align: center; }
+.pe-joy__check { width: 60px; height: 60px; margin: 0 auto; border-radius: 50%; background: var(--pe-green); box-shadow: 0 0 40px rgba(51,207,93,.5); display: grid; place-items: center; }
+.pe-joy__check svg { width: 28px; height: 28px; fill: none; stroke: #062018; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.pe-joy b { display: block; margin-top: 14px; font-size: 16px; font-weight: 700; }
+.pe-joy__chip { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; height: 22px; padding: 0 12px; border-radius: 999px; background: var(--pe-green-dim); color: var(--pe-green); font-size: 11px; font-weight: 700; }
+.pe-joy__chip svg { width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-width: 2; }
+.pe-joy span { display: block; margin-top: 12px; font-size: 10px; color: var(--pe-dim); }
+.pe-score { position: absolute; width: 276px; display: flex; align-items: baseline; justify-content: space-between; font-size: 15px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--pe-muted); }
+.pe-score b { font-size: 28px; font-weight: 800; letter-spacing: 0; color: var(--pe-red); }
+.pe-score b small { font-size: 14px; font-weight: 600; color: var(--pe-muted); margin-left: 3px; }
+.pe-score--green b { color: var(--pe-green); }
+.pe-score + .pe-bar { height: 12px; border-radius: 6px; }
+.pe-bar--green i { background: var(--pe-green); }
+.pe-bar--pink i { background: var(--pe-pink); }
+
+/* ---- Flow rows ----------------------------------------------------------------------- */
+.pe-row { position: absolute; left: 47px; width: 626px; height: 58px; padding: 0 16px; display: flex; align-items: center; gap: 16px; border-radius: 10px; background: var(--pe-panel); border: 1px solid var(--pe-border); }
+.pe-row__icon { width: 32px; height: 32px; border-radius: 8px; background: #1a1d23; display: grid; place-items: center; color: #8b93a1; flex: none; }
+.pe-row__icon svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.pe-row b { display: block; font-size: 16px; font-weight: 700; }
+.pe-row span { display: block; margin-top: 2px; font-size: 12px; color: var(--pe-muted); }
+.pe-row.is-dim { opacity: .5; }
+.pe-row--done { height: 52px; gap: 12px; }
+.pe-row--done .pe-row__icon { width: 20px; height: 20px; border-radius: 50%; background: var(--pe-green-dim); color: var(--pe-green); }
+.pe-row--done .pe-row__icon svg { width: 12px; height: 12px; stroke-width: 2.2; }
+.pe-row--done b { font-size: 15px; font-weight: 600; color: #d7dce2; }
+.pe-peak { position: absolute; left: 55px; width: 610px; height: 83px; padding: 0 18px; display: flex; align-items: center; gap: 16px; border-radius: 12px; background: #0f1a17; border: 1.5px solid var(--pe-teal); box-shadow: 0 0 40px rgba(20,212,157,.25); }
+.pe-peak__icon { width: 44px; height: 44px; border-radius: 10px; background: var(--pe-teal); display: grid; place-items: center; color: #062018; box-shadow: 0 0 20px rgba(20,212,157,.5); }
+.pe-peak__icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.pe-peak div b { display: block; font-size: 20px; font-weight: 700; }
+.pe-peak div span { display: block; margin-top: 3px; font-size: 14px; font-weight: 600; color: var(--pe-teal); }
+.pe-tag { margin-left: auto; height: 24px; padding: 0 12px; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: .14em; display: inline-flex; align-items: center; }
+.pe-tag--teal { background: var(--pe-teal); color: #062018; }
+.pe-tag--pink { background: var(--pe-pink); color: #fff; }
+.pe-fail { position: absolute; left: 47px; width: 626px; height: 86px; padding: 0 18px; display: flex; align-items: center; gap: 14px; border-radius: 12px; background: rgba(224,60,106,.12); border: 1.5px solid var(--pe-pink); box-shadow: 0 0 40px rgba(238,75,122,.3); }
+.pe-fail__icon { width: 44px; height: 44px; border-radius: 10px; background: var(--pe-pink); display: grid; place-items: center; color: #fff; }
+.pe-fail__icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
+.pe-fail b { display: block; font-size: 18px; font-weight: 700; }
+.pe-fail span { display: block; margin-top: 3px; font-size: 14px; color: #f2a1b8; }
+.pe-rating { position: absolute; left: 47px; width: 626px; display: flex; align-items: baseline; justify-content: space-between; font-size: 14px; font-weight: 700; letter-spacing: .12em; color: var(--pe-muted); }
+.pe-rating svg { width: 12px; height: 12px; fill: none; stroke: var(--pe-pink); stroke-width: 2; vertical-align: -1px; margin-right: 6px; }
+.pe-rating b { font-size: 24px; font-weight: 800; letter-spacing: 0; color: var(--pe-green); }
+.pe-rating b small { font-size: 13px; font-weight: 600; color: var(--pe-muted); margin-left: 3px; }
+.pe-rating.is-bad b { color: var(--pe-pink); }
+.pe-note { position: absolute; left: 50%; transform: translateX(-50%); height: 38px; padding: 0 18px; border-radius: 8px; background: #14171d; display: inline-flex; align-items: center; gap: 8px; font-size: 15px; color: var(--pe-muted); white-space: nowrap; }
+.pe-note b { color: var(--pe-text); font-weight: 700; }
+.pe-note svg { width: 14px; height: 14px; fill: none; stroke: var(--pe-teal); stroke-width: 2; }
+
+/* ---- Outro ------------------------------------------------------------------------------ */
+.pe-pill { height: 40px; padding: 0 22px; border-radius: 999px; display: inline-flex; align-items: center; font-size: 15px; font-weight: 800; letter-spacing: .14em; }
+.pe-pill--teal { background: rgba(20,212,157,.14); color: var(--pe-teal); } .pe-pill--green { background: rgba(51,207,93,.14); color: var(--pe-green); } .pe-pill--pink { background: rgba(238,75,122,.14); color: var(--pe-pink); }
+.pe-cta { display: inline-flex; align-items: center; gap: 10px; height: 54px; padding: 0 28px; border-radius: 999px; background: var(--pe-pink); color: #fff; font-size: 18px; font-weight: 700; box-shadow: 0 0 50px rgba(238,75,122,.4); white-space: nowrap; }
+.pe-cta svg { width: 16px; height: 16px; fill: currentColor; }
+.pe-follow { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #9aa2ab; white-space: nowrap; }
+.pe-follow svg { width: 13px; height: 13px; fill: var(--pe-pink); }
+
+/* ---- Timeline helpers ---------------------------------------------------------------- */
+.pe-in { animation: pe-in .4s ease-out both; }
+@keyframes pe-in { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
+@keyframes pe-fade { to { opacity: 1 } }
+@keyframes pe-draw { to { stroke-dashoffset: 0 } }
+@keyframes pe-dim { to { opacity: .65 } }
+@keyframes pe-dim35 { to { opacity: .35 } }

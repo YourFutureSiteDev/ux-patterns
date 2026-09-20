@@ -1,0 +1,106 @@
+/* Stepper Wizard, rebuilt from the @designmotionhq reel "Twelve fields, one wall. Four steps, one path."
+   Component classes are prefixed .sw- and depend only on the tokens below. */
+.sw {
+  --sw-bg: #090d0e; --sw-panel: #111619; --sw-input: #1a2024; --sw-btn: #1e2428; --sw-border: rgba(255,255,255,.07);
+  --sw-text: #f3f5f7; --sw-muted: #8b93a1; --sw-dim: #5d666c;
+  --sw-pink: #e0527f; --sw-pink-text: #ee8fae; --sw-pink-dim: #3a1e2a; --sw-pink-deep: #4a1f2e; --sw-pink-line: rgba(224,82,127,.5);
+  --sw-green: #4fd18a; --sw-green-dim: #164f32; --sw-teal: #2dd4a6; --sw-teal-dim: #133a33; --sw-amber: #d9a24a; --sw-amber-dim: #3a2c18;
+  --sw-dot: 28px;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--sw-text);
+}
+
+/* ---- Card ------------------------------------------------------------------ */
+.sw-card { position: relative; background: var(--sw-panel); border: 1px solid var(--sw-border); border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,.45); }
+.sw-card__head { display: flex; align-items: center; justify-content: space-between; }
+.sw-step-of { font-size: 12px; font-weight: 500; color: var(--sw-muted); }
+
+/* ---- Labels + fields --------------------------------------------------------- */
+.sw-label { display: block; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--sw-muted); margin: 14px 0 7px; }
+.sw-label--xs { font-size: 10px; margin: 9px 0 4px; line-height: 12px; }
+.sw-field { display: flex; align-items: center; gap: 10px; height: 38px; padding: 0 12px; border-radius: 8px; background: var(--sw-input); border: 1.5px solid transparent; font-size: 15px; font-weight: 600; color: var(--sw-text); transition: border-color .2s, box-shadow .2s; }
+.sw-field--sm { height: 26px; padding: 0 10px; font-size: 13px; border-radius: 6px; border-width: 1px; }
+.sw-field svg { width: 14px; height: 14px; fill: none; stroke: var(--sw-muted); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.sw-field--sm svg { width: 12px; height: 12px; }
+.sw-field input { all: unset; flex: 1; min-width: 0; font: inherit; color: inherit; }
+.sw-field input::placeholder, .sw-field .ph { color: var(--sw-dim); font-weight: 500; }
+.sw-field.is-focus { border-color: var(--sw-pink); box-shadow: 0 0 0 1px rgba(224,82,127,.15), 0 0 16px rgba(224,82,127,.2); }
+.sw-field.is-error { border-color: var(--sw-pink); }
+.sw-field.is-error .sw-field__mark { color: var(--sw-pink); }
+.sw-field__mark { margin-left: auto; width: 14px; height: 14px; color: var(--sw-green); }
+.sw-field__mark svg { width: 14px; height: 14px; stroke: currentColor; }
+.sw-caret { display: inline-block; width: 1.5px; height: 16px; background: var(--sw-text); margin-left: 1px; animation: sw-blink 1s steps(2) infinite; }
+@keyframes sw-blink { to { opacity: 0 } }
+.sw-error { display: flex; align-items: center; gap: 5px; margin-top: 9px; font-size: 12px; font-weight: 500; color: var(--sw-pink); }
+.sw-error svg { width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-width: 2; }
+.sw-error--hint { font-size: 10px; font-weight: 700; margin-top: 12px; }
+.sw-error--hint svg { display: none; }
+
+/* ---- Buttons ----------------------------------------------------------------- */
+.sw-btn { display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 12px; border: 0; border-radius: 6px; background: var(--sw-btn); color: #d5dae0; font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity .2s, transform .1s; }
+.sw-btn svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.sw-btn--next { background: var(--sw-pink); color: #fff; box-shadow: 0 0 18px rgba(224,82,127,.35); padding: 0 12px 0 14px; }
+.sw-btn--next:active { transform: scale(.97); }
+.sw-btn[disabled], .sw-btn.is-disabled { background: var(--sw-btn); color: var(--sw-dim); box-shadow: none; cursor: default; }
+.sw-btn--lg { height: 33px; font-size: 15px; padding: 0 12px 0 16px; }
+
+/* ---- Pills ------------------------------------------------------------------- */
+.sw-pill { display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 4px; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.sw-pill--pink { background: var(--sw-pink-dim); color: var(--sw-pink-text); }
+.sw-pill--teal { background: var(--sw-teal-dim); color: var(--sw-teal); }
+.sw-pill--amber { background: var(--sw-amber-dim); color: var(--sw-amber); }
+.sw-pill--green { background: var(--sw-green-dim); color: var(--sw-green); }
+.sw-pill--solid { background: var(--sw-pink); color: #fff; height: 16px; font-size: 10px; padding: 0 6px; border-radius: 3px; }
+.sw-pill--count { background: var(--sw-pink-dim); color: var(--sw-pink); height: 18px; font-size: 10px; padding: 0 6px; letter-spacing: 0; }
+.sw-kicker { display: inline-flex; align-items: center; height: 36px; padding: 0 20px; border-radius: 999px; background: var(--sw-pink-deep); color: var(--sw-pink-text); font-size: 17px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; box-shadow: 0 0 20px rgba(224,82,127,.15); }
+.sw-tag { display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 4px; background: var(--sw-pink-dim); color: var(--sw-pink-text); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.sw-chip { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 12px; border-radius: 6px; background: var(--sw-btn); color: #b8bfc5; font-size: 13px; font-weight: 600; }
+.sw-chip svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; }
+.sw-stepnow { display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 6px; background: var(--sw-pink-deep); color: var(--sw-pink-text); font-size: 16px; font-weight: 700; box-shadow: 0 0 16px rgba(224,82,127,.2); }
+
+/* ---- Linear bar --------------------------------------------------------------- */
+.sw-bar { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--sw-muted); }
+.sw-bar b { color: var(--sw-pink); }
+.sw-bar__track { height: 4px; border-radius: 2px; background: #20282b; margin-top: 8px; overflow: hidden; }
+.sw-bar__fill { height: 100%; border-radius: 2px; background: var(--sw-pink); width: var(--p, 0%); transition: width .5s cubic-bezier(.2,.8,.2,1); box-shadow: 0 0 8px rgba(224,82,127,.5); }
+.sw-load { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--sw-muted); display: flex; justify-content: space-between; }
+.sw-load b { color: var(--sw-pink); } .sw-load--green b { color: var(--sw-green); }
+.sw-load__track { height: 4px; border-radius: 2px; background: #20282b; margin-top: 5px; overflow: hidden; }
+.sw-load__fill { height: 100%; background: var(--sw-pink); width: var(--p, 0%); transition: width .8s cubic-bezier(.2,.8,.2,1); }
+.sw-load--green .sw-load__fill { background: var(--sw-green); }
+
+/* ---- Numbered dots ------------------------------------------------------------ */
+.sw-dots { display: flex; align-items: center; }
+.sw-dot { width: var(--sw-dot); height: var(--sw-dot); border-radius: 50%; border: 1.5px solid #394143; color: var(--sw-dim); display: grid; place-items: center; font-size: 13px; font-weight: 700; flex: none; transition: background .3s, border-color .3s, color .3s; }
+.sw-dot svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; display: none; }
+.sw-dot.is-done, .sw-dot.is-on { background: var(--sw-pink); border-color: var(--sw-pink); color: #fff; box-shadow: 0 0 14px rgba(224,82,127,.45); }
+.sw-dot.is-done svg { display: block; } .sw-dot.is-done span { display: none; }
+.sw-dots__line { flex: 1; height: 2px; background: #2a3236; margin: 0 8px; transition: background .3s; }
+.sw-dots__line.is-done { background: var(--sw-pink); }
+
+/* ---- Step labels ------------------------------------------------------------ */
+.sw-labels { display: flex; align-items: center; gap: 14px; font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--sw-dim); }
+.sw-labels i { width: 8px; height: 1.5px; background: #3a4246; flex: none; }
+.sw-labels .is-done { color: var(--sw-green); display: inline-flex; align-items: center; gap: 4px; }
+.sw-labels .is-done::before { content: '✓'; font-size: 11px; }
+.sw-labels .is-on { background: var(--sw-pink-dim); color: var(--sw-pink-text); padding: 0 10px; height: 24px; display: inline-flex; align-items: center; border-radius: 4px; }
+.sw-labels--tight { gap: 8px; }
+
+/* ---- Review rows ------------------------------------------------------------- */
+.sw-review { display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px 0 10px; border-radius: 6px; background: var(--sw-input); margin-top: 9px; }
+.sw-review > svg { width: 13px; height: 13px; fill: none; stroke: var(--sw-muted); stroke-width: 1.8; flex: none; }
+.sw-review small { display: block; font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--sw-muted); }
+.sw-review b { display: block; font-size: 13px; font-weight: 600; margin-top: 1px; }
+.sw-review .edit { margin-left: auto; width: 12px; height: 12px; stroke: var(--sw-muted); }
+.sw-ready { display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 12px; margin-top: 10px; border-radius: 6px; border: 1px solid rgba(79,209,138,.45); background: #16302a; color: var(--sw-green); font-size: 12px; font-weight: 700; }
+.sw-ready svg { width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-width: 2.5; }
+
+/* ---- Wall (dim, fading twelve-field form) --------------------------------- */
+.sw-wall { position: relative; mask-image: linear-gradient(#000 40%, transparent 100%); -webkit-mask-image: linear-gradient(#000 40%, transparent 100%); opacity: .55; }
+.sw-wall .sw-label { font-size: 10px; margin: 10px 0 6px; }
+.sw-wall__val { font-size: 13px; font-weight: 500; color: #b8bfc5; padding-left: 10px; height: 20px; }
+.sw-toast { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 16px; border-radius: 6px; background: #3a1a22; border: 1px solid rgba(224,82,127,.35); color: var(--sw-pink-text); font-size: 12px; font-weight: 600; }
+.sw-toast svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; }
+.sw-storage { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--sw-dim); }
+.sw-storage svg { width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-width: 2; }
+.sw-save { display: inline-flex; align-items: center; gap: 10px; height: 38px; padding: 0 18px; border-radius: 8px; background: var(--sw-pink-dim); color: #f3f5f7; font-size: 16px; font-weight: 600; box-shadow: 0 0 24px rgba(224,82,127,.2); }
+.sw-save svg { width: 14px; height: 14px; fill: var(--sw-pink); }

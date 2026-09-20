@@ -1,0 +1,136 @@
+/* Live Cursors, rebuilt from the @designmotionhq reel "Three cursors land on your canvas. None of them are yours."
+   Component classes are prefixed .lc- and depend only on the tokens below. */
+.lc {
+  --lc-bg: #0a0d10; --lc-panel: #14181d; --lc-canvas: #10151a; --lc-shape: #181e25; --lc-chip: #21262e; --lc-border: rgba(255,255,255,.06);
+  --lc-text: #f3f5f7; --lc-muted: #8b93a1; --lc-dim: #5f6771;
+  --lc-teal: #14b8a6; --lc-purple: #8b7cf6; --lc-amber: #f0b04a; --lc-pink: #f0506e;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--lc-text);
+}
+.lc .mono { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; }
+
+/* ---- Cursor with name label ------------------------------------------------ */
+.lc-cursor { position: absolute; width: 0; height: 0; pointer-events: none; --c: var(--lc-teal); transition: left .1s linear, top .1s linear; }
+.lc-cursor svg { position: absolute; left: 0; top: 0; width: 24px; height: 29px; overflow: visible; fill: var(--c); stroke: #0a0d10; stroke-width: 1.4; stroke-linejoin: round; }
+.lc-cursor__label { position: absolute; left: 12px; top: 22px; height: 23px; padding: 0 9px; border-radius: 5px; background: var(--c); color: #0a0d10; font-size: 14px; font-weight: 700; line-height: 23px; white-space: nowrap; }
+.lc-cursor--teal { --c: var(--lc-teal); } .lc-cursor--purple { --c: var(--lc-purple); } .lc-cursor--amber { --c: var(--lc-amber); } .lc-cursor--pink { --c: var(--lc-pink); }
+.lc-cursor--ghost { --c: #3a414b; } .lc-cursor--ghost svg { stroke: #2a3038; }
+.lc-cursor--sys svg { fill: #fff; stroke: #000; }
+.lc-cursor.is-lerp { transition: none; }
+.lc-cursor__dot { position: absolute; left: -4px; top: -4px; width: 8px; height: 8px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 25%, transparent); }
+
+/* ---- Canvas with toolbar ---------------------------------------------------- */
+.lc-canvas { position: absolute; background: var(--lc-canvas); border: 1px solid var(--lc-border); border-radius: 14px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+.lc-canvas.is-following { border: 2px solid var(--lc-amber); }
+.lc-toolbar { position: absolute; left: 0; right: 0; top: 0; height: 48px; background: var(--lc-panel); display: flex; align-items: center; padding: 0 22px; }
+.lc-toolbar__tools { display: flex; gap: 12px; color: #6b7480; }
+.lc-toolbar__tools svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.lc-toolbar__tools svg:first-child { color: #d6dbe3; }
+.lc-toolbar__name { position: absolute; left: 0; right: 0; text-align: center; font-size: 15px; font-weight: 700; color: #d6dbe3; }
+.lc-toolbar__name span { font-weight: 500; color: var(--lc-dim); margin-left: 8px; }
+.lc-toolbar__avatars { margin-left: auto; display: flex; }
+.lc-world { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+.lc-shape { position: absolute; background: var(--lc-shape); border-radius: 10px; }
+
+/* ---- Profile card and weekly panel (canvas contents) ------------------------ */
+.lc-profile { position: absolute; width: 260px; height: 183px; padding: 21px 20px; background: var(--lc-shape); border-radius: 12px; }
+.lc-profile__head { display: flex; align-items: center; gap: 14px; }
+.lc-profile__avatar { width: 40px; height: 40px; border-radius: 50%; background: #262c34; color: #9aa2ab; font-size: 15px; font-weight: 700; display: grid; place-items: center; }
+.lc-profile__name { font-size: 17px; font-weight: 700; }
+.lc-profile__role { font-size: 14px; color: var(--lc-muted); margin-top: 2px; }
+.lc-profile__stats { display: flex; gap: 14px; margin-top: 18px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.06); }
+.lc-stat { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 6px; background: #1f252c; font-size: 14px; color: #c9ced5; }
+.lc-stat svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+.lc-profile__btn { margin-top: 14px; height: 36px; border-radius: 8px; background: #1e252c; display: grid; place-items: center; font-size: 15px; font-weight: 700; }
+.lc-weekly { position: absolute; width: 250px; height: 205px; padding: 20px 18px; background: var(--lc-shape); border-radius: 12px; }
+.lc-weekly__label { display: flex; justify-content: space-between; font-size: 15px; color: var(--lc-muted); }
+.lc-weekly__label svg { width: 16px; height: 16px; fill: none; stroke: var(--lc-teal); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.lc-weekly__value { margin-top: 12px; font-size: 34px; font-weight: 700; letter-spacing: -.02em; }
+.lc-weekly__bars { display: flex; align-items: flex-end; gap: 8px; height: 55px; margin-top: 12px; }
+.lc-weekly__bars i { display: block; width: 24px; border-radius: 4px; background: #1f252c; }
+.lc-weekly__bars i:last-child { background: var(--lc-teal); }
+.lc-weekly__delta { margin-top: 12px; font-size: 13px; color: var(--lc-teal); }
+.lc-weekly.is-dim { opacity: .5; }
+
+/* ---- Avatars ------------------------------------------------------------------- */
+.lc-avatar { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-size: 15px; font-weight: 700; color: #0a0d10; border: 3px solid var(--lc-panel); box-sizing: border-box; }
+.lc-avatar + .lc-avatar { margin-left: -8px; }
+.lc-avatar--teal { background: var(--lc-teal); } .lc-avatar--purple { background: var(--lc-purple); } .lc-avatar--amber { background: var(--lc-amber); }
+.lc-avatar--more { background: var(--lc-chip); color: #aab1ba; font-size: 14px; }
+.lc-avatar.is-followed { box-shadow: 0 0 0 2px var(--lc-amber), 0 0 16px rgba(240,176,74,.5); }
+.lc-avatar--sm { width: 30px; height: 30px; font-size: 12px; border-width: 2px; }
+.lc-avatar--sm + .lc-avatar--sm { margin-left: -4px; }
+
+/* ---- Interpolation panels ---------------------------------------------------- */
+.lc-pill { display: inline-flex; align-items: center; height: 26px; padding: 0 12px; border-radius: 6px; font-size: 14px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.lc-pill--pink { background: rgba(240,80,110,.16); color: var(--lc-pink); }
+.lc-pill--teal { background: rgba(20,184,166,.16); color: var(--lc-teal); }
+.lc-pill--amber { background: rgba(240,176,74,.16); color: var(--lc-amber); height: 32px; border-radius: 999px; padding: 0 16px; font-size: 16px; letter-spacing: 0; text-transform: none; gap: 8px; }
+.lc-pill--amber svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; }
+.lc-wp { position: absolute; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: #2a3038; }
+.lc-traffic { position: absolute; padding: 20px 22px; background: var(--lc-panel); border: 1px solid var(--lc-border); border-radius: 12px; }
+.lc-traffic__title { font-size: 15px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #9aa2ab; }
+.lc-traffic__row { display: flex; align-items: center; gap: 12px; margin-top: 12px; font-size: 15px; font-weight: 600; color: #d6dbe3; }
+.lc-traffic__row b { width: 135px; font-weight: 600; }
+.lc-traffic__row.is-teal b { color: var(--lc-teal); }
+.lc-traffic__cells { display: flex; gap: 6px; flex: 1; }
+.lc-traffic__cells i { flex: 1; height: 18px; border-radius: 3px; background: #1e242b; }
+.lc-traffic__cells.is-fine { gap: 2px; }
+.lc-traffic__cells.is-fine i { border-radius: 1px; }
+.lc-traffic__cells i.on { background: #8e93a6; }
+.lc-traffic__cells.is-fine i.on { background: var(--lc-teal); }
+
+/* ---- Identity hash --------------------------------------------------------------- */
+.lc-hash { position: absolute; background: var(--lc-panel); border: 1px solid var(--lc-border); border-radius: 12px; }
+.lc-hash__row { display: flex; align-items: center; justify-content: center; gap: 20px; }
+.lc-hash__id { height: 44px; padding: 0 16px; border-radius: 6px; background: #262b31; display: inline-flex; align-items: center; font: 500 16px 'JetBrains Mono', ui-monospace, monospace; }
+.lc-hash__hex { height: 44px; padding: 0 16px; border-radius: 6px; background: #0d1013; display: inline-flex; align-items: center; font: 700 22px 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .28em; }
+.lc-hash__hex span { color: var(--lc-dim); font-weight: 500; }
+.lc-hash__arrow { color: #6b7480; font-size: 20px; }
+.lc-hash__swatch { width: 60px; height: 60px; border-radius: 10px; background: var(--lc-teal); box-shadow: 0 0 40px rgba(20,184,166,.5); }
+.lc-hash__note { text-align: center; font-size: 15px; color: var(--lc-muted); }
+.lc-day { position: absolute; width: 192px; height: 237px; padding: 14px; background: var(--lc-panel); border: 1px solid var(--lc-border); border-radius: 12px; }
+.lc-day__name { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #9aa2ab; }
+.lc-skel { position: absolute; height: 8px; border-radius: 4px; background: #232930; }
+.lc-note { position: absolute; display: flex; align-items: center; background: var(--lc-panel); border: 1px solid var(--lc-border); border-radius: 12px; }
+.lc-note__swatch { width: 24px; height: 24px; border-radius: 6px; background: var(--lc-teal); }
+.lc-note__hex { margin-left: auto; height: 28px; padding: 0 10px; border-radius: 6px; background: rgba(20,184,166,.16); color: var(--lc-teal); font: 700 14px 'JetBrains Mono', ui-monospace, monospace; display: inline-flex; align-items: center; }
+
+/* ---- Presence header and footer ----------------------------------------------- */
+.lc-doc { position: absolute; display: flex; align-items: center; padding: 0 24px; background: var(--lc-panel); border: 1px solid var(--lc-border); border-radius: 12px; }
+.lc-doc svg.ic { width: 18px; height: 18px; fill: none; stroke: #8b93a1; stroke-width: 1.8; margin-right: 14px; }
+.lc-doc__name { font-size: 18px; font-weight: 700; }
+.lc-doc__meta { font-size: 13px; color: var(--lc-dim); margin-top: 2px; }
+.lc-doc__avatars { margin-left: auto; display: flex; }
+.lc-online { display: inline-flex; align-items: center; gap: 10px; font-size: 19px; font-weight: 700; }
+.lc-online svg { width: 20px; height: 20px; fill: none; stroke: var(--lc-teal); stroke-width: 2; }
+.lc-doc__hint { margin-left: auto; font-size: 15px; color: var(--lc-muted); }
+
+/* ---- Selection lock ----------------------------------------------------------------- */
+.lc-selection { position: absolute; border: 2px solid var(--lc-teal); border-radius: 10px; box-shadow: 0 0 24px rgba(20,184,166,.25); pointer-events: none; }
+.lc-selection i { position: absolute; width: 8px; height: 8px; background: var(--lc-canvas); border: 2px solid var(--lc-teal); box-sizing: border-box; }
+.lc-selection i:nth-child(1) { left: -6px; top: -6px; } .lc-selection i:nth-child(2) { right: -6px; top: -6px; }
+.lc-selection i:nth-child(3) { left: -6px; bottom: -6px; } .lc-selection i:nth-child(4) { right: -6px; bottom: -6px; }
+.lc-lock { position: absolute; display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 10px; border-radius: 5px; background: var(--lc-teal); color: #0a0d10; font-size: 14px; font-weight: 700; white-space: nowrap; }
+.lc-lock svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2.2; }
+.lc-locktip { position: absolute; display: inline-flex; align-items: center; gap: 6px; height: 33px; padding: 0 14px; border-radius: 8px; background: var(--lc-chip); font-size: 15px; font-weight: 600; box-shadow: 0 8px 24px rgba(0,0,0,.4); white-space: nowrap; }
+.lc-locktip svg { width: 13px; height: 13px; fill: none; stroke: var(--lc-teal); stroke-width: 2.2; }
+.lc-locktip b { color: var(--lc-teal); font-weight: 700; margin-right: 4px; }
+.lc-foot { position: absolute; display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--lc-panel); border: 1px solid var(--lc-border); border-radius: 12px; font-size: 17px; font-weight: 700; }
+.lc-foot span { color: var(--lc-muted); font-weight: 500; }
+.lc-foot svg { width: 16px; height: 16px; fill: none; stroke: var(--lc-teal); stroke-width: 2; }
+.lc-foot--amber svg { stroke: var(--lc-amber); }
+
+/* ---- Follow mode viewport animation ---------------------------------------------- */
+.lc-follow .lc-world { animation: lc-follow 6s cubic-bezier(.4,0,.2,1) infinite alternate; }
+@keyframes lc-follow { 0%, 25% { transform: translate(42px, 123px) scale(1.1); } 75%, 100% { transform: translate(-237px, -42px) scale(1.35); } }
+.lc-follow .lc-cursor--amber { animation: lc-follow-cursor 6s cubic-bezier(.4,0,.2,1) infinite alternate; }
+@keyframes lc-follow-cursor { 0%, 25% { left: 147px; top: 125px; } 75%, 100% { left: 444px; top: 250px; } }
+
+/* ---- Outro ---------------------------------------------------------------------------- */
+.lc-tag { display: inline-flex; align-items: center; height: 42px; padding: 0 20px; border-radius: 999px; background: #1c2126; color: #b9bfc7; font-size: 17px; font-weight: 500; }
+.lc-cta { display: inline-flex; align-items: center; gap: 12px; height: 57px; padding: 0 30px; border-radius: 999px; background: var(--lc-teal); color: #062018; font-size: 20px; font-weight: 700; box-shadow: 0 0 60px rgba(20,184,166,.35); white-space: nowrap; }
+.lc-cta svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.lc-save { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #9aa2ab; white-space: nowrap; }
+.lc-save svg { width: 14px; height: 14px; fill: var(--lc-teal); }
+.lc-live { display: inline-flex; align-items: center; gap: 8px; height: 31px; padding: 0 14px; border-radius: 8px; background: #1a1f24; color: #aab1ba; font-size: 15px; font-weight: 600; }
+.lc-live::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--lc-teal); }

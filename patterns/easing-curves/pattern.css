@@ -1,0 +1,74 @@
+/* Easing Curves, rebuilt from the @designmotionhq reel "Same distance. Different feel."
+   Three curves: linear (grey), ease-out (blue), spring (green). Component classes are prefixed .ec-. */
+.ec {
+  --ec-bg: #0b0a0e; --ec-card: #12121c; --ec-card-2: #1d1d2f; --ec-line: #2a2a36; --ec-border: rgba(255,255,255,.05);
+  --ec-text: #f2f2f4; --ec-muted: #9a9aa0; --ec-dim: #5c5b5f; --ec-faint: #3a3a42;
+  --ec-grey: #64748b; --ec-blue: #3b82f6; --ec-green: #22c55e;
+  --ec-linear: linear; --ec-ease-out: cubic-bezier(.16,1,.3,1);
+  --ec-spring: linear(0, 0.1884, 0.5288, 0.8188, 0.994, 1.066, 1.0732, 1.0522, 1.0267, 1.0078, 0.9977, 0.9944, 0.9949, 0.9968, 0.9986, 0.9998, 1.0003, 1.0004, 1.0003, 1.0002, 1.0001, 1, 1, 1, 1);
+  font-family: 'Inter', system-ui, sans-serif; color: var(--ec-text);
+}
+.ec-grey { --c: var(--ec-grey); } .ec-blue { --c: var(--ec-blue); } .ec-green { --c: var(--ec-green); }
+.ec-grey { --e: var(--ec-linear); } .ec-blue { --e: var(--ec-ease-out); } .ec-green { --e: var(--ec-spring); }
+
+/* ---- Chrome ------------------------------------------------------------------- */
+.ec-kicker { position: absolute; left: 0; right: 0; text-align: center; font-size: 18px; font-weight: 600; letter-spacing: .2em; color: #8a8a90; }
+.ec-title { position: absolute; left: 0; right: 0; text-align: center; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
+.ec-title em { font-style: normal; color: var(--ec-green); }
+.ec-label { position: absolute; font-size: 15px; font-weight: 600; color: var(--c, var(--ec-grey)); white-space: nowrap; line-height: 1.3; }
+.ec-glow { position: absolute; width: 640px; height: 640px; border-radius: 50%; background: radial-gradient(circle, rgba(34,197,94,.13), rgba(34,197,94,.04) 45%, transparent 68%); pointer-events: none; }
+.ec-pill { position: absolute; padding: 4px 9px; border-radius: 4px; font-size: 12px; font-weight: 600; color: var(--ec-green); background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.35); white-space: nowrap; }
+
+/* ---- Slider race (hook) ---------------------------------------------------------- */
+.ec-track { position: absolute; width: 590px; height: 3px; background: linear-gradient(90deg, color-mix(in srgb, var(--c) 10%, transparent), color-mix(in srgb, var(--c) 35%, transparent)); border-radius: 2px; }
+.ec-track::before { content: ''; position: absolute; left: 0; top: -8px; width: 2px; height: 19px; background: #2b2b36; }
+.ec-ball { position: absolute; width: 40px; height: 40px; border-radius: 50%; background: var(--c); box-shadow: 0 0 24px color-mix(in srgb, var(--c) 45%, transparent); }
+.ec-track .ec-ball { left: 0; top: -19px; animation: ec-race 4s var(--e) infinite; }
+@keyframes ec-race { 0% { transform: none; } 30%, 85% { transform: translateX(567px); } 100% { transform: none; } }
+.ec-track.ec-grey .ec-ball { animation-timing-function: var(--ec-linear); } .ec-track.ec-blue .ec-ball { animation-timing-function: var(--ec-ease-out); } .ec-track.ec-green .ec-ball { animation-timing-function: var(--ec-spring); }
+
+/* ---- Button press ----------------------------------------------------------------- */
+.ec-btn { position: absolute; width: 172px; height: 61px; border: 0; border-radius: 10px; background: var(--c); color: #fff; font: 700 20px 'Inter', sans-serif; display: grid; place-items: center; cursor: pointer; transition: transform .5s var(--e); }
+.ec-btn:active { transform: scale(.94); transition-duration: .1s; }
+.ec-btn.ec-green { box-shadow: 0 0 34px rgba(34,197,94,.45); }
+.ec-btn--loop { animation: ec-press 3s var(--e) infinite; }
+@keyframes ec-press { 0%, 40%, 100% { transform: none; } 45% { transform: scale(.94); } 50%, 90% { transform: none; } }
+.ec-curve { position: absolute; width: 132px; height: 52px; overflow: visible; }
+.ec-curve path { fill: none; stroke: var(--c); stroke-width: 1.5; stroke-linecap: round; opacity: .85; }
+.ec-curve circle { fill: var(--c); }
+.ec-curve .ec-curve__axis { stroke: #1a1a22; stroke-width: 1; opacity: 1; }
+
+/* ---- Card entrance --------------------------------------------------------------- */
+.ec-card { position: absolute; width: 200px; height: 86px; border-radius: 8px; background: var(--ec-card); border: 1px solid var(--ec-border); display: flex; align-items: center; gap: 12px; padding: 0 12px; }
+.ec-card__dot { width: 28px; height: 28px; border-radius: 50%; background: color-mix(in srgb, var(--c) 28%, #14141c); border: 1px solid color-mix(in srgb, var(--c) 35%, transparent); flex: none; }
+.ec-card__lines i { display: block; height: 6px; border-radius: 3px; background: #2f2f3d; }
+.ec-card__lines i:first-child { width: 116px; } .ec-card__lines i:last-child { width: 78px; height: 5px; margin-top: 10px; }
+.ec-card--loop { animation: ec-enter 4s var(--e) infinite; animation-delay: calc(var(--i) * 90ms); }
+@keyframes ec-enter { 0% { opacity: 0; transform: translateY(40px); } 20%, 85% { opacity: 1; transform: none; } 90%, 100% { opacity: 0; transform: translateY(40px); } }
+
+/* ---- Modal open / bottom sheet ------------------------------------------------------ */
+.ec-phone { position: absolute; width: 200px; height: 360px; border-radius: 12px; background: #0f0d14; border: 1px solid #1b1920; overflow: hidden; }
+.ec-phone__line { position: absolute; left: 12px; height: 6px; border-radius: 3px; background: #1b1920; }
+.ec-phone__block { position: absolute; left: 12px; top: 50px; width: 176px; height: 75px; border-radius: 6px; background: #14121a; }
+.ec-sheet { position: absolute; left: 0; right: 0; top: 160px; bottom: 0; background: var(--ec-card-2); border-radius: 12px 12px 0 0; padding: 12px 14px; animation: ec-sheet 4s var(--e) infinite; }
+.ec-sheet::before { content: ''; display: block; width: 30px; height: 3px; border-radius: 2px; background: #4c4b5c; margin: 0 auto 12px; }
+.ec-sheet i { display: block; height: 6px; border-radius: 3px; background: #33334a; width: 140px; }
+.ec-sheet i + i { width: 100px; height: 5px; margin-top: 9px; }
+.ec-sheet b { display: block; margin-top: 14px; height: 28px; border-radius: 6px; background: color-mix(in srgb, var(--c) 45%, #1d1d2f); }
+@keyframes ec-sheet { 0% { transform: translateY(100%); } 20%, 85% { transform: none; } 92%, 100% { transform: translateY(100%); } }
+
+/* ---- Curve graphs + ball tracks ------------------------------------------------------ */
+.ec-graph { position: absolute; width: 188px; height: 134px; overflow: visible; }
+.ec-graph line { stroke: #1a1a22; stroke-width: 1; }
+.ec-graph path { fill: none; stroke: var(--c); stroke-width: 2; stroke-linecap: round; }
+.ec-graph circle { fill: var(--c); }
+.ec-vtrack { position: absolute; width: 1px; height: 210px; background: #1c1c25; }
+.ec-vtrack .ec-ball { width: 28px; height: 28px; left: -14px; top: -14px; animation: ec-drop 4s var(--e) infinite; box-shadow: 0 0 20px color-mix(in srgb, var(--c) 45%, transparent); }
+@keyframes ec-drop { 0% { transform: none; } 40%, 85% { transform: translateY(210px); } 100% { transform: none; } }
+.ec-vtrack small { position: absolute; left: 20px; font-size: 11px; color: var(--ec-faint); }
+.ec-graph .ec-trace { animation: ec-trace 4s linear infinite; }
+
+/* ---- Outro --------------------------------------------------------------------------- */
+.ec-rank { position: absolute; left: 0; right: 0; text-align: center; font-size: 44px; font-weight: 800; letter-spacing: -.02em; white-space: nowrap; }
+.ec-rank b { font-weight: 800; } .ec-rank i { font-style: normal; color: #4b5563; font-size: 32px; margin: 0 14px; position: relative; top: -4px; }
+.ec-dot { position: absolute; width: 6px; height: 6px; border-radius: 50%; opacity: .35; }

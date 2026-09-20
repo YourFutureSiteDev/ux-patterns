@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tabs System · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0c0d11; --grid: transparent; --accent: #ef4f7e; --danger: #ef4f7e; }
+  .scene { color: #f3f5f7; }
+  .glow { width: 640px; height: 640px; filter: blur(110px); }
+  .tb-in { animation: tb-rise .45s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes tb-rise { from { opacity: 0; transform: translateY(12px) } to { opacity: 1; transform: none } }
+  /* hook: the same click, one indicator hard-cuts and one slides */
+  .tb-move-cut { animation: tb-move .28s steps(1, end) .6s both; }
+  .tb-move-slide { animation: tb-move .28s cubic-bezier(.2,.9,.2,1.05) .6s both; }
+  @keyframes tb-move { from { transform: translateX(158px) } to { transform: translateX(307px) } }
+  .tb-cursor-move { animation: tb-cursor .45s cubic-bezier(.3,.7,.3,1) .15s both; }
+  @keyframes tb-cursor { from { transform: translate(-147px, 0) } to { transform: none } }
+  .tb-nope-in { animation: tb-nope .4s cubic-bezier(.2,.9,.3,1.3) 1.6s both; }
+  @keyframes tb-nope { from { opacity: 0; transform: scale(.5) } to { opacity: 1; transform: none } }
+</style>
+</head>
+<body class="tb">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></symbol>
+  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6c-2-2-5-2-9-2v15c4 0 7 0 9 2 2-2 5-2 9-2V4c-4 0-7 0-9 2zM12 6v15"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8 3.4 4.5 7 4.5c2 0 3.4 1 5 2.8 1.6-1.8 3-2.8 5-2.8 3.6 0 6 3.5 4.5 7.3C19.5 16.4 12 21 12 21z"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/></symbol>
+  <symbol id="i-user-plus" viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M2 21a8 8 0 0 1 14-4M19 8v6M16 11h6"/></symbol>
+</svg>
+
+<!-- 1 · Hook: hard cut vs smooth slide -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:40px;top:220px;background:rgba(239,79,126,.16)"></div>
+  <div class="tb-pill" style="top:375px"><svg><use href="#i-x"/></svg>HARD CUT · 0MS</div>
+  <nav class="tb-tabs tb-tabs--lg tb-tabs--cut" style="left:53px;top:424px;width:614px"><button class="tb-tab">Overview</button><button class="tb-tab">Activity</button><button class="tb-tab is-active is-highlight">Settings</button><button class="tb-tab">Billing</button><i class="tb-tabs__ind tb-move-cut" style="--w:148px"></i></nav>
+  <svg class="tb-cursor tb-cursor-move" style="left:424px;top:548px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <nav class="tb-tabs tb-tabs--lg" style="left:53px;top:612px;width:614px"><button class="tb-tab">Overview</button><button class="tb-tab">Activity</button><button class="tb-tab is-active">Settings</button><button class="tb-tab">Billing</button><i class="tb-tabs__ind tb-move-slide" style="--w:148px"></i></nav>
+  <div class="tb-pill tb-pill--teal" style="top:709px"><svg><use href="#i-check"/></svg>SMOOTH SLIDE · 280MS</div>
+</section>
+
+<!-- 2 · 01 Indicator: the underline slides -->
+<section class="scene" data-t="3" data-shot="6">
+  <div class="glow" style="left:40px;top:120px;background:rgba(239,79,126,.1)"></div>
+  <div class="tb-kicker">01 · INDICATOR</div>
+  <h1 class="tb-title">The underline <em>slides</em></h1>
+  <nav class="tb-tabs" id="indTabs" style="left:60px;top:216px;width:600px"><button class="tb-tab">Overview</button><button class="tb-tab">Activity</button><button class="tb-tab is-active">Settings</button><button class="tb-tab">Billing</button><i class="tb-tabs__ind" style="--x:300px;--w:146px"></i></nav>
+  <div class="tb-card" style="left:48px;top:303px;width:227px"><div class="tb-card__code"><b>spring(</b>{
+damping: 22,
+stiffness: 200
+}<b>)</b></div></div>
+  <div class="tb-card" style="left:293px;top:303px;width:167px;padding-top:22px"><div class="tb-card__k">Content fade</div><div class="tb-card__v">180 ms</div></div>
+  <div class="tb-card" style="left:480px;top:303px;width:192px;padding:18px 15px"><div class="tb-card__cap">EASE OUT</div><svg class="tb-card__curve" viewBox="0 0 158 68"><line x1="2" y1="2" x2="2" y2="64"/><line x1="2" y1="64" x2="156" y2="64"/><path d="M4 62 C 40 58, 70 30, 100 16 S 140 8, 156 8"/></svg><div class="tb-card__note">Slow in. Fast out.</div></div>
+  <div class="tb-label" style="left:65px;width:285px;top:462px">HARD CUT</div>
+  <div class="tb-label tb-label--teal" style="left:371px;width:285px;top:462px">SLIDE</div>
+  <nav class="tb-tabs tb-tabs--sm tb-tabs--cut" id="cutTabs" style="left:65px;top:489px;width:285px"><button class="tb-tab is-active">Tab A</button><button class="tb-tab">Tab B</button><button class="tb-tab">Tab C</button><i class="tb-tabs__ind" style="--x:7px;--w:90px"></i></nav>
+  <nav class="tb-tabs tb-tabs--sm tb-tabs--teal" id="slideTabs" style="left:371px;top:489px;width:285px"><button class="tb-tab is-active">Tab A</button><button class="tb-tab">Tab B</button><button class="tb-tab">Tab C</button><i class="tb-tabs__ind" style="--x:7px;--w:90px"></i></nav>
+</section>
+
+<!-- 3 · 02 Overflow: 8 tabs, 1 screen -->
+<section class="scene" data-t="12" data-shot="15">
+  <div class="glow" style="left:40px;top:160px;background:rgba(46,230,173,.08)"></div>
+  <div class="tb-kicker tb-kicker--teal">02 · OVERFLOW</div>
+  <h1 class="tb-title">8 tabs · <em class="teal">1 screen</em></h1>
+  <button class="tb-chev" id="ovPrev" style="left:23px;top:282px" disabled aria-label="Previous tabs"><svg><use href="#i-chev-l"/></svg></button>
+  <nav class="tb-tabs tb-tabs--scroll" id="ovTabs" style="left:67px;top:264px;width:586px;--tab-w:139px"><button class="tb-tab is-active is-highlight">Overview</button><button class="tb-tab">Activity</button><button class="tb-tab">Settings</button><button class="tb-tab">Billing</button><button class="tb-tab">Team</button><button class="tb-tab">Integrations</button><button class="tb-tab">API</button><button class="tb-tab">Webhooks</button><i class="tb-tabs__ind" style="--x:25px;--w:112px"></i></nav>
+  <button class="tb-chev is-on" id="ovNext" style="left:665px;top:282px" aria-label="Next tabs"><svg><use href="#i-chev-r"/></svg></button>
+  <div class="tb-chip tb-chip--teal tb-in" style="left:57px;top:401px;animation-delay:.3s">SCROLL HORIZONTAL</div>
+  <div class="tb-chip tb-in" style="left:279px;top:401px;animation-delay:.45s">EDGE FADES</div>
+  <div class="tb-chip tb-in" style="left:426px;top:401px;animation-delay:.6s">CHEVRONS ON DESKTOP</div>
+  <div class="tb-dont tb-in" style="left:47px;top:454px;animation-delay:1s"><div class="tb-dont__head"><span class="tb-dont__x"><svg><use href="#i-x"/></svg></span>DON'T WRAP TO 2 LINES</div>
+    <div class="tb-dont__strip"><span class="is-active">Overview</span><span>Activity</span><span>Settings</span><span>Billing</span><span>Team</span><span>Integrations</span><span>API</span><span>Webhooks</span></div></div>
+</section>
+
+<!-- 4 · 03 Keyboard: arrows, Home, End, Tab -->
+<section class="scene" data-t="21" data-shot="24">
+  <div class="glow" style="left:40px;top:120px;background:rgba(91,141,239,.08)"></div>
+  <div class="tb-kicker tb-kicker--blue">03 · KEYBOARD</div>
+  <h1 class="tb-title">Arrows. <em class="blue">Home.</em> <em class="teal">End.</em> <em>Tab.</em></h1>
+  <nav class="tb-tabs" id="kbTabs" style="left:60px;top:214px;width:600px"><button class="tb-tab is-active is-focus">Overview</button><button class="tb-tab">Activity</button><button class="tb-tab">Settings</button><button class="tb-tab">Billing</button><i class="tb-tabs__ind" style="--x:10px;--w:144px"></i></nav>
+  <div class="tb-btn" style="left:272px;top:303px">Save changes</div>
+  <div class="tb-keys" style="left:132px;top:372px"><span class="tb-key">←</span><span class="tb-key">→</span><span class="tb-key is-on" style="min-width:98px">Home</span><span class="tb-key" style="min-width:84px">End</span><span class="tb-key" style="min-width:86px">Tab</span></div>
+  <div class="tb-legend" style="left:67px;top:465px"><span class="tb-legend__sq tb-legend__sq--focus"></span><span class="focus">FOCUS</span><span class="mid">never the same as</span><span class="tb-legend__sq tb-legend__sq--active"></span><span class="active">ACTIVE</span></div>
+</section>
+
+<!-- 5 · 04 Mobile is different -->
+<section class="scene" data-t="30" data-shot="33">
+  <div class="tb-kicker">04 · MOBILE</div>
+  <h1 class="tb-title">Mobile is <em>different.</em></h1>
+  <div class="tb-label tb-label--teal" style="left:42px;width:198px;top:222px">UNDER 5 TABS</div>
+  <div class="tb-label" style="left:254px;width:198px;top:222px">OVER 5 TABS</div>
+  <div class="tb-label" style="left:468px;width:208px;top:208px">NEVER DO THIS</div>
+  <div class="tb-phone" style="left:42px;top:250px"><div class="tb-phone__status">9:41<i><b></b><em></em></i></div><div class="tb-phone__h">Settings</div>
+    <div class="tb-seg" id="seg"><span class="is-active">Overview</span><span>Activity</span><span>Settings</span></div>
+    <div class="tb-phone__panel"><b id="segPanel">Overview</b><i class="tb-sk" style="width:110px"></i><i class="tb-sk" style="width:90px"></i><i class="tb-sk" style="width:70px"></i></div></div>
+  <div class="tb-phone" style="left:254px;top:250px"><div class="tb-phone__status">9:41<i><b></b><em></em></i></div><div class="tb-phone__h">Dashboard</div><div class="tb-phone__sub">Tap to switch section</div>
+    <div style="margin-top:22px"><i class="tb-sk" style="width:120px"></i><i class="tb-sk" style="width:100px"></i></div>
+    <div class="tb-sheet" id="sheet"><div class="tb-sheet__t">SECTIONS</div><div class="tb-sheet__row is-active">Overview</div><div class="tb-sheet__row">Activity</div><div class="tb-sheet__row">Settings</div><div class="tb-sheet__row">Billing</div><div class="tb-sheet__row">Team</div><div class="tb-sheet__row">Integrations</div><div class="tb-sheet__row">API</div></div></div>
+  <div class="tb-phone" style="left:468px;top:238px;width:208px;height:560px;padding:10px 12px 0"><div class="tb-phone__status">9:41<i><b></b><em></em></i></div><div class="tb-phone__h" style="font-size:13px;margin-top:8px">Dashboard</div>
+    <div class="tb-tiny"><span class="is-active">Overview</span><span>Activity</span><span>Settings</span><span>Billing</span></div>
+    <div class="tb-tiny-card"><i class="tb-sk" style="width:100px;height:4px"></i><i class="tb-sk" style="width:70px;height:4px"></i></div>
+    <div class="tb-nope tb-nope-in" style="left:27px;top:210px"><svg><use href="#i-x"/></svg></div></div>
+  <div class="tb-pill tb-pill--gray" style="top:828px;height:40px;padding:0 20px"><span style="color:#2ee6ad">TOUCH TARGETS ≥ 44PX</span><span style="color:#6f7683">·</span><span style="color:#ef4f7e">THUMB ZONE FIRST</span></div>
+</section>
+
+<!-- 6 · 05 Content: bad, hard cut -->
+<section class="scene" data-t="36" data-shot="39">
+  <div class="glow" style="left:40px;top:200px;background:rgba(46,230,173,.06)"></div>
+  <div class="tb-kicker tb-kicker--teal">05 · CONTENT</div>
+  <h1 class="tb-title">Content needs to <em class="teal">breathe.</em></h1>
+  <div class="tb-pill tb-pill--sm" style="top:206px">BAD — HARD CUT</div>
+  <nav class="tb-tabs" style="left:67px;top:256px;width:586px"><button class="tb-tab">Stats</button><button class="tb-tab is-active">Activity</button><button class="tb-tab">Notes</button><i class="tb-tabs__ind" style="--x:198px;--w:190px"></i></nav>
+  <div class="tb-panel" style="left:67px;top:336px;width:586px;height:350px"><div class="tb-panel__content"><div class="tb-panel__t">Activity</div><i class="tb-sk" style="width:485px"></i><i class="tb-sk" style="width:448px"></i><i class="tb-sk" style="width:408px"></i><i class="tb-sk" style="width:368px"></i><i class="tb-sk" style="width:330px"></i></div><div class="tb-panel__block tb-panel__block--cut" style="top:264px"></div></div>
+</section>
+
+<!-- 7 · 05 Content: good, fade · pause · fade -->
+<section class="scene" data-t="40.5" data-shot="42">
+  <div class="glow" style="left:40px;top:200px;background:rgba(46,230,173,.06)"></div>
+  <div class="tb-kicker tb-kicker--teal">05 · CONTENT</div>
+  <h1 class="tb-title">Content needs to <em class="teal">breathe.</em></h1>
+  <div class="tb-pill tb-pill--sm tb-pill--teal" style="top:206px">GOOD — FADE · PAUSE · FADE</div>
+  <nav class="tb-tabs tb-tabs--teal" id="goodTabs" style="left:67px;top:256px;width:586px"><button class="tb-tab">Stats</button><button class="tb-tab is-active">Activity</button><button class="tb-tab">Notes</button><i class="tb-tabs__ind" style="--x:198px;--w:190px"></i></nav>
+  <div class="tb-panel" style="left:67px;top:336px;width:586px;height:292px"><div class="tb-panel__content" id="goodActivity"><div class="tb-panel__t">Activity</div><i class="tb-sk" style="width:475px"></i><i class="tb-sk" style="width:425px"></i><i class="tb-sk" style="width:385px"></i><i class="tb-sk" style="width:325px"></i></div><div class="tb-panel__content" id="goodStats" hidden><div class="tb-panel__t">Stats</div><i class="tb-sk" style="width:400px"></i><i class="tb-sk" style="width:350px"></i><i class="tb-sk" style="width:300px"></i></div><div class="tb-panel__content" id="goodNotes" hidden><div class="tb-panel__t">Notes</div><i class="tb-sk" style="width:430px"></i><i class="tb-sk" style="width:390px"></i></div><div class="tb-panel__block tb-panel__block--fade" style="top:204px;height:72px"></div></div>
+  <div class="tb-chip tb-in" style="left:93px;top:646px;height:48px;padding:0 22px;animation-delay:.4s">FADE OUT 80MS</div>
+  <div class="tb-chip tb-in" style="left:288px;top:646px;height:48px;padding:0 20px;--c:#c9ced5;background:#1a1e27;border-color:transparent;animation-delay:.6s">80MS PAUSE</div>
+  <div class="tb-chip tb-chip--teal tb-in" style="left:440px;top:646px;height:48px;padding:0 22px;animation-delay:.8s">FADE IN 80MS</div>
+</section>
+
+<!-- 8 · 05 Content: match the height -->
+<section class="scene" data-t="43.5" data-shot="45">
+  <div class="glow" style="left:40px;top:200px;background:rgba(46,230,173,.06)"></div>
+  <div class="tb-kicker tb-kicker--teal">05 · CONTENT</div>
+  <h1 class="tb-title">Content needs to <em class="teal">breathe.</em></h1>
+  <div class="tb-pill tb-pill--sm" style="top:206px">MATCH THE HEIGHT</div>
+  <nav class="tb-tabs" style="left:107px;top:254px;width:506px"><button class="tb-tab">Stats</button><button class="tb-tab is-active">Activity</button><i class="tb-tabs__ind" style="--x:253px;--w:245px"></i></nav>
+  <div class="tb-panel" style="left:107px;top:334px;width:506px;height:204px"><div class="tb-panel__content"><div class="tb-panel__t">Activity</div><i class="tb-sk" style="width:410px"></i><i class="tb-sk" style="width:372px"></i><i class="tb-sk" style="width:336px"></i><i class="tb-sk" style="width:296px"></i></div></div>
+  <div class="tb-note tb-in" style="top:552px;animation-delay:.6s">CONTAINER HEIGHT INTERPOLATES — NO LAYOUT SHIFT</div>
+</section>
+
+<!-- 9 · Outro -->
+<section class="scene" data-t="46.5" data-shot="48">
+  <div class="glow" style="left:0;top:240px;width:720px;height:720px;background:rgba(239,79,126,.2)"></div>
+  <div class="tb-icon" style="left:60px;top:158px"><svg><use href="#i-save"/></svg></div>
+  <div class="tb-icon tb-icon--dim" style="left:602px;top:208px"><svg><use href="#i-book"/></svg></div>
+  <div class="tb-icon tb-icon--pink" style="left:74px;top:976px"><svg style="fill:currentColor;stroke:none"><use href="#i-heart"/></svg></div>
+  <nav class="tb-tabs" id="outroTabs" style="left:87px;top:444px;width:546px"><button class="tb-tab">Overview</button><button class="tb-tab is-active">Activity</button><button class="tb-tab">Settings</button><button class="tb-tab">Billing</button><i class="tb-tabs__ind" style="--x:141px;--w:132px"></i></nav>
+  <div class="title" style="top:536px;font-size:56px;white-space:nowrap;padding:0;letter-spacing:-.035em">Follow for more <em style="color:#ef4f7e">UI systems</em></div>
+  <div class="center" style="top:630px;display:flex;align-items:center;gap:14px;font-size:20px;font-weight:600;white-space:nowrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="#2ee6ad"><use href="#i-bookmark"/></svg>Save this for your next dashboard</div>
+  <div class="tb-follow" style="top:690px"><svg><use href="#i-user-plus"/></svg><div><b>@designmotionhq</b><span>UI systems · weekly</span></div></div>
+</section>
+
+<script type="module">
+  import { Tabs, OverflowTabs, BottomSheet } from './pattern.js';
+  const scenes = [...document.querySelectorAll('.scene')];
+  Tabs(document.getElementById('indTabs'));
+  Tabs(document.getElementById('kbTabs'));
+  Tabs(document.getElementById('outroTabs'));
+  Tabs(document.getElementById('goodTabs'), { panels: [document.getElementById('goodStats'), document.getElementById('goodActivity'), document.getElementById('goodNotes')], fade: 80, pause: 80 });
+  const ov = Tabs(document.getElementById('ovTabs'));
+  OverflowTabs(document.getElementById('ovTabs'), { prev: document.getElementById('ovPrev'), next: document.getElementById('ovNext'), step: 278 });
+  const cut = Tabs(document.getElementById('cutTabs')), slide = Tabs(document.getElementById('slideTabs'));
+  // Indicator scene, live only: both small bars step A → B → C; one hard-cuts, one slides.
+  scenes[1].addEventListener('scene:enter', e => { clearInterval(scenes[1]._iv); if (e.detail.t > 0) return; let k = 0; scenes[1]._iv = setInterval(() => { k = (k + 1) % 3; cut.select(k); slide.select(k); }, 1400); });
+  // Mobile scene, live only: the segmented control cycles and the sheet re-opens.
+  const seg = [...document.querySelectorAll('#seg span')], segPanel = document.getElementById('segPanel'), sheet = BottomSheet(document.getElementById('sheet'));
+  scenes[4].addEventListener('scene:enter', e => { clearInterval(scenes[4]._iv); if (e.detail.t > 0) return; let k = 0; scenes[4]._iv = setInterval(() => { k = (k + 1) % 3; seg.forEach((s, j) => s.classList.toggle('is-active', j === k)); segPanel.textContent = seg[k].textContent; }, 1600); });
+  // The rows above may have moved the indicators: re-freeze the active scene at ?t and replay its enter event.
+  const q = new URLSearchParams(location.search), active = document.querySelector('.scene.active');
+  if (active) {
+    const t = q.has('t') ? Number(q.get('t')) : null;
+    if (t !== null) active.getAnimations({ subtree: true }).forEach(a => { try { a.currentTime = Math.max(0, (t - (Number(active.dataset.t) || 0)) * 1000); a.pause(); } catch {} });
+    active.dispatchEvent(new CustomEvent('scene:enter', { detail: { t: t ?? 0 } }));
+  }
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

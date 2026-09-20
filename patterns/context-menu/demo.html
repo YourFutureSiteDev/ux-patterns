@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Context Menu · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a0e11; --accent: #1fc4a8; --danger: #e5566c; --grid: rgba(255,255,255,.03); }
+  .scene { color: #e9eef2; }
+  .title { font-size: 40px; letter-spacing: -.025em; margin: 0; }
+  @keyframes cm-in { from { opacity: 0; transform: translateY(4px) } to { opacity: 1; transform: none } }
+  @keyframes cm-out { from { opacity: 1 } to { opacity: 0 } }
+  @keyframes cm-dim { to { opacity: .55 } }
+  .cm-a1 { animation: cm-in .2s .9s both; }
+  .cm-a0 { animation: cm-out .2s .8s forwards; }
+  .cm-ring { position: absolute; width: 26px; height: 26px; border-radius: 50%; border: 2px solid rgba(31,196,168,.7); background: rgba(31,196,168,.12); }
+  .cm-mbox { position: absolute; border: 1px dashed rgba(255,255,255,.28); }
+  .cm-s2 .cm-skel:nth-of-type(1) { animation: cm-in .25s 1.5s both, cm-dim .3s 4s forwards; }
+  .cm-s2 .cm-skel:nth-of-type(2) { animation: cm-in .25s 4s both, cm-dim .3s 6s forwards; }
+  .cm-s2 .cm-skel:nth-of-type(3) { animation: cm-in .25s 6s both, cm-dim2 .3s 7.2s forwards; }
+  @keyframes cm-dim2 { to { opacity: .8 } }
+  .cm-s2 .cm-skel:nth-of-type(4) { animation: cm-in .25s 7.2s both; }
+  .cm-s2 .cursor { animation: cm-in .2s 7.2s both; }
+</style>
+</head>
+<body class="cm">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-open" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6"/></symbol>
+  <symbol id="i-rename" viewBox="0 0 24 24"><path d="M3 21h18M12.5 6l5.5 5.5M4 20l1-4.5L15.5 5a2.1 2.1 0 0 1 3 3L8 18.5z"/></symbol>
+  <symbol id="i-dup" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.1 0l3-3a5 5 0 0 0-7.1-7.1l-1.7 1.7M14 11a5 5 0 0 0-7.1 0l-3 3a5 5 0 0 0 7.1 7.1l1.7-1.7"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.6M8.2 13.2l7.6 4.6"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></symbol>
+  <symbol id="i-move" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM9 14h6M12 11l3 3-3 3"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M6 10l6 6 6-6M4 21h16"/></symbol>
+  <symbol id="i-openwith" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></symbol>
+  <symbol id="i-compress" viewBox="0 0 24 24"><path d="M3 4h18v4H3zM5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8M10 12h4"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.8 5.8 6.2.9-4.5 4.4 1.1 6.3L12 17.4l-5.6 3 1.1-6.3L3 9.7l6.2-.9z"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-desktop" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-adown" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></symbol>
+  <symbol id="i-aright" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+  <symbol id="i-follow" viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M2 21a8 8 0 0 1 14-4M19 8v6M16 11h6"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-backspace" viewBox="0 0 24 24"><path d="M20 5H9l-6 7 6 7h11a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1zM17 9l-4 4M13 9l4 4"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8zM14 3v5h5M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-zip" viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8zM14 3v5h5M10 7h.01M10 10h.01M10 13h.01M10 16v2"/></symbol>
+  <symbol id="i-fig" viewBox="0 0 24 24"><path d="M4 4l16 5-7 3-3 7z"/><path d="M10 12l6 6"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M12 16v4M8 20h8M3 8h18"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8zM14 3v5h5M10 11.5v5l4-2.5z"/></symbol>
+  <symbol id="i-cursor" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></symbol>
+</svg>
+
+<!-- 1 · Hook: right-click on roadmap.fig, the menu measured first -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:100px;top:600px;background:rgba(31,196,168,.10)"></div>
+  <div class="cm-win" style="left:60px;top:185px;width:600px;height:600px">
+    <div class="cm-win__bar"><div class="cm-win__dots"><i></i><i></i><i></i></div><div class="cm-win__title">Files — Projects</div></div>
+    <div class="cm-files" style="top:52px">
+      <div class="cm-files__head"><span>NAME</span><span>SIZE</span></div>
+      <div style="height:2px"></div>
+      <div class="cm-file"><div class="cm-file__icon"><svg><use href="#i-doc"/></svg></div><div><div class="cm-file__name">Q3-report.pdf</div><div class="cm-file__meta">Edited 2h ago · Sarah Chen</div></div><div class="cm-file__size">2.4 MB</div></div>
+      <div class="cm-file"><div class="cm-file__icon"><svg><use href="#i-zip"/></svg></div><div><div class="cm-file__name">brand-assets.zip</div><div class="cm-file__meta">Added yesterday · Alex Rivera</div></div><div class="cm-file__size">148 MB</div></div>
+      <div class="cm-file is-selected"><div class="cm-file__icon"><svg><use href="#i-fig"/></svg></div><div><div class="cm-file__name">roadmap.fig</div><div class="cm-file__meta">Edited 12m ago · Priya Oberoi</div></div><div class="cm-file__size">8.1 MB</div></div>
+      <div class="cm-file"><div class="cm-file__icon"><svg><use href="#i-doc"/></svg></div><div><div class="cm-file__name">user-research.docx</div><div class="cm-file__meta">Edited Monday · Noah Fielding</div></div><div class="cm-file__size">1.2 MB</div></div>
+      <div class="cm-file"><div class="cm-file__icon"><svg><use href="#i-key"/></svg></div><div><div class="cm-file__name">launch-plan.key</div><div class="cm-file__meta">Edited last week · Sarah Chen</div></div><div class="cm-file__size">36 MB</div></div>
+      <div class="cm-file"><div class="cm-file__icon"><svg><use href="#i-video"/></svg></div><div><div class="cm-file__name">team-sync.mp4</div><div class="cm-file__meta">Recorded Friday · Auto-saved</div></div><div class="cm-file__size">112 MB</div></div>
+      <div class="cm-file"><div class="cm-file__icon"><svg><use href="#i-folder"/></svg></div><div><div class="cm-file__name">invoices</div><div class="cm-file__meta">14 items · Shared folder</div></div><div class="cm-file__size">—</div></div>
+      <div class="cm-files__foot">7 items · 312 MB · synced 2 min ago</div>
+    </div>
+  </div>
+  <!-- measuring pass (t < 0.8s) -->
+  <div class="cm-a0">
+    <div class="cm-ring" style="left:607px;top:425px"></div>
+    <div class="cm-mbox" style="left:622px;top:436px;width:120px;height:156px"></div>
+  </div>
+  <!-- placed menu (t > 0.9s) -->
+  <div class="cm-a1">
+    <div class="cm-menu" id="hookMenu" style="position:absolute;left:368px;top:434px">
+      <div class="cm-item is-active"><svg><use href="#i-open"/></svg>Open</div>
+      <div class="cm-item"><svg><use href="#i-rename"/></svg>Rename</div>
+      <div class="cm-item"><svg><use href="#i-dup"/></svg>Duplicate</div>
+      <div class="cm-sep"></div>
+      <div class="cm-item"><svg><use href="#i-link"/></svg>Copy link</div>
+      <div class="cm-item"><svg><use href="#i-share"/></svg>Share</div>
+      <div class="cm-sep"></div>
+      <div class="cm-item cm-item--danger"><svg><use href="#i-trash"/></svg>Delete</div>
+    </div>
+    <div class="title" style="top:846px;font-size:44px">It <em>measured</em> first.</div>
+  </div>
+  <svg class="cursor" style="left:616px;top:436px"><use href="#i-cursor"/></svg>
+  <div class="cm-chips" style="top:971px"><span class="cm-chip">cursor 930 · 652</span><span class="cm-chip">viewport 1080 × 1920</span><span class="cm-chip is-on cm-a1">flip ←</span></div>
+</section>
+
+<!-- 2 · Measure, then open -->
+<section class="scene cm-s2" data-t="3" data-shot="10.5">
+  <h1 class="title" style="top:162px">Measure, <em>then</em> open</h1>
+  <div class="cm-win" style="left:60px;top:282px;width:600px;height:634px;border-radius:12px">
+    <div class="cm-win__bar" style="height:36px;padding:0 16px"><div class="cm-win__dots" style="gap:7px"><i style="width:8px;height:8px"></i><i style="width:8px;height:8px"></i><i style="width:8px;height:8px"></i></div><span class="cm-win__url">acme.app/library</span></div>
+    <div class="cm-view" style="left:10px;top:45px;width:580px;height:579px"><span class="cm-view__label">VIEWPORT</span></div>
+  </div>
+  <div class="cm-skel" style="left:287px;top:468px"><span class="cm-skel__tag">fits ↓</span><i></i><i></i><i></i><i></i><b></b><s></s></div>
+  <div class="cm-skel" style="left:253px;top:714px"><span class="cm-skel__tag is-teal">flip ↑</span><i></i><i></i><i></i><i></i><b></b><s></s></div>
+  <div class="cm-skel" style="left:474px;top:427px"><span class="cm-skel__tag is-teal">mirror ←</span><i></i><i></i><i></i><i></i><b></b><s></s></div>
+  <div class="cm-skel" style="left:467px;top:720px;background:#1f262c"><span class="cm-skel__tag is-teal">flip ↖</span><i></i><i></i><i></i><i></i><b></b><s></s></div>
+  <svg class="cursor" style="left:592px;top:868px"><use href="#i-cursor"/></svg>
+  <div class="cm-chips" style="top:978px"><span class="cm-chip">anchor: cursor</span><span class="cm-chip">measure → place</span><span class="cm-chip is-on">collision: flip</span></div>
+</section>
+
+<!-- 3 · Group by intent: 12 flat actions -->
+<section class="scene" data-t="12" data-shot="12">
+  <h1 class="title" style="top:162px">Group by <em>intent</em></h1>
+  <div class="cm-stat" style="left:40px;top:425px"><b>12</b><span>flat actions</span><small>= noise</small></div>
+  <div class="cm-menu cm-menu--flat" style="position:absolute;left:172px;top:266px">
+    <div class="cm-item is-hover"><svg><use href="#i-rename"/></svg>Rename</div>
+    <div class="cm-item"><svg><use href="#i-link"/></svg>Copy link</div>
+    <div class="cm-item"><svg><use href="#i-folder"/></svg>Open</div>
+    <div class="cm-item"><svg><use href="#i-trash"/></svg>Delete</div>
+    <div class="cm-item"><svg><use href="#i-dup"/></svg>Duplicate</div>
+    <div class="cm-item"><svg><use href="#i-share"/></svg>Share</div>
+    <div class="cm-item"><svg><use href="#i-info"/></svg>Get info</div>
+    <div class="cm-item"><svg><use href="#i-move"/></svg>Move to…</div>
+    <div class="cm-item"><svg><use href="#i-download"/></svg>Download</div>
+    <div class="cm-item"><svg><use href="#i-openwith"/></svg>Open with…</div>
+    <div class="cm-item"><svg><use href="#i-compress"/></svg>Compress</div>
+    <div class="cm-item"><svg><use href="#i-star"/></svg>Add to favorites</div>
+  </div>
+  <div class="cm-chips" style="top:978px"><span class="cm-chip is-on">group by intent</span><span class="cm-chip">dividers split</span><span class="cm-chip">destructive last</span></div>
+</section>
+
+<!-- 3b · Group by intent: 3 groups + destructive -->
+<section class="scene" data-t="16.5" data-shot="18">
+  <div class="glow" style="left:220px;top:500px;background:rgba(31,196,168,.10)"></div>
+  <h1 class="title" style="top:162px">Group by <em>intent</em></h1>
+  <div class="cm-stat is-on" style="left:40px;top:425px"><b>3</b><span>groups by<br>intent</span><small class="is-red">+1 destructive</small></div>
+  <div class="cm-menu cm-menu--flat" id="groupedMenu" style="position:absolute;left:174px;top:266px;width:372px">
+    <div class="cm-item"><svg><use href="#i-folder"/></svg>Open</div>
+    <div class="cm-item"><svg><use href="#i-openwith"/></svg>Open with…</div>
+    <div class="cm-item"><svg><use href="#i-info"/></svg>Get info</div>
+    <div class="cm-sep"></div>
+    <div class="cm-item"><svg><use href="#i-rename"/></svg>Rename</div>
+    <div class="cm-item"><svg><use href="#i-dup"/></svg>Duplicate</div>
+    <div class="cm-item"><svg><use href="#i-move"/></svg>Move to…</div>
+    <div class="cm-item"><svg><use href="#i-compress"/></svg>Compress</div>
+    <div class="cm-sep"></div>
+    <div class="cm-item"><svg><use href="#i-link"/></svg>Copy link</div>
+    <div class="cm-item"><svg><use href="#i-share"/></svg>Share</div>
+    <div class="cm-item"><svg><use href="#i-download"/></svg>Download</div>
+    <div class="cm-item"><svg><use href="#i-star"/></svg>Add to favorites</div>
+    <div class="cm-sep"></div>
+    <div class="cm-item cm-item--danger is-active"><svg><use href="#i-trash"/></svg>Delete</div>
+  </div>
+  <i class="cm-tag__line" style="left:546px;top:311px;width:20px"></i><span class="cm-tag" style="left:566px;top:298px">PRIMARY</span>
+  <i class="cm-tag__line" style="left:546px;top:462px;width:20px"></i><span class="cm-tag" style="left:566px;top:449px">EDIT</span>
+  <i class="cm-tag__line" style="left:546px;top:633px;width:20px"></i><span class="cm-tag" style="left:566px;top:620px">SHARE</span>
+  <i class="cm-tag__line" style="left:546px;top:765px;width:20px"></i><span class="cm-tag is-red" style="left:566px;top:752px">DELETE</span>
+  <div class="cm-chips" style="top:978px"><span class="cm-chip is-on">group by intent</span><span class="cm-chip">dividers split</span><span class="cm-chip">destructive last</span></div>
+</section>
+
+<!-- 4 · The safe triangle: cursor on Move to, triangle drawn -->
+<section class="scene" data-t="22.5" data-shot="24">
+  <h1 class="title" style="top:162px">The <em>safe triangle</em></h1>
+  <div class="cm-panel" style="left:42px;top:293px;width:303px;height:559px"></div>
+  <div class="cm-panel" style="left:375px;top:293px;width:303px;height:559px"></div>
+  <span class="cm-badge is-teal" style="left:57px;top:310px">SAFE TRIANGLE</span><span style="position:absolute;left:59px;top:343px;font-size:12px;color:#5c646d">hover intent, Figma-style</span>
+  <span class="cm-badge is-red" style="left:390px;top:310px">NO TRIANGLE</span><span style="position:absolute;left:392px;top:343px;font-size:12px;color:#5c646d">naive hover</span>
+  <div class="cm-menu cm-menu--sm" style="position:absolute;left:52px;top:370px">
+    <div class="cm-item"><svg><use href="#i-open"/></svg>Open</div>
+    <div class="cm-item"><svg><use href="#i-rename"/></svg>Rename</div>
+    <div class="cm-item is-active"><svg><use href="#i-move"/></svg>Move to…<svg class="cm-item__more"><use href="#i-chev"/></svg></div>
+    <div class="cm-sep"></div>
+    <div class="cm-item"><svg><use href="#i-share"/></svg>Share</div>
+    <div class="cm-sep"></div>
+    <div class="cm-item cm-item--danger"><svg><use href="#i-trash"/></svg>Delete</div>
+  </div>
+  <div class="cm-menu cm-menu--sm is-tight" style="position:absolute;left:210px;top:431px;width:131px">
+    <div class="cm-item"><svg><use href="#i-folder"/></svg>Documents</div>
+    <div class="cm-item"><svg><use href="#i-folder"/></svg>Projects</div>
+    <div class="cm-item"><svg><use href="#i-compress"/></svg>Archive</div>
+    <div class="cm-item"><svg><use href="#i-desktop"/></svg>Desktop</div>
+  </div>
+  <svg class="cm-tri" style="left:0;top:0;width:720px;height:1280px" viewBox="0 0 720 1280"><polygon points="136,452 210,431 210,551"/></svg>
+  <svg class="cursor" style="left:134px;top:450px"><use href="#i-cursor"/></svg>
+  <div class="cm-menu cm-menu--sm" style="position:absolute;left:385px;top:370px">
+    <div class="cm-item"><svg><use href="#i-open"/></svg>Open</div>
+    <div class="cm-item"><svg><use href="#i-rename"/></svg>Rename</div>
+    <div class="cm-item is-active"><svg><use href="#i-move"/></svg>Move to…<svg class="cm-item__more"><use href="#i-chev"/></svg></div>
+    <div class="cm-sep"></div>
+    <div class="cm-item"><svg><use href="#i-share"/></svg>Share</div>
+    <div class="cm-sep"></div>
+    <div class="cm-item cm-item--danger"><svg><use href="#i-trash"/></svg>Delete</div>
+  </div>
+  <div class="cm-menu cm-menu--sm is-tight" style="position:absolute;left:543px;top:431px;width:131px">
+    <div class="cm-item"><svg><use href="#i-folder"/></svg>Documents</div>
+    <div class="cm-item"><svg><use href="#i-folder"/></svg>Projects</div>
+    <div class="cm-item"><svg><use href="#i-compress"/></svg>Archive</div>
+    <div class="cm-item"><svg><use href="#i-desktop"/></svg>Desktop</div>
+  </div>
+  <svg class="cursor" style="left:468px;top:450px"><use href="#i-cursor"/></svg>
+  <div class="cm-chips" style="top:965px"><span class="cm-chip">vertex: cursor tip</span><span class="cm-chip">base: submenu edge</span><span class="cm-chip is-on">hover intent</span></div>
+</section>
+
+<!-- 4b · The safe triangle: diagonal move, one menu holds, one dies -->
+<section class="scene" data-t="27" data-shot="30">
+  <h1 class="title" style="top:162px">The <em>safe triangle</em></h1>
+  <div class="cm-panel" style="left:42px;top:293px;width:303px;height:559px"></div>
+  <div class="cm-panel" style="left:375px;top:293px;width:303px;height:559px"></div>
+  <span class="cm-badge is-teal" style="left:57px;top:310px">SAFE TRIANGLE</span><span style="position:absolute;left:59px;top:343px;font-size:12px;color:#5c646d">hover intent, Figma-style</span>
+  <span class="cm-badge is-red" style="left:390px;top:310px">NO TRIANGLE</span><span style="position:absolute;left:392px;top:343px;font-size:12px;color:#5c646d">naive hover</span>
+  <div class="cm-menu cm-menu--sm" style="position:absolute;left:52px;top:370px">
+    <div class="cm-item"><svg><use href="#i-open"/></svg>Open</div>
+    <div class="cm-item"><svg><use href="#i-rename"/></svg>Rename</div>
+    <div class="cm-item is-active"><svg><use href="#i-move"/></svg>Move to…<svg class="cm-item__more"><use href="#i-chev"/></svg></div>
+    <div class="cm-sep"></div>
+    <div class="cm-item"><svg><use href="#i-share"/></svg>Share</div>
+    <div class="cm-sep"></div>
+    <div class="cm-item cm-item--danger"><svg><use href="#i-trash"/></svg>Delete</div>
+  </div>
+  <div class="cm-menu cm-menu--sm is-tight" style="position:absolute;left:210px;top:431px;width:131px">
+    <div class="cm-item"><svg><use href="#i-folder"/></svg>Documents</div>
+    <div class="cm-item"><svg><use href="#i-folder"/></svg>Projects</div>
+    <div class="cm-item is-active"><svg><use href="#i-compress"/></svg>Archive</div>
+    <div class="cm-item"><svg><use href="#i-desktop"/></svg>Desktop</div>
+  </div>
+  <svg class="cursor" style="left:260px;top:503px"><use href="#i-cursor"/></svg>
+  <span class="cm-caption is-teal" style="left:144px;top:806px">menu holds</span>
+  <div class="cm-menu cm-menu--sm" style="position:absolute;left:385px;top:370px">
+    <div class="cm-item"><svg><use href="#i-open"/></svg>Open</div>
+    <div class="cm-item"><svg><use href="#i-rename"/></svg>Rename</div>
+    <div class="cm-item"><svg><use href="#i-move"/></svg>Move to…<svg class="cm-item__more"><use href="#i-chev"/></svg></div>
+    <div class="cm-sep"></div>
+    <div class="cm-item is-active"><svg><use href="#i-share"/></svg>Share</div>
+    <div class="cm-sep"></div>
+    <div class="cm-item cm-item--danger"><svg><use href="#i-trash"/></svg>Delete</div>
+  </div>
+  <div class="cm-ghost" style="left:544px;top:431px;width:128px;height:120px"></div>
+  <span style="position:absolute;left:537px;top:560px;font-size:13px;font-weight:600;color:var(--cm-red)">submenu lost</span>
+  <svg class="cursor" style="left:596px;top:508px"><use href="#i-cursor"/></svg>
+  <span class="cm-caption is-red" style="left:452px;top:806px">menu dies mid-path</span>
+  <div class="cm-chips" style="top:965px"><span class="cm-chip">vertex: cursor tip</span><span class="cm-chip">base: submenu edge</span><span class="cm-chip is-on">hover intent</span></div>
+</section>
+
+<!-- 5 · Power users never aim: type-ahead D -->
+<section class="scene" data-t="31.5" data-shot="34.5">
+  <div class="glow" style="left:180px;top:420px;background:rgba(31,196,168,.08)"></div>
+  <h1 class="title" style="top:162px">Power users <em>never aim</em></h1>
+  <div class="cm-menu cm-menu--lg" style="position:absolute;left:74px;top:358px">
+    <div class="cm-item"><svg><use href="#i-open"/></svg>Open<span class="cm-item__kbd">⌘O</span></div>
+    <div class="cm-item"><svg><use href="#i-info"/></svg>Get info<span class="cm-item__kbd">⌘I</span></div>
+    <div class="cm-item"><svg><use href="#i-rename"/></svg>Rename</div>
+    <div class="cm-item is-active"><svg><use href="#i-dup"/></svg>Duplicate<span class="cm-item__kbd">⌘D</span></div>
+    <div class="cm-item"><svg><use href="#i-move"/></svg>Move to…<svg class="cm-item__more"><use href="#i-chev"/></svg></div>
+    <div class="cm-sep"></div>
+    <div class="cm-item"><svg><use href="#i-link"/></svg>Copy link</div>
+    <div class="cm-item"><svg><use href="#i-download"/></svg>Download</div>
+    <div class="cm-sep"></div>
+    <div class="cm-item cm-item--danger"><svg><use href="#i-trash"/></svg>Delete<svg class="cm-item__more" style="width:16px;height:16px"><use href="#i-backspace"/></svg></div>
+  </div>
+  <span class="cm-note" style="left:459px;top:517px">type-ahead: D</span>
+  <div class="cm-keys" style="left:140px;top:858px">
+    <div class="cm-key is-on"><svg><use href="#i-adown"/></svg></div><div class="cm-key is-on"><svg><use href="#i-adown"/></svg></div><div class="cm-key">D</div><div class="cm-key"><svg><use href="#i-adown"/></svg></div><div class="cm-key"><svg><use href="#i-aright"/></svg></div><div class="cm-key is-wide">esc</div>
+  </div>
+  <div class="cm-chips" style="top:978px"><span class="cm-chip">arrows walk</span><span class="cm-chip is-on">letters jump</span><span class="cm-chip">Esc closes one level</span></div>
+</section>
+
+<!-- 5b · Power users never aim: arrow right opens the submenu -->
+<section class="scene" data-t="36" data-shot="37.5">
+  <div class="glow" style="left:180px;top:420px;background:rgba(31,196,168,.08)"></div>
+  <h1 class="title" style="top:162px">Power users <em>never aim</em></h1>
+  <div class="cm-menu cm-menu--lg" style="position:absolute;left:74px;top:358px">
+    <div class="cm-item"><svg><use href="#i-open"/></svg>Open<span class="cm-item__kbd">⌘O</span></div>
+    <div class="cm-item"><svg><use href="#i-info"/></svg>Get info<span class="cm-item__kbd">⌘I</span></div>
+    <div class="cm-item"><svg><use href="#i-rename"/></svg>Rename</div>
+    <div class="cm-item"><svg><use href="#i-dup"/></svg>Duplicate<span class="cm-item__kbd">⌘D</span></div>
+    <div class="cm-item is-active"><svg><use href="#i-move"/></svg>Move to…<svg class="cm-item__more"><use href="#i-chev"/></svg></div>
+    <div class="cm-sep"></div>
+    <div class="cm-item"><svg><use href="#i-link"/></svg>Copy link</div>
+    <div class="cm-item"><svg><use href="#i-download"/></svg>Download</div>
+    <div class="cm-sep"></div>
+    <div class="cm-item cm-item--danger"><svg><use href="#i-trash"/></svg>Delete<svg class="cm-item__more" style="width:16px;height:16px"><use href="#i-backspace"/></svg></div>
+  </div>
+  <div class="cm-menu cm-menu--md" style="position:absolute;left:430px;top:560px">
+    <div class="cm-item is-active"><svg><use href="#i-folder"/></svg>Documents</div>
+    <div class="cm-item"><svg><use href="#i-folder"/></svg>Projects</div>
+    <div class="cm-item"><svg><use href="#i-compress"/></svg>Archive</div>
+  </div>
+  <div class="cm-keys" style="left:140px;top:858px">
+    <div class="cm-key is-on"><svg><use href="#i-adown"/></svg></div><div class="cm-key is-on"><svg><use href="#i-adown"/></svg></div><div class="cm-key is-on">D</div><div class="cm-key is-on"><svg><use href="#i-adown"/></svg></div><div class="cm-key is-on"><svg><use href="#i-aright"/></svg></div><div class="cm-key is-wide">esc</div>
+  </div>
+  <div class="cm-chips" style="top:978px"><span class="cm-chip">arrows walk</span><span class="cm-chip is-on">letters jump</span><span class="cm-chip">Esc closes one level</span></div>
+</section>
+
+<!-- 5c · Power users never aim: Esc closes one level, parent stays -->
+<section class="scene" data-t="38.5" data-shot="39">
+  <div class="glow" style="left:180px;top:420px;background:rgba(31,196,168,.08)"></div>
+  <h1 class="title" style="top:162px">Power users <em>never aim</em></h1>
+  <div class="cm-menu cm-menu--lg" id="kbMenu" style="position:absolute;left:74px;top:358px">
+    <div class="cm-item"><svg><use href="#i-open"/></svg>Open<span class="cm-item__kbd">⌘O</span></div>
+    <div class="cm-item"><svg><use href="#i-info"/></svg>Get info<span class="cm-item__kbd">⌘I</span></div>
+    <div class="cm-item"><svg><use href="#i-rename"/></svg>Rename</div>
+    <div class="cm-item"><svg><use href="#i-dup"/></svg>Duplicate<span class="cm-item__kbd">⌘D</span></div>
+    <div class="cm-item is-active"><svg><use href="#i-move"/></svg>Move to…<svg class="cm-item__more"><use href="#i-chev"/></svg></div>
+    <div class="cm-sep"></div>
+    <div class="cm-item"><svg><use href="#i-link"/></svg>Copy link</div>
+    <div class="cm-item"><svg><use href="#i-download"/></svg>Download</div>
+    <div class="cm-sep"></div>
+    <div class="cm-item cm-item--danger"><svg><use href="#i-trash"/></svg>Delete<svg class="cm-item__more" style="width:16px;height:16px"><use href="#i-backspace"/></svg></div>
+  </div>
+  <span class="cm-note" style="left:444px;top:566px">Esc = one level · parent stays</span>
+  <div class="cm-keys" style="left:140px;top:858px">
+    <div class="cm-key is-on"><svg><use href="#i-adown"/></svg></div><div class="cm-key is-on"><svg><use href="#i-adown"/></svg></div><div class="cm-key is-on">D</div><div class="cm-key is-on"><svg><use href="#i-adown"/></svg></div><div class="cm-key is-on"><svg><use href="#i-aright"/></svg></div><div class="cm-key is-wide is-on">esc</div>
+  </div>
+  <div class="cm-chips" style="top:978px"><span class="cm-chip">arrows walk</span><span class="cm-chip is-on">letters jump</span><span class="cm-chip">Esc closes one level</span></div>
+</section>
+
+<!-- 6 · No right-click on mobile -->
+<section class="scene" data-t="40.5" data-shot="43.5">
+  <div class="glow" style="left:200px;top:500px;background:rgba(31,196,168,.08)"></div>
+  <h1 class="title" style="top:158px">No right-click on <em>mobile</em></h1>
+  <span class="cm-small" style="left:438px;top:225px">MOBILE · LONG PRESS</span>
+  <span class="cm-small" style="left:76px;top:372px">DESKTOP · RIGHT-CLICK</span>
+  <div class="cm-menu cm-menu--sheet" style="position:absolute;left:60px;top:398px">
+    <div class="cm-item is-active"><svg><use href="#i-rename"/></svg>Rename</div>
+    <div class="cm-item"><svg><use href="#i-dup"/></svg>Duplicate</div>
+    <div class="cm-sep"></div>
+    <div class="cm-item"><svg><use href="#i-link"/></svg>Copy link</div>
+    <div class="cm-item"><svg><use href="#i-share"/></svg>Share</div>
+    <div class="cm-sep"></div>
+    <div class="cm-item cm-item--danger"><svg><use href="#i-trash"/></svg>Delete</div>
+  </div>
+  <div class="cm-phone" style="left:375px;top:255px">
+    <div class="cm-phone__notch"></div>
+    <div class="cm-phone__title">Library</div>
+    <svg class="cm-phone__search"><use href="#i-search"/></svg>
+    <div class="cm-tiles">
+      <div class="cm-tile"><svg><use href="#i-image"/></svg><span>hero-shot.png</span></div>
+      <div class="cm-tile is-selected"><svg><use href="#i-image"/></svg><span>roadmap-v2.png</span></div>
+      <div class="cm-tile"><svg><use href="#i-image"/></svg><span>team-offsite.jpg</span></div>
+      <div class="cm-tile"><svg><use href="#i-image"/></svg><span>logo-draft.svg</span></div>
+    </div>
+    <div class="cm-sheet" id="sheet">
+      <div class="cm-sheet__handle"></div>
+      <div class="cm-sheet__meta">roadmap-v2.png · 8.1 MB</div>
+      <div class="cm-item is-active"><svg><use href="#i-rename"/></svg>Rename</div>
+      <div class="cm-item"><svg><use href="#i-dup"/></svg>Duplicate</div>
+      <div class="cm-item"><svg><use href="#i-link"/></svg>Copy link</div>
+      <div class="cm-item"><svg><use href="#i-share"/></svg>Share</div>
+      <div class="cm-sep"></div>
+      <div class="cm-item cm-item--danger"><svg><use href="#i-trash"/></svg>Delete</div>
+    </div>
+  </div>
+  <div class="cm-chips" style="top:965px"><span class="cm-chip">long press · 500ms</span><span class="cm-chip is-on">same actions</span><span class="cm-chip">two triggers</span></div>
+</section>
+
+<!-- 7 · Outro: Right-click is a system -->
+<section class="scene" data-t="46.5" data-shot="49.5">
+  <div class="glow" style="left:60px;top:300px;width:600px;height:600px;background:rgba(31,196,168,.14)"></div>
+  <div class="center" style="top:388px;font-size:14px;font-weight:600;letter-spacing:.22em;color:var(--cm-teal);white-space:nowrap">CONTEXT MENUS · UX ENGINEERING</div>
+  <div class="title" style="top:418px;font-size:46px">Right-click is <em>a system.</em></div>
+  <div class="cm-menu cm-menu--outro" id="outroMenu" style="position:absolute;left:206px;top:504px">
+    <div class="cm-item"><svg><use href="#i-open"/></svg>Open</div>
+    <div class="cm-item"><svg><use href="#i-rename"/></svg>Rename</div>
+    <div class="cm-item is-active"><svg><use href="#i-dup"/></svg>Duplicate</div>
+    <div class="cm-sep"></div>
+    <div class="cm-item"><svg><use href="#i-link"/></svg>Copy link</div>
+    <div class="cm-item"><svg><use href="#i-share"/></svg>Share</div>
+    <div class="cm-sep"></div>
+    <div class="cm-item cm-item--danger"><svg><use href="#i-trash"/></svg>Delete</div>
+  </div>
+  <div class="cm-cta center" style="top:803px;font-size:21px"><svg><use href="#i-follow"/></svg>Follow for more UX engineering</div>
+  <div class="cm-save center" style="top:877px"><svg viewBox="0 0 24 24"><use href="#i-bookmark"/></svg>SAVE THIS FOR YOUR NEXT BUILD</div>
+</section>
+
+<script type="module">
+  import { ContextMenu, keyboardNav, longPress } from './pattern.js';
+  // Live: right-click anywhere on the hook scene's file list to open a measured, collision-flipped menu.
+  const files = document.querySelector('.cm-files');
+  const live = ContextMenu(files, {
+    items: [
+      { label: 'Open', icon: '#i-open' }, { label: 'Rename', icon: '#i-rename' }, { label: 'Duplicate', icon: '#i-dup' }, '-',
+      { label: 'Copy link', icon: '#i-link' }, { label: 'Share', icon: '#i-share' }, '-',
+      { label: 'Delete', icon: '#i-trash', danger: true }
+    ],
+    viewport: files.closest('.scene')
+  });
+  live.on('select', e => console.log('select', e.detail.label));
+  // Keyboard walk on the outro menu (arrows, letters, Esc) so the scene is usable, not a picture.
+  keyboardNav(document.getElementById('outroMenu'));
+  keyboardNav(document.getElementById('kbMenu'));
+  // Long press on a library tile re-opens the sheet (500 ms).
+  document.querySelectorAll('.cm-tile').forEach(t => longPress(t, () => { document.getElementById('sheet').style.display = ''; t.classList.add('is-selected'); }, 500));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pagination · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0b0d11; --grid: rgba(255,255,255,.04); --accent: #2ee6ad; --danger: #ef4f7e; }
+  .scene { color: #f3f5f7; }
+  .pg-in { animation: pg-rise .45s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes pg-rise { from { opacity: 0; transform: translateY(14px) } to { opacity: 1; transform: none } }
+  .pg-fade { animation: pg-fade .4s ease both; }
+  @keyframes pg-fade { from { opacity: 0 } to { opacity: 1 } }
+  /* offset table: the inserted row grows in and pushes the last row out of the clipped table */
+  .pg-insert { height: 0; opacity: 0; overflow: hidden; animation: pg-insert .6s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes pg-insert { to { height: var(--row-h, 59px); opacity: 1 } }
+  .pg-list .pg-insert { animation-name: pg-insert-item; }
+  @keyframes pg-insert-item { to { height: 46.6px; opacity: 1 } }
+  /* detail page card shows for two seconds, then the lists come back */
+  .pg-detail-io { animation: pg-detail-io 4s linear both; }
+  @keyframes pg-detail-io { 0% { opacity: 0 } 12% { opacity: 1 } 62% { opacity: 1 } 75% { opacity: 0 } 100% { opacity: 0 } }
+  .pg-scroll-reset { animation: pg-scroll-reset .9s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes pg-scroll-reset { from { transform: translateY(-229px) } to { transform: translateY(0) } }
+  .pg-thumb-up { animation: pg-thumb-up .9s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes pg-thumb-up { from { top: 380px } to { top: 13px } }
+  .pg-toast-io { animation: pg-toast-io 2s linear both; }
+  @keyframes pg-toast-io { 0% { opacity: 0; transform: translateY(6px) } 15% { opacity: 1; transform: none } 80% { opacity: 1 } 100% { opacity: 0 } }
+  .pg-flip-off { animation: pg-flip-off .3s ease both; } .pg-flip-on { animation: pg-flip-on .3s ease both; }
+  @keyframes pg-flip-off { to { background: #1a1e26; color: #f3f5f7; font-weight: 600 } }
+  @keyframes pg-flip-on { to { background: #2ee6ad; color: #062018; font-weight: 700 } }
+  .pg-outro-table { -webkit-mask-image: linear-gradient(#000 60%, transparent); mask-image: linear-gradient(#000 60%, transparent); }
+</style>
+</head>
+<body class="pg">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-prev" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-next" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v16M5 13l7 7 7-7"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12l5 5L20 7"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-reload" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></symbol>
+</svg>
+
+<!-- 1 · Hook: 10,000 rows, one jump to page 500 -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="pg-count" style="top:140px"><b id="hookCount">10,000</b><span>ROWS</span></div>
+  <div class="pg-goto" style="top:244px">Go to page <input id="hookGoto" value="500" aria-label="Go to page"></div>
+  <div class="pg-table" style="position:absolute;left:47px;top:316px" data-rows="hook"></div>
+  <nav class="pg-pager" style="left:135px;top:753px" data-pager="1,…,499,[500],501,…,833"></nav>
+  <div class="pg-cap pg-fade" style="top:1012px;font-size:36px;padding:0 60px;animation-delay:.9s">10,000 rows. <em>One jump to page 500.</em></div>
+</section>
+
+<!-- 2 · Offset pagination: insert a row, everything shifts -->
+<section class="scene" data-t="4" data-shot="6">
+  <div class="pg-kicker pg-kicker--pink" style="top:167px">OFFSET PAGINATION</div>
+  <div class="pg-query" style="left:172px;top:208px"><b>OFFSET 10</b>LIMIT 10<span class="dot">·</span><i>page 2</i></div>
+  <div class="pg-banner pg-in" style="left:132px;top:300px;animation-delay:1.3s"><svg><use href="#i-down"/></svg>New row inserted at top — everything shifts down</div>
+  <div class="pg-table" style="position:absolute;left:47px;top:375px;--row-h:59px;height:396px" data-rows="offset"></div>
+  <div class="pg-note" style="left:133px;top:1000px"><svg style="color:#ef4f7e"><use href="#i-copy"/></svg><b>OFFSET</b>shifts every page <i>→</i> duplicates</div>
+</section>
+
+<!-- 3 · Offset vs cursor (before the insert) -->
+<section class="scene" data-t="10.5" data-shot="12">
+  <div class="pg-kicker" style="top:167px">OFFSET VS CURSOR</div>
+  <div class="pg-banner pg-in" style="left:248px;top:221px;height:34px;animation-delay:2.5s"><svg><use href="#i-down"/></svg>Insert a row at the top</div>
+  <div class="pg-label pg-label--pink" style="left:35px;width:310px;top:334px">OFFSET</div>
+  <div class="pg-label pg-label--teal" style="left:375px;width:310px;top:334px">CURSOR</div>
+  <div class="pg-query pg-query--sm pg-query--pink" style="left:95px;top:370px">OFFSET 500 LIMIT 10</div>
+  <div class="pg-query pg-query--sm pg-query--teal" style="left:440px;top:370px">WHERE id &lt; :lastId</div>
+  <div class="pg-list" style="left:35px;top:412px;width:310px;height:233px" data-rows="vs-offset"></div>
+  <div class="pg-list" style="left:375px;top:412px;width:310px;height:233px" data-rows="vs-cursor"></div>
+  <div class="pg-tag pg-tag--pink pg-in" style="left:145px;top:659px;animation-delay:3.3s"><svg><use href="#i-x"/></svg>shifts</div>
+  <div class="pg-tag pg-tag--teal pg-in" style="left:483px;top:659px;animation-delay:3.3s"><svg><use href="#i-check"/></svg>stable</div>
+  <div class="pg-cursor-chip" style="left:251px;top:734px">?after=cursor_abc123</div>
+  <div class="pg-cap pg-fade" style="top:814px;animation-delay:3.6s">Paginate by ID — <em>the list stays stable.</em></div>
+  <div class="pg-note pg-note--teal" style="left:241px;top:1001px"><svg><use href="#i-shield"/></svg>cursor = stable</div>
+</section>
+
+<!-- 3b · Offset vs cursor (after the insert: the same scene, frozen 4.5 s in) -->
+<section class="scene" data-t="10.5" data-shot="15">
+  <div class="pg-kicker" style="top:167px">OFFSET VS CURSOR</div>
+  <div class="pg-banner pg-in" style="left:248px;top:221px;height:34px;animation-delay:2.5s"><svg><use href="#i-down"/></svg>Insert a row at the top</div>
+  <div class="pg-label pg-label--pink" style="left:35px;width:310px;top:334px">OFFSET</div>
+  <div class="pg-label pg-label--teal" style="left:375px;width:310px;top:334px">CURSOR</div>
+  <div class="pg-query pg-query--sm pg-query--pink" style="left:95px;top:370px">OFFSET 500 LIMIT 10</div>
+  <div class="pg-query pg-query--sm pg-query--teal" style="left:440px;top:370px">WHERE id &lt; :lastId</div>
+  <div class="pg-list" style="left:35px;top:412px;width:310px;height:233px" data-rows="vs-offset"></div>
+  <div class="pg-list" style="left:375px;top:412px;width:310px;height:233px" data-rows="vs-cursor"></div>
+  <div class="pg-tag pg-tag--pink pg-in" style="left:145px;top:659px;animation-delay:3.3s"><svg><use href="#i-x"/></svg>shifts</div>
+  <div class="pg-tag pg-tag--teal pg-in" style="left:483px;top:659px;animation-delay:3.3s"><svg><use href="#i-check"/></svg>stable</div>
+  <div class="pg-cursor-chip" style="left:251px;top:734px">?after=cursor_abc123</div>
+  <div class="pg-cap pg-fade" style="top:814px;animation-delay:3.6s">Paginate by ID — <em>the list stays stable.</em></div>
+  <div class="pg-note pg-note--teal" style="left:241px;top:1001px"><svg><use href="#i-shield"/></svg>cursor = stable</div>
+</section>
+
+<!-- 4 · Three patterns -->
+<section class="scene" data-t="18" data-shot="24">
+  <div class="pg-kicker" style="top:135px">THREE PATTERNS</div>
+  <div class="pg-cap" style="top:162px">Each one fits a <em>different job.</em></div>
+  <div class="pg-label" style="left:24px;width:212px;top:267px">Numbered</div><div class="pg-label pg-label--teal" style="left:24px;width:212px;top:291px;font-size:13px;font-weight:500">Jump to any page</div>
+  <div class="pg-label" style="left:254px;width:212px;top:267px">Load more</div><div class="pg-label pg-label--teal" style="left:254px;width:212px;top:291px;font-size:13px;font-weight:500">User stays in control</div>
+  <div class="pg-label" style="left:484px;width:212px;top:267px">Infinite scroll</div><div class="pg-label pg-label--teal" style="left:484px;width:212px;top:291px;font-size:13px;font-weight:500">Best for feeds</div>
+  <div class="pg-list pg-list--feed" style="left:24px;top:318px;width:212px;height:504px;padding-top:7px" data-rows="numbered" id="numbered">
+    <nav class="pg-pager pg-pager--xs" style="left:25px;top:470px" data-pager="‹,[1],2,3,4,›"></nav>
+  </div>
+  <div class="pg-list pg-list--feed" style="left:254px;top:318px;width:212px;height:504px;padding-top:7px" data-rows="loadmore" id="loadmore">
+    <button class="pg-loadmore" id="loadmoreBtn"><b>+</b>Load more</button>
+  </div>
+  <div class="pg-list pg-list--feed" style="left:484px;top:318px;width:212px;height:504px;padding-top:7px" data-rows="infinite" id="infinite"></div>
+</section>
+
+<!-- 5 · Don't render 500 links -->
+<section class="scene" data-t="27" data-shot="27">
+  <div class="pg-kicker pg-kicker--pink" style="top:142px">DON'T RENDER 500 LINKS</div>
+  <div class="pg-grid" style="left:34px;top:202px" id="grid500"></div>
+  <div class="pg-spill" style="left:257px;top:480px">…spilling off-screen</div>
+</section>
+
+<!-- 6 · Truncate: first, gap, current pages, gap, last -->
+<section class="scene" data-t="30" data-shot="33">
+  <div class="pg-kicker pg-kicker--pink" style="top:142px">DON'T RENDER 500 LINKS</div>
+  <nav class="pg-pager pg-pager--lg" style="left:73px;top:455px" data-pager="(1),…,499,[500],501,…,(833)"></nav>
+  <div class="pg-pager__hint pg-fade" style="left:137px;width:53px;top:547px;text-align:center;animation-delay:1.5s">FIRST</div>
+  <div class="pg-pager__hint pg-fade" style="left:528px;width:53px;top:547px;text-align:center;animation-delay:1.5s">LAST</div>
+  <div class="pg-legend pg-in" style="left:70px;top:652px;animation-delay:.6s"><span>first</span><i>·</i><span class="gap">gap</span><i>·</i><span class="cur">current pages</span><i>·</i><span class="gap">gap</span><i>·</i><span>last</span></div>
+  <div class="pg-fade" style="position:absolute;left:0;right:0;top:740px;text-align:center;font-size:15px;color:#8b93a1;animation-delay:1s">Show ~7 cells, never the whole range.</div>
+  <div class="pg-cap pg-fade" style="top:1075px;animation-delay:2s">Keep <em>first and last</em> always reachable.</div>
+</section>
+
+<!-- 7 · Back from a detail page -->
+<section class="scene" data-t="36" data-shot="40.5">
+  <div class="pg-kicker" style="top:188px">BACK FROM A DETAIL PAGE</div>
+  <div class="pg-label pg-label--pink pg-fade" style="left:42px;width:303px;top:241px;animation-delay:.6s">Scroll = 0</div>
+  <div class="pg-label pg-label--teal pg-fade" style="left:375px;width:303px;top:241px;animation-delay:.6s">Restore scroll</div>
+  <div class="pg-list pg-list--detail pg-fade" style="left:42px;top:275px;width:303px;height:463px;animation-delay:.6s"><div class="pg-list__scroll pg-scroll-reset" style="padding-top:6px;animation-delay:3.2s" data-rows="detail"></div><i class="pg-scrollbar pg-scrollbar--pink pg-thumb-up" style="height:77px;animation-delay:3.2s"></i></div>
+  <div class="pg-list pg-list--detail pg-fade" style="left:375px;top:275px;width:303px;height:463px;animation-delay:.6s"><div class="pg-list__scroll" style="padding-top:6px;transform:translateY(-229px)" data-rows="detail-here"></div><i class="pg-scrollbar pg-scrollbar--teal" style="top:380px;height:80px"></i></div>
+  <div class="pg-detail pg-detail-io" style="left:42px;top:275px;width:303px;height:463px;animation-delay:.5s"><div class="pg-detail__back"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><use href="#i-back"/></svg>Back</div><div class="pg-detail__av">L</div><div class="pg-detail__name">Leo Hart</div><div class="pg-detail__mail">leo.hart@acme.io</div><div class="pg-detail__hint">Detail page · you tapped this row</div></div>
+  <div class="pg-detail pg-detail-io" style="left:375px;top:275px;width:303px;height:463px;animation-delay:.5s"><div class="pg-detail__back"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><use href="#i-back"/></svg>Back</div><div class="pg-detail__av">L</div><div class="pg-detail__name">Leo Hart</div><div class="pg-detail__mail">leo.hart@acme.io</div><div class="pg-detail__hint">Detail page · you tapped this row</div></div>
+  <div class="pg-tag pg-tag--pink pg-in" style="left:115px;top:749px;animation-delay:4s"><svg><use href="#i-x"/></svg>lost your place</div>
+  <div class="pg-tag pg-tag--teal pg-in" style="left:438px;top:749px;animation-delay:4s"><svg><use href="#i-check"/></svg>lands on your row</div>
+  <div class="pg-note" style="left:153px;top:833px"><svg style="color:#2ee6ad"><use href="#i-bookmark"/></svg>Restore scroll <i>or</i> lose your place</div>
+  <div class="pg-cap pg-fade" style="top:935px;animation-delay:4.2s">Restore scroll, or you <em class="pink">lose your place.</em></div>
+</section>
+
+<!-- 8 · State lives in the URL -->
+<section class="scene" data-t="42" data-shot="48">
+  <div class="pg-kicker" style="top:142px">STATE LIVES IN THE URL</div>
+  <div class="pg-label pg-label--teal" style="left:0;width:720px;top:213px">With ?page in the URL</div>
+  <div class="pg-browser" style="left:60px;top:249px"><span class="pg-browser__dots"><i></i><i></i><i></i></span><span class="pg-browser__url"><svg><use href="#i-lock"/></svg>app.com/users<i>?</i><b>page=500</b></span><span class="pg-browser__reload"><svg><use href="#i-reload"/></svg></span></div>
+  <div class="pg-toast pg-toast-io" style="left:535px;top:244px;animation-delay:2.5s"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><use href="#i-link"/></svg>Link copied</div>
+  <nav class="pg-pager" style="left:135px;top:336px" data-pager="1,…,499,[500],501,…,833"></nav>
+  <div class="pg-result pg-result--teal pg-fade" style="top:395px;animation-delay:1s"><svg><use href="#i-check"/></svg>Refresh keeps page 500</div>
+  <div class="pg-label pg-label--pink" style="left:0;width:720px;top:699px">No URL state</div>
+  <div class="pg-browser" style="left:60px;top:733px"><span class="pg-browser__dots"><i></i><i></i><i></i></span><span class="pg-browser__url"><svg><use href="#i-lock"/></svg>app.com/users</span><span class="pg-browser__reload"><svg><use href="#i-reload"/></svg></span></div>
+  <nav class="pg-pager" style="left:135px;top:817px" id="urlPager2"><button><svg><use href="#i-prev"/></svg></button><button class="is-active pg-flip-on" style="animation-delay:5s">1</button><span>···</span><button>499</button><button class="is-active pg-flip-off" style="animation-delay:5s">500</button><button>501</button><span>···</span><button>833</button><button><svg><use href="#i-next"/></svg></button></nav>
+  <div class="pg-result pg-result--pink pg-fade" style="top:875px;animation-delay:5.2s"><svg><use href="#i-x"/></svg>Refresh resets to page 1</div>
+  <div class="pg-cap pg-fade" style="top:1158px;font-size:30px;animation-delay:5.5s">Page 500 becomes a <em>link you can share.</em></div>
+</section>
+
+<!-- 9 · Outro -->
+<section class="scene" data-t="51" data-shot="51">
+  <div class="glow" style="left:100px;top:380px;background:rgba(46,230,173,.12)"></div>
+  <div class="pg-table pg-table--sm pg-outro-table" style="position:absolute;left:85px;top:192px;width:550px;height:200px;opacity:.35;background:transparent;border:0;box-shadow:none" data-rows="outro"></div>
+  <nav class="pg-pager pg-pager--sm" style="left:157px;top:425px;opacity:.5" data-pager="1,…,499,[500],501,…,833"></nav>
+  <div class="center" style="top:794px;font-size:14px;font-weight:700;letter-spacing:.16em;color:#2ee6ad;white-space:nowrap">@DESIGNMOTIONHQ</div>
+  <div class="title" style="top:822px;font-size:38px;line-height:1.15">Follow for more<br>UI systems.</div>
+  <div class="center" style="top:930px;font-size:18px;color:#b9c0cb;white-space:nowrap">Save this for your next data table.</div>
+  <div class="pg-save center" style="top:978px"><svg><use href="#i-bookmark"/></svg>Save</div>
+</section>
+
+<script type="module">
+  import { Pager, pageCells } from './pattern.js';
+  const U = (id, n, r) => ({ id, name: n, role: r, mail: n.toLowerCase().replace(' ', '.') + '@acme.io' });
+  const DATA = {
+    hook: [U(5989, 'Otto Park', 'owner'), U(5990, 'Noah Nash', 'editor'), U(5991, 'Nora Stone', 'viewer'), U(5992, 'Cleo Hart', 'viewer'), U(5993, 'Dax Lane', 'editor'), U(5994, 'Kai Cole', 'admin')],
+    offset: [Object.assign(U(10, 'Romy Cole', 'viewer'), { insert: true }), U(11, 'Zoe Quinn', 'editor'), U(12, 'Finn Webb', 'admin'), U(13, 'Otto Knox', 'owner'), U(14, 'Noah Boone', 'editor'), U(15, 'Nora Vance', 'viewer'), U(16, 'Cleo Reed', 'viewer')],
+    'vs-offset': [Object.assign(U(10, 'Romy Cole', 'viewer'), { insert: true, tag: 'DUP', cls: 'is-dup' }), U(11, 'Zoe Quinn', 'editor'), U(12, 'Finn Webb', 'admin'), U(13, 'Otto Knox', 'owner'), U(14, 'Noah Boone', 'editor'), U(15, 'Nora Vance', 'viewer')],
+    'vs-cursor': [Object.assign(U(11, 'Zoe Quinn', 'editor'), { tag: 'STABLE', cls: 'is-stable', late: true }), U(12, 'Finn Webb', 'admin'), U(13, 'Otto Knox', 'owner'), U(14, 'Noah Boone', 'editor'), U(15, 'Nora Vance', 'viewer')],
+    numbered: [U(1, 'Ivy Cruz'), U(2, 'Jude Page'), U(3, 'Cole Wells'), U(4, 'Eli Frost'), U(5, 'Ada Park'), U(6, 'Iris Nash')],
+    loadmore: [U(20, 'Wren Frost'), U(21, 'Mia Park'), U(22, 'Max Nash'), U(23, 'Theo Stone'), U(24, 'Ava Hart')],
+    infinite: [U(30, 'Iris Boone'), U(31, 'Liam Vance'), U(32, 'Leo Reed'), U(33, 'Remy Cruz'), U(34, 'Romy Page'), U(35, 'Zoe Wells'), U(36, 'Finn Frost'), U(37, 'Otto Park'), U(38, 'Noah Nash'), U(39, 'Nora Stone'), U(40, 'Cleo Hart')],
+    detail: [U(50, 'Jude Page'), U(51, 'Cole Wells'), U(52, 'Eli Frost'), U(53, 'Ada Park'), U(54, 'Iris Nash'), U(55, 'Liam Stone'), U(56, 'Leo Hart'), U(57, 'Remy Lane'), U(58, 'Romy Cole'), U(59, 'Zoe Quinn'), U(60, 'Finn Webb'), U(61, 'Otto Knox'), U(62, 'Noah Boone'), U(63, 'Nora Vance'), U(64, 'Cleo Reed'), U(65, 'Dax Cruz')],
+    outro: [U(5940, 'Finn Frost', 'admin'), U(5941, 'Otto Park', 'owner'), U(5942, 'Noah Nash', 'editor'), U(5943, 'Nora Stone', 'viewer')],
+  };
+  DATA['detail-here'] = DATA.detail.map(r => r.id === 56 ? Object.assign({}, r, { cls: 'is-here' }) : r);
+  const cap = s => s[0].toUpperCase() + s.slice(1);
+  const roleHtml = r => r.role ? `<span class="pg-role pg-role--${r.role}">${cap(r.role)}</span>` : '';
+  const tableRow = r => `<div class="pg-row${r.insert ? ' pg-insert' : ''}" style="${r.insert ? 'animation-delay:1.5s' : ''}"><span class="pg-row__id">#${r.id}</span><span class="pg-row__av">${r.name[0]}</span><span><div class="pg-row__name">${r.name}</div><div class="pg-row__mail">${r.mail}</div></span>${roleHtml(r)}</div>`;
+  const listRow = r => `<div class="pg-item ${r.cls || ''}${r.insert ? ' pg-insert' : ''}" style="${r.insert ? 'animation-delay:3s' : ''}"><span class="pg-item__id">#${r.id}</span><span class="pg-item__av">${r.name[0]}</span><span class="pg-item__name">${r.name}</span>${r.tag ? `<span class="pg-item__tag${r.late ? ' pg-fade' : ''}" style="${r.late ? 'animation-delay:3s' : ''}">${r.tag}</span>` : ''}${roleHtml(r)}</div>`;
+  document.querySelectorAll('[data-rows]').forEach(el => {
+    const rows = DATA[el.dataset.rows], isTable = el.classList.contains('pg-table');
+    const head = isTable && el.dataset.rows !== 'outro' ? '<div class="pg-table__head"><span>ID</span><span>USER</span><span>ROLE</span></div>' : '';
+    el.insertAdjacentHTML('afterbegin', head + rows.map(isTable ? tableRow : listRow).join(''));
+    if (el.dataset.rows === 'infinite') el.insertAdjacentHTML('beforeend', '<div class="pg-loading">loading…</div>');
+  });
+  // Static pagers from the data-pager spec: [n] active, (n) edge-outlined, … gap, ‹ › arrows
+  document.querySelectorAll('[data-pager]').forEach(nav => {
+    nav.innerHTML = nav.dataset.pager.split(',').map(c => {
+      if (c === '…') return '<span>···</span>';
+      if (c === '‹') return '<button aria-label="Previous"><svg><use href="#i-prev"/></svg></button>';
+      if (c === '›') return '<button aria-label="Next"><svg><use href="#i-next"/></svg></button>';
+      const active = c.startsWith('['), edge = c.startsWith('('), n = c.replace(/[\[\]()]/g, '');
+      return `<button class="${active ? 'is-active' : ''}${edge ? ' is-edge' : ''}">${n}</button>`;
+    }).join('');
+    if (!nav.dataset.pager.startsWith('‹')) { nav.insertAdjacentHTML('afterbegin', '<button aria-label="Previous"><svg><use href="#i-prev"/></svg></button>'); nav.insertAdjacentHTML('beforeend', '<button aria-label="Next"><svg><use href="#i-next"/></svg></button>'); }
+  });
+  // 500-link grid
+  document.getElementById('grid500').innerHTML = Array.from({ length: 504 }, (_, i) => `<i>${i + 1}</i>`).join('');
+  // Hook: count 9,360 → 10,000 and page 50 → 500 when the scene plays live; frozen at the final state for shots.
+  const hook = document.querySelector('.scene'), count = document.getElementById('hookCount'), goto = document.getElementById('hookGoto');
+  hook.addEventListener('scene:enter', e => {
+    if (e.detail.t > 0) return;
+    const t0 = performance.now(); goto.classList.add('is-focus'); goto.value = '50';
+    const tick = now => { const k = Math.min(1, (now - t0) / 1200), ease = 1 - Math.pow(1 - k, 3); count.textContent = Math.round(9360 + 640 * ease).toLocaleString('en-US'); if (k < 1) requestAnimationFrame(tick); else { goto.value = '500'; goto.classList.remove('is-focus'); } };
+    requestAnimationFrame(tick);
+  });
+  // Three patterns, live only: the numbered pager cycles pages, load more appends, the feed keeps scrolling.
+  const three = document.querySelectorAll('.scene')[4];
+  three.addEventListener('scene:enter', e => {
+    if (e.detail.t > 0) return;
+    const pages = [DATA.numbered, [U(6, 'Iris Nash'), U(7, 'Liam Stone'), U(8, 'Leo Hart'), U(9, 'Remy Lane'), U(10, 'Romy Cole'), U(11, 'Zoe Quinn')]];
+    const numbered = document.getElementById('numbered'), pager = numbered.querySelector('.pg-pager'); let p = 0;
+    const paint = () => { numbered.querySelectorAll('.pg-item').forEach(n => n.remove()); numbered.insertAdjacentHTML('afterbegin', pages[p].map(listRow).join('')); pager.querySelectorAll('button').forEach((b, i) => b.classList.toggle('is-active', i === p + 1)); };
+    clearInterval(three._iv); three._iv = setInterval(() => { p = (p + 1) % 2; paint(); }, 2500); paint();
+    const lm = document.getElementById('loadmore'), btn = document.getElementById('loadmoreBtn'); let extra = 0;
+    btn.onclick = () => { if (extra < 2) { lm.insertBefore(Object.assign(document.createElement('div'), { innerHTML: listRow(U(25 + extra, ['Bo Reed', 'Eve Lane'][extra])) }).firstChild, btn); extra++; } };
+  });
+  // The rows above are built after stage.js ran, so re-freeze the active scene at ?t and replay its enter event.
+  const q = new URLSearchParams(location.search), active = document.querySelector('.scene.active');
+  if (active) {
+    const t = q.has('t') ? Number(q.get('t')) : null;
+    if (t !== null) active.getAnimations({ subtree: true }).forEach(a => { try { a.currentTime = Math.max(0, (t - (Number(active.dataset.t) || 0)) * 1000); a.pause(); } catch {} });
+    active.dispatchEvent(new CustomEvent('scene:enter', { detail: { t: t ?? 0 } }));
+  }
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

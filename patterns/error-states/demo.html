@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error States · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a0a0c; --accent: #e5396a; --danger: #e5396a; --grid: transparent; }
+  .scene { color: #f2f2f5; }
+  .hide { display: none !important; }
+  .frozen * { transition: none !important; }
+  .es-kicker { position: absolute; left: 0; right: 0; top: 82px; text-align: center; font-size: 16px; font-weight: 700; letter-spacing: .22em; color: var(--accent); text-transform: uppercase; }
+  .es-title { position: absolute; left: 0; right: 0; top: 110px; text-align: center; font-size: 30px; font-weight: 700; letter-spacing: -.01em; }
+  .es-title em { font-style: normal; color: var(--accent); }
+</style>
+</head>
+<body class="es">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-bang" viewBox="0 0 24 24"><path d="M12 6v8M12 18h.01"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-14 5.3M4 12a8 8 0 0 1 14-5.3M18 3v4h-4M6 21v-4h4"/></symbol>
+  <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M2 2l20 20M8.5 16.5a5 5 0 0 1 7 0M5 12.5a10 10 0 0 1 5.2-2.7M12 20h.01M1.5 9a15 15 0 0 1 4.2-2.7M16.8 9.8A15 15 0 0 1 22.5 9"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M13 7.5l-2 3h3l-2 3"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M12 9v4M12 16h.01"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5M3 17l9 5 9-5"/></symbol>
+  <symbol id="i-exit" viewBox="0 0 24 24"><path d="M9 4H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4M15 8l5 4-5 4M20 12H9"/></symbol>
+  <symbol id="i-bars" viewBox="0 0 24 24"><path d="M4 18h4M4 12h10M4 6h16"/></symbol>
+  <symbol id="i-text" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></symbol>
+</svg>
+
+<!-- 1 · Hook: Error 500 vs Lost connection -->
+<section class="scene s-hook" data-t="0" data-shot="1.5">
+  <div class="es-glow es-glow--pink" style="left:40px;top:280px"></div>
+  <div class="es-dead j-dead" style="left:107px;top:354px">
+    <div class="es-alert es-alert--light" style="top:24px"><svg><use href="#i-bang"/></svg></div>
+    <div class="es-dead__title">Error 500</div>
+    <div class="es-dead__sub">An error occurred.</div>
+    <button class="es-btn es-btn--dead">OK</button>
+  </div>
+  <div class="es-card j-card" style="left:105px;top:570px;width:510px;height:250px">
+    <div class="es-alert es-alert--ring" style="top:26px"><svg><use href="#i-bang"/></svg></div>
+    <div class="es-card__title" style="top:104px;font-size:26px">Lost connection.</div>
+    <div class="es-card__sub" style="top:146px;font-size:17px">We're trying to reconnect...</div>
+    <div class="es-card__actions" style="top:186px"><button class="es-btn es-btn--primary"><svg><use href="#i-refresh"/></svg>Try again</button><button class="es-btn">Refresh page</button></div>
+  </div>
+</section>
+
+<!-- 2 · 4 errors. 4 patterns. -->
+<section class="scene s-grid" data-t="3" data-shot="9" data-shots="12">
+  <div class="es-glow es-glow--green" style="left:-220px;top:760px"></div>
+  <div class="title" style="top:78px;font-size:40px"><em>4 errors.</em> 4 patterns.</div>
+  <div style="position:absolute;left:0;right:0;top:126px;text-align:center;font-size:18px;color:#9aa3ad">Match the error to its surface.</div>
+  <div class="es-chip es-chip--pink" style="left:137px;top:213px">Validation</div>
+  <div class="es-grid-card j-c1" style="left:62px;top:248px">
+    <div class="es-label" style="left:16px;top:94px">Email</div>
+    <div class="es-input is-bad" style="left:16px;top:120px;width:253px">thibault@grouet</div>
+    <div class="es-err" style="left:16px;top:169px">Email is invalid</div>
+    <div class="es-note" style="left:16px;top:198px">small. inline. specific.</div>
+  </div>
+  <div class="es-chip es-chip--amber" style="left:457px;top:213px">Network</div>
+  <div class="es-grid-card j-c2" style="left:372px;top:248px">
+    <i class="es-skel" style="left:17px;top:74px;width:215px"></i><i class="es-skel" style="left:17px;top:90px;width:150px;height:8px"></i>
+    <div class="es-toast" style="left:17px;top:112px;width:252px"><svg><use href="#i-wifi-off"/></svg><div><b>No connection.</b><span>Reconnecting...</span></div><i class="es-toast__spin"></i></div>
+    <i class="es-skel" style="left:17px;top:179px;width:175px"></i><i class="es-skel" style="left:17px;top:195px;width:115px;height:8px"></i>
+    <div class="es-note" style="left:17px;top:218px">non-blocking. transient.</div>
+  </div>
+  <div class="es-chip es-chip--red" style="left:157px;top:579px">Server</div>
+  <div class="es-grid-card j-c3" style="left:62px;top:614px">
+    <div class="es-server" style="top:62px"><div class="es-server__icon"><svg><use href="#i-server"/></svg></div><b>Something broke</b><span>on our end.</span><button class="es-btn es-btn--primary">Try again</button></div>
+    <div class="es-note" style="left:0;right:0;top:229px;text-align:center">full surface. blocking.</div>
+  </div>
+  <div class="es-chip es-chip--teal" style="left:447px;top:579px">Permission</div>
+  <div class="es-grid-card j-c4" style="left:372px;top:614px">
+    <div class="es-perm"><div class="es-perm__modal"><svg><use href="#i-shield"/></svg><b>You don't have access.</b><a>Sign in</a></div><div class="es-note" style="left:0;right:0;top:198px;text-align:center">gated. requires action.</div></div>
+  </div>
+  <div class="es-bottom j-bottom hide" style="top:1188px">Don't show a 500 modal <em>for a typo.</em></div>
+</section>
+
+<!-- 3 · Recovery -->
+<section class="scene s-rec" data-t="13.5" data-shot="15" data-shots="21">
+  <div class="es-glow es-glow--pink" style="left:40px;top:270px"></div>
+  <div class="es-kicker">Recovery</div>
+  <div class="es-title">Every error needs an exit.</div>
+  <div class="es-hint j-hint hide" style="left:261px;top:410px">Add recovery actions</div>
+  <div class="j-arrow hide" style="position:absolute;left:446px;top:412px;font-size:20px;color:var(--accent)">↓</div>
+  <div class="es-modal j-modal" style="left:107px;top:456px;height:274px">
+    <div class="es-alert es-alert--ring j-icon" style="top:26px;width:58px;height:58px;margin-left:-29px"><svg><use href="#i-bang"/></svg></div>
+    <div class="es-card__title j-title" style="top:100px;font-size:24px">Something went wrong.</div>
+    <div class="es-card__actions j-ok" style="top:145px"><button class="es-btn es-btn--ghost" style="width:110px;height:36px">OK</button></div>
+    <div class="es-card__actions j-acts hide" style="top:140px"><button class="es-btn es-btn--primary"><svg><use href="#i-refresh"/></svg>Try again</button><button class="es-btn">Contact support</button></div>
+    <div class="es-what j-what hide" style="top:194px"><small>What happened?</small><code>Network timed out after 30s.</code></div>
+  </div>
+  <div class="es-step j-s1 hide" style="left:207px;top:777px">1. Retry</div>
+  <div class="es-step j-s2 hide" style="left:297px;top:777px">2. Escalate</div>
+  <div class="es-step j-s3 hide" style="left:416px;top:777px">3. Explain</div>
+  <div class="es-bottom j-bottom hide" style="top:1186px;font-size:24px">Always offer <em>a way out.</em></div>
+</section>
+
+<!-- 4 · Hierarchy: severity -> surface -->
+<section class="scene s-hier" data-t="22.5" data-shot="27" data-shots="30">
+  <div class="es-glow es-glow--green" style="left:-200px;top:60px;opacity:.6"></div>
+  <div class="es-glow es-glow--amber" style="left:40px;top:120px"></div>
+  <div class="es-glow es-glow--pink" style="left:280px;top:80px;opacity:.5"></div>
+  <div class="es-kicker">Hierarchy</div>
+  <div class="es-title">Severity <em>→</em> Surface.</div>
+  <div class="es-chip es-chip--green" style="left:118px;top:386px">Inline</div><div class="es-label" style="left:60px;width:200px;top:417px;text-align:center;font-size:13px;letter-spacing:.12em">RECOVERABLE</div>
+  <div class="es-chip es-chip--amber" style="left:318px;top:386px">Toast</div><div class="es-label" style="left:260px;width:200px;top:417px;text-align:center;font-size:13px;letter-spacing:.12em">TRANSIENT</div>
+  <div class="es-chip es-chip--red" style="left:516px;top:386px">Modal</div><div class="es-label" style="left:460px;width:200px;top:417px;text-align:center;font-size:13px;letter-spacing:.12em">BLOCKING</div>
+  <div class="es-phone j-p1" style="left:68px;top:441px">
+    <div class="es-phone__h">Sign up</div>
+    <div class="es-label" style="left:14px;top:68px">Email</div>
+    <div class="es-input is-bad j-pin" style="left:14px;top:88px;width:153px">sarah@design.co</div>
+    <div class="es-err j-perr" style="left:14px;top:122px">Email already in use</div>
+    <div class="es-label" style="left:14px;top:145px">Password</div>
+    <div class="es-input" style="left:14px;top:165px;width:153px"></div>
+    <button class="es-btn es-btn--ghost" style="position:absolute;left:14px;top:209px;width:153px;color:#9aa3ad">Continue</button>
+  </div>
+  <div class="es-phone j-p2" style="left:269px;top:441px">
+    <div class="es-phone__h">Inbox</div>
+    <div class="es-row" style="top:69px"><i></i></div><div class="es-row" style="top:116px"><i></i></div><div class="es-row" style="top:163px"><i></i></div><div class="es-row" style="top:210px"><i></i></div>
+    <div class="es-ptoast j-ptoast" style="top:305px"><b>Connection lost.</b><span>Reconnecting...</span><svg><use href="#i-x"/></svg></div>
+  </div>
+  <div class="es-phone j-p3" style="left:470px;top:441px">
+    <div class="es-phone__h">Settings</div>
+    <i class="es-skel" style="left:14px;top:74px;width:120px;height:7px"></i><i class="es-skel" style="left:14px;top:90px;width:90px;height:7px"></i><i class="es-skel" style="left:14px;top:106px;width:130px;height:7px"></i>
+    <div class="es-dimmed"></div>
+    <div class="es-pmodal j-pmodal" style="top:122px"><div class="es-alert es-alert--ring"><svg><use href="#i-bang"/></svg></div><b>Delete account?</b><span>This can't be undone.</span><div class="es-card__actions"><button class="es-btn">Cancel</button><button class="es-btn es-btn--danger">Delete</button></div></div>
+  </div>
+  <div class="es-sev j-sev hide" style="top:1109px"><span>Low severity</span><span>High severity</span><i></i></div>
+  <div class="es-bottom j-bottom hide" style="top:1160px;font-size:24px">Most apps <em>overuse modals.</em></div>
+</section>
+
+<!-- 5 · Copy -->
+<section class="scene s-copy" data-t="31" data-shot="31.5" data-shots="37.5">
+  <div class="es-glow es-glow--pink" style="left:40px;top:260px;opacity:.7"></div>
+  <div class="es-kicker">Copy</div>
+  <div class="es-title">Words do <em>most</em> of the work.</div>
+  <div class="es-copy" style="left:80px;top:440px">
+    <div class="j-bad">
+      <div class="es-alert es-alert--flat" style="top:94px"><svg><use href="#i-bang"/></svg></div>
+      <div class="es-copy__t j-strike" style="top:156px"><s>An</s> error occurred.</div>
+      <div class="es-copy__code" style="top:198px">Code: 0x80004005</div>
+    </div>
+    <div class="j-good hide">
+      <div class="es-alert es-alert--ring" style="top:70px;width:60px;height:60px;margin-left:-30px"><svg><use href="#i-bang"/></svg></div>
+      <div class="es-card__title" style="top:148px;font-size:26px">Lost connection</div>
+      <div class="es-copy__count" style="top:198px">Reconnecting in <b class="j-n">5</b> seconds... <i></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · Prevention -->
+<section class="scene s-prev" data-t="39" data-shot="40.5" data-shots="43.5,46.5">
+  <div class="es-glow es-glow--pink" style="left:-200px;top:440px;opacity:.6"></div>
+  <div class="es-glow es-glow--green" style="left:280px;top:420px;opacity:.6"></div>
+  <div class="es-kicker" style="top:75px">Prevention</div>
+  <div class="es-title" style="top:104px">Inline validation kills <span class="j-pct" style="display:inline-block;width:100px;text-align:center"><em class="es-pct j-pcttext hide">80%</em></span> of errors.</div>
+  <div class="es-chip es-chip--pink es-chip--sm es-chip--center" style="top:256px">After submit</div>
+  <div class="es-form" style="left:220px;top:287px;width:280px;height:253px">
+    <div class="es-label" style="left:17px;top:19px">Email</div>
+    <div class="es-input" style="left:17px;top:38px;width:246px">sarah@design.co</div>
+    <div class="es-label" style="left:17px;top:86px">Password</div>
+    <div class="es-input j-apw" style="left:17px;top:105px;width:246px">password</div>
+    <button class="es-btn es-btn--primary j-abtn" style="left:17px;top:160px;width:246px">Sign up</button>
+    <div class="es-form__err j-aerr hide" style="left:17px;top:208px;width:246px">✕ &nbsp;Password must contain a number</div>
+  </div>
+  <div class="j-live hide">
+    <div class="es-chip es-chip--green es-chip--sm es-chip--center" style="top:595px">Live validation</div>
+    <div class="es-form" style="left:209px;top:630px;width:302px;height:310px">
+      <div class="es-label" style="left:18px;top:19px">Email</div>
+      <div class="es-input" style="left:18px;top:41px;width:266px">sarah@design.co</div>
+      <div class="es-label" style="left:18px;top:92px">Password</div>
+      <div class="es-input es-input--dots j-lpw" style="left:18px;top:114px;width:266px"></div>
+      <div class="es-rule j-r1" style="left:27px;top:169px"><i><svg><use href="#i-check"/></svg></i>At least 8 characters</div>
+      <div class="es-rule j-r2" style="left:27px;top:196px"><i><svg><use href="#i-check"/></svg></i>Contains a number</div>
+      <div class="es-rule j-r3" style="left:27px;top:223px"><i><svg><use href="#i-check"/></svg></i>Contains a special char</div>
+      <button class="es-btn es-btn--primary is-disabled j-lbtn" style="left:18px;top:259px;width:266px;height:34px">Sign up</button>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · 5 rules -->
+<section class="scene s-rules" data-t="47.5" data-shot="48">
+  <div class="es-glow es-glow--pink" style="left:40px;top:300px"></div>
+  <div class="es-glow es-glow--green" style="left:40px;top:760px;opacity:.5"></div>
+  <div class="es-kicker" style="top:464px;font-size:18px">5 rules</div>
+  <div class="es-rulerow j-row" style="top:502px"><div class="es-rulerow__icon"><svg><use href="#i-layers"/></svg></div>Match the type to the surface<div class="es-rulerow__ok"><svg><use href="#i-check"/></svg></div></div>
+  <div class="es-rulerow j-row" style="top:554px"><div class="es-rulerow__icon"><svg><use href="#i-exit"/></svg></div>Always offer a way out<div class="es-rulerow__ok"><svg><use href="#i-check"/></svg></div></div>
+  <div class="es-rulerow j-row" style="top:606px"><div class="es-rulerow__icon"><svg><use href="#i-bars"/></svg></div>Severity drives surface<div class="es-rulerow__ok"><svg><use href="#i-check"/></svg></div></div>
+  <div class="es-rulerow j-row" style="top:658px"><div class="es-rulerow__icon"><svg><use href="#i-text"/></svg></div>Write copy for humans<div class="es-rulerow__ok"><svg><use href="#i-check"/></svg></div></div>
+  <div class="es-rulerow j-row" style="top:710px"><div class="es-rulerow__icon"><svg><use href="#i-zap"/></svg></div>Prevent with live validation<div class="es-rulerow__ok"><svg><use href="#i-check"/></svg></div></div>
+</section>
+
+<!-- 8 · Outro -->
+<section class="scene" data-t="50" data-shot="51">
+  <div class="es-glow es-glow--pink" style="left:40px;top:300px"></div>
+  <div class="es-glow es-glow--green" style="left:40px;top:760px;opacity:.5"></div>
+  <div class="es-outro" style="top:512px"><small>Save this for</small><b>your next<br>error state.</b></div>
+  <div style="position:absolute;left:0;right:0;top:840px;text-align:center;font-size:15px;color:#9aa3ad;animation:es-in .5s 2.2s both"><b style="color:#fff">Follow <span style="color:var(--accent)">@designmotionhq</span></b><br>for more UI patterns</div>
+  <style>@keyframes es-in { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }</style>
+</section>
+
+<script>
+  (() => {
+    // Duplicate sections that carry data-shots="a,b" so the screenshot tool captures each later state.
+    document.querySelectorAll('.scene[data-shots]').forEach(s => { let after = s; s.dataset.shots.split(',').forEach(sh => { const c = s.cloneNode(true); c.dataset.shot = sh.trim(); c.removeAttribute('data-shots'); after.insertAdjacentElement('afterend', c); after = c; }); });
+    const $ = (s, q) => s.querySelector(q), $$ = (s, q) => [...s.querySelectorAll(q)];
+    const show = (el, on = true) => el && el.classList.toggle('hide', !on);
+    function timeline(sel, reset, steps, loop = 10) {
+      document.querySelectorAll(sel).forEach(s => {
+        const apply = t => { reset(s); steps.forEach(([at, fn]) => { if (t >= at) fn(s, t - at); }); };
+        s.addEventListener('scene:enter', e => {
+          cancelAnimationFrame(s._raf);
+          if (e.detail.t) { document.body.classList.add('frozen'); apply(e.detail.t - (Number(s.dataset.t) || 0)); return; }
+          const start = performance.now();
+          const tick = () => { apply(((performance.now() - start) / 1000) % loop); s._raf = requestAnimationFrame(tick); };
+          tick();
+        });
+      });
+    }
+    timeline('.s-hook', s => { $(s, '.j-dead').classList.remove('is-dim'); const c = $(s, '.j-card'); c.classList.remove('is-lit'); c.style.transform = ''; }, [
+      [0.8, s => { $(s, '.j-dead').classList.add('is-dim'); const c = $(s, '.j-card'); c.classList.add('is-lit'); c.style.transform = 'scale(1.06)'; }],
+    ], 5);
+    timeline('.s-grid', s => { ['.j-c1', '.j-c2', '.j-c3', '.j-c4'].forEach(q => $(s, q).classList.remove('is-on')); show($(s, '.j-bottom'), false); }, [
+      [0.6, s => $(s, '.j-c1').classList.add('is-on')], [1.6, s => $(s, '.j-c2').classList.add('is-on')],
+      [2.6, s => $(s, '.j-c3').classList.add('is-on')], [3.6, s => $(s, '.j-c4').classList.add('is-on')],
+      [8.2, s => show($(s, '.j-bottom'))],
+    ], 10);
+    timeline('.s-rec', s => { const m = $(s, '.j-modal'); m.classList.remove('is-lit'); m.style.top = '456px'; m.style.height = '274px'; $(s, '.j-icon').style.top = '26px'; $(s, '.j-title').style.top = '100px'; show($(s, '.j-ok')); show($(s, '.j-acts'), false); show($(s, '.j-what'), false); ['.j-hint', '.j-arrow', '.j-s1', '.j-s2', '.j-s3', '.j-bottom'].forEach(q => show($(s, q), false)); }, [
+      [2.5, s => { show($(s, '.j-hint')); show($(s, '.j-arrow')); const m = $(s, '.j-modal'); m.classList.add('is-lit'); m.style.top = '450px'; m.style.height = '288px'; $(s, '.j-icon').style.top = '24px'; $(s, '.j-title').style.top = '96px'; }],
+      [3.4, s => { show($(s, '.j-ok'), false); show($(s, '.j-acts')); }],
+      [4.4, s => show($(s, '.j-what'))],
+      [5.4, s => show($(s, '.j-s1'))], [6.0, s => show($(s, '.j-s2'))], [6.6, s => show($(s, '.j-s3'))],
+      [7.2, s => show($(s, '.j-bottom'))],
+    ], 10);
+    timeline('.s-hier', s => { show($(s, '.j-sev'), false); show($(s, '.j-bottom'), false); $(s, '.j-sev i').style.transform = ''; }, [
+      [3.0, (s, dt) => { show($(s, '.j-sev')); $(s, '.j-sev i').style.transform = `scaleX(${Math.min(1, dt / 0.8)})`; }],
+      [7.0, s => show($(s, '.j-bottom'))],
+    ], 10);
+    timeline('.s-copy', s => { show($(s, '.j-bad')); show($(s, '.j-good'), false); $(s, '.j-strike').classList.remove('is-struck'); $(s, '.j-n').textContent = 5; }, [
+      [3.0, s => $(s, '.j-strike').classList.add('is-struck')],
+      [4.2, s => { show($(s, '.j-bad'), false); show($(s, '.j-good')); }],
+      [5.5, (s, dt) => { $(s, '.j-n').textContent = Math.max(1, 5 - Math.floor(dt)); }],
+    ], 10);
+    timeline('.s-prev', s => { show($(s, '.j-pcttext'), false); $(s, '.j-apw').classList.remove('is-bad'); show($(s, '.j-aerr'), false); show($(s, '.j-live'), false); const p = $(s, '.j-lpw'); p.textContent = ''; p.classList.remove('is-good'); ['.j-r1', '.j-r2', '.j-r3'].forEach(q => $(s, q).classList.remove('is-on')); $(s, '.j-lbtn').classList.add('is-disabled'); }, [
+      [2.4, s => { $(s, '.j-apw').classList.add('is-bad'); show($(s, '.j-aerr')); }],
+      [3.4, s => show($(s, '.j-live'))],
+      [4.0, (s, dt) => { const n = Math.min(11, Math.floor(dt / 0.32) + 4); $(s, '.j-lpw').textContent = '•'.repeat(n); $(s, '.j-r1').classList.toggle('is-on', n >= 5); $(s, '.j-r2').classList.toggle('is-on', n >= 9); $(s, '.j-r3').classList.toggle('is-on', n >= 11); const ok = n >= 11; $(s, '.j-lbtn').classList.toggle('is-disabled', !ok); $(s, '.j-lpw').classList.toggle('is-good', ok); }],
+      [6.5, s => show($(s, '.j-pcttext'))],
+    ], 10);
+    timeline('.s-rules', s => $$(s, '.j-row').forEach(r => r.classList.remove('is-on')), [
+      [0.3, (s, dt) => $$(s, '.j-row').forEach((r, i) => r.classList.toggle('is-on', dt >= i * 0.35))],
+    ], 6);
+  })();
+</script>
+<script type="module">
+  import { liveValidate } from './pattern.js';
+  // Live wiring: nothing to bind on the reel replica itself; liveValidate is exported for real forms.
+  void liveValidate;
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

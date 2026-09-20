@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hover Trap · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a0d10; --accent: #35d6bb; --danger: #e95072; --grid: rgba(255,255,255,.03); }
+  .scene { color: #eef2f5; }
+  .kicker { top: 148px; height: 34px; padding: 0 20px; display: grid; place-items: center; font-size: 15px; letter-spacing: .16em; background: #002a31; color: var(--accent); }
+  .kicker--danger { background: #2e1d1f; color: var(--danger); }
+  .title { top: 194px; margin: 0; font-size: 40px; font-weight: 800; letter-spacing: -.02em; }
+  .glow { width: 620px; height: 620px; filter: blur(110px); }
+</style>
+</head>
+<body class="ht">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-chair" viewBox="0 0 48 48"><path d="M12 22V14a4 4 0 0 1 4-4h16a4 4 0 0 1 4 4v8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M8 30v-4a4 4 0 0 1 4-4h24a4 4 0 0 1 4 4v4a3 3 0 0 1-3 3H11a3 3 0 0 1-3-3zM12 33v5M36 33v5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-8.6-8.6C2.2 8.2 4.3 5 7.5 5c1.9 0 3.2 1 4.5 2.6C13.3 6 14.6 5 16.5 5c3.2 0 5.3 3.2 4.1 6.4C19 15.6 12 20 12 20z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18M4 21h16M12 5l6 2M12 5L6 7M3 13l3-6 3 6a3 3 0 0 1-6 0zM15 13l3-6 3 6a3 3 0 0 1-6 0z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M3 3l18 18M10 6.3A10 10 0 0 1 12 6c6.5 0 10 6 10 6a17 17 0 0 1-3.2 3.7M6.6 6.6A16 16 0 0 0 2 12s3.5 6 10 6a9.7 9.7 0 0 0 4.2-.9M9.9 9.9a3 3 0 0 0 4.2 4.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21a8 8 0 0 1 16 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-snow" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 2l-2 3M12 2l2 3M12 22l-2-3M12 22l2-3M2 12l3-2M2 12l3 2M22 12l-3-2M22 12l-3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-touch" viewBox="0 0 24 24"><path d="M9 11V4a2 2 0 1 1 4 0v7M13 10a2 2 0 1 1 4 0v3M17 12a2 2 0 1 1 4 0v3c0 4-3 7-7 7h-2c-2 0-3.5-1-4.5-2.5L4 15a1.8 1.8 0 0 1 3-2l2 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M2 19h20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M11 18h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-tablet" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M11 18h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-pointer" viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L9.5 19z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5M3 17l9 5 9-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="19" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.2 10.8l7.6-4.6M8.2 13.2l7.6 4.6" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-ruler" viewBox="0 0 24 24"><path d="M3 17L17 3l4 4L7 21zM8 12l2 2M11 9l2 2M14 6l2 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><path d="M21 11.5l-8.5 8.5a5 5 0 0 1-7-7l9-9a3.5 3.5 0 0 1 5 5l-9 9a2 2 0 0 1-3-3l8-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-follow" viewBox="0 0 24 24"><circle cx="10" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2 21a8 8 0 0 1 14-4M19 8v6M16 11h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.5L6 21z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></symbol>
+  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+</svg>
+
+<!-- 1 · Hook: desktop hover vs phone tap -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="ht-browser" style="position:absolute;left:34px;top:165px">
+    <div class="ht-browser__bar"><i></i><i></i><i></i><span>northform.store/chairs</span><svg><use href="#i-search"/></svg></div>
+    <div class="ht-card ht-card--desk is-hover" style="left:26px;top:62px">
+      <span class="ht-new">New</span><svg class="ht-card__chair"><use href="#i-chair"/></svg>
+      <div class="ht-actions"><span><svg><use href="#i-heart"/></svg>Favorite</span><span><svg><use href="#i-scale"/></svg>Compare</span><span><svg><use href="#i-eye"/></svg>Quick view</span></div>
+      <b>Nordic Chair</b><em>$248</em><small>Oak · 3 colors</small>
+    </div>
+    <div class="ht-card ht-card--desk" style="left:332px;top:69px">
+      <span class="ht-new">New</span><svg class="ht-card__chair"><use href="#i-chair"/></svg>
+      <b>Nordic Chair</b><em>$248</em><small>Oak · 3 colors</small>
+    </div>
+    <div class="ht-browser__foot"><span>24 chairs</span><span>Sort: Newest</span></div>
+    <svg class="cursor" style="left:162px;top:148px" viewBox="0 0 22 26"><use href="#i-arrow"/></svg>
+  </div>
+  <div class="ht-phone" style="position:absolute;left:216px;top:532px;width:302px;height:400px">
+    <div class="ht-phone__status"><b>9:41</b><span>▪▪▪ ⌔ ▭</span></div>
+    <div class="ht-phone__nav"><svg><use href="#i-menu"/></svg><b>Northform</b><svg><use href="#i-search"/></svg></div>
+    <div class="ht-card ht-card--mobile" style="left:18px;top:96px;width:266px;height:208px">
+      <span class="ht-new">New</span><span class="ht-tap"><svg class="ht-card__chair"><use href="#i-chair"/></svg></span>
+      <b>Nordic Chair</b><em>$248</em><small>Oak · 3 colors</small>
+    </div>
+    <div class="ht-card ht-card--mobile ht-card--peek" style="left:18px;top:314px;width:266px;height:30px"></div>
+    <div class="ht-phone__tabs"><svg><use href="#i-home"/></svg><svg><use href="#i-search"/></svg><svg><use href="#i-bag"/></svg><svg><use href="#i-user"/></svg></div>
+  </div>
+  <div class="ht-dim center" style="top:944px">390 × 844</div>
+  <div class="ht-hook center" style="top:978px">Touch has no hover.</div>
+</section>
+
+<!-- 2 · Sticky hover -->
+<section class="scene" data-t="3" data-shot="7.5">
+  <div class="glow" style="left:50px;top:300px;background:rgba(233,80,114,.06)"></div>
+  <div class="kicker kicker--danger">Sticky hover</div>
+  <h1 class="title">The browser <em class="danger">fakes</em> one.</h1>
+  <div class="ht-phone ht-phone--tall" id="stickyPhone" style="position:absolute;left:200px;top:272px;width:320px;height:558px">
+    <div class="ht-phone__status"><b>9:41</b><span>▪▪▪ ⌔ ▭</span></div>
+    <div class="ht-phone__nav"><svg><use href="#i-menu"/></svg><b>Northform</b><svg><use href="#i-search"/></svg></div>
+    <div class="ht-card ht-card--mobile is-sticky" style="left:20px;top:94px;width:280px;height:202px">
+      <span class="ht-new">New</span><span class="ht-tap ht-tap--sm"><svg class="ht-card__chair"><use href="#i-chair"/></svg></span>
+      <div class="ht-actions ht-actions--m"><span><svg><use href="#i-heart"/></svg>Favorite</span><span><svg><use href="#i-scale"/></svg>Compare</span><span><svg><use href="#i-eye"/></svg>Quick view</span></div>
+      <b>Nordic Chair</b><em>$248</em><small>Oak · 3 colors</small>
+    </div>
+    <div class="ht-more" style="left:20px;top:314px">More like this</div>
+    <div class="ht-tile" style="left:20px;top:340px">Fjord Stool</div><div class="ht-tile" style="left:164px;top:340px">Pine Bench</div>
+    <div class="ht-phone__tabs"><svg><use href="#i-home"/></svg><svg><use href="#i-search"/></svg><svg><use href="#i-bag"/></svg><svg><use href="#i-user"/></svg></div>
+  </div>
+  <div class="ht-still" style="position:absolute;left:46px;top:393px"><span>Still :hover</span><b id="stillTime">3.6s</b><i class="ht-still__bar"><i id="stillBar" style="width:60%"></i></i><small>nobody hovered</small></div>
+  <i class="ht-link" style="position:absolute;left:500px;top:414px;width:40px"></i>
+  <span class="ht-pill ht-pill--pink ht-mono" style="position:absolute;left:542px;top:398px">:hover</span>
+  <span class="ht-pill ht-pill--pink" style="position:absolute;left:546px;top:448px"><svg><use href="#i-snow"/></svg>frozen</span>
+  <div class="ht-taprow is-on" style="position:absolute;left:56px;top:866px"><kbd>tap 1</kbd><span class="ht-mono">→ :hover</span><b>spent on the hover</b></div>
+  <div class="ht-taprow" style="position:absolute;left:56px;top:920px"><kbd>tap 2</kbd><span class="ht-mono">→ click</span><b>the action you wanted</b></div>
+  <div class="ht-verdict ht-verdict--pink center" style="top:1012px"><svg><use href="#i-spark"/></svg>one tap, two meanings</div>
+</section>
+
+<!-- 3 · Media query -->
+<section class="scene" data-t="12" data-shot="15">
+  <div class="glow" style="left:50px;top:400px;background:rgba(53,214,187,.05)"></div>
+  <div class="kicker">Media query</div>
+  <h1 class="title">Ask the <em>pointer</em>.</h1>
+  <div class="ht-code" style="position:absolute;left:60px;top:268px;height:232px">
+    <div class="ht-code__bar"><i></i><i></i><i></i>cards.css</div>
+    <pre><span class="del">- <s>if (isMobile) hideActions()</s></span>
+<span class="add">+</span> @media (<em class="t">hover: hover</em>) {
+<span class="add">+</span>   .card:hover .actions {
+<span class="add">+</span>     <em class="k">opacity</em>: <em class="n">1</em>;
+<span class="add">+</span>   }
+<span class="add">+</span> }</pre>
+  </div>
+  <div class="ht-devices" style="position:absolute;left:60px;top:522px">
+    <div class="ht-device"><i><svg><use href="#i-laptop"/></svg><svg class="ht-device__ptr"><use href="#i-pointer"/></svg></i><b>laptop + mouse</b><span class="ht-q ht-q--ok">hover: hover <svg><use href="#i-check"/></svg></span><span class="ht-q ht-q--ok">pointer: fine</span></div>
+    <div class="ht-device"><i><svg><use href="#i-phone"/></svg><svg class="ht-device__ptr is-pink"><use href="#i-touch"/></svg></i><b>phone</b><span class="ht-q ht-q--skel"></span><span class="ht-q ht-q--skel"></span></div>
+    <div class="ht-device"><i><svg><use href="#i-tablet"/></svg><svg class="ht-device__ptr"><use href="#i-pointer"/></svg></i><b>tablet + mouse</b><span class="ht-q ht-q--skel"></span><span class="ht-q ht-q--skel"></span></div>
+  </div>
+  <div class="ht-code is-dim" style="position:absolute;left:60px;top:722px;height:205px">
+    <div class="ht-code__bar"><i></i><i></i><i></i>targets.css</div>
+    <pre>  @media (<em class="t">pointer: coarse</em>) {
+    .icon-btn {
+      <em class="k">padding</em>: <em class="n">12px</em>;
+    }
+  }</pre>
+  </div>
+  <div class="ht-verdict center" style="top:1012px"><svg><use href="#i-touch"/></svg>one query, every pointer</div>
+</section>
+
+<!-- 3b · Media query: every pointer answered -->
+<section class="scene" data-t="18" data-shot="22.5">
+  <div class="glow" style="left:50px;top:400px;background:rgba(53,214,187,.05)"></div>
+  <div class="kicker">Media query</div>
+  <h1 class="title">Ask the <em>pointer</em>.</h1>
+  <div class="ht-code" style="position:absolute;left:60px;top:268px;height:232px">
+    <div class="ht-code__bar"><i></i><i></i><i></i>cards.css</div>
+    <pre><span class="del">- <s>if (isMobile) hideActions()</s></span>
+<span class="add">+</span> @media (<em class="t u">hover: hover</em>) {
+<span class="add">+</span>   .card:hover .actions {
+<span class="add">+</span>     <em class="k">opacity</em>: <em class="n">1</em>;
+<span class="add">+</span>   }
+<span class="add">+</span> }</pre>
+  </div>
+  <div class="ht-devices" id="devices" style="position:absolute;left:60px;top:522px">
+    <div class="ht-device"><i><svg><use href="#i-laptop"/></svg><svg class="ht-device__ptr"><use href="#i-pointer"/></svg></i><b>laptop + mouse</b><span class="ht-q ht-q--ok">hover: hover <svg><use href="#i-check"/></svg></span><span class="ht-q ht-q--ok">pointer: fine</span></div>
+    <div class="ht-device"><i><svg><use href="#i-phone"/></svg><svg class="ht-device__ptr is-pink"><use href="#i-touch"/></svg></i><b>phone</b><span class="ht-q ht-q--no">hover: none <svg><use href="#i-x"/></svg></span><span class="ht-q ht-q--no">pointer: coarse</span></div>
+    <div class="ht-device"><i><svg><use href="#i-tablet"/></svg><svg class="ht-device__ptr"><use href="#i-pointer"/></svg></i><b>tablet + mouse</b><span class="ht-q ht-q--ok">hover: hover <svg><use href="#i-check"/></svg></span><span class="ht-q ht-q--ok">pointer: fine</span></div>
+  </div>
+  <div class="ht-code is-live" style="position:absolute;left:60px;top:722px;height:205px">
+    <div class="ht-code__bar"><i></i><i></i><i></i>targets.css</div>
+    <pre>  @media (<em class="t">pointer: coarse</em>) {
+    .icon-btn {
+      <em class="k">padding</em>: <em class="n">12px</em>; <em class="c">/* 44px target */</em>
+    }
+  }</pre>
+  </div>
+  <div class="ht-verdict center" style="top:1012px"><svg><use href="#i-touch"/></svg>one query, every pointer</div>
+</section>
+
+<!-- 4 · Hidden content: three homes (sheet open) -->
+<section class="scene" data-t="24" data-shot="25.5">
+  <div class="glow" style="left:50px;top:400px;background:rgba(53,214,187,.05)"></div>
+  <div class="kicker">Hidden content</div>
+  <h1 class="title">Give it a real <em>home</em>.</h1>
+  <div class="ht-homes" style="position:absolute;left:44px;top:258px">
+    <div class="ht-home"><div class="ht-home__bar">Northform</div>
+      <div class="ht-card ht-card--home" style="left:12px;top:45px"><span class="ht-new">New</span><svg class="ht-card__chair"><use href="#i-chair"/></svg><b>Nordic Chair</b><em>$248</em><small>Oak · 3 colors</small>
+        <div class="ht-inline"><i><svg><use href="#i-heart"/></svg></i><i><svg><use href="#i-scale"/></svg></i><i class="is-primary"><svg><use href="#i-eye"/></svg></i></div></div>
+      <div class="ht-card ht-card--home ht-card--dim" style="left:12px;top:287px;height:110px;--img:62px"><svg class="ht-card__chair"><use href="#i-chair"/></svg><b>Fjord Stool</b><em>$118</em></div>
+    </div>
+    <div class="ht-home"><div class="ht-home__bar">Northform</div>
+      <div class="ht-row" style="top:44px"><i></i><div><b>Fjord Stool</b><small>$118</small></div></div>
+      <div class="ht-row ht-row--swiped" id="swipeRow" style="top:131px"><div class="ht-row__body"><i class="ht-row__thumb"></i><div><b>Nordic Chair</b><small>$248</small></div></div><div class="ht-swipe"><i class="ht-swipe__grip"><svg><use href="#i-chev-l"/></svg></i><i><svg><use href="#i-heart"/></svg></i><i><svg><use href="#i-scale"/></svg></i><i><svg><use href="#i-eye"/></svg></i></div></div>
+      <div class="ht-row" style="top:218px"><i></i><div><b>Pine Bench</b><small>$204</small></div></div>
+      <div class="ht-row ht-row--cut" style="top:305px"><i></i><div><b>Oak Table</b><small>$392</small></div></div>
+      <div class="ht-home__hint">swipe left</div>
+    </div>
+    <div class="ht-home"><div class="ht-home__bar">Northform</div>
+      <div class="ht-card ht-card--home ht-card--short is-under" style="left:12px;top:45px"><span class="ht-new">New</span><svg class="ht-card__chair"><use href="#i-chair"/></svg><b>Nordic Chair</b><em>$248</em><small>Oak · 3 colors</small></div>
+      <div class="ht-card ht-card--home ht-card--dim is-under" style="left:12px;top:212px;height:110px;--img:62px"><svg class="ht-card__chair"><use href="#i-chair"/></svg><b>Pine Bench</b><em>$204</em></div>
+      <div class="ht-sheet is-open" id="sheet"><i class="ht-sheet__handle"></i><b>Nordic Chair</b><span class="is-hi"><svg><use href="#i-heart"/></svg>Favorite</span><span><svg><use href="#i-scale"/></svg>Compare</span><span><svg><use href="#i-eye"/></svg>Quick view</span></div>
+    </div>
+  </div>
+  <div class="ht-caps" style="position:absolute;left:44px;top:678px">
+    <div><i>01</i><b>In the card</b><span>always there, zero discovery cost</span></div>
+    <div><i>02</i><b>Behind a swipe</b><span>one gesture, one hidden layer</span></div>
+    <div><i>03</i><b>In a bottom sheet</b><span>one tap opens every action</span></div>
+  </div>
+  <div class="ht-rules" style="position:absolute;left:60px;top:800px">
+    <div class="ht-rule ht-rule--bad"><s class="ht-mono">.card .actions { opacity: 0 }</s><span><svg><use href="#i-eye-off"/></svg>gone on mobile</span></div>
+    <div class="ht-rule"><span class="ht-rule__t">extras — compare, quick view</span><span><svg><use href="#i-layers"/></svg>hover is fine</span></div>
+    <div class="ht-rule ht-rule--good"><b>the primary action</b><span><svg><use href="#i-eye"/></svg>always visible</span></div>
+  </div>
+  <div class="ht-verdict center" style="top:1012px">hover reveals extras, never the primary action</div>
+</section>
+
+<!-- 4b · Hidden content: sheet closed, primary rule lit -->
+<section class="scene" data-t="30" data-shot="31.5">
+  <div class="glow" style="left:50px;top:400px;background:rgba(53,214,187,.05)"></div>
+  <div class="kicker">Hidden content</div>
+  <h1 class="title">Give it a real <em>home</em>.</h1>
+  <div class="ht-homes" style="position:absolute;left:44px;top:258px">
+    <div class="ht-home"><div class="ht-home__bar">Northform</div>
+      <div class="ht-card ht-card--home" style="left:12px;top:45px"><span class="ht-new">New</span><svg class="ht-card__chair"><use href="#i-chair"/></svg><b>Nordic Chair</b><em>$248</em><small>Oak · 3 colors</small>
+        <div class="ht-inline"><i><svg><use href="#i-heart"/></svg></i><i><svg><use href="#i-scale"/></svg></i><i class="is-primary"><svg><use href="#i-eye"/></svg></i></div></div>
+      <div class="ht-card ht-card--home ht-card--dim" style="left:12px;top:287px;height:110px;--img:62px"><svg class="ht-card__chair"><use href="#i-chair"/></svg><b>Fjord Stool</b><em>$118</em></div>
+    </div>
+    <div class="ht-home"><div class="ht-home__bar">Northform</div>
+      <div class="ht-row" style="top:44px"><i></i><div><b>Fjord Stool</b><small>$118</small></div></div>
+      <div class="ht-row ht-row--swiped" style="top:131px"><div class="ht-row__body"><i class="ht-row__thumb"></i><div><b>Nordic Chair</b><small>$248</small></div></div><div class="ht-swipe"><i class="ht-swipe__grip"><svg><use href="#i-chev-l"/></svg></i><i><svg><use href="#i-heart"/></svg></i><i><svg><use href="#i-scale"/></svg></i><i><svg><use href="#i-eye"/></svg></i></div></div>
+      <div class="ht-row" style="top:218px"><i></i><div><b>Pine Bench</b><small>$204</small></div></div>
+      <div class="ht-row ht-row--cut" style="top:305px"><i></i><div><b>Oak Table</b><small>$392</small></div></div>
+      <div class="ht-home__hint">swipe left</div>
+    </div>
+    <div class="ht-home"><div class="ht-home__bar">Northform</div>
+      <div class="ht-card ht-card--home ht-card--short" style="left:12px;top:45px"><span class="ht-new">New</span><svg class="ht-card__chair"><use href="#i-chair"/></svg><b>Nordic Chair</b><em>$248</em><small>Oak · 3 colors</small></div>
+      <div class="ht-card ht-card--home ht-card--dim" style="left:12px;top:212px;height:125px;--img:76px"><svg class="ht-card__chair"><use href="#i-chair"/></svg><b>Pine Bench</b><em>$204</em></div>
+      <div class="ht-sheet"><i class="ht-sheet__handle"></i><b>Nordic Chair</b><span><svg><use href="#i-heart"/></svg>Favorite</span><span><svg><use href="#i-scale"/></svg>Compare</span><span><svg><use href="#i-eye"/></svg>Quick view</span></div>
+    </div>
+  </div>
+  <div class="ht-caps" style="position:absolute;left:44px;top:678px">
+    <div><i>01</i><b>In the card</b><span>always there, zero discovery cost</span></div>
+    <div><i>02</i><b>Behind a swipe</b><span>one gesture, one hidden layer</span></div>
+    <div><i>03</i><b>In a bottom sheet</b><span>one tap opens every action</span></div>
+  </div>
+  <div class="ht-rules" style="position:absolute;left:60px;top:800px">
+    <div class="ht-rule ht-rule--bad is-on"><s class="ht-mono">.card .actions { opacity: 0 }</s><span><svg><use href="#i-eye-off"/></svg>gone on mobile</span></div>
+    <div class="ht-rule"><span class="ht-rule__t">extras — compare, quick view</span><span><svg><use href="#i-layers"/></svg>hover is fine</span></div>
+    <div class="ht-rule ht-rule--good is-on"><b>the primary action</b><span><svg><use href="#i-eye"/></svg>always visible</span></div>
+  </div>
+  <div class="ht-verdict center" style="top:1012px">hover reveals extras, never the primary action</div>
+</section>
+
+<!-- 5 · Tap targets: 20px thumb misses -->
+<section class="scene" data-t="36" data-shot="37.5">
+  <div class="glow" style="left:50px;top:400px;background:rgba(53,214,187,.05)"></div>
+  <div class="kicker">Tap targets</div>
+  <h1 class="title">Pad the box, not the <em>icon</em>.</h1>
+  <div class="ht-targets" style="position:absolute;left:55px;top:300px">
+    <div class="ht-target ht-target--bad">
+      <span class="ht-hit ht-mono"><svg><use href="#i-clip"/></svg>20 px hit area</span>
+      <div class="ht-post"><i></i><div><b>Alex Rivera</b><small>posted 2h ago</small></div></div>
+      <div class="ht-icons"><i><svg><use href="#i-chat"/></svg></i><i class="is-aim"><svg><use href="#i-heart"/></svg><span class="ht-thumb"></span></i><i><svg><use href="#i-share"/></svg></i></div>
+      <div class="ht-bracket ht-mono"><i></i>20 px</div>
+      <span class="ht-tag ht-tag--bad">✕ misses the thumb</span>
+      <span class="ht-tag"><svg><use href="#i-eye"/></svg>passed design review</span>
+    </div>
+    <div class="ht-target ht-target--good">
+      <span class="ht-hit ht-mono"><svg><use href="#i-clip"/></svg>44 px hit area</span>
+      <div class="ht-post"><i></i><div><b>Alex Rivera</b><small>posted 2h ago</small></div></div>
+      <div class="ht-icons"><i><svg><use href="#i-chat"/></svg></i><i><svg><use href="#i-heart"/></svg></i><i><svg><use href="#i-share"/></svg></i></div>
+      <div class="ht-bracket ht-mono"><i></i>44 px</div>
+      <span class="ht-tag ht-tag--good is-dim">✓ hits every time</span>
+      <span class="ht-tag"><svg><use href="#i-clip"/></svg>icon still 20 px</span>
+    </div>
+  </div>
+  <div class="ht-hitarea" style="position:absolute;left:60px;top:752px">
+    <div class="ht-hitarea__head"><span class="ht-mono">Hit area</span><span>Apple HIG 44 pt · Material 48 dp</span></div>
+    <div class="ht-bar"><b class="ht-mono">20 px</b><i class="ht-bar__fill ht-bar__fill--pink" style="width:220px"></i><span>your icon button</span></div>
+    <div class="ht-bar"><b class="ht-mono">44 px</b><i class="ht-bar__fill ht-bar__fill--teal" style="width:482px"></i></div>
+    <i class="ht-hitarea__line"></i>
+    <p>same thumb, same aim — only the padding changed</p>
+  </div>
+  <div class="ht-verdict center" style="top:1012px"><svg><use href="#i-ruler"/></svg>pad the hit area, not the icon</div>
+</section>
+
+<!-- 5b · Tap targets: 44px thumb hits -->
+<section class="scene" data-t="39" data-shot="42">
+  <div class="glow" style="left:50px;top:400px;background:rgba(53,214,187,.05)"></div>
+  <div class="kicker">Tap targets</div>
+  <h1 class="title">Pad the box, not the <em>icon</em>.</h1>
+  <div class="ht-targets" id="targets" style="position:absolute;left:55px;top:300px">
+    <div class="ht-target ht-target--bad">
+      <span class="ht-hit ht-mono"><svg><use href="#i-clip"/></svg>20 px hit area</span>
+      <div class="ht-post"><i></i><div><b>Alex Rivera</b><small>posted 2h ago</small></div></div>
+      <div class="ht-icons"><i><svg><use href="#i-chat"/></svg></i><i><svg><use href="#i-heart"/></svg></i><i><svg><use href="#i-share"/></svg></i></div>
+      <div class="ht-bracket ht-mono"><i></i>20 px</div>
+      <span class="ht-tag ht-tag--bad is-on">✕ misses the thumb</span>
+      <span class="ht-tag is-on"><svg><use href="#i-eye"/></svg>passed design review</span>
+    </div>
+    <div class="ht-target ht-target--good">
+      <span class="ht-hit ht-mono"><svg><use href="#i-clip"/></svg>44 px hit area</span>
+      <div class="ht-post"><i></i><div><b>Alex Rivera</b><small>posted 2h ago</small></div></div>
+      <div class="ht-icons"><i><svg><use href="#i-chat"/></svg></i><i class="is-aim is-hit"><svg><use href="#i-heart"/></svg><span class="ht-thumb"></span></i><i><svg><use href="#i-share"/></svg></i></div>
+      <div class="ht-bracket ht-mono"><i></i>44 px</div>
+      <span class="ht-tag ht-tag--good is-on">✓ hits every time</span>
+      <span class="ht-tag"><svg><use href="#i-clip"/></svg>icon still 20 px</span>
+    </div>
+  </div>
+  <div class="ht-hitarea" style="position:absolute;left:60px;top:752px">
+    <div class="ht-hitarea__head"><span class="ht-mono">Hit area</span><span>Apple HIG 44 pt · Material 48 dp</span></div>
+    <div class="ht-bar"><b class="ht-mono">20 px</b><i class="ht-bar__fill ht-bar__fill--pink" style="width:220px"></i><span>your icon button</span></div>
+    <div class="ht-bar"><b class="ht-mono">44 px</b><i class="ht-bar__fill ht-bar__fill--teal" style="width:482px"></i></div>
+    <i class="ht-hitarea__line"></i>
+    <p>same thumb, same aim — only the padding changed</p>
+  </div>
+  <div class="ht-verdict center" style="top:1012px"><svg><use href="#i-ruler"/></svg>pad the hit area, not the icon</div>
+</section>
+
+<!-- 6 · Outro: the four rules -->
+<section class="scene" data-t="45" data-shot="46.5">
+  <div class="glow" style="left:50px;top:500px;background:rgba(53,214,187,.07)"></div>
+  <div class="ht-hook center" style="top:164px;font-size:44px">Touch has no hover.</div>
+  <div class="ht-summary" style="position:absolute;left:80px;top:320px">
+    <div class="ht-sum"><i class="is-pink"><svg><use href="#i-snow"/></svg></i><div><b>Sticky hover</b><span>the first tap is spent becoming a hover</span></div><em>01</em></div>
+    <div class="ht-sum"><i><svg><use href="#i-touch"/></svg></i><div><b class="ht-mono" style="font-weight:500">hover: hover</b><span>query the pointer, never the user agent</span></div><em>02</em></div>
+    <div class="ht-sum"><i><svg><use href="#i-eye"/></svg></i><div><b>Never hide the primary</b><span>hover reveals extras and nothing else</span></div><em>03</em></div>
+    <div class="ht-sum"><i class="is-teal"><svg><use href="#i-ruler"/></svg></i><div><b>44 px targets</b><span>pad the hit area, keep the icon at 20</span></div><em>04</em></div>
+  </div>
+  <div class="ht-handle center" style="top:860px"><i><svg><use href="#i-touch"/></svg></i>@designmotionhq</div>
+  <div class="ht-ctas center" style="top:937px"><span class="ht-cta ht-cta--follow"><svg><use href="#i-follow"/></svg>Follow</span><span class="ht-cta"><svg><use href="#i-bookmark"/></svg>Save this</span></div>
+</section>
+
+<script type="module">
+  import { StickyHoverTimer, hoverCapable, SwipeActions, BottomSheet } from './pattern.js';
+  // Sticky hover timer runs 0.0 -> 6.1s when the scene plays live; frozen at 3.6s for the screenshot.
+  const sticky = document.getElementById('stillTime');
+  sticky.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t === 0) StickyHoverTimer(sticky, document.getElementById('stillBar'), 6.1); });
+  // Device cards reflect the real pointer of whoever is viewing the demo.
+  document.getElementById('devices').dataset.viewer = hoverCapable() ? 'hover' : 'touch';
+  // Real behaviour: the swipe row swipes, the bottom sheet opens on tap of the card beneath it.
+  SwipeActions(document.getElementById('swipeRow'));
+  BottomSheet(document.getElementById('sheet'));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

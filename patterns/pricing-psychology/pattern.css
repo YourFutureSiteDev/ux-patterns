@@ -1,0 +1,62 @@
+/* Pricing psychology, rebuilt from the @designmotionhq reel "Your pricing cards are leaving money on the table".
+   Component classes are prefixed .pp- and depend only on the tokens below. */
+.pp {
+  --pp-bg: #0b080f; --pp-card: #13121a; --pp-card-2: #14111c; --pp-border: rgba(255,255,255,.07);
+  --pp-text: #f4f2f8; --pp-muted: #8b8f9a;
+  --pp-purple: #8b5cf6; --pp-purple-btn: #7d4ff0; --pp-orange: #f8a00b; --pp-green: #22c45d; --pp-green-dim: #0f2a1a; --pp-red: #f4423e;
+  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif; color: var(--pp-text);
+}
+
+/* ---- Pricing card ------------------------------------------------------- */
+.pp-card { background: var(--pp-card); border: 1px solid var(--pp-border); border-radius: 12px; position: relative; }
+.pp-card.is-popular { border: 2px solid var(--pp-purple); box-shadow: 0 0 50px rgba(139,92,246,.5), 0 0 110px rgba(139,92,246,.22); }
+.pp-card.is-loss { border: 2px solid var(--pp-green); box-shadow: 0 0 30px rgba(34,196,93,.18); }
+.pp-badge { position: absolute; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; background: var(--pp-orange); color: #2a1400; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; box-shadow: 0 0 16px rgba(248,160,11,.45); }
+.pp-card__plan { color: var(--pp-muted); font-weight: 500; }
+.pp-price { display: flex; align-items: baseline; gap: 8px; font-weight: 700; letter-spacing: -.02em; line-height: 1; }
+.pp-price s { color: var(--pp-muted); font-weight: 500; text-decoration: line-through; }
+.pp-price s.is-red { text-decoration-color: var(--pp-red); text-decoration-thickness: 2px; }
+.pp-price small { color: var(--pp-muted); font-weight: 500; }
+.pp-save { display: inline-flex; align-items: center; border-radius: 6px; background: #132a24; color: var(--pp-green); font-weight: 700; }
+.pp-features { list-style: none; margin: 0; padding: 0; color: #d9d6e0; }
+.pp-features li { display: flex; align-items: center; gap: 8px; }
+.pp-features li::before { content: '\2713'; color: var(--pp-green); font-size: .85em; }
+.pp-btn { display: flex; align-items: center; justify-content: center; border-radius: 7px; font-weight: 700; border: 0; cursor: pointer; white-space: nowrap; }
+.pp-btn--green { background: var(--pp-green); color: #032a0d; box-shadow: 0 0 20px rgba(34,196,93,.25); }
+.pp-btn--outline { background: transparent; border: 1px solid rgba(255,255,255,.14); color: var(--pp-muted); }
+.pp-btn--purple { background: var(--pp-purple-btn); color: #fff; box-shadow: 0 0 30px rgba(125,79,240,.5); }
+
+/* ---- Annotations / arrows --------------------------------------------- */
+.pp-note { position: absolute; display: flex; align-items: center; gap: 12px; font-size: 17px; font-weight: 700; white-space: nowrap; }
+.pp-note svg { width: 28px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.pp-note--purple { color: var(--pp-purple); } .pp-note--orange { color: var(--pp-orange); } .pp-note--green { color: var(--pp-green); }
+.pp-x { position: absolute; width: 26px; height: 26px; color: var(--pp-red); }
+.pp-x svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 3.5; stroke-linecap: round; }
+.pp-vs { position: absolute; font-size: 14px; font-weight: 700; color: var(--pp-muted); letter-spacing: .06em; }
+
+/* ---- Callouts ---------------------------------------------------------- */
+.pp-tip { position: absolute; padding: 7px 14px; border-radius: 8px; background: var(--pp-purple); color: #fff; font-size: 14px; font-weight: 700; white-space: nowrap; }
+.pp-tip::before { content: ''; position: absolute; left: -7px; top: 50%; transform: translateY(-50%); border: 7px solid transparent; border-left: 0; border-right-color: var(--pp-purple); }
+.pp-pill { position: absolute; display: inline-flex; align-items: center; gap: 6px; border-radius: 8px; font-weight: 700; white-space: nowrap; }
+.pp-pill--orange { background: var(--pp-orange); color: #2a1400; box-shadow: 0 0 24px rgba(248,160,11,.35); }
+.pp-pill--red { background: var(--pp-red); color: #fff; box-shadow: 0 0 24px rgba(244,66,62,.35); }
+.pp-pill--green { background: var(--pp-green-dim); color: var(--pp-green); border: 1px solid rgba(34,196,93,.25); }
+.pp-avatars { position: absolute; display: flex; align-items: center; }
+.pp-avatars i { width: 26px; height: 26px; border-radius: 50%; background: #1d4ed8; border: 2px solid var(--pp-bg); margin-right: -4px; display: grid; place-items: center; overflow: hidden; }
+.pp-avatars i::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: #93c5fd; margin-bottom: 1px; }
+.pp-avatars i::after { content: ''; width: 16px; height: 9px; border-radius: 8px 8px 0 0; background: #93c5fd; margin-top: 1px; }
+.pp-avatars span { margin-left: 30px; font-size: 16px; color: var(--pp-muted); white-space: nowrap; }
+
+/* ---- Caption block --------------------------------------------------------- */
+.pp-lesson { position: absolute; left: 0; right: 0; text-align: center; }
+.pp-lesson__head { font-size: 24px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 14px; }
+.pp-lesson__head .emoji { font-size: 34px; line-height: 1; }
+.pp-lesson__sub { margin-top: 18px; font-size: 18px; line-height: 1.45; color: var(--pp-muted); }
+
+/* ---- Outro stats ------------------------------------------------------------ */
+.pp-stats { position: absolute; display: flex; gap: 48px; }
+.pp-stat { text-align: center; }
+.pp-stat b { display: block; font-size: 34px; font-weight: 700; letter-spacing: -.01em; }
+.pp-stat span { display: block; margin-top: 10px; font-size: 15px; color: var(--pp-muted); white-space: nowrap; }
+.pp-stat--green b { color: var(--pp-green); } .pp-stat--orange b { color: var(--pp-orange); } .pp-stat--purple b { color: var(--pp-purple); }
+.pp-star { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: var(--pp-purple); opacity: .6; box-shadow: 0 0 6px var(--pp-purple); }

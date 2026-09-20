@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Modal Hierarchy · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a090b; --accent: #2ec49f; --danger: #e03c6a; --grid: rgba(255,255,255,.012); }
+  .scene { color: #f3f5f7; }
+  .title { top: 80px; margin: 0; font-size: 30px; }
+  .sub { position: absolute; top: 124px; left: 0; right: 0; text-align: center; font-size: 15px; color: #8b93a1; }
+  .cur { position: absolute; width: 18px; height: 22px; }
+  .glow { filter: blur(110px); }
+</style>
+</head>
+<body class="mh">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10h-6v-6H9v6H3z"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0M16 4.5a3.5 3.5 0 0 1 0 7M22 20a7 7 0 0 0-5-6.7"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 4H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4M15 8l5 4-5 4M20 12H9"/></symbol>
+  <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="18" cy="12" r="1.5"/></symbol>
+  <symbol id="i-square" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/></symbol>
+  <symbol id="i-chev-up" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></symbol>
+  <symbol id="i-chev-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-click" viewBox="0 0 24 24"><path d="M9 3v3M4 8h3M5 4l2 2M9 11l9 3-4 2-2 4z"/></symbol>
+  <symbol id="cursor" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></symbol>
+</svg>
+
+<!-- 1 · Hook: five overlays -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:-60px;top:380px;width:420px;height:520px;background:rgba(224,60,106,.22)"></div>
+  <div class="glow" style="left:360px;top:560px;width:420px;height:520px;background:rgba(46,196,159,.16)"></div>
+  <div style="position:absolute;left:220px;top:236px;width:280px;height:664px;border-radius:36px;border:2px solid #22262e;background:#0d1015;box-shadow:0 30px 80px rgba(0,0,0,.6)"></div>
+  <div class="mh-wire mh-wire--pink" style="left:280px;top:325px;width:175px;height:108px"><i style="left:25px;top:48px;width:70px"></i><i style="left:25px;top:58px;width:108px"></i><i style="left:25px;top:68px;width:70px"></i></div>
+  <div class="mh-wire mh-wire--teal" style="left:380px;top:452px;width:80px;height:62px;border-radius:8px"><i style="left:18px;top:20px;width:35px"></i><i style="left:18px;top:30px;width:45px"></i><i style="left:18px;top:40px;width:32px"></i></div>
+  <div class="mh-wire mh-wire--pink" style="left:228px;top:452px;width:72px;height:253px;border-radius:8px"><i style="left:12px;top:120px;width:30px"></i><i style="left:12px;top:131px;width:50px"></i><i style="left:12px;top:142px;width:35px"></i></div>
+  <div class="mh-wire mh-wire--teal" style="left:280px;top:705px;width:175px;height:146px"><i style="left:25px;top:67px;width:70px"></i><i style="left:25px;top:77px;width:108px"></i><i style="left:25px;top:87px;width:70px"></i></div>
+  <div class="mh-wire mh-wire--amber" style="left:360px;top:851px;width:95px;height:36px;border-radius:8px"><i style="left:15px;top:11px;width:40px"></i><i style="left:15px;top:21px;width:60px"></i></div>
+  <div class="title" style="top:1098px;font-size:26px;font-weight:600;color:#c9ced5">5 overlays. <b style="color:var(--danger);font-weight:700">Pick the right one.</b></div>
+</section>
+
+<!-- 2 · Modal (t=2.5): screen dims, Delete account modal, DON'T card at +3s, bullets at +7s -->
+<section class="scene" data-t="2.5" data-shot="7.5" data-more-shots="10.5">
+  <div class="glow" style="left:60px;top:400px;width:600px;height:600px;background:rgba(224,60,106,.14)"></div>
+  <div class="mh-head mh-head--pink"><b>MODAL</b><span>Blocks everything</span></div>
+  <div class="mh-phone is-dim" style="left:188px;top:248px">
+    <div class="mh-screen">
+      <div class="mh-screen__bar"><span class="mh-screen__title">Dashboard</span><span class="mh-screen__avatar"></span></div>
+      <div class="mh-block" style="left:22px;top:100px;width:296px;height:28px"></div>
+      <div class="mh-block mh-block--gradient" style="left:22px;top:145px;width:140px;height:75px"></div>
+      <div class="mh-block" style="left:175px;top:145px;width:143px;height:75px;background:#0b0d11"></div>
+      <div class="mh-block" style="left:22px;top:440px;width:296px;height:30px"></div><i class="mh-line" style="left:40px;top:453px;width:110px;background:#3a4149"></i>
+      <div class="mh-block" style="left:22px;top:480px;width:296px;height:30px"></div><i class="mh-line" style="left:40px;top:493px;width:150px;background:#3a4149"></i>
+    </div>
+    <div class="mh-scrim"></div>
+    <div class="mh-modal" style="animation:mh-in .35s ease-out .3s both">
+      <div class="mh-modal__icon"><svg><use href="#i-warn"/></svg></div>
+      <div class="mh-modal__title">Delete account?</div>
+      <div class="mh-modal__desc">This can't be undone. Your data will be<br>deleted forever.</div>
+      <div class="mh-modal__actions"><button class="mh-btn">Cancel</button><button class="mh-btn mh-btn--pink">Delete</button></div>
+    </div>
+  </div>
+  <div class="mh-dont" style="left:494px;top:240px;animation:mh-in .4s ease-out 3s both, mh-out .3s ease-in 7s forwards">
+    <div class="mh-dont__label"><svg><use href="#i-x"/></svg>DON'T</div>
+    <div class="mh-dont__form"><b>Sign up</b><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="mh-dont__cap">12-field signup modal</div>
+  </div>
+  <div class="mh-bullets">
+    <div class="mh-bullet" style="animation:mh-in .4s ease-out 7.2s both"><i></i>Destructive actions</div>
+    <div class="mh-bullet" style="animation:mh-in .4s ease-out 7.6s both"><i></i>Critical confirmations</div>
+  </div>
+</section>
+
+<!-- 3 · Bottom sheet (t=11): slides to half at +0.5s, full at +5s, bullets at +7.5s -->
+<section class="scene" data-t="11" data-shot="15" data-more-shots="19.5">
+  <div class="glow" style="left:60px;top:400px;width:600px;height:600px;background:rgba(46,196,159,.10)"></div>
+  <div class="mh-head"><b>BOTTOM SHEET</b><span>Mobile-first overlay</span></div>
+  <div class="mh-phone" style="left:188px;top:248px">
+    <div class="mh-screen" style="animation:mh-dim .4s ease-out .5s both">
+      <div class="mh-screen__bar"><span class="mh-screen__title">Library</span><span class="mh-screen__avatar"></span></div>
+      <div class="mh-block" style="left:22px;top:100px;width:296px;height:28px"></div>
+      <div class="mh-block mh-block--gradient" style="left:22px;top:145px;width:140px;height:75px"></div>
+      <div class="mh-block" style="left:175px;top:145px;width:143px;height:75px;background:#0b0d11"></div>
+    </div>
+    <div class="mh-sheet" style="animation:mh-sheet-half .4s cubic-bezier(.2,.8,.2,1) .5s both, mh-sheet-full .4s cubic-bezier(.2,.8,.2,1) 5s forwards">
+      <div class="mh-sheet__handle"></div>
+      <div class="mh-sheet__title"><svg><use href="#i-filter"/></svg>Filters</div>
+      <div class="mh-chips"><span class="mh-chip is-on">Pop</span><span class="mh-chip">Rock</span><span class="mh-chip is-on">Indie</span><span class="mh-chip">Electronic</span></div>
+      <div class="mh-sheet__label">SORT BY</div>
+      <div class="mh-option is-on" style="top:118px">Most popular<svg><use href="#i-check"/></svg></div>
+      <div class="mh-option" style="top:155px">Newest</div>
+      <div class="mh-option" style="top:191px">A-Z</div>
+      <div class="mh-sheet__cta"><button class="mh-btn mh-btn--pink mh-btn--wide" style="width:100%">Apply filters</button></div>
+    </div>
+  </div>
+  <div class="mh-bullets">
+    <div class="mh-bullet" style="animation:mh-in .4s ease-out 7.2s both"><i></i>Mobile-first</div>
+    <div class="mh-bullet" style="animation:mh-in .4s ease-out 7.6s both"><i></i>Swipeable</div>
+    <div class="mh-bullet" style="animation:mh-in .4s ease-out 8.0s both"><i></i>Partial heights</div>
+  </div>
+  <style>
+    @keyframes mh-sheet-half { from { top: 664px } to { top: 204px } }
+    @keyframes mh-sheet-full { from { top: 204px } to { top: 92px } }
+    @keyframes mh-dim { to { opacity: .45 } }
+  </style>
+</section>
+
+<!-- 4 · Drawer (t=20): slides in from the left edge at +0.8s, bullets at +6s -->
+<section class="scene" data-t="20" data-shot="25.5" data-more-shots="27">
+  <div class="glow" style="left:60px;top:400px;width:600px;height:600px;background:rgba(224,60,106,.12)"></div>
+  <div class="mh-head mh-head--pink"><b>DRAWER</b><span>Edge-anchored panel</span></div>
+  <div class="mh-phone" style="left:188px;top:248px">
+    <div class="mh-screen">
+      <div class="mh-screen__bar"><span class="mh-screen__title">Dashboard</span><span class="mh-screen__avatar"></span></div>
+      <div class="mh-block" style="left:22px;top:100px;width:296px;height:28px"></div>
+      <div class="mh-block mh-block--gradient" style="left:22px;top:145px;width:140px;height:75px"></div>
+      <div class="mh-block" style="left:175px;top:145px;width:143px;height:75px;background:#0b0d11"></div>
+      <div class="mh-block mh-block--gradient" style="left:22px;top:230px;width:140px;height:75px;opacity:.6"></div>
+      <div class="mh-block" style="left:175px;top:230px;width:143px;height:75px;background:#0b0d11"></div>
+      <div class="mh-block" style="left:22px;top:320px;width:296px;height:30px"></div><i class="mh-line" style="left:40px;top:333px;width:110px;background:#3a4149"></i>
+      <div class="mh-block" style="left:22px;top:360px;width:296px;height:30px"></div><i class="mh-line" style="left:40px;top:373px;width:110px;background:#3a4149"></i>
+      <div class="mh-block" style="left:22px;top:400px;width:296px;height:30px"></div><i class="mh-line" style="left:40px;top:413px;width:110px;background:#3a4149"></i>
+      <div class="mh-block" style="left:22px;top:440px;width:296px;height:30px"></div><i class="mh-line" style="left:40px;top:453px;width:110px;background:#3a4149"></i>
+    </div>
+    <div class="mh-drawer" style="animation:mh-slide-left .4s cubic-bezier(.2,.8,.2,1) .8s both">
+      <div class="mh-drawer__user"><div class="mh-drawer__avatar"></div><div><div class="mh-drawer__name">Thibault G.</div><div class="mh-drawer__plan">Pro plan</div></div></div>
+      <div class="mh-nav">
+        <div class="mh-nav__item is-on"><svg><use href="#i-home"/></svg>Home</div>
+        <div class="mh-nav__item"><svg><use href="#i-folder"/></svg>Projects</div>
+        <div class="mh-nav__item"><svg><use href="#i-gear"/></svg>Settings</div>
+        <div class="mh-nav__item"><svg><use href="#i-users"/></svg>Team</div>
+        <div class="mh-nav__item"><svg><use href="#i-logout"/></svg>Logout</div>
+      </div>
+    </div>
+  </div>
+  <div class="mh-bullets mh-bullets--pink">
+    <div class="mh-bullet" style="animation:mh-in .4s ease-out 6s both"><i></i>Settings &amp; navigation</div>
+    <div class="mh-bullet" style="animation:mh-in .4s ease-out 6.4s both"><i></i>Edge slide-in</div>
+    <div class="mh-bullet" style="animation:mh-in .5s ease-out 6.8s both"><i></i>Background stays alive</div>
+  </div>
+</section>
+
+<!-- 5 · Popover (t=28): anchored to the filter button at +3s, measured at +7s, bullets at +7.5s -->
+<section class="scene" data-t="28" data-shot="33" data-more-shots="36">
+  <div class="glow" style="left:60px;top:400px;width:600px;height:600px;background:rgba(46,196,159,.10)"></div>
+  <div class="mh-head"><b>POPOVER</b><span>Anchored, contextual</span></div>
+  <div class="mh-phone" style="left:182px;top:248px;width:356px">
+    <div class="mh-screen" style="padding:0">
+      <div class="mh-search"><div class="mh-search__field"></div><div class="mh-iconbtn" style="animation:mh-on .2s 3s both"><svg><use href="#i-filter"/></svg></div><div class="mh-iconbtn"><svg><use href="#i-dots"/></svg></div></div>
+      <div class="mh-rows"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="mh-popover" style="left:141px;top:112px;animation:mh-pop .2s ease-out 3s both">
+        <div class="mh-popover__label">STATUS</div>
+        <div class="mh-check is-on"><i></i>Active</div>
+        <div class="mh-check is-on"><i></i>Pending</div>
+        <div class="mh-check"><i></i>Closed</div>
+      </div>
+      <div class="mh-measure" style="left:141px;top:238px;width:132px;animation:mh-in .3s ease-out 7s both"><span>max 200px</span></div>
+    </div>
+  </div>
+  <svg class="cur" style="left:300px;top:320px;animation:mh-cursor 6s ease-in-out both, mh-out .3s 6.5s forwards"><use href="#cursor"/></svg>
+  <div class="mh-bullets">
+    <div class="mh-bullet" style="animation:mh-in .4s ease-out 7.4s both"><i></i>Anchored to trigger</div>
+    <div class="mh-bullet" style="animation:mh-in .4s ease-out 7.7s both"><i></i>Tiny — under 200px</div>
+    <div class="mh-bullet" style="animation:mh-in .4s ease-out 8.5s both"><i></i>Contextual actions</div>
+  </div>
+  <style>
+    @keyframes mh-on { to { border-color: #2ec49f; color: #2ec49f; background: rgba(46,196,159,.16) } }
+    @keyframes mh-cursor { 0% { left: 370px; top: 326px } 40% { left: 370px; top: 326px } 50% { left: 300px; top: 320px } 100% { left: 300px; top: 320px } }
+  </style>
+</section>
+
+<!-- 6 · Decision tree (t=37.5): question, then yes/no branches at +2.5s, leaves at +6s -->
+<section class="scene" data-t="37.5" data-shot="42" data-more-shots="45">
+  <div class="glow" style="left:-40px;top:250px;width:420px;height:520px;background:rgba(224,60,106,.14)"></div>
+  <div class="glow" style="left:320px;top:520px;width:480px;height:560px;background:rgba(46,196,159,.14)"></div>
+  <div class="title">Picking the right overlay</div>
+  <div class="sub">One question fixes 90% of mistakes.</div>
+  <svg class="mh-edge">
+    <line x1="305" y1="372" x2="250" y2="497" stroke="#e03c6a" style="animation:mh-in .3s 2.5s both"/>
+    <line x1="413" y1="372" x2="433" y2="497" stroke="#2ec49f" style="animation:mh-in .3s 2.5s both"/>
+    <line x1="467" y1="585" x2="370" y2="750" stroke="#2ec49f" style="animation:mh-in .3s 6s both"/>
+    <line x1="505" y1="585" x2="490" y2="750" stroke="#2ec49f" style="animation:mh-in .3s 6s both"/>
+    <line x1="545" y1="585" x2="605" y2="750" stroke="#2ec49f" style="animation:mh-in .3s 6s both"/>
+  </svg>
+  <div class="mh-node" style="left:207px;top:286px;width:306px;animation:mh-in .4s ease-out .3s both">Does it block the user?</div>
+  <div class="mh-tag mh-tag--pink" style="left:226px;top:401px;animation:mh-in .3s 2.6s both">YES</div>
+  <div class="mh-tag mh-tag--teal" style="left:415px;top:401px;animation:mh-in .3s 2.6s both">NO</div>
+  <div class="mh-node mh-node--pink" style="left:73px;top:500px;width:200px;animation:mh-in .4s ease-out 2.9s both"><svg><use href="#i-square"/></svg>MODAL</div>
+  <div class="mh-node" style="left:374px;top:500px;width:264px;animation:mh-in .4s ease-out 2.9s both">Mobile or contextual?</div>
+  <div class="mh-leaf" style="left:214px;top:754px;width:184px;animation:mh-in .4s ease-out 6.3s both"><span class="mh-leaf__icon"><svg><use href="#i-chev-down"/></svg></span><div><b>SHEET</b><span>MOBILE</span></div></div>
+  <div class="mh-leaf" style="left:402px;top:754px;width:184px;animation:mh-in .4s ease-out 6.5s both"><span class="mh-leaf__icon"><svg><use href="#i-click"/></svg></span><div><b>POPOVER</b><span>ANCHORED</span></div></div>
+  <div class="mh-leaf" style="left:562px;top:754px;width:184px;animation:mh-in .4s ease-out 6.7s both"><span class="mh-leaf__icon"><svg><use href="#i-menu"/></svg></span><div><b>DRAWER</b><span>SIDE NAV</span></div></div>
+</section>
+
+<!-- 7 · Outro (t=46) -->
+<section class="scene" data-t="46" data-shot="48">
+  <div class="glow" style="left:100px;top:180px;width:520px;height:520px;background:rgba(46,196,159,.14)"></div>
+  <div class="glow" style="left:80px;top:620px;width:560px;height:520px;background:rgba(224,60,106,.16)"></div>
+  <div class="mh-tile mh-tile--pink" style="left:189px;top:500px;animation:mh-in .4s ease-out .3s both"><i><svg><use href="#i-square"/></svg></i><b>MODAL</b></div>
+  <div class="mh-tile" style="left:278px;top:500px;animation:mh-in .4s ease-out .45s both"><i><svg><use href="#i-chev-up"/></svg></i><b>SHEET</b></div>
+  <div class="mh-tile" style="left:367px;top:500px;animation:mh-in .4s ease-out .6s both"><i><svg><use href="#i-menu"/></svg></i><b>DRAWER</b></div>
+  <div class="mh-tile" style="left:456px;top:500px;animation:mh-in .4s ease-out .75s both"><i><svg><use href="#i-click"/></svg></i><b>POPOVER</b></div>
+  <div class="title" style="top:878px;font-size:32px;animation:mh-in .4s ease-out 1.2s both">Save this for your <em class="danger">next overlay.</em></div>
+  <div class="sub" style="top:938px;font-size:16px;animation:mh-in .4s ease-out 1.4s both">Follow <b style="color:#f3f5f7">@designmotionhq</b></div>
+</section>
+
+<script>
+  // A scene that changes materially over time is compared at more than one frame: clone it per extra data-shot.
+  document.querySelectorAll('.scene[data-more-shots]').forEach(s => {
+    s.dataset.moreShots.split(',').forEach(t => { const c = s.cloneNode(true); c.dataset.shot = t.trim(); delete c.dataset.moreShots; s.after(c); s = c; });
+  });
+</script>
+<script type="module">
+  import { Overlay, pickOverlay } from './pattern.js';
+  console.log('destructive confirm ->', pickOverlay({ blocks: true }), '· mobile filters ->', pickOverlay({ mobile: true }), '· column menu ->', pickOverlay({ anchor: document.body }), '· nav ->', pickOverlay({ navigation: true }));
+  window.mhOverlay = Overlay;
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

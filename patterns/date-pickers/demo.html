@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Date Pickers · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a090b; --accent: #2ed3b0; --danger: #e04a78; --grid: rgba(255,255,255,.025); }
+  .scene { color: #f2f4f7; }
+  .kicker { top: 80px; font-size: 15px; letter-spacing: .14em; padding: 8px 20px; }
+  .kicker--pink { color: #e04a78; background: #2a1520; }
+  .kicker--teal { color: #2ed3b0; background: #0d2f2a; }
+  .title { top: 125px; font-size: 42px; line-height: 1.1; margin: 0; }
+  .title em.pink { color: #e04a78; } .title em.grey { color: #a9afb9; }
+  .arrow { display: inline-block; margin: 0 6px; }
+</style>
+</head>
+<body class="dp">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h2M14 14h2M8 18h2"/></symbol>
+  <symbol id="i-cal-plus" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></symbol>
+</svg>
+
+<!-- 1 · Hook: same date, different time -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:100px;top:300px;background:rgba(224,74,120,.10)"></div>
+  <div class="title" style="top:95px">Same date. <em class="pink">Different time.</em></div>
+  <div class="dp-pill dp-pill--pink" style="position:absolute;left:76px;top:414px;width:184px;justify-content:center"><svg class="ic"><use href="#i-x"/></svg>The old way</div>
+  <div class="dp-pill dp-pill--teal" style="position:absolute;left:398px;top:414px;width:202px;justify-content:center"><svg class="ic"><use href="#i-check"/></svg>The right way</div>
+  <div class="dp-card dp-card--glow-pink" style="position:absolute;left:42px;top:468px;width:252px;height:278px">
+    <span class="dp-nav" style="position:absolute;left:18px;top:12px;width:22px;height:22px;background:#1c1e28"><svg class="ic"><use href="#i-left"/></svg></span>
+    <div style="position:absolute;left:0;right:0;top:15px;text-align:center;font-size:15px;font-weight:700;color:#8b93a1">September 2026</div>
+    <span class="dp-chip dp-chip--pink-o" style="position:absolute;left:179px;top:11px;height:22px;font-size:13px;padding:0 9px;border:1px solid rgba(224,74,120,.5)">Click 6/6</span>
+    <div class="dp-grid" data-cal='{"y":2026,"m":8,"first":2,"marks":{"sel":11}}' style="position:absolute;left:14px;top:41px;--pitch:29.5px;--cell:24px;--fs:13px;--dow:8px;--dow-gap:6px;--r:6px;color:#8b93a1"></div>
+  </div>
+  <div class="dp-card dp-card--glow-teal" style="position:absolute;left:320px;top:468px;width:358px;height:278px">
+    <div class="dp-label" style="position:absolute;left:20px;top:13px;font-size:10px">Presets</div>
+    <div style="position:absolute;left:20px;top:41px;font-size:13px;color:#c9ced5;font-weight:500;line-height:36px">Today<br>Yesterday<br>Last 7 days<br><br>Last quarter<br>Custom</div>
+    <div style="position:absolute;left:10px;top:140px;width:118px;height:34px;border-radius:8px;background:var(--dp-pink);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;padding-left:10px;box-shadow:0 6px 18px rgba(224,74,120,.35)">Last 30 days</div>
+    <div style="position:absolute;left:140px;top:0;bottom:0;width:1px;background:rgba(255,255,255,.06)"></div>
+    <div class="dp-label" style="position:absolute;left:151px;top:11px;font-size:10px">Feb – Mar 2026</div>
+    <div style="position:absolute;left:150px;width:196px;top:23px;text-align:center;font-size:13px;font-weight:700">March 2026</div>
+    <span class="dp-chip dp-chip--teal" style="position:absolute;left:281px;top:11px;height:22px;font-size:13px;padding:0 9px;border:1px solid rgba(46,211,176,.45)">Click 1/1</span>
+    <div class="dp-grid" data-cal='{"y":2026,"m":2,"first":0,"marks":{"in":[0,10],"bright":[1,11]}}' style="position:absolute;left:149px;top:44px;--pitch:25.3px;--cell:22px;--fs:11px;--dow:7px;--dow-gap:5px;--r:5px"></div>
+  </div>
+  <div style="position:absolute;left:42px;top:1080px;width:252px;height:85px;border-radius:12px;background:#280c12;color:#e04a78;font-size:22px;font-weight:700;display:grid;place-items:center;text-align:center;line-height:1.3;padding:0 40px">6 clicks · 5 seconds</div>
+  <div style="position:absolute;left:320px;top:1080px;width:358px;height:85px;border-radius:12px;background:#260f19;color:#e6a9be;font-size:22px;font-weight:700;display:grid;place-items:center">1 click · 1 second</div>
+</section>
+
+<!-- 2a · Presets: Today -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="kicker kicker--pink">01 · Presets</div>
+  <h1 class="title">Presets cover <em class="pink">90%</em> of cases.</h1>
+  <div class="dp-card dp-presets" style="position:absolute;left:38px;top:397px">
+    <div class="dp-presets__list"><div class="dp-label">Presets</div>
+      <div class="dp-preset is-on">Today</div><div class="dp-preset">Yesterday</div><div class="dp-preset">Last 7 days</div><div class="dp-preset">Last 30 days</div><div class="dp-preset">Last quarter</div><div class="dp-preset">Custom range</div>
+    </div>
+    <div class="dp-presets__body">
+      <div class="dp-presets__head"><span class="dp-label">Selection</span><span class="dp-chip dp-chip--teal">April 14</span></div>
+      <div class="dp-presets__months">
+        <div class="dp-grid" data-cal='{"y":2026,"m":2,"first":0,"title":"March 2026"}'></div>
+        <div class="dp-grid" data-cal='{"y":2026,"m":3,"first":3,"title":"April 2026","marks":{"bright":[14]}}'></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2b · Presets: Last 7 days -->
+<section class="scene" data-t="6" data-shot="7.5">
+  <div class="kicker kicker--pink">01 · Presets</div>
+  <h1 class="title">Presets cover <em class="pink">90%</em> of cases.</h1>
+  <div class="dp-card dp-presets" style="position:absolute;left:38px;top:397px">
+    <div class="dp-presets__list"><div class="dp-label">Presets</div>
+      <div class="dp-preset">Today</div><div class="dp-preset">Yesterday</div><div class="dp-preset is-on">Last 7 days</div><div class="dp-preset">Last 30 days</div><div class="dp-preset">Last quarter</div><div class="dp-preset">Custom range</div>
+    </div>
+    <div class="dp-presets__body">
+      <div class="dp-presets__head"><span class="dp-label">Selection</span><span class="dp-chip dp-chip--teal">Apr 7 → Apr 14</span></div>
+      <div class="dp-presets__months">
+        <div class="dp-grid" data-cal='{"y":2026,"m":2,"first":0,"title":"March 2026"}'></div>
+        <div class="dp-grid" data-cal='{"y":2026,"m":3,"first":3,"title":"April 2026","marks":{"in":[9,16],"bright":[7,14]}}'></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2c · Presets: Last quarter -->
+<section class="scene" data-t="9" data-shot="9">
+  <div class="kicker kicker--pink">01 · Presets</div>
+  <h1 class="title">Presets cover <em class="pink">90%</em> of cases.</h1>
+  <div class="dp-card dp-presets" style="position:absolute;left:38px;top:397px">
+    <div class="dp-presets__list"><div class="dp-label">Presets</div>
+      <div class="dp-preset">Today</div><div class="dp-preset">Yesterday</div><div class="dp-preset">Last 7 days</div><div class="dp-preset">Last 30 days</div><div class="dp-preset is-on">Last quarter</div><div class="dp-preset">Custom range</div>
+    </div>
+    <div class="dp-presets__body">
+      <div class="dp-presets__head"><span class="dp-label">Selection</span><span class="dp-chip dp-chip--teal">Q1 2026</span></div>
+      <div class="dp-presets__months">
+        <div class="dp-grid" data-cal='{"y":2026,"m":1,"first":0,"days":28,"rows":6,"title":"February 2026","marks":{"in":[0,41],"bright":[1,28]}}'></div>
+        <div class="dp-grid" data-cal='{"y":2026,"m":2,"first":0,"title":"March 2026","marks":{"in":[0,30],"bright":[1,31]}}'></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2d · Presets: Custom range, with the split -->
+<section class="scene" data-t="10.5" data-shot="10.5">
+  <div class="kicker kicker--pink">01 · Presets</div>
+  <h1 class="title">Presets cover <em class="pink">90%</em> of cases.</h1>
+  <div class="dp-card dp-presets" style="position:absolute;left:38px;top:397px">
+    <div class="dp-presets__list"><div class="dp-label">Presets</div>
+      <div class="dp-preset">Today</div><div class="dp-preset">Yesterday</div><div class="dp-preset">Last 7 days</div><div class="dp-preset">Last 30 days</div><div class="dp-preset">Last quarter</div><div class="dp-preset is-on">Custom range</div>
+    </div>
+    <div class="dp-presets__body">
+      <div class="dp-presets__head"><span class="dp-label">Selection</span><span class="dp-chip dp-chip--teal">Mar 20 → Apr 8</span></div>
+      <div class="dp-presets__months">
+        <div class="dp-grid" data-cal='{"y":2026,"m":2,"first":0,"rows":6,"title":"March 2026","marks":{"in":[19,41],"bright":[20,31]}}'></div>
+        <div class="dp-grid" data-cal='{"y":2026,"m":3,"first":3,"title":"April 2026","marks":{"in":[0,10],"bright":[1,8]}}'></div>
+      </div>
+    </div>
+  </div>
+  <div style="position:absolute;left:0;right:0;top:795px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 10px;padding:0 92px">
+    <span class="dp-pill" style="height:36px;font-size:15px;padding:0 16px;color:#e6e8ee">Today <b style="color:#8b93a1;margin-left:6px">14%</b></span>
+    <span class="dp-pill" style="height:36px;font-size:15px;padding:0 16px;color:#e6e8ee">Yesterday <b style="color:#8b93a1;margin-left:6px">9%</b></span>
+    <span class="dp-pill" style="height:36px;font-size:15px;padding:0 16px;color:#e6e8ee">Last 7d <b style="color:#8b93a1;margin-left:6px">31%</b></span>
+    <span class="dp-pill" style="height:36px;font-size:15px;padding:0 16px;color:#e6e8ee">Last 30d <b style="color:#8b93a1;margin-left:6px">22%</b></span>
+    <span class="dp-pill" style="height:36px;font-size:15px;padding:0 16px;color:#e6e8ee">Last quarter <b style="color:#8b93a1;margin-left:6px">14%</b></span>
+    <span class="dp-pill dp-pill--teal-o" style="height:36px;font-size:15px;padding:0 16px">Custom <b style="margin-left:6px">10%</b></span>
+  </div>
+</section>
+
+<!-- 3a · Range highlight: hover = preview -->
+<section class="scene" data-t="12" data-shot="13.5">
+  <div class="kicker kicker--teal">02 · Range highlight</div>
+  <h1 class="title"><em class="grey">Hover.</em> <em class="pink">Click.</em> <em>Drag.</em></h1>
+  <div class="dp-pill dp-pill--amber" style="position:absolute;left:82px;top:316px;width:208px;height:44px;justify-content:center;font-weight:600">Hover <span style="opacity:.6;margin:0 4px">=</span> preview</div>
+  <div class="dp-pill" style="position:absolute;left:296px;top:316px;width:160px;height:44px;justify-content:center;font-weight:600">Click <span style="opacity:.6;margin:0 4px">=</span> lock</div>
+  <div class="dp-pill" style="position:absolute;left:462px;top:316px;width:174px;height:44px;justify-content:center;font-weight:600">Drag <span style="opacity:.6;margin:0 4px">=</span> refine</div>
+  <div class="dp-card dp-range dp-card--glow-teal" style="position:absolute;left:87px;top:383px;padding-left:21px;padding-right:21px">
+    <div class="dp-range__head"><span class="dp-nav"><svg class="ic"><use href="#i-left"/></svg></span>May 2026<span class="dp-nav"><svg class="ic"><use href="#i-right"/></svg></span></div>
+    <div class="dp-grid" data-cal='{"y":2026,"m":4,"first":5,"marks":{"hover":[5,16]}}' style="--dow-gap:12px"></div>
+  </div>
+  <svg class="cursor" style="left:538px;top:648px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="dp-tag center" style="top:935px;height:43px;font-size:17px;padding:0 20px;background:#15171f;color:#4a515c;font-weight:700">May — → May — <span style="margin:0 8px;opacity:.5">·</span> —</div>
+</section>
+
+<!-- 3b · Range highlight: click = lock -->
+<section class="scene" data-t="15" data-shot="16.5">
+  <div class="kicker kicker--teal">02 · Range highlight</div>
+  <h1 class="title"><em class="grey">Hover.</em> <em class="pink">Click.</em> <em>Drag.</em></h1>
+  <div class="dp-pill" style="position:absolute;left:82px;top:316px;width:208px;height:44px;justify-content:center;font-weight:600">Hover <span style="opacity:.6;margin:0 4px">=</span> preview</div>
+  <div class="dp-pill dp-pill--pink-o" style="position:absolute;left:296px;top:316px;width:160px;height:44px;justify-content:center;font-weight:600">Click <span style="opacity:.6;margin:0 4px">=</span> lock</div>
+  <div class="dp-pill" style="position:absolute;left:462px;top:316px;width:174px;height:44px;justify-content:center;font-weight:600">Drag <span style="opacity:.6;margin:0 4px">=</span> refine</div>
+  <div class="dp-card dp-range dp-card--glow-teal" style="position:absolute;left:87px;top:383px;padding-left:21px;padding-right:21px">
+    <div class="dp-range__head"><span class="dp-nav"><svg class="ic"><use href="#i-left"/></svg></span>May 2026<span class="dp-nav"><svg class="ic"><use href="#i-right"/></svg></span></div>
+    <div class="dp-grid" data-cal='{"y":2026,"m":4,"first":5,"marks":{"in":[9,13],"bright":[5,9]}}' style="--dow-gap:12px"></div>
+  </div>
+  <svg class="cursor" style="left:204px;top:712px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="dp-tag dp-tag--teal center" style="top:935px;height:43px;font-size:17px;padding:0 20px;font-weight:600">May 5 → May 9 <span style="margin:0 8px;opacity:.5">·</span> <b>5 days</b></div>
+</section>
+
+<!-- 3c · Range highlight: drag = refine -->
+<section class="scene" data-t="18" data-shot="18">
+  <div class="kicker kicker--teal">02 · Range highlight</div>
+  <h1 class="title"><em class="grey">Hover.</em> <em class="pink">Click.</em> <em>Drag.</em></h1>
+  <div class="dp-pill" style="position:absolute;left:82px;top:316px;width:208px;height:44px;justify-content:center;font-weight:600">Hover <span style="opacity:.6;margin:0 4px">=</span> preview</div>
+  <div class="dp-pill dp-pill--pink-o" style="position:absolute;left:296px;top:316px;width:160px;height:44px;justify-content:center;font-weight:600">Click <span style="opacity:.6;margin:0 4px">=</span> lock</div>
+  <div class="dp-pill" style="position:absolute;left:462px;top:316px;width:174px;height:44px;justify-content:center;font-weight:600">Drag <span style="opacity:.6;margin:0 4px">=</span> refine</div>
+  <div class="dp-card dp-range dp-card--glow-teal" style="position:absolute;left:87px;top:383px;padding-left:21px;padding-right:21px">
+    <div class="dp-range__head"><span class="dp-nav"><svg class="ic"><use href="#i-left"/></svg></span>May 2026<span class="dp-nav"><svg class="ic"><use href="#i-right"/></svg></span></div>
+    <div class="dp-grid" id="dragGrid" data-cal='{"y":2026,"m":4,"first":5,"marks":{"in":[9,22],"bright":[5,18]}}' style="--dow-gap:12px"></div>
+  </div>
+  <svg class="cursor" style="left:204px;top:712px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="dp-tag dp-tag--teal center" style="top:935px;height:43px;font-size:17px;padding:0 20px;font-weight:600">May 5 → May 18 <span style="margin:0 8px;opacity:.5">·</span> <b>14 days</b></div>
+</section>
+
+<!-- 4a · Two months: the single-month trap -->
+<section class="scene" data-t="19.5" data-shot="19.5">
+  <div class="glow" style="left:100px;top:380px;background:rgba(224,74,120,.10)"></div>
+  <div class="kicker kicker--pink">03 · Two months</div>
+  <h1 class="title">Cross-month is <em>normal.</em></h1>
+  <div class="dp-card dp-single dp-card--glow-pink" style="position:absolute;left:167px;top:423px;padding-left:25px;padding-right:25px">
+    <div class="dp-tag dp-tag--pink" style="position:absolute;left:120px;top:27px;height:32px;font-size:14px;font-weight:700;padding:0 14px"><svg class="ic" style="width:12px;height:12px"><use href="#i-x"/></svg>Single month</div>
+    <span class="dp-chip dp-chip--pink" style="position:absolute;left:273px;top:17px;height:30px;font-size:14px">Click 0/4</span>
+    <div class="dp-single__head" style="margin-top:44px;margin-left:6px;margin-right:6px"><span class="dp-nav"><svg class="ic"><use href="#i-left"/></svg></span>March 2026<span class="dp-nav"><svg class="ic"><use href="#i-right"/></svg></span></div>
+    <div class="dp-grid" data-cal='{"y":2026,"m":2,"first":0,"marks":{"sel":12}}'></div>
+  </div>
+</section>
+
+<!-- 4b · Two months side by side -->
+<section class="scene" data-t="21" data-shot="22.5">
+  <div class="glow" style="left:100px;top:380px;background:rgba(46,211,176,.08)"></div>
+  <div class="kicker kicker--pink">03 · Two months</div>
+  <h1 class="title">Cross-month is <em>normal.</em></h1>
+  <div class="dp-card dp-double dp-card--glow-teal" style="position:absolute;left:53px;top:331px;padding-left:22px;padding-right:22px">
+    <div class="dp-tag dp-tag--teal" style="position:absolute;left:199px;top:24px;height:33px;font-size:15px;font-weight:700;padding:0 16px"><svg class="ic" style="width:13px;height:13px"><use href="#i-check"/></svg>2 months side by side</div>
+    <div class="dp-double__months" style="margin-top:48px">
+      <div>
+        <div class="dp-double__head"><span class="dp-nav" style="width:22px;height:22px"><svg class="ic"><use href="#i-left"/></svg></span>March 2026<span class="dp-nav" style="width:22px;height:22px"><svg class="ic"><use href="#i-right"/></svg></span></div>
+        <div class="dp-grid" data-cal='{"y":2026,"m":2,"first":0,"rows":6,"marks":{"in":[19,41],"bright":[20,31]}}'></div>
+      </div>
+      <div>
+        <div class="dp-double__head"><span class="dp-nav" style="width:22px;height:22px"><svg class="ic"><use href="#i-left"/></svg></span>April 2026<span class="dp-nav" style="width:22px;height:22px"><svg class="ic"><use href="#i-right"/></svg></span></div>
+        <div class="dp-grid" data-cal='{"y":2026,"m":3,"first":3,"marks":{"in":[0,14],"bright":[1,12]}}'></div>
+      </div>
+    </div>
+    <span class="dp-chip dp-chip--teal" style="position:absolute;left:235px;top:381px;height:32px;font-size:14px;padding:0 14px">Mar 20 → Apr 12</span>
+  </div>
+  <div class="dp-label center" style="top:792px;font-size:13px;color:#8b93a1;white-space:nowrap">Wide screens · 3 months</div>
+  <div class="dp-mini" style="position:absolute;left:178px;top:818px;padding-left:10px;gap:4px">
+    <div class="dp-grid" data-cal='{"y":2026,"m":3,"first":3,"rows":6,"title":"April 2026","marks":{"in":[14,41],"bright":[12,30]}}'></div>
+    <div class="dp-grid" data-cal='{"y":2026,"m":4,"first":5,"rows":6,"title":"May 2026","marks":{"in":[0,41],"bright":[1,31]}}'></div>
+    <div class="dp-grid" data-cal='{"y":2026,"m":5,"first":1,"rows":6,"title":"June 2026","marks":{"in":[0,18],"bright":[1,18]}}'></div>
+  </div>
+</section>
+
+<!-- 5a · Keyboard: type -->
+<section class="scene" data-t="27" data-shot="28.5">
+  <div class="kicker kicker--pink">04 · Keyboard</div>
+  <h1 class="title"><em class="pink">Type.</em> <em>Arrow.</em> Validate.</h1>
+  <div class="dp-input is-focus" style="position:absolute;left:162px;top:375px"><span class="dp-label" style="font-size:13px">Date</span><span class="dp-input__val">0<span class="ph">M/DD/YYYY</span><span class="dp-caret"></span></span></div>
+  <div class="dp-card dp-kb" style="position:absolute;left:172px;top:447px;padding-left:20px;padding-right:20px">
+    <div class="dp-kb__head" style="margin:0 6px 12px"><span class="dp-nav"><svg class="ic"><use href="#i-left"/></svg></span>March 2026<span class="dp-nav"><svg class="ic"><use href="#i-right"/></svg></span></div>
+    <div class="dp-grid" data-cal='{"y":2026,"m":2,"first":0,"marks":{"focus":20}}' style="--dow-gap:11px"></div>
+  </div>
+  <div class="dp-keys" style="position:absolute;left:68px;top:1063px">
+    <span class="dp-key" style="width:42px">←</span><span class="dp-key" style="width:42px">→</span><span class="dp-key" style="width:41px">↑</span><span class="dp-key" style="width:42px">↓</span><span class="dp-key" style="width:62px">Home</span><span class="dp-key" style="width:54px">End</span><span class="dp-key" style="width:72px">Enter</span><span class="dp-key" style="width:54px">Esc</span><span class="dp-key" style="width:51px">Pg↑</span><span class="dp-key" style="width:52px">Pg↓</span>
+  </div>
+  <div class="dp-label center" style="top:1118px;font-size:12px;color:#8b93a1;white-space:nowrap">Every keystroke matters</div>
+</section>
+
+<!-- 5b · Keyboard: arrow to a date -->
+<section class="scene" data-t="30" data-shot="31.5">
+  <div class="kicker kicker--pink">04 · Keyboard</div>
+  <h1 class="title"><em class="pink">Type.</em> <em>Arrow.</em> Validate.</h1>
+  <div class="dp-input" style="position:absolute;left:162px;top:375px"><span class="dp-label" style="font-size:13px">Date</span><span class="dp-input__val">03/12/2026</span></div>
+  <div class="dp-card dp-kb" style="position:absolute;left:172px;top:447px;padding-left:20px;padding-right:20px">
+    <div class="dp-kb__head" style="margin:0 6px 12px"><span class="dp-nav"><svg class="ic"><use href="#i-left"/></svg></span>March 2026<span class="dp-nav"><svg class="ic"><use href="#i-right"/></svg></span></div>
+    <div class="dp-grid" data-cal='{"y":2026,"m":2,"first":0,"marks":{"sel":12,"focus":20}}' style="--dow-gap:11px"></div>
+  </div>
+  <div class="dp-keys" style="position:absolute;left:68px;top:1063px">
+    <span class="dp-key" style="width:42px">←</span><span class="dp-key" style="width:42px">→</span><span class="dp-key" style="width:41px">↑</span><span class="dp-key" style="width:42px">↓</span><span class="dp-key" style="width:62px">Home</span><span class="dp-key" style="width:54px">End</span><span class="dp-key" style="width:72px">Enter</span><span class="dp-key" style="width:54px">Esc</span><span class="dp-key" style="width:51px">Pg↑</span><span class="dp-key" style="width:52px">Pg↓</span>
+  </div>
+  <div class="dp-label center" style="top:1118px;font-size:12px;color:#8b93a1;white-space:nowrap">Every keystroke matters</div>
+</section>
+
+<!-- 5c · Keyboard: Page Up jumps a month (Shift for a year) -->
+<section class="scene" data-t="33" data-shot="34.5">
+  <div class="kicker kicker--pink">04 · Keyboard</div>
+  <h1 class="title"><em class="pink">Type.</em> <em>Arrow.</em> Validate.</h1>
+  <div class="dp-input" style="position:absolute;left:162px;top:375px"><span class="dp-label" style="font-size:13px">Date</span><span class="dp-input__val">03/12/2026</span></div>
+  <div class="dp-card dp-kb" style="position:absolute;left:172px;top:447px;padding-left:20px;padding-right:20px">
+    <div class="dp-kb__head" style="margin:0 6px 12px"><span class="dp-nav"><svg class="ic"><use href="#i-left"/></svg></span>February 2025<span class="dp-nav"><svg class="ic"><use href="#i-right"/></svg></span></div>
+    <div class="dp-grid" data-cal='{"y":2025,"m":1,"first":0,"days":28,"marks":{"sel":12,"focus":20}}' style="--dow-gap:11px"></div>
+  </div>
+  <div class="dp-keys" style="position:absolute;left:68px;top:1063px">
+    <span class="dp-key" style="width:42px">←</span><span class="dp-key" style="width:42px">→</span><span class="dp-key" style="width:41px">↑</span><span class="dp-key" style="width:42px">↓</span><span class="dp-key" style="width:62px">Home</span><span class="dp-key" style="width:54px">End</span><span class="dp-key" style="width:72px">Enter</span><span class="dp-key" style="width:54px">Esc</span><span class="dp-key is-on" style="width:51px">Pg↑</span><span class="dp-key" style="width:52px">Pg↓</span>
+  </div>
+  <div class="dp-label center" style="top:1118px;font-size:12px;color:#8b93a1;white-space:nowrap">Every keystroke matters</div>
+</section>
+
+<!-- 6 · Mobile is a sheet -->
+<section class="scene" data-t="36" data-shot="39">
+  <div class="kicker kicker--teal">05 · Mobile</div>
+  <h1 class="title">Mobile is <em>a sheet.</em></h1>
+  <div class="dp-tag dp-tag--pink" style="position:absolute;left:84px;top:370px;width:130px;justify-content:center"><svg class="ic" style="width:11px;height:11px"><use href="#i-x"/></svg>Tiny popover</div>
+  <div class="dp-tag dp-tag--teal" style="position:absolute;left:278px;top:370px;width:162px;justify-content:center"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg>Full-screen sheet</div>
+  <div class="dp-tag dp-tag--teal" style="position:absolute;left:498px;top:370px;width:148px;justify-content:center"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg>Confirm button</div>
+
+  <div class="dp-phone dp-phone--bad" style="position:absolute;left:50px;top:410px">
+    <div class="dp-phone__notch"></div>
+    <div class="dp-phone__bar">Bookings</div>
+    <div class="dp-phone__field">Pick a date</div>
+    <div class="dp-phone__pop"><div class="dp-grid" data-cal='{"y":2026,"m":2,"first":0,"title":"March 2026","marks":{"sel":12}}'></div></div>
+    <div class="dp-phone__x"><svg class="ic"><use href="#i-x"/></svg></div>
+    <div class="dp-phone__bad">Too tiny to tap</div>
+  </div>
+
+  <div class="dp-phone" style="position:absolute;left:262px;top:410px">
+    <div class="dp-phone__notch"></div>
+    <div class="dp-phone__bar">Select dates<span class="dp-chip dp-chip--pink" style="height:16px;font-size:8px;padding:0 8px;border-radius:999px">Today</span></div>
+    <div class="dp-phone__scroll" style="left:14px;top:48px">
+      <div style="height:46px;overflow:hidden;position:relative"><div class="dp-grid" data-cal='{"y":2026,"m":1,"first":0,"days":28,"head":false}' style="position:absolute;left:0;top:-45px"></div></div>
+      <div class="dp-label" style="margin-top:52px;margin-left:2px">March 2026</div>
+      <div class="dp-grid" data-cal='{"y":2026,"m":2,"first":0,"marks":{"sel":12}}' style="margin-top:8px"></div>
+      <div class="dp-label" style="margin-top:34px;margin-left:2px">April 2026</div>
+      <div class="dp-grid" data-cal='{"y":2026,"m":3,"first":3}' style="margin-top:8px"></div>
+    </div>
+  </div>
+
+  <div class="dp-phone" style="position:absolute;left:474px;top:410px">
+    <div class="dp-phone__notch"></div>
+    <div class="dp-phone__bar">Select dates<small>Done</small></div>
+    <div class="dp-label" style="margin:14px 0 0 16px">March 2026</div>
+    <div class="dp-grid" data-cal='{"y":2026,"m":2,"first":0,"marks":{"in":[11,17],"bright":[12,18]}}' style="margin:6px 0 0 14px"></div>
+    <div class="dp-phone__sum">Mar 12 → Mar 18</div>
+    <div class="dp-phone__confirm">Confirm dates</div>
+  </div>
+
+  <div class="dp-pill" style="position:absolute;left:152px;top:880px;width:198px;height:35px;justify-content:center;font-size:16px;font-weight:600;color:#e6e8ee;gap:5px">Touch target <em style="font-style:normal;color:#2ed3b0">≥ 44px</em></div>
+  <div class="dp-pill" style="position:absolute;left:362px;top:880px;width:206px;height:35px;justify-content:center;font-size:16px;font-weight:600;color:#e6e8ee;gap:5px"><em style="font-style:normal;color:#2ed3b0">Confirm</em> action visible</div>
+</section>
+
+<!-- 7 · Outro -->
+<section class="scene" data-t="45" data-shot="45">
+  <div class="glow" style="left:100px;top:100px;background:rgba(46,211,176,.06)"></div>
+  <div class="glow" style="left:100px;top:600px;background:rgba(224,74,120,.08)"></div>
+  <div class="dp-icon dp-icon--teal" style="position:absolute;left:143px;top:184px;width:48px;height:48px"><svg class="ic"><use href="#i-cal"/></svg></div>
+  <div class="dp-icon dp-icon--pink" style="position:absolute;left:529px;top:176px;width:48px;height:48px"><svg class="ic"><use href="#i-cal-plus"/></svg></div>
+  <div class="dp-card dp-outro" style="position:absolute;left:178px;top:205px;padding-left:17px;padding-right:17px">
+    <div class="dp-kb__head" style="margin:0 4px 12px"><span class="dp-nav"><svg class="ic"><use href="#i-left"/></svg></span>March 2026<span class="dp-nav"><svg class="ic"><use href="#i-right"/></svg></span></div>
+    <div class="dp-grid" id="outroGrid" data-cal='{"y":2026,"m":2,"first":0,"marks":{"in":[11,17],"bright":[12,18]}}' style="--dow-gap:12px"></div>
+  </div>
+  <div class="dp-icon dp-icon--teal" style="position:absolute;left:300px;top:628px"><svg class="ic"><use href="#i-save"/></svg></div>
+  <div class="dp-icon dp-icon--pink" style="position:absolute;left:370px;top:628px"><svg class="ic"><use href="#i-cal"/></svg></div>
+  <div class="title" style="top:710px;font-size:46px;line-height:1.2">Follow for <em class="pink">more UI<br>systems</em></div>
+  <div class="center" style="top:855px;font-size:20px;font-weight:600;color:#c9ced5;white-space:nowrap">Save this for your <em style="font-style:normal;color:#2ed3b0">next form</em></div>
+  <div class="dp-handle center" style="top:918px"><span class="dp-handle__av"></span><span><b>@designmotionhq</b><span>UI systems · motion · design</span></span></div>
+</section>
+
+<script>
+  // Static render of every calendar in the demo. Mirrors monthGrid() in pattern.js (file:// blocks module imports,
+  // so the replica cannot import it); the live picker below uses the module.
+  (function () {
+    const DOW = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+    function monthGrid({ first, days, rows, marks = {}, head = true, title = null }) {
+      const total = rows ? rows * 7 : Math.ceil((first + days) / 7) * 7;
+      let html = title ? `<div class="dp-month__title">${title}</div>` : '';
+      if (head) html += `<div class="dp-dow">${DOW.map(d => `<span>${d}</span>`).join('')}</div>`;
+      html += '<div class="dp-days">';
+      for (let i = 0; i < total; i++) {
+        const day = i - first + 1, empty = day < 1 || day > days, cls = ['dp-d'];
+        if (empty) cls.push('is-empty');
+        if (marks.in && i >= marks.in[0] && i <= marks.in[1]) cls.push('is-in');
+        if (!empty) {
+          if (marks.bright && marks.bright.includes(day)) cls.push('is-bright');
+          if (marks.sel === day) cls.push('is-sel');
+          if (marks.focus === day) cls.push('is-focus');
+          if (marks.hover && day >= marks.hover[0] && day <= marks.hover[1]) cls.push('is-hover');
+        }
+        html += `<span class="${cls.join(' ')}" data-day="${empty ? '' : day}"><i>${empty ? '' : day}</i></span>`;
+      }
+      return html + '</div>';
+    }
+    const dim = (y, m) => new Date(y, m + 1, 0).getDate();
+    document.querySelectorAll('[data-cal]').forEach(el => {
+      const o = JSON.parse(el.dataset.cal);
+      el.innerHTML = monthGrid({ first: o.first, days: o.days || dim(o.y, o.m), rows: o.rows, marks: o.marks, head: o.head !== false, title: o.title || null });
+    });
+  })();
+</script>
+<script type="module">
+  // Live range picker on the outro calendar when the page is served over http (hover, click, drag, keyboard).
+  import { RangePicker } from './pattern.js';
+  const g = document.getElementById('outroGrid');
+  if (g && location.protocol !== 'file:') { const p = RangePicker(g, { year: 2026, month: 2, months: 1 }); p.set(new Date(2026, 2, 12), new Date(2026, 2, 18)); }
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

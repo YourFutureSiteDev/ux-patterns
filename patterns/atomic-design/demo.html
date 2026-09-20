@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Atomic Design · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #09060b; --accent: #6366f1; --danger: #ef4444; --grid: transparent; }
+  .scene { color: #f2f2f5; }
+  .ad-late { animation: ad-fadein .5s ease-out both; animation-delay: var(--d, 1s); }
+</style>
+</head>
+<body class="ad">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
+  <symbol id="i-lines" viewBox="0 0 24 24"><path d="M5 8h14M5 12h14M5 16h14"/></symbol>
+</svg>
+
+<!-- 1 · Intro: five tiles of a design system -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="ad-glow" style="top:200px;background:rgba(99,102,241,.08)"></div>
+  <div class="ad-tile" style="left:63px;top:245px;--c:#6366f1">
+    <div class="ad-tile__dots"><i style="background:#6164f1"></i><i style="background:#885df2"></i><i style="background:#23c35d"></i><i style="background:#f24143"></i><i style="background:#f49c0c"></i><i style="background:#eb4598"></i></div>
+    <div class="ad-tile__name">Colors</div>
+  </div>
+  <div class="ad-tile" style="left:270px;top:245px;--c:#7760d2">
+    <div class="ad-tile__aa">Aa</div><div class="ad-tile__w">Light Regular <b>Bold</b></div>
+    <div class="ad-tile__name">Type</div>
+  </div>
+  <div class="ad-tile" style="left:477px;top:245px;--c:#23c35d">
+    <div class="ad-tile__bars"><i style="width:28px" data-v="4"></i><i style="width:52px" data-v="8"></i><i style="width:88px" data-v="16"></i><i style="width:133px" data-v="32"></i></div>
+    <div class="ad-tile__name">Spacing</div>
+  </div>
+  <div class="ad-tile" style="left:167px;top:405px;--c:#f49c0c">
+    <div class="ad-tile__btn">Button</div><div class="ad-tile__input">Input...</div>
+    <div class="ad-tile__pills"><i style="color:#23c35d;border-color:#23c35d;background:#0f2a19">Active</i><i style="color:#f24143;border-color:#f24143;background:#2a1012">Error</i></div>
+    <div class="ad-tile__name">Components</div>
+  </div>
+  <div class="ad-tile" style="left:373px;top:405px;--c:#eb4598">
+    <svg class="ad-tile__curve" viewBox="0 0 156 80"><path d="M18 62 C 40 62, 46 28, 78 24 S 108 44, 136 22" fill="none" stroke="#eb4598" stroke-width="3" stroke-linecap="round"/><circle cx="18" cy="62" r="4" fill="#eb4598"/><circle cx="78" cy="24" r="4" fill="#eb4598"/><circle cx="136" cy="22" r="4" fill="#eb4598"/><circle cx="44" cy="66" r="1.5" fill="#eb4598" opacity=".6"/></svg>
+    <div class="ad-tile__name">Motion</div>
+  </div>
+  <div class="ad-foot">Code in bio</div>
+</section>
+
+<!-- 2 · 01 Colors: hard-coded hex vs tokens -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="ad-glow"></div>
+  <div class="ad-section">01 — Colors</div>
+  <div class="ad-panel" style="left:40px;top:197px;width:306px;height:224px"><div class="ad-panel__label ad-panel__label--before">Before</div>
+    <div class="ad-code">color: <span class="v">#3b82f6</span>;
+background: <span class="v">#1a1a2e</span>;
+border: <span class="v">#333333</span>;
+color: <span class="v">#ef4444</span>;</div></div>
+  <div class="ad-panel ad-panel--ok" style="left:374px;top:197px;width:306px;height:224px"><div class="ad-panel__label ad-panel__label--after">After</div>
+    <div class="ad-code">color: <span class="t">var(--brand)</span>;
+background: <span class="t">var(--bg-
+surface)</span>;
+border: <span class="t">var(--border)</span>;
+color: <span class="t">var(--error)</span>;</div></div>
+  <div class="ad-foot">Code in bio</div>
+</section>
+
+<!-- 2b · 01 Colors: primary scale and semantic tokens -->
+<section class="scene" data-t="9" data-shot="15">
+  <div class="ad-glow"></div>
+  <div class="ad-section">01 — Colors</div>
+  <div class="ad-panel ad-panel--dim" style="left:40px;top:197px;width:306px;height:224px"><div class="ad-panel__label ad-panel__label--before">Before</div>
+    <div class="ad-code">color: <span class="v">#3b82f6</span>;
+background: <span class="v">#1a1a2e</span>;
+border: <span class="v">#333333</span>;
+color: <span class="v">#ef4444</span>;</div></div>
+  <div class="ad-panel ad-panel--ok" style="left:370px;top:194px;width:310px;height:228px"><div class="ad-panel__label ad-panel__label--after">After</div>
+    <div class="ad-code">color: <span class="t">var(--brand)</span>;
+background: <span class="t">var(--bg-
+surface)</span>;
+border: <span class="t">var(--border)</span>;
+color: <span class="t">var(--error)</span>;</div></div>
+  <div class="ad-check" style="left:662px;top:183px"><svg><use href="#i-check"/></svg></div>
+  <div class="ad-panel ad-fade" style="left:60px;top:440px;width:600px;height:130px"><div class="ad-panel__label" style="font-size:14px;font-weight:600;letter-spacing:.2em">Primary scale</div>
+    <div class="ad-scale"><div class="ad-swatch" style="background:#312e81">900</div><div class="ad-swatch" style="background:#3730a3">800</div><div class="ad-swatch" style="background:#4338ca">700</div><div class="ad-swatch" style="background:#4f46e5">600</div><div class="ad-swatch" style="background:#6366f1">500</div><div class="ad-swatch ad-swatch--light" style="background:#818cf8">400</div><div class="ad-swatch ad-swatch--light" style="background:#a5b4fc">300</div><div class="ad-swatch ad-swatch--light" style="background:#c7d2fe">200</div><div class="ad-swatch ad-swatch--light" style="background:#e0e7ff">100</div></div></div>
+  <div class="ad-panel ad-late" style="left:60px;top:592px;width:600px;height:170px;--d:.6s">
+    <div class="ad-tokens">
+      <div class="ad-token"><i style="background:#09090b;box-shadow:inset 0 0 0 1.5px #333"></i><div><b>bg-primary</b><span>#09090B</span></div></div>
+      <div class="ad-token"><i style="background:#6366f1"></i><div><b>brand</b><span>#6366F1</span></div></div>
+      <div class="ad-token"><i style="background:#22c55e"></i><div><b>success</b><span>#22C55E</span></div></div>
+      <div class="ad-token"><i style="background:#ef4444"></i><div><b>error</b><span>#EF4444</span></div></div>
+    </div></div>
+  <div class="ad-foot">Code in bio</div>
+</section>
+
+<!-- 3 · 02 Typography: no hierarchy vs clear hierarchy -->
+<section class="scene" data-t="21" data-shot="22.5">
+  <div class="ad-glow"></div>
+  <div class="ad-section">02 — Typography</div>
+  <div class="ad-panel" style="left:40px;top:194px;width:306px;height:183px"><div class="ad-panel__label ad-panel__label--before">Before</div>
+    <div class="ad-type-before"><h3>Heading</h3><p>Body text goes here</p><em>No hierarchy ✗</em></div></div>
+  <div class="ad-panel ad-panel--ok" style="left:374px;top:194px;width:306px;height:183px"><div class="ad-panel__label ad-panel__label--after">After</div>
+    <div class="ad-type-after"><h3>Heading</h3><p>Body text goes here</p><em>Clear hierarchy ✓</em></div></div>
+  <div class="ad-foot">Code in bio</div>
+</section>
+
+<!-- 3b · 02 Typography: type scale and weights -->
+<section class="scene" data-t="27" data-shot="30">
+  <div class="ad-glow"></div>
+  <div class="ad-section">02 — Typography</div>
+  <div class="ad-panel ad-panel--dim" style="left:40px;top:194px;width:306px;height:183px"><div class="ad-panel__label ad-panel__label--before">Before</div>
+    <div class="ad-type-before"><h3>Heading</h3><p>Body text goes here</p><em>No hierarchy ✗</em></div></div>
+  <div class="ad-panel ad-panel--ok" style="left:370px;top:191px;width:310px;height:187px"><div class="ad-panel__label ad-panel__label--after">After</div>
+    <div class="ad-type-after"><h3>Heading</h3><p>Body text goes here</p><em>Clear hierarchy ✓</em></div></div>
+  <div class="ad-panel ad-fade" style="left:60px;top:393px;width:600px;height:272px">
+    <div class="ad-tscale">
+      <div class="ad-trow" style="height:46px"><b style="font-size:40px">Aa</b><span>48px / 800</span><em class="ad-chip">text-5xl</em></div>
+      <div class="ad-trow" style="height:44px"><b style="font-size:29px;font-weight:700">Aa</b><span>36px / 700</span><em class="ad-chip">text-4xl</em></div>
+      <div class="ad-trow" style="height:36px"><b style="font-size:23px;font-weight:700">Aa</b><span>28px / 700</span><em class="ad-chip">text-3xl</em></div>
+      <div class="ad-trow" style="height:36px"><b style="font-size:19px;font-weight:600">Aa</b><span>22px / 600</span><em class="ad-chip">text-2xl</em></div>
+      <div class="ad-trow" style="height:36px"><b style="font-size:18px;font-weight:400">Aa</b><span>24px / 400</span><em class="ad-chip">text-lg</em></div>
+      <div class="ad-trow" style="height:36px"><b style="font-size:15px;font-weight:400">Aa</b><span>20px / 400</span><em class="ad-chip">text-base</em></div>
+    </div></div>
+  <div class="ad-panel ad-late" style="left:60px;top:683px;width:600px;height:89px;--d:.5s">
+    <div class="ad-weights"><div><b style="font-weight:400">Regular</b><span>400</span></div><div><b style="font-weight:500">Medium</b><span>500</span></div><div><b style="font-weight:700">Bold</b><span>700</span></div><div><b style="font-weight:800">Extrabold</b><span>800</span></div></div></div>
+  <div class="ad-foot">Code in bio</div>
+</section>
+
+<!-- 4 · 03 Spacing: random vs system -->
+<section class="scene" data-t="33" data-shot="33">
+  <div class="ad-glow"></div>
+  <div class="ad-section">03 — Spacing</div>
+  <div class="ad-panel" style="left:40px;top:199px;width:306px;height:182px"><div class="ad-panel__title" style="color:var(--ad-error)">Random</div>
+    <div class="ad-stack ad-stack--random"><i></i><i data-gap="7px" style="margin-top:7px"></i><i data-gap="23px" style="margin-top:23px"></i></div></div>
+  <div class="ad-panel ad-panel--ok" style="left:374px;top:199px;width:306px;height:182px"><div class="ad-panel__title" style="color:var(--ad-success)">System</div>
+    <div class="ad-stack ad-stack--system"><i></i><i data-gap="16px" style="margin-top:16px"></i><i data-gap="16px" style="margin-top:16px"></i></div></div>
+  <div class="ad-foot">Code in bio</div>
+</section>
+
+<!-- 4b · 03 Spacing: the scale -->
+<section class="scene" data-t="36" data-shot="39">
+  <div class="ad-glow"></div>
+  <div class="ad-section">03 — Spacing</div>
+  <div class="ad-panel" style="left:60px;top:199px;width:600px;height:368px">
+    <div class="ad-space">
+      <div class="ad-space__row"><em>space-1</em><span>4px</span><i style="--w:20px;--d:0s"></i></div>
+      <div class="ad-space__row"><em>space-2</em><span>8px</span><i style="--w:41px;--d:.1s"></i></div>
+      <div class="ad-space__row"><em>space-3</em><span>12px</span><i style="--w:62px;--d:.2s"></i></div>
+      <div class="ad-space__row"><em>space-4</em><span>16px</span><i style="--w:83px;--d:.3s"></i></div>
+      <div class="ad-space__row"><em>space-6</em><span>24px</span><i style="--w:125px;--d:.4s"></i></div>
+      <div class="ad-space__row"><em>space-8</em><span>32px</span><i style="--w:166px;--d:.5s"></i></div>
+      <div class="ad-space__row"><em>space-12</em><span>48px</span><i style="--w:249px;--d:.6s"></i></div>
+      <div class="ad-space__row"><em>space-16</em><span>64px</span><i style="--w:333px;--d:.7s"></i></div>
+    </div></div>
+  <div class="ad-foot">Code in bio</div>
+</section>
+
+<!-- 4c · 03 Spacing: everything on a 4px grid -->
+<section class="scene" data-t="40.5" data-shot="42">
+  <div class="ad-glow"></div>
+  <div class="ad-section">03 — Spacing</div>
+  <div class="ad-grid-card ad-fade" style="left:60px;top:212px">
+    <div class="ad-gc__head"><i></i><i></i></div>
+    <div class="ad-gc__tile" style="left:25px;--g:linear-gradient(90deg,#5b5bf0,#6b5cf6)"><i></i><i></i></div>
+    <div class="ad-gc__tile" style="left:213px;--g:linear-gradient(90deg,#8b5cf6,#5b5bf0)"><i></i><i></i></div>
+    <div class="ad-gc__tile" style="left:400px;--g:linear-gradient(90deg,#2f7a6b,#5264cf)"><i></i><i></i></div>
+    <div class="ad-gc__input"></div><div class="ad-gc__btn"></div><div class="ad-gc__label">4px GRID</div>
+  </div>
+  <div class="ad-foot">Code in bio</div>
+</section>
+
+<!-- 5 · 04 Components: buttons -->
+<section class="scene" data-t="45" data-shot="45">
+  <div class="ad-glow"></div>
+  <div class="ad-section">04 — Components</div>
+  <div class="ad-panel" style="left:60px;top:194px;width:600px;height:176px"><div class="ad-panel__label" style="font-size:14px;font-weight:600;letter-spacing:.2em">Buttons</div>
+    <div class="ad-btnrow"><span class="ad-btn">Primary</span><span class="ad-btn ad-btn--secondary">Secondary</span><span class="ad-btn ad-btn--ghost">Ghost</span><span class="ad-btn ad-btn--danger">Destructive</span></div>
+    <div class="ad-btnrow" style="top:300px;top:106px;gap:11px"><span class="ad-btn ad-btn--sm">Small</span><span class="ad-btn">Medium</span><span class="ad-btn ad-btn--lg">Large</span></div></div>
+  <div class="ad-foot">Code in bio</div>
+</section>
+
+<!-- 5b · 04 Components: input in its error state -->
+<section class="scene" data-t="46.5" data-shot="48">
+  <div class="ad-glow"></div>
+  <div class="ad-section">04 — Components</div>
+  <div class="ad-panel" style="left:60px;top:194px;width:600px;height:176px"><div class="ad-panel__label" style="font-size:14px;font-weight:600;letter-spacing:.2em">Buttons</div>
+    <div class="ad-btnrow"><span class="ad-btn">Primary</span><span class="ad-btn ad-btn--secondary">Secondary</span><span class="ad-btn ad-btn--ghost">Ghost</span><span class="ad-btn ad-btn--danger">Destructive</span></div>
+    <div class="ad-btnrow" style="top:106px;gap:11px"><span class="ad-btn ad-btn--sm">Small</span><span class="ad-btn">Medium</span><span class="ad-btn ad-btn--lg">Large</span></div></div>
+  <div class="ad-panel" style="left:60px;top:385px;width:600px;height:163px">
+    <div class="ad-field" data-state="error" id="fieldA"><label>Email</label><input type="email" placeholder="you@example.com" value=""><span class="ad-field__hint">Required field</span><span class="ad-field__state">error</span></div></div>
+  <div class="ad-foot">Code in bio</div>
+</section>
+
+<!-- 5c · 04 Components: disabled input, card, badges -->
+<section class="scene" data-t="51" data-shot="54">
+  <div class="ad-glow"></div>
+  <div class="ad-section">04 — Components</div>
+  <div class="ad-panel" style="left:60px;top:194px;width:600px;height:176px"><div class="ad-panel__label" style="font-size:14px;font-weight:600;letter-spacing:.2em">Buttons</div>
+    <div class="ad-btnrow"><span class="ad-btn">Primary</span><span class="ad-btn ad-btn--secondary">Secondary</span><span class="ad-btn ad-btn--ghost">Ghost</span><span class="ad-btn ad-btn--danger">Destructive</span></div>
+    <div class="ad-btnrow" style="top:106px;gap:11px"><span class="ad-btn ad-btn--sm">Small</span><span class="ad-btn">Medium</span><span class="ad-btn ad-btn--lg">Large</span></div></div>
+  <div class="ad-panel" style="left:60px;top:385px;width:600px;height:143px">
+    <div class="ad-field" data-state="disabled" id="fieldB"><label>Email</label><input type="email" placeholder="you@example.com" disabled><span class="ad-field__hint"></span><span class="ad-field__state" style="top:78px">disabled</span></div></div>
+  <div class="ad-card ad-fade" style="left:60px;top:543px"><div class="ad-card__img"></div><div class="ad-card__body"><h4>Card Title</h4><p>A short description with just enough detail to preview the content inside.</p><span class="ad-btn">Action</span></div></div>
+  <div class="ad-badges ad-late" style="top:790px;--d:.6s"><span class="ad-badge ad-badge--new">New</span><span class="ad-badge ad-badge--active">Active</span><span class="ad-badge ad-badge--pending">Pending</span><span class="ad-badge ad-badge--error">Error</span></div>
+  <div class="ad-foot">Code in bio</div>
+</section>
+
+<!-- 6 · 05 Motion: easings and durations -->
+<section class="scene" data-t="58.5" data-shot="60">
+  <div class="ad-glow"></div>
+  <div class="ad-section">05 — Motion</div>
+  <div class="ad-panel" style="left:60px;top:194px;width:600px;height:183px">
+    <div class="ad-easings">
+      <div class="ad-easing"><b>ease-out</b><span>Enter / appear</span><div class="ad-box ad-ease-out"></div></div>
+      <div class="ad-easing"><b>ease-in-out</b><span>Move / resize</span><div class="ad-box ad-ease-in-out"></div></div>
+      <div class="ad-easing"><b>ease-in</b><span>Exit / leave</span><div class="ad-box ad-ease-in"></div></div>
+    </div></div>
+  <div class="ad-panel ad-fade" style="left:60px;top:395px;width:600px;height:210px">
+    <div class="ad-durations">
+      <div class="ad-dur"><em>100ms</em><i style="--w:51px"></i><span>Micro — hover, toggle</span></div>
+      <div class="ad-dur"><em>200ms</em><i style="--w:101px"></i><span>Small — button press</span></div>
+      <div class="ad-dur ad-dur--max"><em>300ms</em><i style="--w:152px"></i><span>Medium — modal, dropdown</span><em class="ad-chip">MAX</em></div>
+      <div class="ad-dur"><em>400ms</em><i style="--w:203px"></i><span>Large — page transition</span></div>
+      <div class="ad-dur"><em>500ms</em><i style="--w:253px"></i><span>XL — complex</span></div>
+    </div></div>
+  <div class="ad-foot">Code in bio</div>
+</section>
+
+<!-- 6b · 05 Motion: presets -->
+<section class="scene" data-t="64.5" data-shot="66">
+  <div class="ad-glow"></div>
+  <div class="ad-section">05 — Motion</div>
+  <div class="ad-panel" style="left:60px;top:194px;width:600px;height:183px">
+    <div class="ad-easings">
+      <div class="ad-easing"><b>ease-out</b><span>Enter / appear</span><div class="ad-box ad-ease-out"></div></div>
+      <div class="ad-easing"><b>ease-in-out</b><span>Move / resize</span><div class="ad-box ad-ease-in-out"></div></div>
+      <div class="ad-easing"><b>ease-in</b><span>Exit / leave</span><div class="ad-box ad-ease-in"></div></div>
+    </div></div>
+  <div class="ad-panel" style="left:60px;top:395px;width:600px;height:210px">
+    <div class="ad-durations">
+      <div class="ad-dur"><em>100ms</em><i style="--w:51px"></i><span>Micro — hover, toggle</span></div>
+      <div class="ad-dur"><em>200ms</em><i style="--w:101px"></i><span>Small — button press</span></div>
+      <div class="ad-dur ad-dur--max"><em>300ms</em><i style="--w:152px"></i><span>Medium — modal, dropdown</span><em class="ad-chip">MAX</em></div>
+      <div class="ad-dur"><em>400ms</em><i style="--w:203px"></i><span>Large — page transition</span></div>
+      <div class="ad-dur"><em>500ms</em><i style="--w:253px"></i><span>XL — complex</span></div>
+    </div></div>
+  <div class="ad-panel ad-fade" style="left:60px;top:622px;width:600px;height:128px">
+    <div class="ad-presets">
+      <div class="ad-preset ad-preset-fade"><div class="ad-box"></div><span>fade-in</span></div>
+      <div class="ad-preset ad-preset-slide"><div class="ad-box"></div><span>slide-up</span></div>
+      <div class="ad-preset ad-preset-scale"><div class="ad-box"></div><span>scale-in</span></div>
+      <div class="ad-preset ad-preset-bounce"><div class="ad-box"></div><span>bounce</span></div>
+    </div></div>
+  <div class="ad-foot">Code in bio</div>
+</section>
+
+<!-- 7 · Outro -->
+<section class="scene ad-outro" data-t="69" data-shot="70.5">
+  <div class="ad-glow" style="top:330px;background:rgba(99,102,241,.07)"></div>
+  <h2 class="ad-fade">Design System Kit</h2>
+  <div class="price ad-fade" style="animation-delay:.2s">$14</div>
+  <div class="ad-outro__icons ad-fade" style="animation-delay:.4s"><i><b style="width:16px;height:16px;border-radius:4px;background:#6366f1;display:block"></b></i><i>Aa</i><i><svg><use href="#i-lines"/></svg></i><i><b style="width:20px;height:11px;border-radius:6px;border:2px solid #6366f1;display:block"></b></i><i><b style="width:12px;height:12px;border-radius:3px;background:#6366f1;display:block"></b></i></div>
+  <div class="ad-outro__link ad-fade" style="animation-delay:.6s">Link in bio</div>
+  <div class="ad-outro__handle">@designmotionhq</div>
+  <div class="ad-foot">Code in bio</div>
+</section>
+
+<script type="module">
+  import { applyTokens, FieldState, cycleFieldStates, replay } from './pattern.js';
+  applyTokens(document.body);
+  // Live: the input cycles default → focus → error → disabled like the reel; screenshots keep the frame's state.
+  const frozen = new URLSearchParams(location.search).has('t');
+  for (const f of document.querySelectorAll('.ad-field')) {
+    const s = f.closest('.scene'), state = f.dataset.state;
+    s.addEventListener('scene:enter', () => { if (frozen) FieldState(f, state); else if (f.id === 'fieldA') cycleFieldStates(f); });
+  }
+  for (const s of document.querySelectorAll('.scene')) s.addEventListener('scene:enter', e => { if (!frozen) replay(s); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

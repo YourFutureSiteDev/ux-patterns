@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Filter Chips · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a0d0e; --accent: #3ee7b7; --danger: #e0426f; --grid: rgba(255,255,255,.028); }
+  .scene { color: #f2f5f5; }
+  .title { top: 172px; margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -.01em; }
+  .caption { top: 1088px; background: none; box-shadow: none; padding: 0; font-size: 19px; font-weight: 500; color: #b4bcc2; }
+  .caption b { color: #f2f5f5; font-weight: 700; } .caption em { font-weight: 700; }
+  .glow { width: 560px; height: 560px; filter: blur(100px); }
+</style>
+</head>
+<body class="fc">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.6-5.9M4 4v5h5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M8 2h8v2l-1.5 1v5l3 3v2H13v6l-1 2-1-2v-6H6.5v-2l3-3V5L8 4z"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.5L6 21z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v16M6 14l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<!-- 1 · Hook: 12 results, three chips, grid filtering -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="fc-count" id="hookCount" style="position:absolute;left:62px;top:170px"><b>12</b><span>results</span></div>
+  <div class="fc-row" id="hookChips" style="position:absolute;left:55px;top:253px">
+    <button class="fc-chip fc-chip--md is-active" data-key="brand"><svg><use href="#i-check"/></svg>Herman Miller</button>
+    <button class="fc-chip fc-chip--md is-active" data-key="price"><svg><use href="#i-check"/></svg>$1k–$2k</button>
+    <button class="fc-chip fc-chip--md is-active" data-key="stock"><svg><use href="#i-check"/></svg>In stock</button>
+  </div>
+  <div class="fc-grid" id="hookGrid" style="position:absolute;left:80px;top:348px">
+    <div class="fc-card" style="--c1:#2f5c47;--c2:#3e725a"><i></i><b>Aeron Chair</b><span>Herman Miller</span><em>$1,395</em></div>
+    <div class="fc-card" style="--c1:#2c4853;--c2:#3a5e68"><i></i><b>Sayl Chair</b><span>Herman Miller</span><em>$695</em></div>
+    <div class="fc-card is-out" style="--c1:#543f2c;--c2:#67503a"><i></i><b>Embody Chair</b><span>Herman Miller</span><em>$1,795</em></div>
+    <div class="fc-card is-out" style="--c1:#2f2241;--c2:#3d2c50"><i></i><b>Leap V2</b><span>Steelcase</span><em>$1,036</em></div>
+    <div class="fc-card is-out" style="--c1:#402230;--c2:#522b3c"><i></i><b>Gesture</b><span>Steelcase</span><em>$1,154</em></div>
+    <div class="fc-card is-out" style="--c1:#434026;--c2:#524f30"><i></i><b>Soft Pad</b><span>Eames</span><em>$2,495</em></div>
+  </div>
+  <div class="fc-hook center" style="top:998px">Filter chips that<br>actually <em>work</em></div>
+</section>
+
+<!-- 2 · One chip, three states -->
+<section class="scene" data-t="3" data-shot="7.5">
+  <h1 class="title" style="top:188px">One chip, <em>three states</em></h1>
+  <div class="fc-states" style="position:absolute;left:74px;top:313px">
+    <div class="fc-state"><button class="fc-chip fc-chip--lg">Herman Miller</button><div><b>Idle</b><span>Surface + border. Tappable, not chosen.</span></div></div>
+    <div class="fc-state is-active"><button class="fc-chip fc-chip--lg is-active"><svg><use href="#i-check"/></svg>Herman Miller</button><div><b>Active</b><span>Teal fill + check. Clearly selected.</span></div></div>
+    <div class="fc-state"><button class="fc-chip fc-chip--lg" disabled>Herman Miller</button><div><b>Disabled</b><span>Dimmed. No results behind it.</span></div></div>
+  </div>
+  <div class="caption">If active looks like idle, the filter <em>feels broken.</em></div>
+</section>
+
+<!-- 3 · How chips combine: idle -->
+<section class="scene" data-t="9" data-shot="9">
+  <h1 class="title" style="top:170px">How chips <em>combine</em></h1>
+  <div class="fc-groups" style="position:absolute;left:60px;top:253px">
+    <div class="fc-group"><div class="fc-group__label">Color</div><div class="fc-row"><button class="fc-chip">Red</button><button class="fc-chip">Blue</button><button class="fc-chip">Green</button></div></div>
+    <div class="fc-group"><div class="fc-group__label">Size</div><div class="fc-row"><button class="fc-chip">Small</button><button class="fc-chip">Medium</button><button class="fc-chip">Large</button></div></div>
+    <div class="fc-result is-wider"><b>40</b><span>chairs match</span><i class="fc-result__dir">▲ wider</i></div>
+  </div>
+</section>
+
+<!-- 3b · OR within: Red + Blue -->
+<section class="scene" data-t="10" data-shot="10.5">
+  <h1 class="title" style="top:174px">How chips <em>combine</em></h1>
+  <div class="fc-groups" style="position:absolute;left:60px;top:253px">
+    <div class="fc-group"><div class="fc-group__label">Color<span class="fc-pill">OR within</span></div><div class="fc-row"><button class="fc-chip is-active"><svg><use href="#i-check"/></svg>Red</button><button class="fc-chip is-active"><svg><use href="#i-check"/></svg>Blue</button><button class="fc-chip">Green</button></div></div>
+    <div class="fc-group"><div class="fc-group__label">Size</div><div class="fc-row"><button class="fc-chip">Small</button><button class="fc-chip">Medium</button><button class="fc-chip">Large</button></div></div>
+    <div class="fc-result is-wider"><b>84</b><span>chairs match</span><i class="fc-result__dir">▲ wider</i></div>
+  </div>
+</section>
+
+<!-- 3c · AND across: + Medium -->
+<section class="scene" data-t="12" data-shot="15">
+  <h1 class="title" style="top:174px">How chips <em>combine</em></h1>
+  <div class="fc-groups" id="combine" style="position:absolute;left:60px;top:253px">
+    <div class="fc-group" data-group="color"><div class="fc-group__label">Color<span class="fc-pill">OR within</span></div><div class="fc-row"><button class="fc-chip is-active"><svg><use href="#i-check"/></svg>Red</button><button class="fc-chip is-active"><svg><use href="#i-check"/></svg>Blue</button><button class="fc-chip">Green</button></div></div>
+    <div class="fc-group" data-group="size"><div class="fc-group__label">Size<span class="fc-pill">AND across</span></div><div class="fc-row"><button class="fc-chip">Small</button><button class="fc-chip is-active"><svg><use href="#i-check"/></svg>Medium</button><button class="fc-chip">Large</button></div></div>
+    <div class="fc-result"><b>31</b><span>chairs match</span><i class="fc-result__dir">▼ tighter</i></div>
+  </div>
+  <div class="fc-row center" style="top:653px;gap:14px"><span class="fc-tag">Or within a group</span><span class="fc-tag">And across groups</span></div>
+  <div class="caption" style="top:1046px;text-align:center;line-height:26px;font-size:18px">More chips in one group <em>widen</em> the net.<br>A new group <em>narrows</em> it.</div>
+</section>
+
+<!-- 4 · Every tap needs an answer: 48 -->
+<section class="scene" data-t="15.5" data-shot="16.5">
+  <div class="glow" style="left:80px;top:360px;background:rgba(62,231,183,.07)"></div>
+  <h1 class="title" style="top:180px">Every tap needs an <em>answer</em></h1>
+  <div class="fc-panel fc-panel--answer" style="position:absolute;left:60px;top:267px">
+    <div class="fc-row" style="padding:0 35px"><button class="fc-chip fc-chip--lg is-active"><svg><use href="#i-check"/></svg>Ergonomic</button><button class="fc-chip fc-chip--lg">Lumbar support</button></div>
+    <div class="fc-divider"></div>
+    <div class="fc-count fc-count--panel"><b>48</b><span>results</span><i class="fc-same"><svg><use href="#i-bolt"/></svg>same frame</i></div>
+  </div>
+</section>
+
+<!-- 4b · 19 results + the failure bar -->
+<section class="scene" data-t="18" data-shot="21">
+  <div class="glow" style="left:80px;top:360px;background:rgba(62,231,183,.07)"></div>
+  <h1 class="title" style="top:180px">Every tap needs an <em>answer</em></h1>
+  <div class="fc-panel fc-panel--answer" id="answer" style="position:absolute;left:60px;top:267px">
+    <div class="fc-row" style="padding:0 35px"><button class="fc-chip fc-chip--lg is-active" data-hits="48"><svg><use href="#i-check"/></svg>Ergonomic</button><button class="fc-chip fc-chip--lg is-active" data-hits="19"><svg><use href="#i-check"/></svg>Lumbar support</button></div>
+    <div class="fc-divider"></div>
+    <div class="fc-count fc-count--panel"><b>19</b><span>results</span><i class="fc-same"><svg><use href="#i-bolt"/></svg>same frame</i></div>
+  </div>
+  <div class="fc-fail" style="position:absolute;left:60px;top:1042px"><span class="fc-chip fc-chip--dark"><svg><use href="#i-check"/></svg>Mesh back</span>No count change = users tap twice.</div>
+</section>
+
+<!-- 5 · One clear-all, always: 4 filters -->
+<section class="scene" data-t="24" data-shot="24">
+  <h1 class="title" style="top:180px">One <em>clear-all</em>, always</h1>
+  <div class="fc-panel fc-panel--clear" style="position:absolute;left:60px;top:287px">
+    <div class="fc-panel__head"><div class="fc-count fc-count--sm"><b>4</b><span>filters</span></div><button class="fc-clear"><svg><use href="#i-reset"/></svg>Clear all</button></div>
+    <div class="fc-divider"></div>
+    <div class="fc-row fc-row--wrap">
+      <button class="fc-chip is-active">
+        <svg><use href="#i-check"/></svg>Herman Miller<svg class="fc-chip__x"><use href="#i-x"/></svg></button>
+      <button class="fc-chip is-active"><svg><use href="#i-check"/></svg>$1k–$2k<svg class="fc-chip__x"><use href="#i-x"/></svg></button>
+      <button class="fc-chip is-active"><svg><use href="#i-check"/></svg>Mesh back<svg class="fc-chip__x"><use href="#i-x"/></svg></button>
+      <button class="fc-chip is-active"><svg><use href="#i-check"/></svg>In stock<svg class="fc-chip__x"><use href="#i-x"/></svg></button>
+    </div>
+  </div>
+  <div class="caption">Stacked filters <b>trap</b> users.</div>
+</section>
+
+<!-- 5b · cleared: 0 filters -->
+<section class="scene" data-t="27" data-shot="28.5">
+  <h1 class="title" style="top:180px">One <em>clear-all</em>, always</h1>
+  <div class="fc-panel fc-panel--clear is-empty" id="clearPanel" style="position:absolute;left:60px;top:287px">
+    <div class="fc-panel__head"><div class="fc-count fc-count--sm"><b>0</b><span>filters</span></div><button class="fc-clear"><svg><use href="#i-reset"/></svg>Clear all</button></div>
+    <div class="fc-divider"></div>
+    <div class="fc-row fc-row--wrap">
+      <button class="fc-chip"><svg><use href="#i-check"/></svg>Herman Miller<svg class="fc-chip__x"><use href="#i-x"/></svg></button>
+      <button class="fc-chip"><svg><use href="#i-check"/></svg>$1k–$2k<svg class="fc-chip__x"><use href="#i-x"/></svg></button>
+      <button class="fc-chip"><svg><use href="#i-check"/></svg>Mesh back<svg class="fc-chip__x"><use href="#i-x"/></svg></button>
+      <button class="fc-chip"><svg><use href="#i-check"/></svg>In stock<svg class="fc-chip__x"><use href="#i-x"/></svg></button>
+    </div>
+  </div>
+  <div class="caption"><em>Reset in one tap.</em></div>
+</section>
+
+<!-- 6 · 10 chips, one phone -->
+<section class="scene" data-t="30" data-shot="33">
+  <h1 class="title" style="top:133px">10 chips, <em>one phone</em></h1>
+  <span class="fc-verdict fc-verdict--bad" style="position:absolute;left:99px;top:226px"><svg><use href="#i-x"/></svg>Wraps into a wall</span>
+  <span class="fc-verdict fc-verdict--good" style="position:absolute;left:446px;top:226px"><svg><use href="#i-check"/></svg>One scrolling row</span>
+  <div class="fc-phone fc-phone--bad" style="position:absolute;left:27px;top:271px">
+    <i class="fc-phone__notch"></i>
+    <div class="fc-phone__search">Office chairs</div>
+    <div class="fc-phone__wall">
+      <div class="fc-row" style="gap:10px"><span class="fc-mini is-active">All</span><span class="fc-mini">Mesh</span><span class="fc-mini">Leather</span></div>
+      <div class="fc-row" style="gap:10px"><span class="fc-mini">Under $500</span><span class="fc-mini">$1k–$2k</span><span class="fc-mini">In stock</span></div>
+      <div class="fc-row" style="gap:10px"><span class="fc-mini">Ergonomic</span><span class="fc-mini">Lumbar</span></div>
+      <div class="fc-row" style="gap:10px"><span class="fc-mini">Adjustable</span><span class="fc-mini">Headrest</span></div>
+      <div class="fc-phone__list is-buried"><div class="fc-line" style="--c:#5a2530"></div><div class="fc-line" style="--c:#4a4426"></div></div>
+    </div>
+    <div class="fc-phone__note">buries the results</div>
+  </div>
+  <div class="fc-phone fc-phone--good" style="position:absolute;left:374px;top:271px">
+    <i class="fc-phone__notch"></i>
+    <div class="fc-phone__search">Office chairs</div>
+    <div class="fc-phone__strip"><div class="fc-phone__track">
+      <span class="fc-mini is-active">All</span><span class="fc-mini">Mesh</span><span class="fc-mini">Leather</span><span class="fc-mini">Under $500</span><span class="fc-mini">$1k–$2k</span><span class="fc-mini">In stock</span><span class="fc-mini">Ergonomic</span><span class="fc-mini">Lumbar</span><span class="fc-mini">Adjustable</span><span class="fc-mini">Headrest</span>
+    </div></div>
+    <div class="fc-phone__list"><div class="fc-line" style="--c:#412526"></div><div class="fc-line" style="--c:#444026"></div><div class="fc-line" style="--c:#374a26"></div><div class="fc-line" style="--c:#294b32"></div><div class="fc-line" style="--c:#2b4546"></div><div class="fc-line" style="--c:#262846"></div></div>
+    <div class="fc-phone__note">edge fade hints more</div>
+  </div>
+</section>
+
+<!-- 7 · Pin active filters on top: full grid -->
+<section class="scene" data-t="39" data-shot="40.5">
+  <h1 class="title" style="top:153px">Pin <em>active filters</em> on top</h1>
+  <div class="fc-bar" style="position:absolute;left:40px;top:233px">
+    <div class="fc-bar__head"><span class="fc-bar__label"><svg><use href="#i-pin"/></svg>Active filters</span><span class="fc-bar__count"><b>3</b>results</span></div>
+    <div class="fc-row">
+      <button class="fc-chip is-active"><svg><use href="#i-check"/></svg>Herman Miller<svg class="fc-chip__x"><use href="#i-x"/></svg></button>
+      <button class="fc-chip is-active"><svg><use href="#i-check"/></svg>$1k–$2k<svg class="fc-chip__x"><use href="#i-x"/></svg></button>
+      <button class="fc-chip is-active"><svg><use href="#i-check"/></svg>Mesh back<svg class="fc-chip__x"><use href="#i-x"/></svg></button>
+    </div>
+  </div>
+  <div class="fc-grid fc-grid--lg" style="position:absolute;left:68px;top:453px">
+    <div class="fc-card" style="--c1:#2f5c47;--c2:#3e725a"><i></i><b>Aeron Chair</b><span>Herman Miller</span><em>$1,395</em></div>
+    <div class="fc-card" style="--c1:#2c4853;--c2:#3a5e68"><i></i><b>Sayl Chair</b><span>Herman Miller</span><em>$695</em></div>
+    <div class="fc-card" style="--c1:#543f2c;--c2:#67503a"><i></i><b>Embody Chair</b><span>Herman Miller</span><em>$1,795</em></div>
+    <div class="fc-card" style="--c1:#2f2241;--c2:#3d2c50"><i></i><b>Leap V2</b><span>Steelcase</span><em>$1,036</em></div>
+    <div class="fc-card" style="--c1:#402230;--c2:#522b3c"><i></i><b>Gesture</b><span>Steelcase</span><em>$1,154</em></div>
+    <div class="fc-card" style="--c1:#434026;--c2:#524f30"><i></i><b>Soft Pad</b><span>Eames</span><em>$2,495</em></div>
+  </div>
+</section>
+
+<!-- 7b · the list shrinks under the sticky bar -->
+<section class="scene" data-t="42" data-shot="45">
+  <h1 class="title" style="top:153px">Pin <em>active filters</em> on top</h1>
+  <div class="fc-bar" id="stickyBar" style="position:absolute;left:40px;top:233px">
+    <div class="fc-bar__head"><span class="fc-bar__label"><svg><use href="#i-pin"/></svg>Active filters</span><span class="fc-bar__count"><b>3</b>results</span></div>
+    <div class="fc-row">
+      <button class="fc-chip is-active" data-key="brand"><svg><use href="#i-check"/></svg>Herman Miller<svg class="fc-chip__x"><use href="#i-x"/></svg></button>
+      <button class="fc-chip is-active" data-key="price"><svg><use href="#i-check"/></svg>$1k–$2k<svg class="fc-chip__x"><use href="#i-x"/></svg></button>
+      <button class="fc-chip is-active" data-key="mesh"><svg><use href="#i-check"/></svg>Mesh back<svg class="fc-chip__x"><use href="#i-x"/></svg></button>
+    </div>
+  </div>
+  <div class="fc-why center" style="top:392px"><svg><use href="#i-down"/></svg>why the list shrank</div>
+  <div class="fc-grid fc-grid--lg" id="stickyGrid" style="position:absolute;left:68px;top:453px">
+    <div class="fc-card" data-brand="hm" data-price="1395" data-mesh="1" style="--c1:#2f5c47;--c2:#3e725a"><i></i><b>Aeron Chair</b><span>Herman Miller</span><em>$1,395</em></div>
+    <div class="fc-card" data-brand="hm" data-price="695" data-mesh="1" style="--c1:#2c4853;--c2:#3a5e68"><i></i><b>Sayl Chair</b><span>Herman Miller</span><em>$695</em></div>
+    <div class="fc-card" data-brand="hm" data-price="1795" data-mesh="1" style="--c1:#543f2c;--c2:#67503a"><i></i><b>Embody Chair</b><span>Herman Miller</span><em>$1,795</em></div>
+    <div class="fc-card is-out" data-brand="sc" data-price="1036" data-mesh="1" style="--c1:#2f2241;--c2:#3d2c50"><i></i><b>Leap V2</b><span>Steelcase</span><em>$1,036</em></div>
+    <div class="fc-card is-out" data-brand="sc" data-price="1154" data-mesh="0" style="--c1:#402230;--c2:#522b3c"><i></i><b>Gesture</b><span>Steelcase</span><em>$1,154</em></div>
+    <div class="fc-card is-out" data-brand="ea" data-price="2495" data-mesh="0" style="--c1:#434026;--c2:#524f30"><i></i><b>Soft Pad</b><span>Eames</span><em>$2,495</em></div>
+  </div>
+</section>
+
+<!-- 8 · Outro: Filters are a system. -->
+<section class="scene" data-t="46" data-shot="48">
+  <div class="glow" style="left:80px;top:300px;background:rgba(62,231,183,.08)"></div>
+  <div class="fc-row center" style="top:373px;gap:11px">
+    <span class="fc-chip fc-chip--md">Idle</span><span class="fc-chip fc-chip--md is-active"><svg><use href="#i-check"/></svg>Active</span><span class="fc-chip fc-chip--md" disabled style="opacity:.5">Disabled</span><span class="fc-chip fc-chip--md">Clear all</span>
+  </div>
+  <div class="fc-outro center" style="top:462px">Filters are a system.</div>
+  <div class="fc-cta center" style="top:572px"><svg><use href="#i-plus"/></svg>Follow for more UI systems</div>
+  <div class="fc-save center" style="top:660px"><svg><use href="#i-bookmark"/></svg>Save this for your next product page.</div>
+</section>
+
+<script type="module">
+  import { FilterChips, countTo } from './pattern.js';
+  // Hook: the count runs 200 -> 12 as the chips filter the grid when the scene plays live.
+  const hook = document.getElementById('hookCount').closest('.scene');
+  hook.addEventListener('scene:enter', e => { if (e.detail.t < 1.2) countTo(document.querySelector('#hookCount b'), 200, 12, 1100); });
+  // Live filter sets: click any chip and the count / grid answer on the same frame.
+  FilterChips(document.getElementById('combine'), { total: 40, hits: (active) => {
+    const colors = active.filter(c => c.group === 'color').length, sizes = active.filter(c => c.group === 'size').length;
+    const base = colors ? 40 + colors * 22 : 40; return sizes ? Math.round(base * (sizes / 3) * 1.1) : base; } });
+  FilterChips(document.getElementById('answer'), { total: 120 });
+  FilterChips(document.getElementById('clearPanel'), { total: 4, mode: 'filters' });
+  FilterChips(document.getElementById('stickyBar'), { grid: document.getElementById('stickyGrid'), match: (card, active) => {
+    const k = Object.fromEntries(active.map(c => [c.key, true]));
+    return (!k.brand || card.dataset.brand === 'hm') && (!k.price || (card.dataset.price >= 1000 && card.dataset.price <= 2000) || card.dataset.brand === 'hm') && (!k.mesh || card.dataset.mesh === '1'); } });
+  FilterChips(document.getElementById('hookChips').parentElement, { grid: document.getElementById('hookGrid'), countEl: document.querySelector('#hookCount b'), match: (card, active) => active.length < 3 ? true : card.querySelector('b').textContent.includes('Aeron') || card.querySelector('b').textContent.includes('Sayl') });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

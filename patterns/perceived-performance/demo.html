@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Perceived Performance · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0f0c11; --grid: transparent; --accent: #8b5cf6; --danger: #ef4444; }
+  .scene { color: #f3f2f6; }
+  .pp-glow { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; }
+  .pp-late { animation: pp-late 1s linear 2.2s both; }
+  @keyframes pp-late { from { opacity: 0 } to { opacity: 1 } }
+</style>
+</head>
+<body class="pp">
+
+<!-- 1 · Hook: same loading time, different feeling -->
+<section class="scene" data-t="0" data-shot="3">
+  <div class="pp-glow" style="left:130px;top:340px;width:460px;height:460px;background:rgba(139,92,246,.16)"></div>
+  <span class="pp-emoji pp-emoji--float" style="left:151px;top:346px">⏱️</span>
+  <span class="pp-emoji pp-emoji--float" style="left:511px;top:385px;animation-delay:-1s">⚡</span>
+  <span class="pp-emoji pp-emoji--float" style="left:177px;top:869px;animation-delay:-2s">🚀</span>
+  <span class="pp-emoji pp-emoji--float" style="left:524px;top:892px;animation-delay:-3s">✨</span>
+  <div class="pp-bar pp-bar--cyan" style="position:absolute;left:188px;top:533px;width:132px"><div class="pp-bar__fill"></div></div>
+  <div style="position:absolute;left:188px;top:553px;width:132px;text-align:center;font-size:16px;color:#9a9aa5">Same time</div>
+  <div style="position:absolute;left:340px;top:543px;width:40px;text-align:center;font-size:16px;font-weight:700">VS</div>
+  <div class="pp-bar pp-bar--purple" style="position:absolute;left:399px;top:533px;width:132px"><div class="pp-bar__fill"></div></div>
+  <div style="position:absolute;left:399px;top:553px;width:132px;text-align:center;font-size:16px;font-weight:700;color:#a78bfa">Feels faster</div>
+  <div class="pp-h" style="top:612px;font-size:32px">Same loading time.</div>
+  <div class="pp-cap" style="top:664px;font-size:27px;font-weight:600">Different feeling.</div>
+  <div class="pp-h" style="top:708px;font-size:32px;font-weight:700;color:#8b5cf6">Here's how.</div>
+</section>
+
+<!-- 2 · Tricks your brain doesn't notice: Skeleton Screens -->
+<section class="scene" data-t="6" data-shot="6">
+  <div class="pp-glow" style="left:130px;top:380px;width:460px;height:460px;background:rgba(139,92,246,.09)"></div>
+  <div class="pp-h pp-h--sm" style="top:138px">Tricks your brain doesn't notice</div>
+  <div class="pp-intro" style="left:192px;top:498px"><span class="pp-intro__emoji">💀</span><span class="pp-intro__title">Skeleton Screens</span></div>
+  <div class="pp-secret" style="top:749px">Coming up</div>
+</section>
+
+<!-- 3 · Tricks your brain doesn't notice: Optimistic UI -->
+<section class="scene" data-t="9" data-shot="9">
+  <div class="pp-glow" style="left:130px;top:380px;width:460px;height:460px;background:rgba(139,92,246,.09)"></div>
+  <div class="pp-h pp-h--sm" style="top:138px">Tricks your brain doesn't notice</div>
+  <div class="pp-intro" style="left:192px;top:498px"><span class="pp-intro__emoji">⚡</span><span class="pp-intro__title">Optimistic UI</span></div>
+  <div class="pp-secret" style="top:749px">Coming up</div>
+</section>
+
+<!-- 4 · Tricks your brain doesn't notice: Progress Illusions -->
+<section class="scene" data-t="12" data-shot="12">
+  <div class="pp-glow" style="left:130px;top:380px;width:460px;height:460px;background:rgba(139,92,246,.09)"></div>
+  <div class="pp-h pp-h--sm" style="top:138px">Tricks your brain doesn't notice</div>
+  <div class="pp-intro" style="left:192px;top:498px"><span class="pp-intro__emoji">📊</span><span class="pp-intro__title">Progress Illusions</span></div>
+  <div class="pp-secret" style="top:749px">Coming up</div>
+</section>
+
+<!-- 5 · Secret #1: skeleton screens, blank vs skeleton -->
+<section class="scene" data-t="15" data-shot="21">
+  <div class="pp-glow" style="left:130px;top:340px;width:460px;height:460px;background:rgba(139,92,246,.08)"></div>
+  <div class="pp-secret" style="top:137px">Secret #1</div>
+  <div class="pp-h" style="top:169px">Skeleton Screens</div>
+  <span class="pp-tag pp-tag--red" style="left:99px;top:509px;width:252px;text-align:center">❌ Blank screen</span>
+  <span class="pp-tag pp-tag--green" style="left:369px;top:509px;width:252px;text-align:center">✅ Skeleton preview</span>
+  <div class="pp-blank" style="left:99px;top:537px"><span class="pp-spin"></span></div>
+  <div class="pp-post is-loading" id="skelPost" style="left:369px;top:537px">
+    <div class="pp-post__content">
+      <div class="pp-post__head"><span class="pp-post__avatar">A</span><div><div class="pp-post__name">Alex Chen</div><div class="pp-post__handle">@alexchen</div></div></div>
+      <p class="pp-post__text">Just shipped a new feature! The team worked so hard on this one.</p>
+      <div class="pp-post__img">🚀</div>
+      <div class="pp-post__foot"><span>❤️ 2.4k</span><span>💬 142</span><span>🔄 89</span></div>
+    </div>
+    <div class="pp-post__skel">
+      <span class="pp-bone" style="left:0;top:0;width:24px;height:24px;border-radius:50%"></span><span class="pp-bone" style="left:32px;top:3px;width:80px;height:7px"></span><span class="pp-bone" style="left:32px;top:14px;width:52px;height:6px"></span>
+      <span class="pp-bone" style="left:0;top:36px;width:228px;height:7px"></span><span class="pp-bone" style="left:0;top:48px;width:180px;height:7px"></span>
+      <span class="pp-bone" style="left:0;top:66px;width:228px;height:90px;border-radius:6px"></span>
+      <span class="pp-bone" style="left:0;top:170px;width:14px;height:14px;border-radius:50%"></span><span class="pp-bone" style="left:18px;top:173px;width:24px;height:8px"></span>
+      <span class="pp-bone" style="left:56px;top:170px;width:14px;height:14px;border-radius:50%"></span><span class="pp-bone" style="left:74px;top:173px;width:24px;height:8px"></span>
+      <span class="pp-bone" style="left:112px;top:170px;width:14px;height:14px;border-radius:50%"></span><span class="pp-bone" style="left:130px;top:173px;width:24px;height:8px"></span>
+    </div>
+  </div>
+  <div class="pp-cap" style="top:973px">Show the layout before the content.</div>
+  <div class="pp-cap pp-cap--strong" style="top:1011px">Your brain fills in the gaps.</div>
+</section>
+
+<!-- 6 · Secret #1: the content lands in the same shape -->
+<section class="scene" data-t="22.5" data-shot="24">
+  <div class="pp-glow" style="left:130px;top:340px;width:460px;height:460px;background:rgba(139,92,246,.08)"></div>
+  <div class="pp-secret" style="top:137px">Secret #1</div>
+  <div class="pp-h" style="top:169px">Skeleton Screens</div>
+  <span class="pp-tag pp-tag--red" style="left:99px;top:509px;width:252px;text-align:center">❌ Blank screen</span>
+  <span class="pp-tag pp-tag--green" style="left:369px;top:509px;width:252px;text-align:center">✅ Skeleton preview</span>
+  <div class="pp-post" style="left:99px;top:537px">
+    <div class="pp-post__content">
+      <div class="pp-post__head"><span class="pp-post__avatar">A</span><div><div class="pp-post__name">Alex Chen</div><div class="pp-post__handle">@alexchen</div></div></div>
+      <p class="pp-post__text">Just shipped a new feature! The team worked so hard on this one.</p>
+      <div class="pp-post__img">🚀</div>
+      <div class="pp-post__foot"><span>❤️ 2.4k</span><span>💬 142</span><span>🔄 89</span></div>
+    </div>
+  </div>
+  <div class="pp-post" style="left:369px;top:537px">
+    <div class="pp-post__content">
+      <div class="pp-post__head"><span class="pp-post__avatar">A</span><div><div class="pp-post__name">Alex Chen</div><div class="pp-post__handle">@alexchen</div></div></div>
+      <p class="pp-post__text">Just shipped a new feature! The team worked so hard on this one.</p>
+      <div class="pp-post__img">🚀</div>
+      <div class="pp-post__foot"><span>❤️ 2.4k</span><span>💬 142</span><span>🔄 89</span></div>
+    </div>
+  </div>
+  <div class="pp-cap" style="top:973px">Show the layout before the content.</div>
+  <div class="pp-cap pp-cap--strong" style="top:1011px">Your brain fills in the gaps.</div>
+</section>
+
+<!-- 7 · Secret #2: optimistic UI -->
+<section class="scene" data-t="27" data-shot="33">
+  <div class="pp-glow" style="left:180px;top:380px;width:360px;height:520px;background:rgba(34,197,94,.05)"></div>
+  <div class="pp-secret" style="top:137px">Secret #2</div>
+  <div class="pp-h" style="top:169px">Optimistic UI</div>
+  <span class="pp-tag pp-tag--lg pp-tag--red" style="left:0;right:0;top:472px;text-align:center">❌ Wait for server</span>
+  <div class="pp-like is-liked" id="slowLike" style="left:267px;top:514px"><span class="pp-like__heart"><svg viewBox="0 0 24 24"><path d="M12 21.4l-1.5-1.3C5.2 15.3 2 12.4 2 8.9 2 6 4.2 3.8 7.1 3.8c1.7 0 3.3.8 4.3 2 1-1.2 2.6-2 4.3-2C18.8 3.8 21 6 21 8.9c0 3.5-3.2 6.4-8.5 11.2L12 21.4z"/></svg></span><span class="pp-like__count">143</span></div>
+  <span class="pp-tag pp-tag--lg pp-tag--green" style="left:0;right:0;top:668px;text-align:center">✅ Instant feedback</span>
+  <div class="pp-like is-liked" id="fastLike" style="left:267px;top:711px"><span class="pp-like__heart"><svg viewBox="0 0 24 24"><path d="M12 21.4l-1.5-1.3C5.2 15.3 2 12.4 2 8.9 2 6 4.2 3.8 7.1 3.8c1.7 0 3.3.8 4.3 2 1-1.2 2.6-2 4.3-2C18.8 3.8 21 6 21 8.9c0 3.5-3.2 6.4-8.5 11.2L12 21.4z"/></svg></span><span class="pp-like__count">143</span></div>
+  <div class="pp-cap" style="top:973px">Don't wait for the server.</div>
+  <div class="pp-cap pp-cap--strong" style="top:1011px">Assume success. Update instantly.</div>
+</section>
+
+<!-- 8 · Secret #3: progress illusions, mid-upload -->
+<section class="scene" data-t="39" data-shot="42">
+  <div class="pp-glow" style="left:130px;top:300px;width:460px;height:460px;background:rgba(139,92,246,.08)"></div>
+  <div class="pp-secret" style="top:137px">Secret #3</div>
+  <div class="pp-h" style="top:169px">Progress Illusions</div>
+  <div class="pp-prog" id="prog" style="left:192px;top:474px">
+    <div class="pp-prog__row"><div class="pp-prog__title pp-prog__title--red">❌ Linear Progress</div><div class="pp-prog__meta">Uploading...<b class="pp-prog__pct">46%</b></div><div class="pp-bar pp-prog__bar pp-prog__bar--cyan"><div class="pp-bar__fill" style="width:46%"></div></div></div>
+    <div class="pp-prog__row"><div class="pp-prog__title pp-prog__title--green">✅ Psychological Progress</div><div class="pp-prog__meta">Uploading...<b class="pp-prog__pct">80%</b></div><div class="pp-bar pp-prog__bar pp-prog__bar--purple"><div class="pp-bar__fill" style="width:80%"></div></div></div>
+  </div>
+  <span class="pp-chip" id="progChip" style="left:276px;top:762px">⏱️ 2.2s remaining</span>
+  <div class="pp-cap pp-late" style="top:973px">Same duration. Different curve.</div>
+</section>
+
+<!-- 9 · Secret #3: both finish at the same time -->
+<section class="scene" data-t="43.5" data-shot="45">
+  <div class="pp-glow" style="left:130px;top:300px;width:460px;height:460px;background:rgba(139,92,246,.08)"></div>
+  <div class="pp-secret" style="top:137px">Secret #3</div>
+  <div class="pp-h" style="top:169px">Progress Illusions</div>
+  <div class="pp-prog" style="left:192px;top:474px">
+    <div class="pp-prog__row"><div class="pp-prog__title pp-prog__title--red">❌ Linear Progress</div><div class="pp-prog__meta">Uploading...<b>96%</b></div><div class="pp-bar pp-prog__bar pp-prog__bar--cyan"><div class="pp-bar__fill" style="width:96%"></div></div></div>
+    <div class="pp-prog__row"><div class="pp-prog__title pp-prog__title--green">✅ Psychological Progress</div><div class="pp-prog__meta">Uploading...<b>99%</b></div><div class="pp-bar pp-prog__bar pp-prog__bar--purple"><div class="pp-bar__fill" style="width:99%"></div></div></div>
+  </div>
+  <span class="pp-chip" style="left:276px;top:762px">⏱️ 0.2s remaining</span>
+  <div class="pp-cap" style="top:973px">Same duration. Different curve.</div>
+  <div class="pp-cap pp-cap--strong" style="top:1011px">Fast start = perceived speed.</div>
+</section>
+
+<!-- 10 · All three techniques combined: uploading -->
+<section class="scene" data-t="51" data-shot="54">
+  <div class="pp-glow" style="left:130px;top:320px;width:460px;height:460px;background:rgba(139,92,246,.09)"></div>
+  <div class="pp-h pp-h--sm" style="top:138px;color:#f3f2f6">All three techniques combined</div>
+  <div class="pp-upload" id="upload" style="left:192px;top:486px">
+    <div class="pp-upload__img"><span class="pp-upload__ph"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5-8 8"/></svg></span><span class="pp-upload__photo">📸</span></div>
+    <div class="pp-upload__row">vacation_photo.jpg<span class="pp-upload__pct">75%</span></div>
+    <div class="pp-upload__size">2.4 MB</div>
+    <div class="pp-bar pp-upload__bar"><div class="pp-bar__fill" style="width:75%"></div></div>
+    <div class="pp-upload__chips"><span>💀 Skeleton</span><span>📊 Fast start</span><span>⚡ Instant UI</span></div>
+  </div>
+</section>
+
+<!-- 11 · All three techniques combined: done -->
+<section class="scene" data-t="58.5" data-shot="60">
+  <div class="pp-glow" style="left:130px;top:320px;width:460px;height:460px;background:rgba(34,197,94,.14)"></div>
+  <div class="pp-h pp-h--sm" style="top:138px;color:#f3f2f6">All three techniques combined</div>
+  <div class="pp-upload is-done" style="left:192px;top:502px">
+    <div class="pp-upload__img"><span class="pp-upload__ph"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5-8 8"/></svg></span><span class="pp-upload__photo">📸</span></div>
+    <div class="pp-upload__row">vacation_photo.jpg<span class="pp-upload__pct">✓ Done!</span></div>
+    <div class="pp-upload__size">2.4 MB</div>
+    <div class="pp-bar pp-upload__bar"><div class="pp-bar__fill" style="width:100%"></div></div>
+    <div class="pp-upload__chips"><span>💀 Skeleton</span><span>📊 Fast start</span><span>⚡ Instant UI</span></div>
+  </div>
+  <div class="pp-cap pp-cap--strong" style="top:973px">Perception is reality.</div>
+  <div class="pp-cap pp-cap--strong pp-cap--purple" style="top:1011px">Make it feel fast.</div>
+</section>
+
+<!-- 12 · Outro -->
+<section class="scene" data-t="63" data-shot="64.5">
+  <div class="pp-glow" style="left:130px;top:340px;width:460px;height:460px;background:rgba(139,92,246,.14)"></div>
+  <span class="pp-emoji pp-emoji--float" style="left:162px;top:490px">💀</span>
+  <span class="pp-emoji pp-emoji--float" style="left:502px;top:525px;animation-delay:-1s">⚡</span>
+  <span class="pp-emoji pp-emoji--float" style="left:204px;top:724px;animation-delay:-2s">📊</span>
+  <span class="pp-emoji pp-emoji--float" style="left:510px;top:744px;animation-delay:-3s">🚀</span>
+  <div class="pp-h" style="top:526px;font-size:32px">Want more UX tricks?</div>
+  <div class="pp-cap" style="top:578px;font-size:20px;font-weight:500">Follow for daily tips</div>
+  <div class="pp-follow" style="left:270px;top:636px"><span style="font-size:18px;font-weight:400">+</span>Follow</div>
+</section>
+
+<script type="module">
+  import { SkeletonPost, OptimisticLike, ProgressBar, curves, remaining, UploadCard } from './pattern.js';
+  const live = (el, fn) => el.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t === 0) fn(); });
+  // Secret 1: skeleton swaps to content after 1.6s, then loops.
+  const sk = SkeletonPost(document.getElementById('skelPost'));
+  live(document.getElementById('skelPost'), () => { clearInterval(sk._iv); sk.start(); let on = false; sk._iv = setInterval(() => { on = !on; on ? sk.done() : sk.start(); }, 1600); });
+  // Secret 2: two like buttons, one waits for the server, one updates instantly.
+  const slow = OptimisticLike(document.getElementById('slowLike'), { count: 143, optimistic: false, request: () => new Promise(r => setTimeout(r, 1200)) });
+  const fast = OptimisticLike(document.getElementById('fastLike'), { count: 143, request: () => new Promise(r => setTimeout(r, 1200)) });
+  // Secret 3: both bars run over the same 5s, one linear, one on the psychological curve.
+  const prog = document.getElementById('prog'), rows = prog.querySelectorAll('.pp-prog__row'), chip = document.getElementById('progChip');
+  const lin = ProgressBar(rows[0], { curve: curves.linear, label: rows[0].querySelector('.pp-prog__pct'), duration: 5000 });
+  const psy = ProgressBar(rows[1], { curve: curves.psychological, label: rows[1].querySelector('.pp-prog__pct'), duration: 5000 });
+  live(prog, () => { const go = () => { lin.run(); psy.run(); const t0 = performance.now(); clearInterval(prog._iv); prog._iv = setInterval(() => { const el = performance.now() - t0; chip.textContent = '⏱️ ' + remaining(el, 5000); if (el > 6500) go(); }, 100); }; go(); });
+  // Combined: the upload card runs the fast-start curve and lands on Done.
+  const up = UploadCard(document.getElementById('upload'), { duration: 3000 });
+  live(document.getElementById('upload'), () => { clearInterval(up._iv); up.run(); up._iv = setInterval(() => up.run(), 4500); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

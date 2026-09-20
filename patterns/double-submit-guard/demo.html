@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Double Submit Guard · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #090c0f; --accent: #2ad0a8; --danger: #e5507a; --grid: rgba(255,255,255,.035); }
+  .scene { color: #f2f4f7; }
+  .kicker { top: 142px; font-size: 15px; letter-spacing: .16em; padding: 9px 22px; background: #0d2b27; }
+  .kicker--grey { color: #c9ced5; background: #1a1e23; }
+  .title { top: 189px; font-size: 42px; line-height: 1.1; margin: 0; }
+  .caption { top: 1013px; height: 54px; display: flex; align-items: center; gap: 10px; font-size: 22px; padding: 0 26px; border-radius: 12px; background: #0f2323; color: var(--accent); box-shadow: none; border: 1px solid rgba(42,208,168,.18); }
+  .caption .ic { width: 18px; height: 18px; }
+  .caption--grey { background: #191b24; color: #c9ced5; border-color: rgba(255,255,255,.06); }
+</style>
+</head>
+<body class="dsg">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2 8.5a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16.5a5 5 0 0 1 6 0M12 20h.01"/></symbol>
+  <symbol id="i-signal" viewBox="0 0 24 24"><path d="M4 18v-2M9 18v-6M14 18v-9M19 18V5"/></symbol>
+  <symbol id="i-battery" viewBox="0 0 24 24"><rect x="2" y="7" width="17" height="10" rx="2"/><path d="M22 11v2M5 10v4"/></symbol>
+  <symbol id="i-chair" viewBox="0 0 24 24"><path d="M5 11V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5"/><path d="M3 13a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3H3zM5 16v4M19 16v4"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h14l-3-3M20 16H6l3 3"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M7 7.5h.01M7 16.5h.01"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h12l-2 4 2 4H5"/></symbol>
+  <symbol id="i-check-c" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-radio" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M7.5 7.5a6.4 6.4 0 0 0 0 9M16.5 7.5a6.4 6.4 0 0 1 0 9M4.5 4.5a10.6 10.6 0 0 0 0 15M19.5 4.5a10.6 10.6 0 0 1 0 15"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v4.5h-4.5"/></symbol>
+  <symbol id="i-arrow-ne" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></symbol>
+</svg>
+
+<!-- 1a · Disable: first tap, request in flight -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="kicker">State · Disable</div>
+  <h1 class="title">One intent, <em>one request.</em></h1>
+  <div class="dsg-phone" style="position:absolute;left:58px;top:288px">
+    <div class="dsg-phone__notch"></div>
+    <div class="dsg-phone__status">9:41<span class="icons"><svg class="ic"><use href="#i-signal"/></svg><svg class="ic"><use href="#i-wifi"/></svg><svg class="ic"><use href="#i-battery"/></svg></span></div>
+    <div class="dsg-phone__brand">Northform</div>
+    <div class="dsg-checkout__h">Checkout</div>
+    <div class="dsg-item"><div class="dsg-item__icon"><svg class="ic"><use href="#i-chair"/></svg></div><div><b>Nordic Chair</b><span>Oak · Natural</span></div><em>$49</em></div>
+    <div class="dsg-lines"><div>Subtotal<span>$49.00</span></div><div>Shipping<span>Free</span></div><div class="total">Total<span>$49.00</span></div></div>
+    <div class="dsg-card"><svg class="ic"><use href="#i-card"/></svg>Visa •••• 0117</div>
+    <div style="position:relative;margin-top:10px">
+      <span class="dsg-chip" style="position:absolute;right:-2px;top:-17px"><svg class="ic"><use href="#i-lock"/></svg>disabled</span>
+      <button class="dsg-btn" data-state="pending" style="height:63px"><span class="dsg-btn__label"><svg class="ic"><use href="#i-card"/></svg>Pay $49</span><span class="dsg-btn__state"><span class="dsg-spin"></span></span><span class="dsg-tap"><span class="dsg-spin" style="width:24px;height:24px;border-color:rgba(255,255,255,.35);border-top-color:#fff"></span></span></button>
+    </div>
+  </div>
+  <div class="dsg-panel" style="position:absolute;left:385px;top:306px;width:290px;height:94px">
+    <div class="dsg-panel__head"><svg class="ic"><use href="#i-wifi"/></svg>Network<span class="right amber">slow · 3G</span></div>
+    <div class="dsg-net__row">request in flight<b>0.6s</b></div>
+    <div class="dsg-net__bar"><i style="--w:16%"></i></div>
+  </div>
+  <div class="dsg-panel" style="position:absolute;left:385px;top:482px;width:290px;height:168px">
+    <div class="dsg-panel__head">Requests<span class="right">POST /pay</span></div>
+    <div class="dsg-req dsg-req--ok" style="margin-top:10px"><span class="dsg-spin" style="width:12px;height:12px;border-width:2px;border-color:rgba(42,208,168,.3);border-top-color:#2ad0a8"></span>POST /pay<span class="tag">in flight</span></div>
+  </div>
+  <div class="caption"><svg class="ic"><use href="#i-lock"/></svg>Disable on the first tap.</div>
+</section>
+
+<!-- 1b · Disable: extra taps ignored -->
+<section class="scene" data-t="3" data-shot="7.5">
+  <div class="kicker">State · Disable</div>
+  <h1 class="title">One intent, <em>one request.</em></h1>
+  <div class="dsg-phone" style="position:absolute;left:58px;top:288px">
+    <div class="dsg-phone__notch"></div>
+    <div class="dsg-phone__status">9:41<span class="icons"><svg class="ic"><use href="#i-signal"/></svg><svg class="ic"><use href="#i-wifi"/></svg><svg class="ic"><use href="#i-battery"/></svg></span></div>
+    <div class="dsg-phone__brand">Northform</div>
+    <div class="dsg-checkout__h">Checkout</div>
+    <div class="dsg-item"><div class="dsg-item__icon"><svg class="ic"><use href="#i-chair"/></svg></div><div><b>Nordic Chair</b><span>Oak · Natural</span></div><em>$49</em></div>
+    <div class="dsg-lines"><div>Subtotal<span>$49.00</span></div><div>Shipping<span>Free</span></div><div class="total">Total<span>$49.00</span></div></div>
+    <div class="dsg-card"><svg class="ic"><use href="#i-card"/></svg>Visa •••• 0117</div>
+    <div style="position:relative;margin-top:10px">
+      <span class="dsg-chip" style="position:absolute;right:-2px;top:-17px"><svg class="ic"><use href="#i-lock"/></svg>disabled</span>
+      <button class="dsg-btn" id="demoBtn" data-state="pending" style="height:63px"><span class="dsg-btn__label"><svg class="ic"><use href="#i-card"/></svg>Pay $49</span><span class="dsg-btn__state"><span class="dsg-spin"></span><svg class="ic dsg-check"><use href="#i-check"/></svg><span class="dsg-err"><svg class="ic"><use href="#i-warn"/></svg><span>Card declined</span></span></span><span class="dsg-tap"><span class="dsg-spin" style="width:24px;height:24px;border-color:rgba(255,255,255,.35);border-top-color:#fff"></span></span></button>
+    </div>
+  </div>
+  <div class="dsg-panel" style="position:absolute;left:385px;top:306px;width:290px;height:94px">
+    <div class="dsg-panel__head"><svg class="ic"><use href="#i-wifi"/></svg>Network<span class="right amber">slow · 3G</span></div>
+    <div class="dsg-net__row">request in flight<b>3.4s</b></div>
+    <div class="dsg-net__bar"><i style="--w:91%"></i></div>
+  </div>
+  <div class="dsg-panel" style="position:absolute;left:385px;top:482px;width:290px;height:168px">
+    <div class="dsg-panel__head">Requests<span class="right">POST /pay</span></div>
+    <div class="dsg-req dsg-req--ok" style="margin-top:10px"><svg class="ic"><use href="#i-check"/></svg>POST /pay<span class="tag">in flight</span></div>
+    <div class="dsg-req dsg-req--no"><svg class="ic"><use href="#i-ban"/></svg><s>2nd tap</s><span class="tag">ignored</span></div>
+    <div class="dsg-req dsg-req--no"><svg class="ic"><use href="#i-ban"/></svg><s>3rd tap</s><span class="tag">ignored</span></div>
+  </div>
+  <div class="dsg-note" style="position:absolute;left:385px;top:740px;width:290px;height:88px"><div class="dsg-note__icon"><svg class="ic"><use href="#i-check"/></svg></div><div><b>1 intent → 1 charge</b><span>extra taps never reach the server</span></div></div>
+  <div class="caption"><svg class="ic"><use href="#i-lock"/></svg>Disable on the first tap.</div>
+</section>
+
+<!-- 2a · Spinner in place: reflow vs locked -->
+<section class="scene" data-t="9" data-shot="10.5">
+  <div class="kicker kicker--grey">State · Spinner</div>
+  <h1 class="title">Spinner in place, <em>width locked.</em></h1>
+  <div class="dsg-cmp" style="position:absolute;left:35px;top:410px;height:448px">
+    <span class="dsg-tag dsg-tag--pink">Reflows</span>
+    <div class="dsg-total">Total<b>$49.00</b></div>
+    <div class="dsg-slot dsg-slot--ghost"><button class="dsg-btn dsg-btn--sm" data-state="pending" style="position:absolute;left:-1px;top:-1px"><span class="dsg-btn__label">Pay</span><span class="dsg-btn__state"><span class="dsg-spin"></span></span></button></div>
+    <div class="dsg-ships" style="margin-top:46px"><i></i>Ships in 3 to 5 days</div>
+    <span class="dsg-code-chip dsg-code-chip--pink" style="position:absolute;left:16px;top:311px"><svg class="ic"><use href="#i-swap"/></svg>layout shift +30px</span>
+    <div class="dsg-jumps dsg-jumps--pink" style="position:absolute;left:16px;top:377px;width:277px"><svg class="ic"><use href="#i-swap"/></svg>jumps this session<b>×1</b></div>
+  </div>
+  <div class="dsg-cmp" style="position:absolute;left:375px;top:410px;height:448px">
+    <span class="dsg-tag dsg-tag--teal">Locked</span>
+    <div class="dsg-total">Total<b>$49.00</b></div>
+    <div class="dsg-slot"><button class="dsg-btn" data-state="pending" style="height:56px"><span class="dsg-btn__label"><svg class="ic"><use href="#i-card"/></svg>Pay $49</span><span class="dsg-btn__state"><span class="dsg-spin"></span></span></button></div>
+    <div class="dsg-ships" style="margin-top:22px"><i></i>Ships in 3 to 5 days</div>
+    <span class="dsg-code-chip dsg-code-chip--teal" style="position:absolute;left:16px;top:311px"><svg class="ic"><use href="#i-check"/></svg>0px · nothing moved</span>
+    <div class="dsg-jumps dsg-jumps--teal" style="position:absolute;left:16px;top:377px;width:277px"><svg class="ic"><use href="#i-check"/></svg>jumps this session<b>×0</b></div>
+  </div>
+  <div class="caption"><svg class="ic"><use href="#i-lock"/></svg>Spinner in place, width locked.</div>
+</section>
+
+<!-- 2b · Spinner in place: after two rounds -->
+<section class="scene" data-t="15" data-shot="16.5">
+  <div class="kicker kicker--grey">State · Spinner</div>
+  <h1 class="title">Spinner in place, <em>width locked.</em></h1>
+  <div class="dsg-cmp" style="position:absolute;left:35px;top:410px;height:448px">
+    <span class="dsg-tag dsg-tag--pink">Reflows</span>
+    <div class="dsg-total">Total<b>$49.00</b></div>
+    <div class="dsg-slot"><button class="dsg-btn" data-state="idle" style="height:56px"><span class="dsg-btn__label">Pay $49</span></button></div>
+    <div class="dsg-ships" style="margin-top:62px"><i></i>Ships in 3 to 5 days</div>
+    <div class="dsg-jumps dsg-jumps--pink" style="position:absolute;left:16px;top:377px;width:277px"><svg class="ic"><use href="#i-swap"/></svg>jumps this session<b>×2</b></div>
+  </div>
+  <div class="dsg-cmp" style="position:absolute;left:375px;top:410px;height:448px">
+    <span class="dsg-tag dsg-tag--teal">Locked</span>
+    <div class="dsg-total">Total<b>$49.00</b></div>
+    <div class="dsg-slot"><button class="dsg-btn" data-state="idle" style="height:56px"><span class="dsg-btn__label"><svg class="ic"><use href="#i-card"/></svg>Pay $49</span></button></div>
+    <div class="dsg-ships" style="margin-top:22px"><i></i>Ships in 3 to 5 days</div>
+    <span class="dsg-code-chip dsg-code-chip--teal" style="position:absolute;left:16px;top:311px"><svg class="ic"><use href="#i-check"/></svg>0px · nothing moved</span>
+    <div class="dsg-jumps dsg-jumps--teal" style="position:absolute;left:16px;top:377px;width:277px"><svg class="ic"><use href="#i-check"/></svg>jumps this session<b>×0</b></div>
+  </div>
+  <div class="caption"><svg class="ic"><use href="#i-lock"/></svg>Spinner in place, width locked.</div>
+</section>
+
+<!-- 3a · Guard: POST /pay reaches the server -->
+<section class="scene" data-t="18" data-shot="19.5">
+  <div class="kicker">State · Guard</div>
+  <h1 class="title">UI off isn’t enough. <em>Guard it.</em></h1>
+  <div class="dsg-code" style="position:absolute;left:62px;top:280px;height:183px">
+    <div class="dsg-code__head"><svg class="ic"><use href="#i-shield"/></svg>Client<span class="right">pay.ts</span></div>
+    <pre><span class="ln">async function pay() {</span><span class="ln hl">  if (inFlight) return;<span class="lbl">← GUARD</span></span><span class="ln">  inFlight = true;</span><span class="ln hl">  fetch('/pay', { headers: { 'Idempotency-Key': key } })<span class="lbl">← KEY</span></span><span class="ln">}</span></pre>
+  </div>
+  <div class="dsg-wire" style="left:359px;top:475px;height:185px"></div>
+  <span class="dsg-pill dsg-pill--teal center" style="top:629px"><svg class="ic"><use href="#i-copy"/></svg>POST /pay</span>
+  <div class="dsg-code" style="position:absolute;left:62px;top:662px;height:90px">
+    <div class="dsg-code__head"><svg class="ic"><use href="#i-server"/></svg>Server<span class="right">POST /pay</span></div>
+    <div class="dsg-code__line">Idempotency-Key: a3f81c…</div>
+    <div class="dsg-code__sub">key seen? → return the same charge</div>
+  </div>
+  <div class="dsg-count" style="position:absolute;left:62px;top:803px"><div class="dsg-count__icon"><svg class="ic"><use href="#i-check"/></svg></div>charges captured<b>1</b></div>
+  <div class="caption"><svg class="ic"><use href="#i-shield"/></svg>Guard the handler + idempotency key.</div>
+</section>
+
+<!-- 3b · Guard: retry with the same key, same charge -->
+<section class="scene" data-t="21" data-shot="22.5">
+  <div class="kicker">State · Guard</div>
+  <h1 class="title">UI off isn’t enough. <em>Guard it.</em></h1>
+  <div class="dsg-code" style="position:absolute;left:62px;top:280px;height:183px">
+    <div class="dsg-code__head"><svg class="ic"><use href="#i-shield"/></svg>Client<span class="right">pay.ts</span></div>
+    <pre><span class="ln">async function pay() {</span><span class="ln hl">  if (inFlight) return;<span class="lbl">← GUARD</span></span><span class="ln">  inFlight = true;</span><span class="ln hl">  fetch('/pay', { headers: { 'Idempotency-Key': key } })<span class="lbl">← KEY</span></span><span class="ln">}</span></pre>
+  </div>
+  <div class="dsg-wire" style="left:359px;top:475px;height:180px"><span class="dsg-wire__head"></span></div>
+  <span class="dsg-pill dsg-pill--pink center" style="top:481px"><svg class="ic"><use href="#i-copy"/></svg>retry</span>
+  <div class="dsg-code" style="position:absolute;left:62px;top:662px;height:90px">
+    <div class="dsg-code__head"><svg class="ic"><use href="#i-server"/></svg>Server<span class="right">POST /pay</span></div>
+    <div class="dsg-code__line">Idempotency-Key: a3f81c…</div>
+    <div class="dsg-code__sub on">key seen? → return the same charge</div>
+  </div>
+  <div class="dsg-count" style="position:absolute;left:62px;top:803px"><div class="dsg-count__icon"><svg class="ic"><use href="#i-check"/></svg></div>charges captured<b>1</b></div>
+  <div class="caption"><svg class="ic"><use href="#i-shield"/></svg>Guard the handler + idempotency key.</div>
+</section>
+
+<!-- 4a · Resolve: check or error -->
+<section class="scene" data-t="27" data-shot="28.5">
+  <div class="kicker kicker--grey">State · Resolve</div>
+  <h1 class="title">Land on a <em>check</em> or an <em class="danger">error.</em></h1>
+  <div class="dsg-cmp" style="position:absolute;left:35px;top:300px;height:368px">
+    <span class="dsg-tag dsg-tag--teal">Success</span>
+    <div style="font-size:16px;font-weight:700;margin-top:14px">Checkout</div>
+    <div class="dsg-item" style="height:64px;margin-top:10px;background:var(--dsg-row)"><div class="dsg-item__icon"><svg class="ic"><use href="#i-chair"/></svg></div><div><b>Nordic Chair</b><span>Oak · Natural</span></div><em>$49</em></div>
+    <div class="dsg-card" style="margin-top:14px;height:30px">
+      <svg class="ic"><use href="#i-card"/></svg>Visa •••• 0117</div>
+    <button class="dsg-btn" data-state="success" style="margin-top:14px"><span class="dsg-btn__label"><svg class="ic"><use href="#i-card"/></svg>Pay $49</span><span class="dsg-btn__state"><svg class="ic dsg-check"><use href="#i-check"/></svg></span></button>
+    <div class="dsg-msg dsg-msg--ok" style="margin-top:14px"><svg class="ic"><use href="#i-check-c"/></svg>Payment confirmed</div>
+  </div>
+  <div class="dsg-cmp" style="position:absolute;left:375px;top:300px;height:368px">
+    <span class="dsg-tag dsg-tag--pink">Error</span>
+    <div style="font-size:16px;font-weight:700;margin-top:14px">Checkout</div>
+    <div class="dsg-item" style="height:64px;margin-top:10px;background:var(--dsg-row)"><div class="dsg-item__icon"><svg class="ic"><use href="#i-chair"/></svg></div><div><b>Nordic Chair</b><span>Oak · Natural</span></div><em>$49</em></div>
+    <div class="dsg-card" style="margin-top:14px;height:30px"><svg class="ic"><use href="#i-card"/></svg>Visa •••• 0117</div>
+    <button class="dsg-btn" data-state="error" style="margin-top:14px"><span class="dsg-btn__label"><svg class="ic"><use href="#i-card"/></svg>Pay $49</span><span class="dsg-btn__state"><span class="dsg-err"><svg class="ic"><use href="#i-warn"/></svg><span>Card declined</span></span></span></button>
+    <div class="dsg-msg dsg-msg--err" style="margin-top:14px;height:54px"><svg class="ic"><use href="#i-flag"/></svg>Try another card, nothing was charged</div>
+  </div>
+  <div class="caption caption--grey"><svg class="ic"><use href="#i-check-c"/></svg>Resolve to a check or an error.</div>
+</section>
+
+<!-- 4b · Resolve: both pending -->
+<section class="scene" data-t="30" data-shot="31.5">
+  <div class="kicker kicker--grey">State · Resolve</div>
+  <h1 class="title">Land on a <em>check</em> or an <em class="danger">error.</em></h1>
+  <div class="dsg-cmp" style="position:absolute;left:35px;top:300px;height:368px">
+    <span class="dsg-tag dsg-tag--teal">Success</span>
+    <div style="font-size:16px;font-weight:700;margin-top:14px">Checkout</div>
+    <div class="dsg-item" style="height:64px;margin-top:10px;background:var(--dsg-row)"><div class="dsg-item__icon"><svg class="ic"><use href="#i-chair"/></svg></div><div><b>Nordic Chair</b><span>Oak · Natural</span></div><em>$49</em></div>
+    <div class="dsg-card" style="margin-top:14px;height:30px"><svg class="ic"><use href="#i-card"/></svg>Visa •••• 0117</div>
+    <button class="dsg-btn" data-state="pending" style="margin-top:14px"><span class="dsg-btn__label"><svg class="ic"><use href="#i-card"/></svg>Pay $49</span><span class="dsg-btn__state"><span class="dsg-spin"></span></span></button>
+  </div>
+  <div class="dsg-cmp" style="position:absolute;left:375px;top:300px;height:368px">
+    <span class="dsg-tag dsg-tag--pink">Error</span>
+    <div style="font-size:16px;font-weight:700;margin-top:14px">Checkout</div>
+    <div class="dsg-item" style="height:64px;margin-top:10px;background:var(--dsg-row)"><div class="dsg-item__icon"><svg class="ic"><use href="#i-chair"/></svg></div><div><b>Nordic Chair</b><span>Oak · Natural</span></div><em>$49</em></div>
+    <div class="dsg-card" style="margin-top:14px;height:30px"><svg class="ic"><use href="#i-card"/></svg>Visa •••• 0117</div>
+    <button class="dsg-btn" data-state="pending" style="margin-top:14px"><span class="dsg-btn__label"><svg class="ic"><use href="#i-card"/></svg>Pay $49</span><span class="dsg-btn__state"><span class="dsg-spin"></span></span></button>
+  </div>
+  <div class="caption caption--grey"><svg class="ic"><use href="#i-check-c"/></svg>Resolve to a check or an error.</div>
+</section>
+
+<!-- 5 · Re-enable on the response, not a timer -->
+<section class="scene" data-t="36" data-shot="39">
+  <div class="kicker">State · Re-enable</div>
+  <h1 class="title">On the response, <em>not a timer.</em></h1>
+  <div class="dsg-timing" style="position:absolute;left:62px;top:397px;height:203px">
+    <div class="dsg-timing__head"><span class="dsg-timing__code dsg-timing__code--pink">setTimeout(enable, 2000)</span><span class="dsg-timing__lbl dsg-timing__lbl--pink">GUESS</span></div>
+    <div class="dsg-timing__body">
+      <button class="dsg-btn" data-state="idle"><span class="dsg-btn__label"><svg class="ic"><use href="#i-card"/></svg>Pay $49</span></button>
+      <div class="dsg-bars"><span>timer</span><span class="bar"><i style="--c:#e5507a"></i></span><span class="val" style="color:#e5507a">2.0s</span><span>request</span><span class="bar"><i style="--c:#9497a8"></i></span><span class="val">3.6s</span></div>
+    </div>
+    <div class="dsg-msg dsg-msg--warn"><svg class="ic"><use href="#i-warn"/></svg>button live while the charge is still pending</div>
+  </div>
+  <div class="dsg-timing" style="position:absolute;left:62px;top:630px;height:202px">
+    <div class="dsg-timing__head"><span class="dsg-timing__code dsg-timing__code--teal">onSettled(() => enable())</span><span class="dsg-timing__lbl dsg-timing__lbl--teal">RESPONSE</span></div>
+    <div class="dsg-timing__body">
+      <button class="dsg-btn" data-state="success"><span class="dsg-btn__label"><svg class="ic"><use href="#i-card"/></svg>Pay $49</span><span class="dsg-btn__state"><svg class="ic dsg-check"><use href="#i-check"/></svg></span></button>
+      <div class="dsg-bars"><span>request</span><span class="bar"><i></i></span><span class="val" style="color:#2ad0a8">3.6s</span><span>enable</span><span class="bar"><i></i></span><span class="val" style="color:#2ad0a8">now</span></div>
+    </div>
+    <div class="dsg-msg dsg-msg--ok" style="height:34px;min-height:0;padding:0 12px;font-weight:500;background:#0c2e28"><svg class="ic"><use href="#i-check"/></svg>enabled the instant the response lands</div>
+  </div>
+  <div class="caption"><svg class="ic"><use href="#i-radio"/></svg>Re-enable on the response.</div>
+</section>
+
+<!-- 6 · Outro -->
+<section class="scene" data-t="42" data-shot="43.5">
+  <div class="glow" style="left:100px;top:500px;background:rgba(42,208,168,.10)"></div>
+  <div class="title" style="top:150px;font-size:46px;color:var(--accent)">One tap, one charge.</div>
+  <div class="dsg-list" style="position:absolute;left:66px;top:265px">
+    <div class="dsg-list__row"><div class="dsg-list__icon"><svg class="ic"><use href="#i-lock"/></svg></div><div><b>Disable on the first tap</b><span>one intent, one request</span></div><i>01</i></div>
+    <div class="dsg-list__row"><div class="dsg-list__icon"><svg class="ic"><use href="#i-refresh"/></svg></div><div><b>Spinner in place</b><span>lock the width, no layout shift</span></div><i>02</i></div>
+    <div class="dsg-list__row"><div class="dsg-list__icon"><svg class="ic"><use href="#i-shield"/></svg></div><div><b>Guard + idempotency key</b><span>client guard, server dedup</span></div><i>03</i></div>
+    <div class="dsg-list__row"><div class="dsg-list__icon"><svg class="ic"><use href="#i-check-c"/></svg></div><div><b>Resolve to check or error</b><span>say why, right on the button</span></div><i>04</i></div>
+    <div class="dsg-list__row"><div class="dsg-list__icon"><svg class="ic"><use href="#i-radio"/></svg></div><div><b>Re-enable on the response</b><span>not a timer, not a guess</span></div><i>05</i></div>
+  </div>
+  <div class="center" style="top:732px;font-size:15px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#8b93a1;white-space:nowrap">More patterns</div>
+  <div class="title" style="top:770px;font-size:44px">designmotionhq<em>.com</em></div>
+  <div class="dsg-cta center" style="top:838px">link in bio <svg class="ic" style="margin-left:8px"><use href="#i-arrow-ne"/></svg></div>
+</section>
+
+<script type="module">
+  import { SubmitGuard, fakeRequest } from './pattern.js';
+  // Live guard on scene 1b when served over http: taps during the 3.4 s request are counted, never sent.
+  const b = document.getElementById('demoBtn');
+  if (b && location.protocol !== 'file:') { b.dataset.state = 'idle'; b.querySelector('.dsg-tap')?.remove(); SubmitGuard(b, { request: fakeRequest(3400) }); }
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

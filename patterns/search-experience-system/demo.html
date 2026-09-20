@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Search Experience System · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a0d10; --accent: #2fd3a5; --danger: #e8507c; --grid: rgba(255,255,255,0); }
+  .scene { color: #f2f4f7; background-image: none; }
+  .kicker { top: 148px; height: 30px; padding: 0 16px; display: inline-flex; align-items: center; font-size: 14px; letter-spacing: .14em; color: #f06a92; background: #2e1020; }
+  .title { top: 165px; font-size: 40px; line-height: 44px; letter-spacing: -.025em; }
+  .glow-teal { background: rgba(47,211,165,.12); width: 640px; height: 640px; filter: blur(90px); }
+  .glow-pink { background: rgba(232,80,124,.16); width: 560px; height: 560px; filter: blur(110px); }
+  .abs { position: absolute; }
+  .cursor { width: 26px; height: 26px; }
+</style>
+</head>
+<body class="sx">
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="s-cursor" viewBox="0 0 24 24"><path d="M4 2l6.5 18 3-7 7-3z" fill="#fff" stroke="#000" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+  <symbol id="s-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></symbol>
+  <symbol id="s-type" viewBox="0 0 24 24"><path d="M5 5h14M12 5v14M9 19h6"/></symbol>
+  <symbol id="s-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="s-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></symbol>
+  <symbol id="s-keyboard" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/></symbol>
+  <symbol id="s-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+  <symbol id="s-focus" viewBox="0 0 24 24"><path d="M4 9V5a1 1 0 0 1 1-1h4M15 4h4a1 1 0 0 1 1 1v4M20 15v4a1 1 0 0 1-1 1h-4M9 20H5a1 1 0 0 1-1-1v-4"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="s-a11y" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M4 9h16M12 9v6M12 15l-4 6M12 15l4 6"/></symbol>
+  <symbol id="s-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></symbol>
+  <symbol id="s-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.6 1 1.4 1 2.5h6c0-1.1.3-1.9 1-2.5A6 6 0 0 0 12 3z"/></symbol>
+  <symbol id="s-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></symbol>
+</svg>
+
+<!-- Hook: the bar -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="glow glow-pink" style="left:60px;top:400px;width:600px;height:640px;background:rgba(150,20,50,.42)"></div>
+  <div id="b1" class="abs" style="left:67px;top:608px;width:586px"></div>
+</section>
+
+<!-- Hook: Search is a system. -->
+<section class="scene" data-t="1.5" data-shot="1.5">
+  <div class="glow glow-teal" style="left:-20px;top:120px"></div>
+  <div class="glow glow-pink" style="left:-200px;top:820px;background:rgba(150,20,50,.25)"></div>
+  <div class="title" style="top:572px;font-size:58px;line-height:64px;letter-spacing:-.03em">Search <em>is a</em> <span style="background:linear-gradient(90deg,#2fd3a5,#e8507c);-webkit-background-clip:text;background-clip:text;color:transparent">system</span><span style="color:#e8507c">.</span></div>
+  <div class="title" style="top:676px;font-size:17px;font-weight:700;letter-spacing:.14em;color:#8b93a1;opacity:.55;filter:blur(.8px)">5 PARTS · MOST APPS SKIP THEM</div>
+</section>
+
+<!-- 01 · Placeholder, lazy -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="glow glow-teal" style="left:-20px;top:300px"></div>
+  <div class="glow glow-pink" style="left:380px;top:0;width:420px;height:420px;background:rgba(150,20,50,.22)"></div>
+  <div class="kicker" style="top:338px">01 · Placeholder</div>
+  <h1 class="title" style="top:356px">Your first <em>onboarding</em>.</h1>
+  <div class="sx-ptag is-pink abs" style="left:50%;transform:translateX(-50%);top:453px">Lazy</div>
+  <div id="b2" class="abs" style="left:67px;top:482px;width:586px"></div>
+</section>
+
+<!-- 01 · Placeholder, better -->
+<section class="scene" data-t="6" data-shot="7.5">
+  <div class="glow glow-teal" style="left:-20px;top:300px"></div>
+  <div class="glow glow-pink" style="left:380px;top:0;width:420px;height:420px;background:rgba(150,20,50,.22)"></div>
+  <div class="kicker" style="top:338px">01 · Placeholder</div>
+  <h1 class="title" style="top:356px">Your first <em>onboarding</em>.</h1>
+  <div class="sx-ptag is-pink abs" style="left:50%;transform:translateX(-50%);top:453px">Lazy</div>
+  <div id="b3" class="abs" style="left:67px;top:482px;width:586px"></div>
+  <svg class="abs" style="left:349px;top:578px;width:22px;height:22px" viewBox="0 0 24 24" fill="none" stroke="#8b93a1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M6 14l6 6 6-6"/></svg>
+  <div class="sx-ptag is-teal abs" style="left:50%;transform:translateX(-50%);top:640px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><use href="#s-sparkle"/></svg>Better</div>
+  <div id="b4" class="abs" style="left:70px;top:675px;width:580px"></div>
+  <div class="abs" style="left:50%;transform:translateX(-50%);top:750px;display:flex;gap:11px"><span class="sx-wchip">What</span><span class="sx-wchip">How</span><span class="sx-wchip">Scope</span></div>
+  <div class="abs" style="left:0;right:0;top:818px;text-align:center;font-size:12px;font-weight:700;letter-spacing:.14em;color:#8b93a1">MORE EXAMPLES</div>
+  <div class="sx-example abs" style="left:67px;top:842px">"Search 12,000 products"</div>
+  <div class="sx-example abs" style="left:266px;top:842px">"Find a city, address, or POI"</div>
+  <div class="sx-example abs" style="left:465px;top:842px">"Filter by tag, color, or size"</div>
+</section>
+
+<!-- 02 · Recent -->
+<section class="scene" data-t="9" data-shot="13.5">
+  <div class="glow glow-teal" style="left:-20px;top:150px"></div>
+  <div class="glow glow-pink" style="left:380px;top:820px;background:rgba(150,20,50,.2)"></div>
+  <div class="kicker">02 · Recent</div>
+  <h1 class="title">Empty state <em>isn't</em> <em>empty</em>.</h1>
+  <div id="b5" class="abs" style="left:54px;top:258px;width:612px"></div>
+  <div id="r1" class="abs" style="left:54px;top:328px;width:612px"></div>
+  <svg class="cursor abs" style="left:122px;top:378px"><use href="#s-cursor"/></svg>
+  <div class="sx-stat abs" style="left:54px;top:548px;height:52px"><i class="is-pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><use href="#s-bolt"/></svg></i><div><small>No recent</small><b class="is-pink">2.4s<span>to type query</span></b></div></div>
+  <div class="sx-stat abs" style="left:262px;top:548px;height:52px"><i class="is-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><use href="#s-bolt"/></svg></i><div><small>One tap</small><b class="is-teal">0.3s<span>reuse last query</span></b></div></div>
+  <div class="sx-stat abs" style="left:470px;top:548px;height:52px"><i class="is-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><use href="#s-bolt"/></svg></i><div><small>Friction</small><b class="is-teal">8x<span>drop measured</span></b></div></div>
+</section>
+
+<!-- 03 · Autocomplete -->
+<section class="scene" data-t="16.5" data-shot="21">
+  <div class="glow glow-teal" style="left:-20px;top:150px"></div>
+  <div class="glow glow-pink" style="left:380px;top:0;width:420px;height:420px;background:rgba(150,20,50,.2)"></div>
+  <div class="kicker">03 · Autocomplete</div>
+  <h1 class="title">Rank by <em>clicks, not alphabet</em>.</h1>
+  <div id="b6" class="abs" style="left:54px;top:252px;width:612px"></div>
+  <div id="s1" class="abs" style="left:54px;top:318px;width:612px"></div>
+  <div class="abs" style="left:50%;transform:translateX(-50%);top:580px;display:flex;gap:10px"><span class="sx-note is-teal">Three results &gt; ten</span><span class="sx-note is-grey">Category badge = scope</span></div>
+  <div class="sx-rates abs" style="left:54px;top:628px;width:612px;height:80px">
+    <span class="l">Click rate</span>
+    <span class="n is-pink">#1</span><span class="b"><i class="is-pink" style="width:67%"></i></span><span class="p">67%</span>
+    <span class="n is-teal">#2</span><span class="b"><i class="is-teal" style="width:18%"></i></span><span class="p">18%</span>
+    <span class="n">#3</span><span class="b"><i style="width:9%"></i></span><span class="p">9%</span>
+  </div>
+</section>
+
+<!-- 04 · Keyboard -->
+<section class="scene" data-t="24" data-shot="27">
+  <div class="glow glow-teal" style="left:-20px;top:150px"></div>
+  <div class="glow glow-pink" style="left:-200px;top:820px;background:rgba(150,20,50,.2)"></div>
+  <div class="kicker" style="top:135px">04 · Keyboard</div>
+  <h1 class="title" style="top:152px">Keep focus <em>visible</em>.</h1>
+  <div id="b7" class="abs" style="left:54px;top:235px;width:612px"></div>
+  <div id="s2" class="abs" style="left:54px;top:305px;width:612px"></div>
+  <div class="sx-keys abs" style="left:236px;top:560px">
+    <div class="sx-key"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg></i>Nav</div>
+    <div class="sx-key"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></i>Nav</div>
+    <div class="sx-key is-big"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5v6a2 2 0 0 1-2 2H5M9 9l-4 4 4 4"/></svg></i>Select</div>
+    <div class="sx-key"><i>Esc</i>Close</div>
+  </div>
+  <div class="sx-stat sx-stat--text abs" style="left:54px;top:680px"><i class="is-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><use href="#s-focus"/></svg></i><div><b>2px focus ring</b><small>Never invisible</small></div></div>
+  <div class="sx-stat sx-stat--text abs" style="left:262px;top:680px"><i class="is-pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><use href="#s-keyboard"/></svg></i><div><b>No mouse trap</b><small>Every action keyboard-reachable</small></div></div>
+  <div class="sx-stat sx-stat--text abs" style="left:470px;top:680px"><i class="is-amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><use href="#s-a11y"/></svg></i><div><b>A11y default</b><small>WCAG 2.4.7 compliant</small></div></div>
+</section>
+
+<!-- 05 · Zero results -->
+<section class="scene" data-t="30" data-shot="36">
+  <div class="glow glow-teal" style="left:-20px;top:150px"></div>
+  <div class="glow glow-pink" style="left:-260px;top:40px;background:rgba(150,20,50,.2)"></div>
+  <div class="kicker" style="top:135px">05 · Zero results</div>
+  <h1 class="title" style="top:152px">Never a <em>dead end</em>.</h1>
+  <div id="b8" class="abs" style="left:54px;top:235px;width:612px"></div>
+  <div id="z1" class="abs" style="left:54px;top:313px;width:612px;height:255px"></div>
+  <div class="sx-note is-teal abs" style="left:50%;transform:translateX(-50%);top:592px;height:35px;font-size:15px;padding:0 18px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#s-bulb"/></svg>Lose the user here, lose them for good.</div>
+  <div class="sx-stat abs" style="left:54px;top:648px;height:55px;padding-left:14px"><div><small>Dead end</small><b class="is-pink">4%<span>recovery rate</span></b></div></div>
+  <div class="sx-stat abs" style="left:262px;top:648px;height:55px"><div><small>With suggestions</small><b class="is-teal">23%<span>recovery rate</span></b></div></div>
+  <div class="sx-stat abs" style="left:470px;top:648px;height:55px"><div><small>Lift</small><b class="is-pink">5.8×<span>more sessions saved</span></b></div></div>
+</section>
+
+<!-- Recap: four parts in -->
+<section class="scene" data-t="39" data-shot="39">
+  <div class="glow glow-teal" style="left:-20px;top:280px"></div>
+  <div class="glow glow-pink" style="left:-260px;top:0;background:rgba(150,20,50,.2)"></div>
+  <div class="sx-card abs" style="left:58px;top:452px"><i class="is-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><use href="#s-type"/></svg></i><b class="is-teal">Placeholder</b><small>1</small></div>
+  <div class="sx-card abs" style="left:182px;top:452px"><i class="is-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><use href="#s-clock"/></svg></i><b class="is-teal">Recent</b><small>2</small></div>
+  <div class="sx-card abs" style="left:306px;top:452px"><i class="is-pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><use href="#s-list"/></svg></i><b class="is-pink">Autocomplete</b><small>3</small></div>
+  <div class="sx-card abs" style="left:430px;top:452px"><i class="is-pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><use href="#s-keyboard"/></svg></i><b class="is-pink">Keyboard</b><small>4</small></div>
+  <div class="sx-card abs" style="left:554px;top:452px;opacity:.06"><i class="is-amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><use href="#s-compass"/></svg></i><b class="is-amber">Recovery</b><small>5</small></div>
+</section>
+
+<!-- Outro -->
+<section class="scene" data-t="42" data-shot="42">
+  <div class="glow glow-teal" style="left:-20px;top:280px"></div>
+  <div class="glow glow-pink" style="left:-260px;top:0;background:rgba(150,20,50,.2)"></div>
+  <div class="sx-card abs" style="left:58px;top:452px"><i class="is-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><use href="#s-type"/></svg></i><b class="is-teal">Placeholder</b><small>1</small></div>
+  <div class="sx-card abs" style="left:182px;top:452px"><i class="is-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><use href="#s-clock"/></svg></i><b class="is-teal">Recent</b><small>2</small></div>
+  <div class="sx-card abs" style="left:306px;top:452px"><i class="is-pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><use href="#s-list"/></svg></i><b class="is-pink">Autocomplete</b><small>3</small></div>
+  <div class="sx-card abs" style="left:430px;top:452px"><i class="is-pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><use href="#s-keyboard"/></svg></i><b class="is-pink">Keyboard</b><small>4</small></div>
+  <div class="sx-card abs" style="left:554px;top:452px"><i class="is-amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><use href="#s-compass"/></svg></i><b class="is-amber">Recovery</b><small>5</small></div>
+  <div class="abs" style="left:44px;top:596px;width:50px;height:50px;border-radius:12px;background:#3a1225;border:1px solid rgba(232,80,124,.4);display:grid;place-items:center;color:#f06a92;box-shadow:0 0 24px rgba(232,80,124,.3)"><svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px"><use href="#s-bookmark"/></svg></div>
+  <div class="abs" style="left:110px;top:598px;font-size:34px;font-weight:800;letter-spacing:-.025em;white-space:nowrap">Save <span style="color:#e8507c">for your next search bar.</span></div>
+  <div class="abs" style="left:0;right:0;top:659px;text-align:center;font-size:16px;font-style:italic;color:#8b93a1">The best UI feels invisible until it fails.</div>
+  <div class="sx-follow abs" style="left:244px;top:716px"><i></i><div><b>@designmotionhq</b><span>Follow for more UI systems</span></div></div>
+</section>
+
+<script type="module">
+  import { barHTML, recentHTML, suggestHTML, zeroHTML, SearchSystem } from './pattern.js';
+  const $ = id => document.getElementById(id);
+  $('b1').innerHTML = barHTML({ value: 's', caret: true, focus: true });
+  $('b1').querySelector('.sx-bar').style.cssText = 'height:64px;font-size:17px;border-width:1.5px;box-shadow:0 0 24px rgba(47,211,165,.2)';
+  $('b2').innerHTML = barHTML({ placeholder: 'Search', strike: true });
+  $('b3').innerHTML = barHTML({ placeholder: 'Search', strike: true });
+  $('b4').innerHTML = barHTML({ placeholder: 'Search by name, SKU, or brand', better: true });
+  $('b5').innerHTML = barHTML({ placeholder: 'Search', focus: true, caret: true });
+  $('r1').innerHTML = recentHTML(0);
+  $('b6').innerHTML = barHTML({ value: 'sho', focus: true, caret: true });
+  $('s1').innerHTML = suggestHTML('sho', 0);
+  $('b7').innerHTML = barHTML({ value: 'sho', focus: true });
+  $('s2').innerHTML = suggestHTML('sho', 1, { header: false, rank: false, match: false });
+  $('b8').innerHTML = barHTML({ value: 'xqzz', focus: true, clear: true });
+  $('z1').innerHTML = zeroHTML('xqzz');
+  $('z1').querySelector('.sx-dead').style.cssText = 'left:0;top:0'; $('z1').querySelector('.sx-recover').style.cssText = 'left:254px;top:0';
+  // Live version of the whole system on the "better" bar: focus it, type, arrow through, Escape.
+  SearchSystem($('b4'), { placeholder: 'Search by name, SKU, or brand' }); $('b4').querySelector('.sx-bar').classList.add('is-better');
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

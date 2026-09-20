@@ -1,0 +1,136 @@
+/* Modal Hierarchy, rebuilt from the @designmotionhq reel "5 overlays. Most apps pick the wrong one."
+   Component classes are prefixed .mh- and depend only on the tokens below. */
+.mh {
+  --mh-bg: #0a090b; --mh-phone: #0c0e13; --mh-panel: #0d0f15; --mh-panel-2: #14171d; --mh-chip: #1c2027; --mh-border: #262a33;
+  --mh-text: #f3f5f7; --mh-muted: #8b93a1; --mh-dim: #5f6771;
+  --mh-pink: #e03c6a; --mh-pink-dim: rgba(224,60,106,.16); --mh-teal: #2ec49f; --mh-teal-dim: rgba(46,196,159,.16); --mh-amber: #f0b04a;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--mh-text);
+}
+
+/* ---- Section header (MODAL / BLOCKS EVERYTHING) ------------------------------- */
+.mh-head { position: absolute; left: 0; right: 0; top: 70px; text-align: center; }
+.mh-head b { display: block; font-size: 42px; font-weight: 800; letter-spacing: .12em; }
+.mh-head span { display: block; margin-top: 8px; font-size: 15px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--mh-teal); }
+.mh-head--pink span { color: var(--mh-pink); }
+
+/* ---- Phone frame ------------------------------------------------------------------ */
+.mh-phone { position: absolute; width: 344px; height: 664px; border-radius: 40px; background: var(--mh-phone); border: 2px solid #1e2229; box-shadow: 0 30px 80px rgba(0,0,0,.6); overflow: hidden; }
+.mh-phone::before { content: ''; position: absolute; left: 50%; top: 18px; width: 70px; height: 14px; margin-left: -35px; border-radius: 999px; background: #070809; }
+.mh-screen { position: absolute; inset: 0; padding: 60px 22px 0; transition: filter .4s, opacity .4s; }
+.mh-screen__bar { display: flex; align-items: center; justify-content: space-between; height: 24px; }
+.mh-screen__title { font-size: 16px; font-weight: 700; }
+.mh-screen__avatar { width: 22px; height: 22px; border-radius: 50%; background: #b5335a; }
+.mh-block { position: absolute; border-radius: 6px; background: #14171d; }
+.mh-block--gradient { background: linear-gradient(135deg, #3a1b2e, #1a2a2e); }
+.mh-line { position: absolute; height: 4px; border-radius: 2px; background: #2a3038; }
+.mh-phone.is-dim .mh-screen { filter: blur(2px); opacity: .55; }
+
+/* ---- Modal ------------------------------------------------------------------------- */
+.mh-scrim { position: absolute; inset: 0; background: rgba(4,5,8,.55); }
+.mh-modal { position: absolute; left: 25px; top: 225px; width: 294px; height: 215px; padding: 22px 22px 0; border-radius: 14px; background: #101318; border: 1px solid var(--mh-border); box-shadow: 0 20px 50px rgba(0,0,0,.5); }
+.mh-modal__icon { width: 37px; height: 37px; border-radius: 8px; background: var(--mh-pink-dim); display: grid; place-items: center; color: var(--mh-pink); }
+.mh-modal__icon svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
+.mh-modal__title { margin-top: 16px; font-size: 20px; font-weight: 700; }
+.mh-modal__desc { margin-top: 8px; font-size: 13px; line-height: 1.4; color: var(--mh-muted); }
+.mh-modal__actions { display: flex; gap: 8px; margin-top: 16px; }
+.mh-btn { flex: 1; height: 35px; border-radius: 8px; display: grid; place-items: center; font-size: 14px; font-weight: 600; border: 1px solid #2a2e37; color: var(--mh-text); background: transparent; cursor: pointer; }
+.mh-btn--pink { background: var(--mh-pink); border-color: var(--mh-pink); color: #fff; }
+.mh-btn--pink.mh-btn--wide { height: 36px; font-size: 15px; font-weight: 700; }
+.mh-dont { position: absolute; width: 186px; height: 240px; padding: 14px 14px 0; border-radius: 10px; border: 1.5px solid var(--mh-pink); background: #0f1218; box-shadow: 0 0 30px rgba(224,60,106,.25); }
+.mh-dont__label { display: flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 800; letter-spacing: .06em; color: var(--mh-pink); }
+.mh-dont__label svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2.4; }
+.mh-dont__form { margin-top: 10px; height: 168px; padding: 8px 6px; border-radius: 6px; background: #171a20; }
+.mh-dont__form b { display: block; font-size: 11px; font-weight: 700; margin-bottom: 6px; }
+.mh-dont__form i { display: block; height: 6px; margin-bottom: 6px; border-radius: 3px; background: #2a3038; }
+.mh-dont__cap { margin-top: 8px; text-align: center; font-size: 12px; color: var(--mh-muted); }
+
+/* ---- Bottom sheet --------------------------------------------------------------- */
+.mh-sheet { position: absolute; left: 0; right: 0; top: 92px; bottom: 0; border-radius: 16px 16px 0 0; background: #12151b; box-shadow: 0 -10px 40px rgba(0,0,0,.5); padding: 0 22px; }
+.mh-sheet__handle { position: absolute; left: 50%; top: 7px; width: 30px; height: 4px; margin-left: -15px; border-radius: 2px; background: #3a4149; }
+.mh-sheet__title { position: absolute; top: 19px; display: flex; align-items: center; gap: 6px; font-size: 16px; font-weight: 700; }
+.mh-sheet__title svg { width: 14px; height: 14px; fill: none; stroke: var(--mh-teal); stroke-width: 2; stroke-linejoin: round; }
+.mh-chips { position: absolute; top: 53px; display: flex; gap: 10px; }
+.mh-chip { height: 25px; padding: 0 11px; border-radius: 999px; background: var(--mh-chip); color: #b6bcc4; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; }
+.mh-chip.is-on { background: var(--mh-teal); color: #062018; }
+.mh-sheet__label { position: absolute; top: 96px; font-size: 11px; font-weight: 700; letter-spacing: .1em; color: var(--mh-muted); }
+.mh-option { position: absolute; left: 22px; right: 22px; height: 32px; padding: 0 10px; border-radius: 6px; display: flex; align-items: center; justify-content: space-between; font-size: 14px; color: #a6adb6; }
+.mh-option.is-on { background: rgba(46,196,159,.12); border: 1px solid rgba(46,196,159,.35); color: var(--mh-text); font-weight: 600; }
+.mh-option svg { width: 14px; height: 14px; fill: none; stroke: var(--mh-teal); stroke-width: 2.5; }
+.mh-sheet__cta { position: absolute; left: 23px; right: 23px; bottom: 25px; }
+
+/* ---- Drawer ---------------------------------------------------------------------- */
+.mh-drawer { position: absolute; left: 0; top: 0; bottom: 0; width: 235px; background: #12151b; border-right: 1px solid var(--mh-border); box-shadow: 20px 0 50px rgba(0,0,0,.5); padding: 62px 18px 0; }
+.mh-drawer__user { display: flex; align-items: center; gap: 8px; padding-bottom: 12px; border-bottom: 1px solid #1e2229; }
+.mh-drawer__avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #e0507c, #2ec49f); }
+.mh-drawer__name { font-size: 13px; font-weight: 700; }
+.mh-drawer__plan { font-size: 10px; color: var(--mh-muted); }
+.mh-nav { margin-top: 16px; }
+.mh-nav__item { display: flex; align-items: center; gap: 10px; height: 35px; padding: 0 8px; margin-bottom: 5px; border-radius: 8px; font-size: 14px; color: #a6adb6; }
+.mh-nav__item svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.mh-nav__item.is-on { background: var(--mh-pink-dim); border: 1px solid rgba(224,60,106,.3); color: var(--mh-text); font-weight: 700; }
+.mh-nav__item.is-on svg { color: var(--mh-pink); }
+
+/* ---- Popover --------------------------------------------------------------------- */
+.mh-search { position: absolute; left: 20px; right: 20px; top: 74px; height: 28px; display: flex; gap: 6px; }
+.mh-search__field { flex: 1; border-radius: 6px; background: #171a20; }
+.mh-iconbtn { width: 32px; height: 28px; border-radius: 6px; background: #171a20; display: grid; place-items: center; color: #b6bcc4; border: 1px solid transparent; }
+.mh-iconbtn svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
+.mh-iconbtn.is-on { border-color: var(--mh-teal); color: var(--mh-teal); background: var(--mh-teal-dim); }
+.mh-rows { position: absolute; left: 20px; right: 20px; top: 118px; }
+.mh-rows i { display: block; height: 40px; margin-bottom: 7px; border-radius: 6px; background: #12151b; }
+.mh-popover { position: absolute; width: 132px; padding: 12px 12px 8px; border-radius: 8px; background: #14171d; border: 1px solid var(--mh-border); box-shadow: 0 16px 40px rgba(0,0,0,.55); }
+.mh-popover__label { font-size: 10px; font-weight: 700; letter-spacing: .1em; color: var(--mh-dim); }
+.mh-check { display: flex; align-items: center; gap: 8px; height: 30px; font-size: 13px; font-weight: 600; }
+.mh-check i { width: 12px; height: 12px; border-radius: 3px; border: 1.5px solid #3a4149; display: grid; place-items: center; }
+.mh-check.is-on i { background: var(--mh-teal); border-color: var(--mh-teal); }
+.mh-check.is-on i::after { content: ''; width: 6px; height: 3px; border-left: 1.5px solid #062018; border-bottom: 1.5px solid #062018; transform: translateY(-1px) rotate(-45deg); }
+.mh-measure { position: absolute; height: 8px; border: 1.5px solid var(--mh-pink); border-top: 0; }
+.mh-measure span { position: absolute; left: 0; right: 0; top: 14px; text-align: center; font-size: 12px; font-weight: 700; color: var(--mh-pink); }
+
+/* ---- Checklist bullets ------------------------------------------------------------ */
+.mh-bullets { position: absolute; left: 40px; right: 40px; top: 1062px; }
+.mh-bullet { display: flex; align-items: center; gap: 12px; height: 46px; padding: 0 16px; margin-bottom: 7px; border-radius: 8px; background: #111419; font-size: 17px; font-weight: 600; }
+.mh-bullet i { width: 20px; height: 20px; border-radius: 4px; background: var(--mh-teal-dim); display: grid; place-items: center; }
+.mh-bullet i::after { content: ''; width: 8px; height: 4px; border-left: 2px solid var(--mh-teal); border-bottom: 2px solid var(--mh-teal); transform: translateY(-1px) rotate(-45deg); }
+.mh-bullets--pink .mh-bullet i { background: var(--mh-pink-dim); }
+.mh-bullets--pink .mh-bullet i::after { border-color: var(--mh-pink); }
+
+/* ---- Decision tree ------------------------------------------------------------------ */
+.mh-node { position: absolute; height: 52px; padding: 0 24px; border-radius: 10px; background: #14171d; border: 1px solid #2a2e37; display: inline-flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 700; white-space: nowrap; box-sizing: border-box; }
+.mh-node--pink { border: 1.5px solid var(--mh-pink); color: var(--mh-pink); letter-spacing: .12em; gap: 10px; box-shadow: 0 0 24px rgba(224,60,106,.35); }
+.mh-node--pink svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+.mh-tag { position: absolute; height: 22px; padding: 0 9px; border-radius: 6px; border: 1px solid; font-size: 11px; font-weight: 800; letter-spacing: .06em; display: inline-flex; align-items: center; background: var(--mh-bg); }
+.mh-tag--pink { color: var(--mh-pink); border-color: var(--mh-pink); }
+.mh-tag--teal { color: var(--mh-teal); border-color: var(--mh-teal); }
+.mh-leaf { position: absolute; height: 56px; padding: 0 16px; border-radius: 10px; background: #12161b; border: 1.5px solid var(--mh-teal); display: inline-flex; align-items: center; gap: 12px; box-shadow: 0 0 20px rgba(46,196,159,.2); white-space: nowrap; }
+.mh-leaf__icon { width: 24px; height: 24px; border-radius: 6px; background: var(--mh-teal-dim); display: grid; place-items: center; color: var(--mh-teal); }
+.mh-leaf__icon svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.mh-leaf div b { display: block; font-size: 16px; font-weight: 800; letter-spacing: .08em; color: var(--mh-teal); }
+.mh-leaf div span { display: block; font-size: 9px; font-weight: 700; letter-spacing: .1em; color: var(--mh-muted); }
+.mh-edge { position: absolute; left: 0; top: 0; width: 720px; height: 1280px; pointer-events: none; overflow: visible; }
+.mh-edge line { stroke-width: 1.5; stroke-linecap: round; }
+
+/* ---- Outro tiles --------------------------------------------------------------------- */
+.mh-tile { position: absolute; width: 74px; text-align: center; }
+.mh-tile i { display: grid; place-items: center; width: 74px; height: 74px; border-radius: 14px; border: 1.5px solid var(--mh-teal); background: #0e1216; color: var(--mh-teal); box-shadow: 0 0 24px rgba(46,196,159,.2); }
+.mh-tile i svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.mh-tile b { display: block; margin-top: 8px; font-size: 11px; font-weight: 800; letter-spacing: .1em; color: var(--mh-teal); }
+.mh-tile--pink i { border-color: var(--mh-pink); color: var(--mh-pink); box-shadow: 0 0 24px rgba(224,60,106,.25); }
+.mh-tile--pink b { color: var(--mh-pink); }
+
+/* ---- Hook wireframes ------------------------------------------------------------------ */
+.mh-wire { position: absolute; border: 1.5px solid; border-radius: 12px; background: #0d1015; }
+.mh-wire--pink { border-color: var(--mh-pink); box-shadow: 0 0 18px rgba(224,60,106,.35); }
+.mh-wire--teal { border-color: var(--mh-teal); box-shadow: 0 0 18px rgba(46,196,159,.35); }
+.mh-wire--amber { border-color: var(--mh-amber); box-shadow: 0 0 18px rgba(240,176,74,.35); }
+.mh-wire i { position: absolute; height: 4px; border-radius: 2px; background: #3b3c48; }
+.mh-wire--pink i:first-child { background: var(--mh-pink); } .mh-wire--teal i:first-child { background: var(--mh-teal); } .mh-wire--amber i:first-child { background: var(--mh-amber); }
+
+/* ---- Timeline helpers (used by demo) ------------------------------------------------ */
+.mh-in { animation: mh-in .4s ease-out both; }
+.mh-out { animation: mh-out .3s ease-in both; }
+@keyframes mh-in { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
+@keyframes mh-out { from { opacity: 1 } to { opacity: 0; visibility: hidden } }
+@keyframes mh-slide-up { from { transform: translateY(100%) } to { transform: none } }
+@keyframes mh-slide-left { from { transform: translateX(-100%) } to { transform: none } }
+@keyframes mh-pop { from { opacity: 0; transform: scale(.9); transform-origin: top center } to { opacity: 1; transform: none } }

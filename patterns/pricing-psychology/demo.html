@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pricing Psychology · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0b080f; --accent: #8b5cf6; --danger: #f4423e; --grid: rgba(255,255,255,.035); }
+  .scene { color: #f4f2f8; font-family: 'Space Grotesk', 'Inter', sans-serif; }
+  /* This reel's chrome: solid "Secret #N" pill at 184, 32px headline at 240, plain lesson text near 950. */
+  .kicker { top: 168px; height: 32px; padding: 0 18px; display: flex; align-items: center; font-size: 15px; letter-spacing: 0; text-transform: none; color: #fff; background: var(--accent); }
+  .kicker--orange { background: #f8a00b; color: #2a1400; } .kicker--green { background: #22c45d; color: #032a0d; }
+  .title { top: 220px; margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -.01em; }
+</style>
+</head>
+<body class="pp">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-arrow-r" viewBox="0 0 28 16"><path d="M2 8h22M18 2l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-l" viewBox="0 0 28 16"><path d="M26 8H4M10 2L4 8l6 6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></symbol>
+</svg>
+
+<!-- 1 · Hook: leaving money on the table -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="center" style="top:186px;font-size:24px;font-weight:600;white-space:nowrap;text-align:center;line-height:1.6">Your pricing cards are<br><span style="color:var(--danger)">leaving money on the table</span></div>
+  <div class="pp-card" style="position:absolute;left:130px;top:550px;width:171px;height:178px;border-radius:10px;padding:16px 13px">
+    <div class="pp-card__plan" style="font-size:12px">Pro Plan</div>
+    <div class="pp-price" style="font-size:30px;margin-top:9px;gap:5px"><span>$29</span><small style="font-size:11px">/mo</small></div>
+    <ul class="pp-features" style="margin-top:10px;font-size:11px;line-height:1.1;display:grid;gap:5px"><li>Unlimited projects</li><li>Priority support</li><li>API access</li></ul>
+    <button class="pp-btn pp-btn--outline" style="position:absolute;left:13px;right:12px;bottom:15px;height:27px;font-size:11px;font-weight:600">Get Started</button>
+  </div>
+  <span class="pp-x" style="left:287px;top:544px"><svg><use href="#i-x"/></svg></span>
+  <span class="pp-vs" style="left:349px;top:633px">VS</span>
+  <div class="pp-card is-popular" style="position:absolute;left:413px;top:516px;width:182px;height:249px;padding:22px 17px">
+    <span class="pp-badge" style="top:-10px;height:19px;padding:0 12px;font-size:9px">Most popular</span>
+    <div class="pp-card__plan" style="font-size:12px">Pro</div>
+    <div class="pp-price" style="font-size:30px;margin-top:14px;gap:6px"><s style="font-size:14px">$49</s><span>$29</span><small style="font-size:11px">/mo</small></div>
+    <span class="pp-save" style="margin-top:9px;height:19px;padding:0 8px;font-size:10px">Save 40%</span>
+    <ul class="pp-features" style="margin-top:9px;font-size:11px;line-height:1.1;display:grid;gap:6px"><li>Unlimited projects</li><li>Advanced analytics</li><li>Priority support</li><li>API access</li></ul>
+    <button class="pp-btn pp-btn--green" style="position:absolute;left:17px;right:17px;bottom:18px;height:31px;font-size:12px">Start Free Trial →</button>
+  </div>
+</section>
+
+<!-- 2 · Three secrets, annotated -->
+<section class="scene" data-t="1.5" data-shot="7.5">
+  <div class="glow" style="left:120px;top:360px;width:480px;height:560px;background:rgba(139,92,246,.10)"></div>
+  <div class="pp-card is-popular" id="heroCard" style="position:absolute;left:237px;top:475px;width:246px;height:331px;border-radius:14px;padding:30px 26px"></div>
+  <div class="pp-note pp-note--purple" style="left:92px;top:551px">Anchoring<svg><use href="#i-arrow-r"/></svg></div>
+  <div class="pp-note pp-note--orange" style="left:498px;top:459px"><svg><use href="#i-arrow-l"/></svg>Social Proof</div>
+  <div class="pp-note pp-note--green" style="left:498px;top:593px"><svg><use href="#i-arrow-l"/></svg>Loss Aversion</div>
+</section>
+
+<!-- 3 · Secret #1: anchoring bias -->
+<section class="scene" data-t="9" data-shot="15">
+  <div class="glow" style="left:150px;top:230px;width:420px;height:420px;background:rgba(139,92,246,.09)"></div>
+  <div class="kicker">Secret #1</div>
+  <h1 class="title">Anchoring Bias</h1>
+  <div class="pp-card" style="position:absolute;left:219px;top:470px;width:282px;height:120px;border-radius:14px;background:#14111c;display:flex;align-items:center;justify-content:center">
+    <div class="pp-price" style="font-size:50px;gap:12px"><s class="is-red" style="font-size:30px" id="anchorWas">$49</s><span id="anchorNow">$29</span><small style="font-size:16px">/mo</small></div>
+  </div>
+  <span class="pp-tip" style="left:477px;top:484px">Brain sees $49 first</span>
+  <div class="pp-lesson" style="top:862px">
+    <div class="pp-lesson__head"><span class="emoji">🧠</span>$29 feels like a steal</div>
+    <div class="pp-lesson__sub">Show the reference price first.<br>The brain compares automatically.</div>
+  </div>
+</section>
+
+<!-- 4 · Secret #2: social proof -->
+<section class="scene" data-t="19.5" data-shot="25.5">
+  <div class="glow" style="left:150px;top:280px;width:420px;height:420px;background:rgba(248,160,11,.08)"></div>
+  <div class="kicker kicker--orange">Secret #2</div>
+  <h1 class="title">Social Proof</h1>
+  <span class="pp-pill pp-pill--orange" style="left:284px;top:347px;height:37px;padding:0 18px;font-size:16px">↑ Safe choice ✓</span>
+  <div class="pp-card" style="position:absolute;left:164px;top:545px;width:120px;height:120px;padding:16px 14px">
+    <div class="pp-card__plan" style="font-size:13px">Basic</div>
+    <div class="pp-price" style="font-size:26px;margin-top:10px">$9</div>
+    <button class="pp-btn pp-btn--outline" style="position:absolute;left:14px;right:14px;bottom:16px;height:28px;font-size:12px;font-weight:600">Select</button>
+  </div>
+  <div class="pp-card is-popular" style="position:absolute;left:295px;top:537px;width:130px;height:140px;padding:24px 15px">
+    <span class="pp-badge" style="top:-11px;height:24px;padding:0 12px;font-size:11px">Most popular</span>
+    <div class="pp-card__plan" style="font-size:13px">Pro</div>
+    <div class="pp-price" style="font-size:26px;margin-top:10px">$29</div>
+    <button class="pp-btn pp-btn--green" style="position:absolute;left:15px;right:15px;bottom:14px;height:31px;font-size:13px">Start Trial</button>
+  </div>
+  <div class="pp-card" style="position:absolute;left:436px;top:545px;width:120px;height:120px;padding:16px 14px">
+    <div class="pp-card__plan" style="font-size:13px">Enterprise</div>
+    <div class="pp-price" style="font-size:26px;margin-top:10px">$99</div>
+    <button class="pp-btn pp-btn--outline" style="position:absolute;left:14px;right:14px;bottom:16px;height:28px;font-size:12px;font-weight:600">Select</button>
+  </div>
+  <div class="pp-avatars" style="left:180px;top:707px"><i></i><i></i><i></i><i></i><i></i><span id="proofText">+2,847 chose Pro this month</span></div>
+  <div class="pp-lesson" style="top:934px">
+    <div class="pp-lesson__head" style="font-size:21px">”If everyone picks it, it must be good.”</div>
+    <div class="pp-lesson__sub" style="font-size:17px;margin-top:16px">The badge removes decision paralysis.</div>
+  </div>
+</section>
+
+<!-- 5 · Secret #3: loss aversion -->
+<section class="scene" data-t="27" data-shot="33">
+  <div class="glow" style="left:150px;top:300px;width:420px;height:420px;background:rgba(34,196,93,.07)"></div>
+  <div class="kicker kicker--green">Secret #3</div>
+  <h1 class="title">Loss Aversion</h1>
+  <div class="pp-card" style="position:absolute;left:126px;top:558px;width:124px;height:130px;background:#14131b;text-align:center;padding:22px 0">
+    <div class="pp-card__plan" style="font-size:13px">Pro Plan</div>
+    <div class="pp-price" style="font-size:38px;margin-top:12px;justify-content:center">$29</div>
+    <div class="pp-card__plan" style="font-size:13px;margin-top:10px">/month</div>
+  </div>
+  <div style="position:absolute;left:126px;top:703px;width:124px;text-align:center;font-size:16px;color:var(--pp-muted)">Just the price</div>
+  <svg style="position:absolute;left:293px;top:633px;width:24px;height:16px;fill:none;stroke:#8b8f9a;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 28 16"><use href="#i-arrow-r"/></svg>
+  <div class="pp-card is-loss" style="position:absolute;left:359px;top:533px;width:237px;height:182px;border-radius:14px;text-align:center;padding:22px 0">
+    <span class="pp-pill pp-pill--red" style="left:36px;top:-51px;height:36px;padding:0 16px;font-size:15px">⚠️ Don't lose this!</span>
+    <div class="pp-card__plan" style="font-size:13px">Pro Plan</div>
+    <div class="pp-price" style="font-size:38px;margin-top:10px;justify-content:center;gap:10px"><s style="font-size:18px">$49</s><span>$29</span></div>
+    <div class="pp-card__plan" style="font-size:13px;margin-top:8px">/month</div>
+    <span class="pp-pill pp-pill--green" style="left:29px;right:29px;top:121px;height:43px;justify-content:center;font-size:15px" id="lossSave">💰 Save $240/year</span>
+  </div>
+  <div style="position:absolute;left:359px;top:729px;width:237px;text-align:center;font-size:16px;font-weight:600;color:var(--pp-green)">Fear of missing out</div>
+  <div class="pp-lesson" style="top:906px">
+    <div class="pp-lesson__head" style="font-size:21px;display:block;line-height:1.35;padding:0 110px">Losing $240 hurts more than saving $240 feels good.</div>
+    <div class="pp-lesson__sub" style="font-size:17px;margin-top:14px">Frame the discount as a loss they'll avoid.</div>
+  </div>
+</section>
+
+<!-- 6 · Outro -->
+<section class="scene" data-t="37.5" data-shot="40.5">
+  <i class="pp-star" style="left:227px;top:432px"></i><i class="pp-star" style="left:528px;top:487px"></i><i class="pp-star" style="left:560px;top:742px"></i><i class="pp-star" style="left:173px;top:766px"></i><i class="pp-star" style="left:260px;top:877px"></i><i class="pp-star" style="left:492px;top:895px"></i>
+  <div class="center" style="top:478px;font-size:33px;font-weight:700;letter-spacing:-.01em;white-space:nowrap;text-align:center;line-height:1.6">Design psychology.<br><span style="color:var(--accent)">Not harder work.</span></div>
+  <div class="pp-stats" style="left:182px;top:606px">
+    <div class="pp-stat pp-stat--green" style="width:94px"><b id="statConv">+30%</b><span>conversions</span></div>
+    <div class="pp-stat pp-stat--orange" style="width:92px"><b>3</b><span>simple tricks</span></div>
+    <div class="pp-stat pp-stat--purple" style="width:82px"><b>0</b><span>extra effort</span></div>
+  </div>
+  <button class="pp-btn pp-btn--purple center" style="top:713px;height:51px;padding:0 26px;font-size:16px;border-radius:10px">Follow for more UI tips &nbsp;→</button>
+  <div class="center" style="top:783px;font-size:16px;color:var(--pp-muted);white-space:nowrap">@designmotionhq</div>
+</section>
+
+<script type="module">
+  import { PricingCard, anchor, socialProof, lossFrame, countUp } from './pattern.js';
+  // The hero card is built by the component with all three secrets applied.
+  PricingCard(document.getElementById('heroCard'), { plan: 'Pro', reference: 49, price: 29, popular: true, features: ['Unlimited projects', 'Advanced analytics', 'Priority support', 'API access'], cta: 'Start Free Trial' });
+  // The copy in the secret scenes is derived from the same numbers.
+  const a = anchor(49, 29); document.getElementById('anchorWas').textContent = a.was; document.getElementById('anchorNow').textContent = a.now;
+  document.getElementById('proofText').textContent = socialProof([{ name: 'Basic', price: 9 }, { name: 'Pro', price: 29 }, { name: 'Enterprise', price: 99 }], { popular: 'Pro', count: 2847 }).proof;
+  document.getElementById('lossSave').textContent = '\u{1F4B0} ' + lossFrame(49, 29).save;
+  // Outro: +30% counts up when entered live.
+  const stat = document.getElementById('statConv');
+  stat.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t > 0) { stat.textContent = '+30%'; return; } countUp(stat, 30, { prefix: '+', suffix: '%' }); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

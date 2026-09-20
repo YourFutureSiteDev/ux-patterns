@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Landing Page Skeleton · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #060c11; --accent: #2fd9a0; --danger: #ec4b7d; --grid: transparent; }
+  .scene { background-image: none; }
+  .glow { width: 720px; height: 720px; filter: blur(120px); }
+  .glow--teal { background: rgba(47,217,160,.09); } .glow--pink { background: rgba(236,75,125,.10); } .glow--amber { background: rgba(240,180,41,.06); }
+</style>
+</head>
+<body class="lp">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-dollar" viewBox="0 0 24 24"><path d="M12 3v18M17 7.5c0-2-2.2-3-5-3s-5 1-5 3 2.2 3 5 3 5 1 5 3-2.2 3-5 3-5-1-5-3"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-4 1-6 1-9z"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-desk" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></symbol>
+  <symbol id="i-user-plus" viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M2 21a8 8 0 0 1 14-4M19 8v6M16 11h6"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></symbol>
+  <symbol id="i-check-c" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></symbol>
+  <symbol id="i-x-c" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+</svg>
+
+<!-- 1 · Hook -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow glow--teal" style="left:0;top:300px"></div>
+  <h1 class="lp-h" style="top:92px;font-size:36px;line-height:44px"><em class="pink">Broken</em> LP?<br><em style="background:linear-gradient(90deg,#2fd9a0,#62c4de);-webkit-background-clip:text;background-clip:text;color:transparent">The 5-section fix.</em></h1>
+  <div class="lp-phone"><div class="lp-phone__row" style="height:182px"><i>1</i></div><div class="lp-phone__row" style="height:110px"><i>2</i></div><div class="lp-phone__row" style="height:110px"><i>3</i></div><div class="lp-phone__row" style="height:166px"><i>4</i></div><div class="lp-phone__row" style="height:160px"><i>5</i></div></div>
+</section>
+
+<!-- 2 · Hero: 3 seconds, 3 things -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="glow glow--teal" style="left:0;top:100px"></div>
+  <div class="lp-kicker"><i>1</i>Hero</div>
+  <h1 class="lp-h"><em>3 seconds</em><br>to answer 3 things</h1>
+  <div class="lp-qs"><div class="lp-q"><b>WHAT</b><span>do you offer?</span></div><div class="lp-q"><b>WHO</b><span>is it for?</span></div><div class="lp-q"><b>WHY</b><span>should I care?</span></div></div>
+</section>
+
+<!-- 3 · Hero anatomy, mobile -->
+<section class="scene" data-t="6" data-shot="7.5">
+  <div class="glow glow--teal" style="left:0;top:100px"></div>
+  <div class="lp-kicker"><i>1</i>Hero</div>
+  <h1 class="lp-h"><em>3 seconds</em><br>to answer 3 things</h1>
+  <div class="lp-qs"><div class="lp-q"><b>WHAT</b><span>do you offer?</span></div><div class="lp-q"><b>WHO</b><span>is it for?</span></div><div class="lp-q"><b>WHY</b><span>should I care?</span></div></div>
+  <div class="lp-label" style="left:40px;top:475px">Hero anatomy</div>
+  <div class="lp-toggle" style="left:520px;top:469px"><button class="is-on" data-layout="mobile"><svg><use href="#i-phone"/></svg>Mobile</button><button data-layout="desktop"><svg><use href="#i-desk"/></svg>Desktop</button></div>
+  <div class="lp-hero" data-hero="mobile"></div>
+</section>
+
+<!-- 4 · Hero anatomy, desktop -->
+<section class="scene" data-t="10.5" data-shot="12">
+  <div class="glow glow--teal" style="left:0;top:100px"></div>
+  <div class="lp-kicker"><i>1</i>Hero</div>
+  <h1 class="lp-h"><em>3 seconds</em><br>to answer 3 things</h1>
+  <div class="lp-qs"><div class="lp-q"><b>WHAT</b><span>do you offer?</span></div><div class="lp-q"><b>WHO</b><span>is it for?</span></div><div class="lp-q"><b>WHY</b><span>should I care?</span></div></div>
+  <div class="lp-label" style="left:40px;top:475px">Hero anatomy</div>
+  <div class="lp-toggle" style="left:520px;top:469px"><button data-layout="mobile"><svg><use href="#i-phone"/></svg>Mobile</button><button class="is-on" data-layout="desktop"><svg><use href="#i-desk"/></svg>Desktop</button></div>
+  <div class="lp-hero" data-hero="desktop"></div>
+</section>
+
+<!-- 5 · Proof: logos -->
+<section class="scene" data-t="15" data-shot="18">
+  <div class="glow glow--amber" style="left:0;top:200px"></div>
+  <div class="lp-kicker"><i>2</i>Proof</div>
+  <h1 class="lp-h">Right after the hero.<br><em class="pink">Not at the bottom.</em></h1>
+  <div class="lp-logos" style="top:335px"><small>Trusted by teams at</small><div><span>LUMEN</span><span>VERTEX</span><span>NORTH<small style="font-size:10px;vertical-align:1px">✦</small></span><span>ACME</span><span>FLOW</span></div></div>
+</section>
+
+<!-- 6 · Proof: testimonial, metric, do / not this -->
+<section class="scene" data-t="19.5" data-shot="22.5">
+  <div class="glow glow--amber" style="left:0;top:200px"></div>
+  <div class="lp-kicker"><i>2</i>Proof</div>
+  <h1 class="lp-h">Right after the hero.<br><em class="pink">Not at the bottom.</em></h1>
+  <div class="lp-logos" style="top:335px"><small>Trusted by teams at</small><div><span>LUMEN</span><span>VERTEX</span><span>NORTH<small style="font-size:10px;vertical-align:1px">✦</small></span><span>ACME</span><span>FLOW</span></div></div>
+  <div class="lp-quote" style="top:420px"><span class="lp-quote__av">SM</span><div><div class="lp-quote__stars">★★★★★</div><b>“Cut our launch time in half.”</b><small>Sarah M. · Head of Growth @ Vertex</small></div></div>
+  <div class="lp-metric" style="top:517px">Teams shipping with us<b id="metric">2,847</b><svg><use href="#i-up"/></svg></div>
+  <div class="lp-dont lp-dont--do" style="left:40px;top:1018px"><small><svg><use href="#i-check-c"/></svg>Do this</small><i></i><i class="is-hi"></i><i></i><i></i></div>
+  <div class="lp-dont lp-dont--not" style="left:366px;top:1018px"><small><svg><use href="#i-x-c"/></svg>Not this</small><i></i><i></i><i></i><i class="is-hi"></i></div>
+</section>
+
+<!-- 7 · Problem: agitate the pain -->
+<section class="scene" data-t="27" data-shot="28.5">
+  <div class="glow glow--pink" style="left:0;top:150px"></div>
+  <div class="lp-kicker"><i>3</i>Problem</div>
+  <h1 class="lp-h">Agitate the pain<br><em class="pink">before the cure.</em></h1>
+  <div class="lp-pains" data-pains></div>
+</section>
+
+<!-- 8 · Problem: no pain felt, no care given -->
+<section class="scene" data-t="30" data-shot="31.5">
+  <div class="glow glow--pink" style="left:0;top:150px"></div>
+  <div class="lp-kicker"><i>3</i>Problem</div>
+  <h1 class="lp-h">Agitate the pain<br><em class="pink">before the cure.</em></h1>
+  <div class="lp-pains" data-pains></div>
+  <div class="lp-nopain"><span>No pain felt</span><em>→</em><span>No care given</span></div>
+</section>
+
+<!-- 9 · Solution: features (the wrong way) -->
+<section class="scene" data-t="33" data-shot="34.5">
+  <div class="glow glow--teal" style="left:0;top:500px"></div>
+  <div class="lp-kicker"><i>4</i>Solution</div>
+  <h1 class="lp-h">Outcomes,<br><em>not features.</em></h1>
+  <div class="lp-benefits" data-benefits="features"></div>
+</section>
+
+<!-- 10 · Solution: outcomes, rule of 3 -->
+<section class="scene" data-t="37.5" data-shot="39">
+  <div class="glow glow--teal" style="left:0;top:500px"></div>
+  <div class="lp-kicker"><i>4</i>Solution</div>
+  <h1 class="lp-h">Outcomes,<br><em>not features.</em></h1>
+  <div class="lp-benefits" data-benefits="outcomes"></div>
+  <div class="lp-bar lp-bar--teal" style="top:1070px">Rule of 3 · Max 3 benefits · No more</div>
+</section>
+
+<!-- 11 · Final CTA: the page skeleton -->
+<section class="scene" data-t="40.5" data-shot="40.5">
+  <div class="glow glow--teal" style="left:0;top:500px;opacity:.6"></div>
+  <div class="lp-kicker"><i>5</i>Final CTA</div>
+  <div class="lp-win"><div class="lp-win__bar"><i></i><i></i><i></i></div>
+    <div class="lp-win__hero"><div class="lp-win__lab">Hero</div><h2 class="lp-win__h">Ship landing pages<br>in minutes.</h2></div>
+    <div class="lp-win__mid">Proof · logos · ratings<br>Problem · pain points<br>Solution · benefits</div>
+    <div class="lp-win__cta"><div class="lp-win__lab">Final CTA</div><b>Ready to ship?</b></div></div>
+</section>
+
+<!-- 12 · Same button. Top and bottom. -->
+<section class="scene" data-t="43.5" data-shot="45">
+  <div class="glow glow--teal" style="left:0;top:500px;opacity:.6"></div>
+  <div class="lp-kicker"><i>5</i>Final CTA</div>
+  <h1 class="lp-h"><em>Same</em> button.<br>Top and bottom.</h1>
+  <div class="lp-win"><div class="lp-win__bar"><i></i><i></i><i></i></div>
+    <div class="lp-win__hero"><div class="lp-win__lab">Hero</div><h2 class="lp-win__h">Ship landing pages<br>in minutes.</h2><button class="lp-btn" style="top:106px">Start free →</button></div>
+    <div class="lp-win__mid">Proof · logos · ratings<br>Problem · pain points<br>Solution · benefits</div>
+    <div class="lp-win__cta"><div class="lp-win__lab">Final CTA</div><b>Ready to ship?</b><button class="lp-btn" style="top:68px">Start free →</button></div>
+    <div class="lp-win__link"><i><svg><use href="#i-link"/></svg></i></div></div>
+</section>
+
+<!-- 13 · Repetition isn't lazy -->
+<section class="scene" data-t="46.5" data-shot="46.5">
+  <div class="glow glow--teal" style="left:0;top:500px;opacity:.6"></div>
+  <div class="lp-kicker"><i>5</i>Final CTA</div>
+  <h1 class="lp-h"><em>Same</em> button.<br>Top and bottom.</h1>
+  <div class="lp-win"><div class="lp-win__bar"><i></i><i></i><i></i></div>
+    <div class="lp-win__hero"><div class="lp-win__lab">Hero</div><h2 class="lp-win__h">Ship landing pages<br>in minutes.</h2><button class="lp-btn" style="top:106px">Start free →</button></div>
+    <div class="lp-win__mid">Proof · logos · ratings<br>Problem · pain points<br>Solution · benefits</div>
+    <div class="lp-win__cta"><div class="lp-win__lab">Final CTA</div><b>Ready to ship?</b><button class="lp-btn" style="top:68px">Start free →</button></div>
+    <div class="lp-win__link"><i><svg><use href="#i-link"/></svg></i></div></div>
+  <div class="lp-bar lp-bar--teal" style="top:1143px">Repetition isn't lazy. <em>It's conversion.</em></div>
+</section>
+
+<!-- 14 · Outro -->
+<section class="scene" data-t="49.5" data-shot="51">
+  <div class="glow glow--teal" style="left:0;top:280px"></div>
+  <div class="lp-avatar">dm</div>
+  <div class="lp-handle">@designmotionhq</div>
+  <a class="lp-follow" href="#"><svg><use href="#i-user-plus"/></svg>Follow for more</a>
+  <a class="lp-save" href="#"><svg><use href="#i-bookmark"/></svg>Save for your next LP</a>
+</section>
+
+<script type="module">
+  import { renderHero, renderPains, renderBenefits, lintSkeleton, countUp, LayoutToggle } from './pattern.js';
+  const HERO = { headline: 'Ship landing pages\nin minutes.', subhead: 'For devs who ship. 2,800+ teams trust us.', cta: 'Start free →' };
+  for (const el of document.querySelectorAll('[data-hero]')) { renderHero(el, HERO, { layout: el.dataset.hero }); const t = el.closest('.scene').querySelector('.lp-toggle'); LayoutToggle(t, layout => renderHero(el, HERO, { layout })); }
+  const ico = id => `<svg><use href="#${id}"/></svg>`;
+  for (const el of document.querySelectorAll('[data-pains]')) renderPains(el, [
+    { value: '3', unit: 'weeks', label: 'to ship a homepage', tone: 'pink', icon: ico('i-clock') },
+    { value: '8,400', unit: '$', label: 'freelancer invoice', tone: 'amber', icon: ico('i-dollar') },
+    { value: '12', unit: 'rounds', label: 'of design revisions', tone: 'red', icon: ico('i-flame') },
+  ]);
+  const FEATURES = [{ label: 'Advanced automation', icon: ico('i-clock') }, { label: 'AI-driven personalization', icon: ico('i-trend') }, { label: 'Enterprise-grade tooling', icon: ico('i-bolt') }];
+  const OUTCOMES = [{ label: 'Save 10 hours a week', icon: ico('i-clock') }, { label: '2x your conversion rate', icon: ico('i-trend') }, { label: 'Ship in a single day', icon: ico('i-bolt') }];
+  for (const el of document.querySelectorAll('[data-benefits]')) renderBenefits(el, el.dataset.benefits === 'outcomes' ? OUTCOMES : FEATURES, { outcomes: el.dataset.benefits === 'outcomes' });
+  // the metric counts up when its scene is entered live; frozen shots keep the final number
+  const m = document.getElementById('metric'); m.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t === 0) countUp(m, 2847); });
+  // the lint run on the reel's own page passes; the "features" variant does not
+  console.assert(lintSkeleton({ hero: HERO, proof: { logos: ['LUMEN', 'VERTEX', 'NORTH', 'ACME', 'FLOW'] }, problem: [1, 2, 3], solution: OUTCOMES, cta: { label: HERO.cta } }).length === 0);
+  console.assert(lintSkeleton({ hero: HERO, proof: { logos: ['LUMEN', 'VERTEX', 'NORTH', 'ACME', 'FLOW'] }, problem: [1], solution: FEATURES, cta: { label: HERO.cta } }).length === 3);
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

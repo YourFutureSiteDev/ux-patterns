@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Behind the Button · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0b0f12; --accent: #2fd6bd; --danger: #e05a6b; --grid: rgba(255,255,255,.03); }
+  .scene { color: #eaeff2; }
+  .title { top: 186px; margin: 0; font-size: 36px; line-height: 42px; font-weight: 800; letter-spacing: -.015em; }
+  .bb-steps { position: absolute; left: 48px; top: 963px; }
+</style>
+</head>
+<body class="bb">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+  <symbol id="i-browser" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01"/></symbol>
+  <symbol id="i-off" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M6 6l12 12"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 5l3 3M14 7l3 3"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 12l9-5M12 12v10M12 12L3 7"/></symbol>
+  <symbol id="i-calc" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8M8 11h2M12 11h2M16 11h.01M8 15h2M12 15h2M16 15v3"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="i-ok" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2 6h12v10H2zM14 10h4l3 3v3h-7z"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8 3.4 4.5 7 4.5c2 0 3.4 1 5 2.8 1.6-1.8 3-2.8 5-2.8 3.6 0 6 3.5 4.5 7.3C19.5 16.4 12 21 12 21z"/></symbol>
+  <symbol id="i-comment" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-8 8H8l-5 3 1-5A8 8 0 1 1 21 12z"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.6M8.2 13.2l7.6 4.6"/></symbol>
+  <symbol id="i-lamp" viewBox="0 0 24 24"><path d="M8 3h8l3 9H5zM12 12v6M8 21h8"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-follow" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M19 8v6M16 11h6"/></symbol>
+  <symbol id="i-cursor" viewBox="0 0 24 24"><path d="M4 4l16 6-7 2-3 7z"/><path d="M4 4l2-2M14 2l1 3M2 14l3-1"/></symbol>
+</svg>
+
+<!-- 1 · Hook -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="center" style="top:143px;font-size:30px;font-weight:600;color:#8b939c;white-space:nowrap">You click Buy.</div>
+  <h1 class="title" style="top:184px">Six things happen before the<br>spinner stops.</h1>
+  <div class="glow" style="left:120px;top:480px;width:480px;height:480px;background:rgba(47,214,189,.1)"></div>
+  <div class="bb-beam" style="left:355px;top:480px;animation-delay:-.82s"></div>
+  <svg class="bb-graph" id="hookGraph" style="left:0;top:0" width="720" height="900" viewBox="0 0 720 900">
+    <line x1="202" y1="591" x2="324" y2="591"/><line x1="396" y1="591" x2="517" y2="591"/><line x1="553" y1="627" x2="553" y2="731"/><line x1="517" y1="767" x2="396" y2="767"/><line x1="324" y1="767" x2="202" y2="767"/><line x1="166" y1="731" x2="166" y2="627"/>
+    <g><circle class="node" cx="166" cy="591" r="36"/><text class="num" x="166" y="600">1</text><text class="lab" x="166" y="646">validate</text></g>
+    <g><circle class="node" cx="360" cy="591" r="36"/><text class="num" x="360" y="600">2</text><text class="lab" x="360" y="646">request</text></g>
+    <g><circle class="node" cx="553" cy="591" r="36"/><text class="num" x="553" y="600">3</text><text class="lab" x="553" y="646">server</text></g>
+    <g><circle class="node" cx="553" cy="767" r="36"/><text class="num" x="553" y="776">4</text><text class="lab" x="553" y="822">logic</text></g>
+    <g><circle class="node is-hot" cx="360" cy="767" r="42"/><text class="num" x="360" y="776">5</text><text class="lab" x="360" y="832">write</text></g>
+    <g><circle class="node" cx="166" cy="767" r="36"/><text class="num" x="166" y="776">6</text><text class="lab" x="166" y="822">respond</text></g>
+  </svg>
+  <div class="bb-steps"><div class="bb-step"><i>1</i>validate</div><div class="bb-step"><i>2</i>request</div><div class="bb-step"><i>3</i>server</div><div class="bb-step"><i>4</i>logic</div><div class="bb-step"><i>5</i>write</div><div class="bb-step"><i>6</i>respond</div></div>
+</section>
+
+<!-- 2 · Steps 1-2, the request: client validates -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="bb-kicker" style="top:143px">Steps 1-2 · The request</div>
+  <h1 class="title">Validate. Then ship it.</h1>
+  <div class="bb-win" style="position:absolute;left:68px;top:268px;width:584px;height:283px">
+    <div class="bb-win__bar"><div class="bb-win__dots"><i></i><i></i><i></i></div><div class="bb-win__url">lumen.shop/checkout</div><div class="bb-win__badge" style="opacity:.25"><svg><use href="#i-off"/></svg>0 network calls</div></div>
+    <div class="bb-field" data-field="email"><svg><use href="#i-mail"/></svg><div><small>Email</small><b>sarah@acme.co</b></div><span class="bb-ok"></span></div>
+    <div class="bb-field" data-field="card"><svg><use href="#i-card"/></svg><div><small>Card number</small><b>4242 4242 4242 4242</b></div><span class="bb-ok"></span></div>
+    <div class="bb-field" data-field="zip"><svg><use href="#i-globe"/></svg><div><small>Billing zip</small><b>94107</b></div><span class="bb-ok"></span></div>
+  </div>
+  <div class="bb-net" style="left:48px;top:714px">Network</div>
+  <div class="bb-chip" style="position:absolute;left:48px;top:740px"><svg><use href="#i-browser"/></svg>browser</div>
+  <div class="bb-chip" style="position:absolute;left:513px;top:740px"><svg><use href="#i-server"/></svg>api.lumen.shop</div>
+  <div class="bb-wire" style="left:48px;top:835px;width:625px"></div>
+  <div class="bb-steps"><div class="bb-step is-on"><i>1</i>validate</div><div class="bb-step"><i>2</i>request</div><div class="bb-step"><i>3</i>server</div><div class="bb-step"><i>4</i>logic</div><div class="bb-step"><i>5</i>write</div><div class="bb-step"><i>6</i>respond</div></div>
+</section>
+
+<!-- 2b · Steps 1-2: instant feedback, then the POST flies -->
+<section class="scene" data-t="9" data-shot="10.5">
+  <div class="bb-kicker" style="top:143px">Steps 1-2 · The request</div>
+  <h1 class="title">Validate. Then ship it.</h1>
+  <div class="bb-win" style="position:absolute;left:68px;top:268px;width:584px;height:283px">
+    <div class="bb-win__bar"><div class="bb-win__dots"><i></i><i></i><i></i></div><div class="bb-win__url">lumen.shop/checkout</div><div class="bb-win__badge"><svg><use href="#i-off"/></svg>0 network calls</div></div>
+    <div class="bb-field"><svg><use href="#i-mail"/></svg><div><small>Email</small><b>sarah@acme.co</b></div><span class="bb-ok"></span></div>
+    <div class="bb-field"><svg><use href="#i-card"/></svg><div><small>Card number</small><b>4242 4242 4242 4242</b></div><span class="bb-ok"></span></div>
+    <div class="bb-field"><svg><use href="#i-globe"/></svg><div><small>Billing zip</small><b>94107</b></div><span class="bb-ok"></span></div>
+  </div>
+  <div class="bb-pill center" style="top:636px"><svg><use href="#i-bolt"/></svg>instant feedback · a frontend job</div>
+  <div class="bb-net" style="left:48px;top:714px">Network</div>
+  <div class="bb-chip" style="position:absolute;left:48px;top:740px"><svg><use href="#i-browser"/></svg>browser</div>
+  <div class="bb-chip" style="position:absolute;left:513px;top:740px"><svg><use href="#i-server"/></svg>api.lumen.shop</div>
+  <div class="bb-wire is-on" style="left:48px;top:835px;width:625px"></div>
+  <div class="bb-packet is-travel" style="left:288px;top:712px;animation-delay:-.9s">
+    <div class="bb-packet__bar"><em>POST</em>/api/orders</div>
+    <div class="bb-packet__body">{
+  <em>"items"</em>: 1,
+  <em>"total"</em>: 89.00
+}</div>
+    <div class="bb-packet__token"><svg style="width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2"><use href="#i-key"/></svg>Bearer ey•••</div>
+  </div>
+  <div class="bb-steps"><div class="bb-step is-on"><i>1</i>validate</div><div class="bb-step is-on"><i>2</i>request</div><div class="bb-step"><i>3</i>server</div><div class="bb-step"><i>4</i>logic</div><div class="bb-step"><i>5</i>write</div><div class="bb-step"><i>6</i>respond</div></div>
+</section>
+
+<!-- 3 · Steps 3-4, backend: never trust the client -->
+<section class="scene" data-t="15" data-shot="19.5">
+  <div class="bb-kicker" style="top:143px">Steps 3-4 · Backend</div>
+  <h1 class="title">Never trust the client.</h1>
+  <div class="bb-server" style="position:absolute;left:68px;top:268px;width:584px;box-shadow:0 0 0 1px rgba(224,90,107,.25),0 30px 60px rgba(0,0,0,.4)">
+    <div class="bb-server__head"><div class="bb-server__icon"><svg><use href="#i-server"/></svg></div><div><b>api.lumen.shop</b><small>POST /api/orders · re-validating</small></div><div class="bb-server__lights"><i></i><i></i><i class="is-on"></i></div></div>
+    <div class="bb-check"><svg><use href="#i-shield"/></svg><b>schema + types</b><span class="bb-check__desc">payload matches contract</span><span class="bb-ok"></span></div>
+    <div class="bb-check"><svg><use href="#i-shield"/></svg><b>token verified</b><span class="bb-check__desc">signature checked server-side</span><span class="bb-ok"></span></div>
+    <div class="bb-check"><svg><use href="#i-shield"/></svg><b>total re-computed</b><span class="bb-check__desc">$89.00 · from the catalog, not the client</span><span class="bb-ok"></span></div>
+  </div>
+  <div class="bb-packet bb-packet--forged" style="left:-40px;top:392px;width:222px">
+    <div class="bb-packet__bar" style="color:#d3d9dd"><span class="red">curl --data</span></div>
+    <div class="bb-packet__body"><span class="red">{
+  "items": 1,
+  "total": 0.01
+}</span></div>
+  </div>
+  <div class="bb-pill bb-pill--red bb-pill--mono" style="position:absolute;left:94px;top:538px"><svg><use href="#i-off"/></svg>403 rejected</div>
+  <div class="bb-logic is-dim" style="position:absolute;left:68px;top:615px"><div class="bb-logic__icon"><svg><use href="#i-box"/></svg></div><div class="bb-logic__text"><b>Stock check</b><span>aurora-lamp · 4 in stock</span></div><span class="bb-ok"></span><i class="bb-logic__bar"></i></div>
+  <div class="bb-logic is-dim" style="position:absolute;left:68px;top:703px"><div class="bb-logic__icon"><svg><use href="#i-calc"/></svg></div><div class="bb-logic__text"><b>Price check</b><span>$89.00 · matches catalog</span></div><span class="bb-ok"></span><i class="bb-logic__bar"></i></div>
+  <div class="bb-logic is-dim" style="position:absolute;left:68px;top:792px"><div class="bb-logic__icon"><svg><use href="#i-card"/></svg></div><div class="bb-logic__text"><b>Payment charge</b><span>$89.00 · gateway approved</span></div><span class="bb-ok"></span><i class="bb-logic__bar"></i></div>
+  <div class="bb-steps"><div class="bb-step is-on"><i>1</i>validate</div><div class="bb-step is-on"><i>2</i>request</div><div class="bb-step is-on"><i>3</i>server</div><div class="bb-step"><i>4</i>logic</div><div class="bb-step"><i>5</i>write</div><div class="bb-step"><i>6</i>respond</div></div>
+</section>
+
+<!-- 3b · Step 4, business logic runs -->
+<section class="scene" data-t="24" data-shot="27">
+  <div class="bb-kicker" style="top:143px">Steps 3-4 · Backend</div>
+  <h1 class="title">Never trust the client.</h1>
+  <div class="bb-server" style="position:absolute;left:68px;top:268px;width:584px">
+    <div class="bb-server__head"><div class="bb-server__icon"><svg><use href="#i-server"/></svg></div><div><b>api.lumen.shop</b><small>POST /api/orders · re-validating</small></div><div class="bb-server__lights"><i class="is-on"></i><i></i><i></i></div></div>
+    <div class="bb-check"><svg><use href="#i-shield"/></svg><b>schema + types</b><span class="bb-check__desc">payload matches contract</span><span class="bb-ok"></span></div>
+    <div class="bb-check"><svg><use href="#i-shield"/></svg><b>token verified</b><span class="bb-check__desc">signature checked server-side</span><span class="bb-ok"></span></div>
+    <div class="bb-check"><svg><use href="#i-shield"/></svg><b>total re-computed</b><span class="bb-check__desc">$89.00 · from the catalog, not the client</span><span class="bb-ok"></span></div>
+  </div>
+  <div class="bb-logic is-done" style="position:absolute;left:68px;top:615px"><div class="bb-logic__icon"><svg><use href="#i-box"/></svg></div><div class="bb-logic__text"><b>Stock check</b><span>aurora-lamp · 4 in stock</span></div><span class="bb-ok"></span><i class="bb-logic__bar"></i></div>
+  <div class="bb-logic is-done" style="position:absolute;left:68px;top:703px"><div class="bb-logic__icon"><svg><use href="#i-calc"/></svg></div><div class="bb-logic__text"><b>Price check</b><span>$89.00 · matches catalog</span></div><span class="bb-ok"></span><i class="bb-logic__bar"></i></div>
+  <div class="bb-logic is-done" style="position:absolute;left:68px;top:792px"><div class="bb-logic__icon"><svg><use href="#i-card"/></svg></div><div class="bb-logic__text"><b>Payment charge</b><span>$89.00 · gateway approved</span></div><span class="bb-ok"></span><i class="bb-logic__bar"></i></div>
+  <div class="bb-steps"><div class="bb-step is-on"><i>1</i>validate</div><div class="bb-step is-on"><i>2</i>request</div><div class="bb-step is-on"><i>3</i>server</div><div class="bb-step is-on"><i>4</i>logic</div><div class="bb-step"><i>5</i>write</div><div class="bb-step"><i>6</i>respond</div></div>
+</section>
+
+<!-- 4 · Step 5, database: all of it, or none of it -->
+<section class="scene" data-t="30" data-shot="34.5">
+  <div class="bb-kicker" style="top:143px">Step 5 · Database</div>
+  <h1 class="title">All of it, or none of it.</h1>
+  <div class="bb-db" style="left:254px;top:268px"><div class="bb-db__top"><svg><use href="#i-db"/></svg>orders_db</div></div>
+  <div class="bb-vwire" style="left:359px;top:425px;height:75px"></div>
+  <div class="bb-tx" style="left:68px;top:512px">
+    <div class="bb-tx__label">TRANSACTION</div>
+    <div class="bb-row"><b>INSERT orders</b><span>#4127</span><span class="bb-ok" style="flex:none"></span></div>
+    <div class="bb-row"><b>INSERT order_items</b><span>1 × aurora-lamp</span><span class="bb-ok" style="flex:none"></span></div>
+    <div class="bb-row"><b>UPDATE inventory</b><span>4 → 3</span><span class="bb-ok" style="flex:none"></span></div>
+    <div class="bb-row"><b>INSERT payments</b><span>$89.00 charged</span><span class="bb-ok" style="flex:none"></span></div>
+    <div class="bb-tx__status">writing rows…<div class="bb-pill bb-pill--mono" style="height:30px"><span class="bb-ok" style="width:14px;height:14px"></span>COMMIT — atomicity</div></div>
+  </div>
+  <div class="bb-steps"><div class="bb-step is-on"><i>1</i>validate</div><div class="bb-step is-on"><i>2</i>request</div><div class="bb-step is-on"><i>3</i>server</div><div class="bb-step is-on"><i>4</i>logic</div><div class="bb-step is-on"><i>5</i>write</div><div class="bb-step"><i>6</i>respond</div></div>
+</section>
+
+<!-- 5 · Step 6, response: processing -->
+<section class="scene" data-t="39" data-shot="40.5">
+  <div class="bb-kicker" style="top:143px">Step 6 · Response</div>
+  <h1 class="title">Server truth comes back.</h1>
+  <div class="bb-chip is-on" style="position:absolute;left:48px;top:269px"><svg><use href="#i-browser"/></svg>browser</div>
+  <div class="bb-chip" style="position:absolute;left:513px;top:269px"><svg><use href="#i-server"/></svg>api.lumen.shop</div>
+  <div class="bb-wire is-on" style="left:48px;top:375px;width:625px"></div>
+  <div class="bb-resp" style="left:86px;top:313px"><div class="bb-resp__bar"><span class="bb-ok"></span>200 OK</div><div class="bb-resp__body">{
+  <em>"order_id"</em>: "#4127",
+  <em>"status"</em>: "confirmed"
+}</div></div>
+  <div class="bb-win" style="position:absolute;left:95px;top:485px;width:530px;height:393px;opacity:.85">
+    <div class="bb-win__bar" style="padding:0 17px"><div class="bb-win__dots"><i></i><i></i><i></i></div><div class="bb-win__url">lumen.shop/checkout</div></div>
+    <div class="bb-spin" style="position:absolute;left:237px;top:75px"></div>
+    <div style="position:absolute;left:0;right:0;top:152px;text-align:center;font-size:18px;font-weight:500;color:#aab2b8">Processing payment...</div>
+    <div class="bb-idpill is-dim" style="position:absolute;left:180px;top:190px;height:30px;font-size:14px;letter-spacing:.1em">Order ID <b style="color:#3a444c">· · · ·</b></div>
+  </div>
+  <div class="bb-steps"><div class="bb-step is-on"><i>1</i>validate</div><div class="bb-step is-on"><i>2</i>request</div><div class="bb-step is-on"><i>3</i>server</div><div class="bb-step is-on"><i>4</i>logic</div><div class="bb-step is-on"><i>5</i>write</div><div class="bb-step is-on"><i>6</i>respond</div></div>
+</section>
+
+<!-- 5b · Step 6: order confirmed with the server's ID -->
+<section class="scene" data-t="42" data-shot="43.5">
+  <div class="bb-kicker" style="top:143px">Step 6 · Response</div>
+  <h1 class="title">Server truth comes back.</h1>
+  <div class="bb-chip is-on" style="position:absolute;left:48px;top:269px"><svg><use href="#i-browser"/></svg>browser</div>
+  <div class="bb-chip" style="position:absolute;left:513px;top:269px"><svg><use href="#i-server"/></svg>api.lumen.shop</div>
+  <div class="bb-wire is-on" style="left:48px;top:375px;width:625px"></div>
+  <div class="bb-resp" style="left:86px;top:313px"><div class="bb-resp__bar"><span class="bb-ok"></span>200 OK</div><div class="bb-resp__body">{
+  <em>"order_id"</em>: "#4127",
+  <em>"status"</em>: "confirmed"
+}</div></div>
+  <div class="bb-win" style="position:absolute;left:95px;top:485px;width:530px;height:393px">
+    <div class="bb-win__bar" style="padding:0 17px"><div class="bb-win__dots"><i></i><i></i><i></i></div><div class="bb-win__url">lumen.shop/checkout</div></div>
+    <div class="bb-bigok" style="position:absolute;left:233px;top:71px"><svg><use href="#i-ok"/></svg></div>
+    <div style="position:absolute;left:0;right:0;top:152px;text-align:center;font-size:24px;font-weight:800;letter-spacing:-.01em">Order confirmed</div>
+    <div class="bb-idpill" style="position:absolute;left:187px;top:196px">Order ID <b>#4127</b></div>
+    <div class="bb-line" style="position:absolute;left:21px;top:250px;width:488px"><svg><use href="#i-mail"/></svg>Receipt sent to <b>sarah@acme.co</b></div>
+    <div class="bb-line" style="position:absolute;left:21px;top:294px;width:488px"><svg><use href="#i-truck"/></svg>Aurora Desk Lamp · arrives <b>Jul 28</b></div>
+    <div class="bb-pill" style="position:absolute;left:145px;top:342px;height:34px;font-size:16px">server truth — not a guess</div>
+  </div>
+  <div class="bb-steps"><div class="bb-step is-on"><i>1</i>validate</div><div class="bb-step is-on"><i>2</i>request</div><div class="bb-step is-on"><i>3</i>server</div><div class="bb-step is-on"><i>4</i>logic</div><div class="bb-step is-on"><i>5</i>write</div><div class="bb-step is-on"><i>6</i>respond</div></div>
+</section>
+
+<!-- 6 · The twist: at rest -->
+<section class="scene" data-t="45" data-shot="46.5">
+  <div class="bb-kicker" style="top:143px">The twist · Optimistic UI</div>
+  <h1 class="title">Fast apps cheat.</h1>
+  <div class="bb-card" style="left:42px;top:288px">
+    <div class="bb-card__tag bb-card__tag--teal">Optimistic · A like</div>
+    <div class="bb-card__inner">
+      <div class="bb-post__head"><div class="bb-post__avatar">AR</div><div><b>Alex Rivera</b><small>2h ago</small></div></div>
+      <div class="bb-post__text">Shipped the new checkout flow tonight.<br>Six steps, one click.</div>
+      <div class="bb-post__img"></div>
+      <div class="bb-post__actions"><button class="bb-like" aria-label="Like"><svg><use href="#i-heart"/></svg></button><span class="bb-post__count">128</span><svg class="ic"><use href="#i-comment"/></svg>12<svg class="ic"><use href="#i-share"/></svg></div>
+    </div>
+    <div class="bb-card__foot"><div class="bb-rest">at rest</div></div>
+  </div>
+  <div class="bb-card" style="left:373px;top:288px">
+    <div class="bb-card__tag bb-card__tag--grey">Your payment · Waits</div>
+    <div class="bb-card__inner" style="background:none;padding:0;top:58px">
+      <div class="bb-pay__prod"><div class="bb-pay__icon"><svg><use href="#i-lamp"/></svg></div><div><b>Aurora Desk<br>Lamp</b><small>Warm white · matte<br>black</small></div><span class="bb-pay__price">$89.00</span></div>
+      <div class="bb-pay__row">Quantity<span class="bb-qty"><i>−</i>1<i>+</i></span></div>
+      <div class="bb-pay__row is-total">Total<b>$89.00</b></div>
+      <button class="bb-buy"><svg><use href="#i-lock"/></svg>Buy now · $89.00</button>
+    </div>
+    <div class="bb-card__foot"><div class="bb-rest">at rest</div></div>
+  </div>
+  <svg class="cursor" style="left:66px;top:556px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <svg class="cursor" style="left:522px;top:536px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="bb-bars" style="left:90px;top:733px">
+    <div class="bb-bar"><label>like repaint</label><i style="--p:0"></i><b>instant</b></div>
+    <div class="bb-bar"><label>payment confirm</label><i style="--p:0"></i><b>…</b></div>
+  </div>
+  <div class="bb-steps"><div class="bb-step is-on"><i>1</i>validate</div><div class="bb-step is-on"><i>2</i>request</div><div class="bb-step is-on"><i>3</i>server</div><div class="bb-step is-on"><i>4</i>logic</div><div class="bb-step is-on"><i>5</i>write</div><div class="bb-step is-on"><i>6</i>respond</div></div>
+</section>
+
+<!-- 6b · The twist: like repainted, payment waits -->
+<section class="scene" data-t="48" data-shot="51">
+  <div class="bb-kicker" style="top:143px">The twist · Optimistic UI</div>
+  <h1 class="title">Fast apps cheat.</h1>
+  <div class="bb-card" style="left:42px;top:288px">
+    <div class="bb-card__tag bb-card__tag--teal">Optimistic · A like</div>
+    <div class="bb-card__inner">
+      <div class="bb-post__head"><div class="bb-post__avatar">AR</div><div><b>Alex Rivera</b><small>2h ago</small></div></div>
+      <div class="bb-post__text">Shipped the new checkout flow tonight.<br>Six steps, one click.</div>
+      <div class="bb-post__img"></div>
+      <div class="bb-post__actions"><button class="bb-like is-liked" id="likeBtn" aria-label="Like"><svg><use href="#i-heart"/></svg></button><span class="bb-post__count" id="likeCount">129</span><svg class="ic"><use href="#i-comment"/></svg>12<svg class="ic"><use href="#i-share"/></svg></div>
+    </div>
+    <div class="bb-card__foot"><div class="bb-pill bb-pill--mono"><span class="bb-ok" style="width:14px;height:14px"></span>server confirmed</div></div>
+  </div>
+  <div class="bb-card" style="left:373px;top:288px">
+    <div class="bb-card__tag bb-card__tag--grey">Your payment · Waits</div>
+    <div class="bb-card__inner" style="background:none;padding:0;top:58px">
+      <div class="bb-pay__prod"><div class="bb-pay__icon"><svg><use href="#i-lamp"/></svg></div><div><b>Aurora Desk<br>Lamp</b><small>Warm white · matte<br>black</small></div><span class="bb-pay__price">$89.00</span></div>
+      <div class="bb-pay__row">Quantity<span class="bb-qty"><i>−</i>1<i>+</i></span></div>
+      <div class="bb-pay__row is-total">Total<b>$89.00</b></div>
+      <button class="bb-buy is-pending" id="buyBtn"><svg><use href="#i-lock"/></svg>Buy now · $89.00</button>
+    </div>
+    <div class="bb-card__foot"><div class="bb-pill bb-pill--mono bb-pill--grey"><span class="bb-spin" style="width:12px;height:12px;border-width:2px"></span>waiting for server…</div><div class="bb-sub">pending — by design</div></div>
+  </div>
+  <div class="bb-bars" style="left:90px;top:733px">
+    <div class="bb-bar is-inst"><label>like repaint</label><i style="--p:1"></i><b>instant</b></div>
+    <div class="bb-bar is-wait"><label>payment confirm</label><i style="--p:.5"></i><b>…</b></div>
+  </div>
+  <div class="bb-pill center" style="top:846px;height:40px">cheap actions repaint now — money waits</div>
+  <div class="bb-steps"><div class="bb-step is-on"><i>1</i>validate</div><div class="bb-step is-on"><i>2</i>request</div><div class="bb-step is-on"><i>3</i>server</div><div class="bb-step is-on"><i>4</i>logic</div><div class="bb-step is-on"><i>5</i>write</div><div class="bb-step is-on"><i>6</i>respond</div></div>
+</section>
+
+<!-- 6c · The twist: both confirmed -->
+<section class="scene" data-t="54" data-shot="55.5">
+  <div class="bb-kicker" style="top:143px">The twist · Optimistic UI</div>
+  <h1 class="title">Fast apps cheat.</h1>
+  <div class="bb-card" style="left:42px;top:288px">
+    <div class="bb-card__tag bb-card__tag--teal">Optimistic · A like</div>
+    <div class="bb-card__inner">
+      <div class="bb-post__head"><div class="bb-post__avatar">AR</div><div><b>Alex Rivera</b><small>2h ago</small></div></div>
+      <div class="bb-post__text">Shipped the new checkout flow tonight.<br>Six steps, one click.</div>
+      <div class="bb-post__img"></div>
+      <div class="bb-post__actions"><button class="bb-like is-liked" aria-label="Like"><svg><use href="#i-heart"/></svg></button><span class="bb-post__count">129</span><svg class="ic"><use href="#i-comment"/></svg>12<svg class="ic"><use href="#i-share"/></svg></div>
+    </div>
+    <div class="bb-card__foot"><div class="bb-pill bb-pill--mono"><span class="bb-ok" style="width:14px;height:14px"></span>server confirmed</div></div>
+  </div>
+  <div class="bb-card" style="left:373px;top:288px">
+    <div class="bb-card__tag bb-card__tag--grey">Your payment · Waits</div>
+    <div class="bb-card__inner" style="background:none;padding:0;top:58px">
+      <div class="bb-pay__prod"><div class="bb-pay__icon"><svg><use href="#i-lamp"/></svg></div><div><b>Aurora Desk<br>Lamp</b><small>Warm white · matte<br>black</small></div><span class="bb-pay__price">$89.00</span></div>
+      <div class="bb-pay__row">Quantity<span class="bb-qty"><i>−</i>1<i>+</i></span></div>
+      <div class="bb-pay__row is-total">Total<b>$89.00</b></div>
+      <button class="bb-buy is-done"><svg><use href="#i-ok"/></svg>Order confirmed</button>
+    </div>
+    <div class="bb-card__foot"><div class="bb-pill bb-pill--mono"><span class="bb-ok" style="width:14px;height:14px"></span>confirmed — for real</div></div>
+  </div>
+  <div class="bb-bars" style="left:90px;top:733px">
+    <div class="bb-bar is-inst"><label>like repaint</label><i style="--p:1"></i><b>instant</b></div>
+    <div class="bb-bar is-real"><label>payment confirm</label><i style="--p:1"></i><b>real</b></div>
+  </div>
+  <div class="bb-pill center" style="top:846px;height:40px">cheap actions repaint now — money waits</div>
+  <div class="bb-steps"><div class="bb-step is-on"><i>1</i>validate</div><div class="bb-step is-on"><i>2</i>request</div><div class="bb-step is-on"><i>3</i>server</div><div class="bb-step is-on"><i>4</i>logic</div><div class="bb-step is-on"><i>5</i>write</div><div class="bb-step is-on"><i>6</i>respond</div></div>
+</section>
+
+<!-- 7 · Outro: the full round trip -->
+<section class="scene" data-t="57" data-shot="58.5">
+  <div class="glow" style="left:100px;top:240px;width:520px;height:520px;background:rgba(47,214,189,.08)"></div>
+  <div class="title" style="top:158px;font-size:40px;color:#2fd6bd">The full round trip.</div>
+  <svg class="bb-graph is-live" id="outroGraph" style="left:0;top:0" width="720" height="640" viewBox="0 0 720 640">
+    <line x1="202" y1="351" x2="324" y2="351"/><line x1="396" y1="351" x2="517" y2="351"/><line x1="553" y1="387" x2="553" y2="491"/><line x1="517" y1="527" x2="396" y2="527"/><line x1="324" y1="527" x2="202" y2="527"/><line x1="166" y1="491" x2="166" y2="387"/>
+    <g><circle class="node" cx="166" cy="351" r="36"/><text class="num" x="166" y="360">1</text><text class="lab" x="166" y="406">validate</text></g>
+    <g><circle class="node" cx="360" cy="351" r="36"/><text class="num" x="360" y="360">2</text><text class="lab" x="360" y="406">request</text></g>
+    <g><circle class="node" cx="553" cy="351" r="36"/><text class="num" x="553" y="360">3</text><text class="lab" x="553" y="406">server</text></g>
+    <g><circle class="node" cx="553" cy="527" r="36"/><text class="num" x="553" y="536">4</text><text class="lab" x="553" y="582">logic</text></g>
+    <g><circle class="node" cx="360" cy="527" r="36"/><text class="num" x="360" y="536">5</text><text class="lab" x="360" y="582">write</text></g>
+    <g><circle class="node" cx="166" cy="527" r="36"/><text class="num" x="166" y="536">6</text><text class="lab" x="166" y="582">respond</text></g>
+    <circle class="dot" r="6" style="animation-delay:-1.26s"/>
+  </svg>
+  <div class="bb-handle" style="left:222px;top:707px"><i><svg><use href="#i-cursor"/></svg></i>@designmotionhq</div>
+  <div class="bb-follow" style="position:absolute;left:196px;top:782px"><svg><use href="#i-follow"/></svg>Follow</div>
+  <div class="center" style="top:852px;font-size:15px;color:#8b939c;white-space:nowrap">more under-the-UI breakdowns every week</div>
+  <div class="bb-steps"><div class="bb-step is-on"><i>1</i>validate</div><div class="bb-step is-on"><i>2</i>request</div><div class="bb-step is-on"><i>3</i>server</div><div class="bb-step is-on"><i>4</i>logic</div><div class="bb-step is-on"><i>5</i>write</div><div class="bb-step is-on"><i>6</i>respond</div></div>
+</section>
+
+<script type="module">
+  import { RoundTrip, OptimisticLike, PessimisticBuy } from './pattern.js';
+  const loop = (scene, fn, ms) => scene.addEventListener('scene:enter', e => { clearInterval(scene._iv); if (e.detail.t > 0) return; scene._iv = setInterval(fn, ms); });
+  // Hook graph: the hot node walks 1 -> 6 while the scene plays live.
+  const hook = document.getElementById('hookGraph'), nodes = [...hook.querySelectorAll('circle.node')]; let h = 4;
+  loop(hook.closest('.scene'), () => { nodes[h].classList.remove('is-hot'); nodes[h].setAttribute('r', 36); h = (h + 1) % 6; nodes[h].classList.add('is-hot'); nodes[h].setAttribute('r', 42); }, 900);
+  // The step bars are static per scene; RoundTrip drives a live one in the outro.
+  const outroBar = document.querySelector('.scene:last-of-type .bb-steps'), trip = RoundTrip(outroBar, { stepDelay: 900 });
+  loop(outroBar.closest('.scene'), () => trip.run(), 7000);
+  // Twist: the like is optimistic, the buy waits for the server.
+  OptimisticLike(document.getElementById('likeBtn'), document.getElementById('likeCount'));
+  PessimisticBuy(document.getElementById('buyBtn'));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

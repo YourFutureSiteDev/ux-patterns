@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Drag and Drop · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0c1013; --accent: #2fd9b6; --danger: #e8506a; --grid: rgba(255,255,255,.03); }
+  .scene { color: #f3f5f7; }
+  .kicker { top: 87px; padding: 0; background: none; font-size: 14px; letter-spacing: .22em; color: var(--accent); }
+  .title { top: 112px; margin: 0; font-size: 36px; letter-spacing: -.025em; line-height: 1.1; }
+  .title--lg { top: 120px; font-size: 40px; }
+  .title--2 { font-size: 34px; }
+  .caption { top: 1130px; font-size: 17px; font-weight: 600; padding: 0 24px; height: 42px; display: inline-flex; align-items: center; background: #1e2328; color: #d5dae1; box-shadow: none; }
+  .tail { position: absolute; left: 0; right: 0; top: 1140px; text-align: center; font-size: 28px; font-weight: 700; letter-spacing: -.01em; }
+  .tail em { font-style: normal; color: var(--accent); } .tail em.pink { color: var(--danger); }
+  .tail .bar { display: inline-block; width: 2px; height: 30px; background: #3a4048; vertical-align: middle; margin: 0 18px; }
+  .hand { position: absolute; width: 26px; height: 28px; pointer-events: none; z-index: 9; }
+  @property --p { syntax: '<number>'; inherits: true; initial-value: 1; }
+  /* scene 1: the ghost drifts toward Done */
+  .s1 .dd-ghost { animation: dd-drift 1.5s cubic-bezier(.4,0,.2,1) forwards; }
+  @keyframes dd-drift { from { transform: translate(0, 0) rotate(-2deg); } to { transform: translate(150px, 40px) rotate(-1deg); } }
+  /* scene 2b: the card lifts, then the three chips and caption land */
+  .s2b .dd-big { animation: dd-lift .35s cubic-bezier(.2,.8,.2,1) .2s forwards; }
+  @keyframes dd-lift { to { transform: translateY(-8px) scale(1.08) rotate(-2.5deg); box-shadow: 0 30px 60px rgba(0,0,0,.6), 0 0 0 1px rgba(47,217,182,.45); border-color: rgba(47,217,182,.5); } }
+  .s2b .dd-signal { opacity: 0; animation: dd-in .3s ease forwards; }
+  .s2b .dd-signal:nth-of-type(1) { animation-delay: .6s } .s2b .dd-signal:nth-of-type(2) { animation-delay: 1s } .s2b .dd-signal:nth-of-type(3) { animation-delay: 1.4s }
+  .s2b .caption { opacity: 0; animation: dd-in .3s ease 2.4s forwards; }
+  @keyframes dd-in { to { opacity: 1; } }
+  /* scene 4: the dragged minis wander between valid slots and free space */
+  .s4 .dd-mini.is-drag.k { animation: dd-k 6s ease-in-out infinite; }
+  @keyframes dd-k { 0%, 25% { left: 104px; top: 64px; transform: rotate(-3deg); } 50%, 75% { left: 154px; top: 40px; transform: rotate(-2deg); } 100% { left: 104px; top: 64px; transform: rotate(-3deg); } }
+  .s4 .dd-mini.is-drag.c { animation: dd-c 6s ease-in-out infinite; }
+  @keyframes dd-c { 0%, 25% { left: 103px; top: 68px; transform: rotate(-2deg); } 50%, 75% { left: 140px; top: 80px; transform: rotate(1deg); } 100% { left: 103px; top: 68px; transform: rotate(-2deg); } }
+  /* scene 5: the undo ring drains over five seconds */
+  .s5 .dd-undo { animation: dd-drain 5s linear 2s forwards; }
+  @keyframes dd-drain { from { --p: 1; } to { --p: 0; } }
+</style>
+</head>
+<body class="dd">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-hand-open" viewBox="0 0 24 24"><path d="M18 11V6.5a1.5 1.5 0 0 0-3 0V11M15 10V4.5a1.5 1.5 0 0 0-3 0V10M12 10V5.5a1.5 1.5 0 0 0-3 0V12M9 12V8.5a1.5 1.5 0 0 0-3 0V15c0 4 3 7 7 7h1c3.3 0 6-2.7 6-6v-5"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 2l10 5-10 5L2 7l10-5zM2 12l10 5 10-5M2 17l10 5 10-5"/></symbol>
+  <symbol id="i-pointer" viewBox="0 0 24 24"><path d="M4 3l7.5 18 2.5-7.5L21.5 11z"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M3 7v6h6"/><path d="M3 13a9 9 0 1 0 3-7.7L3 8"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="cur-grab" viewBox="0 0 26 28"><path d="M9 12V8a1.6 1.6 0 0 1 3.2 0v4M12.2 12V7a1.6 1.6 0 0 1 3.2 0v5M15.4 12V8a1.6 1.6 0 0 1 3.2 0v5M18.6 13v-2a1.6 1.6 0 0 1 3.2 0v6.5c0 4.5-3.5 8-8 8h-1.5c-2.8 0-4.6-1.2-6.2-3.4L3.4 18a1.7 1.7 0 0 1 2.8-1.8L9 18.5" fill="#fff" stroke="#000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="cur-open" viewBox="0 0 26 28"><path d="M9 14V6a1.6 1.6 0 0 1 3.2 0v7M12.2 13V4a1.6 1.6 0 0 1 3.2 0v9M15.4 13V5.5a1.6 1.6 0 0 1 3.2 0V14M18.6 14v-3a1.6 1.6 0 0 1 3.2 0v6.5c0 4.5-3.5 8-8 8h-1.5c-2.8 0-4.6-1.2-6.2-3.4L3.4 18a1.7 1.7 0 0 1 2.8-1.8L9 18.5" fill="#fff" stroke="#000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+</svg>
+
+<!-- 1 · Hook: mid-drag, Design review heading for Done -->
+<section class="scene s1" data-t="0" data-shot="0">
+  <div class="dd-board" style="position:absolute;left:41px;top:488px">
+    <div class="dd-col"><div class="dd-col__head">Todo<span class="dd-col__count">2</span></div>
+      <div class="dd-card"><div class="dd-card__title">Audit dashboard</div><span class="dd-tag">Research</span><div class="dd-card__foot"><span class="dd-avatar">MK</span><span class="dd-meta">2 · 3</span></div></div>
+      <div class="dd-card"><div class="dd-card__title">Onboard new client</div><div class="dd-card__foot"><span class="dd-avatar">SL</span><span class="dd-meta">2 · 3</span></div></div>
+    </div>
+    <div class="dd-col"><div class="dd-col__head">In progress<span class="dd-col__count">2</span></div>
+      <div class="dd-card is-source"><div class="dd-card__title">Design review</div><span class="dd-tag dd-tag--teal">Design</span><div class="dd-card__foot"><span class="dd-avatar dd-avatar--teal">TG</span><span class="dd-meta">2 · 3</span></div></div>
+      <div class="dd-card"><div class="dd-card__title">API docs draft</div><div class="dd-card__foot"><span class="dd-avatar">AR</span><span class="dd-meta">2 · 3</span></div></div>
+    </div>
+    <div class="dd-col"><div class="dd-col__head">Done<span class="dd-col__count">1</span></div>
+      <div class="dd-card"><div class="dd-card__title">Sprint retro notes</div><span class="dd-tag dd-tag--teal">Done</span><div class="dd-card__foot"><span class="dd-avatar">JN</span><span class="dd-meta">2 · 3</span></div></div>
+      <div style="height:86px;border-radius:10px;background:rgba(255,255,255,.035);margin-top:12px"></div>
+    </div>
+  </div>
+  <div class="dd-ghost" style="left:320px;top:576px"><div class="dd-card__title">Design review</div><span class="dd-tag dd-tag--teal">Design</span><div class="dd-card__foot"><span class="dd-avatar dd-avatar--teal">TG</span><span class="dd-meta">2 · 3</span></div></div>
+  <svg class="hand" style="left:402px;top:606px"><use href="#cur-grab"/></svg>
+</section>
+
+<!-- 1b · Hook: dropped. The board does the thinking. -->
+<section class="scene" data-t="1.5" data-shot="1.5">
+  <div class="glow" style="left:100px;top:300px;background:rgba(47,217,182,.12)"></div>
+  <div class="dd-board" style="position:absolute;left:41px;top:476px">
+    <div class="dd-col" style="min-height:276px"><div class="dd-col__head">Todo<span class="dd-col__count">2</span></div>
+      <div class="dd-card"><div class="dd-card__title">Audit dashboard</div><span class="dd-tag">Research</span><div class="dd-card__foot"><span class="dd-avatar">MK</span><span class="dd-meta">2 · 3</span></div></div>
+      <div class="dd-card"><div class="dd-card__title">Onboard new client</div><div class="dd-card__foot"><span class="dd-avatar">SL</span><span class="dd-meta">2 · 3</span></div></div>
+    </div>
+    <div class="dd-col" style="min-height:276px"><div class="dd-col__head">In progress<span class="dd-col__count">1</span></div>
+      <div class="dd-card"><div class="dd-card__title">API docs draft</div><div class="dd-card__foot"><span class="dd-avatar">AR</span><span class="dd-meta">2 · 3</span></div></div>
+    </div>
+    <div class="dd-col" style="min-height:276px"><div class="dd-col__head">Done<span class="dd-col__count">2</span></div>
+      <div class="dd-card"><div class="dd-card__title">Design review</div><span class="dd-tag dd-tag--teal">Design</span><div class="dd-card__foot"><span class="dd-avatar dd-avatar--teal">TG</span><span class="dd-meta">2 · 3</span></div></div>
+      <div class="dd-card"><div class="dd-card__title">Sprint retro notes</div><span class="dd-tag dd-tag--teal">Done</span><div class="dd-card__foot"><span class="dd-avatar">JN</span><span class="dd-meta">2 · 3</span></div></div>
+    </div>
+  </div>
+  <svg class="cursor" style="left:570px;top:636px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="tail" style="top:1090px;font-size:36px;font-weight:800">The board does the thinking.</div>
+</section>
+
+<!-- 2 · Pick up: resting card, open hand -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="glow" style="left:100px;top:380px;background:rgba(47,217,182,.10)"></div>
+  <div class="kicker">Pick up</div>
+  <h1 class="title title--lg">Three signals. One grab.</h1>
+  <div class="dd-big" style="position:absolute;left:95px;top:720px">
+    <div class="dd-big__head"><span class="dd-big__avatar">TG</span><div><div class="dd-big__title">Design review</div><span class="dd-tag dd-tag--teal">Design</span></div></div>
+    <div class="dd-big__body">Walk Marketing through the new dashboard flows before lock.</div>
+    <div class="dd-big__foot"><span>Due in 2 days</span><span>2 comments &nbsp;•&nbsp; 3 files</span></div>
+  </div>
+  <svg class="hand" style="left:320px;top:826px"><use href="#cur-open"/></svg>
+</section>
+
+<!-- 2b · Pick up: lifted, three signals -->
+<section class="scene s2b" data-t="6" data-shot="9">
+  <div class="glow" style="left:100px;top:380px;background:rgba(47,217,182,.14)"></div>
+  <div class="kicker">Pick up</div>
+  <h1 class="title title--lg">Three signals. One grab.</h1>
+  <div class="dd-signal" style="position:absolute;left:40px;top:507px"><span class="dd-signal__icon"><svg class="dd-ico"><use href="#i-hand-open"/></svg></span><span class="dd-signal__label">Cursor changes</span></div>
+  <div class="dd-signal" style="position:absolute;left:267px;top:507px"><span class="dd-signal__icon"><svg class="dd-ico"><use href="#i-layers"/></svg></span><span class="dd-signal__label">Card lifts</span></div>
+  <div class="dd-signal" style="position:absolute;left:454px;top:507px"><span class="dd-signal__icon"><svg class="dd-ico"><use href="#i-pointer"/></svg></span><span class="dd-signal__label">Background fades</span></div>
+  <div class="dd-big" style="position:absolute;left:95px;top:720px">
+    <div class="dd-big__head"><span class="dd-big__avatar">TG</span><div><div class="dd-big__title">Design review</div><span class="dd-tag dd-tag--teal">Design</span></div></div>
+    <div class="dd-big__body">Walk Marketing through the new dashboard flows before lock.</div>
+    <div class="dd-big__foot"><span>Due in 2 days</span><span>2 comments &nbsp;•&nbsp; 3 files</span></div>
+  </div>
+  <svg class="hand" style="left:328px;top:822px"><use href="#cur-grab"/></svg>
+  <div class="caption">Three signals = "I'm holding this"</div>
+</section>
+
+<!-- 3 · Drop zones: line between items, fill for a whole column -->
+<section class="scene" data-t="10.5" data-shot="10.5">
+  <div class="glow" style="left:100px;top:380px;background:rgba(47,217,182,.10)"></div>
+  <div class="kicker">Drop zones</div>
+  <h1 class="title">Drop zones speak first.</h1>
+  <div class="dd-rule center" style="top:253px">Between items → line &nbsp;•&nbsp; Whole column → fill</div>
+  <div class="dd-board" style="position:absolute;left:60px;top:521px;gap:15px">
+    <div class="dd-col" style="width:190px;min-height:279px"><div class="dd-col__head">Todo<span class="dd-col__count">2</span></div>
+      <div class="dd-card" style="margin-bottom:0"><div class="dd-card__title">Audit dashboard</div><span class="dd-tag">Research</span><div class="dd-card__foot"><span class="dd-avatar">MK</span><span class="dd-meta">2 · 3</span></div></div>
+      <div class="dd-line"></div>
+      <div class="dd-card"><div class="dd-card__title">Onboard new client</div><div class="dd-card__foot"><span class="dd-avatar">SL</span><span class="dd-meta">2 · 3</span></div></div>
+    </div>
+    <div class="dd-col" style="width:190px;min-height:279px"><div class="dd-col__head">In progress<span class="dd-col__count">2</span></div>
+      <div class="dd-card"><div class="dd-card__title">API docs draft</div><div class="dd-card__foot"><span class="dd-avatar">AR</span><span class="dd-meta">2 · 3</span></div></div>
+    </div>
+    <div class="dd-col is-target" style="width:190px;min-height:279px"><div class="dd-col__head">Done<span class="dd-col__count">1</span></div>
+      <div class="dd-card"><div class="dd-card__title">Sprint retro notes</div><span class="dd-tag dd-tag--teal">Done</span><div class="dd-card__foot"><span class="dd-avatar">JN</span><span class="dd-meta">2 · 3</span></div></div>
+    </div>
+  </div>
+  <div class="dd-ghost" style="left:484px;top:628px;width:196px"><div class="dd-card__title">Design review</div><span class="dd-tag dd-tag--teal">Design</span><div class="dd-card__foot"><span class="dd-avatar dd-avatar--teal">TG</span><span class="dd-meta">2 · 3</span></div></div>
+  <svg class="hand" style="left:571px;top:650px"><use href="#cur-grab"/></svg>
+</section>
+
+<!-- 3b · Drop zones: column fill vs insertion line -->
+<section class="scene" data-t="18" data-shot="18">
+  <div class="glow" style="left:100px;top:380px;background:rgba(47,217,182,.10)"></div>
+  <div class="kicker">Drop zones</div>
+  <h1 class="title">Drop zones speak first.</h1>
+  <div class="dd-zone is-fill" style="position:absolute;left:30px;top:562px">
+    <div class="dd-zone__label">Column fill</div>
+    <div class="dd-zone__head">Done</div>
+    <div class="dd-card"><div class="dd-card__title">Sprint retro notes</div><span class="dd-tag dd-tag--teal">Done</span><div class="dd-card__foot"><span class="dd-avatar">JN</span><span class="dd-meta">2 · 3</span></div></div>
+    <div class="dd-slot"></div>
+  </div>
+  <div class="dd-zone" style="position:absolute;left:370px;top:562px">
+    <div class="dd-zone__label">Insertion line</div>
+    <div class="dd-zone__head">Todo</div>
+    <div class="dd-card" style="margin-bottom:0"><div class="dd-card__title">Audit dashboard</div><span class="dd-tag">Research</span><div class="dd-card__foot"><span class="dd-avatar">MK</span><span class="dd-meta">2 · 3</span></div></div>
+    <div class="dd-line"></div>
+    <div class="dd-card"><div class="dd-card__title">Onboard new client</div><div class="dd-card__foot"><span class="dd-avatar">SL</span><span class="dd-meta">2 · 3</span></div></div>
+  </div>
+  <div class="tail" style="top:1142px;font-size:26px"><em>No preview</em> = blind drop.</div>
+</section>
+
+<!-- 4 · Snap or free -->
+<section class="scene s4" data-t="19.5" data-shot="21">
+  <div class="kicker">Snap or free</div>
+  <h1 class="title title--2">Snap matches structure.<br>Free matches canvas.</h1>
+  <div class="dd-surface" style="position:absolute;left:30px;top:460px">
+    <div class="dd-surface__head">Kanban<span class="dd-surface__mode">Snap</span></div>
+    <div class="dd-surface__area">
+      <div class="dd-snapslot" style="left:42px;top:40px;width:115px;height:107px"></div>
+      <div class="dd-snapslot" style="left:157px;top:40px;width:115px;height:107px"></div>
+      <div class="dd-snapslot" style="left:42px;top:155px;width:118px;height:110px"></div>
+      <div class="dd-mini" style="left:42px;top:155px"><div class="dd-mini__title">Audit</div><div class="dd-mini__foot"><span class="dd-avatar">MK</span><span class="dd-meta">2 · 3</span></div></div>
+      <div class="dd-mini is-drag k" style="left:104px;top:64px;transform:rotate(-3deg)"><div class="dd-mini__title">Design</div><span class="dd-tag dd-tag--teal">Snap</span><div class="dd-mini__foot"><span class="dd-avatar dd-avatar--teal">TG</span><span class="dd-meta">2 · 3</span></div></div>
+    </div>
+  </div>
+  <svg class="hand" style="left:190px;top:600px"><use href="#cur-grab"/></svg>
+  <div class="dd-surface dd-surface--free" style="position:absolute;left:370px;top:460px">
+    <div class="dd-surface__head">Canvas<span class="dd-surface__mode">Free</span></div>
+    <div class="dd-surface__area">
+      <div class="dd-mini" style="left:163px;top:212px"><div class="dd-mini__title">Hero</div><div class="dd-mini__foot"><span class="dd-avatar">SL</span><span class="dd-meta">2 · 3</span></div></div>
+      <div class="dd-mini is-drag c" style="left:103px;top:68px;transform:rotate(-2deg)"><div class="dd-mini__title">Design</div><span class="dd-tag dd-tag--pink">Free</span><div class="dd-mini__foot"><span class="dd-avatar dd-avatar--pink">TG</span><span class="dd-meta">2 · 3</span></div></div>
+    </div>
+  </div>
+  <svg class="hand" style="left:530px;top:600px"><use href="#cur-grab"/></svg>
+  <div class="tail" style="top:1140px"><em>Structured? Snap.</em><span class="bar"></span><em class="pink">Canvas? Free.</em></div>
+</section>
+
+<!-- 5 · Undo: bad drop, toast, five seconds -->
+<section class="scene s5" data-t="30" data-shot="33">
+  <div class="glow" style="left:100px;top:380px;background:rgba(47,217,182,.10)"></div>
+  <div class="kicker">Undo</div>
+  <h1 class="title title--2">Bad drop. Toast. Five seconds to undo.</h1>
+  <div class="dd-board" style="position:absolute;left:41px;top:522px">
+    <div class="dd-col" style="min-height:276px"><div class="dd-col__head">Todo<span class="dd-col__count">2</span></div>
+      <div class="dd-card"><div class="dd-card__title">Audit dashboard</div><span class="dd-tag">Research</span><div class="dd-card__foot"><span class="dd-avatar">MK</span><span class="dd-meta">2 · 3</span></div></div>
+      <div class="dd-card"><div class="dd-card__title">Onboard new client</div><div class="dd-card__foot"><span class="dd-avatar">SL</span><span class="dd-meta">2 · 3</span></div></div>
+    </div>
+    <div class="dd-col" style="min-height:276px"><div class="dd-col__head">In progress<span class="dd-col__count">1</span></div>
+      <div class="dd-card"><div class="dd-card__title">API docs draft</div><div class="dd-card__foot"><span class="dd-avatar">AR</span><span class="dd-meta">2 · 3</span></div></div>
+    </div>
+    <div class="dd-col" style="min-height:276px"><div class="dd-col__head">Done<span class="dd-col__count">2</span></div>
+      <div class="dd-card"><div class="dd-card__title">Design review</div><span class="dd-tag dd-tag--teal">Design</span><div class="dd-card__foot"><span class="dd-avatar dd-avatar--teal">TG</span><span class="dd-meta">2 · 3</span></div></div>
+      <div class="dd-card"><div class="dd-card__title">Sprint retro notes</div><span class="dd-tag dd-tag--teal">Done</span><div class="dd-card__foot"><span class="dd-avatar">JN</span><span class="dd-meta">2 · 3</span></div></div>
+    </div>
+  </div>
+  <div class="dd-toast" id="toast" style="position:absolute;left:108px;top:1032px"><span class="dd-toast__icon"><svg class="dd-ico"><use href="#i-undo"/></svg></span><div><b>Moved to Done</b><span>Tap Undo to send it back</span></div><button class="dd-undo" id="undoBtn"><svg viewBox="0 0 60 60"><circle class="track" cx="30" cy="30" r="28"/><circle cx="30" cy="30" r="28"/></svg>UNDO</button></div>
+  <svg class="cursor" style="left:138px;top:1138px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+</section>
+
+<!-- 6 · Outro -->
+<section class="scene" data-t="36" data-shot="40.5">
+  <div class="glow" style="left:100px;top:340px;background:rgba(47,217,182,.14)"></div>
+  <div class="dd-card dd-faint" style="left:60px;top:200px"><div class="dd-card__title">Audit dashboard</div><div class="dd-card__foot"><span class="dd-avatar">MK</span><span class="dd-meta">2 · 3</span></div></div>
+  <div class="dd-card dd-faint" style="left:510px;top:258px;transform:rotate(5deg)"><div class="dd-card__title">Onboard client</div><div class="dd-card__foot"><span class="dd-avatar">SL</span><span class="dd-meta">2 · 3</span></div></div>
+  <div class="dd-card dd-faint" style="left:85px;top:912px;transform:rotate(-4deg)"><div class="dd-card__title">Sprint retro</div><div class="dd-card__foot"><span class="dd-avatar">JN</span><span class="dd-meta">2 · 3</span></div></div>
+  <div class="title" style="top:534px;font-size:38px;line-height:1.16">Follow for more<br><em>interaction patterns.</em></div>
+  <div class="tail" style="top:638px;font-size:18px;font-weight:500;color:#a5adb8">Save this for your next board.</div>
+  <div class="dd-follow center" style="top:692px"><svg class="dd-ico"><use href="#i-plus"/></svg>Follow</div>
+</section>
+
+<script type="module">
+  import { UndoToast } from './pattern.js';
+  // The undo toast is live: click UNDO (or wait five seconds) and it resolves.
+  const t = document.getElementById('toast');
+  const onEnter = (scene, fn) => { scene.addEventListener('scene:enter', fn); if (scene.classList.contains('active')) { const q = new URLSearchParams(location.search); fn({ detail: { t: q.has('t') ? Number(q.get('t')) : 0 } }); } };
+  onEnter(t.closest('.scene'), e => { if (e.detail.t > 0) return; UndoToast(t, { seconds: 5, onUndo: () => t.querySelector('b').textContent = 'Sent back to In progress', onExpire: () => t.style.opacity = .4 }); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

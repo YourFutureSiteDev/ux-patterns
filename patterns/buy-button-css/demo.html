@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Buy Button CSS · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a070a; --grid: transparent; --accent: #7c6df0; --danger: #ff5c8a; }
+  .scene { color: #f3f5f7; }
+  .bb-stage { position: absolute; left: 50%; transform: translateX(-50%); display: flex; justify-content: center; }
+</style>
+</head>
+<body class="bb">
+
+<template id="bb-card-tpl">
+  <div class="bb-card">
+    <div class="bb-card__head"><span class="bb-card__logo">S</span>Pay with Stripe</div>
+    <label>Email</label><div class="bb-field">you@example.com</div>
+    <label>Card number</label><div class="bb-field">4242 4242 4242 4242</div>
+    <div class="bb-card__row"><div><label>Expiry</label><div class="bb-field">MM / YY</div></div><div><label>CVC</label><div class="bb-field">123</div></div></div>
+    <button class="bb-btn is-color is-shape is-depth is-motion" type="button">Buy Now</button>
+  </div>
+</template>
+<template id="bb-editor-tpl">
+  <div class="bb-editor"><div class="bb-editor__bar"><i></i><i></i><i></i><span>style.css</span></div><pre class="bb-editor__body"></pre></div>
+</template>
+
+<!-- 1 · Hook -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="bb-hook" style="top:117px">How Stripe designed<br><em>a button that converts</em></div>
+  <div data-card style="position:absolute;left:213px;top:489px"></div>
+</section>
+
+<!-- 2 · The finished button and all of its CSS -->
+<section class="scene" data-t="3" data-shot="3">
+  <div class="bb-stage" style="top:218px"><button class="bb-btn bb-btn--stage is-color is-shape is-depth is-motion is-hover" type="button" style="transform:none">Buy Now</button></div>
+  <div data-editor="all" style="position:absolute;left:27px;top:480px"></div>
+</section>
+
+<!-- 3 · Remove all CSS -->
+<section class="scene" data-t="6" data-shot="7.5">
+  <div class="bb-stage" style="top:236px"><button class="bb-btn" type="button" style="width:439px;height:64px;padding:0">Buy Now</button></div>
+  <div data-editor="none" style="position:absolute;left:27px;top:480px"></div>
+</section>
+
+<!-- 4 · Color = Trust -->
+<section class="scene" data-t="12" data-shot="16.5">
+  <div class="bb-stage" style="top:224px"><button class="bb-btn bb-btn--stage bb-btn--l2 is-color" type="button" style="font:400 34px 'DejaVu Sans',Verdana,sans-serif">Buy Now</button></div>
+  <div class="bb-label" style="top:440px">Color = Trust</div>
+  <div data-editor="0" style="position:absolute;left:27px;top:480px"></div>
+</section>
+
+<!-- 5 · Shape = Friendly -->
+<section class="scene" data-t="21" data-shot="25.5">
+  <div class="bb-stage" style="top:224px"><button class="bb-btn bb-btn--stage bb-btn--l2 is-color is-shape" type="button">Buy Now</button></div>
+  <div class="bb-label" style="top:440px">Shape = Friendly</div>
+  <div data-editor="1" style="position:absolute;left:27px;top:480px"></div>
+</section>
+
+<!-- 6 · Depth = Premium -->
+<section class="scene" data-t="30" data-shot="34.5">
+  <div class="bb-stage" style="top:224px"><button class="bb-btn bb-btn--stage bb-btn--l2 is-color is-shape is-depth" type="button">Buy Now</button></div>
+  <div class="bb-label" style="top:440px">Depth = Premium</div>
+  <div data-editor="2" style="position:absolute;left:27px;top:480px"></div>
+</section>
+
+<!-- 7 · Motion = Action -->
+<section class="scene" data-t="36" data-shot="40.5">
+  <div class="bb-stage" style="top:224px"><button class="bb-btn bb-btn--stage bb-btn--l2 is-color is-shape is-depth is-motion is-hover" id="motionBtn" type="button">Buy Now</button></div>
+  <svg class="cursor" style="left:266px;top:350px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="bb-label" style="top:440px">Motion = Action</div>
+  <div data-editor="3" style="position:absolute;left:27px;top:480px"></div>
+</section>
+
+<!-- 8 · Back in the checkout -->
+<section class="scene" data-t="42" data-shot="45">
+  <div data-card style="position:absolute;left:213px;top:489px"></div>
+  <div class="bb-fine" style="top:1006px">Every CSS choice is a psychological decision.</div>
+</section>
+
+<!-- 9 · Outro -->
+<section class="scene" data-t="48" data-shot="49.5">
+  <div class="bb-outro" style="top:563px">
+    <h2>What UI element should I decode next?</h2>
+    <div class="bb-sub">💬 Drop it in the comments</div>
+    <div class="bb-follow">Follow @designmotionhq</div>
+    <div class="bb-more">for more design psychology 🧠</div>
+  </div>
+</section>
+
+<script type="module">
+  import { LAYERS, renderCode, applyLayers, BuyButtonWalkthrough } from './pattern.js';
+  const cardTpl = document.getElementById('bb-card-tpl'), edTpl = document.getElementById('bb-editor-tpl');
+  for (const slot of document.querySelectorAll('[data-card]')) { const c = cardTpl.content.firstElementChild.cloneNode(true); c.style.cssText = slot.style.cssText; slot.replaceWith(c); }
+  // Editors: "all" is the reel's finished file (hover block first), a number is layers 0..n, "none" is empty.
+  for (const slot of document.querySelectorAll('[data-editor]')) {
+    const e = edTpl.content.firstElementChild.cloneNode(true); e.style.cssText = slot.style.cssText;
+    const k = slot.dataset.editor, body = e.querySelector('.bb-editor__body');
+    const lines = k === 'all' ? [...LAYERS[3].lines, ...LAYERS[2].lines, ...LAYERS[1].lines, ...LAYERS[0].lines] : k === 'none' ? [] : LAYERS.slice(0, Number(k) + 1).flatMap(l => l.lines);
+    renderCode(body, lines);
+    slot.replaceWith(e);
+  }
+  // Live walkthrough on the motion scene: when entered without a freeze time, the button rebuilds itself layer by layer.
+  const motion = document.getElementById('motionBtn'), scene = motion.closest('.scene');
+  const walk = BuyButtonWalkthrough({ btn: motion, body: scene.querySelector('.bb-editor__body'), label: scene.querySelector('.bb-label'), cps: 60, pause: 700 });
+  scene.addEventListener('scene:enter', e => { if (e.detail.t > 0) return; motion.classList.remove('is-hover'); walk.run().then(() => motion.classList.add('is-hover')); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

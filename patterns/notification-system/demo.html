@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Notification System · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #090c0d; --grid: rgba(255,255,255,.03); --accent: #e8507a; --danger: #e8507a; }
+  .scene { color: #f1f3f5; }
+  .kicker { top: 96px; height: 32px; display: inline-flex; align-items: center; padding: 0 18px; font-size: 14px; letter-spacing: .16em; color: #e8507a; background: rgba(232,80,122,.16); border: 1px solid rgba(232,80,122,.25); }
+  .title { top: 127px; font-size: 34px; letter-spacing: -.025em; }
+  .kicker--hi { top: 84px; }
+  .title--lo { top: 140px; }
+  .nsy-late { animation: nsy-late 1.2s linear 1.2s both; }
+  @keyframes nsy-late { from { opacity: 0 } to { opacity: 1 } }
+  .nsy-pill { position: absolute; left: 50%; transform: translateX(-50%); height: 30px; padding: 0 16px; border-radius: 999px; display: inline-flex; align-items: center; font-size: 13px; font-weight: 700; background: #1a1e22; color: #b7bcc4; white-space: nowrap; }
+  .nsy-pill--pink { color: #e8507a; background: rgba(232,80,122,.16); letter-spacing: .15em; text-transform: uppercase; }
+  .nsy-toast--fade { animation: nsy-fade 3s linear infinite; }
+</style>
+</head>
+<body class="nsy">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V10a6 6 0 0 1 12 0v6l2 2H4l2-2z"/><path d="M10 21a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></symbol>
+  <symbol id="i-tick" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></symbol>
+  <symbol id="i-cursor" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#e8507a" stroke="#fff" stroke-width="1.5"/></symbol>
+  <symbol id="i-cursor-w" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></symbol>
+</svg>
+
+<!-- 1 · Hook: a dashboard, a payment failed modal -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:100px;top:380px;background:rgba(232,80,122,.06)"></div>
+  <div class="nsy-dash is-dim" style="left:62px;top:170px">
+    <div class="nsy-dash__side">
+      <div class="nsy-dash__logo"><i></i>Linear</div>
+      <div class="nsy-dash__nav"><div class="is-on"><i></i>Overview</div><div><i></i>Customers</div><div><i></i>Payments</div><div><i></i>Settings</div></div>
+    </div>
+    <div class="nsy-dash__main">
+      <div class="nsy-dash__top">Overview<span class="nsy-bell"><svg><use href="#i-bell"/></svg><span class="nsy-bell__count"></span></span><span class="nsy-dash__av">SC</span></div>
+      <div class="nsy-dash__stats"><div class="nsy-dash__stat"><small>MRR</small><b>$48,210</b><span>↗ +12.4%</span></div><div class="nsy-dash__stat"><small>Active users</small><b>2,431</b><span>↗ +3.7%</span></div></div>
+      <div class="nsy-dash__chart"><small>Revenue</small><em>30 DAYS</em><div class="nsy-dash__bars"><i style="height:30%"></i><i class="is-pink" style="height:38%"></i><i style="height:55%"></i><i style="height:42%"></i><i class="is-pink" style="height:62%"></i><i style="height:35%"></i><i style="height:70%"></i><i class="is-pink" style="height:75%"></i><i style="height:48%"></i><i style="height:58%"></i><i class="is-pink" style="height:95%"></i><i style="height:40%"></i><i style="height:52%"></i><i class="is-pink" style="height:50%"></i></div></div>
+    </div>
+    <div class="nsy-modal">
+      <div class="nsy-modal__head"><span class="nsy-ico nsy-ico--pink"><svg><use href="#i-alert"/></svg></span><div class="nsy-modal__title">Payment failed</div></div>
+      <div class="nsy-modal__body" style="font-size:12px">Card ending 4242 was declined. Try a different payment method.</div>
+      <div class="nsy-modal__actions"><button class="nsy-btn">Cancel</button><button class="nsy-btn nsy-btn--pink">Try another card</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · Four surfaces: same content, four volumes -->
+<section class="scene" data-t="3" data-shot="9">
+  <div class="glow" style="left:100px;top:420px;background:rgba(232,80,122,.07)"></div>
+  <div class="kicker">Four surfaces</div>
+  <div class="title title--lo">Same content. Four volumes.</div>
+  <div class="nsy-panel" style="left:42px;top:202px;width:308px;height:280px"><div class="nsy-label">Toast</div>
+    <div class="nsy-toast" style="position:absolute;left:83px;top:49px;width:215px"><span class="nsy-ico nsy-ico--blue"><svg><use href="#i-info"/></svg></span><div><div class="nsy-toast__title">New message</div><div class="nsy-toast__body">Sarah Chen sent you a file.</div></div></div>
+  </div>
+  <div class="nsy-panel" style="left:372px;top:202px;width:305px;height:280px"><div class="nsy-label">Banner</div>
+    <div class="nsy-banner" style="position:absolute;left:8px;top:44px;width:257px"><span class="nsy-ico nsy-ico--amber"><svg><use href="#i-warn"/></svg></span><div><div class="nsy-banner__title">Server v2.4 degraded</div><div class="nsy-banner__body">Latency above 2s. Investigating.</div></div><span class="nsy-x">✕</span></div>
+  </div>
+  <div class="nsy-panel nsy-panel--dark" style="left:42px;top:502px;width:308px;height:280px"><div class="nsy-label">Modal</div>
+    <div class="nsy-modal" style="position:absolute;left:43px;top:90px;width:222px"><div class="nsy-modal__head"><span class="nsy-ico nsy-ico--pink"><svg><use href="#i-alert"/></svg></span><div class="nsy-modal__title">Card declined</div></div><div class="nsy-modal__body">Card ending 4242. Use another?</div><div class="nsy-modal__actions"><button class="nsy-btn">Cancel</button><button class="nsy-btn nsy-btn--pink">Try again</button></div></div>
+  </div>
+  <div class="nsy-panel" style="left:372px;top:502px;width:305px;height:280px"><div class="nsy-label">Badge</div>
+    <div class="nsy-bell nsy-bell--glow" style="position:absolute;left:118px;top:119px;width:64px;height:64px"><svg><use href="#i-bell"/></svg><span class="nsy-bell__count" style="min-width:30px;height:30px;font-size:14px">3</span></div>
+  </div>
+</section>
+
+<!-- 3 · Four surfaces: pick the volume that matches the message -->
+<section class="scene" data-t="10.5" data-shot="10.5">
+  <div class="glow" style="left:100px;top:420px;background:rgba(232,80,122,.07)"></div>
+  <div class="kicker">Four surfaces</div>
+  <div class="title title--lo">Same content. Four volumes.</div>
+  <div class="nsy-panel" style="left:42px;top:202px;width:308px;height:280px"><div class="nsy-label">Toast</div>
+    <div class="nsy-toast" style="position:absolute;left:83px;top:49px;width:215px"><span class="nsy-ico nsy-ico--blue"><svg><use href="#i-info"/></svg></span><div><div class="nsy-toast__title">New message</div><div class="nsy-toast__body">Sarah Chen sent you a file.</div></div></div>
+  </div>
+  <div class="nsy-panel" style="left:372px;top:202px;width:305px;height:280px"><div class="nsy-label">Banner</div></div>
+  <div class="nsy-panel nsy-panel--dark" style="left:42px;top:502px;width:308px;height:280px"><div class="nsy-label">Modal</div>
+    <div class="nsy-modal" style="position:absolute;left:43px;top:90px;width:222px"><div class="nsy-modal__head"><span class="nsy-ico nsy-ico--pink"><svg><use href="#i-alert"/></svg></span><div class="nsy-modal__title">Card declined</div></div><div class="nsy-modal__body">Card ending 4242. Use another?</div><div class="nsy-modal__actions"><button class="nsy-btn">Cancel</button><button class="nsy-btn nsy-btn--pink">Try again</button></div></div>
+  </div>
+  <div class="nsy-panel" style="left:372px;top:502px;width:305px;height:280px"><div class="nsy-label">Badge</div>
+    <div class="nsy-bell nsy-bell--glow" style="position:absolute;left:118px;top:119px;width:64px;height:64px"><svg><use href="#i-bell"/></svg><span class="nsy-bell__count" style="min-width:30px;height:30px;font-size:14px">3</span></div>
+  </div>
+  <span class="nsy-pill" style="top:808px">Pick the volume that matches the message.</span>
+</section>
+
+<!-- 4 · Severity -> surface: the trigger picks the volume -->
+<section class="scene" data-t="12" data-shot="18">
+  <div class="glow" style="left:100px;top:500px;background:rgba(232,80,122,.06)"></div>
+  <div class="kicker kicker--hi">Severity → Surface</div>
+  <div class="title">The trigger picks <em>the volume.</em></div>
+  <div class="nsy-trigger nsy-trigger--blue" style="left:40px;top:187px"><small>Trigger</small><b>New message</b></div>
+  <div class="nsy-arrow" style="left:264px;top:242px;color:#5b9cf6">→</div>
+  <div class="nsy-slot" style="left:300px;top:187px"></div>
+  <div class="nsy-trigger nsy-trigger--amber" style="left:40px;top:332px"><small>Trigger</small><b>Server degraded</b></div>
+  <div class="nsy-arrow" style="left:264px;top:387px;color:#e0a43a">→</div>
+  <div class="nsy-slot" style="left:300px;top:332px"><div class="nsy-banner" style="position:absolute;left:12px;top:13px;width:345px"><span class="nsy-ico nsy-ico--amber"><svg><use href="#i-warn"/></svg></span><div><div class="nsy-banner__title">Server v2.4 degraded</div><div class="nsy-banner__body">API latency above 2s.</div></div><span class="nsy-x">✕</span></div></div>
+  <div class="nsy-trigger nsy-trigger--pink" style="left:40px;top:477px"><small>Trigger</small><b>Card declined</b></div>
+  <div class="nsy-arrow" style="left:264px;top:532px;color:#e8507a">→</div>
+  <div class="nsy-slot nsy-slot--dark" style="left:300px;top:477px"><div class="nsy-modal" style="position:absolute;left:70px;top:4px;width:240px"><div class="nsy-modal__head"><span class="nsy-ico nsy-ico--pink"><svg><use href="#i-alert"/></svg></span><div class="nsy-modal__title">Card declined</div></div><div class="nsy-modal__body">Card 4242. Use another?</div><div class="nsy-modal__actions"><button class="nsy-btn">Cancel</button><button class="nsy-btn nsy-btn--pink">Try again</button></div></div></div>
+  <div class="nsy-trigger nsy-trigger--grey" style="left:40px;top:622px"><small>Trigger</small><b>3 unread comments</b></div>
+  <div class="nsy-arrow" style="left:264px;top:677px;color:#7d8287">→</div>
+  <div class="nsy-slot" style="left:300px;top:622px"><div class="nsy-bell" style="position:absolute;left:168px;top:43px;width:44px;height:44px;border-radius:10px"><svg><use href="#i-bell"/></svg><span class="nsy-bell__count">3</span></div></div>
+</section>
+
+<!-- 5 · Severity -> surface: the toast lands, the modal has been answered -->
+<section class="scene" data-t="21" data-shot="22.5">
+  <div class="glow" style="left:100px;top:500px;background:rgba(232,80,122,.06)"></div>
+  <div class="kicker kicker--hi">Severity → Surface</div>
+  <div class="title">The trigger picks <em>the volume.</em></div>
+  <div class="nsy-trigger nsy-trigger--blue" style="left:40px;top:187px"><small>Trigger</small><b>New message</b></div>
+  <div class="nsy-arrow" style="left:264px;top:242px;color:#5b9cf6">→</div>
+  <div class="nsy-slot" style="left:300px;top:187px"><div class="nsy-toast" style="position:absolute;left:167px;top:13px;width:200px"><span class="nsy-ico nsy-ico--blue"><svg><use href="#i-info"/></svg></span><div><div class="nsy-toast__title">New message</div><div class="nsy-toast__body">Sarah Chen: review needed.</div></div></div></div>
+  <div class="nsy-trigger nsy-trigger--amber" style="left:40px;top:332px"><small>Trigger</small><b>Server degraded</b></div>
+  <div class="nsy-arrow" style="left:264px;top:387px;color:#e0a43a">→</div>
+  <div class="nsy-slot" style="left:300px;top:332px"><div class="nsy-banner" style="position:absolute;left:12px;top:13px;width:345px"><span class="nsy-ico nsy-ico--amber"><svg><use href="#i-warn"/></svg></span><div><div class="nsy-banner__title">Server v2.4 degraded</div><div class="nsy-banner__body">API latency above 2s.</div></div><span class="nsy-x">✕</span></div></div>
+  <div class="nsy-trigger nsy-trigger--pink" style="left:40px;top:477px"><small>Trigger</small><b>Card declined</b></div>
+  <div class="nsy-arrow" style="left:264px;top:532px;color:#e8507a">→</div>
+  <div class="nsy-slot" style="left:300px;top:477px"></div>
+  <div class="nsy-trigger nsy-trigger--grey" style="left:40px;top:622px"><small>Trigger</small><b>3 unread comments</b></div>
+  <div class="nsy-arrow" style="left:264px;top:677px;color:#7d8287">→</div>
+  <div class="nsy-slot" style="left:300px;top:622px"><div class="nsy-bell" style="position:absolute;left:168px;top:43px;width:44px;height:44px;border-radius:10px"><svg><use href="#i-bell"/></svg><span class="nsy-bell__count">3</span></div></div>
+  <span class="nsy-pill nsy-pill--pink" style="top:782px">Severity picks the surface</span>
+</section>
+
+<!-- 6 · Lifecycle: how they live and die -->
+<section class="scene" data-t="24" data-shot="27">
+  <div class="glow" style="left:100px;top:420px;background:rgba(232,80,122,.06)"></div>
+  <div class="kicker kicker--hi">Lifecycle</div>
+  <div class="title">How they <em>live and die.</em></div>
+  <div class="nsy-col" style="left:27px;top:185px">
+    <div class="nsy-toast" style="position:absolute;left:10px;top:19px;width:138px;padding:10px 9px"><span class="nsy-ico nsy-ico--blue" style="width:24px;height:24px"><svg><use href="#i-info"/></svg></span><div><div class="nsy-toast__title">Comment posted</div><div class="nsy-toast__body">On Q3 roadmap doc.</div><span class="nsy-undo">↺ UNDO</span></div></div>
+    <div class="nsy-col__foot"><b>Auto-dismiss</b><span>4s · undo</span></div>
+  </div>
+  <div class="nsy-col" style="left:199px;top:185px">
+    <div class="nsy-banner" style="position:absolute;left:7px;top:17px;width:140px;padding:8px 9px;gap:8px"><span class="nsy-ico nsy-ico--amber" style="width:24px;height:24px"><svg><use href="#i-warn"/></svg></span><div><div class="nsy-banner__title">Sync paused</div><div class="nsy-banner__body">Reconnecting...</div></div><span class="nsy-x">✕</span></div>
+    <svg class="cursor" style="left:126px;top:88px" viewBox="0 0 22 26"><use href="#i-cursor"/></svg>
+    <div class="nsy-col__foot"><b>Manual</b><span>Click ✕</span></div>
+  </div>
+  <div class="nsy-col nsy-col--dark" style="left:369px;top:185px">
+    <div class="nsy-modal" style="position:absolute;left:7px;top:64px;width:140px;padding:12px 12px 13px"><div class="nsy-modal__head" style="gap:8px"><span class="nsy-ico nsy-ico--pink" style="width:24px;height:24px"><svg><use href="#i-alert"/></svg></span><div class="nsy-modal__title" style="font-size:13px">Delete project?</div></div><div class="nsy-modal__body" style="font-size:10px">This action cannot be undone.</div><div class="nsy-modal__actions" style="gap:6px"><button class="nsy-btn" style="height:26px;font-size:11px;padding:0 8px">Cancel</button><button class="nsy-btn nsy-btn--pink" style="height:26px;font-size:11px;padding:0 8px">Delete</button></div></div>
+    <div class="nsy-col__foot"><b>Blocking</b><span>Requires action</span></div>
+  </div>
+  <div class="nsy-col" style="left:536px;top:185px">
+    <div class="nsy-bell" style="position:absolute;left:50px;top:100px;width:56px;height:56px;border-radius:12px"><svg><use href="#i-bell"/></svg><span class="nsy-bell__count" id="lifeBadge" style="min-width:26px;height:26px;font-size:12px">3</span></div>
+    <div class="nsy-quiet" id="lifeQuiet" style="top:172px">3 unread</div>
+    <div class="nsy-col__foot"><b>Quiet</b><span>Until cleared</span></div>
+  </div>
+</section>
+
+<!-- 7 · Lifecycle: the badge is cleared, persistence is part of the contract -->
+<section class="scene" data-t="31.5" data-shot="33">
+  <div class="glow" style="left:100px;top:420px;background:rgba(232,80,122,.06)"></div>
+  <div class="kicker kicker--hi">Lifecycle</div>
+  <div class="title">How they <em>live and die.</em></div>
+  <div class="nsy-col" style="left:27px;top:185px">
+    <div class="nsy-toast" style="position:absolute;left:10px;top:19px;width:138px;padding:10px 9px"><span class="nsy-ico nsy-ico--blue" style="width:24px;height:24px"><svg><use href="#i-info"/></svg></span><div><div class="nsy-toast__title">Comment posted</div><div class="nsy-toast__body">On Q3 roadmap doc.</div><span class="nsy-undo">↺ UNDO</span></div></div>
+    <div class="nsy-col__foot"><b>Auto-dismiss</b><span>4s · undo</span></div>
+  </div>
+  <div class="nsy-col" style="left:199px;top:185px">
+    <div class="nsy-banner" style="position:absolute;left:7px;top:17px;width:140px;padding:8px 9px;gap:8px"><span class="nsy-ico nsy-ico--amber" style="width:24px;height:24px"><svg><use href="#i-warn"/></svg></span><div><div class="nsy-banner__title">Sync paused</div><div class="nsy-banner__body">Reconnecting...</div></div><span class="nsy-x">✕</span></div>
+    <svg class="cursor" style="left:126px;top:88px" viewBox="0 0 22 26"><use href="#i-cursor"/></svg>
+    <div class="nsy-col__foot"><b>Manual</b><span>Click ✕</span></div>
+  </div>
+  <div class="nsy-col nsy-col--dark" style="left:369px;top:185px">
+    <div class="nsy-modal" style="position:absolute;left:7px;top:64px;width:140px;padding:12px 12px 13px"><div class="nsy-modal__head" style="gap:8px"><span class="nsy-ico nsy-ico--pink" style="width:24px;height:24px"><svg><use href="#i-alert"/></svg></span><div class="nsy-modal__title" style="font-size:13px">Delete project?</div></div><div class="nsy-modal__body" style="font-size:10px">This action cannot be undone.</div><div class="nsy-modal__actions" style="gap:6px"><button class="nsy-btn" style="height:26px;font-size:11px;padding:0 8px">Cancel</button><button class="nsy-btn nsy-btn--pink" style="height:26px;font-size:11px;padding:0 8px">Delete</button></div></div>
+    <div class="nsy-col__foot"><b>Blocking</b><span>Requires action</span></div>
+  </div>
+  <div class="nsy-col" style="left:536px;top:185px">
+    <div class="nsy-bell" style="position:absolute;left:50px;top:100px;width:56px;height:56px;border-radius:12px"><svg><use href="#i-bell"/></svg><span class="nsy-bell__count" style="min-width:26px;height:26px;font-size:12px"></span></div>
+    <div class="nsy-quiet nsy-quiet--ok" style="top:172px">Cleared</div>
+    <div class="nsy-col__foot"><b>Quiet</b><span>Until cleared</span></div>
+  </div>
+  <span class="nsy-pill nsy-late" style="top:542px;background:#14171a;color:#8a9096;font-size:12px;font-weight:600">Persistence is part of the contract.</span>
+</section>
+
+<!-- 8 · Stack behaviour: three toasts breathe, three modals are a trainwreck -->
+<section class="scene" data-t="36" data-shot="39">
+  <div class="glow" style="left:100px;top:420px;background:rgba(232,80,122,.06)"></div>
+  <div class="kicker kicker--hi">Stack behavior</div>
+  <div class="title">Three toasts? Three modals?</div>
+  <div class="nsy-stack" style="left:20px;top:182px">
+    <div class="nsy-stack__head"><span class="nsy-ico nsy-ico--green"><svg><use href="#i-tick"/></svg></span><div><small>3 toasts</small><b>Stacked · Breathe</b></div></div>
+    <div id="toastStack" style="position:absolute;left:17px;top:85px;width:287px;display:flex;flex-direction:column;gap:30px">
+      <div class="nsy-toast nsy-toast--green" style="padding:9px 12px"><span class="nsy-ico nsy-ico--green" style="width:24px;height:24px"><svg><use href="#i-check"/></svg></span><div><div class="nsy-toast__title">Saved to drafts</div><div class="nsy-toast__body">Q3 roadmap saved.</div></div></div>
+      <div class="nsy-toast" style="padding:9px 12px"><span class="nsy-ico nsy-ico--blue" style="width:24px;height:24px"><svg><use href="#i-info"/></svg></span><div><div class="nsy-toast__title">Comment added</div><div class="nsy-toast__body">Sarah Chen mentioned you.</div></div></div>
+      <div class="nsy-toast" style="padding:9px 12px"><span class="nsy-ico nsy-ico--blue" style="width:24px;height:24px"><svg><use href="#i-info"/></svg></span><div><div class="nsy-toast__title">Item archived</div><div class="nsy-toast__body">Old design removed.</div><span class="nsy-undo">↺ UNDO</span></div></div>
+    </div>
+  </div>
+  <div class="nsy-stack nsy-stack--bad" style="left:380px;top:182px">
+    <div class="nsy-stack__head"><span class="nsy-ico nsy-ico--pink"><svg><use href="#i-x"/></svg></span><div><small>3 modals</small><b>Trainwreck</b></div></div>
+    <div class="nsy-pile" style="left:40px;top:275px">
+      <div class="nsy-modal"><div class="nsy-modal__head"><span class="nsy-ico nsy-ico--pink"><svg><use href="#i-alert"/></svg></span><div class="nsy-modal__title">Session expired</div></div><div class="nsy-modal__body">Sign in again to continue.</div><div class="nsy-modal__actions"><button class="nsy-btn">Later</button><button class="nsy-btn nsy-btn--pink">Sign in</button></div></div>
+      <div class="nsy-modal"><div class="nsy-modal__head"><span class="nsy-ico nsy-ico--pink"><svg><use href="#i-alert"/></svg></span><div class="nsy-modal__title">Confirm delete</div></div><div class="nsy-modal__body">This cannot be undone.</div><div class="nsy-modal__actions"><button class="nsy-btn">Cancel</button><button class="nsy-btn nsy-btn--pink">Delete</button></div></div>
+      <div class="nsy-modal"><div class="nsy-modal__head"><span class="nsy-ico nsy-ico--pink"><svg><use href="#i-alert"/></svg></span><div class="nsy-modal__title">Update available</div></div><div class="nsy-modal__body">Action required to continue.</div><div class="nsy-modal__actions"><button class="nsy-btn">Skip</button><button class="nsy-btn nsy-btn--pink">Install now</button></div></div>
+    </div>
+    <div class="nsy-stack__bail">Users bail.</div>
+  </div>
+</section>
+
+<!-- 9 · Stack behaviour: wrong surface = zero attention -->
+<section class="scene" data-t="43.5" data-shot="45">
+  <div class="glow" style="left:100px;top:420px;background:rgba(232,80,122,.06)"></div>
+  <div class="kicker kicker--hi">Stack behavior</div>
+  <div class="title">Three toasts? Three modals?</div>
+  <div class="nsy-stack" style="left:20px;top:182px">
+    <div class="nsy-stack__head"><span class="nsy-ico nsy-ico--green"><svg><use href="#i-tick"/></svg></span><div><small>3 toasts</small><b>Stacked · Breathe</b></div></div>
+    <div style="position:absolute;left:17px;top:85px;width:287px;display:flex;flex-direction:column;gap:30px">
+      <div class="nsy-toast nsy-toast--green" style="padding:9px 12px"><span class="nsy-ico nsy-ico--green" style="width:24px;height:24px"><svg><use href="#i-check"/></svg></span><div><div class="nsy-toast__title">Saved to drafts</div><div class="nsy-toast__body">Q3 roadmap saved.</div></div></div>
+      <div class="nsy-toast" style="padding:9px 12px"><span class="nsy-ico nsy-ico--blue" style="width:24px;height:24px"><svg><use href="#i-info"/></svg></span><div><div class="nsy-toast__title">Comment added</div><div class="nsy-toast__body">Sarah Chen mentioned you.</div></div></div>
+      <div class="nsy-toast" style="padding:9px 12px"><span class="nsy-ico nsy-ico--blue" style="width:24px;height:24px"><svg><use href="#i-info"/></svg></span><div><div class="nsy-toast__title">Item archived</div><div class="nsy-toast__body">Old design removed.</div><span class="nsy-undo">↺ UNDO</span></div></div>
+    </div>
+  </div>
+  <div class="nsy-stack nsy-stack--bad" style="left:380px;top:182px">
+    <div class="nsy-stack__head"><span class="nsy-ico nsy-ico--pink"><svg><use href="#i-x"/></svg></span><div><small>3 modals</small><b>Trainwreck</b></div></div>
+    <div class="nsy-pile" style="left:40px;top:275px">
+      <div class="nsy-modal"><div class="nsy-modal__head"><span class="nsy-ico nsy-ico--pink"><svg><use href="#i-alert"/></svg></span><div class="nsy-modal__title">Session expired</div></div><div class="nsy-modal__body">Sign in again to continue.</div><div class="nsy-modal__actions"><button class="nsy-btn">Later</button><button class="nsy-btn nsy-btn--pink">Sign in</button></div></div>
+      <div class="nsy-modal"><div class="nsy-modal__head"><span class="nsy-ico nsy-ico--pink"><svg><use href="#i-alert"/></svg></span><div class="nsy-modal__title">Confirm delete</div></div><div class="nsy-modal__body">This cannot be undone.</div><div class="nsy-modal__actions"><button class="nsy-btn">Cancel</button><button class="nsy-btn nsy-btn--pink">Delete</button></div></div>
+      <div class="nsy-modal"><div class="nsy-modal__head"><span class="nsy-ico nsy-ico--pink"><svg><use href="#i-alert"/></svg></span><div class="nsy-modal__title">Update available</div></div><div class="nsy-modal__body">Action required to continue.</div><div class="nsy-modal__actions"><button class="nsy-btn">Skip</button><button class="nsy-btn nsy-btn--pink">Install now</button></div></div>
+    </div>
+    <div class="nsy-stack__bail">Users bail.</div>
+  </div>
+  <div class="title" style="top:803px;font-size:21px;letter-spacing:-.01em">Wrong surface = <em>zero attention.</em></div>
+</section>
+
+<!-- 10 · Outro: follow for more UI systems -->
+<section class="scene" data-t="46.5" data-shot="48">
+  <div class="glow" style="left:100px;top:380px;background:rgba(232,80,122,.09)"></div>
+  <div class="nsy-panel" style="left:27px;top:410px;width:158px;height:97px;padding:10px 6px"><div class="nsy-label" style="font-size:9px;text-align:center">Toast</div>
+    <div class="nsy-toast" style="position:absolute;left:5px;top:27px;width:148px;padding:8px 9px;gap:8px"><span class="nsy-ico nsy-ico--blue" style="width:24px;height:24px"><svg><use href="#i-info"/></svg></span><div><div class="nsy-toast__title">Saved</div><div class="nsy-toast__body">Draft posted.</div></div></div>
+  </div>
+  <div class="nsy-panel" style="left:197px;top:410px;width:158px;height:97px;padding:10px 6px"><div class="nsy-label" style="font-size:9px;text-align:center">Banner</div>
+    <div class="nsy-banner" style="position:absolute;left:4px;top:27px;width:149px;padding:6px 8px;gap:8px"><span class="nsy-ico nsy-ico--amber" style="width:24px;height:24px"><svg><use href="#i-warn"/></svg></span><div><div class="nsy-banner__title">Sync paused</div><div class="nsy-banner__body">Reconnecting.</div></div><span class="nsy-x" style="width:18px;height:18px;font-size:10px">✕</span></div>
+  </div>
+  <div class="nsy-panel" style="left:366px;top:410px;width:156px;height:97px;padding:10px 6px"><div class="nsy-label" style="font-size:9px;text-align:center">Modal</div>
+    <div class="nsy-modal" style="position:absolute;left:5px;top:28px;width:145px;padding:9px 10px;text-align:center"><div class="nsy-modal__title" style="font-size:11px">Confirm action?</div><button class="nsy-btn nsy-btn--pink" style="height:22px;font-size:10px;padding:0 12px;margin-top:6px">Confirm</button></div>
+  </div>
+  <div class="nsy-panel" style="left:535px;top:410px;width:157px;height:97px;padding:10px 6px"><div class="nsy-label" style="font-size:9px;text-align:center">Badge</div>
+    <div class="nsy-bell" style="position:absolute;left:63px;top:35px;width:32px;height:32px;border-radius:8px"><svg><use href="#i-bell"/></svg><span class="nsy-bell__count" style="min-width:16px;height:16px;font-size:9px;padding:0 4px">3</span></div>
+  </div>
+  <div class="title" style="top:533px;font-size:44px;line-height:1.3">Follow for more<br><em>UI systems.</em></div>
+  <div style="position:absolute;left:155px;top:670px;display:flex;align-items:center;gap:18px"><span class="nsy-ico nsy-ico--pink" style="width:42px;height:42px;border-radius:10px"><svg style="width:20px;height:20px"><use href="#i-bookmark"/></svg></span><span style="font-size:17px;font-weight:700">Save this for your <em style="font-style:normal;color:#e8507a">next dashboard.</em></span></div>
+  <div class="nsy-follow center" style="top:742px"><span class="nsy-follow__av"></span><span><b>@designmotionhq</b><span>UI systems, one reel at a time</span></span></div>
+</section>
+
+<script type="module">
+  import { Notifier } from './pattern.js';
+  // Live demo on the lifecycle scene: the badge counts, then clears, on a loop when the scene is entered.
+  const lb = document.getElementById('lifeBadge'), lq = document.getElementById('lifeQuiet');
+  const n = Notifier({ badgeEl: lb });
+  lb.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t > 0) return; clearInterval(lb._iv); n.clearBadge(); n.badge(3); lq.textContent = '3 unread'; lq.classList.remove('nsy-quiet--ok');
+    let on = true; lb._iv = setInterval(() => { on = !on; if (on) { n.badge(3); lq.textContent = '3 unread'; lq.classList.remove('nsy-quiet--ok'); } else { n.clearBadge(); lq.textContent = 'Cleared'; lq.classList.add('nsy-quiet--ok'); } }, 3000); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

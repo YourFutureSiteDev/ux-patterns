@@ -1,0 +1,109 @@
+/* Toggle Anatomy, rebuilt from the @designmotionhq reel "Two toggles. One snaps. One morphs."
+   Component classes are prefixed .tg- and depend only on the tokens below. */
+.tg {
+  --tg-bg: #0e1214; --tg-panel: #111619; --tg-panel-2: #171c22; --tg-border: rgba(255,255,255,.05);
+  --tg-text: #eaeff2; --tg-muted: #8b9298; --tg-dim: #5e666b;
+  --tg-teal: #22c49b; --tg-teal-dim: rgba(34,196,155,.16); --tg-rail-off: #20272d; --tg-rail-snap: #4f565c;
+  --tg-red: #e0455a; --tg-red-dim: rgba(224,69,90,.16);
+  --tg-dur: 250ms; --tg-ease: cubic-bezier(.2,.8,.2,1);
+  font-family: 'Inter', system-ui, sans-serif; color: var(--tg-text);
+}
+
+/* ---- The switch -------------------------------------------------------
+   Rail = 2x knob, knob padded by --tg-pad so it sits centred in both states.
+   Four properties morph together: rail colour, knob translateX, knob shadow, label. */
+.tg-switch { --tg-w: 264px; --tg-h: 124px; --tg-knob: 118px; --tg-pad: 3px;
+  position: relative; display: block; width: var(--tg-w); height: var(--tg-h); border-radius: 999px; border: 0; padding: 0;
+  background: var(--tg-rail-off); cursor: pointer; outline: none;
+  transition: background var(--tg-dur) var(--tg-ease), box-shadow var(--tg-dur) var(--tg-ease); }
+.tg-switch__knob { position: absolute; top: var(--tg-pad); left: var(--tg-pad); width: var(--tg-knob); height: var(--tg-knob); border-radius: 50%; background: #fbfefe;
+  box-shadow: 0 2px 6px rgba(0,0,0,.35); display: grid; place-items: center;
+  transition: transform var(--tg-dur) var(--tg-ease), box-shadow var(--tg-dur) var(--tg-ease); }
+.tg-switch__label { position: absolute; top: 50%; transform: translateY(-50%); font-weight: 700; font-size: 20px; letter-spacing: .04em; color: var(--tg-muted);
+  left: calc(var(--tg-knob) + var(--tg-pad) + 10px); transition: color var(--tg-dur) var(--tg-ease), opacity var(--tg-dur); }
+.tg-switch__label--on { left: auto; right: calc(var(--tg-knob) + var(--tg-pad) + 18px); color: #0e1214; opacity: 0; }
+.tg-switch[aria-checked="true"] { background: var(--tg-teal); }
+.tg-switch[aria-checked="true"] .tg-switch__knob { transform: translateX(calc(var(--tg-w) - var(--tg-knob) - 2 * var(--tg-pad))); box-shadow: 0 2px 10px rgba(0,0,0,.3), 0 0 18px rgba(34,196,155,.55); }
+.tg-switch[aria-checked="true"] .tg-switch__label--off { opacity: 0; }
+.tg-switch[aria-checked="true"] .tg-switch__label--on { opacity: 1; }
+.tg-switch:focus-visible, .tg-switch.is-focus { box-shadow: 0 0 0 8px var(--tg-bg), 0 0 0 12px var(--tg-teal), 0 0 50px rgba(34,196,155,.5); }
+.tg-switch.is-snap, .tg-switch.is-snap * { transition-duration: 0s; }
+.tg-switch.is-snap { background: var(--tg-rail-snap); }
+.tg-switch.is-snap[aria-checked="true"] { background: var(--tg-rail-snap); }
+.tg-switch--lg { --tg-w: 400px; --tg-h: 198px; --tg-knob: 174px; --tg-pad: 12px; background: var(--tg-teal); }
+.tg-switch--hook { --tg-w: 260px; --tg-h: 130px; --tg-knob: 112px; --tg-pad: 9px; }
+.tg-switch.is-pending .tg-switch__knob::after { content: ""; width: 52px; height: 52px; border-radius: 50%; border: 5px solid rgba(20,40,36,.35); border-top-color: var(--tg-teal); border-right-color: var(--tg-teal); animation: tg-spin .8s linear infinite; }
+.tg-switch.is-shake { animation: tg-shake .4s var(--tg-ease); }
+@keyframes tg-spin { to { transform: rotate(360deg) } }
+@keyframes tg-shake { 0%,100% { transform: translateX(0) } 25% { transform: translateX(-8px) } 55% { transform: translateX(6px) } 80% { transform: translateX(-3px) } }
+.tg-switch__caption { margin-top: 22px; text-align: center; font-size: 15px; font-weight: 700; color: var(--tg-muted); }
+
+/* ---- Card wrapper ------------------------------------------------------ */
+.tg-card { background: var(--tg-panel); border: 1px solid var(--tg-border); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,.35); }
+.tg-card__side { font-size: 14px; font-weight: 700; letter-spacing: .2em; color: var(--tg-dim); text-transform: uppercase; }
+
+/* ---- Property grid (what morphs) -------------------------------------- */
+.tg-props { display: grid; grid-template-columns: 280px 280px; gap: 13px 14px; }
+.tg-prop { position: relative; height: 69px; padding: 12px 0 0 40px; border-radius: 10px; background: #141a1d; border: 1px solid var(--tg-border); transition: border-color .25s, box-shadow .25s; }
+.tg-prop::before { content: ""; position: absolute; left: 17px; top: 29px; width: 10px; height: 10px; border-radius: 50%; background: #525a5d; transition: background .25s, box-shadow .25s; }
+.tg-prop b { display: block; font-size: 17px; font-weight: 700; line-height: 1.1; }
+.tg-prop span { display: block; margin-top: 4px; font-size: 14px; color: var(--tg-muted); }
+.tg-props.is-on .tg-prop { border-color: rgba(34,196,155,.55); box-shadow: 0 0 22px rgba(34,196,155,.18); }
+.tg-props.is-on .tg-prop::before { background: var(--tg-teal); box-shadow: 0 0 10px var(--tg-teal); }
+
+/* ---- Code pill / chips ------------------------------------------------- */
+.tg-code { display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px; border-radius: 8px; background: var(--tg-panel-2); font: 500 16px 'JetBrains Mono', ui-monospace, Menlo, monospace; color: var(--tg-muted); white-space: nowrap; }
+.tg-code em { font-style: normal; color: var(--tg-teal); }
+.tg-code--ease { color: var(--tg-teal); font-weight: 700; font-size: 17px; padding: 9px 20px; border: 1px solid rgba(34,196,155,.14); }
+.tg-code--ease i { font-style: normal; color: #4b5358; }
+.tg-chips { display: flex; gap: 14px; }
+.tg-chip { height: 51px; min-width: 134px; padding: 0 24px; display: grid; place-items: center; border-radius: 8px; background: var(--tg-panel-2); border: 1px solid var(--tg-border); font: 700 18px 'JetBrains Mono', ui-monospace, Menlo, monospace; color: #7f868c; transition: all .25s; }
+.tg-chip.is-on { background: #0b3028; border-color: rgba(34,196,155,.45); color: #2fc0a3; box-shadow: 0 0 20px rgba(34,196,155,.15); }
+.tg-key { height: 45px; padding: 0 18px; display: grid; place-items: center; border-radius: 8px; background: var(--tg-panel-2); border: 1px solid rgba(255,255,255,.08); font: 600 18px 'JetBrains Mono', ui-monospace, Menlo, monospace; color: #e8ecee; box-shadow: 0 3px 0 #0a0d10; }
+.tg-arrow { font: 600 15px 'JetBrains Mono', monospace; color: var(--tg-teal); letter-spacing: -.05em; }
+
+/* ---- Screen reader bubble --------------------------------------------- */
+.tg-sr { display: flex; align-items: center; gap: 12px; height: 62px; padding: 0 16px; border-radius: 10px; background: var(--tg-panel-2); border: 1px solid rgba(255,255,255,.06); white-space: nowrap; }
+.tg-sr__icon { width: 30px; height: 30px; border-radius: 8px; background: var(--tg-teal-dim); color: var(--tg-teal); display: grid; place-items: center; }
+.tg-sr__icon svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.tg-sr small { display: block; font-size: 11px; font-weight: 700; letter-spacing: .14em; color: var(--tg-dim); text-transform: uppercase; }
+.tg-sr code { display: block; font: 700 16px 'JetBrains Mono', ui-monospace, Menlo, monospace; color: #e8ecee; margin-top: 1px; }
+
+/* ---- Server panel ------------------------------------------------------ */
+.tg-server { width: 504px; padding: 16px 20px 18px; border-radius: 12px; background: var(--tg-panel); border: 1px solid rgba(34,196,155,.12); box-shadow: 0 0 30px rgba(34,196,155,.06); font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; transition: border-color .3s, box-shadow .3s; }
+.tg-server__head { display: flex; align-items: center; justify-content: space-between; height: 26px; }
+.tg-server__head span { font: 700 14px 'Inter', sans-serif; letter-spacing: .2em; color: var(--tg-dim); }
+.tg-server__pill { display: inline-flex; align-items: center; gap: 7px; height: 25px; padding: 0 12px; border-radius: 999px; background: #133c34; color: #35c9a4; font: 700 13px 'Inter', sans-serif; }
+.tg-server__pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.tg-server__line { margin-top: 10px; font-size: 17px; font-weight: 700; color: #eef4f5; }
+.tg-server__line em { font-style: normal; color: var(--tg-teal); margin-right: 8px; }
+.tg-server__body { margin-top: 10px; height: 36px; line-height: 36px; padding: 0 14px; border-radius: 6px; background: #090d0e; font-size: 15px; color: #d8dde0; white-space: pre; }
+.tg-server__body i { font-style: normal; color: #4a5256; }
+.tg-server__body em { font-style: normal; color: var(--tg-teal); }
+.tg-server__status { margin-top: 10px; height: 36px; line-height: 36px; padding: 0 14px; border-radius: 6px; background: #141a1d; font-size: 14px; color: #6e777b; }
+.tg-server.is-error { border-color: rgba(224,69,90,.3); box-shadow: 0 0 30px rgba(224,69,90,.14); }
+.tg-server.is-error .tg-server__pill { background: #391c1e; color: var(--tg-red); }
+.tg-server.is-error .tg-server__pill::before { width: 11px; height: 11px; background: none; border: 1.5px solid currentColor; box-sizing: border-box; }
+.tg-server.is-error .tg-server__status { background: #2b0c12; color: #cf4a5c; }
+
+/* ---- Toast -------------------------------------------------------------- */
+.tg-toast { display: inline-flex; align-items: center; gap: 12px; height: 50px; padding: 0 16px 0 14px; border-radius: 10px; background: #181d23; border: 1px solid rgba(255,255,255,.05); box-shadow: 0 10px 40px rgba(224,69,90,.18); font-size: 15px; font-weight: 600; color: #e6eaec; white-space: nowrap; }
+.tg-toast__icon { width: 26px; height: 26px; border-radius: 7px; background: var(--tg-red-dim); color: var(--tg-red); display: grid; place-items: center; }
+.tg-toast__icon svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+
+/* ---- Anatomy dimension lines ------------------------------------------- */
+.tg-dim { position: absolute; color: var(--tg-teal); }
+.tg-dim--h { height: 12px; border-left: 1.5px solid currentColor; border-right: 1.5px solid currentColor; }
+.tg-dim--h::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 1.5px dashed currentColor; }
+.tg-dim--v { width: 12px; border-top: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; }
+.tg-dim--v::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; border-left: 1.5px dashed currentColor; }
+.tg-measure { position: absolute; }
+.tg-measure small { display: block; font-size: 14px; font-weight: 700; letter-spacing: .14em; color: var(--tg-dim); text-transform: uppercase; }
+.tg-measure b { display: block; margin-top: 4px; font-size: 24px; font-weight: 700; color: #eef2f4; }
+
+/* ---- Save CTA -------------------------------------------------------------- */
+.tg-cta { display: inline-flex; align-items: center; gap: 10px; height: 65px; padding: 0 44px; border-radius: 14px; background: var(--tg-teal); color: #062018; font-size: 22px; font-weight: 700; box-shadow: 0 0 50px rgba(34,196,155,.4); }
+.tg-cta svg { width: 18px; height: 18px; fill: currentColor; }
+.tg-mini { position: absolute; width: 44px; height: 22px; border-radius: 999px; background: #123a34; opacity: .55; }
+.tg-mini::after { content: ""; position: absolute; top: 1px; left: 1px; width: 20px; height: 20px; border-radius: 50%; background: #5f6a6e; }
+.tg-mini.is-on { background: #1f6f5c; } .tg-mini.is-on::after { left: 22px; background: #c9d2d3; }

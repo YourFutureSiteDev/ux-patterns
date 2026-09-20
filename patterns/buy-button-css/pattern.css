@@ -1,0 +1,59 @@
+/* Buy Button CSS, rebuilt from the @designmotionhq reel "How Stripe designed a button that converts".
+   Component classes are prefixed .bb- and depend only on the tokens below.
+   The button is built in four layers (colour, shape, depth, motion); each is a modifier class so a page can stop at any layer. */
+.bb {
+  --bb-bg: #0a070a; --bb-purple: #6366f1; --bb-purple-2: #834eee; --bb-glow: rgba(99,102,241,.4);
+  --bb-editor: #0a0716; --bb-editor-bar: #161316; --bb-editor-line: #1c1928;
+  --bb-prop: #b98af0; --bb-val: #8fdcb0; --bb-punc: #c86ab9; --bb-text: #f3f5f7; --bb-muted: #9a97a8;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--bb-text);
+}
+
+/* ---- The button, layer by layer -------------------------------------------- */
+.bb-btn { display: inline-flex; align-items: center; justify-content: center; border: 2px outset #d7d5d7; background: #bfbcbf; color: #111; font: 400 34px 'DejaVu Sans', Verdana, sans-serif; padding: 12px 24px; cursor: pointer; transition: transform .18s ease, box-shadow .18s ease; }
+.bb-btn.is-color { border: 0; background: var(--bb-purple); color: #fff; padding: 20px 64px; }
+.bb-btn.is-shape { border-radius: 14px; font-family: 'Inter', system-ui, sans-serif; font-weight: 600; font-size: 28px; }
+.bb-btn.is-depth { box-shadow: 0 4px 20px var(--bb-glow); }
+.bb-btn.is-motion { background: linear-gradient(90deg, #6958eb, #834eee); }
+.bb-btn.is-motion:hover, .bb-btn.is-motion.is-hover { transform: scale(1.05); box-shadow: 0 6px 28px rgba(99,102,241,.55); }
+/* the reel renders the finished button larger than its own CSS says; these size classes match the frames */
+.bb-btn--stage { font-size: 32px; padding: 0; height: 95px; width: 610px; }
+.bb-btn--stage.bb-btn--l2 { width: 440px; height: 88px; font-size: 31px; }
+
+/* ---- The editor ------------------------------------------------------------ */
+.bb-editor { width: 666px; border-radius: 8px; overflow: hidden; background: var(--bb-editor); border: 1px solid var(--bb-editor-line); }
+.bb-editor__bar { height: 24px; background: var(--bb-editor-bar); display: flex; align-items: center; gap: 6px; padding: 0 12px; font: 10px ui-monospace, 'DejaVu Sans Mono', Consolas, monospace; color: #4d4a55; }
+.bb-editor__bar i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.bb-editor__bar i:nth-child(1) { background: #ff5f57; } .bb-editor__bar i:nth-child(2) { background: #febc2e; } .bb-editor__bar i:nth-child(3) { background: #28c840; }
+.bb-editor__bar span { margin-left: 8px; }
+.bb-editor__body { margin: 0; min-height: 228px; padding: 10px 14px 12px; font: 18px/27.7px ui-monospace, 'DejaVu Sans Mono', Consolas, monospace; white-space: pre; color: #c9c7d1; }
+.bb-editor__body .p { color: var(--bb-prop); }
+.bb-editor__body .v { color: var(--bb-val); }
+.bb-editor__body .b { color: var(--bb-punc); }
+.bb-editor__body .amp { color: #a86ee0; }
+.bb-editor__body .sel { color: var(--bb-val); }
+.bb-caret { display: inline-block; width: 2px; height: 20px; background: #c9c7d1; vertical-align: -3px; animation: bb-blink 1s steps(2) infinite; }
+@keyframes bb-blink { to { opacity: 0 } }
+
+/* ---- Scene labels ---------------------------------------------------------- */
+.bb-label { position: absolute; left: 0; right: 0; text-align: center; font-size: 22px; font-weight: 700; text-shadow: 0 0 18px rgba(255,255,255,.25); }
+.bb-label--muted { font-size: 18px; font-weight: 600; color: #a19fae; text-shadow: none; }
+.bb-hook { position: absolute; left: 0; right: 0; text-align: center; font-size: 38px; font-weight: 800; letter-spacing: -.02em; line-height: 1.25; }
+.bb-hook em { font-style: normal; color: #7c6df0; }
+
+/* ---- Stripe checkout card -------------------------------------------------- */
+.bb-card { width: 294px; background: #151126; border: 1px solid #272338; border-radius: 14px; padding: 24px 24px 24px; box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 40px rgba(99,102,241,.08); }
+.bb-card__head { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; margin-bottom: 11px; }
+.bb-card__logo { width: 20px; height: 20px; border-radius: 4px; background: var(--bb-purple); display: grid; place-items: center; font-size: 12px; font-weight: 800; color: #fff; }
+.bb-card label { display: block; font-size: 10px; color: var(--bb-muted); margin-bottom: 5px; }
+.bb-field { height: 32px; border-radius: 6px; background: #1b1730; border: 1px solid #2b2740; display: flex; align-items: center; padding: 0 10px; font-size: 12px; color: #5d5a70; margin-bottom: 11px; }
+.bb-card__row { display: flex; gap: 8px; }
+.bb-card__row > div { flex: 1; }
+.bb-card .bb-btn { width: 100%; height: 38px; padding: 0; font-size: 15px; border-radius: 8px; margin-top: 4px; }
+
+/* ---- Outro ----------------------------------------------------------------- */
+.bb-outro { position: absolute; left: 0; right: 0; text-align: center; }
+.bb-outro h2 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -.02em; }
+.bb-outro .bb-sub { margin-top: 20px; font-size: 17px; font-weight: 600; color: var(--bb-muted); }
+.bb-outro .bb-follow { margin-top: 26px; font-size: 19px; font-weight: 700; color: #7c6df0; }
+.bb-outro .bb-more { margin-top: 8px; font-size: 15px; color: #7d7a8a; }
+.bb-fine { position: absolute; left: 0; right: 0; text-align: center; font-size: 15px; font-weight: 400; color: #2b2930; }

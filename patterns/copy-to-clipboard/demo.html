@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Copy to Clipboard · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #090d10; --accent: #2fe0ad; --danger: #ee4b7a; --grid: rgba(255,255,255,.03); }
+  .scene { color: #f2f4f7; }
+  .kicker { top: 144px; font-size: 15px; letter-spacing: .16em; padding: 0 20px; height: 34px; line-height: 34px; background: #082722; }
+  .kicker--danger { background: #2a1520; }
+  .kicker--plain { background: #151a1e; color: #9aa3ad; }
+  .title { top: 188px; font-size: 40px; margin: 0; }
+  .caption { top: 1025px; height: 54px; line-height: 52px; padding: 0 28px; border-radius: 12px; background: #0d2122; border: 1px solid rgba(47,224,173,.22); color: var(--accent); font-size: 20px; display: inline-flex; align-items: center; gap: 10px; box-shadow: none; }
+  .caption svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .caption--plain { background: #151a1e; border-color: rgba(255,255,255,.1); color: #c9ced5; }
+  .caption--danger { background: #2a1520; border-color: rgba(238,75,122,.3); color: var(--danger); }
+  .cursor { transition: left .6s cubic-bezier(.2,.8,.2,1), top .6s cubic-bezier(.2,.8,.2,1); z-index: 5; }
+  .cb-glow { position: absolute; left: -90px; top: 350px; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(20,110,95,.28), rgba(20,110,95,0) 65%); pointer-events: none; }
+  .cb-headline { position: absolute; top: 898px; left: 0; right: 0; text-align: center; font-size: 52px; font-weight: 800; letter-spacing: -.02em; color: var(--danger); opacity: 0; transform: scale(.9); transition: opacity .3s, transform .4s cubic-bezier(.2,.8,.2,1); }
+  .cb-headline.is-on { opacity: 1; transform: none; }
+  .hide { display: none !important; }
+  .frozen * { transition: none !important; }
+</style>
+</head>
+<body class="cb">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v16M6 14l6 6 6-6"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12l2 2 4-4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></symbol>
+  <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16M13 5l7 7-7 7"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M10 13l-2 2 2 2M14 13l2 2-2 2"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3L2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></symbol>
+  <symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></symbol>
+  <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9l4 6M21 9l-4 6"/></symbol>
+  <symbol id="i-speaker" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></symbol>
+  <symbol id="i-horn" viewBox="0 0 24 24"><path d="M3 10v4h3l7 5V5L6 10zM17 9a5 5 0 0 1 0 6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+  <symbol id="i-ne" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></symbol>
+  <symbol id="i-pointer" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></symbol>
+</svg>
+
+<!-- 1 · Hook: Copied... but the clipboard is empty -->
+<section class="scene s-hook" data-t="0" data-shot="3">
+  <div class="cb-glow" style="top:100px;background:radial-gradient(circle, rgba(120,140,150,.09), rgba(120,140,150,0) 65%)"></div>
+  <div class="cb-browser" style="left:60px;top:200px">
+    <div class="cb-browser__bar"><i class="cb-browser__dot"></i><i class="cb-browser__dot"></i><i class="cb-browser__dot"></i><div class="cb-browser__url"><svg><use href="#i-lock"/></svg>acme.co/settings/api</div><svg class="cb-browser__search"><use href="#i-search"/></svg></div>
+  </div>
+  <div class="cb-label" style="position:absolute;left:90px;top:269px">API key</div>
+  <div class="cb-field" id="hookField" style="left:88px;top:296px;width:544px">
+    <span class="cb-field__key">sk_live_a3f29c7b8e14d0</span>
+    <button class="cb-btn" id="hookBtn" style="width:140px"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg>Copy</span><span class="cb-btn__done"><svg><use href="#i-check"/></svg>Copied</span></button>
+  </div>
+  <div style="position:absolute;left:88px;top:370px;font-size:15px;color:#6b7280">Signed in as alex@acme.co</div>
+  <div class="cb-arrow" style="left:342px;top:438px"><svg><use href="#i-down"/></svg></div>
+  <div style="position:absolute;left:0;right:0;top:486px;text-align:center;font-size:16px;font-weight:600;color:#6b7280">then paste it</div>
+  <div class="cb-paste" id="hookPaste" style="left:88px;top:604px">
+    <div class="cb-label" style="position:absolute;left:18px;top:24px">Paste it somewhere</div>
+    <div class="cb-paste__kbd">⌘V</div>
+    <div class="cb-paste__box"><i></i><span>(nothing pasted)</span></div>
+    <div class="cb-paste__hint">expecting your API key...</div>
+    <div class="cb-paste__hint cb-paste__hint--bad">received: 0 characters</div>
+  </div>
+  <div class="cb-clip center" id="hookClip" style="top:834px"><svg><use href="#i-clip"/></svg>clipboard: 0 bytes</div>
+  <div class="cb-headline" id="hookHead">You pasted nothing.</div>
+  <svg class="cursor" viewBox="0 0 22 26" id="hookCur" style="left:556px;top:322px"><use href="#i-pointer"/></svg>
+</section>
+
+<!-- 2 · Instant feedback -->
+<section class="scene s-instant" data-t="3.5" data-shot="4.5">
+  <div class="cb-glow"></div>
+  <div class="kicker">Instant feedback</div>
+  <h1 class="title">Flip the <em>instant</em> it fires.</h1>
+  <div class="cb-card" style="left:54px;top:411px;width:292px;height:376px">
+    <div class="cb-chip cb-chip--pink" style="top:19px">Spinner</div>
+    <button class="cb-btn cb-btn--icon cb-btn--lg j-spinbtn" style="position:absolute;left:114px;top:117px"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg></span><span class="cb-btn__spin"></span><span class="cb-btn__done"><svg><use href="#i-check"/></svg></span></button>
+    <div class="cb-ms cb-ms--pink" style="top:226px"><span class="j-ms">0</span> ms</div>
+    <div class="cb-bar" style="left:26px;top:281px;width:240px"><i class="j-bar"></i></div>
+    <div class="cb-note" style="top:313px">waits, then confirms</div>
+  </div>
+  <div class="cb-card" style="left:374px;top:411px;width:292px;height:376px">
+    <div class="cb-chip cb-chip--teal" style="top:19px">Instant</div>
+    <button class="cb-btn cb-btn--icon cb-btn--lg j-instbtn" style="position:absolute;left:114px;top:117px"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg></span><span class="cb-btn__done"><svg><use href="#i-check"/></svg></span></button>
+    <div class="cb-ms cb-ms--teal" style="top:226px">0 ms</div>
+    <div class="cb-bar" style="left:26px;top:281px;width:240px"></div>
+    <div class="cb-note" style="top:313px">confirms on the same frame</div>
+  </div>
+  <div class="caption"><svg><use href="#i-bolt"/></svg>Flip to a check instantly.</div>
+  <svg class="cursor j-cur" viewBox="0 0 22 26" style="left:196px;top:560px"><use href="#i-pointer"/></svg>
+</section>
+
+<!-- 2b · Instant feedback: both confirmed -->
+<section class="scene s-instant" data-t="3.5" data-shot="7.5">
+  <div class="cb-glow"></div>
+  <div class="kicker">Instant feedback</div>
+  <h1 class="title">Flip the <em>instant</em> it fires.</h1>
+  <div class="cb-card" style="left:54px;top:411px;width:292px;height:376px">
+    <div class="cb-chip cb-chip--pink" style="top:19px">Spinner</div>
+    <button class="cb-btn cb-btn--icon cb-btn--lg j-spinbtn" style="position:absolute;left:114px;top:117px"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg></span><span class="cb-btn__spin"></span><span class="cb-btn__done"><svg><use href="#i-check"/></svg></span></button>
+    <div class="cb-ms cb-ms--pink" style="top:226px"><span class="j-ms">0</span> ms</div>
+    <div class="cb-bar" style="left:26px;top:281px;width:240px"><i class="j-bar"></i></div>
+    <div class="cb-note" style="top:313px">waits, then confirms</div>
+  </div>
+  <div class="cb-card" style="left:374px;top:411px;width:292px;height:376px">
+    <div class="cb-chip cb-chip--teal" style="top:19px">Instant</div>
+    <button class="cb-btn cb-btn--icon cb-btn--lg j-instbtn" style="position:absolute;left:114px;top:117px"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg></span><span class="cb-btn__done"><svg><use href="#i-check"/></svg></span></button>
+    <div class="cb-ms cb-ms--teal" style="top:226px">0 ms</div>
+    <div class="cb-bar" style="left:26px;top:281px;width:240px"></div>
+    <div class="cb-note" style="top:313px">confirms on the same frame</div>
+  </div>
+  <div class="caption"><svg><use href="#i-bolt"/></svg>Flip to a check instantly.</div>
+  <svg class="cursor j-cur" viewBox="0 0 22 26" style="left:196px;top:560px"><use href="#i-pointer"/></svg>
+</section>
+
+<!-- 3 · Auto reset (holding) -->
+<section class="scene s-reset" data-t="9" data-shot="10.5">
+  <div class="cb-glow"></div>
+  <div class="kicker">Auto reset</div>
+  <h1 class="title">Hold, then <em>fade back</em>.</h1>
+  <div class="cb-status cb-mono j-status" style="top:314px">Ready</div>
+  <div class="cb-ring j-ring" style="left:294px;top:342px"><svg viewBox="0 0 132 132"><circle class="cb-ring__track" cx="66" cy="66" r="62"/><circle class="cb-ring__arc" cx="66" cy="66" r="62" pathLength="1"/></svg></div>
+  <button class="cb-btn cb-btn--icon cb-btn--xl j-btn" style="position:absolute;left:324px;top:372px"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg></span><span class="cb-btn__done"><svg><use href="#i-check"/></svg></span></button>
+  <div class="cb-row j-row1" style="left:60px;top:622px"><div class="cb-row__icon cb-row__icon--pink"><svg><use href="#i-check"/></svg></div><div class="cb-row__text"><b>Stuck forever</b><span>2nd copy</span></div><div class="cb-row__signal"><svg><use href="#i-arrow"/></svg>no signal</div></div>
+  <div class="cb-row j-row2" style="left:60px;top:715px"><div class="cb-row__icon"><svg><use href="#i-copy"/></svg></div><div class="cb-row__text"><b>Reset in 2s</b><span>2nd copy</span></div><div class="cb-row__signal"><svg><use href="#i-arrow"/></svg>signals again</div></div>
+  <div class="caption"><svg><use href="#i-timer"/></svg>Reset after two seconds.</div>
+  <svg class="cursor j-cur" viewBox="0 0 22 26" style="left:358px;top:408px"><use href="#i-pointer"/></svg>
+</section>
+
+<!-- 3b · Auto reset (reset) -->
+<section class="scene s-reset" data-t="9" data-shot="13.5">
+  <div class="cb-glow"></div>
+  <div class="kicker">Auto reset</div>
+  <h1 class="title">Hold, then <em>fade back</em>.</h1>
+  <div class="cb-status cb-mono j-status" style="top:314px">Ready</div>
+  <div class="cb-ring j-ring" style="left:294px;top:342px"><svg viewBox="0 0 132 132"><circle class="cb-ring__track" cx="66" cy="66" r="62"/><circle class="cb-ring__arc" cx="66" cy="66" r="62" pathLength="1"/></svg></div>
+  <button class="cb-btn cb-btn--icon cb-btn--xl j-btn" style="position:absolute;left:324px;top:372px"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg></span><span class="cb-btn__done"><svg><use href="#i-check"/></svg></span></button>
+  <div class="cb-row j-row1" style="left:60px;top:622px"><div class="cb-row__icon cb-row__icon--pink"><svg><use href="#i-check"/></svg></div><div class="cb-row__text"><b>Stuck forever</b><span>2nd copy</span></div><div class="cb-row__signal"><svg><use href="#i-arrow"/></svg>no signal</div></div>
+  <div class="cb-row j-row2" style="left:60px;top:715px"><div class="cb-row__icon"><svg><use href="#i-copy"/></svg></div><div class="cb-row__text"><b>Reset in 2s</b><span>2nd copy</span></div><div class="cb-row__signal"><svg><use href="#i-arrow"/></svg>signals again</div></div>
+  <div class="caption"><svg><use href="#i-timer"/></svg>Reset after two seconds.</div>
+  <svg class="cursor j-cur" viewBox="0 0 22 26" style="left:358px;top:408px"><use href="#i-pointer"/></svg>
+</section>
+
+<!-- 3c · Auto reset (copied again) -->
+<section class="scene s-reset" data-t="9" data-shot="16.5">
+  <div class="cb-glow"></div>
+  <div class="kicker">Auto reset</div>
+  <h1 class="title">Hold, then <em>fade back</em>.</h1>
+  <div class="cb-status cb-mono j-status" style="top:314px">Ready</div>
+  <div class="cb-ring j-ring" style="left:294px;top:342px"><svg viewBox="0 0 132 132"><circle class="cb-ring__track" cx="66" cy="66" r="62"/><circle class="cb-ring__arc" cx="66" cy="66" r="62" pathLength="1"/></svg></div>
+  <button class="cb-btn cb-btn--icon cb-btn--xl j-btn" style="position:absolute;left:324px;top:372px"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg></span><span class="cb-btn__done"><svg><use href="#i-check"/></svg></span></button>
+  <div class="cb-row j-row1" style="left:60px;top:622px"><div class="cb-row__icon cb-row__icon--pink"><svg><use href="#i-check"/></svg></div><div class="cb-row__text"><b>Stuck forever</b><span>2nd copy</span></div><div class="cb-row__signal"><svg><use href="#i-arrow"/></svg>no signal</div></div>
+  <div class="cb-row j-row2" style="left:60px;top:715px"><div class="cb-row__icon"><svg><use href="#i-copy"/></svg></div><div class="cb-row__text"><b>Reset in 2s</b><span>2nd copy</span></div><div class="cb-row__signal"><svg><use href="#i-arrow"/></svg>signals again</div></div>
+  <div class="caption"><svg><use href="#i-timer"/></svg>Reset after two seconds.</div>
+  <svg class="cursor j-cur" viewBox="0 0 22 26" style="left:358px;top:408px"><use href="#i-pointer"/></svg>
+</section>
+
+<!-- 4 · Clean value (formatted span copied) -->
+<section class="scene s-clean" data-t="18" data-shot="21">
+  <div class="kicker kicker--plain">Clean value</div>
+  <h1 class="title">Copy the <em>raw</em> value.</h1>
+  <div class="cb-tall j-left" style="left:41px;top:301px">
+    <div class="cb-label" style="top:15px">Formatted span</div>
+    <div class="cb-key" style="top:39px">sk_live_a3f2
+9c7b8e14d0</div>
+    <button class="cb-btn cb-btn--icon j-lbtn" style="position:absolute;left:252px;top:92px"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg></span><span class="cb-btn__done"><svg><use href="#i-check"/></svg></span></button>
+    <div class="cb-tall__sep" style="top:144px"></div>
+    <div class="cb-label" style="top:155px">On the clipboard</div>
+    <div class="cb-val j-lval hide" style="top:180px">sk_live_a3f2<mark>⏎</mark>9c7b<mark>·</mark>8e14d0</div>
+    <div class="cb-tall__code" style="top:269px">
+      <div class="cb-code" style="top:13px"><span class="k">$</span> api --key</div>
+      <div class="cb-line cb-line--pink j-lerr hide" style="top:42px"><svg><use href="#i-warn"/></svg>parse error: newline</div>
+      <div class="cb-badge cb-badge--pink j-lbadge hide" style="left:14px;top:197px">Breaks</div>
+    </div>
+  </div>
+  <div class="cb-tall j-right" style="left:374px;top:301px">
+    <div class="cb-label" style="top:15px">Raw value</div>
+    <div class="cb-key" style="top:39px">sk_live_a3f29c7b8e14d0</div>
+    <button class="cb-btn cb-btn--icon j-rbtn" style="position:absolute;left:252px;top:92px"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg></span><span class="cb-btn__done"><svg><use href="#i-check"/></svg></span></button>
+    <div class="cb-tall__sep" style="top:144px"></div>
+    <div class="cb-label" style="top:155px">On the clipboard</div>
+    <div class="cb-val j-rval hide" style="top:180px">sk_live_a3f29c7b8e14d0</div>
+    <div class="cb-tall__code" style="top:269px">
+      <div class="cb-code" style="top:13px"><span class="k">$</span> api --key</div>
+      <div class="cb-line cb-line--teal j-rok hide" style="top:42px"><svg><use href="#i-ok"/></svg>authenticated</div>
+      <div class="cb-badge cb-badge--teal j-rbadge hide" style="left:14px;top:197px">Works</div>
+    </div>
+  </div>
+  <div class="caption caption--plain"><svg><use href="#i-file"/></svg>Copy the raw value.</div>
+  <svg class="cursor j-cur" viewBox="0 0 22 26" style="left:309px;top:410px"><use href="#i-pointer"/></svg>
+</section>
+
+<!-- 4b · Clean value (raw copied, works) -->
+<section class="scene s-clean" data-t="18" data-shot="24">
+  <div class="kicker kicker--plain">Clean value</div>
+  <h1 class="title">Copy the <em>raw</em> value.</h1>
+  <div class="cb-tall j-left" style="left:41px;top:301px">
+    <div class="cb-label" style="top:15px">Formatted span</div>
+    <div class="cb-key" style="top:39px">sk_live_a3f2
+9c7b8e14d0</div>
+    <button class="cb-btn cb-btn--icon j-lbtn" style="position:absolute;left:252px;top:92px"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg></span><span class="cb-btn__done"><svg><use href="#i-check"/></svg></span></button>
+    <div class="cb-tall__sep" style="top:144px"></div>
+    <div class="cb-label" style="top:155px">On the clipboard</div>
+    <div class="cb-val j-lval hide" style="top:180px">sk_live_a3f2<mark>⏎</mark>9c7b<mark>·</mark>8e14d0</div>
+    <div class="cb-tall__code" style="top:269px">
+      <div class="cb-code" style="top:13px"><span class="k">$</span> api --key</div>
+      <div class="cb-line cb-line--pink j-lerr hide" style="top:42px"><svg><use href="#i-warn"/></svg>parse error: newline</div>
+      <div class="cb-badge cb-badge--pink j-lbadge hide" style="left:14px;top:197px">Breaks</div>
+    </div>
+  </div>
+  <div class="cb-tall j-right" style="left:374px;top:301px">
+    <div class="cb-label" style="top:15px">Raw value</div>
+    <div class="cb-key" style="top:39px">sk_live_a3f29c7b8e14d0</div>
+    <button class="cb-btn cb-btn--icon j-rbtn" style="position:absolute;left:252px;top:92px"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg></span><span class="cb-btn__done"><svg><use href="#i-check"/></svg></span></button>
+    <div class="cb-tall__sep" style="top:144px"></div>
+    <div class="cb-label" style="top:155px">On the clipboard</div>
+    <div class="cb-val j-rval hide" style="top:180px">sk_live_a3f29c7b8e14d0</div>
+    <div class="cb-tall__code" style="top:269px">
+      <div class="cb-code" style="top:13px"><span class="k">$</span> api --key</div>
+      <div class="cb-line cb-line--teal j-rok hide" style="top:42px"><svg><use href="#i-ok"/></svg>authenticated</div>
+      <div class="cb-badge cb-badge--teal j-rbadge hide" style="left:14px;top:197px">Works</div>
+    </div>
+  </div>
+  <div class="caption caption--plain"><svg><use href="#i-file"/></svg>Copy the raw value.</div>
+  <svg class="cursor j-cur" viewBox="0 0 22 26" style="left:309px;top:410px"><use href="#i-pointer"/></svg>
+</section>
+
+<!-- 5 · Screen readers (silence) -->
+<section class="scene s-sr" data-t="27" data-shot="28.5">
+  <div class="cb-glow"></div>
+  <div class="kicker">Screen readers</div>
+  <h1 class="title">Say it <em>out loud</em>.</h1>
+  <div class="cb-sr j-top" style="left:60px;top:300px">
+    <button class="cb-btn j-tbtn"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg>Copy</span><span class="cb-btn__done"><svg><use href="#i-check"/></svg>Copied</span></button>
+    <div class="cb-sr__code">&lt;div&gt;Copied&lt;/div&gt;</div>
+    <div class="cb-sr__panel"><div class="cb-label">Screen reader</div><div class="cb-sr__out j-tout"><svg class="j-ico"><use href="#i-speaker"/></svg><span class="j-txt">waiting…</span></div></div>
+  </div>
+  <div class="cb-sr j-bot" style="left:60px;top:560px">
+    <button class="cb-btn j-bbtn"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg>Copy</span><span class="cb-btn__done"><svg><use href="#i-check"/></svg>Copied</span></button>
+    <div class="cb-sr__code cb-sr__code--live">aria-live="polite"</div>
+    <div class="cb-sr__panel"><div class="cb-label">Screen reader</div><div class="cb-sr__out j-bout"><svg class="j-ico"><use href="#i-speaker"/></svg><span class="cb-sr__bars"><i></i><i></i><i></i><i></i><i></i></span><span class="cb-sr__dots">•••••</span><span class="j-txt">waiting…</span></div></div>
+  </div>
+  <div class="caption"><svg><use href="#i-horn"/></svg>Announce it out loud.</div>
+  <svg class="cursor j-cur" viewBox="0 0 22 26" style="left:146px;top:392px"><use href="#i-pointer"/></svg>
+</section>
+
+<!-- 5b · Screen readers (announced) -->
+<section class="scene s-sr" data-t="27" data-shot="34.5">
+  <div class="cb-glow"></div>
+  <div class="kicker">Screen readers</div>
+  <h1 class="title">Say it <em>out loud</em>.</h1>
+  <div class="cb-sr j-top" style="left:60px;top:300px">
+    <button class="cb-btn j-tbtn"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg>Copy</span><span class="cb-btn__done"><svg><use href="#i-check"/></svg>Copied</span></button>
+    <div class="cb-sr__code">&lt;div&gt;Copied&lt;/div&gt;</div>
+    <div class="cb-sr__panel"><div class="cb-label">Screen reader</div><div class="cb-sr__out j-tout"><svg class="j-ico"><use href="#i-speaker"/></svg><span class="j-txt">waiting…</span></div></div>
+  </div>
+  <div class="cb-sr j-bot" style="left:60px;top:560px">
+    <button class="cb-btn j-bbtn"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg>Copy</span><span class="cb-btn__done"><svg><use href="#i-check"/></svg>Copied</span></button>
+    <div class="cb-sr__code cb-sr__code--live">aria-live="polite"</div>
+    <div class="cb-sr__panel"><div class="cb-label">Screen reader</div><div class="cb-sr__out j-bout"><svg class="j-ico"><use href="#i-speaker"/></svg><span class="cb-sr__bars"><i></i><i></i><i></i><i></i><i></i></span><span class="cb-sr__dots">•••••</span><span class="j-txt">waiting…</span></div></div>
+  </div>
+  <div class="caption"><svg><use href="#i-horn"/></svg>Announce it out loud.</div>
+  <svg class="cursor j-cur" viewBox="0 0 22 26" style="left:146px;top:392px"><use href="#i-pointer"/></svg>
+</section>
+
+<!-- 6 · Insecure origin (no fallback lies) -->
+<section class="scene s-insecure" data-t="36" data-shot="37.5">
+  <div class="kicker kicker--danger">Insecure origin</div>
+  <h1 class="title">Fall back, don't <em class="danger">lie</em>.</h1>
+  <div class="cb-tall j-left" style="left:41px;top:301px">
+    <div class="cb-url"><svg><use href="#i-warn"/></svg>http://app.local</div>
+    <div class="cb-sub" style="top:56px">No fallback</div>
+    <div class="cb-badge cb-badge--teal cb-badge--mono j-bytes hide" style="left:168px;top:95px">0 bytes</div>
+    <button class="cb-btn cb-btn--icon j-lbtn" style="position:absolute;left:252px;top:92px"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg></span><span class="cb-btn__done"><svg><use href="#i-check"/></svg></span></button>
+    <div class="cb-tall__code" style="top:144px;height:147px;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)">
+      <div class="cb-code" style="top:14px"><span class="k">await</span> navigator
+.clipboard
+.writeText(key)</div>
+    </div>
+    <div class="cb-line cb-line--pink j-lerr hide" style="top:393px"><svg><use href="#i-x"/></svg>NotAllowedError</div>
+    <div class="cb-badge cb-badge--pink j-lies hide" style="left:231px;top:387px">Lies</div>
+  </div>
+  <div class="cb-tall j-right" style="left:374px;top:301px">
+    <div class="cb-url"><svg><use href="#i-warn"/></svg>http://app.local</div>
+    <div class="cb-sub" style="top:56px">With fallback</div>
+    <button class="cb-btn cb-btn--icon j-rbtn" style="position:absolute;left:252px;top:92px"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg></span><span class="cb-btn__done"><svg><use href="#i-check"/></svg></span></button>
+    <div class="cb-tall__code" style="top:144px;height:147px;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)">
+      <div class="cb-code" style="top:14px"><span class="k">try</span> { clipboard… }
+<span class="k">catch</span> {
+execCommand(<span class="s">'copy'</span>)
+}</div>
+    </div>
+    <div class="cb-line cb-line--amber j-blocked hide" style="top:374px;font-size:15px"><svg><use href="#i-warn"/></svg>API blocked</div>
+    <div class="cb-line cb-line--teal j-exec hide" style="top:396px;font-size:15px;align-items:flex-start;line-height:17px"><svg><use href="#i-ok"/></svg><span>execCommand<br>copied</span></div>
+    <div class="cb-badge cb-badge--teal j-honest hide" style="left:209px;top:395px">Honest</div>
+  </div>
+  <div class="caption caption--danger"><svg><use href="#i-shield"/></svg>Fall back, or the button lies.</div>
+  <svg class="cursor j-cur" viewBox="0 0 22 26" style="left:309px;top:410px"><use href="#i-pointer"/></svg>
+</section>
+
+<!-- 6b · Insecure origin (fallback honest) -->
+<section class="scene s-insecure" data-t="36" data-shot="42">
+  <div class="kicker kicker--danger">Insecure origin</div>
+  <h1 class="title">Fall back, don't <em class="danger">lie</em>.</h1>
+  <div class="cb-tall j-left" style="left:41px;top:301px">
+    <div class="cb-url"><svg><use href="#i-warn"/></svg>http://app.local</div>
+    <div class="cb-sub" style="top:56px">No fallback</div>
+    <div class="cb-badge cb-badge--teal cb-badge--mono j-bytes hide" style="left:168px;top:95px">0 bytes</div>
+    <button class="cb-btn cb-btn--icon j-lbtn" style="position:absolute;left:252px;top:92px"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg></span><span class="cb-btn__done"><svg><use href="#i-check"/></svg></span></button>
+    <div class="cb-tall__code" style="top:144px;height:147px;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)">
+      <div class="cb-code" style="top:14px"><span class="k">await</span> navigator
+.clipboard
+.writeText(key)</div>
+    </div>
+    <div class="cb-line cb-line--pink j-lerr hide" style="top:393px"><svg><use href="#i-x"/></svg>NotAllowedError</div>
+    <div class="cb-badge cb-badge--pink j-lies hide" style="left:231px;top:387px">Lies</div>
+  </div>
+  <div class="cb-tall j-right" style="left:374px;top:301px">
+    <div class="cb-url"><svg><use href="#i-warn"/></svg>http://app.local</div>
+    <div class="cb-sub" style="top:56px">With fallback</div>
+    <button class="cb-btn cb-btn--icon j-rbtn" style="position:absolute;left:252px;top:92px"><span class="cb-btn__idle"><svg><use href="#i-copy"/></svg></span><span class="cb-btn__done"><svg><use href="#i-check"/></svg></span></button>
+    <div class="cb-tall__code" style="top:144px;height:147px;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)">
+      <div class="cb-code" style="top:14px"><span class="k">try</span> { clipboard… }
+<span class="k">catch</span> {
+execCommand(<span class="s">'copy'</span>)
+}</div>
+    </div>
+    <div class="cb-line cb-line--amber j-blocked hide" style="top:374px;font-size:15px"><svg><use href="#i-warn"/></svg>API blocked</div>
+    <div class="cb-line cb-line--teal j-exec hide" style="top:396px;font-size:15px;align-items:flex-start;line-height:17px"><svg><use href="#i-ok"/></svg><span>execCommand<br>copied</span></div>
+    <div class="cb-badge cb-badge--teal j-honest hide" style="left:209px;top:395px">Honest</div>
+  </div>
+  <div class="caption caption--danger"><svg><use href="#i-shield"/></svg>Fall back, or the button lies.</div>
+  <svg class="cursor j-cur" viewBox="0 0 22 26" style="left:309px;top:410px"><use href="#i-pointer"/></svg>
+</section>
+
+<!-- 7 · Outro checklist -->
+<section class="scene" data-t="43" data-shot="46.5">
+  <div class="cb-glow"></div>
+  <div class="title" style="top:158px;font-size:46px;color:var(--accent);letter-spacing:-.02em">Copy needs proof.</div>
+  <div class="cb-item" style="left:60px;top:262px;animation-delay:.3s"><div class="cb-item__icon"><svg><use href="#i-bolt"/></svg></div><b>Flip instantly — no spinner</b><small>01</small></div>
+  <div class="cb-item" style="left:60px;top:349px;animation-delay:.45s"><div class="cb-item__icon"><svg><use href="#i-timer"/></svg></div><b>Reset after two seconds</b><small>02</small></div>
+  <div class="cb-item" style="left:60px;top:437px;animation-delay:.6s"><div class="cb-item__icon"><svg><use href="#i-file"/></svg></div><b>Copy the raw value</b><small>03</small></div>
+  <div class="cb-item" style="left:60px;top:524px;animation-delay:.75s"><div class="cb-item__icon"><svg><use href="#i-horn"/></svg></div><b>Announce via a live region</b><small>04</small></div>
+  <div class="cb-item" style="left:60px;top:611px;animation-delay:.9s"><div class="cb-item__icon cb-item__icon--pink"><svg><use href="#i-shield"/></svg></div><b>Fall back on insecure origins</b><small>05</small></div>
+  <div class="cb-site" style="left:156px;top:832px;animation:cb-rise .5s 1.2s cubic-bezier(.2,.8,.2,1) both"><svg><use href="#i-globe"/></svg>designmotionhq.com</div>
+  <div class="cb-link" style="left:270px;top:915px;animation:cb-rise .5s 1.4s cubic-bezier(.2,.8,.2,1) both"><svg><use href="#i-ne"/></svg>Link in bio</div>
+</section>
+
+<script>
+  // Demo timelines. Each scene reads its local time from scene:enter (detail.t is the reel second the
+  // screenshot tool asks for; 0 means play live). Steps are [startSecond, fn(scene, secondsSinceStart)].
+  (() => {
+    const $ = (s, q) => s.querySelector(q), $$ = (s, q) => [...s.querySelectorAll(q)];
+    const move = (el, x, y) => { el.style.left = x + 'px'; el.style.top = y + 'px'; };
+    const show = (el, on = true) => el.classList.toggle('hide', !on);
+    function timeline(sel, reset, steps, loop = 9) {
+      document.querySelectorAll(sel).forEach(s => {
+        const apply = t => { reset(s); steps.forEach(([at, fn]) => { if (t >= at) fn(s, t - at); }); };
+        s.addEventListener('scene:enter', e => {
+          cancelAnimationFrame(s._raf);
+          if (e.detail.t) { document.body.classList.add('frozen'); apply(e.detail.t - (Number(s.dataset.t) || 0)); return; }
+          const start = performance.now();
+          const tick = () => { apply(((performance.now() - start) / 1000) % loop); s._raf = requestAnimationFrame(tick); };
+          tick();
+        });
+      });
+    }
+    timeline('.s-hook', s => { $(s, '#hookBtn').classList.remove('is-copied'); $(s, '#hookField').classList.remove('is-copied'); $(s, '#hookPaste').classList.remove('is-empty'); $(s, '#hookClip').classList.remove('is-bad'); $(s, '#hookHead').classList.remove('is-on'); move($(s, '#hookCur'), 556, 322); }, [
+      [1.0, s => { $(s, '#hookBtn').classList.add('is-copied'); $(s, '#hookField').classList.add('is-copied'); }],
+      [1.4, s => move($(s, '#hookCur'), 360, 676)],
+      [1.9, s => { $(s, '#hookPaste').classList.add('is-empty'); $(s, '#hookClip').classList.add('is-bad'); }],
+      [2.5, s => $(s, '#hookHead').classList.add('is-on')],
+    ], 6);
+    timeline('.s-instant', s => { const b = $(s, '.j-spinbtn'); b.classList.remove('is-spinning', 'is-copied'); $(s, '.j-ms').textContent = '0'; $(s, '.j-bar').style.width = '0'; $(s, '.j-instbtn').classList.remove('is-copied'); move($(s, '.j-cur'), 196, 560); }, [
+      [0.5, (s, dt) => { const ms = Math.min(480, Math.round(dt * 384)); $(s, '.j-ms').textContent = ms; $(s, '.j-bar').style.width = (ms / 480 * 100) + '%'; $(s, '.j-spinbtn').classList.toggle('is-spinning', ms < 480); $(s, '.j-spinbtn').classList.toggle('is-copied', ms >= 480); }],
+      [2.0, s => move($(s, '.j-cur'), 516, 560)],
+      [3.2, s => $(s, '.j-instbtn').classList.add('is-copied')],
+    ], 8);
+    timeline('.s-reset', s => { $(s, '.j-status').textContent = 'Ready'; $(s, '.j-status').classList.remove('is-on'); $(s, '.j-btn').classList.remove('is-copied'); const a = $(s, '.cb-ring__arc'); a.style.opacity = 0; a.style.strokeDashoffset = 1; $(s, '.j-row1').classList.remove('is-pink'); $(s, '.j-row2').classList.remove('is-teal'); move($(s, '.j-cur'), 358, 408); }, [
+      [0.9, (s, dt) => { const el = Math.min(2, dt); $(s, '.j-btn').classList.add('is-copied'); $(s, '.j-status').textContent = `Holding · ${el.toFixed(1)}s`; $(s, '.j-status').classList.add('is-on'); const a = $(s, '.cb-ring__arc'); a.style.opacity = 1; a.style.strokeDashoffset = el / 2; }],
+      [3.0, s => { $(s, '.j-btn').classList.remove('is-copied'); $(s, '.j-status').textContent = 'Reset'; $(s, '.j-status').classList.remove('is-on'); $(s, '.cb-ring__arc').style.opacity = 0; }],
+      [3.5, s => { $(s, '.j-row1').classList.add('is-pink'); $(s, '.j-row2').classList.add('is-teal'); move($(s, '.j-cur'), 466, 660); }],
+      [6.0, s => move($(s, '.j-cur'), 358, 408)],
+      [6.8, s => { $(s, '.j-btn').classList.add('is-copied'); $(s, '.j-status').textContent = 'Copied again'; $(s, '.j-status').classList.add('is-on'); }],
+    ], 9);
+    timeline('.s-clean', s => { $(s, '.j-left').classList.remove('is-pink'); $(s, '.j-right').classList.remove('is-teal'); ['.j-lbtn', '.j-rbtn'].forEach(q => $(s, q).classList.remove('is-copied')); ['.j-lval', '.j-lerr', '.j-lbadge', '.j-rval', '.j-rok', '.j-rbadge'].forEach(q => show($(s, q), false)); move($(s, '.j-cur'), 309, 410); }, [
+      [1.0, s => { $(s, '.j-lbtn').classList.add('is-copied'); $(s, '.j-left').classList.add('is-pink'); show($(s, '.j-lval')); }],
+      [1.8, s => { show($(s, '.j-lerr')); show($(s, '.j-lbadge')); }],
+      [3.5, s => move($(s, '.j-cur'), 642, 410)],
+      [4.5, s => { $(s, '.j-rbtn').classList.add('is-copied'); $(s, '.j-right').classList.add('is-teal'); show($(s, '.j-rval')); }],
+      [5.2, s => { show($(s, '.j-rok')); show($(s, '.j-rbadge')); }],
+    ], 9);
+    timeline('.s-sr', s => { $(s, '.j-top').classList.remove('is-pink'); $(s, '.j-bot').classList.remove('is-teal'); ['.j-tbtn', '.j-bbtn'].forEach(q => $(s, q).classList.remove('is-copied')); const t = $(s, '.j-tout'); t.className = 'cb-sr__out j-tout'; $(t, 'use').setAttribute('href', '#i-speaker'); $(t, '.j-txt').textContent = 'waiting…'; const b = $(s, '.j-bout'); b.className = 'cb-sr__out j-bout'; $(b, '.j-txt').textContent = 'waiting…'; move($(s, '.j-cur'), 146, 392); }, [
+      [0.6, s => { $(s, '.j-tbtn').classList.add('is-copied'); $(s, '.j-top').classList.add('is-pink'); const t = $(s, '.j-tout'); t.classList.add('is-silent'); $(t, 'use').setAttribute('href', '#i-mute'); $(t, '.j-txt').textContent = '(silence)'; }],
+      [2.5, s => move($(s, '.j-cur'), 146, 652)],
+      [5.0, s => { $(s, '.j-bbtn').classList.add('is-copied'); $(s, '.j-bot').classList.add('is-teal'); const b = $(s, '.j-bout'); b.classList.add('is-typing'); $(b, '.j-txt').textContent = ''; }],
+      [5.4, (s, dt) => { const b = $(s, '.j-bout'), n = Math.min(19, Math.floor(dt / 0.13)); $(b, '.j-txt').textContent = 'Copied to clipboard'.slice(0, n); b.classList.toggle('is-live', n > 0); b.classList.toggle('is-typing', n === 0); if (n >= 19) b.classList.remove('is-typing'); }],
+    ], 9);
+    timeline('.s-insecure', s => { $(s, '.j-left').classList.remove('is-pink'); $(s, '.j-right').classList.remove('is-teal'); ['.j-lbtn', '.j-rbtn'].forEach(q => $(s, q).classList.remove('is-copied')); ['.j-bytes', '.j-lerr', '.j-lies', '.j-blocked', '.j-exec', '.j-honest'].forEach(q => show($(s, q), false)); move($(s, '.j-cur'), 309, 410); }, [
+      [0.8, s => { $(s, '.j-lbtn').classList.add('is-copied'); $(s, '.j-left').classList.add('is-pink'); show($(s, '.j-bytes')); }],
+      [2.0, s => { show($(s, '.j-lerr')); show($(s, '.j-lies')); }],
+      [3.5, s => move($(s, '.j-cur'), 642, 410)],
+      [4.2, s => { $(s, '.j-rbtn').classList.add('is-copied'); $(s, '.j-right').classList.add('is-teal'); }],
+      [4.8, s => show($(s, '.j-blocked'))],
+      [5.2, s => show($(s, '.j-exec'))],
+      [6.4, s => show($(s, '.j-honest'))],
+    ], 9);
+  })();
+</script>
+<script type="module">
+  // Live wiring (served over http): the hook's Copy button really copies the raw key and announces it.
+  import { CopyButton } from './pattern.js';
+  CopyButton(document.getElementById('hookBtn'), { text: () => 'sk_live_a3f29c7b8e14d0', resetAfter: 2000 });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

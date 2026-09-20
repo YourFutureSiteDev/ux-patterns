@@ -1,0 +1,79 @@
+/* Form Validation Timing, rebuilt from the @designmotionhq reel "The error fires while you're still typing."
+   Component classes are prefixed .fvt- and depend only on the tokens below. */
+.fvt {
+  --fvt-bg: #0c1013; --fvt-panel: #14171b; --fvt-border: #2a2e35; --fvt-text: #f3f5f7; --fvt-muted: #8b93a1; --fvt-muted-2: #b8bcc4;
+  --fvt-teal: #2fd9a8; --fvt-ok: #3edc95; --fvt-pink: #ee4b7a;
+  --fvt-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--fvt-text);
+}
+
+/* ---- Field ---------------------------------------------------------------- */
+.fvt-field { display: block; position: relative; }
+.fvt-label { display: block; font-size: 16px; font-weight: 500; color: var(--fvt-muted-2); margin-bottom: 8px; }
+.fvt-box { position: relative; display: flex; align-items: center; height: 59px; padding: 0 20px; border-radius: 10px; background: var(--fvt-panel); border: 1.5px solid var(--fvt-border); transition: border-color .18s, box-shadow .18s; }
+.fvt-input, .fvt-value { flex: 1; min-width: 0; background: none; border: 0; outline: 0; padding: 0; margin: 0; font: 400 19px/1 var(--fvt-mono); letter-spacing: .01em; color: var(--fvt-text); }
+.fvt-value { flex: 0 0 auto; white-space: pre; }
+.fvt-caret { display: inline-block; width: 2px; height: 26px; margin-left: 3px; background: #fff; animation: fvt-blink 1s linear infinite; }
+@keyframes fvt-blink { 0%, 60% { opacity: 1; } 61%, 100% { opacity: 0; } }
+.fvt-icon { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; display: none; }
+.fvt-icon svg, .fvt-help svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.fvt-icon svg { width: 20px; height: 20px; }
+.fvt-help { display: flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 16px; font-weight: 500; min-height: 18px; }
+.fvt-help svg { width: 15px; height: 15px; }
+.fvt-help:empty { display: none; }
+.fvt-field.is-focus .fvt-box { border-color: var(--fvt-teal); border-width: 2px; box-shadow: 0 0 0 1px rgba(47,217,168,.35), 0 0 36px rgba(47,217,168,.45); }
+.fvt-field.is-error .fvt-box { border-color: var(--fvt-pink); border-width: 2px; box-shadow: 0 0 0 1px rgba(238,75,122,.3), 0 0 36px rgba(238,75,122,.45); }
+.fvt-field.is-error .fvt-icon { display: block; color: var(--fvt-pink); }
+.fvt-field.is-error .fvt-help { color: var(--fvt-pink); }
+.fvt-field.is-success .fvt-box { border-color: var(--fvt-ok); border-width: 2px; box-shadow: 0 0 0 1px rgba(62,220,149,.3), 0 0 36px rgba(62,220,149,.4); }
+.fvt-field.is-success .fvt-icon { display: block; color: var(--fvt-ok); }
+.fvt-field.is-success .fvt-help { color: var(--fvt-ok); }
+
+/* Compact variant for the five-field form */
+.fvt-form .fvt-field--sm { margin-bottom: 8px; height: 89px; }
+.fvt-field--sm .fvt-label { font-size: 15px; margin-bottom: 6px; }
+.fvt-field--sm .fvt-box { height: 46px; padding: 0 16px; border-radius: 8px; }
+.fvt-field--sm .fvt-input, .fvt-field--sm .fvt-value { font-size: 17px; }
+.fvt-field--sm .fvt-icon { right: 16px; width: 16px; height: 16px; }
+.fvt-field--sm .fvt-icon svg { width: 16px; height: 16px; }
+.fvt-field--sm .fvt-help { position: absolute; left: 0; top: 76px; margin: 0; font-size: 13px; min-height: 0; }
+.fvt-field--sm .fvt-help svg { display: none; }
+.fvt-field--sm.is-error .fvt-box { box-shadow: 0 0 0 1px rgba(238,75,122,.25), 0 0 24px rgba(238,75,122,.35); }
+.fvt-field--sm.is-error .fvt-help:empty { display: block; }
+.fvt-submit { display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 28px; margin: 4px 0 0 195px; border: 1.5px solid transparent; border-radius: 10px; background: var(--fvt-teal); color: #062018; font: 700 19px 'Inter', sans-serif; cursor: pointer; box-shadow: 0 0 30px rgba(47,217,168,.35); transition: background .2s, color .2s, box-shadow .2s; }
+.fvt-submit svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.fvt-submit.is-spent, .fvt-submit:disabled { background: transparent; border-color: var(--fvt-border); color: #6b7078; box-shadow: none; cursor: not-allowed; }
+
+/* ---- Reel chrome ----------------------------------------------------------- */
+.title em.pink { color: var(--fvt-pink); }
+.fvt-kicker { display: inline-block; padding: 9px 22px; border-radius: 999px; font-size: 15px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--fvt-teal); background: rgba(47,217,168,.14); white-space: nowrap; }
+.fvt-kicker--pink { color: var(--fvt-pink); background: rgba(238,75,122,.16); }
+.fvt-caption { display: inline-block; padding: 14px 30px; border-radius: 12px; font-size: 24px; font-weight: 700; white-space: nowrap; color: var(--fvt-teal); background: rgba(47,217,168,.12); }
+.fvt-caption--pink { color: var(--fvt-pink); background: rgba(238,75,122,.14); }
+.fvt-note { font-size: 24px; font-weight: 600; color: #aeb3bb; white-space: nowrap; }
+.fvt-counter { display: inline-flex; align-items: center; gap: 16px; height: 40px; padding: 0 34px; border-radius: 10px; background: #2a1e28; font-size: 17px; font-weight: 600; color: #b3b7bf; white-space: nowrap; }
+.fvt-counter b { font-size: 18px; font-weight: 700; color: var(--fvt-pink); }
+.fvt-key { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: 6px; background: #1d2226; color: #9aa0a8; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.fvt-key svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.fvt-badge { width: 36px; height: 36px; border-radius: 50%; background: var(--fvt-ok); color: #062018; display: grid; place-items: center; box-shadow: 0 0 30px rgba(62,220,149,.6); }
+.fvt-badge svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.fvt-badge--lg { width: 44px; height: 44px; } .fvt-badge--lg svg { width: 24px; height: 24px; }
+.fvt-badge--quiet { background: #1d2226; color: #8b93a1; box-shadow: none; width: 28px; height: 28px; } .fvt-badge--quiet svg { width: 22px; height: 22px; stroke-width: 2; }
+.fvt-modes { display: inline-flex; align-items: center; gap: 22px; }
+.fvt-modes svg { width: 18px; height: 18px; fill: none; stroke: #c9ced5; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.fvt-mode { display: inline-block; height: 36px; line-height: 36px; padding: 0 22px; border-radius: 999px; background: #262a30; color: #8b93a1; font-size: 14px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.fvt-mode.is-live { background: rgba(47,217,168,.16); color: var(--fvt-teal); }
+.fvt-toggle { display: inline-flex; gap: 16px; }
+.fvt-toggle__opt { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 116px; height: 58px; border-radius: 8px; background: transparent; color: #5a6068; }
+.fvt-toggle__opt.is-ok { color: #3f8f76; background: rgba(47,217,168,.05); }
+.fvt-toggle__opt b { font-size: 17px; font-weight: 700; }
+.fvt-toggle__opt span { font-size: 13px; font-weight: 500; margin-top: 2px; }
+.fvt-toggle__opt.is-on { background: #1c2126; color: #b8bcc4; }
+.fvt-toggle__opt.is-on b { color: #d9dce1; }
+.fvt-toggle__opt.is-on.is-ok { background: rgba(47,217,168,.14); color: #8ec9b5; }
+.fvt-toggle__opt.is-on.is-ok b { color: var(--fvt-teal); }
+.fvt-eyebrow { font-size: 16px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--fvt-teal); white-space: nowrap; }
+.fvt-cta { display: inline-flex; align-items: center; gap: 10px; height: 56px; padding: 0 30px; border-radius: 999px; background: var(--fvt-teal); color: #062018; font-size: 20px; font-weight: 700; white-space: nowrap; box-shadow: 0 0 50px rgba(47,217,168,.45); }
+.fvt-cta svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.fvt-follow { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #9aa0a8; white-space: nowrap; }
+.fvt-follow svg { width: 14px; height: 14px; fill: var(--fvt-teal); }

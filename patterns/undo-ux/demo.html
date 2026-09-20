@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Undo UX · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #090d0e; --grid: rgba(255,255,255,.03); --accent: #22cba0; --danger: #e0506e; }
+  .scene { color: #f2f4f5; }
+  .scene.no-anim * { transition: none !important; }
+  .ud-hide { opacity: 0 !important; pointer-events: none; }
+  .ud-hook { opacity: .75; animation: ud-out 1s ease forwards .2s; }
+  .ud-cursor { position: absolute; width: 22px; height: 26px; transition: left .7s cubic-bezier(.2,.8,.2,1), top .7s cubic-bezier(.2,.8,.2,1), opacity .3s; }
+</style>
+</head>
+<body class="ud">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="u-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+  <symbol id="u-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></symbol>
+  <symbol id="u-undo" viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></symbol>
+  <symbol id="u-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="u-warn" viewBox="0 0 24 24"><path d="M12 4L2.5 20h19L12 4zM12 10v4M12 17h.01"/></symbol>
+  <symbol id="u-branch" viewBox="0 0 24 24"><circle cx="6" cy="5" r="2.5"/><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="8" r="2.5"/><path d="M6 7.5v9M18 10.5c0 4-4 4-12 6"/></symbol>
+  <symbol id="u-hist" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5M12 8v5l3 2"/></symbol>
+  <symbol id="u-line" viewBox="0 0 24 24"><path d="M4 12h16"/></symbol>
+  <symbol id="u-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></symbol>
+  <symbol id="u-move" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M12 2l-3 3M12 2l3 3M12 22l-3-3M12 22l3-3M2 12l3-3M2 12l3 3M22 12l-3-3M22 12l-3 3"/></symbol>
+  <symbol id="u-rect" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/></symbol>
+  <symbol id="u-frame" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></symbol>
+  <symbol id="u-send" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4z"/></symbol>
+  <symbol id="u-clip" viewBox="0 0 24 24"><path d="M21 11.5l-8.5 8.5a5.5 5.5 0 0 1-7.8-7.8l9-9a3.5 3.5 0 0 1 5 5l-9 9a1.5 1.5 0 0 1-2.1-2.1l8-8"/></symbol>
+  <symbol id="u-follow" viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M2 21a8 8 0 0 1 14-4M19 8v6M16 11h6"/></symbol>
+  <symbol id="u-cursor" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></symbol>
+</svg>
+
+<!-- 1 · Hook: Deleted. You have 5 seconds. -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="glow" style="left:10px;top:200px;width:700px;height:700px;background:rgba(190,200,210,.10)"></div>
+  <div class="ud-hook" style="position:absolute;inset:0">
+    <div class="ud-h1" style="top:203px;font-size:56px">Deleted.</div>
+    <div style="position:absolute;left:0;right:0;top:292px;text-align:center;font-size:26px;font-weight:700;color:#22cba0">You have 5 seconds.</div>
+    <div class="ud-file" style="left:80px;top:415px;width:560px"><div class="ud-file__icon"><svg><use href="#u-doc"/></svg></div><div><div class="ud-file__name">Q2-report.pdf</div><div class="ud-file__meta">1.1 MB · Edited yesterday · Alex Rivera</div></div><button class="ud-file__del"><svg><use href="#u-trash"/></svg>Delete</button></div>
+    <div class="ud-file" style="left:80px;top:530px;width:560px"><div class="ud-file__icon"><svg><use href="#u-doc"/></svg></div><div><div class="ud-file__name">budget.xlsx</div><div class="ud-file__meta">820 KB · Edited Monday · Priya Oberoi</div></div><button class="ud-file__del"><svg><use href="#u-trash"/></svg>Delete</button></div>
+    <svg class="ud-cursor" style="left:570px;top:572px"><use href="#u-cursor"/></svg>
+    <div class="ud-toast ud-abs" style="left:152px;top:866px" id="hookToast"><div class="ud-toast__ring"><svg viewBox="0 0 24 24"><circle class="track" cx="12" cy="12" r="9"/><circle class="fill" cx="12" cy="12" r="9"/></svg><i><svg><use href="#u-undo"/></svg></i></div><div class="ud-toast__label">Deleted</div><button class="ud-toast__undo" style="background:#0f4a3b;color:#3bd6aa">Undo</button></div>
+    <div style="position:absolute;left:0;right:0;top:985px;text-align:center;font-size:22px;font-weight:600;color:#aeb4bb">Reversibility beats confirmation.</div>
+  </div>
+</section>
+
+<!-- 2 · Undo beats confirm -->
+<template id="tpl-confirm">
+  <div class="glow" style="left:60px;top:300px;width:600px;height:600px;background:rgba(120,130,140,.06)"></div>
+  <div class="ud-kicker" style="top:150px">UNDO BEATS CONFIRM</div>
+  <div class="ud-h1" style="top:203px">One mistake. <em>Two designs.</em></div>
+  <div class="ud-panel" style="left:35px;top:375px">
+    <div class="ud-panel__tag ud-panel__tag--red">CONFIRM</div>
+    <div class="ud-panel__screen">
+      <div class="ud-mini"><svg><use href="#u-doc"/></svg><div><b>report.pdf</b><span>1.8 MB · yesterday</span></div><div class="ud-mini__trash"><svg><use href="#u-trash"/></svg></div></div>
+      <div class="ud-dialog ud-hide" data-dialog><b>Delete this file?</b><p>This action can't be undone. Are you absolutely sure?</p><div class="ud-dialog__btns"><span>Cancel</span><span class="red">Delete</span></div></div>
+    </div>
+    <div class="ud-panel__foot ud-panel__foot--red">3 clicks · every time</div>
+  </div>
+  <div class="ud-panel" style="left:375px;top:375px">
+    <div class="ud-panel__tag ud-panel__tag--green">UNDO</div>
+    <div class="ud-panel__screen">
+      <div class="ud-mini" data-row><svg><use href="#u-doc"/></svg><div><b>report.pdf</b><span>1.8 MB · yesterday</span></div><div class="ud-mini__trash"><svg><use href="#u-trash"/></svg></div></div>
+      <div class="ud-toast ud-toast--sm ud-abs ud-hide" data-toast style="left:12px;top:164px"><div class="ud-toast__ring"><svg viewBox="0 0 24 24"><circle class="track" cx="12" cy="12" r="9"/><circle class="fill" cx="12" cy="12" r="9"/></svg><i><svg><use href="#u-undo"/></svg></i></div><div class="ud-toast__label">Deleted</div><button class="ud-toast__undo">Undo</button></div>
+    </div>
+    <div class="ud-panel__foot ud-panel__foot--green">1 click · regret optional</div>
+  </div>
+  <svg class="ud-cursor ud-hide" data-c1 style="left:290px;top:474px"><use href="#u-cursor"/></svg>
+  <svg class="ud-cursor ud-hide" data-c2 style="left:630px;top:474px"><use href="#u-cursor"/></svg>
+  <div class="ud-cap ud-hide" data-cap style="top:1008px">Punish the 1%, or protect them.</div>
+</template>
+<div data-clone="tpl-confirm" data-tl="confirm" data-t="1" data-shot="1.5"></div>
+<div data-clone="tpl-confirm" data-tl="confirm" data-t="1" data-shot="3"></div>
+
+<!-- 3 · Soft delete -->
+<template id="tpl-soft">
+  <div class="glow" style="left:0px;top:200px;width:720px;height:720px;background:rgba(34,203,160,.09)"></div>
+  <div class="ud-kicker ud-kicker--green" style="top:150px">SOFT DELETE</div>
+  <div class="ud-h1" style="top:203px">Off the screen, <em>not the<br>database</em></div>
+  <div class="ud-card" style="left:73px;top:358px;width:574px;height:154px">
+    <div class="ud-card__label" style="top:16px">FILES · WHAT THE USER SEES</div>
+    <div class="ud-row" style="top:45px"><svg><use href="#u-doc"/></svg><b>Q2-report.pdf</b><span>1.1 MB</span><svg style="margin-left:0"><use href="#u-trash"/></svg></div>
+    <div class="ud-row" style="top:96px"><svg><use href="#u-doc"/></svg><b>budget.xlsx</b><span>820 KB</span><svg style="margin-left:0"><use href="#u-trash"/></svg></div>
+  </div>
+  <div class="ud-card" style="left:73px;top:588px;width:574px;height:182px">
+    <div class="ud-card__label" style="top:14px"><svg><use href="#u-db"/></svg>FILES — WHAT THE DATABASE SEES</div>
+    <div class="ud-db ud-db--head" style="top:30px;left:8px;right:8px"><span>id</span><span>name</span><span>deleted_at</span></div>
+    <div class="ud-db" style="top:62px;left:8px;right:8px"><span>41</span><span>q2-report.pdf</span><span class="null">null</span></div>
+    <div class="ud-db" data-row42 style="top:97px;left:8px;right:8px"><span>42</span><span>q3-report.pdf</span><span class="null" data-del>null</span></div>
+    <div class="ud-db" style="top:132px;left:8px;right:8px"><span>43</span><span>budget.xlsx</span><span class="null">null</span></div>
+  </div>
+  <div class="ud-life">
+    <div class="ud-life__label">TRASH LIFECYCLE</div>
+    <div class="ud-life__track"></div>
+    <div class="ud-life__fill" data-fill1></div>
+    <div class="ud-life__fill ud-life__fill--red" data-fill2></div>
+    <div class="ud-life__dot is-on" style="left:0"></div>
+    <div class="ud-life__dot" data-dot2 style="left:50%"></div>
+    <div class="ud-life__dot" data-dot3 style="left:100%"></div>
+    <div class="ud-life__lbl is-on" style="left:0"><b>Deleted</b><span>day 0</span></div>
+    <div class="ud-life__lbl" data-lbl2 style="left:50%"><b>Trash</b><span>30 days</span></div>
+    <div class="ud-life__lbl" data-lbl3 style="left:100%"><b>Purged</b><span>gone for real</span></div>
+  </div>
+  <div class="ud-cap ud-cap--green" style="top:1008px">Deletion is a state, not an event.</div>
+</template>
+<div data-clone="tpl-soft" data-tl="soft" data-t="12" data-shot="12"></div>
+<div data-clone="tpl-soft" data-tl="soft" data-t="12" data-shot="15"></div>
+<div data-clone="tpl-soft" data-tl="soft" data-t="12" data-shot="18"></div>
+
+<!-- 4 · Type to confirm -->
+<template id="tpl-type">
+  <div class="glow" style="left:60px;top:250px;width:600px;height:600px;background:rgba(120,130,140,.05)"></div>
+  <div class="ud-kicker" style="top:150px">TYPE TO CONFIRM</div>
+  <div class="ud-h1" style="top:203px">Earn the <em class="red">irreversible</em></div>
+  <div class="ud-confirm" data-confirm style="left:73px;top:353px">
+    <div class="ud-confirm__title"><svg><use href="#u-warn"/></svg>Delete repository</div>
+    <div class="ud-confirm__repo"><svg><use href="#u-branch"/></svg>acme/production-api</div>
+    <div class="ud-confirm__warn">This <b>cannot be undone</b>. The repository, its issues and CI history will be permanently deleted.</div>
+    <div class="ud-confirm__hint">Type <code>acme/production-api</code> to confirm:</div>
+    <div class="ud-confirm__input" data-input></div>
+    <div class="ud-confirm__btn">I understand, delete this repository</div>
+  </div>
+  <div class="ud-friction">
+    <div class="ud-friction__label">FRICTION SCALE</div>
+    <div class="ud-friction__track"></div>
+    <div class="ud-friction__knob" data-knob style="left:48.5%"></div>
+    <div class="ud-friction__lbl" style="left:6%"><b>Undo</b><span>reversible</span></div>
+    <div class="ud-friction__lbl is-on" data-l2 style="left:50%"><b>Confirm</b><span>annoying</span></div>
+    <div class="ud-friction__lbl" data-l3 style="left:94%"><b>Type to confirm</b><span>irreversible</span></div>
+  </div>
+  <div class="ud-cap" style="top:1008px">Match friction to the cost.</div>
+</template>
+<div data-clone="tpl-type" data-tl="type" data-t="19" data-shot="19.5"></div>
+<div data-clone="tpl-type" data-tl="type" data-t="19" data-shot="22.5"></div>
+<div data-clone="tpl-type" data-tl="type" data-t="19" data-shot="25.5"></div>
+
+<!-- 5 · The undo stack -->
+<template id="tpl-stack">
+  <div class="glow" style="left:0px;top:250px;width:720px;height:720px;background:rgba(34,203,160,.09)"></div>
+  <div class="ud-kicker ud-kicker--green" style="top:150px">THE UNDO STACK</div>
+  <div class="ud-h1" style="top:203px">A stack is a <em>time machine</em></div>
+  <div class="ud-canvas" style="left:55px;top:352px">
+    <div class="ud-canvas__bar"><i></i><i></i><i></i><span>untitled.fig</span></div>
+    <svg viewBox="0 0 390 413">
+      <rect class="shape" data-rect x="100" y="151" width="145" height="99" rx="6" fill="rgba(34,203,160,.12)" stroke="#22cba0" stroke-width="2" style="filter:drop-shadow(0 0 8px rgba(34,203,160,.5))"/>
+      <circle class="shape" data-ellipse cx="233" cy="256" r="60" fill="none" stroke="#fff" stroke-width="2"/>
+      <line class="shape" data-line x1="65" y1="335" x2="313" y2="275" stroke="#c9ced2" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="ud-history" style="left:467px;top:428px">
+    <div class="ud-history__title"><svg><use href="#u-hist"/></svg>HISTORY</div>
+    <div class="ud-history__item" data-h="1"><svg><use href="#u-line"/></svg>Draw line</div>
+    <div class="ud-history__item" data-h="2"><svg><use href="#u-circle"/></svg>Add ellipse</div>
+    <div class="ud-history__item" data-h="3"><svg><use href="#u-move"/></svg>Move rectangle</div>
+    <div class="ud-history__item" data-h="4"><svg><use href="#u-rect"/></svg>Add rectangle</div>
+    <div class="ud-history__item" data-h="5"><svg><use href="#u-frame"/></svg>Create frame</div>
+  </div>
+  <div class="ud-key" style="left:250px;top:831px">⌘</div>
+  <div class="ud-key" style="left:327px;top:831px">Z</div>
+  <div class="ud-count" data-count style="left:416px;top:843px">×0</div>
+  <div class="ud-cap ud-cap--green" style="top:1008px">Figma remembers. Your app can too.</div>
+</template>
+<div data-clone="tpl-stack" data-tl="stack" data-t="27" data-shot="28.5"></div>
+<div data-clone="tpl-stack" data-tl="stack" data-t="27" data-shot="31.5"></div>
+<div data-clone="tpl-stack" data-tl="stack" data-t="27" data-shot="34.5"></div>
+<div data-clone="tpl-stack" data-tl="stack" data-t="27" data-shot="37.5"></div>
+
+<!-- 6 · Delayed send -->
+<template id="tpl-send">
+  <div class="glow" style="left:0px;top:250px;width:720px;height:720px;background:rgba(34,203,160,.09)"></div>
+  <div class="ud-kicker ud-kicker--green" style="top:150px">DELAYED SEND</div>
+  <div class="ud-h1" style="top:203px">The 10-second <em>grace period</em></div>
+  <div class="ud-mail" data-mail style="left:74px;top:348px">
+    <div class="ud-mail__bar">New message<span>– ×</span></div>
+    <div class="ud-mail__to">To <b>team@acme.co</b></div>
+    <div class="ud-mail__subject">Q3 final numbers</div>
+    <div class="ud-mail__line"></div>
+    <div class="ud-mail__body">Hi team,<br>Attached the <span data-word>finel</span> report for Thursday's review.<br>— Sarah</div>
+    <div class="ud-mail__send"><svg><use href="#u-send"/></svg>Send</div>
+    <div class="ud-mail__attach"><svg><use href="#u-clip"/></svg>Q3-report.pdf</div>
+  </div>
+  <div class="ud-sending ud-hide" data-sending style="left:73px;top:800px"><div class="ud-sending__label">Sending…</div><div class="ud-sending__track"><div class="ud-sending__fill" data-fill></div></div><div class="ud-sending__time" data-time>10s</div><button class="ud-sending__undo">Undo</button></div>
+  <svg class="ud-cursor ud-hide" data-cur style="left:150px;top:720px"><use href="#u-cursor"/></svg>
+  <div class="ud-cap ud-cap--green" style="top:1008px">The delay is the feature.</div>
+</template>
+<div data-clone="tpl-send" data-tl="send" data-t="39" data-shot="40.5"></div>
+<div data-clone="tpl-send" data-tl="send" data-t="39" data-shot="42"></div>
+<div data-clone="tpl-send" data-tl="send" data-t="39" data-shot="43.5"></div>
+<div data-clone="tpl-send" data-tl="send" data-t="39" data-shot="45"></div>
+
+<!-- 7 · Outro: Design for regret. -->
+<section class="scene" data-t="48" data-shot="49.5">
+  <div class="glow" style="left:0px;top:200px;width:720px;height:720px;background:rgba(34,203,160,.13)"></div>
+  <div style="position:absolute;left:0;right:0;top:484px;text-align:center;font-size:15px;font-weight:700;letter-spacing:.2em;color:#22cba0">UNDO UX · REVERSIBILITY</div>
+  <div class="ud-h1" style="top:516px;font-size:44px">Design for <em>regret.</em></div>
+  <div class="ud-toast ud-abs ud-in" style="--d:.3s;left:135px;top:604px;width:450px;height:66px" id="outroToast"><div class="ud-toast__ring"><svg viewBox="0 0 24 24"><circle class="track" cx="12" cy="12" r="9"/><circle class="fill" cx="12" cy="12" r="9"/></svg><i><svg><use href="#u-undo"/></svg></i></div><div class="ud-toast__label">Deleted</div><button class="ud-toast__undo">Undo</button></div>
+  <div class="ud-follow ud-in" style="--d:.6s;top:707px;left:167px;transform:none"><svg><use href="#u-follow"/></svg>Follow for more UX patterns</div>
+  <div class="ud-in" style="--d:.9s;position:absolute;left:0;right:0;top:783px;text-align:center;font-size:13px;font-weight:700;letter-spacing:.12em;color:#5f8a80">▮ SAVE THIS BEFORE YOU DELETE SOMETHING</div>
+</section>
+
+<script>
+  // Clone templated scenes (one section per shot) and drive each with a time-indexed step list. Runs before stage.js
+  // so the scene:enter listeners exist when the stage fires them; ?t= fast-forwards the steps with transitions off.
+  document.querySelectorAll('[data-clone]').forEach(ph => {
+    const s = document.createElement('section'); s.className = 'scene'; s.dataset.t = ph.dataset.t; s.dataset.shot = ph.dataset.shot; s.dataset.tl = ph.dataset.tl;
+    s.append(document.getElementById(ph.dataset.clone).content.cloneNode(true)); ph.replaceWith(s);
+  });
+  const q = s => s.querySelector.bind(s), show = el => el.classList.remove('ud-hide'), hide = el => el.classList.add('ud-hide');
+  const EXPECTED = 'acme/production-api';
+  const timelines = {
+    confirm: s => [
+      [0.4, () => { show(q(s)('[data-c1]')); show(q(s)('[data-c2]')); }],
+      [1.5, () => { show(q(s)('[data-dialog]')); q(s)('[data-dialog]').previousElementSibling.style.opacity = '.35'; hide(q(s)('[data-row]')); show(q(s)('[data-toast]')); q(s)('[data-toast] .ud-toast__ring').classList.add('is-counting'); }],
+      [1.8, () => show(q(s)('[data-cap]'))]
+    ],
+    soft: s => [
+      [3, () => { q(s)('[data-row42]').classList.add('is-set'); const d = q(s)('[data-del]'); d.className = 'val'; d.textContent = '"2026-07-03T10:42Z"'; q(s)('[data-fill1]').style.width = '50%'; q(s)('[data-dot2]').classList.add('is-on'); q(s)('[data-lbl2]').classList.add('is-on'); }],
+      [6, () => { q(s)('[data-row42]').classList.add('is-purged'); q(s)('[data-fill2]').style.width = '50%'; q(s)('[data-dot3]').classList.add('is-red'); q(s)('[data-lbl3]').classList.add('is-on'); }]
+    ],
+    type: s => [
+      [1.5, () => { q(s)('[data-knob]').style.left = '94%'; q(s)('[data-l2]').classList.remove('is-on'); q(s)('[data-l3]').classList.add('is-on'); }],
+      ...EXPECTED.split('').map((_, i) => [2.1 + i * 0.125, () => { q(s)('[data-input]').textContent = EXPECTED.slice(0, i + 1); }]),
+      [4.6, () => q(s)('[data-confirm]').classList.add('is-ready')]
+    ],
+    stack: s => [
+      [3, () => { q(s)('[data-line]').classList.add('is-hidden'); q(s)('[data-h="1"]').classList.add('is-undone'); const c = q(s)('[data-count]'); c.textContent = '×1'; c.classList.add('is-on'); }],
+      [6, () => { q(s)('[data-ellipse]').classList.add('is-hidden'); q(s)('[data-h="2"]').classList.add('is-undone'); q(s)('[data-count]').textContent = '×2'; }],
+      [9, () => { q(s)('[data-rect]').style.transform = 'translate(-64px, -67px)'; q(s)('[data-h="3"]').classList.add('is-undone'); q(s)('[data-count]').textContent = '×3'; }]
+    ],
+    send: s => {
+      const tick = (left, p) => () => { q(s)('[data-time]').textContent = left + 's'; q(s)('[data-fill]').style.setProperty('--p', p + '%'); };
+      return [
+        [0.3, () => show(q(s)('[data-cur]'))],
+        [0.5, () => { q(s)('[data-mail]').classList.add('is-sending'); show(q(s)('[data-sending]')); tick(10, 0)(); }],
+        [1.0, tick(10, 5)], [1.5, tick(9, 10)], [2.0, tick(8, 15)], [2.5, () => { tick(8, 22)(); q(s)('[data-word]').className = 'typo'; }], [3.0, tick(7, 30)],
+        [3.4, () => { const c = q(s)('[data-cur]'); c.style.left = '585px'; c.style.top = '825px'; }],
+        [3.9, () => { q(s)('[data-mail]').classList.remove('is-sending'); hide(q(s)('[data-sending]')); q(s)('[data-word]').className = 'typo'; const c = q(s)('[data-cur]'); c.style.left = '585px'; c.style.top = '840px'; }],
+        [5.5, () => { const w = q(s)('[data-word]'); w.className = 'fixed'; w.textContent = 'final'; }]
+      ];
+    }
+  };
+  document.querySelectorAll('.scene[data-tl]').forEach(scene => {
+    const fresh = scene.innerHTML;
+    scene.addEventListener('scene:enter', e => {
+      const at = Math.max(0, (e.detail?.t ?? 0) - (Number(scene.dataset.t) || 0));
+      (scene._timers || []).forEach(clearTimeout); scene._timers = [];
+      scene.innerHTML = fresh; scene.classList.add('no-anim');
+      const steps = timelines[scene.dataset.tl](scene);
+      steps.forEach(([sec, fn]) => { if (sec <= at) fn(); });
+      void scene.offsetWidth;                                                   // flush so the caught-up state does not transition
+      requestAnimationFrame(() => scene.classList.remove('no-anim'));
+      if (new URLSearchParams(location.search).has('t')) return;            // ?t= is a frozen frame: no future steps
+      steps.forEach(([sec, fn]) => { if (sec > at) scene._timers.push(setTimeout(fn, (sec - at) * 1000)); });
+    });
+  });
+</script>
+<script type="module">
+  // Live behaviour (over http): the hook and outro toasts count down for real and can be undone.
+  try {
+    const { UndoToast } = await import('./pattern.js');
+    ['hookToast', 'outroToast'].forEach(id => { const el = document.getElementById(id); if (el) UndoToast(el, { window: 5000, onUndo: () => el.querySelector('.ud-toast__label').textContent = 'Restored' }); });
+  } catch {}
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

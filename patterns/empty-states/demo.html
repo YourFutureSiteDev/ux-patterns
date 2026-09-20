@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Empty States · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a090b; --accent: #2fd9a0; --danger: #e8456f; --grid: transparent; }
+  .scene { background-image: none; }
+  .glow { width: 720px; height: 720px; left: 0; top: 320px; background: rgba(232,69,111,.13); filter: blur(120px); }
+  .es-split { position: absolute; left: 360px; top: 280px; width: 1px; height: 620px; background: #141317; }
+</style>
+</head>
+<body class="es">
+
+<!-- 1 · Hook: Dead vs Alive -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="glow" style="top:420px;opacity:.6"></div>
+  <div class="es-split"></div>
+  <span class="es-tag es-tag--red" style="position:absolute;left:140px;top:256px">Dead</span>
+  <span class="es-tag es-tag--teal" style="position:absolute;left:438px;top:256px">Alive</span>
+  <div class="es-card es-card--dead" style="left:60px;top:300px;width:240px;height:332px;justify-content:center"><span class="es-dead__x">✕</span><span class="es-dead__t">No data</span><span class="es-dead__s">error: empty result</span></div>
+  <div class="es-card es-card--alive" style="left:361px;top:300px;width:237px;height:332px;justify-content:center" data-empty='{"kind":"first-run","tag":"","icon":"inbox","title":"Nothing here yet","body":"Create your first project to get started","cta":"+ New project"}'></div>
+</section>
+
+<!-- 2 · Alive, zoomed -->
+<section class="scene" data-t="1.5" data-shot="1.5">
+  <div class="glow" style="top:200px;width:600px;left:30px"></div>
+  <span class="es-tag es-tag--teal" style="position:absolute;left:280px;top:256px;height:30px;line-height:30px;font-size:15px">Alive</span>
+  <div style="position:absolute;left:200px;top:288px;width:262px;height:392px;border-radius:12px;background:#121016"></div>
+  <div class="es-card es-card--alive es-card--zoom" style="left:194px;top:296px;width:266px;height:380px;justify-content:center" data-empty='{"kind":"first-run","tag":"","icon":"inbox","title":"Nothing here yet","body":"Create your first project to get started","cta":"+ New project"}'></div>
+</section>
+
+<!-- 3 · 01 Illustration > Void: the void -->
+<section class="scene" data-t="3" data-shot="3">
+  <div class="glow" style="opacity:.5"></div>
+  <div class="es-kicker">01 — Illustration &gt; Void</div>
+  <div class="es-win" style="left:147px;top:205px;width:426px;height:693px"><div class="es-win__bar"><span class="es-win__lights"><i></i><i></i><i></i></span>My Projects</div><div class="es-win__body"><span class="es-void">No items</span></div></div>
+</section>
+
+<!-- 4 · 01 Illustration: a single icon -->
+<section class="scene" data-t="4.5" data-shot="4.5">
+  <div class="glow" style="opacity:.5"></div>
+  <div class="es-kicker">01 — Illustration &gt; Void</div>
+  <div class="es-win" style="left:147px;top:205px;width:426px;height:693px"><div class="es-win__bar"><span class="es-win__lights"><i></i><i></i><i></i></span>My Projects</div><div class="es-win__body" style="justify-content:flex-start;padding-top:206px"><div class="es-empty__tile" data-icon="cube"></div></div></div>
+  <div class="es-note" style="top:1163px">Add a single icon →</div>
+</section>
+
+<!-- 5 · 01 Illustration: icon + copy -->
+<section class="scene" data-t="6" data-shot="7.5">
+  <div class="glow" style="opacity:.5"></div>
+  <div class="es-kicker">01 — Illustration &gt; Void</div>
+  <div class="es-win" style="left:147px;top:205px;width:426px;height:693px"><div class="es-win__bar"><span class="es-win__lights"><i></i><i></i><i></i></span>My Projects</div><div class="es-win__body"><div class="es-empty" style="align-items:center"><div class="es-empty__tile" data-icon="cube"></div><h3 class="es-empty__title">Nothing here yet</h3><p class="es-empty__body">Your projects will appear here once you create one.</p></div></div></div>
+</section>
+
+<!-- 6 · 02 Tone = Brand voice -->
+<section class="scene" data-t="9" data-shot="10.5">
+  <div class="glow" style="opacity:.7;left:60px"></div>
+  <div class="es-kicker">02 — Tone = Brand voice</div>
+  <div class="es-card es-corp" style="left:40px;top:252px;width:308px;height:478px;background:#0e0d11;border-color:#131216;justify-content:center"><span class="es-tag es-tag--red" style="position:absolute;left:24px;top:24px">Corporate</span><span data-icon="alert"></span><span class="es-corp__err">ERROR 404</span><span class="es-corp__body">No items found.<br>Result set empty.</span><span class="es-corp__status">status: failed</span></div>
+  <div class="es-card es-card--alive es-card--ghostbtn" style="left:373px;top:252px;width:307px;height:478px;justify-content:center;padding-bottom:30px" data-empty='{"kind":"first-run","tag":"","icon":"chat","title":"Looks quiet in here","body":"Add your first project and your team will see it instantly.","cta":"+ Add your first project"}'><span class="es-tag es-tag--teal" style="position:absolute;left:22px;top:24px">Human</span></div>
+</section>
+
+<!-- 7 · 03 Primary CTA mandatory: Try refreshing -->
+<section class="scene" data-t="15" data-shot="16.5">
+  <div class="glow" style="opacity:.5"></div>
+  <div class="es-kicker">03 — Primary CTA mandatory</div>
+  <div class="es-win" style="left:134px;top:212px;width:452px;height:680px"><div class="es-win__bar"><span class="es-win__lights"><i></i><i></i><i></i></span>Inbox</div><div class="es-win__body"><div class="es-empty es-grey"><div class="es-empty__tile" data-icon="refresh" data-size="52"></div><h3 class="es-empty__title">Nothing to show</h3><button class="es-empty__cta" type="button">Try refreshing</button></div></div></div>
+</section>
+
+<!-- 8 · 03 Primary CTA: Create project -->
+<section class="scene" data-t="18" data-shot="19.5">
+  <div class="glow" style="opacity:.6"></div>
+  <div class="es-kicker">03 — Primary CTA mandatory</div>
+  <div class="es-win" style="left:134px;top:212px;width:452px;height:680px"><div class="es-win__bar"><span class="es-win__lights"><i></i><i></i><i></i></span>Inbox</div><div class="es-win__body"><div class="es-inbox" data-empty='{"kind":"first-run","tag":"","icon":"plus","title":"Your inbox is clear","body":"Create your first project to invite teammates.","cta":"+  Create project","secondary":"or import from file"}'></div></div></div>
+  <svg class="cursor" style="left:482px;top:664px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+</section>
+
+<!-- 9 · 04 Context = Design -->
+<section class="scene" data-t="21" data-shot="24">
+  <div class="glow" style="opacity:.5"></div>
+  <div class="es-kicker">04 — Context = Design</div>
+  <div class="es-grid" data-ctx></div>
+</section>
+
+<!-- 10 · 05 Empty = Onboarding: ghost task -->
+<section class="scene" data-t="27" data-shot="31.5">
+  <div class="glow" style="opacity:.6"></div>
+  <div class="es-kicker">05 — Empty = Onboarding</div>
+  <div class="es-win" style="left:134px;top:212px;width:452px;height:588px"><div class="es-win__bar"><span class="es-win__lights"><i></i><i></i><i></i></span>Tasks</div><div class="es-onboard" data-ghost="nodrop"></div></div>
+</section>
+
+<!-- 11 · 05 Onboarding: + drop zone -->
+<section class="scene" data-t="33" data-shot="33">
+  <div class="glow" style="opacity:.6"></div>
+  <div class="es-kicker">05 — Empty = Onboarding</div>
+  <div class="es-win" style="left:134px;top:212px;width:452px;height:588px"><div class="es-win__bar"><span class="es-win__lights"><i></i><i></i><i></i></span>Tasks</div><div class="es-onboard" data-ghost></div></div>
+</section>
+
+<!-- 12 · Outro: 5 empty state rules -->
+<section class="scene" data-t="36" data-shot="36">
+  <div class="glow" style="top:120px;width:800px;height:800px;left:-40px;background:rgba(140,80,110,.22)"></div>
+  <div class="es-rules" style="top:283px"><small>5 empty state</small><b>RULES</b></div>
+  <div class="es-chips" style="top:522px;justify-content:flex-start;padding-left:110px"><span class="es-chip"><i>01</i>Illustration</span></div>
+</section>
+
+<!-- 13 · Outro: all five rules, Save / Follow -->
+<section class="scene" data-t="37.5" data-shot="37.5">
+  <div class="glow" style="top:120px;width:800px;height:800px;left:-40px;background:rgba(140,80,110,.22)"></div>
+  <div class="es-rules" style="top:283px"><small>5 empty state</small><b>RULES</b></div>
+  <div class="es-chips" style="top:522px"><span class="es-chip"><i>01</i>Illustration</span><span class="es-chip"><i>02</i>Human tone</span><span class="es-chip"><i>03</i>Primary CTA</span><span class="es-chip"><i>04</i>Context</span><span class="es-chip"><i>05</i>Onboarding</span></div>
+  <a class="es-cta es-cta--save" href="#"><svg class="es-i" viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12v18l-6-4-6 4z"/></svg>Save</a>
+  <a class="es-cta es-cta--follow" href="#"><svg class="es-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20s-7-4.4-7-9.5A3.5 3.5 0 0 1 12 8a3.5 3.5 0 0 1 7 2.5C19 15.6 12 20 12 20z"/></svg>Follow</a>
+  <div class="es-handle">@designmotionhq</div>
+</section>
+
+<script type="module">
+  import { EmptyState, GhostPreview, KINDS, icon } from './pattern.js';
+  for (const el of document.querySelectorAll('[data-empty]')) { const keep = el.innerHTML; EmptyState(el, JSON.parse(el.dataset.empty)); el.insertAdjacentHTML('afterbegin', keep); }
+  for (const el of document.querySelectorAll('[data-icon]')) el.innerHTML = icon(el.dataset.icon, Number(el.dataset.size) || 36);
+  for (const el of document.querySelectorAll('[data-ghost]')) GhostPreview(el, el.dataset.ghost === 'nodrop' ? { drop: '' } : {});
+  for (const grid of document.querySelectorAll('[data-ctx]')) {
+    for (const [kind, k] of Object.entries(KINDS)) {
+      const card = document.createElement('div'); card.className = `es-ctx es-ctx--${k.tone}${kind === 'first-run' ? ' is-on' : ''}`;
+      const body = typeof k.body === 'function' ? k.body(42) : k.body;
+      card.innerHTML = `<span class="es-tag es-tag--${k.tone}">${k.tag}</span><div class="es-ctx__tile">${icon(k.icon)}</div><b>${k.title}</b><p>${body}</p><button type="button">${k.cta}</button>`;
+      grid.appendChild(card);
+    }
+  }
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Color Harmony · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0b070f; --accent: #f59e0b; --danger: #ef4444; }
+  .scene { color: #f8fafc; background-image: radial-gradient(rgba(255,255,255,.045) 1px, transparent 1.4px); background-size: 40px 40px; background-position: 20px 20px; }
+  .scene--plain { background-image: none; }
+</style>
+</head>
+<body class="ch">
+
+<svg width="0" height="0" style="position:absolute"><symbol id="i-bookmark" viewBox="0 0 16 18"><path d="M2 2h12v14l-6-4-6 4z"/></symbol></svg>
+
+<!-- Shared window pieces are repeated per scene so each one screenshots on its own. -->
+
+<!-- 1 · Hook: 60 : 30 : 10 vs no system -->
+<section class="scene scene--plain" data-t="0" data-shot="1.5">
+  <div class="ch-ratio" style="position:absolute;left:0;right:0;top:319px"><span class="n60">60</span><i>:</i><span class="n30">30</span><i>:</i><span class="n10">10</span></div>
+  <div style="position:absolute;left:0;right:0;top:407px;text-align:center;font-size:22px;color:#a09da6">The only color rule you need</div>
+  <div class="ch-split is-sweeping" id="split" style="position:absolute;left:28px;top:452px">
+    <div class="ch-split__layer">
+      <div class="ch-bar"><i></i>Dashboard<span class="ch-pill" style="right:9px;top:7px">Upgrade</span></div>
+      <div class="ch-rev"><span>Revenue</span><b>$24,500</b></div>
+      <div class="ch-segs"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="ch-users"><span>Active Users</span><b>1,234</b><span class="ch-pill" style="right:9px;top:9px;height:20px;line-height:20px">View All</span></div>
+      <div class="ch-btn ch-btn--a">Upgrade</div><div class="ch-btn ch-btn--b">Settings</div>
+    </div>
+    <div class="ch-split__layer ch-split__layer--chaos">
+      <div class="ch-bar"><i></i>Dashboard</div>
+      <div class="ch-rev"><span>Revenue</span><b>$24,500</b></div>
+      <div class="ch-segs"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="ch-users"><span>Active Users</span><b>1,234</b></div>
+      <div class="ch-btn ch-btn--a">Upgrade</div><div class="ch-btn ch-btn--b">Settings</div>
+    </div>
+    <div class="ch-split__line"></div>
+  </div>
+  <div class="ch-split__tag" style="left:133px;top:782px">NO SYSTEM</div>
+  <div class="ch-split__tag ch-split__tag--sys" style="left:450px;top:782px">60 : 30 : 10</div>
+  <div class="ch-save" style="top:985px;color:#1d1a22"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 2 · 01 Dominant 60% -->
+<section class="scene" data-t="4" data-shot="7.5">
+  <div class="ch-step ch-step--60" style="left:28px;top:172px"><span class="ch-step__num">01</span>DOMINANT <span class="ch-step__pct">60%</span></div>
+  <div class="ch-ring" id="ring60" style="left:482px;top:118px"><svg viewBox="0 0 166 166"><circle class="ch-ring__track" cx="83" cy="83" r="70"/><circle class="ch-ring__seg ch-ring__seg--60" cx="83" cy="83" r="70"/><circle class="ch-ring__seg ch-ring__seg--30" cx="83" cy="83" r="70"/><circle class="ch-ring__seg ch-ring__seg--10" cx="83" cy="83" r="70"/></svg><div class="ch-ring__label">60:30:10</div></div>
+  <div class="ch-win" style="position:absolute;left:28px;top:295px">
+    <div class="ch-win__bar"><div class="ch-win__dots"><i style="background:#ef4444"></i><i style="background:#eab308"></i><i style="background:#22c55e"></i></div>dashboard.app</div>
+    <div class="ch-win__empty ch-in" style="animation-delay:1.2s">60% IS JUST<br>BACKGROUND</div>
+  </div>
+  <div class="ch-palette" style="position:absolute;left:28px;top:728px">
+    <div class="ch-swatch ch-swatch--base ch-in" style="left:27px;animation-delay:.6s"><i style="background:#0f172a"></i><b>#0f172a</b><span>60% — Base</span></div>
+  </div>
+  <div class="ch-cap ch-cap--60 ch-in" style="top:865px;animation-delay:1.8s">Pick ONE dark color. <b>It covers 60% of your screen.</b></div>
+  <div class="ch-save" style="top:985px"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 3 · 02 Secondary 30% -->
+<section class="scene" data-t="11" data-shot="13.5">
+  <div class="ch-step ch-step--30" style="left:28px;top:172px"><span class="ch-step__num">02</span>SECONDARY <span class="ch-step__pct">30%</span></div>
+  <div class="ch-ring" id="ring30" style="left:482px;top:118px"><svg viewBox="0 0 166 166"><circle class="ch-ring__track" cx="83" cy="83" r="70"/><circle class="ch-ring__seg ch-ring__seg--60" cx="83" cy="83" r="70"/><circle class="ch-ring__seg ch-ring__seg--30" cx="83" cy="83" r="70"/><circle class="ch-ring__seg ch-ring__seg--10" cx="83" cy="83" r="70"/></svg><div class="ch-ring__label">60:30:10</div></div>
+  <div class="ch-win" style="position:absolute;left:28px;top:295px">
+    <div class="ch-win__bar"><div class="ch-win__dots"><i style="background:#ef4444"></i><i style="background:#eab308"></i><i style="background:#22c55e"></i></div>dashboard.app</div>
+    <div class="ch-win__nav ch-in" style="animation-delay:.4s"><b>Dashboard</b><span>Analytics</span><span>Reports</span><span>Settings</span></div>
+    <div class="ch-win__body">
+      <div class="ch-win__h1">Welcome back</div><div class="ch-win__sub">Here's your overview for today</div>
+      <div class="ch-stats ch-in" style="animation-delay:.7s"><div class="ch-stat"><span>Revenue</span><b>$24,500</b><em class="is-dim">+12%</em></div><div class="ch-stat"><span>Users</span><b>1,234</b><em class="is-dim">+8%</em></div></div>
+      <div class="ch-chart ch-in" style="animation-delay:1s"><div class="ch-chart__title">Monthly Revenue</div><div class="ch-bars"><i style="--h:25px"></i><i style="--h:36px"></i><i style="--h:30px"></i><i style="--h:48px"></i><i style="--h:38px"></i><i style="--h:52px"></i><i style="--h:34px"></i><i style="--h:42px"></i><i style="--h:50px"></i><i class="is-dim" style="--h:52px"></i></div></div>
+    </div>
+  </div>
+  <div class="ch-palette" style="position:absolute;left:28px;top:728px">
+    <div class="ch-swatch ch-swatch--base" style="left:27px"><i style="background:#0f172a"></i><b>#0f172a</b><span>60% — Base</span></div>
+    <div class="ch-slider ch-in" style="left:122px;top:47px;animation-delay:1.2s"><div class="ch-slider__track"><span class="ch-slider__knob" style="left:0"></span><span class="ch-slider__knob" style="left:46%"></span></div><div class="ch-slider__label">Same hue · <b class="cyan">+lightness</b></div></div>
+    <div class="ch-swatch ch-swatch--cards ch-in" style="left:287px;animation-delay:1.2s"><i style="background:#1e293b"></i><b>#1e293b</b><span>30% — Cards</span></div>
+  </div>
+  <div class="ch-cap ch-cap--30 ch-in" style="top:865px;animation-delay:1.8s">Same hue, slightly lighter. <b>Cards, nav, containers.</b></div>
+  <div class="ch-save" style="top:985px"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 4 · 03 Accent 10% -->
+<section class="scene" data-t="17" data-shot="19.5">
+  <div class="ch-step ch-step--10" style="left:28px;top:172px"><span class="ch-step__num">03</span>ACCENT <span class="ch-step__pct">10%</span></div>
+  <div class="ch-ring" id="ring10" style="left:482px;top:118px"><svg viewBox="0 0 166 166"><circle class="ch-ring__track" cx="83" cy="83" r="70"/><circle class="ch-ring__seg ch-ring__seg--60" cx="83" cy="83" r="70"/><circle class="ch-ring__seg ch-ring__seg--30" cx="83" cy="83" r="70"/><circle class="ch-ring__seg ch-ring__seg--10" cx="83" cy="83" r="70"/></svg><div class="ch-ring__label">60:30:10</div></div>
+  <div class="ch-win" style="position:absolute;left:28px;top:295px">
+    <div class="ch-win__bar"><div class="ch-win__dots"><i style="background:#ef4444"></i><i style="background:#eab308"></i><i style="background:#22c55e"></i></div>dashboard.app</div>
+    <div class="ch-win__nav"><b class="is-on">Dashboard</b><span>Analytics</span><span>Reports</span><span>Settings</span><span class="ch-pill ch-in" style="animation-delay:.5s">Upgrade to Pro</span></div>
+    <div class="ch-win__body">
+      <div class="ch-win__h1">Welcome back</div><div class="ch-win__sub">Here's your overview for today</div>
+      <div class="ch-stats"><div class="ch-stat"><span>Revenue</span><b>$24,500</b><em class="ch-in" style="animation-delay:.7s">+12%</em></div><div class="ch-stat"><span>Users</span><b>1,234</b><em class="ch-in" style="animation-delay:.7s">+8%</em></div></div>
+      <div class="ch-chart"><div class="ch-chart__title">Monthly Revenue</div><span class="ch-pill ch-in" style="animation-delay:.9s">View All</span><div class="ch-bars"><i style="--h:25px"></i><i style="--h:36px"></i><i style="--h:30px"></i><i style="--h:48px"></i><i style="--h:38px"></i><i style="--h:52px"></i><i style="--h:34px"></i><i style="--h:42px"></i><i style="--h:50px"></i><i style="--h:52px"></i></div></div>
+    </div>
+  </div>
+  <div class="ch-palette" style="position:absolute;left:28px;top:728px">
+    <div class="ch-swatch ch-swatch--base" style="left:27px"><i style="background:#0f172a"></i><b>#0f172a</b><span>60% — Base</span></div>
+    <div class="ch-slider" style="left:122px;top:47px"><div class="ch-slider__track"><span class="ch-slider__knob" style="left:0"></span><span class="ch-slider__knob" style="left:46%"></span></div><div class="ch-slider__label">Same hue · <b class="cyan">+lightness</b></div></div>
+    <div class="ch-swatch ch-swatch--cards" style="left:287px"><i style="background:#1e293b"></i><b>#1e293b</b><span>30% — Cards</span></div>
+    <div class="ch-slider ch-in" style="left:376px;width:146px;top:47px;animation-delay:1.2s"><div class="ch-slider__track ch-slider__track--warm"><span class="ch-slider__knob" style="left:0"></span><span class="ch-slider__knob ch-slider__knob--fill" style="left:100%"></span></div><div class="ch-slider__label"><b class="warm">Warm</b> · max contrast</div></div>
+    <div class="ch-swatch ch-swatch--cta ch-in" style="left:544px;animation-delay:1.2s"><i style="background:#f59e0b;border-color:#f59e0b"></i><b>#f59e0b</b><span>10% — CTA</span></div>
+  </div>
+  <div class="ch-cap ch-cap--10 ch-in" style="top:865px;animation-delay:1.8s">ONE bold color. <b>Only for CTAs and key actions.</b></div>
+  <div class="ch-save" style="top:985px"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+
+<!-- 5 · Recap: 3 colors. Zero guesswork. -->
+<section class="scene" data-t="22.5" data-shot="24">
+  <div class="ch-win ch-win--lg" style="position:absolute;left:28px;top:325px">
+    <div class="ch-win__bar"><div class="ch-win__dots"><i style="background:#ef4444"></i><i style="background:#eab308"></i><i style="background:#22c55e"></i></div>dashboard.app</div>
+    <div class="ch-win__nav"><b class="is-on">Dashboard</b><span>Analytics</span><span>Reports</span><span>Settings</span><span class="ch-pill">Upgrade to Pro</span></div>
+    <div class="ch-win__body">
+      <div class="ch-win__h1">Welcome back</div><div class="ch-win__sub">Here's your overview for today</div>
+      <div class="ch-stats"><div class="ch-stat"><span>Revenue</span><b>$24,500</b><em>+12%</em></div><div class="ch-stat"><span>Users</span><b>1,234</b><em>+8%</em></div></div>
+      <div class="ch-chart"><div class="ch-chart__title">Monthly Revenue</div><span class="ch-pill">View All</span><div class="ch-bars"><i style="--h:28px"></i><i style="--h:35px"></i><i style="--h:32px"></i><i style="--h:46px"></i><i style="--h:37px"></i><i style="--h:53px"></i><i style="--h:32px"></i><i style="--h:40px"></i><i style="--h:46px"></i><i style="--h:53px"></i></div></div>
+    </div>
+  </div>
+  <div class="ch-cap ch-cap--recap ch-in" style="top:746px;animation-delay:.6s">3 colors. <b>Zero guesswork.</b></div>
+  <div class="ch-save" style="top:985px"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+
+<script type="module">
+  import { RatioRing, SplitCompare, harmonize } from './pattern.js';
+  RatioRing(document.getElementById('ring60')).set(60);
+  RatioRing(document.getElementById('ring30')).set(30);
+  RatioRing(document.getElementById('ring10')).set(10);
+  // Hover the hook card to move the split by hand.
+  const split = SplitCompare(document.getElementById('split'));
+  document.getElementById('split').addEventListener('pointermove', e => { if (!location.search.includes('t=')) split.set(e.offsetX); });
+  console.log('harmonize(#0f172a) →', harmonize('#0f172a', { accentHue: 38 }));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Swipe Actions · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #090c0d; --accent: #22c79a; --danger: #d24a5e; }
+  .scene { color: #f3f5f7; }
+  .sw-h { position: absolute; left: 0; right: 0; text-align: center; font-size: 40px; font-weight: 800; letter-spacing: -.02em; white-space: nowrap; }
+  .sw-h em { font-style: normal; color: #22c79a; }
+  .sw-glow { position: absolute; left: -40px; top: 200px; width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(circle, rgba(34,199,154,.2), rgba(34,199,154,0) 68%); pointer-events: none; }
+  .sw-row.is-committed .sw-row__actions--right { left: 0; }
+  .sw-row.is-committed .sw-action--delete { flex: 1; }
+  .sw-blur { position: absolute; left: 68px; top: 470px; width: 584px; filter: blur(12px); opacity: .25; }
+</style>
+</head>
+<body class="sw">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-archive" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9M10 13h4"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 10l9-6 9 6v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M3 10l9 6 9-6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13l2.5-8h13L21 13v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M3 13h5l2 3h4l2-3h5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M4 10h11a5 5 0 0 1 0 10H9"/><path d="M8 6l-4 4 4 4"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></symbol>
+  <symbol id="i-arrows" viewBox="0 0 24 24"><path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/></symbol>
+</svg>
+
+<!-- 1 · Hook -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="sw-glow"></div>
+  <div class="sw-h" style="top:190px">One gesture. <em>Zero taps.</em></div>
+  <div class="sw-list" style="position:absolute;left:55px;top:445px;width:610px;padding:11px 13px 15px;gap:17px">
+    <div style="height:22px;border-radius:10px 10px 4px 4px;background:#22c79a;margin-bottom:-12px"></div>
+    <div class="sw-row" data-row="marcus" data-dot></div>
+    <div class="sw-row" data-row="alex"></div>
+    <div class="sw-row" data-row="priya"></div>
+  </div>
+  <div class="sw-finger" style="left:412px;top:484px"></div>
+  <div class="center" style="top:1022px;font-size:24px;font-weight:600;color:#c9ced5;white-space:nowrap">Swipe is a language. Here's its grammar.</div>
+</section>
+
+<!-- 2 · Threshold: pull distance -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="sw-glow"></div>
+  <div class="sw-kicker sw-kicker--teal" style="top:150px">Threshold design</div>
+  <div class="sw-h" style="top:200px">One swipe, <em>two trip-wires</em></div>
+  <div class="sw-row" data-row="alex" data-right="archive,delete" data-x="-104" style="position:absolute;left:60px;top:496px;width:600px;height:88px"></div>
+  <div class="sw-track" style="position:absolute;left:60px;top:696px;width:600px;--sw-p:.3">
+    <div class="sw-track__fill"></div>
+    <div class="sw-track__tick" style="left:303px"><b>Reveal</b></div>
+    <div class="sw-track__tick sw-track__tick--end" style="left:576px"><b>Commit</b></div>
+    <div class="sw-track__note"><svg style="width:16px;height:16px;vertical-align:-3px;margin-right:6px;fill:none;stroke:currentColor;stroke-width:2"><use href="#i-arrows"/></svg>pull distance</div>
+  </div>
+  <div class="sw-cap sw-cap--teal" style="top:1006px">Reveal is a menu. Commit is a decision.</div>
+</section>
+
+<!-- 3 · Threshold: short pull, buttons out -->
+<section class="scene" data-t="6" data-shot="7.5">
+  <div class="sw-glow"></div>
+  <div class="sw-kicker sw-kicker--teal" style="top:150px">Threshold design</div>
+  <div class="sw-h" style="top:200px">One swipe, <em>two trip-wires</em></div>
+  <div class="sw-row" data-row="alex" data-right="archive,delete" data-x="-246" style="position:absolute;left:60px;top:496px;width:600px;height:88px"></div>
+  <div class="sw-track" style="position:absolute;left:60px;top:696px;width:600px;--sw-p:.6">
+    <div class="sw-track__fill"></div>
+    <div class="sw-track__tick" style="left:303px"><b>Reveal</b></div>
+    <div class="sw-track__tick sw-track__tick--end" style="left:576px"><b>Commit</b></div>
+    <div class="sw-track__note"><svg style="width:16px;height:16px;vertical-align:-3px;margin-right:6px;fill:none;stroke:currentColor;stroke-width:2"><use href="#i-arrows"/></svg>short pull: buttons out, nothing fires</div>
+  </div>
+  <div class="sw-cap sw-cap--teal" style="top:1006px">Reveal is a menu. Commit is a decision.</div>
+</section>
+
+<!-- 4 · Threshold: released past the line -->
+<section class="scene" data-t="9" data-shot="10.5">
+  <div class="sw-glow"></div>
+  <div class="sw-kicker sw-kicker--teal" style="top:150px">Threshold design</div>
+  <div class="sw-h" style="top:200px">One swipe, <em>two trip-wires</em></div>
+  <div class="sw-row is-committed" data-row="alex" data-right="archive,delete" data-x="-600" style="position:absolute;left:60px;top:496px;width:600px;height:88px;--sw-action-w:82px"></div>
+  <div class="sw-track is-commit" style="position:absolute;left:60px;top:696px;width:600px;--sw-p:1">
+    <div class="sw-track__fill"></div>
+    <div class="sw-track__tick" style="left:303px"><b>Reveal</b></div>
+    <div class="sw-track__tick sw-track__tick--end" style="left:576px"><b>Commit</b></div>
+    <div class="sw-track__note"><svg style="width:16px;height:16px;vertical-align:-3px;margin-right:6px;fill:none;stroke:currentColor;stroke-width:2"><use href="#i-arrows"/></svg>released past the line — the action fires</div>
+  </div>
+  <div class="sw-cap sw-cap--teal" style="top:1006px">Reveal is a menu. Commit is a decision.</div>
+</section>
+
+<!-- 5 · Rubber-band: at rest -->
+<section class="scene" data-t="12" data-shot="13.5">
+  <div class="sw-glow"></div>
+  <div class="sw-kicker sw-kicker--teal" style="top:150px">Rubber-band physics</div>
+  <div class="sw-h" style="top:200px">The row <em>resists</em> you</div>
+  <div class="sw-row" data-row="sarah" data-dot data-left="safe-icon" data-x="0" style="position:absolute;left:74px;top:446px;width:572px;height:86px"></div>
+  <div class="sw-finger" style="left:202px;top:464px"></div>
+  <div class="sw-graph" style="position:absolute;left:68px;top:620px;--sw-p:0">
+    <div class="sw-graph__title">Row displacement vs finger travel</div>
+    <svg viewBox="0 0 584 280">
+      <path class="sw-graph__axis" d="M38 45V235H560"/>
+      <path class="sw-graph__dash" d="M38 235L332 35"/>
+      <path class="sw-graph__commit" d="M435 45V235"/>
+      <text class="sw-graph__label sw-graph__label--b" x="402" y="44">COMMIT</text>
+      <text class="sw-graph__label" x="112" y="115">rubber-band zone</text>
+      <path class="sw-graph__curve" d="M38 235Q150 150 430 137" pathLength="1"/>
+    </svg>
+    <span class="sw-graph__axis-cap" style="left:42px">↑ row moves</span>
+    <span class="sw-graph__axis-cap" style="right:26px">finger travel →</span>
+  </div>
+  <div class="sw-cap sw-cap--teal" style="top:1006px">Resistance is feedback.</div>
+</section>
+
+<!-- 6 · Rubber-band: dragged into the zone -->
+<section class="scene" data-t="16.5" data-shot="18">
+  <div class="sw-glow"></div>
+  <div class="sw-kicker sw-kicker--teal" style="top:150px">Rubber-band physics</div>
+  <div class="sw-h" style="top:200px">The row <em>resists</em> you</div>
+  <div class="sw-row" data-row="sarah" data-dot data-left="safe-icon" data-x="92" style="position:absolute;left:74px;top:446px;width:572px;height:86px"></div>
+  <div class="sw-finger" style="left:452px;top:463px"></div>
+  <div class="sw-graph" style="position:absolute;left:68px;top:620px;--sw-p:1">
+    <div class="sw-graph__title">Row displacement vs finger travel</div>
+    <svg viewBox="0 0 584 280">
+      <path class="sw-graph__axis" d="M38 45V235H560"/>
+      <path class="sw-graph__dash" d="M38 235L332 35"/>
+      <path class="sw-graph__commit" d="M435 45V235"/>
+      <text class="sw-graph__label sw-graph__label--b" x="402" y="44">COMMIT</text>
+      <text class="sw-graph__label" x="112" y="115">rubber-band zone</text>
+      <path class="sw-graph__curve" d="M38 235Q150 150 430 137" pathLength="1"/>
+      <circle class="sw-graph__dot" cx="430" cy="137" r="6"/>
+    </svg>
+    <span class="sw-graph__axis-cap" style="left:42px">↑ row moves</span>
+    <span class="sw-graph__axis-cap" style="right:26px">finger travel →</span>
+  </div>
+  <div class="sw-cap sw-cap--teal" style="top:1006px">Resistance is feedback.</div>
+</section>
+
+<!-- 7 · Rubber-band: past commit, haptic tick -->
+<section class="scene" data-t="19.5" data-shot="21">
+  <div class="sw-glow"></div>
+  <div class="sw-kicker sw-kicker--teal" style="top:150px">Rubber-band physics</div>
+  <div class="sw-h" style="top:200px">The row <em>resists</em> you</div>
+  <div class="sw-kicker sw-kicker--teal" style="top:402px;padding:8px 18px;font-size:15px;letter-spacing:.12em"><svg style="width:14px;height:14px;vertical-align:-2px;margin-right:6px;fill:none;stroke:currentColor;stroke-width:2"><use href="#i-zap"/></svg>Haptic tick</div>
+  <div class="sw-row" data-row="sarah" data-dot data-left="safe-full" data-x="572" style="position:absolute;left:74px;top:446px;width:572px;height:86px"></div>
+  <div class="sw-graph is-past" style="position:absolute;left:68px;top:620px;--sw-p:1">
+    <div class="sw-graph__title">Row displacement vs finger travel</div>
+    <svg viewBox="0 0 584 280">
+      <path class="sw-graph__axis" d="M38 45V235H560"/>
+      <path class="sw-graph__dash" d="M38 235L332 35"/>
+      <path class="sw-graph__commit" d="M435 45V235"/>
+      <text class="sw-graph__label sw-graph__label--b" x="402" y="44">COMMIT</text>
+      <text class="sw-graph__label" x="112" y="115">rubber-band zone</text>
+      <text class="sw-graph__label sw-graph__label--teal" x="445" y="90">resistance dies</text>
+      <path class="sw-graph__curve" d="M38 235Q150 150 430 137L559 51" pathLength="1"/>
+      <circle class="sw-graph__ring" cx="435" cy="137" r="8"/>
+      <circle class="sw-graph__dot" cx="559" cy="51" r="6"/>
+    </svg>
+    <span class="sw-graph__axis-cap" style="left:42px">↑ row moves</span>
+    <span class="sw-graph__axis-cap" style="right:26px">finger travel →</span>
+  </div>
+  <div class="sw-cap sw-cap--teal" style="top:1006px">Resistance is feedback.</div>
+</section>
+
+<!-- 8 · Direction: right = safe -->
+<section class="scene" data-t="24" data-shot="25.5">
+  <div class="sw-kicker sw-kicker--grey" style="top:150px">Direction semantics</div>
+  <div class="sw-h" style="top:200px">Direction is a <em>language</em></div>
+  <div class="sw-row" data-row="sarah" data-dot data-left="safe" data-x="185" style="position:absolute;left:68px;top:425px;width:584px;height:80px"></div>
+  <div class="sw-finger" style="left:575px;top:440px"></div>
+  <div class="sw-row" data-row="marcus" style="position:absolute;left:68px;top:535px;width:584px;height:80px"></div>
+  <div class="sw-legend" style="position:absolute;left:68px;top:672px">
+    <div class="sw-legend__item sw-legend__item--safe"><div class="sw-legend__icon"><svg><use href="#i-right"/></svg></div><div><b>Right = safe</b><span>archive, mark as read — reversible in one tap</span></div></div>
+    <div class="sw-legend__item sw-legend__item--danger"><div class="sw-legend__icon"><svg><use href="#i-left"/></svg></div><div><b>Left = destructive</b><span>delete, unsubscribe — the costly stuff</span></div></div>
+  </div>
+  <div class="sw-cap sw-cap--pink" style="top:1006px">Muscle memory has no undo.</div>
+</section>
+
+<!-- 9 · Direction: left = destructive -->
+<section class="scene" data-t="27" data-shot="28.5">
+  <div class="sw-kicker sw-kicker--grey" style="top:150px">Direction semantics</div>
+  <div class="sw-h" style="top:200px">Direction is a <em>language</em></div>
+  <div class="sw-row" data-row="sarah" data-dot data-left="safe" data-x="185" style="position:absolute;left:68px;top:425px;width:584px;height:80px"></div>
+  <div class="sw-row" data-row="marcus" data-right="destructive" data-x="-185" style="position:absolute;left:68px;top:535px;width:584px;height:80px"></div>
+  <div class="sw-finger" style="left:201px;top:549px"></div>
+  <div class="sw-legend" style="position:absolute;left:68px;top:672px">
+    <div class="sw-legend__item sw-legend__item--safe"><div class="sw-legend__icon"><svg><use href="#i-right"/></svg></div><div><b>Right = safe</b><span>archive, mark as read — reversible in one tap</span></div></div>
+    <div class="sw-legend__item sw-legend__item--danger"><div class="sw-legend__icon"><svg><use href="#i-left"/></svg></div><div><b>Left = destructive</b><span>delete, unsubscribe — the costly stuff</span></div></div>
+  </div>
+  <div class="sw-cap sw-cap--pink" style="top:1006px">Muscle memory has no undo.</div>
+</section>
+
+<!-- 10 · Direction: sides swapped -->
+<section class="scene" data-t="30" data-shot="31.5">
+  <div class="sw-kicker sw-kicker--grey" style="top:150px">Direction semantics</div>
+  <div class="sw-h" style="top:200px">Direction is a <em>language</em></div>
+  <div class="sw-kicker sw-kicker--amber" style="top:374px;padding:8px 18px;font-size:15px;letter-spacing:.12em"><svg style="width:14px;height:14px;vertical-align:-2px;margin-right:6px;fill:none;stroke:currentColor;stroke-width:2"><use href="#i-warn"/></svg>Sides swapped</div>
+  <div class="sw-row" data-row="sarah" data-dot data-left="delete-block" data-x="185" style="position:absolute;left:68px;top:425px;width:584px;height:80px"></div>
+  <div class="sw-finger" style="left:575px;top:440px"></div>
+  <div class="sw-row" data-row="marcus" data-right="destructive" data-x="-185" style="position:absolute;left:68px;top:535px;width:584px;height:80px"></div>
+  <div class="sw-legend" style="position:absolute;left:68px;top:672px">
+    <div class="sw-legend__item sw-legend__item--safe"><div class="sw-legend__icon"><svg><use href="#i-right"/></svg></div><div><b>Right = safe</b><span>archive, mark as read — reversible in one tap</span></div></div>
+    <div class="sw-legend__item sw-legend__item--danger"><div class="sw-legend__icon"><svg><use href="#i-left"/></svg></div><div><b>Left = destructive</b><span>delete, unsubscribe — the costly stuff</span></div></div>
+  </div>
+  <div class="sw-cap sw-cap--pink" style="top:1006px">Muscle memory has no undo.</div>
+</section>
+
+<!-- 11 · Discoverability: first-launch peek -->
+<section class="scene" data-t="33" data-shot="34.5">
+  <div class="sw-kicker sw-kicker--grey" style="top:150px">Discoverability</div>
+  <div class="sw-h" style="top:200px">Invisible until you <em>teach it</em></div>
+  <div class="sw-phone" style="position:absolute;left:162px;top:386px">
+    <div class="sw-phone__notch"></div>
+    <div class="sw-phone__head"><div class="sw-phone__title"><svg><use href="#i-inbox"/></svg>Inbox</div><span class="sw-badge"><svg><use href="#i-spark"/></svg>NEW USER</span></div>
+    <div class="sw-phone__search"><svg><use href="#i-search"/></svg>Search mail</div>
+    <div class="sw-list">
+      <div class="sw-row" data-row="sarah" data-dot data-right="delete" data-x="-14"></div>
+      <div class="sw-row" data-row="marcus"></div>
+      <div class="sw-row" data-row="alex"></div>
+      <div class="sw-row" data-row="priya"></div>
+    </div>
+    <div class="sw-phone__note">buttons half-revealed… then settle back</div>
+  </div>
+  <div class="sw-teach" style="position:absolute;left:68px;top:908px">
+    <div class="sw-teach__title">Teach once · <em>then never again</em></div>
+    <div class="sw-teach__row"><span class="sw-chip is-on"><i></i>Launch 1<span>peek hint</span></span><svg><use href="#i-right"/></svg><span class="sw-chip"><i></i>Launch 2+<span>nothing — learned</span></span></div>
+  </div>
+</section>
+
+<!-- 12 · Discoverability: settled -->
+<section class="scene" data-t="39" data-shot="40.5">
+  <div class="sw-kicker sw-kicker--grey" style="top:150px">Discoverability</div>
+  <div class="sw-h" style="top:200px">Invisible until you <em>teach it</em></div>
+  <div class="sw-phone" style="position:absolute;left:162px;top:386px">
+    <div class="sw-phone__notch"></div>
+    <div class="sw-phone__head"><div class="sw-phone__title"><svg><use href="#i-inbox"/></svg>Inbox</div><span class="sw-badge"><svg><use href="#i-spark"/></svg>NEW USER</span></div>
+    <div class="sw-phone__search"><svg><use href="#i-search"/></svg>Search mail</div>
+    <div class="sw-list">
+      <div class="sw-row" data-row="sarah" data-dot data-right="delete" data-x="0"></div>
+      <div class="sw-row" data-row="marcus"></div>
+      <div class="sw-row" data-row="alex"></div>
+      <div class="sw-row" data-row="priya"></div>
+    </div>
+    <div class="sw-phone__note is-dim">no hint needed anymore</div>
+  </div>
+  <div class="sw-teach" style="position:absolute;left:68px;top:908px">
+    <div class="sw-teach__title">Teach once · <em>then never again</em></div>
+    <div class="sw-teach__row"><span class="sw-chip is-on"><i></i>Launch 1<span>peek hint</span></span><svg><use href="#i-right"/></svg><span class="sw-chip"><i></i>Launch 2+<span>nothing — learned</span></span></div>
+  </div>
+</section>
+
+<!-- 13 · Discoverability: launch 2+ -->
+<section class="scene" data-t="42" data-shot="43.5">
+  <div class="sw-kicker sw-kicker--grey" style="top:150px">Discoverability</div>
+  <div class="sw-h" style="top:200px">Invisible until you <em>teach it</em></div>
+  <div class="sw-phone" style="position:absolute;left:162px;top:386px">
+    <div class="sw-phone__notch"></div>
+    <div class="sw-phone__head"><div class="sw-phone__title"><svg><use href="#i-inbox"/></svg>Inbox</div><span class="sw-badge"><svg><use href="#i-spark"/></svg>NEW USER</span></div>
+    <div class="sw-phone__search"><svg><use href="#i-search"/></svg>Search mail</div>
+    <div class="sw-list">
+      <div class="sw-row" data-row="sarah" data-dot data-right="delete" data-x="0"></div>
+      <div class="sw-row" data-row="marcus"></div>
+      <div class="sw-row" data-row="alex"></div>
+      <div class="sw-row" data-row="priya"></div>
+    </div>
+    <div class="sw-phone__note is-dim">no hint needed anymore</div>
+  </div>
+  <div class="sw-teach" style="position:absolute;left:68px;top:908px">
+    <div class="sw-teach__title">Teach once · <em>then never again</em></div>
+    <div class="sw-teach__row"><span class="sw-chip"><i></i>Launch 1<span>peek hint</span></span><svg><use href="#i-right"/></svg><span class="sw-chip is-on"><i></i>Launch 2+<span>nothing — learned</span></span></div>
+  </div>
+</section>
+
+<!-- 14 · Safety net: delete swipe -->
+<section class="scene" data-t="45" data-shot="46.5">
+  <div class="sw-glow"></div>
+  <div class="sw-kicker sw-kicker--teal" style="top:150px">The safety net</div>
+  <div class="sw-h" style="top:200px">No dialog. <em>Just a net.</em></div>
+  <div class="sw-list" style="position:absolute;left:55px;top:397px;width:610px;padding:16px 13px;gap:12px">
+    <div class="sw-row" data-row="sarah" style="height:80px"></div>
+    <div class="sw-row" data-row="marcus" data-right="destructive-delete" data-x="-399" style="height:80px"></div>
+    <div class="sw-row" data-row="alex" style="height:80px"></div>
+  </div>
+  <div class="sw-finger" style="left:115px;top:520px"></div>
+  <div class="sw-cap sw-cap--teal" style="top:1006px">Delete fast. Forgive faster.</div>
+</section>
+
+<!-- 15 · Safety net: undo toast -->
+<section class="scene" data-t="48" data-shot="49.5">
+  <div class="sw-glow"></div>
+  <div class="sw-kicker sw-kicker--teal" style="top:150px">The safety net</div>
+  <div class="sw-h" style="top:200px">No dialog. <em>Just a net.</em></div>
+  <div class="sw-list" style="position:absolute;left:55px;top:397px;width:610px;padding:16px 13px;gap:12px">
+    <div class="sw-row" data-row="sarah" style="height:80px"></div>
+    <div class="sw-row" data-row="alex" style="height:80px"></div>
+  </div>
+  <div class="sw-toast" id="toast" style="position:absolute;left:106px;top:753px">
+    <div class="sw-toast__ring" style="--sw-p:.6"><svg viewBox="0 0 32 32"><circle class="t" cx="16" cy="16" r="13.5"/><circle class="p" cx="16" cy="16" r="13.5" pathLength="1"/></svg><b>3</b></div>
+    <div class="sw-toast__msg">Conversation deleted</div>
+    <button class="sw-toast__undo" type="button"><svg><use href="#i-undo"/></svg>Undo</button>
+  </div>
+  <div class="sw-finger is-glow" style="left:518px;top:762px"></div>
+  <div class="sw-cap sw-cap--teal" style="top:1006px">Delete fast. Forgive faster.</div>
+</section>
+
+<!-- 16 · Safety net: restored -->
+<section class="scene" data-t="51" data-shot="52.5">
+  <div class="sw-glow"></div>
+  <div class="sw-kicker sw-kicker--teal" style="top:150px">The safety net</div>
+  <div class="sw-h" style="top:200px">No dialog. <em>Just a net.</em></div>
+  <div class="sw-list" style="position:absolute;left:55px;top:397px;width:610px;padding:16px 13px;gap:12px">
+    <div class="sw-row" data-row="sarah" style="height:80px"></div>
+    <div class="sw-row" data-row="marcus" data-dot style="height:80px"></div>
+    <div class="sw-row" data-row="alex" style="height:80px"></div>
+  </div>
+  <div class="sw-cap sw-cap--teal" style="top:1006px">Delete fast. Forgive faster.</div>
+</section>
+
+<!-- 17 · Outro -->
+<section class="scene" data-t="54" data-shot="57">
+  <div class="sw-glow" style="top:200px"></div>
+  <div class="sw-blur">
+    <div class="sw-row" data-row="sarah" data-dot data-left="safe-icon" data-x="92" style="margin-bottom:16px"></div>
+    <div class="sw-row" data-row="marcus" style="margin-bottom:16px"></div>
+    <div class="sw-row" data-row="alex" style="margin-bottom:16px"></div>
+    <div class="sw-row" data-row="priya"></div>
+  </div>
+  <div class="center" style="top:480px;font-size:16px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#22c79a;white-space:nowrap">Mobile UX · Gestures</div>
+  <div class="sw-h" style="top:512px;font-size:44px">The gesture <em>is the UI.</em></div>
+  <div class="sw-row" data-row="sarah" data-dot data-left="safe-full" data-x="86" style="position:absolute;left:102px;top:600px;width:516px;height:75px;box-shadow:0 20px 50px rgba(0,0,0,.5)"></div>
+  <div class="sw-cta center" style="top:710px"><svg><use href="#i-phone"/></svg>Follow for more mobile UX</div>
+  <div class="sw-save center" style="top:782px"><svg><use href="#i-bookmark"/></svg>Save this for your next app</div>
+</section>
+
+<script type="module">
+  import { SwipeRow, UndoDelete } from './pattern.js';
+  const people = {
+    sarah: ['SC', 'Sarah Chen', 'Design review notes for the new onboarding…', '9:41'],
+    marcus: ['MW', 'Marcus Webb', 'Re: Q3 roadmap — can we sync tomorrow?', '9:12'],
+    alex: ['AR', 'Alex Rivera', 'Invoice #2481 from acme.co is ready', '8:47'],
+    priya: ['PO', 'Priya Oberoi', 'The prototype link you asked for last week', '8:05'],
+  };
+  const icon = id => `<svg><use href="#${id}"/></svg>`;
+  const actions = {
+    archive: `<button class="sw-action sw-action--archive" data-action="archive">${icon('i-archive')}Archive</button>`,
+    delete: `<button class="sw-action sw-action--delete" data-action="delete">${icon('i-trash')}Delete</button>`,
+    destructive: `<div class="sw-block sw-block--danger sw-block--right" style="width:185px;justify-content:flex-start">${icon('i-trash')}Destructive</div>`,
+    'destructive-delete': `<div class="sw-block sw-block--danger sw-block--right" style="width:399px;justify-content:flex-start;gap:14px">${icon('i-trash')}Delete</div>`,
+    safe: `<div class="sw-block sw-block--safe" style="width:185px">${icon('i-archive')}${icon('i-mail')}Safe</div>`,
+    'safe-icon': `<div class="sw-block sw-block--safe" style="width:92px;justify-content:center;padding:0">${icon('i-archive')}</div>`,
+    'safe-full': `<div class="sw-block sw-block--safe" style="width:100%">${icon('i-archive')}Archive</div>`,
+    'delete-block': `<div class="sw-block sw-block--danger" style="width:185px">${icon('i-trash')}Delete</div>`,
+  };
+  document.querySelectorAll('.sw-row[data-row]').forEach(row => {
+    const [ini, name, preview, time] = people[row.dataset.row];
+    const left = (row.dataset.left || '').split(',').filter(Boolean).map(a => actions[a]).join('');
+    const right = (row.dataset.right || '').split(',').filter(Boolean).map(a => actions[a]).join('');
+    row.innerHTML = `${left ? `<div class="sw-row__actions sw-row__actions--left${row.dataset.left.includes('full') ? ' sw-row__actions--full' : ''}">${left}</div>` : ''}${right ? `<div class="sw-row__actions sw-row__actions--right">${right}</div>` : ''}
+      <div class="sw-row__body" style="--sw-x:${row.dataset.x || 0}px"><div class="sw-avatar">${ini}</div><div class="sw-row__text"><div class="sw-row__name">${'dot' in row.dataset ? '<i></i>' : ''}${name}</div><div class="sw-row__preview">${preview}</div></div><div class="sw-row__time">${time}</div></div>`;
+    if (row.dataset.left || row.dataset.right) SwipeRow(row, { left: row.dataset.right ? 'delete' : null, right: row.dataset.left ? 'archive' : null, x: Number(row.dataset.x || 0), reveal: 180, commit: 480 });
+  });
+</script>
+<script src="../_shared/stage.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+/* Decoy Effect, rebuilt from the @designmotionhq reel "How apps use the decoy effect".
+   Component classes are prefixed .de- and depend only on the tokens below. */
+.de {
+  --de-bg: #0a0811; --de-card: #1a1a30; --de-card-bd: #2b2b4a; --de-panel: #111123;
+  --de-text: #f4f4f8; --de-muted: #8b8a99; --de-muted-2: #a8a9b9;
+  --de-purple: #6366f2; --de-purple-fill: #4f45e5; --de-orange: #f5a623; --de-red: #ee4345; --de-green: #34c77b;
+  --de-track: #384154; --de-hi: #37008f;
+  --de-font: 'Space Grotesk', 'Inter', system-ui, sans-serif; --de-cap: 'Poppins', 'Inter', system-ui, sans-serif;
+  font-family: var(--de-font); color: var(--de-text);
+}
+
+/* ---- Headings + captions ------------------------------------------------ */
+.de-h { position: absolute; left: 0; right: 0; text-align: center; font-weight: 600; letter-spacing: -.01em; }
+.de-h em { font-style: normal; color: var(--de-orange); }
+.de-h--muted { color: var(--de-muted-2); }
+.de-cap { position: absolute; left: 0; right: 0; top: 936px; text-align: center; font: 600 32px/48px var(--de-cap); color: #fff; letter-spacing: -.01em; }
+.de-cap mark { background: var(--de-hi); color: #fff; border-radius: 6px; padding: 0 6px; margin: 0 -5px; }
+
+/* ---- Pricing tiers -------------------------------------------------------- */
+.de-tiers { position: absolute; display: flex; gap: 15px; align-items: flex-start; }
+.de-tier { width: 171px; height: 152px; border-radius: 10px; background: var(--de-card); border: 1px solid var(--de-card-bd); display: flex; flex-direction: column; align-items: center; padding-top: 20px; }
+.de-tier__name { font-size: 15px; font-weight: 500; color: var(--de-muted); line-height: 20px; }
+.de-tier__price { font-size: 32px; font-weight: 700; line-height: 40px; margin: 4px 0 8px; letter-spacing: -.01em; }
+.de-tier__feats { display: flex; flex-direction: column; align-items: center; gap: 7px; font-size: 14px; color: var(--de-muted); line-height: 18px; }
+.de-tier.is-target { background: var(--de-purple-fill); border-color: var(--de-purple-fill); }
+.de-tier.is-target .de-tier__name, .de-tier.is-target .de-tier__feats { color: #dcdcff; }
+.de-tier__tag { display: none; font-style: normal; font-size: 11px; font-weight: 700; color: var(--de-red); margin-top: 12px; letter-spacing: .02em; }
+/* large two-up variant */
+.de-tiers--lg { gap: 21px; }
+.de-tiers--lg .de-tier { width: 253px; height: 251px; padding-top: 30px; }
+.de-tiers--lg .de-tier__name { font-size: 18px; line-height: 24px; }
+.de-tiers--lg .de-tier__price { font-size: 40px; line-height: 52px; margin: 12px 0 14px; }
+.de-tiers--lg .de-tier__feats { font-size: 16px; line-height: 22px; gap: 12px; }
+.de-tiers--lg .de-tier.is-target { background: var(--de-card); border-color: #34346a; }
+.de-tiers--lg .de-tier.is-target .de-tier__name { color: var(--de-purple); }
+.de-tiers--lg .de-tier.is-target .de-tier__feats { color: var(--de-muted); }
+/* medium three-up variant with a decoy */
+.de-tiers--md { gap: 14px; align-items: flex-start; }
+.de-tiers--md .de-tier { width: 186px; height: 210px; padding-top: 24px; }
+.de-tiers--md .de-tier__name { font-size: 15px; line-height: 22px; }
+.de-tiers--md .de-tier__price { font-size: 34px; line-height: 44px; margin: 8px 0 12px; }
+.de-tiers--md .de-tier__feats { font-size: 14px; line-height: 20px; gap: 8px; }
+.de-tiers--md .de-tier.is-target { background: #1e173f; border-color: #4a47b0; box-shadow: 0 0 30px rgba(99,102,242,.25); }
+.de-tiers--md .de-tier.is-target .de-tier__name { color: var(--de-purple); }
+.de-tiers--md .de-tier.is-target .de-tier__feats { color: var(--de-muted); }
+.de-tiers--md .de-tier.is-decoy { height: 235px; margin-top: -13px; background: #230c16; border-color: #751e18; box-shadow: 0 0 40px rgba(238,67,69,.12); }
+.de-tiers--md .de-tier.is-decoy .de-tier__name { color: var(--de-red); }
+.de-tiers--md .de-tier.is-decoy .de-tier__tag { display: block; }
+.de-tiers--md .de-gap { width: 186px; }
+
+/* ---- Choice split bars --------------------------------------------------- */
+.de-split { position: absolute; left: 127px; width: 466px; }
+.de-bar { margin-bottom: 19px; }
+.de-split--tight .de-bar { margin-bottom: 14px; }
+.de-bar__head { display: flex; justify-content: space-between; align-items: baseline; font-size: 17px; font-weight: 600; line-height: 22px; margin-bottom: 9px; }
+.de-bar__pct { font-weight: 600; }
+.de-bar__track { height: 14px; border-radius: 7px; background: var(--de-track); overflow: hidden; }
+.de-bar__fill { display: block; height: 100%; border-radius: 7px; }
+.de-bar--orange .de-bar__fill { background: var(--de-orange); } .de-bar--orange .de-bar__pct { color: var(--de-orange); }
+.de-bar--purple .de-bar__fill { background: var(--de-purple); } .de-bar--purple .de-bar__pct { color: var(--de-purple); }
+.de-bar--red .de-bar__fill { background: var(--de-red); } .de-bar--red .de-bar__pct { color: var(--de-red); }
+.de-bar--grey .de-bar__fill { background: #5a6478; } .de-bar--grey .de-bar__pct { color: var(--de-muted-2); }
+.de-jump { position: absolute; left: 167px; top: 728px; width: 386px; height: 48px; border-radius: 10px; background: #121530; border: 1px solid #2a2b5a; color: #8583ee; font-size: 18px; font-weight: 600; text-align: center; line-height: 46px; }
+
+/* ---- Real-world examples --------------------------------------------------- */
+.de-ex { position: absolute; left: 74px; width: 572px; height: 165px; border-radius: 14px; background: var(--de-card); border: 1px solid #262640; padding: 22px 24px 0; }
+.de-ex__title { font-size: 20px; font-weight: 600; line-height: 24px; margin-bottom: 14px; }
+.de-ex__tiles { display: flex; gap: 12px; }
+.de-tile { flex: 1; height: 83px; border-radius: 8px; background: #14142a; border: 1px solid #14142a; text-align: center; padding-top: 12px; }
+.de-tile b { display: block; font-size: 14px; font-weight: 600; color: var(--de-muted-2); line-height: 20px; }
+.de-tile strong { display: block; font-size: 16px; font-weight: 700; line-height: 24px; }
+.de-tile small { display: block; font-size: 9px; font-weight: 700; letter-spacing: .04em; line-height: 14px; }
+.de-tile--decoy { background: #241428; border-color: #6b2333; }
+.de-tile--decoy b, .de-tile--decoy small { color: var(--de-red); }
+.de-tile--target { background: #222349; border-color: #5b5ce6; }
+.de-tile--target b, .de-tile--target small { color: var(--de-purple); }
+
+/* ---- Comparison table ------------------------------------------------------ */
+.de-cmp { position: absolute; left: 74px; top: 488px; width: 572px; height: 278px; border-radius: 12px; background: var(--de-panel); border: 1px solid #22223d; border-right-color: #6f6dc8; padding: 12px 33px 0; box-shadow: 8px 0 30px -10px rgba(99,102,242,.35); }
+.de-cmp__head { display: grid; grid-template-columns: 146px 1fr 146px; text-align: center; padding: 0 0 8px; border-bottom: 1px solid #2a2a48; }
+.de-cmp__head div:last-child { grid-column: 3; }
+.de-cmp::after { content: ''; position: absolute; inset: 0; left: 50%; border-radius: 0 12px 12px 0; background: linear-gradient(90deg, rgba(99,102,242,0), rgba(99,102,242,.06)); pointer-events: none; }
+.de-cmp__head b { display: block; font-size: 20px; font-weight: 600; line-height: 26px; }
+.de-cmp__head small { display: block; font-size: 11px; font-weight: 600; letter-spacing: .04em; line-height: 16px; }
+.de-cmp__decoy, .de-cmp__head div:first-child small { color: var(--de-red); }
+.de-cmp__target, .de-cmp__head div:last-child small { color: var(--de-purple); }
+.de-cmp__row { display: grid; grid-template-columns: 146px 1fr 146px; align-items: center; height: 41px; text-align: center; font-size: 17px; font-weight: 600; }
+.de-cmp__row:first-of-type { margin-top: 6px; }
+.de-cmp__a { color: var(--de-red); } .de-cmp__l { color: var(--de-muted-2); font-size: 15px; font-weight: 500; } .de-cmp__b { color: var(--de-green); }
+.de-cmp__b i { font-style: normal; font-size: 14px; }
+.de-cmp__row--price { border-top: 1px solid #2a2a48; margin-top: 4px; height: 46px; font-size: 26px; font-weight: 700; padding-top: 4px; }
+.de-cmp__row--price .de-cmp__l { color: var(--de-orange); font-size: 16px; font-weight: 600; }
+.de-cmp__row--price .de-cmp__b { color: var(--de-purple); }
+.de-cmp__note { text-align: center; font-size: 15px; font-weight: 600; color: var(--de-orange); line-height: 20px; margin-top: 6px; }
+
+/* ---- Follow CTA -------------------------------------------------------------- */
+.de-follow { position: absolute; left: 273px; top: 637px; width: 174px; height: 52px; border-radius: 10px; border: 0; background: var(--de-purple); color: #fff; font: 600 17px var(--de-font); display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 0 40px rgba(99,102,242,.45); cursor: pointer; }
+.de-follow svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }

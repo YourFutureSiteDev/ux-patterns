@@ -1,0 +1,103 @@
+/* Fitts's Law, rebuilt from the @designmotionhq reel "Fitts's Law: the rule behind every great button".
+   Component classes are prefixed .fl- and depend only on the tokens below. */
+.fl {
+  --fl-bg: #0c0913; --fl-panel: #16131e; --fl-panel-2: #1a1726; --fl-line: #2a2733; --fl-text: #f6f4fd; --fl-muted: #b8b4c4; --fl-dim: #8d889b;
+  --fl-purple: #8b5cf6; --fl-purple-dim: #2a1d5c; --fl-lilac: #a78bfa; --fl-orange: #ff7a1a; --fl-green: #22c55e; --fl-red: #ef4444;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--fl-text);
+}
+.fl em { font-style: normal; }
+.fl .green { color: var(--fl-green); } .fl .orange { color: var(--fl-orange); } .fl .purple { color: var(--fl-lilac); }
+
+/* ---- Header ---------------------------------------------------------- */
+.fl-head { position: absolute; left: 0; right: 0; top: 132px; text-align: center; }
+.fl-head h1 { margin: 0; font-size: 40px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.fl-head p { margin: 12px 0 0; font-size: 19px; color: var(--fl-muted); }
+.fl-subtitle { margin: 0; font-size: 18px; color: var(--fl-muted); white-space: nowrap; }
+
+/* ---- Fitts track: D and W ------------------------------------------- */
+.fl-track { width: 506px; height: 80px; position: relative; }
+.fl-track__line { position: absolute; left: 0; right: 0; top: 28px; height: 2px; background: var(--fl-line); }
+.fl-track__d { position: absolute; top: 28px; height: 2px; background: var(--fl-orange); transition: width .5s cubic-bezier(.2,.8,.2,1), left .5s cubic-bezier(.2,.8,.2,1); }
+.fl-track__d::before { content: ''; position: absolute; left: 0; top: -2px; width: 6px; height: 6px; border-radius: 50%; background: var(--fl-orange); }
+.fl-track__dl { position: absolute; top: 2px; font-size: 14px; font-weight: 700; color: var(--fl-orange); transition: left .5s cubic-bezier(.2,.8,.2,1); }
+.fl-track__cursor { position: absolute; top: 16px; width: 14px; height: 17px; }
+.fl-target { position: absolute; border: 0; border-radius: 8px; background: var(--fl-purple); color: #fff; font: 600 15px 'Inter', sans-serif; cursor: grab; box-shadow: 0 0 24px rgba(139,92,246,.35); transition: left .5s cubic-bezier(.2,.8,.2,1), width .5s cubic-bezier(.2,.8,.2,1), height .5s cubic-bezier(.2,.8,.2,1), top .5s cubic-bezier(.2,.8,.2,1); }
+.fl-target:active { cursor: grabbing; }
+.fl-track__wline { position: absolute; top: 55px; height: 2px; background: var(--fl-green); transition: left .5s cubic-bezier(.2,.8,.2,1), width .5s cubic-bezier(.2,.8,.2,1); }
+.fl-track__wl { position: absolute; top: 62px; text-align: center; font-size: 14px; font-weight: 700; color: var(--fl-green); transition: left .5s cubic-bezier(.2,.8,.2,1), width .5s cubic-bezier(.2,.8,.2,1); }
+.fl-note { font-size: 16px; font-weight: 600; white-space: nowrap; }
+.fl-note--green { color: var(--fl-green); } .fl-note--orange { color: var(--fl-orange); }
+.fl-time { text-align: center; white-space: nowrap; }
+.fl-time span { display: block; font-size: 14px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--fl-dim); }
+.fl-time b { display: block; margin-top: 10px; font-size: 40px; font-weight: 800; color: var(--fl-orange); letter-spacing: -.01em; line-height: 1; font-variant-numeric: tabular-nums; }
+.fl-formula { display: flex; align-items: center; gap: 6px; height: 64px; padding: 0 54px; border-radius: 12px; background: var(--fl-panel); font-size: 21px; font-weight: 700; white-space: nowrap; }
+.fl-formula i { font-style: normal; color: var(--fl-dim); font-weight: 600; }
+.fl-formula sub { font-size: 13px; color: var(--fl-dim); align-self: flex-end; margin-bottom: 18px; }
+.fl-formula i:nth-of-type(2) { color: #fff; font-weight: 700; }
+.fl-formula .d { color: var(--fl-orange); } .fl-formula .w { color: var(--fl-green); }
+.fl-cards { display: flex; gap: 20px; }
+.fl-card { width: 310px; height: 141px; border-radius: 14px; background: var(--fl-panel); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.fl-card__icon { width: 30px; height: 30px; border-radius: 7px; display: grid; place-items: center; margin-bottom: 12px; }
+.fl-card__icon svg { width: 16px; height: 16px; }
+.fl-card__icon--green { background: rgba(34,197,94,.14); color: var(--fl-green); }
+.fl-card__icon--purple { background: rgba(139,92,246,.14); color: var(--fl-lilac); }
+.fl-card b { font-size: 18px; font-weight: 600; }
+.fl-card em { font-size: 20px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+
+/* ---- Subtitles (word-by-word karaoke pill) --------------------------- */
+.fl-sub { padding: 8px 14px; border-radius: 8px; background: #050505; font-size: 28px; font-weight: 700; color: #8d889b; white-space: nowrap; line-height: 1.1; }
+.fl-sub b { color: #fff; }
+
+/* ---- Secret 01: phones --------------------------------------------- */
+.fl-verdict { text-align: center; font-size: 15px; font-weight: 700; letter-spacing: .04em; }
+.fl-verdict--bad { color: var(--fl-red); } .fl-verdict--good { color: var(--fl-green); }
+.fl-phone { width: 185px; height: 344px; border-radius: 14px; background: #141119; border: 1px solid #2f2b3c; position: relative; padding: 34px 14px 0; }
+.fl-phone__notch { position: absolute; left: 50%; top: 9px; width: 40px; height: 3px; border-radius: 2px; background: #3a3646; transform: translateX(-50%); }
+.fl-phone__home { position: absolute; left: 50%; bottom: 6px; width: 56px; height: 3px; border-radius: 2px; background: #3a3646; transform: translateX(-50%); }
+.fl-phone__rows { display: flex; flex-direction: column; gap: 14px; margin-top: 14px; }
+.fl-phone__rows i { display: block; height: 30px; border-radius: 6px; background: #221e2c; }
+.fl-buy { display: block; width: 100%; border: 0; border-radius: 7px; color: #fff; font: 600 12px 'Inter', sans-serif; cursor: pointer; }
+.fl-buy--small { height: 30px; background: var(--fl-purple); box-shadow: 0 0 20px rgba(139,92,246,.3); }
+.fl-buy--big { position: absolute; left: 14px; right: 14px; width: auto; bottom: 26px; height: 33px; background: var(--fl-green); font-size: 13px; box-shadow: 0 0 22px rgba(34,197,94,.3); }
+.fl-phone:not(.fl-phone--good)::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 90px; border-radius: 14px 14px 0 0; background: linear-gradient(180deg, rgba(139,92,246,.12), transparent); pointer-events: none; }
+.fl-phone--good::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 120px; border-radius: 0 0 14px 14px; background: linear-gradient(180deg, transparent, rgba(34,197,94,.10)); pointer-events: none; }
+.fl-phone__reach { position: absolute; left: 50%; top: 68px; height: 240px; border-left: 1.5px solid rgba(239,68,68,.5); }
+.fl-hand { position: absolute; font-size: 22px; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,.6)); }
+.fl-rate { display: flex; align-items: baseline; justify-content: center; gap: 7px; font-size: 15px; color: var(--fl-muted); }
+.fl-rate b { font-size: 22px; font-weight: 800; }
+.fl-rate--bad b { color: var(--fl-red); } .fl-rate--good b { color: var(--fl-green); }
+.fl-label { font-size: 17px; font-weight: 600; white-space: nowrap; }
+.fl-sizes { display: flex; gap: 20px; align-items: flex-start; }
+.fl-size { width: 293px; border-radius: 12px; background: var(--fl-panel); padding: 20px 17px 16px; text-align: center; }
+.fl-size b { display: block; text-align: left; font-size: 14px; font-weight: 600; }
+.fl-size__icons { display: flex; justify-content: center; gap: 9px; margin: 14px 0 10px; }
+.fl-size__icons i { display: grid; place-items: center; border-radius: 6px; background: #2a2733; color: #c7c3d2; }
+.fl-size__icons svg { fill: currentColor; }
+.fl-size--bad b { color: var(--fl-red); } .fl-size--bad span { color: var(--fl-red); font-size: 14px; }
+.fl-size--bad .fl-size__icons i { width: 20px; height: 20px; } .fl-size--bad .fl-size__icons svg { width: 10px; height: 10px; }
+.fl-size--good b { color: var(--fl-green); } .fl-size--good span { color: var(--fl-green); font-size: 14px; }
+.fl-size--good .fl-size__icons { gap: 8px; margin: 16px 0 10px; }
+.fl-size--good .fl-size__icons i { width: 32px; height: 32px; background: var(--fl-purple); color: #fff; border-radius: 8px; } .fl-size--good .fl-size__icons svg { width: 15px; height: 15px; }
+.fl-guide { font-size: 18px; color: var(--fl-muted); white-space: nowrap; }
+
+/* ---- Secret 02: distance tricks ------------------------------------ */
+.fl-tricks { display: flex; flex-direction: column; gap: 27px; width: 640px; }
+.fl-trick { position: relative; display: flex; align-items: center; gap: 16px; height: 126px; padding: 0 20px; border-radius: 14px; background: var(--fl-panel-2); }
+.fl-trick__icon { width: 42px; height: 42px; border-radius: 9px; background: #232030; display: grid; place-items: center; color: #f1eef3; font-size: 20px; flex: none; }
+.fl-trick__icon svg { width: 22px; height: 22px; }
+.fl-trick__icon--green { background: rgba(34,197,94,.14); color: var(--fl-green); }
+.fl-trick b { display: block; font-size: 17px; font-weight: 700; }
+.fl-trick > div > span { display: block; margin-top: 5px; font-size: 14px; color: var(--fl-muted); }
+.fl-trick > div > span em { font-weight: 700; }
+.fl-mini { position: absolute; right: 20px; top: 17px; width: 132px; height: 92px; border-radius: 8px; background: #211f29; padding: 10px 8px; overflow: hidden; }
+.fl-mini > i { display: block; height: 6px; border-radius: 3px; background: #35323f; margin-bottom: 7px; width: 80px; }
+.fl-mini > i:nth-child(2) { width: 66px; } .fl-mini > i:nth-child(3) { width: 56px; } .fl-mini > i:nth-child(4) { width: 70px; } .fl-mini > i:nth-child(5) { width: 40px; } .fl-mini > i:nth-child(6) { width: 60px; }
+.fl-mini__cursor { position: absolute; left: 50px; top: 30px; width: 12px; height: 14px; }
+.fl-mini__menu { position: absolute; left: 59px; top: 39px; width: 58px; border-radius: 4px; background: #2d2a39; padding: 3px 0; box-shadow: 0 4px 12px rgba(0,0,0,.4); }
+.fl-mini__menu span { display: block; padding: 4px 8px; font-size: 9px; color: #c7c3d2; }
+.fl-mini__menu span.is-hi { background: var(--fl-purple); color: #fff; font-weight: 600; }
+.fl-mini__fab { position: absolute; right: 9px; bottom: 5px; width: 26px; height: 26px; border-radius: 50%; border: 0; background: var(--fl-purple); color: #fff; display: grid; place-items: center; box-shadow: 0 4px 12px rgba(139,92,246,.45); cursor: pointer; }
+.fl-mini__fab svg { width: 12px; height: 12px; }
+.fl-mini--form small { display: block; font-size: 10px; color: var(--fl-dim); margin-bottom: 6px; }
+.fl-mini__input { height: 24px; border-radius: 4px; border: 1.5px solid var(--fl-purple); background: #16131f; padding: 0 6px; font-size: 11px; font-weight: 600; line-height: 21px; color: #fff; outline: none; margin-bottom: 8px; }
+.fl-banner { height: 55px; padding: 0 28px; border-radius: 12px; background: #2a1f4d; color: var(--fl-lilac); font-size: 19px; font-weight: 600; line-height: 55px; white-space: nowrap; }

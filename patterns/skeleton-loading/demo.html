@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Skeleton Loading · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a0a0c; --grid: transparent; --accent: #2ee56b; --danger: #f0395a; }
+  .scene { color: #f2f2f4; }
+  /* scene-local helpers */
+  .sk-grad { background: linear-gradient(90deg, #f0395a, #2ee56b); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sk-vline { position: absolute; left: 359px; top: 320px; width: 2px; height: 640px; background: linear-gradient(180deg, #f0395a, #2ee56b); }
+  .sk-tri { position: absolute; left: 354px; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid #2ee56b; }
+  .sk-loaded { opacity: 0; animation: sk-in .4s ease forwards 1s; }
+  .sk-loading { animation: sk-out .3s ease forwards 1s; }
+  .sk-panel-grow { animation: sk-grow .4s ease forwards 1s; }
+  @keyframes sk-grow { to { height: 178px } }
+  .sk-rise-out { animation: sk-riseout .6s ease-out forwards 2.2s; opacity: 0; }
+  @keyframes sk-riseout { 0% { opacity: 0; transform: translateY(6px) } 30% { opacity: 1; transform: translateY(0) } 100% { opacity: 1; transform: translateY(-8px) } }
+  .sk-cursor-move { animation: sk-cursor 1.2s ease-out forwards, sk-out .2s ease forwards 2.5s; }
+  @keyframes sk-cursor { from { transform: translate(90px, 110px) } to { transform: translate(0, 0) } }
+  .sk-like-on { opacity: 0; animation: sk-in .1s linear forwards 2.2s; }
+  .sk-like-off { animation: sk-out .1s linear forwards 2.2s; }
+  .sk-anx { animation: sk-anx 1s ease forwards .8s; }
+  .sk-ant { animation: sk-ant 1s ease forwards .8s; }
+  @keyframes sk-anx { to { opacity: .12 } }
+  @keyframes sk-ant { to { opacity: 1; text-shadow: 0 0 24px rgba(46,229,107,.5) } }
+  .sk-dimlate { animation: sk-dimlate .5s ease forwards 4s; }
+  @keyframes sk-dimlate { to { opacity: .35 } }
+  .sk-shrink { transform-origin: 358.5px 629px; transform: translateY(-181px) scale(.833); }
+  .sk-shrink .sk-step__lbl { top: 134px; font-size: 13px; }
+  .sk-poplate { animation: sk-pop .5s ease forwards 4s; }
+  @keyframes sk-pop { to { transform: scale(1.03) } }
+  .sk-dimhalf { animation: sk-dimhalf .5s ease forwards 4s; }
+  @keyframes sk-dimhalf { to { opacity: .55 } }
+</style>
+</head>
+<body class="sk">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8 3.4 4.5 7 4.5c2 0 3.4 1 5 2.8 1.6-1.8 3-2.8 5-2.8 3.6 0 6 3.5 4.5 7.3C19.5 16.4 12 21 12 21z"/></symbol>
+  <symbol id="i-comment" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 3v13M7 8l5-5 5 5M5 14v6h14v-6"/></symbol>
+  <symbol id="i-share2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h16M9 16v-6M13 16V7M17 16v-4"/></symbol>
+  <symbol id="i-pic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="16" cy="9" r="1.6"/></symbol>
+</svg>
+
+<!-- 1 · Hook: spinner vs skeleton, loading -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="glow" style="left:10px;top:210px;width:700px;height:700px;background:rgba(240,57,90,.10)"></div>
+  <div class="sk-tag sk-tag--pink" style="top:327px">SPINNER</div>
+  <div class="sk-card sk-panel-grow" style="left:222px;top:373px;width:276px;height:142px;border-radius:8px">
+    <div class="sk-loading">
+      <div class="sk-spinner" style="left:122px;top:26px;width:32px;height:32px;border-width:3px;border-color:#3a3d44;border-top-color:#f0395a"></div>
+      <div class="sk-bone is-static" style="left:18px;top:80px;width:118px;height:6px;background:#383b42"></div>
+      <div class="sk-bone is-static" style="left:18px;top:98px;width:240px;height:6px;background:#383b42"></div>
+      <div class="sk-bone is-static" style="left:18px;top:115px;width:180px;height:6px;background:#383b42"></div>
+    </div>
+    <div class="sk-loaded">
+      <div class="sk-avatar sk-avatar--pink" style="left:17px;top:19px;width:26px;height:26px"></div>
+      <div class="sk-name" style="left:52px;top:24px;font-size:14px">Sarah Chen</div>
+      <div class="sk-text" style="left:18px;top:56px;font-size:12px;color:#b9bbc2">Design is not just what it looks like.</div>
+      <div class="sk-text" style="left:18px;top:81px;font-size:12px;color:#b9bbc2">Design is how it works.</div>
+      <div class="sk-media" style="left:18px;top:106px;width:240px;height:66px;border-radius:6px"></div>
+    </div>
+  </div>
+  <div class="sk-tag sk-tag--green" style="top:550px">SKELETON</div>
+  <div class="sk-card" style="left:222px;top:596px;width:276px;height:174px;border-radius:8px">
+    <div class="sk-sweep"></div>
+    <div class="sk-bone sk-bone--circle is-static" style="left:18px;top:20px;width:24px;height:24px"></div>
+    <div class="sk-bone is-static" style="left:52px;top:26px;width:92px;height:12px"></div>
+    <div class="sk-bone is-static" style="left:18px;top:57px;width:225px;height:7px"></div>
+    <div class="sk-bone is-static" style="left:18px;top:77px;width:172px;height:6px"></div>
+    <div class="sk-bone sk-bone--block is-static" style="left:18px;top:94px;width:240px;height:67px;border-radius:6px"></div>
+    <div class="sk-loaded">
+      <div class="sk-avatar sk-avatar--pink" style="left:17px;top:19px;width:26px;height:26px"></div>
+      <div class="sk-name" style="left:52px;top:24px;font-size:14px">Sarah Chen</div>
+      <div class="sk-text" style="left:19px;top:54px;font-size:12px;color:#b9bbc2">Design is not just what it looks like.</div>
+      <div class="sk-text" style="left:19px;top:74px;font-size:12px;color:#b9bbc2">Design is how it works.</div>
+      <div class="sk-media" style="left:18px;top:94px;width:240px;height:67px;border-radius:6px"></div>
+    </div>
+  </div>
+  <div class="sk-loaded" style="position:absolute;left:0;right:0;top:826px;text-align:center;font-size:22px;color:#7c7c84;animation-delay:1.1s">Same time. <b style="color:#b8456a">Different feel.</b></div>
+</section>
+
+<!-- 1b · Hook, loaded -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:10px;top:210px;width:700px;height:700px;background:rgba(240,57,90,.10)"></div>
+  <div class="sk-tag sk-tag--pink" style="top:327px">SPINNER</div>
+  <div class="sk-card sk-panel-grow" style="left:222px;top:373px;width:276px;height:142px;border-radius:8px">
+    <div class="sk-loading">
+      <div class="sk-spinner" style="left:122px;top:26px;width:32px;height:32px;border-width:3px;border-color:#3a3d44;border-top-color:#f0395a"></div>
+      <div class="sk-bone is-static" style="left:18px;top:80px;width:118px;height:6px;background:#383b42"></div>
+      <div class="sk-bone is-static" style="left:18px;top:98px;width:240px;height:6px;background:#383b42"></div>
+      <div class="sk-bone is-static" style="left:18px;top:115px;width:180px;height:6px;background:#383b42"></div>
+    </div>
+    <div class="sk-loaded">
+      <div class="sk-avatar sk-avatar--pink" style="left:17px;top:19px;width:26px;height:26px"></div>
+      <div class="sk-name" style="left:52px;top:24px;font-size:14px">Sarah Chen</div>
+      <div class="sk-text" style="left:18px;top:56px;font-size:12px;color:#b9bbc2">Design is not just what it looks like.</div>
+      <div class="sk-text" style="left:18px;top:81px;font-size:12px;color:#b9bbc2">Design is how it works.</div>
+      <div class="sk-media" style="left:18px;top:106px;width:240px;height:66px;border-radius:6px"></div>
+    </div>
+  </div>
+  <div class="sk-tag sk-tag--green" style="top:550px">SKELETON</div>
+  <div class="sk-card" style="left:222px;top:596px;width:276px;height:174px;border-radius:8px">
+    <div class="sk-sweep"></div>
+    <div class="sk-bone sk-bone--circle is-static" style="left:18px;top:20px;width:24px;height:24px"></div>
+    <div class="sk-bone is-static" style="left:52px;top:26px;width:92px;height:12px"></div>
+    <div class="sk-bone is-static" style="left:18px;top:57px;width:225px;height:7px"></div>
+    <div class="sk-bone is-static" style="left:18px;top:77px;width:172px;height:6px"></div>
+    <div class="sk-bone sk-bone--block is-static" style="left:18px;top:94px;width:240px;height:67px;border-radius:6px"></div>
+    <div class="sk-loaded">
+      <div class="sk-avatar sk-avatar--pink" style="left:17px;top:19px;width:26px;height:26px"></div>
+      <div class="sk-name" style="left:52px;top:24px;font-size:14px">Sarah Chen</div>
+      <div class="sk-text" style="left:19px;top:54px;font-size:12px;color:#b9bbc2">Design is not just what it looks like.</div>
+      <div class="sk-text" style="left:19px;top:74px;font-size:12px;color:#b9bbc2">Design is how it works.</div>
+      <div class="sk-media" style="left:18px;top:94px;width:240px;height:67px;border-radius:6px"></div>
+    </div>
+  </div>
+  <div class="sk-loaded" style="position:absolute;left:0;right:0;top:826px;text-align:center;font-size:22px;color:#7c7c84;animation-delay:1.1s">Same time. <b style="color:#b8456a">Different feel.</b></div>
+</section>
+
+<!-- 2 · Secret 01: The brain, waiting vs predicting -->
+<section class="scene" data-t="3" data-shot="6">
+  <div class="glow" style="left:100px;top:260px;background:rgba(240,57,90,.10)"></div>
+  <div class="sk-secret" style="top:128px">SECRET 01</div>
+  <div class="sk-h1" style="top:170px">THE BRAIN</div>
+  <div class="sk-sub" style="top:223px">Prediction Machine</div>
+  <div class="sk-label sk-label--pink" style="left:154px;width:184px;top:553px;text-align:center">WAITING</div>
+  <div class="sk-orb" style="left:154px;top:581px"></div>
+  <div class="sk-spinner sk-spinner--arc" style="left:224px;top:651px;width:44px;height:44px;border-width:5px"></div>
+  <div class="sk-label sk-label--pink" style="left:154px;width:184px;top:780px;text-align:center;font-size:12px;letter-spacing:.15em">STRESS</div>
+  <div class="sk-meter" style="left:154px;top:800px;--fill:75%"></div>
+  <div class="sk-in" style="--d:1.2s">
+    <div class="sk-label sk-label--green" style="left:381px;width:184px;top:553px;text-align:center">PREDICTING</div>
+    <div class="sk-orb sk-orb--green" style="left:381px;top:581px"></div>
+    <div class="sk-bone sk-bone--circle is-static" style="left:459px;top:631px;width:28px;height:28px;background:#2a2d34;opacity:.5;filter:blur(.6px)"></div>
+    <div class="sk-bone is-static" style="left:430px;top:674px;width:86px;height:7px;background:#2a2d34;opacity:.5;filter:blur(.6px)"></div>
+    <div class="sk-bone is-static" style="left:437px;top:692px;width:72px;height:7px;background:#2a2d34;opacity:.5;filter:blur(.6px)"></div>
+    <div class="sk-bone is-static" style="left:440px;top:710px;width:66px;height:7px;background:#2a2d34;opacity:.5;filter:blur(.6px)"></div>
+    <div class="sk-label sk-label--green" style="left:381px;width:184px;top:780px;text-align:center;font-size:12px;letter-spacing:.15em">ENGAGEMENT</div>
+    <div class="sk-meter sk-meter--green" style="left:381px;top:800px;--fill:90%"></div>
+  </div>
+</section>
+
+<!-- 3 · Wait. vs Here's what's coming. -->
+<section class="scene" data-t="7.5" data-shot="7.5">
+  <div class="sk-secret" style="top:128px">SECRET 01</div>
+  <div class="sk-h1" style="top:170px">THE BRAIN</div>
+  <div class="sk-sub" style="top:223px">Prediction Machine</div>
+  <div class="sk-vline"></div>
+  <div style="position:absolute;left:70px;top:598px;font-size:64px;font-weight:800;letter-spacing:-.01em;color:#f0395a;text-shadow:0 0 30px rgba(240,57,90,.55);line-height:1">WAIT.</div>
+  <div class="sk-grad" style="position:absolute;left:365px;width:325px;top:596px;text-align:center;font-size:34px;font-weight:800;line-height:46px;letter-spacing:.01em;filter:drop-shadow(0 0 14px rgba(46,229,107,.35))">HERE'S WHAT'S<br>COMING.</div>
+</section>
+
+<!-- 4 · Anxiety → Anticipation -->
+<section class="scene" data-t="9" data-shot="9">
+  <div class="glow" style="left:0px;top:200px;width:720px;height:720px;background:rgba(46,229,107,.06)"></div>
+  <div class="sk-secret" style="top:128px">SECRET 01</div>
+  <div class="sk-h1" style="top:170px">THE BRAIN</div>
+  <div class="sk-sub" style="top:223px">Prediction Machine</div>
+  <div class="sk-h1 sk-anx" style="top:550px;color:#f0395a;opacity:.1">ANXIETY</div>
+  <div style="position:absolute;left:359px;top:628px;width:2px;height:26px;background:linear-gradient(180deg,#f0395a,#2ee56b)"></div>
+  <div class="sk-tri" style="top:655px"></div>
+  <div class="sk-h1 sk-ant" style="top:680px;color:#2ee56b;opacity:.1">ANTICIPATION</div>
+</section>
+
+<!-- 5 · Secret 02: Shimmer direction -->
+<section class="scene" data-t="12" data-shot="15">
+  <div class="glow" style="left:100px;top:70px;background:rgba(240,57,90,.07)"></div>
+  <div class="sk-secret" style="top:102px">SECRET 02</div>
+  <div class="sk-h1" style="top:143px">SHIMMER DIRECTION</div>
+  <div class="sk-sub" style="top:197px">Reading flow matters</div>
+  <div class="sk-label sk-label--green sk-in" style="--d:.8s;right:80px;top:358px;letter-spacing:.12em;font-size:16px">→ NATURAL ✓</div>
+  <div class="sk-card sk-poplate" style="left:76px;top:383px;width:568px;height:272px">
+    <div class="sk-sweep"></div>
+    <div class="sk-bone sk-bone--circle is-static" style="left:22px;top:25px;width:36px;height:36px"></div>
+    <div class="sk-bone is-static" style="left:72px;top:31px;width:92px;height:10px"></div>
+    <div class="sk-bone is-static" style="left:72px;top:47px;width:57px;height:8px"></div>
+    <div class="sk-bone is-static" style="left:23px;top:73px;width:522px;height:10px"></div>
+    <div class="sk-bone is-static" style="left:23px;top:94px;width:391px;height:9px"></div>
+    <div class="sk-bone sk-bone--block is-static" style="left:23px;top:115px;width:522px;height:135px"></div>
+  </div>
+  <div class="sk-label sk-label--pink sk-in" style="--d:.8s;right:80px;top:653px;letter-spacing:.12em;font-size:16px">← REVERSED ✗</div>
+  <div class="sk-card sk-dimlate" style="left:76px;top:680px;width:568px;height:268px">
+    <div class="sk-sweep is-reversed"></div>
+    <div class="sk-bone sk-bone--circle is-static" style="left:22px;top:23px;width:36px;height:36px"></div>
+    <div class="sk-bone is-static" style="left:72px;top:29px;width:92px;height:10px"></div>
+    <div class="sk-bone is-static" style="left:72px;top:45px;width:57px;height:8px"></div>
+    <div class="sk-bone is-static" style="left:23px;top:71px;width:522px;height:10px"></div>
+    <div class="sk-bone is-static" style="left:23px;top:92px;width:391px;height:9px"></div>
+    <div class="sk-bone sk-bone--block is-static" style="left:23px;top:113px;width:522px;height:132px"></div>
+  </div>
+  <div class="sk-in" style="--d:4s;position:absolute;left:0;right:0;top:1076px;text-align:center;font-size:24px;font-weight:700">Follow the reading flow</div>
+</section>
+
+<!-- 5b · Shimmer direction, reversed dimmed + caption -->
+<section class="scene" data-t="12" data-shot="16.5">
+  <div class="glow" style="left:100px;top:70px;background:rgba(240,57,90,.07)"></div>
+  <div class="sk-secret" style="top:102px">SECRET 02</div>
+  <div class="sk-h1" style="top:143px">SHIMMER DIRECTION</div>
+  <div class="sk-sub" style="top:197px">Reading flow matters</div>
+  <div class="sk-label sk-label--green sk-in" style="--d:.8s;right:80px;top:358px;letter-spacing:.12em;font-size:16px">→ NATURAL ✓</div>
+  <div class="sk-card sk-poplate" style="left:76px;top:383px;width:568px;height:272px">
+    <div class="sk-sweep"></div>
+    <div class="sk-bone sk-bone--circle is-static" style="left:22px;top:25px;width:36px;height:36px"></div>
+    <div class="sk-bone is-static" style="left:72px;top:31px;width:92px;height:10px"></div>
+    <div class="sk-bone is-static" style="left:72px;top:47px;width:57px;height:8px"></div>
+    <div class="sk-bone is-static" style="left:23px;top:73px;width:522px;height:10px"></div>
+    <div class="sk-bone is-static" style="left:23px;top:94px;width:391px;height:9px"></div>
+    <div class="sk-bone sk-bone--block is-static" style="left:23px;top:115px;width:522px;height:135px"></div>
+  </div>
+  <div class="sk-label sk-label--pink sk-in" style="--d:.8s;right:80px;top:653px;letter-spacing:.12em;font-size:16px">← REVERSED ✗</div>
+  <div class="sk-card sk-dimlate" style="left:76px;top:680px;width:568px;height:268px">
+    <div class="sk-sweep is-reversed"></div>
+    <div class="sk-bone sk-bone--circle is-static" style="left:22px;top:23px;width:36px;height:36px"></div>
+    <div class="sk-bone is-static" style="left:72px;top:29px;width:92px;height:10px"></div>
+    <div class="sk-bone is-static" style="left:72px;top:45px;width:57px;height:8px"></div>
+    <div class="sk-bone is-static" style="left:23px;top:71px;width:522px;height:10px"></div>
+    <div class="sk-bone is-static" style="left:23px;top:92px;width:391px;height:9px"></div>
+    <div class="sk-bone sk-bone--block is-static" style="left:23px;top:113px;width:522px;height:132px"></div>
+  </div>
+  <div class="sk-in" style="--d:4s;position:absolute;left:0;right:0;top:1076px;text-align:center;font-size:24px;font-weight:700">Follow the reading flow</div>
+</section>
+
+<!-- 6 · Secret 03: Content-aware, skeletons -->
+<section class="scene" data-t="18" data-shot="24">
+  <div class="glow" style="left:100px;top:400px;background:rgba(240,57,90,.06)"></div>
+  <div class="glow" style="left:100px;top:800px;background:rgba(46,229,107,.05)"></div>
+  <div class="sk-secret" style="top:88px">SECRET 03</div>
+  <div class="sk-h1" style="top:129px">CONTENT-AWARE</div>
+  <div class="sk-sub" style="top:184px">Match the shape to the content</div>
+  <div class="sk-label sk-label--pink sk-in" style="--d:1.5s;left:0;right:0;top:255px;text-align:center;letter-spacing:.12em">GENERIC</div>
+  <div class="sk-card sk-dimhalf" style="left:68px;top:285px;width:584px;height:272px">
+    <div class="sk-sweep"></div>
+    <div class="sk-chip sk-chip--pink sk-in" style="--d:1.5s;left:516px;top:10px">LAZY</div>
+    <div class="sk-bone is-static" style="left:21px;top:53px;width:542px;height:10px"></div>
+    <div class="sk-bone is-static" style="left:21px;top:79px;width:542px;height:8px"></div>
+    <div class="sk-bone is-static" style="left:21px;top:103px;width:542px;height:9px"></div>
+    <div class="sk-bone sk-bone--block is-static" style="left:21px;top:125px;width:542px;height:95px"></div>
+  </div>
+  <div class="sk-in" style="--d:4s">
+    <div class="sk-label sk-label--green" style="left:0;right:0;top:614px;text-align:center;letter-spacing:.12em">CONTENT-AWARE</div>
+    <div class="sk-card" style="left:68px;top:645px;width:584px;height:325px">
+      <div class="sk-sweep"></div>
+      <div class="sk-chip sk-chip--green" style="left:504px;top:10px">SMART</div>
+      <div class="sk-bone sk-bone--circle is-static" style="left:19px;top:48px;width:40px;height:40px"></div>
+      <div class="sk-bone is-static" style="left:69px;top:58px;width:78px;height:9px"></div>
+      <div class="sk-bone is-static" style="left:69px;top:75px;width:58px;height:7px"></div>
+      <div class="sk-bone is-static" style="left:21px;top:97px;width:51px;height:6px"></div>
+      <div class="sk-bone is-static" style="left:21px;top:117px;width:542px;height:8px"></div>
+      <div class="sk-bone is-static" style="left:21px;top:135px;width:406px;height:6px"></div>
+      <div class="sk-bone sk-bone--block is-static" style="left:21px;top:152px;width:542px;height:90px"></div>
+      <div class="sk-bone sk-bone--circle is-static" style="left:22px;top:256px;width:18px;height:18px"></div>
+      <div class="sk-bone sk-bone--circle is-static" style="left:59px;top:256px;width:18px;height:18px"></div>
+      <div class="sk-bone sk-bone--circle is-static" style="left:96px;top:256px;width:18px;height:18px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6b · Content-aware, loaded: same 2 seconds, different perception -->
+<section class="scene" data-t="25.5" data-shot="27">
+  <div class="glow" style="left:100px;top:800px;background:rgba(46,229,107,.05)"></div>
+  <div class="sk-secret" style="top:88px">SECRET 03</div>
+  <div class="sk-h1" style="top:129px">CONTENT-AWARE</div>
+  <div class="sk-sub" style="top:184px">Match the shape to the content</div>
+  <div class="sk-label sk-label--pink" style="left:0;right:0;top:255px;text-align:center;letter-spacing:.12em">GENERIC</div>
+  <div class="sk-card sk-dimhalf" style="left:68px;top:285px;width:584px;height:272px">
+    <div class="sk-chip sk-chip--pink" style="left:516px;top:10px">LAZY</div>
+    <div class="sk-avatar" style="left:21px;top:49px;width:40px;height:40px;font-size:13px">SC</div>
+    <div class="sk-name" style="left:69px;top:51px;font-size:17px">Sarah Chen</div>
+    <div class="sk-meta" style="left:69px;top:74px;font-size:13px">@sarahchen</div>
+    <div class="sk-meta" style="left:21px;top:98px;font-size:11px">2m ago</div>
+    <div class="sk-text" style="left:21px;top:121px;font-size:15px">Just shipped the new dashboard redesign!</div>
+    <div class="sk-text" style="left:21px;top:145px;font-size:15px">The skeleton loading makes everything feel instant</div>
+    <div class="sk-media" style="left:21px;top:174px;width:542px;height:92px"><svg><use href="#i-chart"/></svg></div>
+    <div class="sk-actions sk-actions--icons" style="left:21px;top:278px;gap:15px"><span class="sk-heart"><svg><use href="#i-heart"/></svg></span><span><svg><use href="#i-comment"/></svg></span><span><svg><use href="#i-share2"/></svg></span></div>
+  </div>
+  <div class="sk-perceived sk-in" style="--d:1s;left:234px;top:567px;--fill:60%"><i></i>Perceived: 2.4s</div>
+  <div class="sk-label sk-label--green" style="left:0;right:0;top:614px;text-align:center;letter-spacing:.12em">CONTENT-AWARE</div>
+  <div class="sk-card" style="left:68px;top:645px;width:584px;height:325px">
+    <div class="sk-chip sk-chip--green" style="left:504px;top:10px">SMART</div>
+    <div class="sk-avatar" style="left:21px;top:48px;width:40px;height:40px;font-size:13px">SC</div>
+    <div class="sk-name" style="left:69px;top:50px;font-size:17px">Sarah Chen</div>
+    <div class="sk-meta" style="left:69px;top:73px;font-size:13px">@sarahchen</div>
+    <div class="sk-meta" style="left:21px;top:97px;font-size:11px">2m ago</div>
+    <div class="sk-text" style="left:21px;top:120px;font-size:15px">Just shipped the new dashboard redesign!</div>
+    <div class="sk-text" style="left:21px;top:144px;font-size:15px">The skeleton loading makes everything feel instant</div>
+    <div class="sk-media" style="left:21px;top:174px;width:542px;height:91px"><svg><use href="#i-chart"/></svg></div>
+    <div class="sk-actions sk-actions--icons" style="left:21px;top:278px;gap:15px"><span class="sk-heart"><svg><use href="#i-heart"/></svg></span><span><svg><use href="#i-comment"/></svg></span><span><svg><use href="#i-share2"/></svg></span></div>
+  </div>
+  <div class="sk-perceived sk-perceived--green sk-in" style="--d:1s;left:234px;top:983px;--fill:90%"><i></i>Perceived: 1.2s</div>
+  <div class="sk-in" style="--d:1.2s;position:absolute;left:0;right:0;top:1142px;text-align:center;font-size:26px;font-weight:700">Same 2 seconds. <span style="color:#f0395a">Different perception.</span></div>
+</section>
+
+<!-- 7 · Secret 04: Optimistic UI, the click -->
+<section class="scene" data-t="28.5" data-shot="30">
+  <div class="glow" style="left:10px;top:120px;width:700px;height:700px;background:rgba(30,160,120,.09)"></div>
+  <div class="sk-secret" style="top:102px">SECRET 04</div>
+  <div class="sk-h1" style="top:143px">OPTIMISTIC UI</div>
+  <div class="sk-sub" style="top:197px">The beautiful lie</div>
+  <div class="sk-card" style="left:78px;top:512px;width:564px;height:350px;border-radius:12px">
+    <div class="sk-avatar" style="left:23px;top:23px;width:34px;height:34px;font-size:14px">A</div>
+    <div class="sk-name" style="left:69px;top:24px;font-size:16px">Alex Rivera</div>
+    <div class="sk-meta" style="left:69px;top:45px;font-size:12px">2h ago</div>
+    <div class="sk-text" style="left:23px;top:75px;font-size:17px;color:#f2f2f4">This new loading pattern is incredible!</div>
+    <div class="sk-media sk-media--dim" style="left:23px;top:111px;width:518px;height:174px"><span style="width:34px;height:34px;border-radius:4px;background:linear-gradient(180deg,#8fb3c7,#5d8f6a 60%,#b9c35c);display:grid;place-items:center;opacity:.8"><svg style="width:22px;height:22px;stroke:#2c3e3a;stroke-width:1.6"><use href="#i-pic"/></svg></span></div>
+    <div class="sk-actions" style="left:23px;top:305px">
+      <span class="sk-heart" style="position:relative;color:#8d8f97"><svg><use href="#i-heart"/></svg><span class="sk-like-off" style="color:#8d8f97">142</span><span class="sk-like-on" style="position:absolute;left:26px;color:#e11d3c;font-weight:600">143</span><svg class="sk-like-on" style="position:absolute;left:0;fill:#e11d3c;stroke:#e11d3c"><use href="#i-heart"/></svg></span>
+      <span><svg><use href="#i-comment"/></svg>24</span>
+      <span><svg><use href="#i-share"/></svg>8</span>
+    </div>
+    <div class="sk-rise-out" style="position:absolute;left:90px;top:306px;color:#2ee56b;font-size:14px;font-weight:700;letter-spacing:.1em">INSTANT</div>
+  </div>
+  <svg class="cursor sk-cursor-move" style="left:218px;top:664px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+</section>
+
+<!-- 7b · Optimistic UI, liked instantly -->
+<section class="scene" data-t="28.5" data-shot="31.5">
+  <div class="glow" style="left:10px;top:120px;width:700px;height:700px;background:rgba(30,160,120,.09)"></div>
+  <div class="sk-secret" style="top:102px">SECRET 04</div>
+  <div class="sk-h1" style="top:143px">OPTIMISTIC UI</div>
+  <div class="sk-sub" style="top:197px">The beautiful lie</div>
+  <div class="sk-card" style="left:78px;top:512px;width:564px;height:350px;border-radius:12px">
+    <div class="sk-avatar" style="left:23px;top:23px;width:34px;height:34px;font-size:14px">A</div>
+    <div class="sk-name" style="left:69px;top:24px;font-size:16px">Alex Rivera</div>
+    <div class="sk-meta" style="left:69px;top:45px;font-size:12px">2h ago</div>
+    <div class="sk-text" style="left:23px;top:75px;font-size:17px;color:#f2f2f4">This new loading pattern is incredible!</div>
+    <div class="sk-media sk-media--dim" style="left:23px;top:111px;width:518px;height:174px"><span style="width:34px;height:34px;border-radius:4px;background:linear-gradient(180deg,#8fb3c7,#5d8f6a 60%,#b9c35c);display:grid;place-items:center;opacity:.8"><svg style="width:22px;height:22px;stroke:#2c3e3a;stroke-width:1.6"><use href="#i-pic"/></svg></span></div>
+    <div class="sk-actions" style="left:23px;top:305px">
+      <span class="sk-heart" style="position:relative;color:#8d8f97"><svg><use href="#i-heart"/></svg><span class="sk-like-off" style="color:#8d8f97">142</span><span class="sk-like-on" style="position:absolute;left:26px;color:#e11d3c;font-weight:600">143</span><svg class="sk-like-on" style="position:absolute;left:0;fill:#e11d3c;stroke:#e11d3c"><use href="#i-heart"/></svg></span>
+      <span><svg><use href="#i-comment"/></svg>24</span>
+      <span><svg><use href="#i-share"/></svg>8</span>
+    </div>
+    <div class="sk-rise-out" style="position:absolute;left:90px;top:306px;color:#2ee56b;font-size:14px;font-weight:700;letter-spacing:.1em">INSTANT</div>
+  </div>
+  <svg class="cursor sk-cursor-move" style="left:218px;top:664px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+</section>
+
+<!-- 8 · Success vs failure timelines -->
+<section class="scene" data-t="33" data-shot="33">
+  <div class="glow" style="left:60px;top:130px;width:600px;height:600px;background:rgba(30,160,120,.10)"></div>
+  <div class="sk-secret" style="top:102px">SECRET 04</div>
+  <div class="sk-h1" style="top:143px">OPTIMISTIC UI</div>
+  <div class="sk-sub" style="top:197px">The beautiful lie</div>
+  <div class="sk-tl" style="left:88px;top:498px;width:544px;height:157px">
+    <div class="sk-tl__title sk-tl__title--green" style="left:20px;top:22px">SUCCESS</div>
+    <div class="sk-line" style="left:52px;top:54px;width:146px"></div>
+    <div class="sk-line" style="left:275px;top:54px;width:144px"></div>
+    <div class="sk-dot" style="left:36px;top:68px"></div>
+    <div class="sk-dot" style="left:235px;top:68px"></div>
+    <div class="sk-dot" style="left:471px;top:68px"></div>
+    <div style="position:absolute;left:457px;top:59px;font-size:10px;font-weight:700;color:#fff">&#92;u2713</div>
+    <div class="sk-tl__lbl" style="left:36px;top:80px">Click</div>
+    <div class="sk-tl__lbl" style="left:235px;top:80px">Show result</div>
+    <div class="sk-tl__lbl" style="left:471px;top:80px">Server confirms</div>
+    <div class="sk-tl__count" style="left:476px;top:111px"><svg><use href="#i-heart"/></svg>143</div>
+  </div>
+  <div class="sk-tl" style="left:88px;top:693px;width:544px;height:157px">
+    <div class="sk-tl__title sk-tl__title--pink" style="left:20px;top:22px">FAILURE</div>
+    <div class="sk-line" style="left:60px;top:55px;width:146px"></div>
+    <div class="sk-line sk-line--fade" style="left:296px;top:55px;width:146px"></div>
+    <div class="sk-dot" style="left:36px;top:68px"></div>
+    <div class="sk-dot" style="left:251px;top:68px"></div>
+    <div class="sk-tl__lbl" style="left:36px;top:80px">Click</div>
+    <div class="sk-tl__lbl" style="left:251px;top:80px">Show result</div>
+    <div class="sk-in" style="--d:1s">
+      <div class="sk-dot" style="left:471px;top:68px;background:#f0395a;box-shadow:0 0 10px rgba(240,57,90,.6)"></div>
+      <div style="position:absolute;left:465px;top:59px;font-size:11px;font-weight:700;color:#fff">✕</div>
+      <div class="sk-tl__lbl" style="left:471px;top:80px">Server fails</div>
+    </div>
+    <div class="sk-tl__count" style="left:476px;top:111px"><svg><use href="#i-heart"/></svg>143</div>
+  </div>
+  <div class="sk-in" style="--d:1.2s;position:absolute;left:0;right:0;top:872px;text-align:center;font-size:15px;font-weight:600;color:#f0395a">Something went wrong</div>
+</section>
+
+<!-- 9 · User sees vs server reality -->
+<section class="scene" data-t="34.5" data-shot="36">
+  <div class="glow" style="left:0px;top:230px;width:720px;height:720px;background:rgba(28,150,130,.13)"></div>
+  <div class="sk-secret" style="top:102px">SECRET 04</div>
+  <div class="sk-h1" style="top:143px">OPTIMISTIC UI</div>
+  <div class="sk-sub" style="top:197px">The beautiful lie</div>
+  <div class="sk-tl" style="left:68px;top:567px;width:281px;height:137px">
+    <div class="sk-tl__title sk-tl__title--green sk-tl__title--center" style="top:22px">USER SEES</div>
+    <div class="sk-line sk-line--thin" style="left:52px;top:56px;width:175px"></div>
+    <div class="sk-dot sk-dot--sm" style="left:36px;top:56px"></div>
+    <div class="sk-dot sk-dot--sm" style="left:243px;top:56px"></div>
+    <div class="sk-tl__lbl sk-tl__lbl--sm" style="left:36px;top:64px">Click</div>
+    <div class="sk-tl__lbl sk-tl__lbl--sm" style="left:243px;top:64px">Result</div>
+    <div class="sk-ms" style="left:141px;top:93px">0ms</div>
+  </div>
+  <div class="sk-tl sk-in" style="--d:.3s;left:371px;top:567px;width:279px;height:137px">
+    <div class="sk-tl__title sk-tl__title--green sk-tl__title--center" style="top:22px">SERVER REALITY</div>
+    <div class="sk-line sk-line--thin" style="left:46px;top:56px;width:70px"></div>
+    <div class="sk-line sk-line--thin" style="left:139px;top:56px;width:80px"></div>
+    <div class="sk-dot sk-dot--sm" style="left:34px;top:56px"></div>
+    <div class="sk-dot sk-dot--sm" style="left:127px;top:56px"></div>
+    <div class="sk-dot sk-dot--sm" style="left:232px;top:56px"></div>
+    <div class="sk-tl__lbl sk-tl__lbl--sm" style="left:34px;top:64px">Click</div>
+    <div class="sk-tl__lbl sk-tl__lbl--sm" style="left:127px;top:64px">Request</div>
+    <div class="sk-tl__lbl sk-tl__lbl--sm" style="left:232px;top:64px">Response</div>
+    <div class="sk-ms" style="left:140px;top:93px">200ms</div>
+  </div>
+  <div class="sk-in" style="--d:1s;position:absolute;left:0;right:0;top:743px;text-align:center;font-size:30px;font-weight:700">The gap is <span class="sk-grad">invisible</span>.</div>
+</section>
+
+<!-- 10 · Waiting → Previewing → Anticipating -->
+<section class="scene" data-t="37.5" data-shot="37.5">
+  <div class="glow" style="left:10px;top:250px;width:700px;height:700px;background:rgba(240,57,90,.09)"></div>
+  <div class="glow" style="left:100px;top:740px;background:rgba(46,229,107,.05)"></div>
+  <div class="sk-step" style="left:161px;top:563px">
+    <div class="sk-spinner sk-spinner--grey" style="left:37px;top:52px;width:28px;height:28px;border-width:2px;border-color:rgba(255,255,255,.08);border-top-color:#9a9ca4"></div>
+    <div class="sk-step__lbl sk-label--pink">WAITING</div>
+  </div>
+  <div class="sk-arrow" style="left:285px;top:640px">→</div>
+  <div class="sk-step" style="left:307px;top:563px">
+    <div class="sk-bone is-static" style="left:18px;top:50px;width:65px;height:6px;background:#1e2128"></div>
+    <div class="sk-bone is-static" style="left:18px;top:62px;width:52px;height:6px;background:#1e2128"></div>
+    <div class="sk-bone is-static" style="left:18px;top:74px;width:42px;height:6px;background:#1e2128"></div>
+    <div class="sk-step__lbl sk-label--orange">PREVIEWING</div>
+  </div>
+  <div class="sk-arrow" style="left:431px;top:640px">→</div>
+  <div class="sk-step" style="left:454px;top:563px">
+    <div style="position:absolute;left:39px;top:42px;width:24px;height:24px;border-radius:50%;border:2px solid #2ec76a;background:rgba(46,199,106,.18);box-shadow:0 0 8px rgba(46,229,107,.3)"></div>
+    <div style="position:absolute;left:26px;top:76px;width:50px;height:5px;border-radius:3px;background:#2ec76a"></div>
+    <div style="position:absolute;left:26px;top:86px;width:44px;height:5px;border-radius:3px;background:#1f8f6a"></div>
+    <div class="sk-step__lbl sk-label--green">ANTICIPATING</div>
+  </div>
+</section>
+
+<!-- 11 · Outro -->
+<section class="scene" data-t="39" data-shot="40.5">
+  <div class="glow" style="left:100px;top:340px;background:rgba(240,57,90,.07)"></div>
+  <div class="glow" style="left:100px;top:740px;background:rgba(46,229,107,.04)"></div>
+  <div class="sk-shrink" style="position:absolute;left:0;top:0;width:720px;height:1280px;pointer-events:none">
+    <div class="sk-step" style="left:161px;top:563px">
+      <div class="sk-spinner sk-spinner--grey" style="left:37px;top:52px;width:28px;height:28px;border-width:2px;border-color:rgba(255,255,255,.08);border-top-color:#9a9ca4"></div>
+      <div class="sk-step__lbl sk-label--pink">WAITING</div>
+    </div>
+    <div class="sk-arrow" style="left:285px;top:640px">→</div>
+    <div class="sk-step" style="left:307px;top:563px">
+      <div class="sk-bone is-static" style="left:18px;top:50px;width:65px;height:6px;background:#1e2128"></div>
+      <div class="sk-bone is-static" style="left:18px;top:62px;width:52px;height:6px;background:#1e2128"></div>
+      <div class="sk-bone is-static" style="left:18px;top:74px;width:42px;height:6px;background:#1e2128"></div>
+      <div class="sk-step__lbl sk-label--orange">PREVIEWING</div>
+    </div>
+    <div class="sk-arrow" style="left:431px;top:640px">→</div>
+    <div class="sk-step" style="left:454px;top:563px">
+      <div style="position:absolute;left:39px;top:42px;width:24px;height:24px;border-radius:50%;border:2px solid #2ec76a;background:rgba(46,199,106,.18);box-shadow:0 0 8px rgba(46,229,107,.3)"></div>
+      <div style="position:absolute;left:26px;top:76px;width:50px;height:5px;border-radius:3px;background:#2ec76a"></div>
+      <div style="position:absolute;left:26px;top:86px;width:44px;height:5px;border-radius:3px;background:#1f8f6a"></div>
+      <div class="sk-step__lbl sk-label--green">ANTICIPATING</div>
+    </div>
+  </div>
+  <div style="position:absolute;left:0;right:0;top:838px;text-align:center;font-size:40px;font-weight:800;letter-spacing:.01em">Design Psychology</div>
+  <div class="sk-in" style="--d:.4s;position:absolute;left:0;right:0;top:901px;text-align:center;font-size:20px;color:#a3a5ad">Follow for daily tips</div>
+  <div class="sk-follow sk-in" style="--d:.7s;top:945px" id="follow">Follow</div>
+  <div class="sk-in" style="--d:.9s;position:absolute;left:0;right:0;top:1006px;text-align:center;font-size:17px;color:#8d8f97">@designmotionhq</div>
+  <div class="sk-in" style="--d:1.2s;position:absolute;left:0;right:0;top:1222px;text-align:center;font-size:15px;color:#8d8f97">Save this for your next project</div>
+</section>
+
+<script type="module">
+  import { Skeleton } from './pattern.js';
+  // Live demo hook: clicking the Follow pill re-runs a skeleton → content swap on the outro's first step box.
+  const f = document.getElementById('follow');
+  f?.addEventListener('click', () => f.textContent = f.textContent === 'Follow' ? 'Following' : 'Follow');
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

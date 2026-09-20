@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pull to Refresh · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #090c0f; --accent: #2ed3a5; --danger: #e4477a; --grid: rgba(255,255,255,.045); }
+  .scene { color: #f2f4f7; }
+  .kicker { top: 146px; font-size: 13px; padding: 10px 22px; }
+  .title { top: 169px; font-size: 41px; line-height: 1.05; letter-spacing: -.025em; }
+  .scene .caption-note { position: absolute; top: 1010px; left: 50%; transform: translateX(-50%); }
+  .glow-teal { background: rgba(46,211,165,.09); width: 620px; height: 620px; }
+</style>
+</head>
+<body class="ptr">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="p-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></symbol>
+  <symbol id="p-vibrate" viewBox="0 0 24 24"><rect x="8" y="4" width="8" height="16" rx="2"/><path d="M4 9v6M20 9v6M1.5 11v2M22.5 11v2"/></symbol>
+  <symbol id="p-waves" viewBox="0 0 24 24"><path d="M3 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 13c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 18c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></symbol>
+  <symbol id="p-updown" viewBox="0 0 24 24"><path d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4"/></symbol>
+  <symbol id="p-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="p-bag" viewBox="0 0 24 24"><path d="M5 9h14l-1 11H6zM9 9V7a3 3 0 0 1 6 0v2"/></symbol>
+  <symbol id="p-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></symbol>
+  <symbol id="p-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 19h16"/></symbol>
+  <symbol id="p-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></symbol>
+</svg>
+
+<!-- 1 · Hook: pulling 94px, let go early -->
+<section class="scene" data-t="0" data-shot="0">
+  <div id="p1" style="position:absolute;left:199px;top:231px;height:579px;box-shadow:0 30px 60px rgba(0,0,0,.5)"></div>
+  <div class="ptr-bar" style="position:absolute;left:120px;top:858px"><div class="ptr-bar__head"><span>pull distance</span><b>94px</b></div><div class="ptr-bar__track"><div class="ptr-bar__fill" style="width:265px"></div></div></div>
+</section>
+
+<!-- 1b · Hook: nothing loads -->
+<section class="scene" data-t="1.5" data-shot="1.5">
+  <div id="p2" style="position:absolute;left:199px;top:231px;height:579px;box-shadow:0 30px 60px rgba(0,0,0,.5)"></div>
+  <div class="ptr-bar" style="position:absolute;left:120px;top:858px"><div class="ptr-bar__head"><span>pull distance</span><b>0px</b></div><div class="ptr-bar__track"><div class="ptr-bar__fill" style="width:0"></div></div></div>
+  <div class="title" style="top:928px;color:var(--danger);font-size:38px">Let go early. Nothing loads.</div>
+</section>
+
+<!-- 2 · Threshold -->
+<section class="scene" data-t="3" data-shot="6">
+  <div class="glow glow-teal" style="left:50px;top:300px"></div>
+  <div class="kicker">Threshold</div>
+  <h1 class="title">Fires past the <em>line</em>.</h1>
+  <div id="p3" style="position:absolute;left:199px;top:289px"></div>
+  <div class="ptr-rule is-pink" style="position:absolute;left:57px;top:837px"><span>release below</span><i>→</i><span>snaps back · no reload</span></div>
+  <div class="ptr-rule" style="position:absolute;left:57px;top:899px"><span>release past</span><i>→</i><span>refresh fires</span></div>
+  <div class="ptr-note caption-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#p-minus"/></svg>Fires past the threshold — never before.</div>
+</section>
+
+<!-- 3 · Resistance -->
+<section class="scene" data-t="9" data-shot="12">
+  <div class="kicker kicker--plain">Resistance</div>
+  <h1 class="title">Make it carry <em>weight</em>.</h1>
+  <div class="ptr-chip ptr-chip--teal" style="position:absolute;left:120px;top:268px">Elastic<code>resists</code></div>
+  <div class="ptr-chip ptr-chip--pink" style="position:absolute;left:478px;top:268px">1:1<code>cheap</code></div>
+  <div id="p4a" style="position:absolute;left:38px;top:302px;transform:scale(.963)"></div>
+  <div id="p4b" style="position:absolute;left:372px;top:302px;transform:scale(.963)"></div>
+  <div class="ptr-mono" style="position:absolute;left:38px;width:310px;top:813px;text-align:center">finger 220 → <b>moved 106</b></div>
+  <div class="ptr-mono" style="position:absolute;left:372px;width:310px;top:813px;text-align:center">finger 220 → <b class="pink">moved 220</b></div>
+  <div class="ptr-graph" style="position:absolute;left:185px;top:866px"><div class="ptr-graph__label">finger drag → content move</div>
+    <svg width="355" height="93" viewBox="0 0 355 93" fill="none" stroke-width="2.5" stroke-linecap="round">
+      <path d="M0 0V93H355" stroke="#232830" stroke-width="1.5"/>
+      <path class="pink" d="M0 93L348 9" stroke-dasharray="5 5"/>
+      <path class="teal" d="M0 93C90 60 220 50 348 54"/>
+      <circle cx="348" cy="9" r="4.5" fill="var(--ptr-pink)" stroke="none"/><circle cx="348" cy="54" r="4.5" fill="var(--ptr-teal)" stroke="none"/>
+    </svg></div>
+  <div class="ptr-note caption-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><use href="#p-bag"/></svg>Resist like the content has weight.</div>
+</section>
+
+<!-- 4 · Handoff -->
+<section class="scene" data-t="18" data-shot="19.5">
+  <div class="glow glow-teal" style="left:50px;top:300px"></div>
+  <div class="kicker">Handoff</div>
+  <h1 class="title">The stretch <em>becomes</em> the<br>spinner.</h1>
+  <div id="p5" style="position:absolute;left:199px;top:301px;height:512px"></div>
+  <div class="ptr-steps" style="position:absolute;left:160px;top:847px">
+    <div class="ptr-step is-on"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="22" cy="22" r="18" stroke="#23282e"/><path d="M22 4a18 18 0 0 1 18 18"/><path d="M17 20l5 5 5-5" stroke-width="2.2" stroke="#9aa2ad"/></svg>stretch</div>
+    <div class="ptr-steps__arrow">→</div>
+    <div class="ptr-step"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="3"><circle cx="22" cy="22" r="18"/></svg>full ring</div>
+    <div class="ptr-steps__arrow">→</div>
+    <div class="ptr-step"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="22" cy="22" r="18" stroke="#23282e"/><path d="M40 22a18 18 0 0 1-18 18"/></svg>spinner</div>
+  </div>
+  <div class="ptr-note caption-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#p-refresh"/></svg>The stretch becomes the spinner.</div>
+</section>
+
+<!-- 5 · Haptic -->
+<section class="scene" data-t="24" data-shot="27">
+  <div class="glow glow-teal" style="left:50px;top:300px"></div>
+  <div class="kicker">Haptic</div>
+  <h1 class="title">It ticks <em>before</em> you let go.</h1>
+  <div id="p6" style="position:absolute;left:199px;top:301px;height:512px"></div>
+  <div class="ptr-chip ptr-chip--armed" style="position:absolute;left:537px;top:446px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><use href="#p-vibrate"/></svg>armed</div>
+  <div class="ptr-timeline" style="position:absolute;left:60px;top:843px">
+    <div class="ptr-timeline__track"></div><div class="ptr-timeline__done" style="width:300px"></div>
+    <div class="ptr-timeline__stop is-on" style="left:12px"><span>pull</span></div>
+    <div class="ptr-timeline__stop is-on" style="left:240px"><span>tick</span></div>
+    <div class="ptr-timeline__stop" style="left:384px"><span>release</span></div>
+    <div class="ptr-timeline__stop" style="left:516px"><span>load</span></div>
+    <div class="ptr-timeline__head" style="left:300px"></div>
+    <div class="ptr-timeline__bracket" style="left:240px;width:144px"><span>feedback before release</span></div>
+    <div class="ptr-timeline__ticks" style="left:225px">|||||||</div>
+  </div>
+  <div class="ptr-note caption-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><use href="#p-vibrate"/></svg>One tick at the threshold, before you let go.</div>
+</section>
+
+<!-- 6 · Bounce -->
+<section class="scene" data-t="34.5" data-shot="36">
+  <div class="kicker kicker--plain">Bounce</div>
+  <h1 class="title">Overshoot, then <em>settle</em>.</h1>
+  <div class="ptr-chip ptr-chip--teal" style="position:absolute;left:125px;top:268px">Rubber band</div>
+  <div class="ptr-chip ptr-chip--pink" style="position:absolute;left:472px;top:268px">Hard stop</div>
+  <div id="p7a" style="position:absolute;left:38px;top:302px;transform:scale(.963);height:490px"></div>
+  <div id="p7b" style="position:absolute;left:372px;top:302px;transform:scale(.963);height:490px"></div>
+  <div class="ptr-graph" style="position:absolute;left:185px;top:866px"><div class="ptr-graph__label">position after release →</div>
+    <svg width="355" height="93" viewBox="0 0 355 93" fill="none" stroke-width="2.5" stroke-linecap="round">
+      <path class="pink" d="M0 4L85 55H348" stroke-dasharray="5 5"/>
+      <path class="teal" d="M0 4C30 30 45 78 70 74C110 66 130 46 165 50C200 54 220 60 260 56C300 53 330 55 348 55"/>
+      <text x="322" y="47" font-family="JetBrains Mono, monospace" font-size="12" fill="#4f545c" stroke="none">rest</text>
+      <circle cx="348" cy="55" r="4.5" fill="var(--ptr-teal)" stroke="none"/>
+    </svg></div>
+  <div class="ptr-note caption-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><use href="#p-waves"/></svg>Overshoot, then settle.</div>
+</section>
+
+<!-- 7 · Scroll alive -->
+<section class="scene" data-t="40.5" data-shot="43.5">
+  <div class="glow glow-teal" style="left:50px;top:300px"></div>
+  <div class="kicker">Scroll alive</div>
+  <h1 class="title">Never <em>freeze</em> the list.</h1>
+  <div id="p8" style="position:absolute;left:199px;top:289px"></div>
+  <div class="ptr-pill" style="position:absolute;left:60px;top:850px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#p-refresh"/></svg>spinner running</div>
+  <div class="ptr-pill ptr-pill--teal" style="position:absolute;left:368px;top:850px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><use href="#p-sparkle"/></svg>1 new in place</div>
+  <div class="ptr-note caption-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#p-updown"/></svg>Never freeze the list.</div>
+</section>
+
+<!-- 8 · Outro -->
+<section class="scene" data-t="48" data-shot="48">
+  <div class="glow glow-teal" style="left:50px;top:250px"></div>
+  <div class="title" style="top:164px;color:var(--accent);font-size:44px">Pull is a promise.</div>
+  <div class="ptr-card" style="position:absolute;left:60px;top:302px"><div class="ptr-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#p-minus"/></svg></div><b>Threshold</b><em>01</em><small>fire past the line, never before</small></div>
+  <div class="ptr-card" style="position:absolute;left:368px;top:302px"><div class="ptr-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><use href="#p-bag"/></svg></div><b>Resistance</b><em>02</em><small>resist like it has weight</small></div>
+  <div class="ptr-card" style="position:absolute;left:60px;top:418px"><div class="ptr-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#p-refresh"/></svg></div><b>Handoff</b><em>03</em><small>the stretch becomes the spinner</small></div>
+  <div class="ptr-card" style="position:absolute;left:368px;top:418px"><div class="ptr-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><use href="#p-vibrate"/></svg></div><b>Haptic</b><em>04</em><small>one tick before you let go</small></div>
+  <div class="ptr-card" style="position:absolute;left:60px;top:534px"><div class="ptr-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><use href="#p-waves"/></svg></div><b>Bounce</b><em>05</em><small>overshoot, then settle</small></div>
+  <div class="ptr-card" style="position:absolute;left:368px;top:534px"><div class="ptr-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#p-updown"/></svg></div><b>Scroll</b><em>06</em><small>never freeze the list</small></div>
+  <div class="ptr-brand" style="position:absolute;left:162px;top:745px"><div class="ptr-brand__logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#p-download"/></svg></div><b>designmotionhq<span>.com</span></b></div>
+  <div class="ptr-cta" style="position:absolute;left:260px;top:822px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><use href="#p-link"/></svg>Link in bio</div>
+</section>
+
+<script type="module">
+  import { renderInbox, PullToRefresh, NEW_ROW } from './pattern.js';
+  const $ = id => document.getElementById(id);
+  renderInbox($('p1'), { tone: 'pink', pull: 59, state: 'pull', progress: .55, finger: { x: 161, y: 339 } });
+  renderInbox($('p2'), { pull: 0, state: 'idle' });
+  renderInbox($('p3'), { tone: 'teal', pull: 113, state: 'armed', threshold: { y: 71, armed: true }, finger: { x: 161, y: 359 } });
+  renderInbox($('p4a'), { tone: 'teal', pull: 75, state: 'stretch', progress: .82, finger: { x: 161, y: 380 } });
+  renderInbox($('p4b'), { tone: 'pink', pull: 154, state: 'armed', finger: { x: 161, y: 380 } });
+  renderInbox($('p5'), { tone: 'teal', pull: 107, state: 'armed', finger: { x: 161, y: 340 } });
+  renderInbox($('p6'), { tone: 'teal', pull: 106, state: 'armed', ripple: true, finger: { x: 161, y: 339 } });
+  renderInbox($('p7a'), { tone: 'teal', pull: 8, topLine: 'teal' });
+  renderInbox($('p7b'), { tone: 'pink', pull: 8, topLine: 'pink' });
+  renderInbox($('p8'), { tone: 'teal', pull: 59, state: 'spin', prepend: NEW_ROW, finger: { x: 161, y: 269 } });
+  // The hook phone is live: drag its list down to feel the resistance, the tick, the handoff and the bounce.
+  PullToRefresh($('p2'), { threshold: 80 });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

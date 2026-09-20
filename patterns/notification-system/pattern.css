@@ -1,0 +1,130 @@
+/* Notification System, rebuilt from the @designmotionhq reel "Same content. Four volumes."
+   Component classes are prefixed .nsy- and depend only on the tokens below. */
+.nsy {
+  --nsy-bg: #090c0d; --nsy-panel: #101618; --nsy-panel-2: #131619; --nsy-surface: #171d22; --nsy-modal: #1a1e22; --nsy-chip: #23282d;
+  --nsy-border: rgba(255,255,255,.06); --nsy-text: #f1f3f5; --nsy-muted: #a2a7ae; --nsy-dim: #7d8287;
+  --nsy-pink: #e8507a; --nsy-pink-dim: rgba(232,80,122,.16);
+  --nsy-blue: #3b82f6; --nsy-blue-dim: rgba(59,130,246,.16);
+  --nsy-amber: #e0a43a; --nsy-amber-dim: rgba(224,164,58,.16);
+  --nsy-green: #3ddc7a; --nsy-green-dim: rgba(61,220,122,.16);
+  font-family: 'Inter', system-ui, sans-serif; color: var(--nsy-text);
+}
+
+/* ---- Shared bits ------------------------------------------------------------- */
+.nsy-ico { display: grid; place-items: center; border-radius: 6px; flex: none; }
+.nsy-ico svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; width: 55%; height: 55%; }
+.nsy-ico--blue { background: var(--nsy-blue-dim); color: var(--nsy-blue); border: 1px solid rgba(59,130,246,.3); }
+.nsy-ico--amber { background: var(--nsy-amber-dim); color: var(--nsy-amber); border: 1px solid rgba(224,164,58,.3); }
+.nsy-ico--pink { background: var(--nsy-pink-dim); color: var(--nsy-pink); border: 1px solid rgba(232,80,122,.3); }
+.nsy-ico--green { background: var(--nsy-green-dim); color: var(--nsy-green); border: 1px solid rgba(61,220,122,.3); }
+.nsy-label { font-size: 12px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--nsy-dim); }
+.nsy-btn { display: inline-flex; align-items: center; justify-content: center; height: 30px; padding: 0 14px; border-radius: 7px; border: 0; font: 700 12px 'Inter', sans-serif; color: #fff; background: var(--nsy-chip); cursor: pointer; white-space: nowrap; }
+.nsy-btn--pink { background: var(--nsy-pink); box-shadow: 0 4px 16px rgba(232,80,122,.35); }
+.nsy-x { width: 22px; height: 22px; border-radius: 6px; background: rgba(255,255,255,.08); color: #d8dbde; display: grid; place-items: center; font-size: 13px; flex: none; margin-left: auto; cursor: pointer; }
+
+/* ---- 1. Toast: low volume, auto-dismiss, offer undo ------------------------------ */
+.nsy-toast { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-radius: 9px; background: var(--nsy-surface); border: 1px solid var(--nsy-border); border-left: 3px solid var(--nsy-blue); box-shadow: 0 8px 24px rgba(0,0,0,.4); }
+.nsy-toast--green { border-left-color: var(--nsy-green); }
+.nsy-toast .nsy-ico { width: 26px; height: 26px; }
+.nsy-toast__title { font-size: 13px; font-weight: 700; line-height: 1.2; }
+.nsy-toast__body { font-size: 11px; color: var(--nsy-muted); margin-top: 3px; line-height: 1.3; letter-spacing: -.01em; }
+.nsy-undo { display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; height: 22px; padding: 0 9px; border-radius: 6px; background: var(--nsy-chip); border: 1px solid rgba(255,255,255,.1); font-size: 10px; font-weight: 700; letter-spacing: .06em; color: #e6e8ea; cursor: pointer; }
+.nsy-toast.is-leaving { animation: nsy-out .3s ease forwards; }
+@keyframes nsy-out { to { opacity: 0; transform: translateY(-6px); } }
+
+/* ---- 2. Banner: persistent, cleared by hand ---------------------------------------- */
+.nsy-banner { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 9px; background: #2e2721; border: 1px solid rgba(224,164,58,.28); }
+.nsy-banner .nsy-ico { width: 26px; height: 26px; }
+.nsy-banner__title { font-size: 13px; font-weight: 700; line-height: 1.2; }
+.nsy-banner__body { font-size: 11px; color: #b0aa9e; margin-top: 2px; line-height: 1.3; white-space: nowrap; letter-spacing: -.01em; }
+
+/* ---- 3. Modal: blocking, requires action -------------------------------------------- */
+.nsy-modal { padding: 14px 15px 15px; border-radius: 10px; background: var(--nsy-modal); border: 1px solid rgba(255,255,255,.07); box-shadow: 0 14px 40px rgba(0,0,0,.55); }
+.nsy-modal__head { display: flex; align-items: center; gap: 10px; }
+.nsy-modal .nsy-ico { width: 26px; height: 26px; border-radius: 7px; }
+.nsy-modal__title { font-size: 15px; font-weight: 700; line-height: 1.15; }
+.nsy-modal__body { font-size: 11px; color: var(--nsy-muted); margin-top: 10px; line-height: 1.35; }
+.nsy-modal__actions { display: flex; gap: 8px; margin-top: 12px; }
+.nsy-modal__actions .nsy-btn { flex: 1; }
+
+/* ---- 4. Badge: quiet, until cleared ----------------------------------------------------- */
+.nsy-bell { position: relative; display: grid; place-items: center; border-radius: 14px; background: #1c2226; border: 1px solid rgba(255,255,255,.07); color: #fff; }
+.nsy-bell svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; width: 48%; height: 48%; }
+.nsy-bell--glow { box-shadow: 0 0 40px rgba(232,80,122,.45), 0 0 90px rgba(232,80,122,.25); }
+.nsy-bell__count { position: absolute; top: 0; right: 0; transform: translate(35%, -35%); min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: var(--nsy-pink); color: #fff; font-size: 11px; font-weight: 700; display: grid; place-items: center; box-shadow: 0 0 12px rgba(232,80,122,.6); }
+.nsy-bell__count:empty { display: none; }
+
+/* ---- Grid panel (the four surfaces) ----------------------------------------------------- */
+.nsy-panel { position: absolute; border-radius: 12px; background: var(--nsy-panel); border: 1px solid var(--nsy-border); padding: 14px 16px; }
+.nsy-panel--dark { background: #0d1012; }
+
+/* ---- Severity -> surface rows ------------------------------------------------------------- */
+.nsy-trigger { position: absolute; width: 212px; height: 131px; border-radius: 10px; padding: 0 15px; display: flex; flex-direction: column; justify-content: center; border: 1px solid rgba(255,255,255,.05); }
+.nsy-trigger small { font-size: 9px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
+.nsy-trigger b { font-size: 17px; font-weight: 700; margin-top: 6px; letter-spacing: -.01em; }
+.nsy-trigger--blue { background: #152230; } .nsy-trigger--blue small { color: #5b9cf6; }
+.nsy-trigger--amber { background: #2e2721; } .nsy-trigger--amber small { color: var(--nsy-amber); }
+.nsy-trigger--pink { background: #3a1a22; } .nsy-trigger--pink small { color: var(--nsy-pink); }
+.nsy-trigger--grey { background: #1a171b; } .nsy-trigger--grey small { color: var(--nsy-dim); }
+.nsy-arrow { position: absolute; width: 22px; text-align: center; font-size: 18px; font-weight: 700; }
+.nsy-slot { position: absolute; width: 380px; height: 131px; border-radius: 10px; background: var(--nsy-panel-2); border: 1px solid var(--nsy-border); }
+.nsy-slot--dark { background: #080709; }
+
+/* ---- Lifecycle columns ---------------------------------------------------------------------- */
+.nsy-col { position: absolute; width: 155px; height: 315px; border-radius: 10px; background: #101314; border: 1px solid var(--nsy-border); }
+.nsy-col__foot { position: absolute; left: 10px; right: 6px; bottom: 10px; }
+.nsy-col__foot b { display: block; font-size: 9px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+.nsy-col__foot span { display: block; font-size: 8px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--nsy-dim); margin-top: 3px; }
+.nsy-col--dark { background: #0b0d0e; }
+.nsy-quiet { position: absolute; left: 0; right: 0; text-align: center; font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--nsy-dim); }
+.nsy-quiet--ok { color: var(--nsy-green); }
+
+/* ---- Stack behaviour panels -------------------------------------------------------------------- */
+.nsy-stack { position: absolute; width: 320px; height: 598px; border-radius: 12px; overflow: hidden; background: #101416; border: 1px solid var(--nsy-border); }
+.nsy-stack--bad { background: #0b0d0e; border-color: rgba(232,80,122,.18); }
+.nsy-stack__head { display: flex; align-items: center; gap: 10px; height: 50px; padding: 0 14px; background: #14211c; }
+.nsy-stack--bad .nsy-stack__head { background: #2a1a20; }
+.nsy-stack__head .nsy-ico { width: 22px; height: 22px; }
+.nsy-stack__head small { display: block; font-size: 9px; font-weight: 700; letter-spacing: .2em; color: var(--nsy-dim); text-transform: uppercase; }
+.nsy-stack__head b { display: block; font-size: 13px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--nsy-green); margin-top: 2px; }
+.nsy-stack--bad .nsy-stack__head b { color: var(--nsy-pink); }
+.nsy-stack__bail { position: absolute; left: 0; right: 0; bottom: 14px; text-align: center; font-size: 9px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--nsy-pink); }
+.nsy-pile { position: absolute; width: 210px; height: 140px; }
+.nsy-pile .nsy-modal { position: absolute; left: 0; top: 0; width: 210px; transform-origin: 50% 100%; }
+.nsy-pile .nsy-modal:nth-child(1) { transform: translate(30px, -40px) rotate(4deg); opacity: .5; }
+.nsy-pile .nsy-modal:nth-child(2) { transform: translate(16px, -22px) rotate(1deg); opacity: .75; }
+.nsy-pile .nsy-modal:nth-child(3) { transform: rotate(-4deg); }
+
+/* ---- Dashboard mock (hook) --------------------------------------------------------------------- */
+.nsy-dash { position: absolute; width: 596px; height: 760px; border-radius: 12px; background: #0b0e10; border: 1px solid rgba(255,255,255,.05); overflow: hidden; }
+.nsy-dash__side { position: absolute; left: 0; top: 0; bottom: 0; width: 144px; background: #0e1113; border-right: 1px solid rgba(255,255,255,.04); padding: 16px; }
+.nsy-dash__logo { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; }
+.nsy-dash__logo i { width: 18px; height: 18px; border-radius: 5px; background: var(--nsy-pink); }
+.nsy-dash__nav { margin-top: 22px; }
+.nsy-dash__nav div { display: flex; align-items: center; gap: 8px; height: 22px; padding: 0 8px; margin-bottom: 9px; border-radius: 6px; font-size: 12px; font-weight: 600; color: #6c7176; }
+.nsy-dash__nav div.is-on { background: #14181b; color: #e6e8ea; }
+.nsy-dash__nav i { width: 10px; height: 10px; border-radius: 2px; background: currentColor; opacity: .5; }
+.nsy-dash__main { position: absolute; left: 167px; right: 22px; top: 22px; }
+.nsy-dash__top { display: flex; align-items: center; height: 24px; font-size: 15px; font-weight: 700; }
+.nsy-dash__top .nsy-bell { margin-left: auto; width: 22px; height: 22px; border-radius: 6px; background: transparent; border: 0; color: #9aa0a6; }
+.nsy-dash__top .nsy-bell__count { width: 6px; height: 6px; min-width: 0; padding: 0; transform: translate(0, 0); top: 2px; right: 1px; box-shadow: none; }
+.nsy-dash__av { width: 24px; height: 24px; border-radius: 50%; background: #2dd4bf; color: #062018; font-size: 9px; font-weight: 800; display: grid; place-items: center; margin-left: 14px; }
+.nsy-dash__stats { display: flex; gap: 15px; margin-top: 29px; }
+.nsy-dash__stat { flex: 1; height: 83px; border-radius: 8px; background: #14181b; border: 1px solid rgba(255,255,255,.04); padding: 14px 16px; }
+.nsy-dash__stat small { display: block; font-size: 9px; letter-spacing: .15em; color: #5c6166; text-transform: uppercase; }
+.nsy-dash__stat b { display: block; font-size: 22px; font-weight: 800; margin-top: 6px; letter-spacing: -.02em; }
+.nsy-dash__stat span { display: block; font-size: 10px; color: #3ddc7a; margin-top: 4px; }
+.nsy-dash__chart { margin-top: 24px; height: 178px; border-radius: 8px; background: #14181b; border: 1px solid rgba(255,255,255,.04); padding: 12px 16px; position: relative; }
+.nsy-dash__chart small { font-size: 12px; font-weight: 600; color: #9aa0a6; }
+.nsy-dash__chart em { position: absolute; right: 16px; top: 13px; font-style: normal; font-size: 9px; letter-spacing: .15em; color: #5c6166; }
+.nsy-dash__bars { position: absolute; left: 16px; right: 16px; bottom: 14px; height: 120px; display: flex; align-items: flex-end; gap: 6px; }
+.nsy-dash__bars i { flex: 1; background: #171b1e; border-radius: 2px 2px 0 0; }
+.nsy-dash__bars i.is-pink { background: var(--nsy-pink); }
+.nsy-dash.is-dim > :not(.nsy-modal) { opacity: .45; }
+.nsy-dash .nsy-modal { position: absolute; left: 133px; top: 315px; width: 330px; padding: 16px 15px 17px; }
+
+/* ---- Outro follow pill ----------------------------------------------------------------------------- */
+.nsy-follow { display: inline-flex; align-items: center; gap: 12px; height: 58px; padding: 0 26px 0 20px; border-radius: 999px; background: #2b1a22; border: 1px solid rgba(232,80,122,.2); }
+.nsy-follow__av { width: 34px; height: 34px; border-radius: 50%; background: var(--nsy-pink); }
+.nsy-follow b { display: block; font-size: 15px; font-weight: 700; line-height: 1.1; }
+.nsy-follow span { display: block; font-size: 11px; color: #b7a5ad; margin-top: 3px; }

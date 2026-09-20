@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Live Cursors · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a0d10; --accent: #14b8a6; --danger: #f0506e; }
+  .scene { color: #f3f5f7; }
+  .title { top: 140px; margin: 0; font-size: 40px; line-height: 1.15; }
+  .sub { position: absolute; top: 188px; left: 0; right: 0; text-align: center; font-size: 18px; color: #8b93a1; }
+  .sub.mono { font-size: 16px; }
+  /* cursors wander a little and are back on their frame position at 1.5 s */
+  .wander { animation: wander 6s ease-in-out infinite; }
+  @keyframes wander { 0%, 25% { transform: none } 37.5% { transform: translate(var(--dx, 30px), var(--dy, -20px)) } 50% { transform: none } 75% { transform: translate(var(--dx2, -20px), var(--dy2, 25px)) } 100% { transform: none } }
+  /* interpolation: raw cursor jumps waypoint to waypoint, the interpolated one glides */
+  .raw { animation: waypoints 6s steps(1, end) infinite; animation-delay: -3s; }
+  .lerp { animation: waypoints 6s linear infinite; animation-delay: -3.3s; }
+  @keyframes waypoints { 0% { left: 68px; top: 101px } 16.66% { left: 234px; top: 157px } 33.33% { left: 87px; top: 247px } 50% { left: 237px; top: 328px } 66.66% { left: 77px; top: 401px } 83.33% { left: 221px; top: 460px } 100% { left: 68px; top: 101px } }
+</style>
+</head>
+<body class="lc">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="arrow" viewBox="0 0 20 24"><path d="M3 2v17.5l4.8-4.6 3.4 7.6 3-1.3-3.3-7.4h6.6z"/></symbol>
+  <symbol id="i-pointer" viewBox="0 0 24 24"><path d="M4 3l7 17 2.5-7.5L21 10z"/></symbol>
+  <symbol id="i-square" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="1.5"/></symbol>
+  <symbol id="i-text" viewBox="0 0 24 24"><path d="M5 5h14M12 5v15M9 20h6"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12M11 6a1.5 1.5 0 0 1 3 0v6M14 8a1.5 1.5 0 0 1 3 0v7c0 3.5-2.5 6-6 6h-1c-2 0-3.2-1-4-2.5L3.5 14a1.5 1.5 0 0 1 2.5-1.5L8 14"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8 3.4 4.5 7 4.5c2 0 3.4 1 5 2.8 1.6-1.8 3-2.8 5-2.8 3.6 0 6 3.5 4.5 7.3C19.5 16.4 12 21 12 21z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0M16 4.5a3.5 3.5 0 0 1 0 7M22 20a7 7 0 0 0-5-6.7"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-follow" viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M2 21a8 8 0 0 1 14-4M19 8v6M16 11h6"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+</svg>
+
+<!-- 1 · Hook: your canvas, their cursors -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="title" style="top:146px;font-size:44px">Your canvas. Their cursors.</div>
+  <div class="lc-canvas" style="left:48px;top:262px;width:624px;height:706px">
+    <div class="lc-toolbar"><div class="lc-toolbar__tools"><svg><use href="#i-pointer"/></svg><svg><use href="#i-square"/></svg><svg><use href="#i-text"/></svg><svg><use href="#i-hand"/></svg></div><div class="lc-toolbar__name">onboarding-flow<span>Acme Design</span></div></div>
+    <div class="lc-profile" style="left:42px;top:113px">
+      <div class="lc-profile__head"><div class="lc-profile__avatar">PO</div><div><div class="lc-profile__name">Priya Oberoi</div><div class="lc-profile__role">Product Designer</div></div></div>
+      <div class="lc-profile__stats"><span class="lc-stat"><svg><use href="#i-heart"/></svg>2.4k</span><span class="lc-stat"><svg><use href="#i-eye"/></svg>18k</span></div>
+      <div class="lc-profile__btn">View profile</div>
+    </div>
+    <div class="lc-weekly" style="left:334px;top:316px">
+      <div class="lc-weekly__label">Weekly actives<svg><use href="#i-trend"/></svg></div>
+      <div class="lc-weekly__value">12,480</div>
+      <div class="lc-weekly__bars"><i style="height:14px"></i><i style="height:22px"></i><i style="height:18px"></i><i style="height:28px"></i><i style="height:34px"></i><i style="height:55px"></i></div>
+      <div class="lc-weekly__delta">+18% vs last week</div>
+    </div>
+    <div class="lc-cursor lc-cursor--teal wander" style="left:167px;top:263px;--dx:40px;--dy:30px;--dx2:-30px;--dy2:-20px"><svg><use href="#arrow"/></svg><span class="lc-cursor__label">Sarah</span></div>
+    <div class="lc-cursor lc-cursor--purple wander" style="left:437px;top:413px;--dx:-40px;--dy:20px;--dx2:20px;--dy2:-40px"><svg><use href="#arrow"/></svg><span class="lc-cursor__label">Alex</span></div>
+    <div class="lc-cursor lc-cursor--amber wander" style="left:302px;top:588px;--dx:60px;--dy:-30px;--dx2:-50px;--dy2:10px"><svg><use href="#arrow"/></svg><span class="lc-cursor__label">Maya</span></div>
+  </div>
+  <div class="lc-live center" style="top:1010px;height:40px;padding:0 22px;font-size:17px;gap:10px;color:#c9ced5"><span style="display:flex;gap:6px"><i style="width:8px;height:8px;border-radius:50%;background:#14b8a6"></i><i style="width:8px;height:8px;border-radius:50%;background:#8b7cf6"></i><i style="width:8px;height:8px;border-radius:50%;background:#f0b04a"></i></span>3 collaborators · live</div>
+</section>
+
+<!-- 2 · Interpolation -->
+<section class="scene" data-t="3" data-shot="6">
+  <div class="title">Interpolation</div>
+  <div class="sub" style="top:192px">10 updates in. 60 frames out.</div>
+  <div class="lc-canvas" style="left:40px;top:264px;width:306px;height:506px;background:#14181d;border-radius:12px">
+    <div class="lc-pill lc-pill--pink" style="position:absolute;left:17px;top:16px">Raw · 10 Hz</div>
+    <i class="lc-wp" style="left:68px;top:101px"></i><i class="lc-wp" style="left:234px;top:157px"></i><i class="lc-wp" style="left:87px;top:247px"></i><i class="lc-wp" style="left:237px;top:328px"></i><i class="lc-wp" style="left:77px;top:401px"></i><i class="lc-wp" style="left:221px;top:460px"></i>
+    <div class="lc-cursor lc-cursor--pink raw"><span class="lc-cursor__dot"></span><svg style="left:2px;top:4px"><use href="#arrow"/></svg></div>
+  </div>
+  <div class="lc-canvas" style="left:374px;top:264px;width:306px;height:506px;background:#14181d;border-radius:12px">
+    <div class="lc-pill lc-pill--teal" style="position:absolute;left:16px;top:16px">Interpolated</div>
+    <i class="lc-wp" style="left:68px;top:101px"></i><i class="lc-wp" style="left:234px;top:157px"></i><i class="lc-wp" style="left:87px;top:247px"></i><i class="lc-wp" style="left:237px;top:328px"></i><i class="lc-wp" style="left:77px;top:401px"></i><i class="lc-wp" style="left:221px;top:460px"></i>
+    <div class="lc-cursor lc-cursor--teal raw" style="animation-delay:-3s"><span class="lc-cursor__dot"></span></div>
+    <div class="lc-cursor lc-cursor--teal lerp"><svg style="left:2px;top:4px"><use href="#arrow"/></svg></div>
+  </div>
+  <div class="lc-traffic" style="left:48px;top:835px;width:624px;height:120px">
+    <div class="lc-traffic__title">One second of traffic</div>
+    <div class="lc-traffic__row"><b>Server — 10/s</b><div class="lc-traffic__cells" id="cells10"></div></div>
+    <div class="lc-traffic__row is-teal"><b>Screen — 60/s</b><div class="lc-traffic__cells is-fine" id="cells60"></div></div>
+  </div>
+</section>
+
+<!-- 3 · Color from identity -->
+<section class="scene" data-t="12" data-shot="15">
+  <div class="glow" style="left:100px;top:180px;background:rgba(20,184,166,.10)"></div>
+  <div class="title">Color from identity</div>
+  <div class="sub mono" style="top:188px">hash(user_id) → hue</div>
+  <div class="lc-hash" style="left:48px;top:258px;width:624px;height:152px;padding:30px 0 0">
+    <div class="lc-hash__row"><span class="lc-hash__id">sarah@acme.co</span><span class="lc-hash__arrow">→</span><span class="lc-hash__hex"><span>#</span>14B8A6</span><span class="lc-hash__arrow">→</span><span class="lc-hash__swatch"></span></div>
+    <div class="lc-hash__note" style="margin-top:20px">Deterministic — no server coordination needed</div>
+  </div>
+  <div class="lc-day" style="left:48px;top:533px"><div class="lc-day__name">Monday</div><i class="lc-skel" style="left:14px;top:57px;width:101px"></i><i class="lc-skel" style="left:14px;top:77px;width:68px"></i>
+    <div class="lc-cursor lc-cursor--teal wander" style="left:107px;top:172px;--dx:-30px;--dy:-40px;--dx2:20px;--dy2:-60px"><svg><use href="#arrow"/></svg><span class="lc-cursor__label">Sarah</span></div></div>
+  <div class="lc-day" style="left:264px;top:533px"><div class="lc-day__name">Wednesday</div><i class="lc-skel" style="left:14px;top:57px;width:101px"></i><i class="lc-skel" style="left:14px;top:77px;width:68px"></i>
+    <div class="lc-cursor lc-cursor--teal wander" style="left:66px;top:130px;--dx:40px;--dy:30px;--dx2:-20px;--dy2:-40px"><svg><use href="#arrow"/></svg><span class="lc-cursor__label">Sarah</span></div></div>
+  <div class="lc-day" style="left:480px;top:533px"><div class="lc-day__name">Friday</div><i class="lc-skel" style="left:14px;top:57px;width:101px"></i><i class="lc-skel" style="left:14px;top:77px;width:68px"></i>
+    <div class="lc-cursor lc-cursor--teal wander" style="left:75px;top:112px;--dx:-30px;--dy:50px;--dx2:30px;--dy2:20px"><svg><use href="#arrow"/></svg><span class="lc-cursor__label">Sarah</span></div></div>
+  <div class="lc-note" style="left:48px;top:888px;width:624px;height:67px;padding:0 52px 0 50px;gap:16px;font-size:18px;font-weight:600">
+    <span class="lc-note__swatch"></span>Same person, same color — every session<span class="lc-note__hex">#14B8A6</span>
+  </div>
+</section>
+
+<!-- 4 · Presence -->
+<section class="scene" data-t="21" data-shot="22.5">
+  <div class="title">Presence</div>
+  <div class="sub" style="top:188px">Feel the room before you read a name</div>
+  <div class="lc-doc" style="left:48px;top:258px;width:624px;height:85px">
+    <svg class="ic"><use href="#i-doc"/></svg><div><div class="lc-doc__name">onboarding-flow</div><div class="lc-doc__meta">Acme Design · edited 2m ago</div></div>
+    <div class="lc-doc__avatars" id="presence"><div class="lc-avatar lc-avatar--teal">SC</div><div class="lc-avatar lc-avatar--purple">AR</div><div class="lc-avatar lc-avatar--amber">MK</div><div class="lc-avatar lc-avatar--more">+5</div></div>
+  </div>
+  <div class="lc-canvas" style="left:48px;top:370px;width:624px;height:520px">
+    <div class="lc-shape" style="left:47px;top:55px;width:225px;height:153px"></div>
+    <div class="lc-shape" style="left:334px;top:203px;width:238px;height:172px"></div>
+    <div class="lc-cursor lc-cursor--ghost" style="left:135px;top:406px"><svg><use href="#arrow"/></svg></div>
+    <div class="lc-cursor lc-cursor--ghost" style="left:478px;top:386px"><svg><use href="#arrow"/></svg></div>
+    <div class="lc-cursor lc-cursor--teal wander" style="left:145px;top:158px;--dx:30px;--dy:40px;--dx2:-40px;--dy2:20px"><svg><use href="#arrow"/></svg><span class="lc-cursor__label">Sarah</span></div>
+    <div class="lc-cursor lc-cursor--purple wander" style="left:442px;top:298px;--dx:-50px;--dy:-30px;--dx2:30px;--dy2:30px"><svg><use href="#arrow"/></svg><span class="lc-cursor__label">Alex</span></div>
+    <div class="lc-cursor lc-cursor--amber wander" style="left:265px;top:407px;--dx:40px;--dy:-40px;--dx2:-60px;--dy2:-10px"><svg><use href="#arrow"/></svg><span class="lc-cursor__label">Maya</span></div>
+  </div>
+  <div class="lc-doc" style="left:48px;top:925px;width:624px;height:60px">
+    <span class="lc-online"><svg><use href="#i-users"/></svg>8 online</span><span class="lc-doc__hint">Presence renders before a single message</span>
+  </div>
+</section>
+
+<!-- 5 · Selection locks -->
+<section class="scene" data-t="27" data-shot="30">
+  <div class="title">Selection locks</div>
+  <div class="sub" style="top:187px">One shape, one editor</div>
+  <div class="lc-canvas" style="left:48px;top:255px;width:624px;height:657px">
+    <div class="lc-toolbar"><div class="lc-toolbar__tools"><svg><use href="#i-pointer"/></svg><svg><use href="#i-square"/></svg><svg><use href="#i-text"/></svg><svg><use href="#i-hand"/></svg></div><div class="lc-toolbar__name" style="right:70px">onboarding-flow<span>Acme Design</span></div>
+      <div class="lc-toolbar__avatars"><div class="lc-avatar lc-avatar--sm lc-avatar--teal">SC</div><div class="lc-avatar lc-avatar--sm lc-avatar--purple">AR</div></div></div>
+    <div class="lc-profile" style="left:134px;top:202px;width:356px;height:195px;padding:26px 24px">
+      <div class="lc-profile__head"><div class="lc-profile__avatar">PO</div><div><div class="lc-profile__name">Priya Oberoi</div><div class="lc-profile__role">Product Designer</div></div></div>
+      <div class="lc-profile__stats"><span class="lc-stat"><svg><use href="#i-heart"/></svg>2.4k</span><span class="lc-stat"><svg><use href="#i-eye"/></svg>18k</span></div>
+      <div class="lc-profile__btn">View profile</div>
+    </div>
+    <div class="lc-selection" style="left:134px;top:202px;width:356px;height:195px"><i></i><i></i><i></i><i></i></div>
+    <div class="lc-lock" style="left:134px;top:171px"><svg><use href="#i-lock"/></svg>Sarah</div>
+    <div class="lc-weekly is-dim" style="left:394px;top:490px">
+      <div class="lc-weekly__label">Weekly actives<svg><use href="#i-trend"/></svg></div>
+      <div class="lc-weekly__value">12,480</div>
+      <div class="lc-weekly__bars"><i style="height:14px"></i><i style="height:22px"></i><i style="height:18px"></i><i style="height:28px"></i><i style="height:34px"></i><i style="height:55px"></i></div>
+    </div>
+    <div class="lc-cursor lc-cursor--teal wander" style="left:317px;top:305px;--dx:-40px;--dy:-30px;--dx2:30px;--dy2:20px"><svg><use href="#arrow"/></svg><span class="lc-cursor__label">Sarah</span></div>
+    <div class="lc-cursor lc-cursor--purple" style="left:537px;top:485px;animation:alex-in 6s ease-in-out infinite;animation-delay:-3s"><svg><use href="#arrow"/></svg><span class="lc-cursor__label">Alex</span></div>
+  </div>
+  <div class="lc-foot" style="left:48px;top:962px;width:624px;height:56px"><svg><use href="#i-lock"/></svg>Locks prevent the conflict <span>before it exists</span></div>
+  <style>@keyframes alex-in { 0%, 20% { left: 640px; top: 560px } 50%, 100% { left: 537px; top: 485px } }</style>
+</section>
+
+<!-- 5b · Selection locks (Alex bounces off) -->
+<section class="scene" data-t="31.5" data-shot="33">
+  <div class="title">Selection locks</div>
+  <div class="sub" style="top:187px">One shape, one editor</div>
+  <div class="lc-canvas" style="left:48px;top:255px;width:624px;height:657px">
+    <div class="lc-toolbar"><div class="lc-toolbar__tools"><svg><use href="#i-pointer"/></svg><svg><use href="#i-square"/></svg><svg><use href="#i-text"/></svg><svg><use href="#i-hand"/></svg></div><div class="lc-toolbar__name" style="right:70px">onboarding-flow<span>Acme Design</span></div>
+      <div class="lc-toolbar__avatars"><div class="lc-avatar lc-avatar--sm lc-avatar--teal">SC</div><div class="lc-avatar lc-avatar--sm lc-avatar--purple">AR</div></div></div>
+    <div class="lc-profile" style="left:134px;top:202px;width:356px;height:195px;padding:26px 24px">
+      <div class="lc-profile__head"><div class="lc-profile__avatar">PO</div><div><div class="lc-profile__name">Priya Oberoi</div><div class="lc-profile__role">Product Designer</div></div></div>
+      <div class="lc-profile__stats"><span class="lc-stat"><svg><use href="#i-heart"/></svg>2.4k</span><span class="lc-stat"><svg><use href="#i-eye"/></svg>18k</span></div>
+      <div class="lc-profile__btn">View profile</div>
+    </div>
+    <div class="lc-selection" style="left:134px;top:202px;width:356px;height:195px"><i></i><i></i><i></i><i></i></div>
+    <div class="lc-lock" style="left:134px;top:171px"><svg><use href="#i-lock"/></svg>Sarah</div>
+    <div class="lc-weekly is-dim" style="left:394px;top:490px">
+      <div class="lc-weekly__label">Weekly actives<svg><use href="#i-trend"/></svg></div>
+      <div class="lc-weekly__value">12,480</div>
+      <div class="lc-weekly__bars"><i style="height:14px"></i><i style="height:22px"></i><i style="height:18px"></i><i style="height:28px"></i><i style="height:34px"></i><i style="height:55px"></i></div>
+    </div>
+    <div class="lc-cursor lc-cursor--teal" style="left:317px;top:305px"><svg><use href="#arrow"/></svg><span class="lc-cursor__label">Sarah</span></div>
+    <div class="lc-cursor lc-cursor--purple" style="left:405px;top:352px"><svg><use href="#arrow"/></svg><span class="lc-cursor__label">Alex</span></div>
+    <div class="lc-locktip" style="left:427px;top:390px"><svg><use href="#i-lock"/></svg><b>Sarah</b> is editing</div>
+  </div>
+  <div class="lc-foot" style="left:48px;top:962px;width:624px;height:56px"><svg><use href="#i-lock"/></svg>Locks prevent the conflict <span>before it exists</span></div>
+</section>
+
+<!-- 6 · Follow mode (start) -->
+<section class="scene lc-follow" data-t="37" data-shot="37.5">
+  <div class="title">Follow mode</div>
+  <div class="sub" style="top:187px">Click an avatar, ride their viewport</div>
+  <div class="lc-doc" style="left:48px;top:255px;width:624px;height:77px">
+    <svg class="ic"><use href="#i-doc"/></svg><div class="lc-doc__name">onboarding-flow</div>
+    <div class="lc-doc__avatars"><div class="lc-avatar lc-avatar--teal" style="width:38px;height:38px">SC</div><div class="lc-avatar lc-avatar--purple" style="width:38px;height:38px">AR</div><div class="lc-avatar lc-avatar--amber is-followed" style="width:38px;height:38px">MK</div></div>
+  </div>
+  <div class="lc-cursor lc-cursor--sys" style="left:624px;top:298px"><svg><use href="#arrow"/></svg></div>
+  <div class="lc-canvas is-following" style="left:48px;top:360px;width:624px;height:552px">
+    <div class="lc-world">
+      <div class="lc-weekly" style="left:0;top:0">
+        <div class="lc-weekly__label">Weekly actives<svg><use href="#i-trend"/></svg></div>
+        <div class="lc-weekly__value">12,480</div>
+        <div class="lc-weekly__bars"><i style="height:14px"></i><i style="height:22px"></i><i style="height:18px"></i><i style="height:28px"></i><i style="height:34px"></i><i style="height:55px"></i></div>
+        <div class="lc-weekly__delta">+18% vs last week</div>
+      </div>
+      <div class="lc-profile" style="left:350px;top:140px">
+        <div class="lc-profile__head"><div class="lc-profile__avatar">PO</div><div><div class="lc-profile__name">Priya Oberoi</div><div class="lc-profile__role">Product Designer</div></div></div>
+        <div class="lc-profile__stats"><span class="lc-stat"><svg><use href="#i-heart"/></svg>2.4k</span><span class="lc-stat"><svg><use href="#i-eye"/></svg>18k</span></div>
+        <div class="lc-profile__btn">View profile</div>
+      </div>
+      <div class="lc-shape" style="left:47px;top:273px;width:194px;height:85px"></div>
+      <div class="lc-cursor lc-cursor--amber"><svg><use href="#arrow"/></svg><span class="lc-cursor__label">Maya</span></div>
+    </div>
+    <div class="lc-toolbar"><div class="lc-toolbar__tools"><svg><use href="#i-pointer"/></svg><svg><use href="#i-square"/></svg><svg><use href="#i-text"/></svg><svg><use href="#i-hand"/></svg></div><div class="lc-toolbar__name">onboarding-flow<span>Acme Design</span></div></div>
+    <div class="lc-pill lc-pill--amber" style="position:absolute;left:14px;top:64px"><svg><use href="#i-eye"/></svg>Following Maya</div>
+  </div>
+  <div class="lc-foot lc-foot--amber" style="left:48px;top:957px;width:624px;height:57px"><svg><use href="#i-eye"/></svg>A design review <span>without the screen share</span></div>
+</section>
+
+<!-- 6b · Follow mode (Maya has panned and zoomed) -->
+<section class="scene lc-follow" data-t="37" data-shot="42">
+  <div class="title">Follow mode</div>
+  <div class="sub" style="top:187px">Click an avatar, ride their viewport</div>
+  <div class="lc-doc" style="left:48px;top:255px;width:624px;height:77px">
+    <svg class="ic"><use href="#i-doc"/></svg><div class="lc-doc__name">onboarding-flow</div>
+    <div class="lc-doc__avatars"><div class="lc-avatar lc-avatar--teal" style="width:38px;height:38px">SC</div><div class="lc-avatar lc-avatar--purple" style="width:38px;height:38px">AR</div><div class="lc-avatar lc-avatar--amber is-followed" style="width:38px;height:38px">MK</div></div>
+  </div>
+  <div class="lc-cursor lc-cursor--sys" style="left:624px;top:298px"><svg><use href="#arrow"/></svg></div>
+  <div class="lc-canvas is-following" style="left:48px;top:360px;width:624px;height:552px">
+    <div class="lc-world">
+      <div class="lc-weekly" style="left:0;top:0">
+        <div class="lc-weekly__label">Weekly actives<svg><use href="#i-trend"/></svg></div>
+        <div class="lc-weekly__value">12,480</div>
+        <div class="lc-weekly__bars"><i style="height:14px"></i><i style="height:22px"></i><i style="height:18px"></i><i style="height:28px"></i><i style="height:34px"></i><i style="height:55px"></i></div>
+        <div class="lc-weekly__delta">+18% vs last week</div>
+      </div>
+      <div class="lc-profile" style="left:350px;top:140px">
+        <div class="lc-profile__head"><div class="lc-profile__avatar">PO</div><div><div class="lc-profile__name">Priya Oberoi</div><div class="lc-profile__role">Product Designer</div></div></div>
+        <div class="lc-profile__stats"><span class="lc-stat"><svg><use href="#i-heart"/></svg>2.4k</span><span class="lc-stat"><svg><use href="#i-eye"/></svg>18k</span></div>
+        <div class="lc-profile__btn">View profile</div>
+      </div>
+      <div class="lc-shape" style="left:47px;top:273px;width:194px;height:85px"></div>
+      <div class="lc-cursor lc-cursor--amber"><svg><use href="#arrow"/></svg><span class="lc-cursor__label">Maya</span></div>
+    </div>
+    <div class="lc-toolbar"><div class="lc-toolbar__tools"><svg><use href="#i-pointer"/></svg><svg><use href="#i-square"/></svg><svg><use href="#i-text"/></svg><svg><use href="#i-hand"/></svg></div><div class="lc-toolbar__name">onboarding-flow<span>Acme Design</span></div></div>
+    <div class="lc-pill lc-pill--amber" style="position:absolute;left:14px;top:64px"><svg><use href="#i-eye"/></svg>Following Maya</div>
+  </div>
+  <div class="lc-foot lc-foot--amber" style="left:48px;top:957px;width:624px;height:57px"><svg><use href="#i-eye"/></svg>A design review <span>without the screen share</span></div>
+</section>
+
+<!-- 7 · Outro: multiplayer is a system -->
+<section class="scene" data-t="45" data-shot="46.5">
+  <div class="glow" style="left:100px;top:420px;background:rgba(20,184,166,.14)"></div>
+  <div class="title" style="top:204px;font-size:44px;color:var(--accent)">Multiplayer is a system.</div>
+  <div class="sub" style="top:268px">Presence is engineered, not accidental.</div>
+  <div class="center" style="top:337px;display:flex;align-items:center;gap:18px;white-space:nowrap">
+    <div style="display:flex"><div class="lc-avatar lc-avatar--teal" style="border-color:#0a0d10;margin-left:3px">SC</div><div class="lc-avatar lc-avatar--purple" style="border-color:#0a0d10;margin-left:3px">AR</div><div class="lc-avatar lc-avatar--amber" style="border-color:#0a0d10;margin-left:3px">MK</div><div class="lc-avatar lc-avatar--more" style="border-color:#0a0d10;margin-left:3px">+5</div></div>
+    <span class="lc-live">8 collaborators · live</span>
+  </div>
+  <div class="center" style="top:535px;display:flex;gap:14px;white-space:nowrap"><span class="lc-tag">cursors</span><span class="lc-tag">interpolation</span><span class="lc-tag">color</span></div>
+  <div class="center" style="top:597px;display:flex;gap:14px;white-space:nowrap"><span class="lc-tag">presence</span><span class="lc-tag">locks</span><span class="lc-tag">follow</span></div>
+  <div class="lc-cta center" style="top:785px"><svg><use href="#i-follow"/></svg>Follow for more UX engineering</div>
+  <div class="lc-cursor lc-cursor--teal wander" style="left:172px;top:815px;--dx:30px;--dy:-20px;--dx2:-10px;--dy2:20px"><svg><use href="#arrow"/></svg><span class="lc-cursor__label">Sarah</span></div>
+  <div class="lc-cursor lc-cursor--amber wander" style="left:434px;top:790px;--dx:-60px;--dy:20px;--dx2:40px;--dy2:-10px"><svg><use href="#arrow"/></svg><span class="lc-cursor__label">Maya</span></div>
+  <div class="lc-cursor lc-cursor--purple wander" style="left:548px;top:815px;--dx:-30px;--dy:-40px;--dx2:20px;--dy2:20px"><svg><use href="#arrow"/></svg><span class="lc-cursor__label">Alex</span></div>
+  <div class="lc-save center" style="top:902px"><svg><use href="#i-bookmark"/></svg>Save this for your next collab feature</div>
+</section>
+
+<script>
+  // Traffic cells: 10 server ticks and 60 screen frames per second, each cell lighting when its slice of the second arrives.
+  const css = [];
+  const fill = (id, n, on) => { const el = document.getElementById(id); for (let i = 0; i < n; i++) { const c = document.createElement('i'); c.style.animation = `lit${n}-${i} 1s steps(1, end) infinite`; c.style.animationDelay = '-0.22s'; css.push(`@keyframes lit${n}-${i} { 0% { background: #1e242b } ${(100 * i / n).toFixed(2)}% { background: ${on} } 100% { background: ${on} } }`); el.appendChild(c); } };
+  fill('cells10', 10, '#8e93a6'); fill('cells60', 60, '#14b8a6');
+  const st = document.createElement('style'); st.textContent = css.join(' '); document.head.appendChild(st);
+</script>
+<script type="module">
+  import { colorFromId } from './pattern.js';
+  // Reference: colour is a pure function of the id.
+  console.log('sarah@acme.co ->', colorFromId('sarah@acme.co').hex);
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

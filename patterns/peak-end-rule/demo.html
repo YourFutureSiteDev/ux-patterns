@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Peak-End Rule · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a090b; --accent: #14d49d; --danger: #ee4b7a; --grid: rgba(255,255,255,.012); }
+  .scene { color: #f3f5f7; }
+  .title { margin: 0; font-size: 34px; line-height: 1.2; }
+  .title em { color: #ee4b7a; } .title em.green { color: #31cd92; } .title em.teal { color: #14d49d; }
+  .glow { filter: blur(120px); }
+  /* animated counters: a custom property drives a CSS counter so ?t= can freeze it */
+  @property --n { syntax: '<integer>'; initial-value: 0; inherits: false; }
+  .count { counter-reset: n var(--n); } .count::before { content: counter(n); }
+  @keyframes to58 { to { --n: 58 } } @keyframes to94 { to { --n: 94 } } @keyframes to85 { to { --n: 85 } } @keyframes to22 { from { --n: 85 } to { --n: 22 } }
+  @keyframes w58 { to { width: 58% } } @keyframes w94 { to { width: 94% } } @keyframes w85 { to { width: 85% } } @keyframes w22 { from { width: 85%; background: #33cf5d } to { width: 22%; background: #ee4b7a } }
+</style>
+</head>
+<body class="pe">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-brain" viewBox="0 0 24 24"><path d="M9.5 3a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 1 5.5A3 3 0 0 0 9.5 21c1 0 2-.5 2.5-1.3V4.3C11.5 3.5 10.5 3 9.5 3zM14.5 3a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-1 5.5A3 3 0 0 1 14.5 21c-1 0-2-.5-2.5-1.3V4.3c.5-.8 1.5-1.3 2.5-1.3z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+  <symbol id="i-check-c" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.5 11h11L21 7H6.2"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.8 2.2 2.2.8-2.2.8L19 22l-.8-2.2-2.2-.8 2.2-.8zM5 3l.6 1.6L7.2 5l-1.6.6L5 7.2l-.6-1.6L2.8 5l1.6-.4z"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8 3.4 4.5 7 4.5c2 0 3.4 1 5 2.8 1.6-1.8 3-2.8 5-2.8 3.6 0 6 3.5 4.5 7.3C19.5 16.4 12 21 12 21z"/></symbol>
+  <linearGradient id="g-pink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f11c4e" stop-opacity=".35"/><stop offset="1" stop-color="#f11c4e" stop-opacity="0"/></linearGradient>
+  <linearGradient id="g-green" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33cf5d" stop-opacity=".35"/><stop offset="1" stop-color="#33cf5d" stop-opacity="0"/></linearGradient>
+  <linearGradient id="g-rose" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ee4b7a" stop-opacity=".25"/><stop offset="1" stop-color="#ee4b7a" stop-opacity="0"/></linearGradient>
+</svg>
+
+<!-- 1 · Hook: two paths, same average, opposite endings -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="glow" style="left:-80px;top:150px;width:480px;height:520px;background:rgba(238,75,122,.14)"></div>
+  <div class="glow" style="left:320px;top:700px;width:480px;height:520px;background:rgba(51,207,93,.10)"></div>
+  <div class="pe-kicker" style="top:84px;animation:pe-in .4s ease-out .4s both">Peak-end rule</div>
+  <div class="pe-chart" style="left:36px;top:300px;width:648px;height:355px">
+    <div class="pe-chart__head"><div><i style="background:var(--pe-red)"></i>Path A</div><span>AVG · 65</span></div>
+    <svg width="648" height="355">
+      <path d="M59 167 C74.4 163.8 105.6 159.0 136 151 C166.4 143.0 181.4 129.2 211 127 C240.6 124.8 253.4 135.4 284 140 C314.6 144.6 334.0 150.8 364 150 C394.0 149.2 404.0 137.4 434 136 C464.0 134.6 493.0 142.2 514 143 C535.0 143.8 529.4 128.6 539 140 C548.6 151.4 557.4 188.0 562 200 L562 210 L59 210 Z" fill="url(#g-pink)"/>
+      <path class="pe-line pe-line--pink" d="M59 167 C74.4 163.8 105.6 159.0 136 151 C166.4 143.0 181.4 129.2 211 127 C240.6 124.8 253.4 135.4 284 140 C314.6 144.6 334.0 150.8 364 150 C394.0 149.2 404.0 137.4 434 136 C464.0 134.6 493.0 142.2 514 143 C535.0 143.8 529.4 128.6 539 140 C548.6 151.4 557.4 188.0 562 200" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" style="animation:pe-draw 1.2s linear -1s both"/>
+      <g class="pe-dot pe-dot--pink"><circle cx="59" cy="167" r="4"/><circle cx="136" cy="151" r="4"/><circle cx="211" cy="127" r="4"/><circle cx="284" cy="140" r="4" style="opacity:0;animation:pe-fade .2s .2s forwards"/><circle cx="364" cy="150" r="4" style="opacity:0;animation:pe-fade .2s .3s forwards"/><circle cx="434" cy="136" r="4" style="opacity:0;animation:pe-fade .2s .4s forwards"/><circle cx="514" cy="143" r="4" style="opacity:0;animation:pe-fade .2s .5s forwards"/></g>
+    </svg>
+    <div class="pe-end pe-end--pink" style="left:585px;top:184px;animation:pe-in .3s ease-out .7s both"><span class="pe-end__label" style="left:-4px;top:-22px;color:var(--pe-red)">END</span></div>
+    <div class="pe-memory" style="top:290px;animation:pe-in .4s ease-out .9s both">Memory<b>0<small>/100</small></b></div>
+    <div class="pe-bar" style="left:22px;right:22px;top:322px;animation:pe-in .4s ease-out .9s both"><i></i></div>
+  </div>
+  <div class="pe-chart" style="left:36px;top:685px;width:648px;height:355px">
+    <div class="pe-chart__head"><div><i style="background:var(--pe-green)"></i>Path B</div><span>AVG · 65</span></div>
+    <svg width="648" height="355">
+      <path d="M59 168 C74.4 165.0 105.6 160.6 136 153 C166.4 145.4 181.4 132.0 211 130 C240.6 128.0 253.4 138.4 284 143 C314.6 147.6 334.0 153.8 364 153 C394.0 152.2 404.0 140.6 434 139 C464.0 137.4 493.0 144.2 514 145 C535.0 145.8 529.4 150.0 539 143 C548.6 136.0 557.4 116.6 562 110 L562 210 L59 210 Z" fill="url(#g-green)"/>
+      <path class="pe-line pe-line--green" d="M59 168 C74.4 165.0 105.6 160.6 136 153 C166.4 145.4 181.4 132.0 211 130 C240.6 128.0 253.4 138.4 284 143 C314.6 147.6 334.0 153.8 364 153 C394.0 152.2 404.0 140.6 434 139 C464.0 137.4 493.0 144.2 514 145 C535.0 145.8 529.4 150.0 539 143 C548.6 136.0 557.4 116.6 562 110" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" style="animation:pe-draw 1.2s linear -.95s both"/>
+      <g class="pe-dot pe-dot--green"><circle cx="59" cy="168" r="4"/><circle cx="136" cy="153" r="4" style="opacity:0;animation:pe-fade .2s .15s forwards"/><circle cx="211" cy="130" r="4" style="opacity:0;animation:pe-fade .2s .2s forwards"/><circle cx="284" cy="143" r="4" style="opacity:0;animation:pe-fade .2s .25s forwards"/><circle cx="364" cy="153" r="4" style="opacity:0;animation:pe-fade .2s .3s forwards"/><circle cx="434" cy="139" r="4" style="opacity:0;animation:pe-fade .2s .4s forwards"/><circle cx="514" cy="145" r="4" style="opacity:0;animation:pe-fade .2s .5s forwards"/></g>
+    </svg>
+    <div class="pe-end pe-end--green" style="left:585px;top:101px;animation:pe-in .3s ease-out .7s both"><span class="pe-end__label" style="left:-4px;top:-22px;color:var(--pe-green)">END</span></div>
+  </div>
+</section>
+
+<!-- 2 · How memory works (t=1.2): the curve draws, then the peak and end light up, then the formula -->
+<section class="scene" data-t="1.2" data-shot="6" data-more-shots="10.5">
+  <div class="glow" style="left:120px;top:100px;width:480px;height:520px;background:rgba(238,75,122,.12)"></div>
+  <div class="pe-kicker pe-kicker--bare" style="top:154px"><svg><use href="#i-brain"/></svg>How memory works</div>
+  <div class="title" style="position:absolute;top:196px;left:0;right:0;text-align:center;font-size:40px;line-height:1.15">Your brain doesn't<br><em>average experiences.</em></div>
+  <div class="pe-axis" style="left:66px;top:360px;z-index:2">Satisfaction</div>
+  <div class="pe-chart" style="left:55px;top:320px;width:610px;height:270px;border-radius:12px">
+    <svg width="610" height="270">
+      <path d="M53 168 C62.8 161.4 82.6 147.0 102 135 C121.4 123.0 130.6 110.0 150 108 C169.4 106.0 179.6 126.6 199 125 C218.4 123.4 227.8 113.6 247 100 C266.2 86.4 275.4 62.4 295 57 C314.6 51.6 325.4 61.4 345 73 C364.6 84.6 373.6 104.6 393 115 C412.4 125.4 422.6 128.0 442 125 C461.4 122.0 470.6 103.4 490 100 C509.4 96.6 519.8 113.2 539 108 C558.2 102.8 576.6 80.8 586 74 L586 240 L53 240 Z" fill="url(#g-rose)" style="opacity:0;animation:pe-fade .6s ease-out 2.6s forwards"/>
+      <g style="animation:pe-dim35 .6s ease-out 3.8s forwards">
+        <path class="pe-line" style="stroke:var(--pe-pink);filter:drop-shadow(0 0 6px rgba(238,75,122,.5))" d="M53 168 C62.8 161.4 82.6 147.0 102 135 C121.4 123.0 130.6 110.0 150 108 C169.4 106.0 179.6 126.6 199 125 C218.4 123.4 227.8 113.6 247 100 C266.2 86.4 275.4 62.4 295 57 C314.6 51.6 325.4 61.4 345 73 C364.6 84.6 373.6 104.6 393 115 C412.4 125.4 422.6 128.0 442 125 C461.4 122.0 470.6 103.4 490 100 C509.4 96.6 519.8 113.2 539 108 C558.2 102.8 576.6 80.8 586 74" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" style="animation:pe-draw 2.4s linear .3s both"/>
+        <g class="pe-dot" style="stroke:var(--pe-pink)"><circle cx="53" cy="168" r="4"/><circle cx="102" cy="135" r="4"/><circle cx="150" cy="108" r="4"/><circle cx="199" cy="125" r="4"/><circle cx="247" cy="100" r="4"/><circle cx="295" cy="57" r="4"/><circle cx="345" cy="73" r="4"/><circle cx="393" cy="115" r="4"/><circle cx="442" cy="125" r="4"/><circle cx="490" cy="100" r="4"/><circle cx="539" cy="108" r="4"/><circle cx="586" cy="74" r="4"/></g>
+      </g>
+    </svg>
+    <div class="pe-mark pe-mark--teal" style="left:295px;top:57px;animation:pe-in .4s ease-out 3.8s both"><span>PEAK</span></div>
+    <div class="pe-mark pe-mark--green" style="left:586px;top:74px;animation:pe-in .4s ease-out 4.2s both"><span>END</span></div>
+  </div>
+  <div class="pe-formula" style="left:180px;top:634px;animation:pe-in .4s ease-out 8.3s both"><span class="teal">PEAK</span><span class="op">+</span><span class="green">END</span><span class="op">=</span><span class="pink">MEMORY</span></div>
+  <div class="pe-strike" style="top:706px;animation:pe-in .4s ease-out 8.8s both">AVERAGE · TIME SPENT · EFFORT</div>
+</section>
+
+<!-- 3 · Same flow, 60 seconds (t=12): cold vs joyful checkout endings, memory 58 vs 94 -->
+<section class="scene" data-t="12" data-shot="15" data-more-shots="18">
+  <div class="glow" style="left:-100px;top:250px;width:420px;height:600px;background:rgba(238,75,122,.10)"></div>
+  <div class="glow" style="left:400px;top:250px;width:420px;height:600px;background:rgba(51,207,93,.12)"></div>
+  <div class="pe-kicker" style="top:133px;background:#241119">Same flow · 60 seconds</div>
+  <div class="title" style="position:absolute;top:178px;left:0;right:0;text-align:center">One ends with <em class="green">joy.</em></div>
+  <div style="position:absolute;left:70px;top:238px;width:276px;text-align:center;font-size:14px;font-weight:700;letter-spacing:.14em;color:var(--pe-pink)">COLD ENDING</div>
+  <div style="position:absolute;left:374px;top:238px;width:276px;text-align:center;font-size:14px;font-weight:700;letter-spacing:.14em;color:var(--pe-green)">JOYFUL ENDING</div>
+  <div class="pe-phone" style="left:70px;top:272px">
+    <div class="pe-phone__status"><span>9:41</span><span>···</span></div><div class="pe-phone__title">Checkout</div>
+    <div class="pe-summary"><div>Subtotal<b>$48.00</b></div><div>Shipping<b>$4.99</b></div><div class="total">Total<b>$52.99</b></div></div>
+    <div class="pe-field" style="top:168px">hello@example.com</div><div class="pe-field" style="top:198px">•••• •••• •••• 4242</div>
+    <div class="pe-cold" style="animation:pe-in .4s ease-out 1.6s both"><svg><use href="#i-check"/></svg>Order placed.</div>
+    <div class="pe-phone__home"></div>
+  </div>
+  <div class="pe-phone pe-phone--joy" style="left:374px;top:272px">
+    <div class="pe-phone__status"><span>9:41</span><span>···</span></div><div class="pe-phone__title">Checkout</div>
+    <div class="pe-summary"><div>Subtotal<b>$48.00</b></div><div>Shipping<b>$4.99</b></div><div class="total">Total<b>$52.99</b></div></div>
+    <div class="pe-joy" style="animation:pe-in .5s ease-out 2s both"><div class="pe-joy__check"><svg><use href="#i-check"/></svg></div><b>You're all set!</b><div class="pe-joy__chip"><svg><use href="#i-box"/></svg>Tomorrow · free</div><span>Confirmation sent to your inbox</span></div>
+    <div class="pe-phone__home"></div>
+  </div>
+  <div class="pe-score" style="left:70px;top:812px;animation:pe-in .4s ease-out 2.8s both">Memory<b><span class="count" style="animation:to58 1.4s ease-out 3.4s both"></span><small>/100</small></b></div>
+  <div class="pe-bar pe-bar--pink" style="left:70px;top:850px;width:276px;animation:pe-in .4s ease-out 2.8s both"><i style="animation:w58 1.4s ease-out 3.4s both"></i></div>
+  <div class="pe-score pe-score--green" style="left:374px;top:812px;animation:pe-in .4s ease-out 3.6s both">Memory<b><span class="count" style="animation:to94 1.4s ease-out 4.2s both"></span><small>/100</small></b></div>
+  <div class="pe-bar pe-bar--green" style="left:374px;top:850px;width:276px;animation:pe-in .4s ease-out 3.6s both"><i style="animation:w94 1.4s ease-out 4.2s both"></i></div>
+  <div class="title" style="position:absolute;top:888px;left:0;right:0;text-align:center;font-size:24px;animation:pe-in .4s ease-out 5.5s both">Same UX. <em class="green">+40% recall.</em></div>
+</section>
+
+<!-- 4 · Design intentional peaks (t=19.5): four neutral steps, then one delight -->
+<section class="scene" data-t="19.5" data-shot="25.5" data-more-shots="28.5">
+  <div class="glow" style="left:120px;top:600px;width:480px;height:560px;background:rgba(20,212,157,.14)"></div>
+  <div class="pe-kicker pe-kicker--teal" style="top:140px">Design intentional peaks</div>
+  <div class="title" style="position:absolute;top:184px;left:0;right:0;text-align:center">One delight beats <em class="teal">five neutrals.</em></div>
+  <div class="pe-row" style="top:253px;animation:pe-in .4s ease-out .3s both, pe-dim .4s ease-out 3.5s forwards"><div class="pe-row__icon"><svg><use href="#i-search"/></svg></div><div><b>Browse</b><span>Looking for size 9</span></div></div>
+  <div class="pe-row" style="top:322px;animation:pe-in .4s ease-out .6s both, pe-dim .4s ease-out 3.5s forwards"><div class="pe-row__icon"><svg><use href="#i-filter"/></svg></div><div><b>Filter</b><span>Narrows to 4 results</span></div></div>
+  <div class="pe-row" style="top:391px;animation:pe-in .4s ease-out .9s both, pe-dim .4s ease-out 3.5s forwards"><div class="pe-row__icon"><svg><use href="#i-cart"/></svg></div><div><b>Add to cart</b><span>Standard interaction</span></div></div>
+  <div class="pe-row" style="top:460px;animation:pe-in .4s ease-out 1.2s both, pe-dim .4s ease-out 3.5s forwards"><div class="pe-row__icon"><svg><use href="#i-card"/></svg></div><div><b>Checkout</b><span>Pay</span></div></div>
+  <div class="pe-peak" style="top:532px;animation:pe-in .5s cubic-bezier(.2,.8,.2,1) 3.5s both"><div class="pe-peak__icon"><svg><use href="#i-spark"/></svg></div><div><b>Surprise upgrade</b><span>+ Free express shipping</span></div><span class="pe-tag pe-tag--teal">PEAK</span></div>
+  <div class="pe-note" style="top:650px;animation:pe-in .4s ease-out 7s both"><svg><use href="#i-spark"/></svg>Plant a peak. <b>One is enough.</b></div>
+</section>
+
+<!-- 5 · The reverse is also true (t=30): four good steps, then payment fails and memory drops 85 to 22 -->
+<section class="scene" data-t="30" data-shot="31.5" data-more-shots="34.5,36">
+  <div class="glow" style="left:120px;top:300px;width:480px;height:560px;background:rgba(51,207,93,.12);animation:pe-glow-fail .6s ease-out 3s forwards"></div>
+  <div class="pe-kicker" style="top:134px;background:#241119">The reverse is also true</div>
+  <div class="title" style="position:absolute;top:177px;left:0;right:0;text-align:center">Bad ending <em>kills the flow.</em></div>
+  <div class="pe-row pe-row--done" style="top:236px;animation:pe-in .4s ease-out .2s both, pe-dim35 .4s ease-out 3s forwards"><div class="pe-row__icon"><svg><use href="#i-check-c"/></svg></div><b>Sign up</b></div>
+  <div class="pe-row pe-row--done" style="top:295px;animation:pe-in .4s ease-out .4s both, pe-dim35 .4s ease-out 3s forwards"><div class="pe-row__icon"><svg><use href="#i-check-c"/></svg></div><b>Verify email</b></div>
+  <div class="pe-row pe-row--done" style="top:354px;animation:pe-in .4s ease-out .6s both, pe-dim35 .4s ease-out 3s forwards"><div class="pe-row__icon"><svg><use href="#i-check-c"/></svg></div><b>Pick a plan</b></div>
+  <div class="pe-row pe-row--done" style="top:413px;animation:pe-in .4s ease-out .8s both, pe-dim35 .4s ease-out 3s forwards"><div class="pe-row__icon"><svg><use href="#i-check-c"/></svg></div><b>Add payment</b></div>
+  <div class="pe-fail" style="top:472px;animation:pe-in .5s cubic-bezier(.2,.8,.2,1) 3s both"><div class="pe-fail__icon"><svg><use href="#i-alert"/></svg></div><div><b>Payment failed.</b><span>Card declined · try another method</span></div><span class="pe-tag pe-tag--pink">ERROR</span></div>
+  <div class="pe-rating" style="top:592px;animation:pe-in .4s ease-out 1s both"><span><svg><use href="#i-info"/></svg>MEMORY RATING</span><b style="animation:pe-num-bad .3s ease-out 3.2s forwards"><span class="count" style="animation:to85 1s ease-out 1.2s both, to22 1s ease-out 3.2s both"></span><small>/100</small></b></div>
+  <div class="pe-bar" style="left:47px;top:624px;width:626px;height:14px;border-radius:7px;animation:pe-in .4s ease-out 1s both"><i style="background:var(--pe-green);animation:w85 1s ease-out 1.2s both, w22 1s ease-out 3.2s both"></i></div>
+  <div class="title" style="position:absolute;top:660px;left:0;right:0;text-align:center;font-size:17px;font-weight:600;color:#c9ced5;animation:pe-in .4s ease-out 6.5s both">The 99% that worked? <em style="font-weight:700">Gone.</em></div>
+  <style>
+    @keyframes pe-glow-fail { to { background: rgba(238,75,122,.16) } }
+    @keyframes pe-num-bad { to { color: #ee4b7a } }
+  </style>
+</section>
+
+<!-- 6 · Outro (t=38.5) -->
+<section class="scene" data-t="38.5" data-shot="39" data-more-shots="40.5">
+  <div class="glow" style="left:120px;top:250px;width:480px;height:560px;background:rgba(238,75,122,.14)"></div>
+  <div class="glow" style="left:300px;top:800px;width:420px;height:420px;background:rgba(20,212,157,.10)"></div>
+  <div class="pe-kicker pe-kicker--bare" style="top:468px;animation:pe-in .4s ease-out 0s both"><svg><use href="#i-brain"/></svg>Peak-end rule</div>
+  <div class="title" style="position:absolute;top:504px;left:0;right:0;text-align:center;font-size:40px;line-height:1.3;animation:pe-in .4s ease-out .1s both">Forget the average.<br><em>Polish the end.</em></div>
+  <div class="center" style="top:648px;display:flex;gap:9px;white-space:nowrap;animation:pe-in .4s ease-out .3s both"><span class="pe-pill pe-pill--teal">PEAK</span><span class="pe-pill pe-pill--green">END</span><span class="pe-pill pe-pill--pink">MEMORY</span></div>
+  <div class="pe-cta center" style="top:728px;animation:pe-in .4s ease-out 1.5s both"><svg><use href="#i-bookmark"/></svg>Save for your next user flow</div>
+  <div class="pe-follow center" style="top:797px;animation:pe-in .4s ease-out 1.8s both"><svg><use href="#i-heart"/></svg>Follow for more design psychology</div>
+</section>
+
+<script>
+  // A scene that changes materially over time is compared at more than one frame: clone it per extra data-shot.
+  document.querySelectorAll('.scene[data-more-shots]').forEach(s => {
+    s.dataset.moreShots.split(',').forEach(t => { const c = s.cloneNode(true); c.dataset.shot = t.trim(); delete c.dataset.moreShots; s.after(c); s = c; });
+  });
+</script>
+<script type="module">
+  import { peakEndScore, FlowPeak } from './pattern.js';
+  const neutral = [{ label: 'Browse', score: 60 }, { label: 'Filter', score: 62 }, { label: 'Add to cart', score: 65 }, { label: 'Checkout', score: 63 }];
+  const planted = FlowPeak(neutral);
+  console.log('memory before peak', planted.before, '· after', planted.after, '· cold ending', peakEndScore([60, 62, 65, 63, 50]), '· joyful ending', peakEndScore([60, 62, 65, 63, 98]));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

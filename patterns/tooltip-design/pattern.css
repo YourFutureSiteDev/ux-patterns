@@ -1,0 +1,78 @@
+/* Tooltip Design, rebuilt from the @designmotionhq reel "Your tooltip is annoying. Five rules that make it feel premium."
+   Component classes are prefixed .tt- and depend only on the tokens below. */
+.tt {
+  --tt-bg: #0a090b; --tt-panel: #15131a; --tt-tip: #1a1a24; --tt-border: rgba(255,255,255,.08);
+  --tt-text: #f3f5f7; --tt-muted: #8a9199;
+  --tt-pink: #e0405c; --tt-pink-dim: rgba(224,64,92,.18); --tt-teal: #3ebf9a; --tt-teal-dim: rgba(62,191,154,.16);
+  --tt-orange: #e0a030; --tt-purple: #9b5cf6; --tt-blue: #3b82f6;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--tt-text);
+}
+
+/* ---- Tooltip ------------------------------------------------------------ */
+.tt-tip { position: absolute; padding: 7px 12px; border-radius: 7px; background: var(--tt-tip); border: 1px solid rgba(255,255,255,.14); color: #fff; font-size: 15px; font-weight: 700; white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,.45); z-index: 5;
+  opacity: 0; transform: translateY(4px) scale(.96); transition: opacity .16s ease, transform .16s ease; pointer-events: none; }
+.tt-tip.is-open { opacity: 1; transform: none; }
+.tt-tip--static { opacity: 1; transform: none; transition: none; }
+.tt-tip--teal { border-color: var(--tt-teal); box-shadow: 0 0 0 1px rgba(62,191,154,.25), 0 0 22px rgba(62,191,154,.35); }
+.tt-tip--pink { border-color: var(--tt-pink); box-shadow: 0 0 0 1px rgba(224,64,92,.25), 0 0 22px rgba(224,64,92,.3); }
+.tt-tip--danger { background: #d63143; border-color: #e85a68; color: #fff; font-weight: 500; font-size: 12.5px; letter-spacing: -.01em; line-height: 16px; white-space: normal; box-shadow: 0 0 40px rgba(214,49,67,.45); }
+.tt-tip--doc { background: var(--tt-panel); border-color: rgba(224,64,92,.35); color: #c9ced5; font-weight: 400; font-size: 13px; line-height: 18px; white-space: normal; text-align: left; }
+.tt-tip--tight { background: var(--tt-panel); border-color: var(--tt-teal); color: #fff; font-weight: 600; font-size: 15px; line-height: 19px; white-space: normal; text-align: center; box-shadow: 0 0 22px rgba(62,191,154,.25); }
+/* arrow: the tip carries a 10px diamond on the side facing the trigger */
+.tt-tip--arrow::after { content: ''; position: absolute; width: 10px; height: 10px; background: inherit; border: inherit; border-width: 0 1px 1px 0; transform: rotate(45deg); left: 50%; bottom: -6px; margin-left: -5px; }
+.tt-tip--arrow.tt-tip--left::after { left: auto; right: -6px; bottom: auto; top: 50%; margin: -5px 0 0; border-width: 1px 1px 0 0; }
+.tt-tip--arrow.tt-tip--right::after { left: -6px; right: auto; bottom: auto; top: 50%; margin: -5px 0 0; border-width: 0 0 1px 1px; }
+.tt-tip--arrow.tt-tip--bottom::after { top: -6px; bottom: auto; border-width: 1px 0 0 1px; }
+
+/* ---- Trigger buttons ---------------------------------------------------- */
+.tt-btn { width: 46px; height: 46px; border-radius: 10px; background: #14171c; border: 1px solid #363b41; color: #aab0b7; display: grid; place-items: center; cursor: pointer; transition: border-color .15s, color .15s, background .15s; }
+.tt-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.tt-btn--lg { width: 60px; height: 60px; border-radius: 12px; } .tt-btn--lg svg { width: 24px; height: 24px; }
+.tt-btn--md { width: 42px; height: 42px; border-radius: 10px; }
+.tt-btn.is-pink { border-color: var(--tt-pink); color: var(--tt-pink); background: rgba(224,64,92,.12); box-shadow: 0 0 18px rgba(224,64,92,.35); }
+.tt-btn.is-teal { border-color: var(--tt-teal); color: var(--tt-teal); background: rgba(62,191,154,.1); box-shadow: 0 0 18px rgba(62,191,154,.35); }
+.tt-btn.is-orange { border-color: var(--tt-orange); color: var(--tt-orange); background: rgba(224,160,48,.12); box-shadow: 0 0 18px rgba(224,160,48,.3); }
+.tt-btn.is-dim { color: #6a7179; border-color: #2c3136; }
+.tt-row { display: flex; gap: 18px; }
+.tt-label { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.tt-label--pink { color: var(--tt-pink); } .tt-label--teal { color: var(--tt-teal); }
+.tt-sub { font-size: 13px; }
+.tt-sub--pink { color: var(--tt-pink); } .tt-sub--teal { color: var(--tt-teal); }
+
+/* ---- Browser window (flip demo) ---------------------------------------- */
+.tt-window { width: 480px; height: 626px; border-radius: 10px; background: #0d0f15; border: 1px solid #23252d; overflow: visible; position: relative; box-shadow: 0 30px 70px rgba(0,0,0,.5); }
+.tt-window__bar { height: 28px; border-radius: 10px 10px 0 0; background: #1a1c25; display: flex; align-items: center; gap: 4px; padding: 0 10px; }
+.tt-window__bar i { width: 5px; height: 5px; border-radius: 50%; }
+.tt-window__bar i:nth-child(1) { background: #e0405c; } .tt-window__bar i:nth-child(2) { background: #e0a030; } .tt-window__bar i:nth-child(3) { background: #3ebf9a; }
+.tt-skel { position: absolute; border-radius: 4px; background: #1d1f27; }
+.tt-skel--title { background: #3a2d15; }
+.tt-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+.tt-chip--teal { background: #092d2a; color: var(--tt-teal); border: 1px solid rgba(62,191,154,.35); }
+
+/* ---- Dismiss list -------------------------------------------------------- */
+.tt-list { display: flex; flex-direction: column; gap: 13px; width: 412px; }
+.tt-item { height: 62px; border-radius: 10px; background: #0f1015; border: 1px solid #2a2c34; display: flex; align-items: center; gap: 14px; padding: 0 18px; position: relative; }
+.tt-item__n { width: 26px; height: 26px; border-radius: 50%; background: #23252d; color: #8a9199; font-size: 13px; font-weight: 700; display: grid; place-items: center; flex: none; }
+.tt-item__t { font-size: 17px; font-weight: 700; line-height: 1.2; }
+.tt-item__c { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 12px; color: #8a9199; margin-top: 2px; }
+.tt-item__closed { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); padding: 4px 10px; border-radius: 6px; background: #fff; color: #0a090b; font-size: 11px; font-weight: 800; letter-spacing: .08em; display: none; }
+.tt-item.is-active .tt-item__closed { display: block; }
+.tt-item.is-active { border-color: var(--tt-blue); box-shadow: 0 0 0 1px rgba(59,130,246,.3), 0 0 24px rgba(59,130,246,.3); }
+.tt-item.is-active .tt-item__n { background: var(--tt-blue); color: #fff; }
+.tt-item.is-active .tt-item__t { color: #5b9cf6; }
+.tt-item.is-active.is-teal { border-color: var(--tt-teal); box-shadow: 0 0 0 1px rgba(62,191,154,.3), 0 0 24px rgba(62,191,154,.3); }
+.tt-item.is-active.is-teal .tt-item__n { background: var(--tt-teal); color: #05261c; }
+.tt-item.is-active.is-teal .tt-item__t { color: var(--tt-teal); }
+
+/* ---- Width measure -------------------------------------------------------- */
+.tt-measure { position: relative; height: 14px; }
+.tt-measure::before, .tt-measure::after { content: ''; position: absolute; top: 0; bottom: 0; width: 1.5px; background: var(--tt-teal); }
+.tt-measure::before { left: 0; } .tt-measure::after { right: 0; }
+.tt-measure i { position: absolute; left: 4px; right: 4px; top: 50%; height: 1.5px; background: var(--tt-teal); }
+.tt-measure b { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 2px 8px; border-radius: 5px; background: #0f2a25; border: 1px solid rgba(62,191,154,.5); color: var(--tt-teal); font: 700 11px 'JetBrains Mono', ui-monospace, Menlo, monospace; }
+
+/* ---- Outro ----------------------------------------------------------------- */
+.tt-cta { display: inline-flex; align-items: center; gap: 10px; padding: 15px 38px; font-size: 21px; border-radius: 999px; background: var(--tt-pink); color: #fff; font-size: 20px; font-weight: 700; box-shadow: 0 0 40px rgba(224,64,92,.45); white-space: nowrap; }
+.tt-cta svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; }
+.tt-save { display: inline-flex; align-items: center; gap: 8px; padding: 9px 22px; border-radius: 999px; background: #1a171c; border: 1px solid rgba(255,255,255,.08); color: #b0b6bd; font-size: 15px; font-weight: 500; white-space: nowrap; }
+.tt-save svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }

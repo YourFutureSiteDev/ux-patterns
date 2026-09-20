@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Color Accessibility · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a090d; --grid: transparent; --accent: #7c5cff; --danger: #e5304f; }
+  .scene { color: #f2f3f5; }
+  .glow { width: 620px; height: 620px; background: radial-gradient(circle, rgba(70,40,120,.22), transparent 70%); filter: blur(30px); }
+</style>
+</head>
+<body class="ca">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3 2 21h20L12 3z"/><path d="M12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-up" viewBox="0 0 12 12"><path d="M6 2l5 8H1z" fill="#2ddf5f"/></symbol>
+  <symbol id="i-down" viewBox="0 0 12 12"><path d="M6 10L1 2h10z" fill="#e5304f"/></symbol>
+</svg>
+
+<!-- 1 · Hook: same #F0F0F0, two backgrounds -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:50px;top:330px"></div>
+  <div class="ca-swatch ca-swatch--hi" style="position:absolute;left:42px;top:478px">
+    <div class="ca-swatch__label">HIGH CONTRAST</div>
+    <div class="ca-swatch__preview"><b>Design</b><i></i><i></i><i></i></div>
+    <span class="ca-swatch__hex ca-fade" style="animation-delay:.7s">#F0F0F0</span>
+    <span class="ca-swatch__ratio ca-swatch__ratio--pass ca-fade" style="animation-delay:.9s">7.2 : 1</span>
+  </div>
+  <div class="ca-swatch ca-swatch--lo" style="position:absolute;left:375px;top:478px">
+    <div class="ca-swatch__label">LOW CONTRAST</div>
+    <div class="ca-swatch__preview"><b>Design</b><i></i><i></i><i></i></div>
+    <span class="ca-swatch__hex ca-fade" style="animation-delay:.7s">#F0F0F0</span>
+    <span class="ca-swatch__ratio ca-swatch__ratio--fail ca-fade" style="animation-delay:.9s">1.4 : 1</span>
+  </div>
+</section>
+
+<!-- 2 · Rule 01: Contrast Ratio ladder -->
+<section class="scene" data-t="3" data-shot="10.5">
+  <div class="glow" style="left:-150px;top:600px;opacity:.6"></div>
+  <div class="ca-rule ca-rule--grey" style="top:161px">RULE 01</div>
+  <div class="ca-h" style="top:189px;font-size:36px">Contrast Ratio</div>
+  <div class="ca-rows" style="position:absolute;left:54px;top:281px">
+    <div class="ca-row ca-row--1 ca-fade" style="animation-delay:.1s">Your users need to read this<span class="ca-row__ratio ca-row__ratio--pass ca-late" style="animation-delay:2.5s">15 : 1</span><span class="ca-row__note ca-row__note--pass ca-late" style="animation-delay:2.5s">Crystal clear</span><span class="ca-row__mark ca-row__mark--pass ca-late" style="animation-delay:6.5s">✓</span></div>
+    <div class="ca-row ca-row--2 ca-fade" style="animation-delay:.25s">Your users need to read this<span class="ca-row__ratio ca-row__ratio--pass ca-late" style="animation-delay:2.5s">7 : 1</span><span class="ca-row__note ca-row__note--pass ca-late" style="animation-delay:2.5s">AAA — recommended</span><span class="ca-row__mark ca-row__mark--pass ca-late" style="animation-delay:6.5s">✓</span><span class="ca-row__badge ca-row__badge--aaa ca-late" style="animation-delay:5.5s">AAA</span></div>
+    <div class="ca-row ca-row--3 ca-fade" style="animation-delay:.4s">Your users need to read this<span class="ca-row__ratio ca-row__ratio--aa ca-late" style="animation-delay:2.5s">4.5 : 1</span><span class="ca-row__note ca-row__note--aa ca-late" style="animation-delay:2.5s">AA — minimum for body text</span><span class="ca-row__mark ca-row__mark--aa ca-late" style="animation-delay:6.5s">✓</span><span class="ca-row__badge ca-row__badge--aa ca-late" style="animation-delay:6s">AA</span></div>
+    <div class="ca-row ca-row--4 ca-fade" style="animation-delay:.55s">Your users need to read this<span class="ca-row__ratio ca-row__ratio--fail ca-late" style="animation-delay:2.5s">3 : 1</span><span class="ca-row__note ca-row__note--fail ca-late" style="animation-delay:2.5s">Large text only</span><span class="ca-row__mark ca-row__mark--fail ca-late" style="animation-delay:6.5s">✕</span></div>
+    <div class="ca-row ca-row--5 ca-fade" style="animation-delay:.7s">Your users need to read this<span class="ca-row__ratio ca-row__ratio--fail ca-late" style="animation-delay:2.5s">1.5 : 1</span><span class="ca-row__note ca-row__note--fail ca-late" style="animation-delay:2.5s">Invisible</span><span class="ca-row__mark ca-row__mark--fail ca-late" style="animation-delay:6.5s">✕</span></div>
+    <div class="ca-rows__fail ca-late" style="animation-delay:2.5s"></div>
+  </div>
+</section>
+
+<!-- 3 · Most apps fail both -->
+<section class="scene" data-t="13" data-shot="16.5">
+  <div class="glow" style="left:-150px;top:600px;opacity:.5"></div>
+  <div class="ca-h" style="top:174px;font-size:30px;color:#e5304f">Most apps fail both.</div>
+  <div class="ca-app" style="position:absolute;left:60px;top:240px">
+    <div class="ca-app__logo"></div><div class="ca-app__brand">MyApp</div>
+    <div class="ca-app__nav"><span>Home</span><span>Reports</span><span>Settings</span></div>
+    <div class="ca-app__rule"></div>
+    <div class="ca-app__h1">Welcome back</div>
+    <div class="ca-app__sub">Here is your dashboard overview with the latest updates</div>
+    <div class="ca-app__stat" style="left:21px"><span>Revenue</span><b>$12,450</b></div>
+    <div class="ca-app__stat" style="left:212px"><span>Users</span><b>3,281</b></div>
+    <div class="ca-app__stat" style="left:402px"><span>Growth</span><b>+14%</b></div>
+    <div class="ca-app__btn ca-app__btn--primary">View Details</div><div class="ca-app__btn ca-app__btn--ghost">Export</div>
+    <div class="ca-app__list"><div>John D. — $2,400</div><div>Sara K. — $1,800</div><div>Mike T. — $3,100</div></div>
+  </div>
+  <div class="ca-outline ca-late" style="left:73px;top:280px;width:574px;height:40px;animation-delay:.3s"></div>
+  <div class="ca-outline ca-late" style="left:73px;top:340px;width:574px;height:44px;animation-delay:1.8s"></div>
+  <div class="ca-outline ca-late" style="left:73px;top:442px;width:574px;height:46px;animation-delay:3s"></div>
+  <div class="ca-callout ca-late" style="left:438px;top:228px;animation-delay:.3s"><span class="ca-callout__chip">Home</span><span class="ca-callout__arrow">→</span><span class="ca-callout__ratio">1.8 : 1</span><span class="ca-callout__fail">FAIL</span></div>
+  <div class="ca-callout ca-late" style="left:376px;top:294px;animation-delay:1.8s"><span class="ca-callout__chip">Welcome back</span><span class="ca-callout__arrow">→</span><span class="ca-callout__ratio">2.1 : 1</span><span class="ca-callout__fail">FAIL</span></div>
+  <div class="ca-callout ca-late" style="left:418px;top:394px;animation-delay:3s"><span class="ca-callout__chip">Revenue</span><span class="ca-callout__arrow">→</span><span class="ca-callout__ratio">1.5 : 1</span><span class="ca-callout__fail">FAIL</span></div>
+</section>
+
+<!-- 4 · Hidden problem: colour blindness counter -->
+<section class="scene" data-t="17.5" data-shot="18">
+  <div class="glow" style="left:50px;top:300px"></div>
+  <div class="ca-rule ca-rule--grey" style="top:420px">HIDDEN PROBLEM</div>
+  <div class="ca-h" style="top:450px;font-size:30px">Color Blindness</div>
+  <div class="ca-h" style="top:504px;font-size:30px;color:#7c5cff" id="cbCount">0M</div>
+  <div class="ca-form ca-form--in" style="position:absolute;left:60px;top:590px">
+    <div class="ca-form__label">Email</div>
+    <div class="ca-input">user@exam...</div>
+    <div class="ca-form__error"><svg><use href="#i-warn"/></svg>Invalid email address</div>
+    <div class="ca-btn">Submit</div>
+  </div>
+</section>
+
+<!-- 5 · Same form. Same colors. Same problem. -->
+<section class="scene" data-t="20" data-shot="21">
+  <div class="glow" style="left:50px;top:200px"></div>
+  <div class="ca-h" style="top:550px;font-size:18px;font-weight:600;color:#8b8f9a">Same form. Same colors. Same problem.</div>
+  <div class="ca-form" style="position:absolute;left:60px;top:590px">
+    <div class="ca-form__label">Email</div>
+    <div class="ca-input">user@exam...</div>
+    <div class="ca-form__error"><svg><use href="#i-warn"/></svg>Invalid email address</div>
+    <div class="ca-btn">Submit</div>
+  </div>
+  <div class="ca-ring" style="left:294px;top:686px;width:128px;height:32px"></div>
+  <div class="ca-ring" style="left:250px;top:740px;width:216px;height:48px;border-radius:8px;animation-delay:.4s"></div>
+</section>
+
+<!-- 6 · Three simulations -->
+<section class="scene" data-t="24" data-shot="27">
+  <div class="glow" style="left:50px;top:230px;opacity:.7"></div>
+  <div class="ca-mini ca-mini--prot ca-fade" style="position:absolute;left:47px;top:452px">
+    <div class="ca-mini__label">Email</div><div class="ca-input">user@exam...</div>
+    <div class="ca-mini__error"><svg><use href="#i-warn"/></svg><span>Invalid email<br>address</span></div>
+    <div class="ca-btn">Submit</div>
+  </div>
+  <div class="ca-mini ca-mini--deut ca-fade" style="position:absolute;left:260px;top:452px;animation-delay:.4s">
+    <div class="ca-mini__label">Email</div><div class="ca-input">user@exam...</div>
+    <div class="ca-mini__error"><svg><use href="#i-warn"/></svg><span>Invalid email<br>address</span></div>
+    <div class="ca-btn">Submit</div>
+  </div>
+  <div class="ca-mini ca-mini--trit ca-fade" style="position:absolute;left:474px;top:452px;animation-delay:.8s">
+    <div class="ca-mini__label">Email</div><div class="ca-input">user@exam...</div>
+    <div class="ca-mini__error"><svg><use href="#i-warn"/></svg><span>Invalid email<br>address</span></div>
+    <div class="ca-btn">Submit</div>
+  </div>
+  <div class="ca-mini__cap ca-fade" style="position:absolute;left:47px;top:684px;animation-delay:.2s"><b>Protanopia</b><span>No reds</span></div>
+  <div class="ca-mini__cap ca-fade" style="position:absolute;left:260px;top:684px;animation-delay:.6s"><b>Deuteranopia</b><span>No greens</span></div>
+  <div class="ca-mini__cap ca-fade" style="position:absolute;left:474px;top:684px;animation-delay:1s"><b>Tritanopia</b><span>No blues</span></div>
+</section>
+
+<!-- 6b · Same color, and how common each is -->
+<section class="scene" data-t="28.5" data-shot="30">
+  <div class="glow" style="left:50px;top:230px;opacity:.7"></div>
+  <div class="ca-mini ca-mini--prot is-dim" style="position:absolute;left:47px;top:452px">
+    <div class="ca-mini__label">Email</div><div class="ca-input">user@exam...</div>
+    <div class="ca-mini__error"><svg><use href="#i-warn"/></svg><span>Invalid email<br>address</span></div>
+    <div class="ca-btn">Submit</div>
+  </div>
+  <div class="ca-mini ca-mini--deut is-focus" style="position:absolute;left:260px;top:452px">
+    <div class="ca-mini__label">Email</div><div class="ca-input">user@exam...</div>
+    <div class="ca-mini__error"><svg><use href="#i-warn"/></svg><span>Invalid email<br>address</span></div>
+    <div class="ca-btn">Submit</div>
+  </div>
+  <div class="ca-mini ca-mini--trit is-dim" style="position:absolute;left:474px;top:452px">
+    <div class="ca-mini__label">Email</div><div class="ca-input">user@exam...</div>
+    <div class="ca-mini__error"><svg><use href="#i-warn"/></svg><span>Invalid email<br>address</span></div>
+    <div class="ca-btn">Submit</div>
+  </div>
+  <div class="ca-samecolor ca-late" style="left:298px;top:550px;animation-delay:.2s">SAME COLOR</div>
+  <div class="ca-mini__cap" style="position:absolute;left:47px;top:684px"><b>Protanopia</b><span>No reds</span><em class="ca-mini__pct ca-late" style="animation-delay:.6s;font-style:normal">1.5%</em></div>
+  <div class="ca-mini__cap" style="position:absolute;left:260px;top:684px"><b>Deuteranopia</b><span>No greens</span><em class="ca-mini__pct ca-late" style="animation-delay:.8s;font-style:normal;font-size:26px;margin-top:7px;color:#7c5cff">6%</em></div>
+  <div class="ca-mini__cap" style="position:absolute;left:474px;top:684px"><b>Tritanopia</b><span>No blues</span><em class="ca-mini__pct ca-late" style="animation-delay:1s;font-style:normal">0.01%</em></div>
+</section>
+
+<!-- 7 · Rule 01: Add Icons -->
+<section class="scene" data-t="33" data-shot="34.5">
+  <div class="glow" style="left:50px;top:280px"></div>
+  <div class="ca-rule" style="top:484px">RULE 01</div>
+  <div class="ca-h" style="top:508px">Add Icons</div>
+  <div class="ca-panel" style="position:absolute;left:60px;top:565px;height:165px">
+    <div class="ca-error" style="left:214px;top:37px"><span class="ca-error__icon ca-late" style="animation-delay:.6s">✕</span>Invalid email</div>
+    <div class="ca-badge ca-late" style="position:absolute;left:223px;top:94px;animation-delay:1s">Color + Icon ✓</div>
+  </div>
+</section>
+
+<!-- 8 · Rule 02: Use Patterns -->
+<section class="scene" data-t="36" data-shot="37.5">
+  <div class="glow" style="left:50px;top:260px"></div>
+  <div class="ca-rule" style="top:444px">RULE 02</div>
+  <div class="ca-h" style="top:468px">Use Patterns</div>
+  <div class="ca-panel is-patterned" id="patterns" style="position:absolute;left:60px;top:525px;height:245px">
+    <div class="ca-bar ca-bar--stripes" style="top:31px"><div class="ca-bar__fill" style="--fill:#f15564;width:311px"></div></div><div class="ca-bar__label" style="top:39px">Revenue</div>
+    <div class="ca-bar ca-bar--dots" style="top:82px"><div class="ca-bar__fill" style="--fill:#3ad664;width:222px"></div></div><div class="ca-bar__label" style="top:90px">Costs</div>
+    <div class="ca-bar ca-bar--grid" style="top:133px"><div class="ca-bar__fill" style="--fill:#5a8cf9;width:377px"></div></div><div class="ca-bar__label" style="top:141px">Growth</div>
+    <div class="ca-badge ca-late" style="position:absolute;left:208px;top:188px;animation-delay:1s">Color Blind Safe ✓</div>
+  </div>
+</section>
+
+<!-- 9 · Rule 03: 7:1 Contrast -->
+<section class="scene" data-t="39" data-shot="40.5">
+  <div class="glow" style="left:50px;top:250px"></div>
+  <div class="ca-rule" style="top:430px">RULE 03</div>
+  <div class="ca-h" style="top:454px">7:1 Contrast</div>
+  <div class="ca-panel" style="position:absolute;left:60px;top:512px;height:270px">
+    <div class="ca-copy"><b>Critical UI Text</b><p>Users need to read this clearly on every device, in every lighting condition.</p></div>
+    <div class="ca-meter" id="meter" style="top:199px"><b>3.2 : 1</b></div>
+  </div>
+</section>
+
+<!-- 10 · Rule 04: Test & Simulate -->
+<section class="scene" data-t="42" data-shot="45">
+  <div class="glow" style="left:50px;top:240px"></div>
+  <div class="ca-rule" style="top:414px">RULE 04</div>
+  <div class="ca-h" style="top:438px">Test &amp; Simulate</div>
+  <div class="ca-browser" style="position:absolute;left:60px;top:495px">
+    <div class="ca-browser__bar"><div class="ca-browser__dots"><i style="background:#a72231"></i><i style="background:#ad7709"></i><i style="background:#23a441"></i></div><div class="ca-browser__url">myapp.com/dashboard</div></div>
+    <div class="ca-browser__sim">
+      <div class="ca-pill" style="left:25px;width:105px;background:#578779"></div>
+      <div class="ca-pill" style="left:145px;width:77px;background:#1e1f16"></div>
+      <div class="ca-pill" style="left:237px;width:81px;background:#1e1f16"></div>
+      <div class="ca-pill" style="left:508px;width:67px;background:#958d3e"></div>
+      <div class="ca-simchip ca-late" style="animation-delay:.8s">DEUTERANOPIA SIMULATOR</div>
+      <div class="ca-simstat" style="left:25px;--c:#b58a55"><i></i><b>3 Errors</b></div>
+      <div class="ca-simstat" style="left:211px;--c:#a3a24a"><i></i><b>12 Passed</b></div>
+      <div class="ca-simstat" style="left:398px;--c:#6dbdb6"><i></i><b>5 Pending</b></div>
+      <div class="ca-deploy">Deploy Now</div>
+    </div>
+    <div class="ca-browser__rule"></div>
+    <div class="ca-badge ca-late" style="position:absolute;left:208px;top:253px;animation-delay:2.2s">Test Before Ship ✓</div>
+  </div>
+</section>
+
+<!-- 11 · Before / after sweep -->
+<section class="scene" data-t="46.5" data-shot="51">
+  <div class="ca-tag" style="left:60px;top:226px"><i></i>BEFORE</div>
+  <div class="ca-tag ca-tag--after ca-late" style="right:60px;top:226px;animation-delay:1s">AFTER<i></i></div>
+  <div class="ca-dash is-sweeping" id="dash" style="position:absolute;left:60px;top:255px">
+    <div class="ca-dash__layer">
+      <div class="ca-dash__logo"></div><div class="ca-dash__title">Dashboard</div><div class="ca-dash__dots">•••</div><div class="ca-dash__rule"></div>
+      <div class="ca-dash__stat" style="left:20px"><span>Revenue</span><b>$12,450</b></div>
+      <div class="ca-dash__stat" style="left:307px"><span>Users</span><b>2,847</b></div>
+      <div class="ca-dash__alert">3 issues found</div>
+      <div class="ca-dash__cta">Continue</div>
+    </div>
+    <div class="ca-dash__layer ca-dash__layer--after">
+      <div class="ca-dash__logo"></div><div class="ca-dash__title">Dashboard</div><div class="ca-dash__dots">•••</div><div class="ca-dash__rule"></div>
+      <div class="ca-dash__stat" style="left:20px"><span>Revenue<svg viewBox="0 0 12 12"><use href="#i-up"/></svg></span><b>$12,450</b></div>
+      <div class="ca-dash__stat" style="left:307px"><span>Users<svg viewBox="0 0 12 12"><use href="#i-down"/></svg></span><b>2,847</b></div>
+      <div class="ca-dash__alert"><svg><use href="#i-warn"/></svg>3 issues found</div>
+      <div class="ca-dash__cta"><span><i>✓</i>Continue</span></div>
+    </div>
+    <div class="ca-dash__divider"></div>
+    <div class="ca-dash__note ca-late" style="top:42px;animation-delay:2.5s">#6b7280 → #ffffff</div>
+    <div class="ca-dash__note ca-late" style="top:149px;animation-delay:2.7s">#6b7280 → #e5e7eb</div>
+    <div class="ca-dash__note ca-late" style="top:282px;animation-delay:3.9s">+ icon indicator</div>
+    <div class="ca-dash__note ca-late" style="top:375px;animation-delay:4.1s">+ icon indicator</div>
+  </div>
+</section>
+
+<!-- 11b · WCAG AA -->
+<section class="scene" data-t="52.5" data-shot="54">
+  <div class="ca-tag" style="left:60px;top:195px"><i></i>BEFORE</div>
+  <div class="ca-tag ca-tag--after" style="right:60px;top:195px">AFTER<i></i></div>
+  <div class="ca-dash" style="position:absolute;left:60px;top:224px">
+    <div class="ca-dash__layer ca-dash__layer--after">
+      <div class="ca-dash__logo"></div><div class="ca-dash__title">Dashboard</div><div class="ca-dash__dots">•••</div><div class="ca-dash__rule"></div>
+      <div class="ca-dash__stat" style="left:20px"><span>Revenue<svg viewBox="0 0 12 12"><use href="#i-up"/></svg></span><b>$12,450</b></div>
+      <div class="ca-dash__stat" style="left:307px"><span>Users<svg viewBox="0 0 12 12"><use href="#i-down"/></svg></span><b>2,847</b></div>
+      <div class="ca-dash__alert"><svg><use href="#i-warn"/></svg>3 issues found</div>
+      <div class="ca-dash__cta"><span><i>✓</i>Continue</span></div>
+    </div>
+    <div class="ca-dash__note" style="top:42px">#6b7280 → #ffffff</div>
+    <div class="ca-dash__note" style="top:149px">#6b7280 → #e5e7eb</div>
+    <div class="ca-dash__note" style="top:282px">+ icon indicator</div>
+    <div class="ca-dash__note" style="top:375px">+ icon indicator</div>
+  </div>
+  <div class="ca-badge ca-badge--lg center ca-late" style="top:1044px;animation-delay:.8s">WCAG AA ✓</div>
+</section>
+
+<script type="module">
+  import { CountUp, RatioMeter, CompareSlider } from './pattern.js';
+  const drive = (el, ctrl) => { const scene = el.closest('.scene'); scene.addEventListener('scene:enter', e => { const t = e.detail.t; ctrl.play(t > 0 ? t - Number(scene.dataset.t) : undefined); }); };
+  // 150M at 0.5 s, 300M+ at 1 s, exactly as the reel counts.
+  drive(document.getElementById('cbCount'), CountUp(document.getElementById('cbCount'), { to: 300, duration: 1, format: v => `${Math.round(v)}M${v >= 300 ? '+' : ''}` }));
+  // 3.2 → 7.1 over 2 s: 6.1 at 1.5 s, tick at the end.
+  drive(document.getElementById('meter'), RatioMeter(document.getElementById('meter'), { from: 3.2, to: 7.1, duration: 2, target: document.querySelector('.ca-copy') }));
+  // Hover the before/after card to scrub it by hand once the sweep has finished.
+  const slider = CompareSlider(document.getElementById('dash'));
+  document.getElementById('dash').addEventListener('pointermove', e => { if (!location.search.includes('t=')) slider.set(e.offsetX); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

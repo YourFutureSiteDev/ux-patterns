@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Toggle Anatomy · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0e1214; --accent: #22c49b; --danger: #e0455a; --grid: rgba(255,255,255,.03); }
+  .scene { color: #eaeff2; }
+  .kicker { top: 146px; padding: 0; background: none; color: #5e666b; font-size: 14px; letter-spacing: .24em; font-weight: 600; }
+  .title { top: 172px; margin: 0; font-size: 36px; line-height: 40px; font-weight: 700; letter-spacing: -.01em; }
+  .tg-hookline { position: absolute; top: 1024px; left: 0; right: 0; text-align: center; font-size: 37px; font-weight: 700; letter-spacing: -.02em; white-space: nowrap; }
+  .tg-hookline i { font-style: normal; color: #8b9298; } .tg-hookline em { font-style: normal; color: #22c49b; }
+  .tg-under { position: absolute; top: 555px; width: 260px; text-align: center; font-size: 16px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #5e666b; }
+  .tg-under.is-teal { color: #3bcda8; }
+</style>
+</head>
+<body class="tg">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-speaker" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5.5a9 9 0 0 1 0 13"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+</svg>
+
+<!-- 1 · Hook: two toggles, one snaps, one morphs -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="kicker" style="top:162px">Hook</div>
+  <button class="tg-switch tg-switch--hook is-snap" id="hookSnap" role="switch" aria-checked="true" aria-label="Snap" style="position:absolute;left:75px;top:402px"><span class="tg-switch__knob"></span></button>
+  <div class="tg-under" style="left:75px">Snap</div>
+  <button class="tg-switch tg-switch--hook" id="hookMorph" role="switch" aria-checked="true" aria-label="Morph" style="position:absolute;left:383px;top:402px"><span class="tg-switch__knob"></span></button>
+  <div class="tg-under is-teal" style="left:383px">Morph</div>
+  <div class="tg-hookline">Two toggles. <i>One snaps.</i> <em>One morphs.</em></div>
+</section>
+
+<!-- 2 · Anatomy -->
+<section class="scene" data-t="3" data-shot="6">
+  <div class="kicker">Anatomy</div>
+  <h1 class="title">Width = 2× knob.<br>Padding = knob radius.</h1>
+  <div class="tg-measure" style="left:300px;top:474px;width:110px;text-align:center"><small>Rail width</small><b>600px</b></div>
+  <div class="tg-dim tg-dim--h" style="left:160px;top:527px;width:400px"></div>
+  <button class="tg-switch tg-switch--lg" role="switch" aria-checked="true" aria-label="Anatomy" style="position:absolute;left:160px;top:582px"><span class="tg-switch__knob"></span></button>
+  <div class="tg-dim tg-dim--v" style="left:574px;top:595px;height:173px"></div>
+  <div class="tg-measure" style="left:607px;top:654px"><small>Knob</small><b>260px</b></div>
+  <div class="tg-dim tg-dim--v" style="left:134px;top:768px;height:10px"></div>
+  <div class="tg-measure" style="left:140px;top:821px"><small>Padding</small><b>20px</b></div>
+  <div class="tg-code center" style="top:1065px"><em>rail</em> = 2× knob <span style="color:#4b5358">·</span> <em>pad</em> = knob radius</div>
+</section>
+
+<!-- 3 · The transition: OFF -->
+<section class="scene" data-t="9" data-shot="12">
+  <div class="kicker">The transition</div>
+  <h1 class="title">Don't snap.<br>Morph 4 properties.</h1>
+  <div class="glow" style="left:60px;top:300px;width:600px;height:600px;background:rgba(34,196,155,.07)"></div>
+  <div class="tg-card" style="position:absolute;left:186px;top:362px;width:348px;height:228px">
+    <button class="tg-switch" role="switch" aria-checked="false" aria-label="Notifications" style="position:absolute;left:42px;top:36px"><span class="tg-switch__knob"></span><span class="tg-switch__label tg-switch__label--off">OFF</span><span class="tg-switch__label tg-switch__label--on">ON</span></button>
+    <div class="tg-switch__caption" style="position:absolute;left:0;right:0;top:158px">Notifications</div>
+  </div>
+  <div class="tg-props" style="position:absolute;left:74px;top:633px">
+    <div class="tg-prop"><b>Rail color</b><span>neutral → teal</span></div>
+    <div class="tg-prop"><b>Knob slide</b><span>translateX</span></div>
+    <div class="tg-prop"><b>Knob shadow</b><span>soft → glow</span></div>
+    <div class="tg-prop"><b>Label</b><span>OFF → ON</span></div>
+  </div>
+  <div class="tg-code tg-code--ease center" style="top:1054px">250ms <i>·</i> ease-out</div>
+</section>
+
+<!-- 3b · The transition: ON, all four properties lit -->
+<section class="scene" data-t="15" data-shot="16.5">
+  <div class="kicker">The transition</div>
+  <h1 class="title">Don't snap.<br>Morph 4 properties.</h1>
+  <div class="glow" style="left:60px;top:300px;width:600px;height:600px;background:rgba(34,196,155,.09)"></div>
+  <div class="tg-card" style="position:absolute;left:186px;top:362px;width:348px;height:228px">
+    <button class="tg-switch" id="morphDemo" role="switch" aria-checked="true" aria-label="Notifications" style="position:absolute;left:42px;top:36px"><span class="tg-switch__knob"></span><span class="tg-switch__label tg-switch__label--off">OFF</span><span class="tg-switch__label tg-switch__label--on">ON</span></button>
+    <div class="tg-switch__caption" style="position:absolute;left:0;right:0;top:158px">Notifications</div>
+  </div>
+  <div class="tg-props is-on" id="morphProps" style="position:absolute;left:74px;top:633px">
+    <div class="tg-prop"><b>Rail color</b><span>neutral → teal</span></div>
+    <div class="tg-prop"><b>Knob slide</b><span>translateX</span></div>
+    <div class="tg-prop"><b>Knob shadow</b><span>soft → glow</span></div>
+    <div class="tg-prop"><b>Label</b><span>OFF → ON</span></div>
+  </div>
+  <div class="tg-code tg-code--ease center" style="top:1054px">250ms <i>·</i> ease-out</div>
+</section>
+
+<!-- 4 · Accessibility: Space toggles -->
+<section class="scene" data-t="21" data-shot="21">
+  <div class="kicker">Accessibility</div>
+  <h1 class="title">Space toggles.<br>Focus rings. ARIA reads.</h1>
+  <div class="glow" style="left:100px;top:454px;width:520px;height:520px;background:rgba(34,196,155,.13)"></div>
+  <div class="tg-key" style="position:absolute;left:8px;top:692px">Space</div>
+  <div class="tg-arrow" style="position:absolute;left:107px;top:704px">---›</div>
+  <button class="tg-switch" role="switch" aria-checked="false" aria-label="Notifications" style="position:absolute;left:228px;top:652px"><span class="tg-switch__knob"></span><span class="tg-switch__label tg-switch__label--off">OFF</span><span class="tg-switch__label tg-switch__label--on">ON</span></button>
+  <div class="tg-chips" style="position:absolute;left:112px;top:1069px"><span class="tg-chip is-on">Space</span><span class="tg-chip">Focus ring</span><span class="tg-chip">aria-checked</span></div>
+</section>
+
+<!-- 4b · Accessibility: focus ring -->
+<section class="scene" data-t="24" data-shot="24">
+  <div class="kicker">Accessibility</div>
+  <h1 class="title">Space toggles.<br>Focus rings. ARIA reads.</h1>
+  <div class="glow" style="left:100px;top:454px;width:520px;height:520px;background:rgba(34,196,155,.1)"></div>
+  <button class="tg-switch is-focus" role="switch" aria-checked="true" aria-label="Notifications" style="position:absolute;left:228px;top:652px"><span class="tg-switch__knob"></span><span class="tg-switch__label tg-switch__label--off">OFF</span><span class="tg-switch__label tg-switch__label--on">ON</span></button>
+  <div class="tg-chips" style="position:absolute;left:112px;top:1069px"><span class="tg-chip is-on">Space</span><span class="tg-chip is-on">Focus ring</span><span class="tg-chip">aria-checked</span></div>
+</section>
+
+<!-- 4c · Accessibility: screen reader reads aria-checked -->
+<section class="scene" data-t="27" data-shot="27">
+  <div class="kicker">Accessibility</div>
+  <h1 class="title">Space toggles.<br>Focus rings. ARIA reads.</h1>
+  <div class="glow" style="left:100px;top:454px;width:520px;height:520px;background:rgba(34,196,155,.09)"></div>
+  <button class="tg-switch" id="a11yDemo" role="switch" aria-checked="true" aria-label="Notifications" style="position:absolute;left:228px;top:652px"><span class="tg-switch__knob"></span><span class="tg-switch__label tg-switch__label--off">OFF</span><span class="tg-switch__label tg-switch__label--on">ON</span></button>
+  <div class="tg-arrow" style="position:absolute;left:510px;top:704px">‹---</div>
+  <div class="tg-sr" style="position:absolute;left:543px;top:684px"><div class="tg-sr__icon"><svg><use href="#i-speaker"/></svg></div><div><small>Screen reader</small><code>aria-checked="true"</code></div></div>
+  <div class="tg-chips" style="position:absolute;left:112px;top:1069px"><span class="tg-chip is-on">Space</span><span class="tg-chip is-on">Focus ring</span><span class="tg-chip is-on">aria-checked</span></div>
+</section>
+
+<!-- 5 · Loading state: flipped, spinner in the knob, request pending -->
+<section class="scene" data-t="30" data-shot="31.5">
+  <div class="kicker">Loading state</div>
+  <h1 class="title">Flip first. Spinner in the knob.<br>Roll back if it fails.</h1>
+  <div class="glow" style="left:100px;top:600px;width:520px;height:520px;background:rgba(34,196,155,.06)"></div>
+  <div class="tg-card" style="position:absolute;left:150px;top:376px;width:420px;height:176px">
+    <div class="tg-card__side" style="position:absolute;left:36px;top:79px">Client</div>
+    <button class="tg-switch is-pending" role="switch" aria-checked="true" aria-label="Notifications" style="position:absolute;left:118px;top:24px"><span class="tg-switch__knob"></span></button>
+  </div>
+  <div class="tg-server" style="position:absolute;left:108px;top:578px">
+    <div class="tg-server__head"><span>SERVER</span><span class="tg-server__pill" style="letter-spacing:0">pending…</span></div>
+    <div class="tg-server__line"><em>POST</em>/api/settings</div>
+    <div class="tg-server__body"><i>{</i> notifications<i>:</i> <em>true</em> <i>}</i></div>
+    <div class="tg-server__status">→ awaiting response…</div>
+  </div>
+</section>
+
+<!-- 5b · Loading state: 500, rolled back, toast -->
+<section class="scene" data-t="33" data-shot="34.5">
+  <div class="kicker">Loading state</div>
+  <h1 class="title">Flip first. Spinner in the knob.<br>Roll back if it fails.</h1>
+  <div class="glow" style="left:100px;top:600px;width:520px;height:520px;background:rgba(224,69,90,.05)"></div>
+  <div class="tg-card" style="position:absolute;left:150px;top:376px;width:420px;height:176px">
+    <div class="tg-card__side" style="position:absolute;left:36px;top:79px">Client</div>
+    <button class="tg-switch" id="failDemo" role="switch" aria-checked="false" aria-label="Notifications" style="position:absolute;left:118px;top:24px"><span class="tg-switch__knob"></span></button>
+  </div>
+  <div class="tg-server is-error" style="position:absolute;left:108px;top:578px">
+    <div class="tg-server__head"><span>SERVER</span><span class="tg-server__pill" style="letter-spacing:0">500</span></div>
+    <div class="tg-server__line"><em>POST</em>/api/settings</div>
+    <div class="tg-server__body"><i>{</i> notifications<i>:</i> <em>true</em> <i>}</i></div>
+    <div class="tg-server__status">× 500 Internal Server Error</div>
+  </div>
+  <div class="tg-toast center" style="top:1042px"><div class="tg-toast__icon"><svg><use href="#i-alert"/></svg></div>Couldn't save — try again</div>
+</section>
+
+<!-- 6 · Outro -->
+<section class="scene" data-t="36" data-shot="39">
+  <div class="glow" style="left:100px;top:380px;width:520px;height:520px;background:rgba(34,196,155,.12)"></div>
+  <div class="tg-mini" style="left:107px;top:241px"></div>
+  <div class="tg-mini" style="left:602px;top:369px"></div>
+  <div class="tg-mini" style="left:580px;top:905px"></div>
+  <div class="tg-mini" style="left:163px;top:1008px"></div>
+  <div class="kicker" style="top:538px;color:#22c49b">Save this</div>
+  <div class="title" style="top:570px;font-size:40px;line-height:48px;font-weight:800">Follow for more<br>UI components.</div>
+  <div class="center" style="top:689px;font-size:18px;color:#8b9298;white-space:nowrap">Save this for your next switch.</div>
+  <div class="tg-cta center" style="top:745px"><svg viewBox="0 0 24 24"><use href="#i-bookmark"/></svg>Save</div>
+</section>
+
+<script type="module">
+  import { Toggle, SnapToggle, fakeRequest } from './pattern.js';
+  const loop = (scene, fn, ms) => scene.addEventListener('scene:enter', e => { clearInterval(scene._iv); if (e.detail.t > 0) return; scene._iv = setInterval(fn, ms); });
+  // Hook: both flip together every 1.6s; the left one snaps, the right one morphs.
+  const snap = SnapToggle(document.getElementById('hookSnap')), morph = Toggle(document.getElementById('hookMorph'));
+  loop(document.getElementById('hookSnap').closest('.scene'), () => { snap.flip(); morph.flip(); }, 1600);
+  // Transition: flips every 2s, the property cards light while it is on.
+  const props = document.getElementById('morphProps'), md = Toggle(document.getElementById('morphDemo'), { onChange: v => props.classList.toggle('is-on', v) });
+  loop(props.closest('.scene'), () => md.flip(), 2000);
+  // Accessibility demo and the failing save are real: click or press Space on them.
+  Toggle(document.getElementById('a11yDemo'), { onChange: v => { document.querySelector('#a11yDemo ~ .tg-sr code').textContent = `aria-checked="${v}"`; } });
+  Toggle(document.getElementById('failDemo'), { request: fakeRequest({ latency: 1200, fail: true }) });
+  document.querySelectorAll('.tg-switch:not([id])').forEach(el => Toggle(el));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Card Hover Anatomy · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #090c0d; --accent: #e2567f; --danger: #d53d6f; --grid: rgba(255,255,255,.04); }
+  .scene { color: #f2f3f5; }
+  .ch-actions.is-top { bottom: auto; top: 22px; left: 42px; right: auto; }
+  .ch-actions.is-outside { bottom: -34px; }
+  .ch-card.is-bad .ch-actions.is-outside button { opacity: .35; }
+</style>
+</head>
+<body class="ch">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-cursor" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4.5L5 21V4a1 1 0 0 1 1-1z"/></symbol>
+</svg>
+
+<!-- 1 · Hook: four cards, one hovered -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="ch-glow" style="left:-60px;top:190px"></div>
+  <div class="ch-kicker" style="top:73px">CARD HOVER · ANATOMY</div>
+  <script type="application/json" data-cards>[
+    {"title":"Wireless Headphones","price":"$129","cls":"is-hover","style":"left:57px;top:281px"},
+    {"title":"Studio Monitors","price":"$249","rating":"4.7","actions":false,"style":"left:372px;top:281px"},
+    {"title":"Vinyl Turntable","price":"$189","rating":"4.9","actions":false,"style":"left:57px;top:649px"},
+    {"title":"Portable Speaker","price":"$89","rating":"4.6","actions":false,"style":"left:372px;top:649px"}
+  ]</script>
+  <svg class="ch-cursor" style="left:200px;top:452px"><use href="#i-cursor"/></svg>
+  <div class="ch-caption" style="top:1000px;font-size:40px;font-weight:800;letter-spacing:-.02em">Same card.</div>
+  <div class="ch-caption" style="top:1054px;font-size:40px;font-weight:800;letter-spacing:-.02em;color:var(--ch-pink)">One feels alive.</div>
+</section>
+
+<!-- 2a · 01 Lift: rest -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="ch-kicker">01 · LIFT</div><div class="ch-title">Rise <em>with weight.</em></div>
+  <div class="ch-code ch-code--pill" style="left:306px;top:424px;--c:#8b8f98">REST · 0px</div>
+  <script type="application/json" data-cards>[{"size":"m2","actions":false,"style":"left:207px;top:460px"}]</script>
+  <div class="ch-code" style="left:147px;top:823px;font-size:11px;letter-spacing:.14em;font-family:Inter,sans-serif;font-weight:700;color:#3a3e44">BASELINE</div>
+  <div style="position:absolute;left:215px;top:828px;width:335px;border-top:1px dashed rgba(255,255,255,.06)"></div>
+</section>
+
+<!-- 2b · 01 Lift: hover -->
+<section class="scene" data-t="6" data-shot="7.5">
+  <div class="ch-glow" style="left:100px;top:320px"></div>
+  <div class="ch-kicker">01 · LIFT</div><div class="ch-title">Rise <em>with weight.</em></div>
+  <div class="ch-code ch-code--pill" style="left:302px;top:424px">HOVER · -8px</div>
+  <script type="application/json" data-cards>[{"size":"m2","actions":false,"cls":"ch-card--loop","style":"left:207px;top:460px"}]</script>
+  <div style="position:absolute;left:144px;top:604px;width:1px;height:14px;background:var(--ch-pink)"></div>
+  <div class="ch-code" style="left:135px;top:621px;font-size:10px;color:var(--ch-pink)">-8px</div>
+  <div class="ch-code" style="left:147px;top:823px;font-size:11px;letter-spacing:.14em;font-family:Inter,sans-serif;font-weight:700;color:#3a3e44">BASELINE</div>
+  <div style="position:absolute;left:215px;top:828px;width:335px;border-top:1px dashed rgba(255,255,255,.06)"></div>
+  <div class="ch-codebar" style="top:1027px"><span>translateY(-8px)</span><i>·</i><span>shadow(0 24px 40px black/60)</span><i>·</i><b>200ms ease-out</b></div>
+</section>
+
+<!-- 2c · 01 Lift: 100 / 200 / 400ms -->
+<section class="scene" data-t="9" data-shot="10.5">
+  <div class="ch-glow" style="left:100px;top:300px;opacity:.6"></div>
+  <div class="ch-kicker">01 · LIFT</div><div class="ch-title">Rise <em>with weight.</em></div>
+  <script type="application/json" data-cards>[
+    {"size":"xs2","actions":false,"cls":"ch-card--loop-100","style":"left:134px;top:530px"},
+    {"size":"xs2","actions":false,"cls":"ch-card--loop-200","style":"left:294px;top:530px"},
+    {"size":"xs2","actions":false,"cls":"ch-card--loop-400","style":"left:454px;top:530px"}
+  ]</script>
+  <div class="ch-pill ch-pill--outline" style="left:130px;top:723px;width:140px;padding:6px 12px;line-height:1.3;border-radius:6px;white-space:normal;text-align:left">100MS · TWITCHY</div>
+  <div class="ch-pill ch-pill--outline ch-pill--green" style="left:294px;top:723px;border-radius:6px">200MS · RIGHT</div>
+  <div class="ch-pill ch-pill--outline ch-pill--orange" style="left:454px;top:723px;border-radius:6px">400MS · STUCK</div>
+  <div class="ch-caption" style="top:786px;font-size:18px;font-weight:600;color:var(--ch-muted)">Same lift. Different feel.</div>
+</section>
+
+<!-- 3 · 02 Glow: border pulse vs gradient sweep -->
+<section class="scene" data-t="12" data-shot="16.5">
+  <div class="ch-glow" style="left:-80px;top:340px"></div>
+  <div class="ch-kicker">02 · GLOW</div><div class="ch-title">Claim <em>the cursor.</em></div>
+  <div class="ch-pill" style="left:126px;top:430px;border-radius:6px">BORDER PULSE</div>
+  <div class="ch-pill" style="left:449px;top:430px;border-radius:6px;--c:#2fbf8f">GRADIENT SWEEP</div>
+  <script type="application/json" data-cards>[
+    {"title":"Wireless Headphones","price":"$129","size":"m2","actions":false,"cls":"ch-card--pulse","style":"left:40px;top:463px;--h:358px"},
+    {"title":"Studio Monitors","price":"$249","size":"m2","actions":false,"cls":"ch-card--sweep","style":"left:374px;top:463px;--h:358px"}
+  ]</script>
+  <div class="ch-code" style="left:40px;width:306px;text-align:center;top:840px;font-size:11px">border-color · Math.sin(frame)</div>
+  <div class="ch-code" style="left:374px;width:306px;text-align:center;top:840px;font-size:11px">conic-gradient · rotate(360deg)</div>
+  <div class="ch-caption" style="top:1105px;font-size:30px;font-weight:800;letter-spacing:-.02em">The card <em>claims the cursor.</em></div>
+</section>
+
+<!-- 4a · 03 Actions: correct cascade -->
+<section class="scene" data-t="19.5" data-shot="21">
+  <div class="ch-glow" style="left:100px;top:340px"></div>
+  <div class="ch-kicker">03 · ACTIONS</div><div class="ch-title">Cascade. <em>60ms apart.</em></div>
+  <div class="ch-pill ch-pill--green" style="left:302px;top:405px;border-radius:6px">✓ CORRECT</div>
+  <script type="application/json" data-cards>[{"size":"l","cls":"ch-card--loop","style":"left:187px;top:442px"}]</script>
+  <svg class="ch-cursor" style="left:372px;top:585px"><use href="#i-cursor"/></svg>
+  <div class="ch-code" style="left:0;right:0;text-align:center;top:864px">heart · cart · share · stagger(60ms)</div>
+</section>
+
+<!-- 4b · 03 Actions: anti-patterns -->
+<section class="scene" data-t="25.5" data-shot="30">
+  <div class="ch-kicker">03 · ACTIONS</div><div class="ch-title">Cascade. <em>60ms apart.</em></div>
+  <div class="ch-pill" style="left:264px;top:190px;border-radius:6px;background:#371112">× ANTI-PATTERNS</div>
+  <script type="application/json" data-cards>[
+    {"size":"s","cls":"is-bad is-bad--top","style":"left:65px;top:479px"},
+    {"size":"s","cls":"is-bad","style":"left:266px;top:479px"},
+    {"size":"s","cls":"is-bad is-bad--outside","style":"left:467px;top:479px"}
+  ]</script>
+  <div class="ch-note" style="left:65px;width:188px;top:725px">ON TOP OF TITLE<small>overlaps the name</small></div>
+  <div class="ch-note" style="left:266px;width:188px;top:725px">ALL AT ONCE<small>no cascade rhythm</small></div>
+  <div class="ch-note" style="left:467px;width:188px;top:765px">OUTSIDE THE CARD<small>breaks the boundary</small></div>
+  <div class="ch-caption" style="top:1104px;font-size:24px;letter-spacing:-.01em">Reveal means new affordance — <em>not new layout.</em></div>
+</section>
+
+<!-- 5 · 04 Image scale -->
+<section class="scene" data-t="31.5" data-shot="37.5" id="scaleScene">
+  <div class="ch-glow" style="left:100px;top:300px;opacity:.7"></div>
+  <div class="ch-kicker">04 · IMAGE SCALE</div><div class="ch-title">Push against <em>the glass.</em></div>
+  <div class="ch-code ch-code--pill ch-code--teal" style="left:182px;top:390px">container: static</div>
+  <div class="ch-code ch-code--pill" style="left:388px;top:390px" id="scaleLabel">image: scale(1.050)</div>
+  <script type="application/json" data-cards>[{"size":"xl","actions":false,"cls":"ch-card--scale-loop","style":"left:181px;top:417px"}]</script>
+  <div class="ch-frame" style="left:181px;top:417px;width:358px;height:271px;border-radius:14px 14px 0 0"></div>
+  <div class="ch-code ch-code--pill" style="left:292px;top:869px">overflow: hidden</div>
+  <div class="ch-caption" style="top:1093px;font-size:24px;letter-spacing:-.01em">The product <em>pushes against the glass.</em></div>
+</section>
+
+<!-- 6 · 05 Trap: keep the geometry -->
+<section class="scene" data-t="40.5" data-shot="45">
+  <div class="ch-glow" style="left:100px;top:380px;opacity:.6"></div>
+  <div class="ch-kicker">05 · TRAP</div><div class="ch-title">Keep the <em>geometry.</em></div>
+  <div class="ch-pill ch-pill--outline" style="left:157px;top:464px;border-radius:6px">× WRONG</div>
+  <div class="ch-pill ch-pill--outline ch-pill--green" style="left:472px;top:464px;border-radius:6px">✓ RIGHT</div>
+  <script type="application/json" data-cards>[
+    {"title":"Headphones","price":"$129","size":"xs","actions":false,"cls":"ch-card--wrong-loop","style":"left:69px;top:500px"},
+    {"title":"Monitors","price":"$249","rating":"4.7","size":"xs","actions":false,"style":"left:213px;top:500px"},
+    {"title":"Turntable","price":"$189","rating":"4.9","size":"xs","actions":false,"style":"left:69px;top:670px"},
+    {"title":"Speaker","price":"$89","rating":"4.6","size":"xs","actions":false,"style":"left:213px;top:670px"},
+    {"title":"Headphones","price":"$129","size":"xs","actions":false,"cls":"ch-card--right-loop","style":"left:378px;top:500px"},
+    {"title":"Monitors","price":"$249","rating":"4.7","size":"xs","actions":false,"style":"left:522px;top:500px"},
+    {"title":"Turntable","price":"$189","rating":"4.9","size":"xs","actions":false,"style":"left:378px;top:670px"},
+    {"title":"Speaker","price":"$89","rating":"4.6","size":"xs","actions":false,"style":"left:522px;top:670px"}
+  ]</script>
+  <div class="ch-code ch-code--pill" style="left:103px;top:845px">scale(card) · LAYOUT BREAKS</div>
+  <div class="ch-code ch-code--pill ch-code--green" style="left:406px;top:845px">lift(content) · GEOMETRY HELD</div>
+  <div class="ch-caption" style="top:1112px;font-size:28px;font-weight:800;letter-spacing:-.02em">Never scale <em>the whole card.</em></div>
+  <div class="ch-caption" style="top:1150px;font-size:15px;font-weight:500;font-style:italic;color:var(--ch-muted)">Lift the content. Keep the geometry.</div>
+</section>
+
+<!-- 7 · Outro -->
+<section class="scene" data-t="46.5" data-shot="48">
+  <div class="ch-glow" style="left:100px;top:300px"></div>
+  <script type="application/json" data-cards>[
+    {"title":"Headphones","price":"$129","size":"xs3","actions":false,"cls":"is-lit","style":"left:128px;top:374px"},
+    {"title":"Monitors","price":"$249","size":"xs3","actions":false,"cls":"is-lit","style":"left:288px;top:374px"},
+    {"title":"Speaker","price":"$89","size":"xs3","actions":false,"cls":"is-lit","style":"left:446px;top:374px"}
+  ]</script>
+  <div class="ch-caption" style="top:575px;font-size:20px;letter-spacing:.16em;color:#9c9499">FOLLOW FOR MORE</div>
+  <div class="ch-caption" style="top:604px;font-size:56px;font-weight:800;letter-spacing:-.03em;color:var(--ch-pink);text-shadow:0 0 30px rgba(226,86,127,.35)">UI Patterns</div>
+  <div class="ch-caption" style="top:672px;font-size:17px;font-weight:500;font-style:italic;color:var(--ch-muted)">Save this for your next card grid.</div>
+  <div class="ch-follow" style="top:717px"><div class="ch-follow__avatar"></div><div><b>@designmotionhq</b><small>UI patterns, daily</small></div></div>
+  <div class="ch-save" style="top:800px"><div class="ch-save__icon"><svg><use href="#i-bookmark"/></svg></div>Save for your next <em>card grid.</em></div>
+</section>
+
+<script type="module">
+  import { mountCards, hoverCards, watchScale } from './pattern.js';
+  mountCards();
+  // anti-pattern placements: actions on top of the title, and outside the card boundary
+  document.querySelectorAll('.is-bad--top .ch-actions').forEach(a => a.classList.add('is-top'));
+  document.querySelectorAll('.is-bad--outside .ch-actions').forEach(a => a.classList.add('is-outside'));
+  document.querySelectorAll('.scene').forEach(hoverCards);
+  // live scale readout on the image-scale scene
+  const s = document.getElementById('scaleScene');
+  s.addEventListener('scene:enter', e => { if (e.detail.t > 0) return; s._w?.(); s._w = watchScale(s.querySelector('.ch-donut'), document.getElementById('scaleLabel')); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

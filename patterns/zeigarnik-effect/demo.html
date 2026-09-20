@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Zeigarnik Effect · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a0a0c; --grid: transparent; --accent: #d44c72; --danger: #e05a5a; }
+  .scene { color: #f2f2f4; }
+  .scene.no-anim * { transition: none !important; animation-play-state: paused !important; }
+  .zg-hide { opacity: 0 !important; }
+</style>
+</head>
+<body class="zg">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="z-brain" viewBox="0 0 24 24"><path d="M12 5.5c-1-1.8-3.6-2-4.6-.4-1.6-.3-3 1.2-2.6 2.8C3.2 8.6 2.8 10.6 4 11.8c-1.2 1.4-.6 3.6 1.2 4 .1 1.8 2 2.8 3.4 2 .9 1.4 2.6 1.4 3.4.2M12 5.5c1-1.8 3.6-2 4.6-.4 1.6-.3 3 1.2 2.6 2.8 1.6.7 2 2.7.8 3.9 1.2 1.4.6 3.6-1.2 4-.1 1.8-2 2.8-3.4 2-.9 1.4-2.6 1.4-3.4.2M12 5.5V18M8.5 9.5c.8.6 1.5 1.5 1.6 2.5M15.5 9.5c-.8.6-1.5 1.5-1.6 2.5M7 14.5c1 .2 1.8.8 2.2 1.6M17 14.5c-1 .2-1.8.8-2.2 1.6"/></symbol>
+  <symbol id="z-check-c" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></symbol>
+  <symbol id="z-spark" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v3M12 15v3M6 12h3M15 12h3M8 8l2 2M14 14l2 2M16 8l-2 2M10 14l-2 2"/></symbol>
+  <symbol id="z-tick" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="z-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="z-arrow-c" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 12h6M12.5 9.5L15 12l-2.5 2.5"/></symbol>
+  <symbol id="z-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="z-pin" viewBox="0 0 24 24"><path d="M12 21s6-5.5 6-11a6 6 0 0 0-12 0c0 5.5 6 11 6 11z"/><circle cx="12" cy="10" r="2"/></symbol>
+  <symbol id="z-bag" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></symbol>
+  <symbol id="z-bell" viewBox="0 0 24 24"><path d="M12 2a6 6 0 0 0-6 6v4l-2 3v1h16v-1l-2-3V8a6 6 0 0 0-6-6zM10 19a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="z-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="z-cap" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></symbol>
+  <symbol id="z-warn" viewBox="0 0 24 24"><path d="M12 4L2.5 20h19L12 4zM12 10v4M12 17h.01"/></symbol>
+  <symbol id="z-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+</svg>
+
+<!-- 1 · Hook: Open loop 80%, brain returns -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:10px;top:250px;width:700px;height:700px;background:rgba(212,76,114,.22)"></div>
+  <div class="zg-kicker" style="top:103px;font-size:17px;padding:11px 26px;letter-spacing:.14em"><svg><use href="#z-brain"/></svg>ZEIGARNIK EFFECT</div>
+  <div class="zg-loop zg-in" data-loop style="left:168px;top:533px">
+    <div class="zg-loop__label">OPEN LOOP</div>
+    <div class="zg-bar"><div class="zg-bar__fill" style="--p:80%"></div></div>
+    <div class="zg-loop__pct" data-pct>80<small>%</small></div>
+    <div class="zg-loop__sub" data-sub>Brain returns</div>
+  </div>
+  <div class="zg-cap zg-fade" style="--d:.8s;top:1056px;font-size:32px;font-weight:800;letter-spacing:-.02em">Unfinished <em style="font-style:normal;color:#d44c72">wins.</em></div>
+</section>
+
+<!-- 2 · How the brain processes tasks -->
+<template id="tpl-brain">
+  <div class="glow" style="left:10px;top:250px;width:700px;height:700px;background:rgba(212,76,114,.10)"></div>
+  <div class="zg-kicker" style="top:425px">HOW THE BRAIN PROCESSES TASKS</div>
+  <div class="zg-h1" style="top:470px">Unfinished tasks <em>hold weight.</em></div>
+  <div class="zg-brain" style="top:547px"><svg><use href="#z-brain"/></svg></div>
+  <div class="zg-cap" style="top:630px;font-size:14px;font-weight:700;letter-spacing:.15em;color:#8a8a92">ACTIVE MEMORY</div>
+  <div class="zg-mem" style="left:44px;top:668px">
+    <div class="zg-mem__tag"><svg><use href="#z-check-c"/></svg>COMPLETED</div>
+    <div class="zg-mem__task">Sign up for newsletter</div>
+    <div class="zg-mem__recall">RECALLED <b>0</b>×</div>
+  </div>
+  <div class="zg-mem zg-mem--hot" style="left:371px;top:668px">
+    <div class="zg-mem__tag"><svg><use href="#z-spark"/></svg>INCOMPLETE</div>
+    <div class="zg-mem__task">Finish your portfolio bio</div>
+    <div class="zg-mem__recall">RECALLED <b data-recall>0</b>×</div>
+  </div>
+  <div class="zg-pill zg-hide" data-cap style="top:843px"><span style="color:#d44c72">INCOMPLETE</span><span style="color:#8a8a92;font-weight:500">=</span><span>2× memory weight</span></div>
+</template>
+<div data-clone="tpl-brain" data-tl="brain" data-t="3" data-shot="4.5"></div>
+<div data-clone="tpl-brain" data-tl="brain" data-t="3" data-shot="9"></div>
+
+<!-- 3 · Onboarding: leave 1 box unchecked -->
+<template id="tpl-setup">
+  <div class="glow" style="left:10px;top:250px;width:700px;height:700px;background:rgba(212,76,114,.10)"></div>
+  <div class="zg-kicker" style="top:400px">ONBOARDING · APPLICATION</div>
+  <div class="zg-h1" style="top:444px">Leave 1 box <em>unchecked.</em></div>
+  <div class="zg-setup" style="left:44px;top:505px">
+    <div class="zg-setup__head"><div class="zg-setup__title">Set up</div><div class="zg-setup__state"><svg><use href="#z-clock"/></svg>CLOSED</div></div>
+    <div class="zg-bar zg-bar--sm zg-bar--grey"><div class="zg-bar__fill" style="--p:100%"></div></div>
+    <div class="zg-check"><i><svg><use href="#z-tick"/></svg></i>Verify email</div>
+    <div class="zg-check"><i><svg><use href="#z-tick"/></svg></i>Add profile photo</div>
+    <div class="zg-check"><i><svg><use href="#z-tick"/></svg></i>Pick a workspace</div>
+    <div class="zg-check"><i><svg><use href="#z-tick"/></svg></i>Invite a teammate</div>
+    <div class="zg-check"><i><svg><use href="#z-tick"/></svg></i>Connect calendar</div>
+    <div class="zg-setup__foot">User: gone, no return</div>
+  </div>
+  <div class="zg-setup zg-setup--open zg-pulse" data-open style="left:371px;top:505px">
+    <div class="zg-setup__head"><div class="zg-setup__title">Set up</div><div class="zg-setup__state"><svg><use href="#z-spark"/></svg>OPEN · 60%</div></div>
+    <div class="zg-bar zg-bar--sm"><div class="zg-bar__fill" style="--p:60%"></div></div>
+    <div class="zg-check"><i><svg><use href="#z-tick"/></svg></i>Verify email</div>
+    <div class="zg-check"><i><svg><use href="#z-tick"/></svg></i>Add profile photo</div>
+    <div class="zg-check"><i><svg><use href="#z-tick"/></svg></i>Pick a workspace</div>
+    <div class="zg-check is-open"><i><svg><use href="#z-tick"/></svg></i>Invite a teammate</div>
+    <div class="zg-check is-open"><i><svg><use href="#z-tick"/></svg></i>Connect calendar</div>
+    <div class="zg-setup__foot">User: returns daily <svg><use href="#z-arrow-c"/></svg></div>
+  </div>
+  <div class="zg-cap zg-hide" data-cap style="top:884px;font-size:17px;font-weight:500;color:#8a8a92">100% complete? <b style="color:#fff">You forget. 80%? It nags.</b></div>
+</template>
+<div data-clone="tpl-setup" data-tl="setup" data-t="12" data-shot="13.5"></div>
+<div data-clone="tpl-setup" data-tl="setup" data-t="12" data-shot="18"></div>
+
+<!-- 4 · Big tech runs on this: profile 80% -->
+<template id="tpl-profile">
+  <div class="glow" style="left:300px;top:0px;width:520px;height:520px;background:rgba(190,120,60,.08)"></div>
+  <div class="glow" style="left:10px;top:400px;width:700px;height:700px;background:rgba(212,76,114,.07)"></div>
+  <div class="zg-kicker" style="top:383px">BIG TECH RUNS ON THIS</div>
+  <div class="zg-h1" style="top:426px;font-size:34px">Your profile is <em>80% done.</em></div>
+  <div class="zg-profile" style="left:68px;top:484px">
+    <div class="zg-profile__cover"></div>
+    <div class="zg-profile__avatar">MR</div>
+    <div class="zg-profile__name">Marie Rousseau</div>
+    <div class="zg-profile__role">Senior Product Designer · Building delightful interfaces</div>
+    <div class="zg-profile__meta"><span><svg><use href="#z-pin"/></svg>Paris · 1.2K followers</span><span><svg><use href="#z-bag"/></svg>Stripe · 3 yrs</span></div>
+    <div class="zg-strength">
+      <div class="zg-strength__row">Profile strength<b>80%</b></div>
+      <div class="zg-bar zg-bar--sm"><div class="zg-bar__fill" style="--p:80%"></div></div>
+      <div class="zg-nudge zg-hide" data-nudge><i>+</i><div><b>Add 3 more skills</b><span>Reach 100% to unlock recommendations</span></div><svg><use href="#z-arrow"/></svg></div>
+    </div>
+  </div>
+  <div class="zg-notif zg-hide" data-notif style="left:208px;top:832px"><i><svg><use href="#z-bell"/></svg></i><div><b>Marie, your profile is one step from 100%</b><span>7 days ago · 3 days ago · today · tomorrow</span></div></div>
+  <div class="zg-cap zg-hide" data-cap style="top:896px;font-size:18px;font-weight:600;color:#8a8a92">Not a suggestion. <b style="color:#d44c72">A trigger.</b></div>
+</template>
+<div data-clone="tpl-profile" data-tl="profile" data-t="21" data-shot="22.5"></div>
+<div data-clone="tpl-profile" data-tl="profile" data-t="21" data-shot="28.5"></div>
+
+<!-- 5 · One critical catch: outcomes, not chores -->
+<section class="scene" data-t="30" data-shot="33">
+  <div class="glow" style="left:-200px;top:240px;width:620px;height:620px;background:rgba(224,80,110,.14)"></div>
+  <div class="glow" style="left:300px;top:240px;width:620px;height:620px;background:rgba(35,199,86,.12)"></div>
+  <div class="glow" style="left:180px;top:120px;width:360px;height:360px;background:rgba(240,182,46,.05)"></div>
+  <div class="zg-kicker zg-kicker--yellow" style="top:462px"><svg><use href="#z-warn"/></svg>ONE CRITICAL CATCH</div>
+  <div class="zg-h1" style="top:506px">Outcomes, <em class="yellow">not chores.</em></div>
+  <div class="zg-fit zg-in" style="--d:.3s;left:44px;top:565px">
+    <div class="zg-fit__tag"><svg style="width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.5"><use href="#z-x"/></svg>WRONG FIT</div>
+    <div class="zg-fit__inner">
+      <div class="zg-fit__from"><svg><use href="#z-mail"/></svg>newsletter@brand.com</div>
+      <div class="zg-fit__title">Discover our new collection</div>
+      <div class="zg-fit__prog">READING PROGRESS · 30%</div>
+      <div class="zg-bar zg-bar--xs zg-bar--red"><div class="zg-bar__fill" style="--p:30%"></div></div>
+    </div>
+    <div class="zg-fit__verdict">User doesn't want to finish.<b>Just noise.</b></div>
+  </div>
+  <div class="zg-fit zg-fit--right zg-in" style="--d:.7s;left:371px;top:565px">
+    <div class="zg-fit__tag"><svg style="width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.5"><use href="#z-tick"/></svg>RIGHT FIT</div>
+    <div class="zg-fit__inner">
+      <div class="zg-fit__from"><svg><use href="#z-cap"/></svg>React Fundamentals</div>
+      <div class="zg-fit__title">Module 4 of 6 · Hooks deep dive</div>
+      <div class="zg-fit__prog">COURSE PROGRESS · 65%</div>
+      <div class="zg-bar zg-bar--xs zg-bar--green"><div class="zg-bar__fill" style="--p:65%"></div></div>
+    </div>
+    <div class="zg-fit__verdict">User wants the cert.<b>Loop pulls.</b></div>
+  </div>
+  <div class="zg-pill zg-fade" style="--d:1.6s;top:795px;font-size:16px;padding:12px 22px"><span style="color:#e05a5a">✖</span><span style="color:#8a8a92;font-weight:500">Chore?</span><span style="color:#5a5a62">·</span><span style="color:#23c756">✓</span><span>Outcome user already wants.</span></div>
+</section>
+
+<script>
+  // Clone templated scenes and drive time-indexed steps; runs before stage.js so scene:enter is caught.
+  document.querySelectorAll('[data-clone]').forEach(ph => {
+    const s = document.createElement('section'); s.className = 'scene'; s.dataset.t = ph.dataset.t; s.dataset.shot = ph.dataset.shot; s.dataset.tl = ph.dataset.tl;
+    s.append(document.getElementById(ph.dataset.clone).content.cloneNode(true)); ph.replaceWith(s);
+  });
+  const q = (s, sel) => s.querySelector(sel), show = el => el && el.classList.remove('zg-hide');
+  const timelines = {
+    brain: s => [ ...Array.from({ length: 11 }, (_, i) => [2.5 + i * 0.3, () => { q(s, '[data-recall]').textContent = i + 1; }]), [5.6, () => show(q(s, '[data-cap]'))] ],
+    setup: s => [ [4.5, () => show(q(s, '[data-cap]'))] ],
+    profile: s => [ [3.5, () => show(q(s, '[data-nudge]'))], [5, () => show(q(s, '[data-notif]'))], [6.8, () => show(q(s, '[data-cap]'))] ]
+  };
+  document.querySelectorAll('.scene[data-tl]').forEach(scene => {
+    const fresh = scene.innerHTML;
+    scene.addEventListener('scene:enter', e => {
+      const at = Math.max(0, (e.detail?.t ?? 0) - (Number(scene.dataset.t) || 0));
+      (scene._timers || []).forEach(clearTimeout); scene._timers = [];
+      scene.innerHTML = fresh; scene.classList.add('no-anim');
+      const steps = timelines[scene.dataset.tl](scene);
+      steps.forEach(([sec, fn]) => { if (sec <= at) fn(); });
+      void scene.offsetWidth; requestAnimationFrame(() => scene.classList.remove('no-anim'));
+      if (new URLSearchParams(location.search).has('t')) return;
+      steps.forEach(([sec, fn]) => { if (sec > at) scene._timers.push(setTimeout(fn, (sec - at) * 1000)); });
+    });
+  });
+</script>
+<script type="module">
+  // Live behaviour over http: the hook meter is a real OpenLoop; clicking it completes a step and closes the loop at 5/5.
+  try {
+    const { OpenLoop } = await import('./pattern.js');
+    const el = document.querySelector('[data-loop]'); const loop = OpenLoop(el, { done: 4, total: 5 });
+    el.addEventListener('click', () => loop.complete());
+  } catch {}
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+/* Password Field UX, rebuilt from the @designmotionhq reel "Eight characters, one symbol: still weak."
+   Component classes are prefixed .pf- and depend only on the tokens below. */
+.pf {
+  --pf-bg: #0a0d0f; --pf-panel: #111619; --pf-panel-2: #171e21; --pf-input: #1f262c; --pf-track: #232b2e;
+  --pf-border: rgba(255,255,255,.07); --pf-text: #f3f5f7; --pf-muted: #8d959c; --pf-dim: #5d666c;
+  --pf-teal: #20caa5; --pf-teal-dim: rgba(32,202,165,.14); --pf-teal-line: rgba(32,202,165,.45);
+  --pf-pink: #ee4f72; --pf-pink-dim: rgba(238,79,114,.16); --pf-pink-line: rgba(238,79,114,.55);
+  --pf-amber: #f0b24f; --pf-amber-dim: rgba(240,178,79,.16); --pf-green: #1fb15a;
+  --pf-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--pf-text);
+}
+
+/* ---- Card + header ---------------------------------------------------- */
+.pf-card { position: relative; background: var(--pf-panel); border: 1px solid var(--pf-border); border-radius: 18px; box-shadow: 0 20px 60px rgba(0,0,0,.45); }
+.pf-card--sm { border-radius: 16px; }
+.pf-card__head { display: flex; align-items: center; gap: 14px; height: 84px; padding: 0 28px; background: var(--pf-panel-2); border-bottom: 1px solid var(--pf-border); border-radius: 18px 18px 0 0; }
+.pf-card__logo { width: 36px; height: 36px; border-radius: 8px; background: var(--pf-teal); color: #062018; display: grid; place-items: center; font-weight: 800; font-size: 18px; }
+.pf-card__title { font-size: 19px; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
+.pf-card__sub { font-size: 14px; color: var(--pf-dim); margin-top: 3px; }
+.pf-card__body { padding: 28px 30px 30px; }
+
+/* ---- Label + input ---------------------------------------------------- */
+.pf-label { display: flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 500; color: var(--pf-muted); margin-bottom: 10px; }
+.pf-label svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; }
+.pf-input { position: relative; display: flex; align-items: center; height: 60px; padding: 0 20px; background: var(--pf-input); border: 2px solid transparent; border-radius: 10px; font-family: var(--pf-mono); font-size: 22px; font-weight: 600; letter-spacing: .02em; color: var(--pf-text); transition: border-color .2s, box-shadow .2s; }
+.pf-input input { all: unset; flex: 1; min-width: 0; font: inherit; color: inherit; }
+.pf-input input::placeholder, .pf-input__placeholder { font-family: 'Inter', system-ui, sans-serif; font-weight: 500; font-size: 20px; letter-spacing: 0; color: var(--pf-dim); }
+.pf-input.is-focus { border-color: var(--pf-teal); box-shadow: 0 0 0 1px rgba(32,202,165,.25), 0 0 26px rgba(32,202,165,.18); }
+.pf-input.is-error { border-color: var(--pf-pink); border-width: 1.5px; }
+.pf-input__dots { font-family: 'Inter', sans-serif; font-size: 22px; letter-spacing: .06em; font-weight: 800; }
+.pf-input__caret { display: inline-block; width: 2px; height: 26px; background: var(--pf-teal); margin-left: 2px; animation: pf-blink 1s steps(2) infinite; }
+@keyframes pf-blink { to { opacity: 0 } }
+.pf-eye { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); width: 40px; height: 38px; border: 0; border-radius: 8px; background: var(--pf-teal-dim); color: var(--pf-teal); display: grid; place-items: center; cursor: pointer; }
+.pf-eye svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+/* ---- Rules checklist -------------------------------------------------- */
+.pf-rules { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 0; }
+.pf-rule { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 500; color: var(--pf-muted); }
+.pf-rule__dot { width: 20px; height: 20px; border-radius: 50%; background: #1f262c; display: grid; place-items: center; color: #5b636a; flex: none; transition: background .25s, color .25s; }
+.pf-rule__dot svg { width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.pf-rule__dot::before { content: ''; width: 8px; height: 2px; background: currentColor; border-radius: 1px; }
+.pf-rule.is-ok { color: var(--pf-text); }
+.pf-rule.is-ok .pf-rule__dot { background: var(--pf-green); color: #fff; }
+.pf-rule.is-ok .pf-rule__dot::before { display: none; }
+.pf-rule .pf-rule__dot svg { display: none; } .pf-rule.is-ok .pf-rule__dot svg { display: block; }
+.pf-errors { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; }
+.pf-error { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--pf-pink); }
+.pf-error svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+/* ---- Strength meter --------------------------------------------------- */
+.pf-meter { display: flex; gap: 8px; margin-top: 24px; }
+.pf-meter__seg { flex: 1; height: 9px; border-radius: 5px; background: var(--pf-track); transition: background .3s; }
+.pf-meter[data-level="1"] .pf-meter__seg:nth-child(-n+1) { background: var(--pf-pink); }
+.pf-meter[data-level="2"] .pf-meter__seg:nth-child(-n+2) { background: var(--pf-amber); }
+.pf-meter[data-level="3"] .pf-meter__seg:nth-child(-n+3) { background: var(--pf-amber); }
+.pf-meter[data-level="4"] .pf-meter__seg { background: var(--pf-teal); }
+.pf-meter__row { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; font-size: 15px; color: var(--pf-muted); }
+.pf-meter__word { font-weight: 700; font-size: 17px; color: var(--pf-dim); }
+.pf-meter__row[data-level="1"] .pf-meter__word { color: var(--pf-pink); }
+.pf-meter__row[data-level="2"] .pf-meter__word, .pf-meter__row[data-level="3"] .pf-meter__word { color: var(--pf-amber); }
+.pf-meter__row[data-level="4"] .pf-meter__word { color: var(--pf-teal); }
+
+/* ---- Buttons ---------------------------------------------------------- */
+.pf-btn { display: flex; align-items: center; justify-content: center; height: 56px; border: 0; border-radius: 10px; background: var(--pf-teal); color: #062018; font: 600 18px 'Inter', sans-serif; cursor: pointer; transition: background .2s, color .2s, transform .1s; }
+.pf-btn:active { transform: scale(.985); }
+.pf-btn:not([disabled]):not(.is-disabled) { box-shadow: 0 0 22px rgba(32,202,165,.28); }
+.pf-btn--lg { font-size: 20px; font-weight: 700; height: 58px; }
+.pf-btn[disabled], .pf-btn.is-disabled { background: var(--pf-input); color: var(--pf-dim); cursor: default; }
+
+/* ---- Pills, chips, tags ----------------------------------------------- */
+.pf-pill { display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.pf-pill--pink { background: var(--pf-pink-dim); color: var(--pf-pink); }
+.pf-pill--teal { background: var(--pf-teal-dim); color: var(--pf-teal); }
+.pf-chip { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: #22262c; color: #c9ced5; font: 500 13px var(--pf-mono); }
+.pf-tag { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid; background: var(--pf-panel-2); font: 500 14px var(--pf-mono); color: #d8dde2; }
+.pf-tag--pink { border-color: var(--pf-pink-line); }
+.pf-tag--amber { border-color: rgba(240,178,79,.55); }
+.pf-tag--teal { border-color: var(--pf-teal-line); background: var(--pf-teal-dim); color: var(--pf-teal); }
+.pf-tag svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
+.pf-badge { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border-radius: 999px; background: var(--pf-teal-dim); color: var(--pf-teal); font-size: 15px; font-weight: 600; }
+.pf-badge svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; }
+.pf-note { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--pf-teal-line); background: var(--pf-teal-dim); color: var(--pf-teal); font: 500 14px var(--pf-mono); }
+.pf-note svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2.5; }
+.pf-check { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: #c9ced5; }
+.pf-check i { width: 16px; height: 16px; border-radius: 50%; background: var(--pf-green); display: grid; place-items: center; }
+.pf-check i svg { width: 9px; height: 9px; fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---- Entropy compare cards -------------------------------------------- */
+.pf-ent { width: 313px; height: 299px; padding: 22px 22px 0; background: var(--pf-panel); border: 1px solid var(--pf-border); border-radius: 18px; box-shadow: 0 20px 60px rgba(0,0,0,.45); }
+.pf-ent__pw { margin-top: 18px; height: 54px; display: grid; place-items: center; background: #1c2126; border-radius: 10px; font: 700 22px var(--pf-mono); letter-spacing: .02em; }
+.pf-ent__pw--long { font-size: 16px; }
+.pf-ent__meta { height: 32px; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; font-size: 14px; color: var(--pf-muted); }
+.pf-ent__crack { display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px; margin-top: 4px; border-radius: 8px; border: 1px solid transparent; background: var(--pf-input); font-size: 14px; color: var(--pf-muted); transition: background .3s, border-color .3s; }
+.pf-ent__crack svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
+.pf-ent__crack b { margin-left: auto; font: 700 19px var(--pf-mono); color: var(--pf-dim); }
+.pf-ent__crack.is-pink { background: var(--pf-pink-dim); border-color: var(--pf-pink-line); } .pf-ent__crack.is-pink b { color: var(--pf-pink); }
+.pf-ent__crack.is-teal { background: var(--pf-teal-dim); border-color: var(--pf-teal-line); } .pf-ent__crack.is-teal b { color: var(--pf-teal); }
+.pf-ent__bits { display: flex; align-items: baseline; justify-content: center; gap: 10px; margin-top: 22px; font-size: 16px; color: var(--pf-muted); }
+.pf-ent__bits b { font: 700 36px var(--pf-mono); color: var(--pf-text); letter-spacing: -.02em; }
+.pf-ent__bits b.is-zero { color: var(--pf-dim); }
+.pf-race { width: 610px; padding: 14px 22px; background: #0f1619; border: 1px solid var(--pf-border); border-radius: 12px; display: flex; flex-direction: column; gap: 14px; }
+.pf-race__row { display: flex; align-items: center; height: 16px; }
+.pf-race__name { width: 225px; font: 500 14px var(--pf-mono); color: var(--pf-muted); }
+.pf-race__bar { flex: 1; height: 14px; border-radius: 7px; background: #1e2327; overflow: hidden; }
+.pf-race__fill { height: 100%; border-radius: 7px; width: var(--w, 0); transition: width 1.2s cubic-bezier(.2,.8,.2,1); }
+.pf-race__fill--pink { background: var(--pf-pink); } .pf-race__fill--teal { background: var(--pf-teal); }
+
+/* ---- Coach rows, paste toggles, manager ------------------------------- */
+.pf-row { display: flex; align-items: center; gap: 14px; width: 612px; height: 57px; padding: 0 22px; border-radius: 12px; border: 1px solid var(--pf-border); background: #121518; font-size: 18px; font-weight: 600; color: var(--pf-text); }
+.pf-row svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.pf-row--teal { border-color: var(--pf-teal-line); } .pf-row--teal svg, .pf-row--teal em { color: var(--pf-teal); font-style: normal; }
+.pf-row--pink { border-color: var(--pf-pink-line); background: #17121a; } .pf-row--pink svg, .pf-row--pink em { color: var(--pf-pink); font-style: normal; }
+.pf-row--dim { color: var(--pf-dim); } .pf-row--dim svg, .pf-row--dim em { color: var(--pf-dim); font-style: normal; }
+.pf-toggle { display: flex; align-items: center; gap: 14px; width: 291px; height: 64px; padding: 0 22px; border-radius: 12px; border: 1px solid var(--pf-border); background: var(--pf-panel); font-size: 18px; font-weight: 600; color: var(--pf-dim); cursor: pointer; transition: background .25s, color .25s, border-color .25s; }
+.pf-toggle i { width: 28px; height: 28px; border-radius: 50%; background: #2a2e33; color: #6a7178; display: grid; place-items: center; flex: none; transition: background .25s, color .25s; }
+.pf-toggle i svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.pf-toggle--block.is-on { background: #3a1f2b; border-color: rgba(238,79,114,.35); color: #fff; } .pf-toggle--block.is-on i { background: var(--pf-pink); color: #fff; }
+.pf-toggle--allow.is-on { background: #0e3a30; border-color: rgba(32,202,165,.35); color: #fff; } .pf-toggle--allow.is-on i { background: var(--pf-teal); color: #062018; }
+.pf-alert { display: inline-flex; align-items: center; gap: 10px; height: 47px; padding: 0 22px; border-radius: 10px; border: 1.5px solid var(--pf-pink); background: var(--pf-pink-dim); color: var(--pf-pink); font-size: 18px; font-weight: 600; box-shadow: 0 0 24px rgba(238,79,114,.18); }
+.pf-alert svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; }
+.pf-manager { display: flex; align-items: center; gap: 14px; width: 265px; height: 64px; padding: 0 22px; border-radius: 10px; border: 1px solid var(--pf-teal-line); background: var(--pf-panel); box-shadow: 0 0 20px rgba(32,202,165,.1); }
+.pf-manager svg { width: 20px; height: 20px; fill: none; stroke: var(--pf-teal); stroke-width: 2; }
+.pf-manager b { display: block; font-size: 16px; font-weight: 700; }
+.pf-manager span { display: block; font: 12px var(--pf-mono); color: var(--pf-muted); margin-top: 2px; white-space: nowrap; }
+
+/* ---- Suggested password ----------------------------------------------- */
+.pf-suggest { display: flex; align-items: center; gap: 14px; height: 77px; padding: 0 16px; margin-top: 16px; border-radius: 10px; border: 1px solid var(--pf-border); background: #181c1f; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+.pf-suggest__icon { width: 40px; height: 40px; border-radius: 9px; background: var(--pf-teal-dim); color: var(--pf-teal); display: grid; place-items: center; flex: none; }
+.pf-suggest__icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; }
+.pf-suggest b { display: block; font-size: 17px; font-weight: 700; }
+.pf-suggest span { display: block; font: 500 15px var(--pf-mono); color: var(--pf-teal); margin-top: 3px; }
+
+/* ---- Zero stats ------------------------------------------------------- */
+.pf-stats { display: flex; gap: 16px; }
+.pf-stat { width: 189px; height: 108px; border-radius: 12px; border: 1px solid var(--pf-border); background: var(--pf-panel); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--pf-dim); transition: border-color .3s, color .3s; }
+.pf-stat b { font: 700 36px var(--pf-mono); line-height: 1; }
+.pf-stat span { font-size: 18px; font-weight: 500; }
+.pf-stat.is-on { border-color: var(--pf-teal-line); color: #b3bac0; box-shadow: 0 0 24px rgba(32,202,165,.08); } .pf-stat.is-on b { color: var(--pf-teal); }
+
+/* ---- Outro ------------------------------------------------------------- */
+.pf-mini { width: 544px; height: 121px; padding: 19px 22px 0; border-radius: 12px; border: 1px solid var(--pf-teal-line); background: var(--pf-panel); text-align: center; box-shadow: 0 0 30px rgba(32,202,165,.08); }
+.pf-mini__pw { font: 700 22px var(--pf-mono); letter-spacing: .02em; }
+.pf-mini .pf-meter { margin-top: 16px; } .pf-mini .pf-meter__seg { height: 9px; }
+.pf-mini .pf-meter__row { margin-top: 10px; font-size: 14px; } .pf-mini .pf-meter__word { font-size: 16px; }
+.pf-save { display: inline-flex; align-items: center; gap: 10px; height: 64px; padding: 0 36px; border-radius: 12px; background: var(--pf-teal); color: #062018; font-size: 22px; font-weight: 700; box-shadow: 0 0 50px rgba(32,202,165,.4); }
+.pf-save svg { width: 18px; height: 18px; fill: currentColor; }

@@ -1,0 +1,70 @@
+/* Toast Notifications, rebuilt from the @designmotionhq reel "Toasts done right".
+   Component classes are prefixed .tn- and depend only on the tokens below. */
+.tn {
+  --tn-bg: #09090b; --tn-panel: #12151e; --tn-border: rgba(255,255,255,.07); --tn-text: #f2f4f7; --tn-muted: #8b8f9c;
+  --tn-info: #437ced; --tn-success: #1bc596; --tn-warning: #dc9809; --tn-error: #d34e79; --tn-teal: #40c09f;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--tn-text);
+}
+
+/* ---- Toast ------------------------------------------------------------------ */
+.tn-toast { --c: var(--tn-info); position: relative; display: flex; align-items: center; gap: 14px; width: 520px; height: 70px; padding: 0 12px 0 24px; background: var(--tn-panel); border: 1px solid var(--tn-border); border-radius: 12px; box-shadow: 0 0 0 1px color-mix(in srgb, var(--c) 22%, transparent), 0 0 28px color-mix(in srgb, var(--c) 14%, transparent), 0 12px 40px rgba(0,0,0,.5); overflow: hidden; transition: box-shadow .4s; }
+.tn-toast::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--c); transition: background .4s; }
+.tn-toast--info { --c: var(--tn-info); } .tn-toast--success { --c: var(--tn-success); } .tn-toast--warning { --c: var(--tn-warning); } .tn-toast--error { --c: var(--tn-error); }
+.tn-toast__icon { flex: none; width: 34px; height: 34px; border-radius: 8px; display: grid; place-items: center; color: var(--c); background: color-mix(in srgb, var(--c) 18%, #10131b); border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); transition: color .4s, background .4s, border-color .4s; }
+.tn-toast__icon svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.tn-toast__body { flex: 1; min-width: 0; }
+.tn-toast__title { font-size: 17px; font-weight: 700; line-height: 1.2; white-space: nowrap; }
+.tn-toast__sub { font-size: 14px; color: var(--tn-muted); margin-top: 3px; white-space: nowrap; }
+.tn-toast__close { flex: none; width: 26px; height: 26px; border: 0; border-radius: 6px; background: #1d212a; color: #9aa0ac; font-size: 14px; line-height: 1; display: grid; place-items: center; cursor: pointer; }
+.tn-toast__close:hover { background: #262b36; color: #fff; }
+.tn-toast__bar { position: absolute; left: 0; bottom: 0; height: 3px; width: 100%; background: var(--c); transform-origin: left; }
+.tn-toast.is-grey { --c: #3a3d47; box-shadow: 0 12px 40px rgba(0,0,0,.5); }
+.tn-toast.is-grey::before { background: transparent; }
+.tn-toast.is-grey .tn-toast__icon { color: #4a4d58; background: #272935; border-color: #30333d; }
+/* Sizes used by the reel */
+.tn-toast--sm { width: 412px; height: 68px; }
+.tn-toast--sm .tn-toast__icon { width: 32px; height: 32px; }
+.tn-toast--mini { width: 176px; height: 36px; gap: 8px; padding: 0 8px 0 10px; border-radius: 6px; }
+.tn-toast--mini .tn-toast__icon { width: 18px; height: 18px; border-radius: 4px; } .tn-toast--mini .tn-toast__icon svg { width: 9px; height: 9px; }
+.tn-toast--mini .tn-toast__title { font-size: 9px; } .tn-toast--mini .tn-toast__sub { font-size: 7px; margin-top: 1px; }
+
+/* ---- Stack (newest at the bottom, older float up and shrink, max 3) ---- */
+.tn-stack { position: absolute; width: 452px; height: 250px; }
+.tn-stack .tn-toast { position: absolute; left: 0; bottom: 0; width: 452px; transition: transform .55s cubic-bezier(.34,1.4,.64,1), opacity .35s ease; }
+.tn-stack .tn-toast[data-i="0"] { transform: translateY(0) scale(1); z-index: 3; }
+.tn-stack .tn-toast[data-i="1"] { transform: translateY(-90px) scale(.975); z-index: 2; }
+.tn-stack .tn-toast[data-i="2"] { transform: translateY(-180px) scale(.945); z-index: 1; }
+.tn-stack .tn-toast[data-i="3"], .tn-stack .tn-toast.is-leaving { transform: translateY(-260px) scale(.92); opacity: 0; pointer-events: none; }
+.tn-stack .tn-toast.is-entering { transform: translateY(40px) scale(.96); opacity: 0; }
+.tn-stack.no-anim .tn-toast { transition: none; }
+
+/* ---- Reel chrome: rule pill, title, chips, badges ----------------------- */
+.tn-rule { position: absolute; left: 50%; transform: translateX(-50%); padding: 6px 14px; border-radius: 999px; background: #0d1c21; color: var(--tn-teal); font-size: 13px; font-weight: 700; letter-spacing: .18em; white-space: nowrap; }
+.tn-h1 { position: absolute; left: 0; right: 0; text-align: center; font-size: 46px; font-weight: 700; letter-spacing: -.02em; line-height: 1; }
+.tn-h1 em { font-style: normal; background: linear-gradient(90deg, #40c09f, #d34e79); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tn-tag { position: absolute; padding: 7px 16px; border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: .1em; white-space: nowrap; text-transform: uppercase; }
+.tn-tag--ok { background: #0a201e; color: var(--tn-teal); border: 1px solid rgba(64,192,159,.25); }
+.tn-tag--no { background: #1b0e15; color: var(--tn-error); border: 1px solid rgba(211,78,121,.35); }
+.tn-badge { position: absolute; padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: .1em; }
+.tn-badge--info { background: #0f2a6b; color: #6d9cf6; } .tn-badge--success { background: #0d3a30; color: #45d3a9; } .tn-badge--warning { background: #522a00; color: #f2a825; }
+.tn-chip { position: absolute; top: 1020px; height: 32px; padding: 0 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,.06); font-size: 14px; font-weight: 700; letter-spacing: .08em; display: flex; align-items: center; white-space: nowrap; }
+.tn-chip--damping { background: #12352e; color: var(--tn-teal); } .tn-chip--stiffness { background: #40000e; color: var(--tn-error); } .tn-chip--max { background: #14171c; color: #f2f4f7; }
+.tn-timer-label { position: absolute; left: 0; right: 0; text-align: center; font-size: 15px; font-weight: 700; letter-spacing: .12em; }
+.tn-note { position: absolute; left: 50%; transform: translateX(-50%); padding: 11px 22px; border-radius: 8px; background: #1b0e15; border: 1px solid #d34e79; color: var(--tn-error); font-size: 17px; font-weight: 600; white-space: nowrap; }
+
+/* ---- Device mocks ------------------------------------------------------------ */
+.tn-window { position: absolute; background: #15181f; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,.05); }
+.tn-window--bad { border: 2px solid var(--tn-error); box-shadow: 0 0 30px rgba(211,78,121,.25); }
+.tn-window__bar { height: 28px; background: #1c1f28; display: flex; align-items: center; gap: 7px; padding-left: 12px; }
+.tn-window__bar i { width: 8px; height: 8px; border-radius: 50%; } .tn-window__bar i:nth-child(1) { background: #e5484d } .tn-window__bar i:nth-child(2) { background: #f5c518 } .tn-window__bar i:nth-child(3) { background: #30c85e }
+.tn-bone { position: absolute; background: #22252e; border-radius: 4px; }
+.tn-phone { position: absolute; width: 171px; height: 315px; border-radius: 26px; background: #151821; border: 2px solid #23262f; }
+.tn-phone__notch { position: absolute; left: 50%; top: 9px; transform: translateX(-50%); width: 75px; height: 14px; border-radius: 8px; background: #05060a; }
+
+/* ---- Motion ---------------------------------------------------------------- */
+.tn-in { opacity: 0; animation: tn-in .45s cubic-bezier(.2,.8,.2,1) forwards; animation-delay: var(--d, 0s); }
+@keyframes tn-in { from { opacity: 0; transform: translateY(14px) } to { opacity: 1; transform: none } }
+.tn-fade { opacity: 0; animation: tn-fade .5s ease forwards; animation-delay: var(--d, 0s); }
+@keyframes tn-fade { to { opacity: 1 } }
+.tn-drain { animation: tn-drain var(--dur, 4s) linear forwards; animation-delay: var(--d, 0s); }
+@keyframes tn-drain { from { transform: scaleX(1) } to { transform: scaleX(0) } }

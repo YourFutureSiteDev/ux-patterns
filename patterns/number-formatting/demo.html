@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Number Formatting · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0d1013; --accent: #2fe0ad; --danger: #e04a75; --grid: rgba(255,255,255,.03); }
+  .scene { color: #f3f5f7; background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px), radial-gradient(ellipse 62% 42% at 50% 63%, #262b30 0%, rgba(13,16,19,0) 100%); background-size: 40px 40px, 40px 40px, 100% 100%; }
+  .scene.is-teal { background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px), radial-gradient(ellipse 62% 42% at 50% 63%, #13332c 0%, rgba(13,16,19,0) 100%); }
+  /* This reel's chrome: pill kicker at 157, headline at 208, pill caption at 1055. */
+  .kicker { top: 140px; padding: 7px 18px; font-size: 14px; letter-spacing: .16em; border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); }
+  .kicker--danger { border-color: rgba(224,74,117,.25); }
+  .kicker--plain { color: #8b93a1; background: #1e2126; border-color: rgba(255,255,255,.06); }
+  .title { top: 184px; margin: 0; font-size: 40px; line-height: 1.15; letter-spacing: -.025em; padding: 0 40px; }
+  .caption { top: 1030px; height: 50px; padding: 0 26px; display: flex; align-items: center; gap: 10px; font-size: 20px; color: var(--accent); background: rgba(47,224,173,.1); border: 1px solid rgba(47,224,173,.2); box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+  .caption--danger { color: var(--danger); background: rgba(224,74,117,.1); border-color: rgba(224,74,117,.22); }
+  .caption svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+</style>
+</head>
+<body class="nf">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+  <symbol id="i-lr" viewBox="0 0 24 24"><path d="M3 12h18M8 7l-5 5 5 5M16 7l5 5-5 5"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+  <symbol id="i-lines" viewBox="0 0 24 24"><path d="M4 7h16M8 12h12M12 17h8"/></symbol>
+  <symbol id="i-shrink" viewBox="0 0 24 24"><path d="M20 4l-6 6M14 4v6h6M4 20l6-6M10 20v-6H4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5M12 7v5l3 2"/></symbol>
+  <symbol id="i-dollar" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v12M15 9.5a3 3 0 0 0-3-1.5c-1.7 0-3 .9-3 2s1.3 2 3 2 3 .9 3 2-1.3 2-3 2a3 3 0 0 1-3-1.5"/></symbol>
+  <symbol id="i-tab" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M18 21l-6-4.5L6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-asterisk" viewBox="0 0 24 24"><path d="M12 4v16M5 8l14 8M19 8L5 16"/></symbol>
+</svg>
+
+<!-- 1 · Hook: proportional, the right edge dances -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="kicker kicker--plain">UI Numbers · 01</div>
+  <h1 class="title">Watch the <em class="danger">right edge.</em></h1>
+  <div class="nf-card is-bad" style="position:absolute;left:88px;top:360px;width:544px;height:370px">
+    <div class="nf-card__label" style="left:25px;top:28px">Q3 Revenue</div>
+    <span class="nf-chip nf-chip--pink" style="right:26px;top:23px">proportional</span>
+    <div class="nf-figures is-pnum nf-pnum" style="right:32px;top:72px;font-size:38px;gap:19px"><span style="--dx:-16px">4,208.50</span><span style="--dx:16px">72.00</span><span style="--dx:-14px">18,940.25</span><span style="--dx:26px">1,006.75</span><span style="--dx:-8px">340.00</span></div>
+    <i class="nf-edge nf-edge--pink" style="left:514px;top:65px;height:280px"></i>
+  </div>
+  <div class="nf-states" style="left:213px;top:953px"><span class="nf-state nf-state--pink">dances</span><svg><use href="#i-arrow"/></svg><span class="nf-state nf-state--teal is-off">lines up</span></div>
+</section>
+
+<!-- 1b · Hook: tabular, the right edge lines up -->
+<section class="scene is-teal" data-t="1.5" data-shot="1.5">
+  <div class="kicker kicker--plain">UI Numbers · 01</div>
+  <h1 class="title">Watch the <em>right edge.</em></h1>
+  <div class="nf-card is-ok" style="position:absolute;left:88px;top:360px;width:544px;height:370px">
+    <div class="nf-card__label" style="left:25px;top:28px">Q3 Revenue</div>
+    <span class="nf-chip nf-chip--teal" style="right:26px;top:23px"><svg><use href="#i-asterisk"/></svg>tabular-nums</span>
+    <div class="nf-figures nf-tnum" style="right:34px;top:72px;font-size:38px;gap:19px"><span>4,208.50</span><span>72.00</span><span>18,940.25</span><span>1,006.75</span><span>340.00</span></div>
+    <i class="nf-edge nf-edge--teal" style="left:511px;top:65px;height:280px"></i>
+  </div>
+  <div class="nf-states" style="left:213px;top:953px"><span class="nf-state nf-state--pink is-off">dances</span><svg><use href="#i-arrow"/></svg><span class="nf-state nf-state--teal">lines up</span></div>
+</section>
+
+<!-- 2 · The problem: proportional -->
+<section class="scene" data-t="3" data-shot="7.5">
+  <div class="kicker kicker--danger">The problem · proportional</div>
+  <h1 class="title" style="font-size:38px">Every digit picks <em class="danger">its own width.</em></h1>
+  <div style="position:absolute;left:240px;top:273px;width:80px;text-align:center"><div class="nf-glyph">1</div><div class="nf-glyph__cap">narrow glyph</div></div>
+  <svg style="position:absolute;left:350px;top:317px;width:26px;height:26px;fill:none;stroke:#e04a75;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><use href="#i-lr"/></svg>
+  <div style="position:absolute;left:405px;top:273px;width:80px;text-align:center"><div class="nf-glyph nf-glyph--wide">0</div><div class="nf-bracket"></div><div class="nf-glyph__cap is-pink" style="margin-top:8px">wide glyph</div></div>
+  <div class="nf-card is-bad" style="position:absolute;left:73px;top:463px;width:574px;height:327px">
+    <div class="nf-card__label" style="left:30px;top:26px;font-size:13px">Same length · ragged edge</div>
+    <span style="position:absolute;right:28px;top:26px;font:600 13px var(--nf-mono);color:var(--nf-pink)">pnum</span>
+    <div class="nf-figures nf-pnum" style="left:30px;top:60px;align-items:flex-start;font-size:44px;gap:20px"><span>1,111</span><span>8,888</span><span>1,010</span><span>9,090</span></div>
+    <i class="nf-edge nf-edge--pink" style="left:376px;top:49px;height:261px"></i>
+    <span class="nf-chip nf-chip--pink" style="left:409px;top:164px;padding:6px 12px"><svg><use href="#i-warn"/></svg>edge wobbles</span>
+  </div>
+  <div class="caption caption--danger"><svg><use href="#i-warn"/></svg>Same digit count, different pixel width.</div>
+</section>
+
+<!-- 3 · The fix: tabular -->
+<section class="scene is-teal" data-t="10.5" data-shot="13.5">
+  <div class="kicker">The fix · tabular</div>
+  <h1 class="title">One line locks <em>every width.</em></h1>
+  <div class="nf-code" style="position:absolute;left:107px;top:283px">
+    <div class="nf-code__head"><svg><use href="#i-code"/></svg>styles.css<span class="nf-code__dots"><i></i><i></i><i></i></span></div>
+    <div class="nf-code__line" id="codeLine"><span class="p">font-variant-numeric</span><span class="c">:</span> tabular-nums;</div>
+  </div>
+  <div class="nf-card is-ok" style="position:absolute;left:74px;top:460px;width:572px;height:300px">
+    <div class="nf-card__label" style="left:29px;top:22px">Decimals on one line</div>
+    <span style="position:absolute;right:29px;top:22px;font:600 13px var(--nf-mono);color:var(--nf-teal)">tnum</span>
+    <div class="nf-figures nf-tnum" style="right:35px;top:57px;font-size:40px;gap:18px"><span>1,204.50</span><span>8,840.00</span><span>1,010.25</span><span>9,090.90</span></div>
+    <i class="nf-edge nf-edge--teal" style="left:538px;top:47px;height:233px"></i>
+    <span class="nf-chip nf-chip--dark" style="left:388px;top:262px"><svg><use href="#i-check"/></svg>decimals aligned</span>
+  </div>
+  <div class="caption"><svg><use href="#i-check"/></svg>One width per digit, decimals in a straight line.</div>
+</section>
+
+<!-- 4 · Alignment: right-align -->
+<section class="scene" data-t="16.5" data-shot="21">
+  <div class="kicker">Alignment · right-align</div>
+  <h1 class="title">Numbers right, <em>text left.</em></h1>
+  <div class="nf-card" style="position:absolute;left:60px;top:253px;width:600px;height:414px">
+    <div class="nf-card__label" style="left:26px;top:22px">Product</div>
+    <span class="nf-chip nf-chip--teal" id="alignChip" style="right:23px;top:17px">text-align: right</span>
+    <div class="nf-rows" id="products" style="left:26px;top:53px;width:548px">
+      <div class="nf-row"><div class="nf-row__avatar">NC</div><div><div class="nf-row__name">Nordic Chair</div><div class="nf-row__sub">Seating</div></div><div class="nf-row__num">$1,299</div></div>
+      <div class="nf-row"><div class="nf-row__avatar">OD</div><div><div class="nf-row__name">Oak Desk</div><div class="nf-row__sub">Tables</div></div><div class="nf-row__num">$980</div></div>
+      <div class="nf-row"><div class="nf-row__avatar">LS</div><div><div class="nf-row__name">Linen Sofa</div><div class="nf-row__sub">Seating</div></div><div class="nf-row__num">$2,450</div></div>
+      <div class="nf-row"><div class="nf-row__avatar">BL</div><div><div class="nf-row__name">Brass Lamp</div><div class="nf-row__sub">Lighting</div></div><div class="nf-row__num">$89</div></div>
+      <div class="nf-row"><div class="nf-row__avatar">WR</div><div><div class="nf-row__name">Wool Rug</div><div class="nf-row__sub">Textiles</div></div><div class="nf-row__num">$1,150</div></div>
+    </div>
+    <i class="nf-edge" id="alignEdge" style="left:561px;top:53px;height:338px;background:var(--nf-teal);opacity:.7;box-shadow:0 0 10px rgba(47,224,173,.6)"></i>
+  </div>
+  <div class="caption"><svg><use href="#i-lines"/></svg>The eye compares straight down the last digit.</div>
+</section>
+
+<!-- 5 · Abbreviation: compact -->
+<section class="scene" data-t="24" data-shot="27">
+  <div class="kicker">Abbreviation · compact</div>
+  <h1 class="title">Big numbers, <em>small footprint.</em></h1>
+  <div class="nf-convert" style="top:282px"><span>3,400,000</span><svg><use href="#i-shrink"/></svg><b>3.4M</b></div>
+  <div class="nf-tiles" style="left:64px;top:396px">
+    <div class="nf-tile" data-value="1000"><div class="nf-tile__label">Monthly views<i></i></div><div class="nf-tile__value">1K</div><div class="nf-tile__foot">abbrev</div></div>
+    <div class="nf-tile" id="tileUsers" data-value="1000000"><div class="nf-tile__label">Total users<i></i></div><div class="nf-tile__value">1M</div><div class="nf-tile__foot">abbrev</div></div>
+    <div class="nf-tile" data-value="3400000"><div class="nf-tile__label">Revenue<i></i></div><div class="nf-tile__value">3.4M</div><div class="nf-tile__foot">abbrev</div></div>
+  </div>
+  <div class="nf-legend" style="left:88px;top:650px"><span><b>1K</b><i>=</i>1,000</span><span><b>1M</b><i>=</i>1,000,000</span><span><b>1B</b><i>=</i>1,000,000,000</span></div>
+  <svg class="cursor" style="left:363px;top:440px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="caption"><svg><use href="#i-shrink"/></svg>Compact by default, exact on hover.</div>
+</section>
+
+<!-- 6 · Relative time: absolute clock times (the comparison) -->
+<section class="scene" data-t="28.5" data-shot="30">
+  <div class="kicker">Relative time · recency</div>
+  <h1 class="title"><em class="danger">14:32</em> or <em>2h ago?</em></h1>
+  <div class="nf-card" style="position:absolute;left:60px;top:300px;width:600px;height:460px">
+    <div class="nf-card__label" style="left:26px;top:20px">Activity</div>
+    <span class="nf-live" style="right:26px;top:20px"><svg><use href="#i-clock"/></svg>live</span>
+    <div class="nf-rows" id="activityAbs" style="left:26px;top:48px;width:548px;gap:11px">
+      <div class="nf-row" data-ts="2026-03-05T14:32:00"><div class="nf-row__avatar">SC</div><div><div class="nf-row__name">Sarah Chen</div><div class="nf-row__sub">commented on Pricing</div></div><div class="nf-row__time is-abs">14:32</div></div>
+      <div class="nf-row" data-ts="2026-03-05T12:05:00"><div class="nf-row__avatar">MS</div><div><div class="nf-row__name">Marco Silva</div><div class="nf-row__sub">shipped v2.4.0</div></div><div class="nf-row__time is-abs">12:05</div></div>
+      <div class="nf-row" data-ts="2026-03-05T08:40:00"><div class="nf-row__avatar">AK</div><div><div class="nf-row__name">Aisha Khan</div><div class="nf-row__sub">merged #482</div></div><div class="nf-row__time is-abs">08:40</div></div>
+      <div class="nf-divider" style="visibility:hidden"><span><b>24h</b> boundary</span></div>
+      <div class="nf-row" data-ts="2026-03-03T10:00:00"><div class="nf-row__avatar">DT</div><div><div class="nf-row__name">Diego Torres</div><div class="nf-row__sub">closed #390</div></div><div class="nf-row__time">Mar  3</div></div>
+      <div class="nf-row" data-ts="2026-02-27T10:00:00"><div class="nf-row__avatar">LF</div><div><div class="nf-row__name">Lena Fischer</div><div class="nf-row__sub">opened #375</div></div><div class="nf-row__time">Feb 27</div></div>
+    </div>
+  </div>
+  <div class="caption"><svg><use href="#i-history"/></svg>Relative under a day, absolute for everything older.</div>
+</section>
+
+<!-- 6b · Relative time: "2h ago" with the 24h boundary -->
+<section class="scene" data-t="31.5" data-shot="34.5">
+  <div class="kicker">Relative time · recency</div>
+  <h1 class="title"><em class="danger">14:32</em> or <em>2h ago?</em></h1>
+  <div class="nf-card" style="position:absolute;left:60px;top:300px;width:600px;height:460px">
+    <div class="nf-card__label" style="left:26px;top:20px">Activity</div>
+    <span class="nf-live" style="right:26px;top:20px"><svg><use href="#i-clock"/></svg>live</span>
+    <div class="nf-rows" id="activityRel" style="left:26px;top:48px;width:548px;gap:11px">
+      <div class="nf-row" data-ts="2026-03-05T14:32:00"><div class="nf-row__avatar">SC</div><div><div class="nf-row__name">Sarah Chen</div><div class="nf-row__sub">commented on Pricing</div></div><div class="nf-row__time">2h ago</div></div>
+      <div class="nf-row" data-ts="2026-03-05T12:05:00"><div class="nf-row__avatar">MS</div><div><div class="nf-row__name">Marco Silva</div><div class="nf-row__sub">shipped v2.4.0</div></div><div class="nf-row__time">5h ago</div></div>
+      <div class="nf-row" data-ts="2026-03-05T08:40:00"><div class="nf-row__avatar">AK</div><div><div class="nf-row__name">Aisha Khan</div><div class="nf-row__sub">merged #482</div></div><div class="nf-row__time">9h ago</div></div>
+      <div class="nf-divider"><span><b>24h</b> boundary</span></div>
+      <div class="nf-row is-old" data-ts="2026-03-03T10:00:00"><div class="nf-row__avatar">DT</div><div><div class="nf-row__name">Diego Torres</div><div class="nf-row__sub">closed #390</div></div><div class="nf-row__time">Mar  3</div></div>
+      <div class="nf-row is-old" data-ts="2026-02-27T10:00:00"><div class="nf-row__avatar">LF</div><div><div class="nf-row__name">Lena Fischer</div><div class="nf-row__sub">opened #375</div></div><div class="nf-row__time">Feb 27</div></div>
+    </div>
+  </div>
+  <div class="caption"><svg><use href="#i-history"/></svg>Relative under a day, absolute for everything older.</div>
+</section>
+
+<!-- 7 · Currency: pin the symbol -->
+<section class="scene" data-t="37.5" data-shot="42">
+  <div class="kicker kicker--plain">Currency · decimals</div>
+  <h1 class="title" style="font-size:38px">Pin the symbol, <em>align the decimal.</em></h1>
+  <div class="nf-money nf-money--bad" style="position:absolute;left:45px;top:313px">
+    <div class="nf-money__head"><span class="nf-money__mark"><svg><use href="#i-x"/></svg></span>$ glued to the number</div>
+    <div class="nf-money__row">$1,000.00</div><div class="nf-money__row">$9.99</div><div class="nf-money__row">$250.00</div><div class="nf-money__row">$42.50</div>
+    <i class="nf-edge nf-edge--pink is-dashed" style="left:45px;top:42px;height:270px"></i>
+  </div>
+  <div class="nf-money nf-money--ok" style="position:absolute;left:373px;top:313px">
+    <div class="nf-money__head"><span class="nf-money__mark"><svg><use href="#i-check"/></svg></span>$ pinned · decimals aligned</div>
+    <div class="nf-money__row"><span class="nf-money__sym">$</span>1,000.00</div><div class="nf-money__row"><span class="nf-money__sym">$</span>9.99</div><div class="nf-money__row"><span class="nf-money__sym">$</span>250.00</div><div class="nf-money__row"><span class="nf-money__sym">$</span>42.50</div>
+    <i class="nf-edge nf-edge--teal no-dot" style="left:211px;top:46px;height:270px;opacity:.85"></i>
+  </div>
+  <div class="caption"><svg><use href="#i-dollar"/></svg>Decimals line up. Dollar signs don't have to.</div>
+</section>
+
+<!-- 8 · Outro: numbers, formatted like a system -->
+<section class="scene is-teal" data-t="43.5" data-shot="46.5">
+  <div class="glow" style="left:100px;top:200px;width:520px;height:520px;background:rgba(47,224,173,.08)"></div>
+  <h1 class="title" style="top:155px;padding:0 60px"><em>Numbers, formatted like a system.</em></h1>
+  <div class="nf-card is-ok" style="position:absolute;left:55px;top:270px;width:250px;height:335px;border-radius:14px">
+    <div class="nf-card__label" style="left:18px;top:18px;font-size:13px">Q3 Revenue</div>
+    <div class="nf-figures nf-tnum" style="right:23px;top:86px;font-size:34px;gap:21px"><span>1,204.50</span><span>88.00</span><span>9,090.90</span><span>640.05</span></div>
+    <i class="nf-edge nf-edge--teal" style="left:228px;top:75px;height:215px"></i>
+  </div>
+  <div class="nf-list" style="left:335px;top:270px">
+    <div class="nf-item"><div class="nf-item__icon"><svg><use href="#i-tab"/></svg></div><div><b>Tabular figures</b><span>one width per digit</span></div><i>01</i></div>
+    <div class="nf-item"><div class="nf-item__icon"><svg><use href="#i-lines"/></svg></div><div><b>Right-align numbers</b><span>compare the last digit</span></div><i>02</i></div>
+    <div class="nf-item"><div class="nf-item__icon"><svg><use href="#i-shrink"/></svg></div><div><b>Abbreviate big values</b><span>1M, not 1,000,000</span></div><i>03</i></div>
+    <div class="nf-item"><div class="nf-item__icon"><svg><use href="#i-history"/></svg></div><div><b>Relative recent time</b><span>2h ago beats 14:32</span></div><i>04</i></div>
+    <div class="nf-item"><div class="nf-item__icon"><svg><use href="#i-dollar"/></svg></div><div><b>Pin the currency</b><span>align the decimal</span></div><i>05</i></div>
+  </div>
+  <div class="center" style="top:734px;font-size:14px;font-weight:700;letter-spacing:.2em;color:#8b93a1;white-space:nowrap">MORE UI SYSTEMS</div>
+  <div class="center" style="top:776px;font-size:38px;font-weight:800;letter-spacing:-.02em;white-space:nowrap">designmotionhq<em style="font-style:normal;color:var(--accent)">.com</em></div>
+  <div class="center" style="top:848px;display:flex;gap:15px;white-space:nowrap"><span class="nf-btn nf-btn--teal">link in bio<svg><use href="#i-external"/></svg></span><span class="nf-btn nf-btn--gray"><svg><use href="#i-bookmark"/></svg>save this</span></div>
+  <div class="center" style="top:921px;font:500 18px var(--nf-mono);color:#5a6067;white-space:nowrap">@designmotionhq</div>
+</section>
+
+<script type="module">
+  import { FiguresColumn, typeCode, CompactStat, ActivityTimes } from './pattern.js';
+  const $ = s => document.querySelector(s);
+  // The fix: the CSS line types itself when the scene is entered live.
+  const code = $('#codeLine'), full = code.innerHTML;
+  code.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t > 0) { code.innerHTML = full; return; } typeCode(code, full, { cps: 16 }); });
+  // Alignment: chip and prices flip left -> right after a beat when live.
+  const rows = $('#products'), chip = $('#alignChip'), edge = $('#alignEdge');
+  const setAlign = right => { rows.classList.toggle('is-left', !right); chip.textContent = right ? 'text-align: right' : 'text-align: left'; chip.className = 'nf-chip ' + (right ? 'nf-chip--teal' : 'nf-chip--pink'); edge.style.opacity = right ? .7 : 0; };
+  rows.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t > 0) return setAlign(true); setAlign(false); setTimeout(() => setAlign(true), 2200); });
+  // Abbreviation: real compact stats with the exact value on hover; the middle tile is hovered for the screenshot.
+  const stats = [...document.querySelectorAll('.nf-tile')].map(t => CompactStat(t, Number(t.dataset.value)));
+  $('#tileUsers').closest('.scene').addEventListener('scene:enter', e => { stats[1].hide(); if (e.detail.t >= 27) stats[1].show(); else setTimeout(() => stats[1].show(), 2400); });
+  // Relative time: both lists are driven by relativeTime() against the reel's "now" (Mar 5, 16:32).
+  const now = new Date('2026-03-05T16:32:00');
+  ActivityTimes($('#activityAbs'), { mode: 'absolute', now });
+  // Hook: expose the column toggle for anyone poking at the demo.
+  window.figures = FiguresColumn(document.querySelector('.nf-figures'));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

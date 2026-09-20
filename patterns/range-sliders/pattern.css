@@ -1,0 +1,81 @@
+/* Range Sliders, rebuilt from the @designmotionhq reel "Drag to 47. Or 48? Your finger can't tell."
+   Component classes are prefixed .rs- and depend only on the tokens below.
+   A slider's position is the custom property --p (0..1) on .rs-slider; range sliders use --a and --b. */
+.rs {
+  --rs-bg: #0a0d0f; --rs-panel: #111619; --rs-panel-2: #1f262c; --rs-track: #23282c; --rs-border: rgba(255,255,255,.07);
+  --rs-text: #f3f5f7; --rs-muted: #8d959c; --rs-dim: #5d666c;
+  --rs-teal: #21c9a0; --rs-teal-dim: rgba(33,201,160,.14); --rs-teal-line: rgba(33,201,160,.5);
+  --rs-pink: #ef4f7a; --rs-thumb: 24px; --rs-inset: calc(var(--rs-thumb) / 2);
+  font-family: 'Inter', system-ui, sans-serif; color: var(--rs-text);
+}
+
+/* ---- Single slider ------------------------------------------------------ */
+.rs-slider { --p: .5; position: relative; height: var(--rs-thumb); width: 100%; cursor: pointer; touch-action: none; user-select: none; outline: none; }
+.rs-slider__track { position: absolute; left: 0; right: 0; top: 50%; height: 6px; margin-top: -3px; border-radius: 3px; background: var(--rs-track); overflow: hidden; }
+.rs-slider__fill { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--rs-inset) + (100% - var(--rs-thumb)) * var(--p)); background: var(--rs-teal); border-radius: 3px; transition: width .08s linear; }
+.rs-slider__thumb { position: absolute; top: 50%; left: calc(var(--rs-inset) + (100% - var(--rs-thumb)) * var(--p)); width: var(--rs-thumb); height: var(--rs-thumb); margin: calc(var(--rs-thumb) / -2) 0 0 calc(var(--rs-thumb) / -2); border-radius: 50%; background: #eef2f3; box-shadow: 0 0 0 3px rgba(33,201,160,.35), 0 0 18px rgba(33,201,160,.55), 0 2px 6px rgba(0,0,0,.5); transition: left .08s linear, box-shadow .15s; }
+.rs-slider.is-dragging .rs-slider__thumb, .rs-slider:focus-visible .rs-slider__thumb { box-shadow: 0 0 0 5px rgba(33,201,160,.3), 0 0 24px rgba(33,201,160,.7); }
+.rs-slider--thin { height: 20px; }
+.rs-slider--thin .rs-slider__track { height: 3px; margin-top: -1.5px; background: #2a2f34; }
+.rs-slider--thin .rs-slider__thumb { width: 20px; height: 20px; margin: -10px 0 0 -10px; box-shadow: 0 2px 6px rgba(0,0,0,.5); }
+.rs-slider--nofill .rs-slider__fill { display: none; }
+.rs-slider--nofill .rs-slider__thumb { box-shadow: 0 2px 6px rgba(0,0,0,.5); }
+.rs-slider--pink .rs-slider__fill { background: linear-gradient(90deg, var(--rs-teal), var(--rs-pink)); }
+.rs-slider--pink .rs-slider__thumb { box-shadow: 0 0 0 3px rgba(239,79,122,.35), 0 0 18px rgba(239,79,122,.5); }
+.rs-slider--big { --rs-thumb: 26px; height: 26px; }
+.rs-slider--big .rs-slider__track { height: 8px; margin-top: -4px; }
+.rs-slider--big .rs-slider__thumb { box-shadow: 0 0 0 1px rgba(255,255,255,.15), 0 0 16px rgba(255,255,255,.35), 0 2px 6px rgba(0,0,0,.5); }
+.rs-slider--big .rs-slider__fill { background: linear-gradient(90deg, #2ec49e, #5a8f86); }
+
+/* Whole-row hit area: the padded box around the track is the drag target, not the 4px hairline. */
+.rs-hit { padding: 14px 10px; border-radius: 8px; background: var(--rs-teal-dim); }
+
+/* ---- Stepped ticks ------------------------------------------------------- */
+.rs-ticks { position: absolute; left: var(--rs-inset); right: var(--rs-inset); top: calc(50% + 7px); height: 10px; display: flex; justify-content: space-between; pointer-events: none; }
+.rs-ticks i { width: 2px; height: 10px; background: #3e7869; border-radius: 1px; }
+.rs-ticks--pink i { background: #6b3a49; }
+.rs-scale { display: flex; justify-content: space-between; margin: 20px 0 0; padding: 0 2px; font-size: 14px; font-weight: 500; color: var(--rs-dim); }
+.rs-scale b { color: var(--rs-text); font-weight: 600; }
+
+/* ---- Tooltip above the thumb ------------------------------------------- */
+.rs-tip { position: absolute; bottom: calc(100% + 8px); left: calc(var(--rs-inset) + (100% - var(--rs-thumb)) * var(--p)); transform: translateX(-50%); height: 34px; padding: 0 14px; border-radius: 8px; background: #1e2a2d; color: var(--rs-teal); font-size: 17px; font-weight: 700; line-height: 34px; white-space: nowrap; box-shadow: 0 6px 20px rgba(0,0,0,.4); opacity: 0; transition: opacity .15s, left .08s linear; pointer-events: none; }
+.rs-slider.is-dragging .rs-tip, .rs-slider:focus-visible .rs-tip, .rs-tip.is-on { opacity: 1; }
+
+/* ---- Two-thumb range ------------------------------------------------------ */
+.rs-range { --a: .2; --b: .8; position: relative; height: var(--rs-thumb); cursor: pointer; touch-action: none; user-select: none; }
+.rs-range__track { position: absolute; left: 0; right: 0; top: 50%; height: 6px; margin-top: -3px; border-radius: 3px; background: var(--rs-track); }
+.rs-range__band { position: absolute; top: 0; bottom: 0; left: calc(var(--rs-inset) + (100% - var(--rs-thumb)) * var(--a)); right: calc(var(--rs-inset) + (100% - var(--rs-thumb)) * (1 - var(--b))); background: var(--rs-teal); border-radius: 3px; }
+.rs-range__thumb { position: absolute; top: 50%; width: var(--rs-thumb); height: var(--rs-thumb); margin: calc(var(--rs-thumb) / -2) 0 0 calc(var(--rs-thumb) / -2); border-radius: 50%; background: #eef2f3; box-shadow: 0 0 0 3px rgba(33,201,160,.35), 0 0 18px rgba(33,201,160,.55); outline: none; }
+.rs-range__thumb--a { left: calc(var(--rs-inset) + (100% - var(--rs-thumb)) * var(--a)); }
+.rs-range__thumb--b { left: calc(var(--rs-inset) + (100% - var(--rs-thumb)) * var(--b)); }
+.rs-range__labels { position: absolute; left: 0; right: 0; top: calc(100% + 20px); height: 20px; font-size: 16px; font-weight: 600; }
+.rs-range__labels span { position: absolute; transform: translateX(-50%); }
+.rs-range__labels span:first-child { left: calc(var(--rs-inset) + (100% - var(--rs-thumb)) * var(--a)); }
+.rs-range__labels span:last-child { left: calc(var(--rs-inset) + (100% - var(--rs-thumb)) * var(--b)); }
+
+/* ---- Cards, labels, values -------------------------------------------- */
+.rs-card { position: relative; background: var(--rs-panel); border: 1px solid var(--rs-border); border-radius: 14px; box-shadow: 0 20px 60px rgba(0,0,0,.45); }
+.rs-card.is-focus { background: var(--rs-panel-2); border: 1.5px solid var(--rs-teal-line); box-shadow: 0 0 0 1px rgba(33,201,160,.12), 0 0 30px rgba(33,201,160,.18); }
+.rs-tag { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 600; }
+.rs-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.rs-tag--pink { color: var(--rs-pink); } .rs-tag--teal { color: var(--rs-teal); }
+.rs-label { font-size: 20px; font-weight: 600; letter-spacing: -.01em; }
+.rs-label--pink { color: var(--rs-pink); font-size: 17px; } .rs-label--sm { font-size: 17px; }
+.rs-value { font-size: 19px; font-weight: 700; color: var(--rs-teal); }
+.rs-value--box { padding: 0 12px; height: 32px; line-height: 32px; border-radius: 6px; background: #262b30; color: var(--rs-text); }
+.rs-value--big { font-size: 30px; letter-spacing: -.02em; color: var(--rs-text); }
+.rs-value--q { font-size: 22px; color: #474c50; }
+.rs-chip { display: inline-block; height: 34px; line-height: 34px; padding: 0 12px; border-radius: 8px; background: var(--rs-teal-dim); color: var(--rs-teal); font-size: 20px; font-weight: 700; }
+.rs-hint { font-size: 15px; font-weight: 500; color: var(--rs-dim); } .rs-hint--on { color: #b3bac0; }
+.rs-head { display: flex; align-items: center; justify-content: space-between; }
+
+/* ---- Keycaps ------------------------------------------------------------ */
+.rs-keys { display: flex; gap: 16px; }
+.rs-key { display: inline-flex; align-items: center; justify-content: center; min-width: 48px; height: 47px; padding: 0 18px; border-radius: 8px; background: #262b30; color: #b8bfc5; font-size: 16px; font-weight: 600; box-shadow: 0 2px 0 rgba(0,0,0,.35); transition: background .15s, color .15s, transform .1s; }
+.rs-key.is-on { background: var(--rs-teal-dim); color: var(--rs-teal); box-shadow: 0 0 16px rgba(33,201,160,.3); transform: translateY(1px); }
+
+/* ---- Big readout + follow ----------------------------------------------- */
+.rs-readout { display: inline-flex; align-items: baseline; gap: 6px; font-size: 120px; font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+.rs-readout span { font-size: 44px; font-weight: 600; color: #c9ced5; letter-spacing: 0; }
+.rs-follow { display: inline-flex; align-items: center; gap: 12px; height: 66px; padding: 0 40px; border-radius: 12px; background: var(--rs-teal); color: #062018; font-size: 22px; font-weight: 700; box-shadow: 0 0 50px rgba(33,201,160,.4); }
+.rs-follow svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.5; }

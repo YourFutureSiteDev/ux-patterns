@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Range Sliders · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a0d0f; --accent: #21c9a0; --danger: #ef4f7a; --grid: rgba(255,255,255,.03); }
+  .scene { color: #f3f5f7; }
+  .big { position: absolute; left: 0; right: 0; text-align: center; font-weight: 700; letter-spacing: -.02em; white-space: nowrap; }
+  .big em { font-style: normal; color: var(--accent); } .big span { color: #b3bac0; }
+  .sub { position: absolute; left: 0; right: 0; text-align: center; font-size: 19px; font-weight: 400; color: #9aa2a9; white-space: nowrap; }
+  .sub em { font-style: normal; color: var(--accent); }
+</style>
+</head>
+<body class="rs">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/></symbol>
+</svg>
+
+<!-- 1 · Hook: 47 or 48 -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="rs-readout center" style="top:300px"><b id="hookVal">47</b><span>%</span></div>
+  <div class="rs-slider rs-slider--big" id="hook" style="position:absolute;left:75px;top:499px;width:570px;--p:.47" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="47"><div class="rs-slider__track"><div class="rs-slider__fill"></div></div><div class="rs-slider__thumb"></div></div>
+  <svg class="cursor" style="left:342px;top:509px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="big" style="top:958px;font-size:36px">Drag to 47. <span>Or 48?</span></div>
+  <div class="sub" style="top:1014px;font-size:20px">Your finger can't tell.</div>
+</section>
+
+<!-- 2 · Make the whole row draggable -->
+<section class="scene" data-t="3" data-shot="6">
+  <div class="big" style="top:165px;font-size:32px;line-height:1.25">Make the whole row<br><em>draggable.</em></div>
+  <div class="sub" style="top:255px">A 4px hairline is a moving target.</div>
+  <div class="rs-card" style="position:absolute;left:30px;top:505px;width:315px;height:183px;padding:20px 17px">
+    <div class="rs-tag rs-tag--pink">4px track</div>
+    <div class="rs-slider rs-slider--thin rs-slider--nofill" style="position:absolute;left:25px;top:90px;width:265px;--p:.62"><div class="rs-slider__track"><div class="rs-slider__fill"></div></div><div class="rs-slider__thumb"></div></div>
+  </div>
+  <div class="rs-card" style="position:absolute;left:375px;top:505px;width:315px;height:183px;padding:20px 17px">
+    <div class="rs-tag rs-tag--teal">full-row hit area</div>
+    <div class="rs-hit" style="position:absolute;left:15px;top:78px;width:285px"><div class="rs-slider" id="rowSlider" style="--p:.6" tabindex="0"><div class="rs-slider__track"><div class="rs-slider__fill"></div></div><div class="rs-slider__thumb"></div></div></div>
+  </div>
+  <svg class="cursor" style="left:210px;top:594px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <svg class="cursor" style="left:558px;top:608px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+</section>
+
+<!-- 3 · Fill the track -->
+<section class="scene" data-t="9" data-shot="13.5">
+  <div class="big" style="top:165px;font-size:32px">Fill the track</div>
+  <div class="sub" style="top:216px">The fill length <em>is</em> the value.</div>
+  <div class="rs-card" style="position:absolute;left:30px;top:490px;width:315px;height:213px;padding:20px 17px">
+    <div class="rs-head"><div class="rs-tag rs-tag--pink">no fill</div></div>
+    <div class="rs-value rs-value--q" style="position:absolute;right:20px;top:52px">?</div>
+    <div class="rs-slider rs-slider--nofill" style="position:absolute;left:25px;top:107px;width:265px;--p:.72"><div class="rs-slider__track"><div class="rs-slider__fill"></div></div><div class="rs-slider__thumb"></div></div>
+    <div class="rs-hint" style="position:absolute;left:17px;top:160px">hard to read at a glance</div>
+  </div>
+  <div class="rs-card" style="position:absolute;left:375px;top:490px;width:315px;height:213px;padding:20px 17px">
+    <div class="rs-head"><div class="rs-tag rs-tag--teal">filled</div></div>
+    <div class="rs-value rs-value--big" id="fillVal" style="position:absolute;right:20px;top:48px">72%</div>
+    <div class="rs-slider" id="fillSlider" style="position:absolute;left:25px;top:107px;width:265px;--p:.72" tabindex="0"><div class="rs-slider__track"><div class="rs-slider__fill"></div></div><div class="rs-slider__thumb"></div></div>
+    <div class="rs-hint rs-hint--on" style="position:absolute;left:17px;top:160px">value reads from the fill</div>
+  </div>
+</section>
+
+<!-- 4a · Snap to steps: continuous vs stepped -->
+<section class="scene" data-t="18" data-shot="19.5">
+  <div class="big" style="top:152px;font-size:36px">Snap to <em>steps</em></div>
+  <div class="sub" style="top:203px">Nobody wants 47.3.</div>
+  <div class="rs-card" style="position:absolute;left:80px;top:310px;width:560px;height:127px;padding:20px 26px">
+    <div class="rs-head"><div class="rs-label rs-label--pink">continuous</div><div class="rs-value rs-value--box">47.3</div></div>
+    <div class="rs-slider rs-slider--pink" style="position:absolute;left:26px;top:61px;width:508px;--p:.473"><div class="rs-slider__track"><div class="rs-slider__fill"></div></div><div class="rs-slider__thumb"></div></div>
+  </div>
+  <div class="rs-card" style="position:absolute;left:80px;top:458px;width:560px;height:127px;padding:20px 26px">
+    <div class="rs-head"><div class="rs-label rs-label--sm">stepped</div><div class="rs-value rs-value--box">50</div></div>
+    <div class="rs-slider" style="position:absolute;left:26px;top:61px;width:508px;--p:.5"><div class="rs-slider__track"><div class="rs-slider__fill"></div></div><div class="rs-slider__thumb"></div><div class="rs-ticks"><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="rs-scale" style="position:absolute;left:26px;top:95px;width:508px;margin:0;padding:0 2px 0 6px"><span>0</span><span>25</span><b>50</b><span>75</span><span>100</span></div>
+  </div>
+</section>
+
+<!-- 4b · Snap to steps: Volume, Rating, Price -->
+<section class="scene" data-t="22.5" data-shot="24">
+  <div class="big" style="top:152px;font-size:36px">Snap to <em>steps</em></div>
+  <div class="sub" style="top:203px">Nobody wants 47.3.</div>
+  <div class="rs-card" style="position:absolute;left:80px;top:310px;width:560px;height:127px;padding:18px 28px">
+    <div class="rs-head"><div class="rs-label">Volume</div><div class="rs-value" id="volVal">70</div></div>
+    <div class="rs-slider" id="vol" data-step="5" style="position:absolute;left:28px;top:54px;width:504px;--p:.7" tabindex="0"><div class="rs-slider__track"><div class="rs-slider__fill"></div></div><div class="rs-slider__thumb"></div><div class="rs-ticks"><i></i><i></i><i></i><i></i><i></i></div></div>
+  </div>
+  <div class="rs-card" style="position:absolute;left:80px;top:503px;width:560px;height:127px;padding:18px 28px">
+    <div class="rs-head"><div class="rs-label">Rating</div><div class="rs-value" id="rateVal">4 / 5</div></div>
+    <div class="rs-slider" id="rate" style="position:absolute;left:28px;top:54px;width:504px;--p:.8" tabindex="0"><div class="rs-slider__track"><div class="rs-slider__fill"></div></div><div class="rs-slider__thumb"></div><div class="rs-ticks"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+  </div>
+  <div class="rs-card" style="position:absolute;left:80px;top:696px;width:560px;height:127px;padding:18px 28px">
+    <div class="rs-head"><div class="rs-label">Price</div><div class="rs-value" id="priceVal">$50</div></div>
+    <div class="rs-slider" id="price" style="position:absolute;left:28px;top:54px;width:504px;--p:.5" tabindex="0"><div class="rs-slider__track"><div class="rs-slider__fill"></div></div><div class="rs-slider__thumb"></div><div class="rs-ticks"><i></i><i></i><i></i><i></i><i></i></div></div>
+  </div>
+</section>
+
+<!-- 5 · Float the value -->
+<section class="scene" data-t="27" data-shot="30">
+  <div class="glow" style="left:100px;top:320px;background:rgba(33,201,160,.12)"></div>
+  <div class="big" style="top:166px;font-size:32px">Float the value</div>
+  <div class="sub" style="top:216px">Show it <em>above the thumb</em> while dragging.</div>
+  <div class="rs-card" style="position:absolute;left:65px;top:507px;width:590px;height:153px">
+    <div class="rs-slider" id="floatSlider" style="position:absolute;left:32px;top:73px;width:526px;--p:.76" tabindex="0"><div class="rs-slider__track"><div class="rs-slider__fill"></div></div><div class="rs-slider__thumb"></div><div class="rs-tip is-on" id="floatTip">76%</div></div>
+  </div>
+  <svg class="cursor" style="left:492px;top:556px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+</section>
+
+<!-- 6 · One value? Or a range. -->
+<section class="scene" data-t="33" data-shot="36">
+  <div class="glow" style="left:100px;top:320px;background:rgba(33,201,160,.10)"></div>
+  <div class="big" style="top:172px;font-size:34px">One value? <em>Or a range.</em></div>
+  <div class="sub" style="top:223px">Two thumbs, a filled band between.</div>
+  <div class="rs-card" style="position:absolute;left:60px;top:507px;width:600px;height:183px;padding:30px 31px">
+    <div class="rs-head"><div class="rs-label">Price range</div><div style="display:flex;align-items:center;gap:14px"><span class="rs-chip" id="rangeA">$20</span><span style="color:#8d959c">–</span><span class="rs-chip" id="rangeB">$80</span></div></div>
+    <div class="rs-range" id="range" style="margin-top:32px;--a:.2;--b:.8"><div class="rs-range__track"><div class="rs-range__band"></div></div><div class="rs-range__thumb rs-range__thumb--a" tabindex="0" role="slider"></div><div class="rs-range__thumb rs-range__thumb--b" tabindex="0" role="slider"></div><div class="rs-range__labels"><span id="rangeLa">$20</span><span id="rangeLb">$80</span></div></div>
+  </div>
+</section>
+
+<!-- 7 · Make it keyboard-able -->
+<section class="scene" data-t="39" data-shot="40.5">
+  <div class="glow" style="left:100px;top:300px;background:rgba(33,201,160,.10)"></div>
+  <div class="big" style="top:160px;font-size:36px">Make it <em>keyboard-able</em></div>
+  <div class="sub" style="top:210px">Arrows step. Home &amp; End jump.</div>
+  <div class="rs-card is-focus" style="position:absolute;left:60px;top:466px;width:600px;height:116px">
+    <div class="rs-slider" id="kbSlider" style="position:absolute;left:36px;top:34px;width:526px;--p:.55" tabindex="0"><div class="rs-slider__track"><div class="rs-slider__fill"></div></div><div class="rs-slider__thumb"></div></div>
+  </div>
+  <div class="rs-keys" style="position:absolute;left:208px;top:661px"><span class="rs-key" data-key="ArrowLeft" style="padding:0;width:48px">←</span><span class="rs-key" data-key="ArrowRight" style="padding:0;width:48px">→</span><span class="rs-key" data-key="Home">Home</span><span class="rs-key is-on" data-key="End">End</span></div>
+</section>
+
+<!-- 8 · Outro -->
+<section class="scene" data-t="45" data-shot="46.5">
+  <div class="glow" style="left:100px;top:330px;background:rgba(33,201,160,.14)"></div>
+  <div class="big" style="top:476px;font-size:14px;font-weight:700;letter-spacing:.2em;color:var(--accent)">SAVE THIS</div>
+  <div class="big" style="top:508px;font-size:40px;line-height:1.2">Follow for more<br><em>UI systems.</em></div>
+  <div class="sub" style="top:628px;font-size:18px;display:flex;justify-content:center;align-items:center;gap:8px"><svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:none;stroke:#9aa2a9;stroke-width:2"><use href="#i-bookmark"/></svg>Save this for your next form.</div>
+  <div class="rs-card" style="position:absolute;left:160px;top:680px;width:400px;height:67px;border-radius:12px">
+    <div class="rs-slider" id="outroSlider" style="position:absolute;left:27px;top:12px;width:346px;--p:.23" tabindex="0"><div class="rs-slider__track"><div class="rs-slider__fill"></div></div><div class="rs-slider__thumb"></div></div>
+  </div>
+  <div class="rs-follow center" style="top:780px"><svg><use href="#i-plus"/></svg>Follow</div>
+</section>
+
+<script type="module">
+  import { RangeSlider, DualRange } from './pattern.js';
+  const $ = id => document.getElementById(id);
+  RangeSlider($('hook'), { value: 47, onChange: v => $('hookVal').textContent = Math.round(v) });
+  RangeSlider($('rowSlider'), { value: 60, hit: $('rowSlider').parentElement });
+  RangeSlider($('fillSlider'), { value: 72, onChange: v => $('fillVal').textContent = Math.round(v) + '%' });
+  RangeSlider($('vol'), { value: 70, step: 5, onChange: v => $('volVal').textContent = v });
+  RangeSlider($('rate'), { min: 0, max: 5, value: 4, step: 1, onChange: v => $('rateVal').textContent = v + ' / 5' });
+  RangeSlider($('price'), { value: 50, step: 25, onChange: v => $('priceVal').textContent = '$' + v });
+  RangeSlider($('floatSlider'), { value: 76, tip: $('floatTip'), format: v => Math.round(v) + '%' });
+  DualRange($('range'), { a: 20, b: 80, step: 5, onChange: (a, b) => { $('rangeA').textContent = $('rangeLa').textContent = '$' + a; $('rangeB').textContent = $('rangeLb').textContent = '$' + b; } });
+  const keys = [...document.querySelectorAll('.rs-key')];
+  RangeSlider($('kbSlider'), { value: 55, onKey: k => keys.forEach(el => el.classList.toggle('is-on', el.dataset.key === k)) });
+  RangeSlider($('outroSlider'), { value: 23 });
+  // Keyboard scene demo: End, then Home, then arrows, when entered live (frozen with End lit for the screenshot).
+  const kb = $('kbSlider');
+  kb.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t > 0) return; const seq = ['End', 'Home', 'ArrowRight', 'ArrowRight', 'ArrowLeft']; let i = 0; clearInterval(kb._iv); kb._iv = setInterval(() => { kb.dispatchEvent(new KeyboardEvent('keydown', { key: seq[i], bubbles: true })); i = (i + 1) % seq.length; }, 1400); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

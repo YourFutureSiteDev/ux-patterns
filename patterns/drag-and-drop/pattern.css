@@ -1,0 +1,99 @@
+/* Drag and Drop, rebuilt from the @designmotionhq reel "The board does the thinking: moving a card is moving state."
+   Component classes are prefixed .dd- and depend only on the tokens below. */
+.dd {
+  --dd-bg: #0c1013; --dd-col: #14181d; --dd-card: #181d23; --dd-border: rgba(255,255,255,.06);
+  --dd-text: #f3f5f7; --dd-muted: #8b93a1; --dd-dim: #5a616a;
+  --dd-teal: #2fd9b6; --dd-teal-btn: #12b2a0; --dd-teal-dim: rgba(47,217,182,.14); --dd-teal-fill: rgba(18,178,160,.18);
+  --dd-pink: #e8506a; --dd-pink-dim: rgba(232,80,106,.16);
+  font-family: 'Inter', system-ui, sans-serif; color: var(--dd-text);
+}
+.dd-ico { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+/* ---- Board ---------------------------------------------------------------- */
+.dd-board { display: flex; gap: 16px; align-items: flex-start; }
+.dd-col { width: 202px; min-height: 250px; background: var(--dd-col); border: 1px solid var(--dd-border); border-radius: 12px; padding: 0 12px 12px; position: relative; }
+.dd-col__head { display: flex; align-items: center; justify-content: space-between; height: 42px; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #a5adb8; }
+.dd-col__count { width: 18px; height: 18px; border-radius: 5px; background: #1e242b; color: var(--dd-dim); font-size: 11px; font-weight: 700; display: grid; place-items: center; letter-spacing: 0; }
+.dd-col.is-target { border-color: rgba(47,217,182,.6); background: #143430; box-shadow: 0 0 0 1px rgba(47,217,182,.15), 0 0 30px rgba(47,217,182,.15); }
+.dd-col.is-target .dd-col__head { color: var(--dd-teal); }
+.dd-card { background: var(--dd-card); border: 1px solid var(--dd-border); border-radius: 10px; padding: 10px 12px 12px; margin-bottom: 12px; position: relative; transition: transform .18s cubic-bezier(.2,.8,.2,1), box-shadow .18s, opacity .18s; }
+.dd-card:last-child { margin-bottom: 0; }
+.dd-card__title { font-size: 16px; font-weight: 600; line-height: 20px; letter-spacing: -.01em; }
+.dd-tag { display: inline-block; margin-top: 8px; padding: 3px 8px; border-radius: 5px; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; background: #2a3037; color: #a5adb8; }
+.dd-tag--teal { background: var(--dd-teal-dim); color: var(--dd-teal); }
+.dd-tag--pink { background: var(--dd-pink-dim); color: var(--dd-pink); }
+.dd-card__foot { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+.dd-avatar { width: 26px; height: 26px; border-radius: 50%; background: #3a4048; color: #f3f5f7; font-size: 11px; font-weight: 700; display: grid; place-items: center; }
+.dd-avatar--teal { background: var(--dd-teal-btn); color: #062018; }
+.dd-avatar--pink { background: var(--dd-pink); color: #fff; }
+.dd-meta { font-size: 12px; color: var(--dd-dim); letter-spacing: .06em; }
+.dd-card.is-source { opacity: .35; }
+.dd-card.is-lifted { transform: scale(1.05) rotate(-2deg); box-shadow: 0 18px 40px rgba(0,0,0,.55), 0 0 0 1px rgba(47,217,182,.5); z-index: 5; border-color: rgba(47,217,182,.6); }
+.dd-card.is-lifted--tilt { transform: scale(1.04) rotate(-2.5deg); }
+.dd-ghost { position: absolute; width: 190px; background: rgba(30,36,43,.88); border: 1px solid rgba(47,217,182,.5); border-radius: 10px; padding: 10px 12px 12px; box-shadow: 0 18px 40px rgba(0,0,0,.55); transform: rotate(-2deg); z-index: 5; }
+.dd-line { height: 3px; border-radius: 2px; background: var(--dd-teal); margin: 8px 0 14px; box-shadow: 0 0 10px rgba(47,217,182,.6); }
+.dd-slot { border: 1.5px dashed rgba(47,217,182,.6); border-radius: 10px; background: rgba(47,217,182,.08); }
+
+/* ---- Big card (pick-up scene) ------------------------------------------- */
+.dd-big { width: 530px; background: var(--dd-card); border: 1px solid var(--dd-border); border-radius: 12px; padding: 22px 20px 20px; position: relative; transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s; }
+.dd-big__head { display: flex; align-items: center; gap: 14px; }
+.dd-big__avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--dd-teal-btn); color: #062018; font-size: 17px; font-weight: 700; display: grid; place-items: center; }
+.dd-big__title { font-size: 24px; font-weight: 700; }
+.dd-big .dd-tag { margin-top: 4px; }
+.dd-big__body { margin-top: 14px; font-size: 16px; color: #b9c0c9; }
+.dd-big__foot { display: flex; justify-content: space-between; margin-top: 14px; font-size: 15px; color: var(--dd-muted); }
+.dd-big.is-lifted { transform: translateY(-8px) scale(1.08) rotate(-2.5deg); box-shadow: 0 30px 60px rgba(0,0,0,.6), 0 0 0 1px rgba(47,217,182,.45); border-color: rgba(47,217,182,.5); }
+.dd-signal { display: inline-flex; align-items: center; gap: 12px; }
+.dd-signal__icon { width: 38px; height: 38px; border-radius: 9px; background: var(--dd-teal-dim); color: var(--dd-teal); display: grid; place-items: center; }
+.dd-signal__icon svg { width: 18px; height: 18px; }
+.dd-signal__label { height: 38px; padding: 0 14px; border-radius: 8px; background: #1a1f25; border: 1px solid var(--dd-border); font-size: 16px; font-weight: 600; display: grid; place-items: center; white-space: nowrap; }
+
+/* ---- Rule chip ------------------------------------------------------------- */
+.dd-rule { display: inline-flex; align-items: center; height: 38px; padding: 0 18px; border-radius: 6px; background: #12211f; border: 1px solid rgba(47,217,182,.25); font-size: 16px; font-weight: 600; color: var(--dd-teal); white-space: nowrap; }
+
+/* ---- Zone comparison panels --------------------------------------------- */
+.dd-zone { width: 320px; background: var(--dd-col); border: 1px solid var(--dd-border); border-radius: 12px; padding: 0 12px 12px; position: relative; }
+.dd-zone__label { position: absolute; left: 0; right: 0; top: -26px; text-align: center; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--dd-teal); }
+.dd-zone__head { height: 34px; display: flex; align-items: center; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--dd-dim); }
+.dd-zone.is-fill { border-color: rgba(47,217,182,.6); background: #12211f; box-shadow: 0 0 0 1px rgba(47,217,182,.15), 0 0 30px rgba(47,217,182,.15); }
+.dd-zone.is-fill .dd-zone__head { color: var(--dd-teal); }
+.dd-zone .dd-slot { height: 80px; }
+
+/* ---- Snap vs free ------------------------------------------------------------ */
+.dd-surface { width: 320px; height: 400px; background: var(--dd-col); border: 1px solid var(--dd-border); border-radius: 12px; padding: 16px 16px; position: relative; }
+.dd-surface__head { display: flex; align-items: center; justify-content: space-between; height: 20px; font-size: 17px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--dd-teal); }
+.dd-surface--free .dd-surface__head { color: var(--dd-pink); }
+.dd-surface__mode { height: 20px; padding: 0 9px; border-radius: 5px; font-size: 11px; font-weight: 700; letter-spacing: .08em; background: var(--dd-teal-dim); color: var(--dd-teal); display: grid; place-items: center; }
+.dd-surface--free .dd-surface__mode { background: var(--dd-pink-dim); color: var(--dd-pink); }
+.dd-surface__area { position: absolute; left: 16px; right: 16px; top: 50px; bottom: 15px; background: #0f1317; border-radius: 8px; overflow: hidden; }
+.dd-surface--free .dd-surface__area { background-image: linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px); background-size: 27px 27px; }
+.dd-mini { position: absolute; width: 118px; height: 60px; background: var(--dd-card); border: 1px solid var(--dd-border); border-radius: 8px; padding: 8px 10px; }
+.dd-mini__title { font-size: 13px; font-weight: 600; }
+.dd-mini .dd-tag { margin-top: 3px; padding: 2px 5px; font-size: 8px; }
+.dd-mini__foot { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
+.dd-mini .dd-avatar { width: 16px; height: 16px; font-size: 7px; }
+.dd-mini .dd-meta { font-size: 9px; }
+.dd-mini.is-drag { width: 126px; height: 74px; border-color: rgba(47,217,182,.5); box-shadow: 0 14px 30px rgba(0,0,0,.6); z-index: 5; }
+.dd-surface--free .dd-mini.is-drag { border-color: rgba(232,80,106,.5); }
+.dd-mini.is-drag .dd-mini__foot { margin-top: 8px; }
+.dd-mini.is-drag .dd-tag { margin-top: 5px; }
+.dd-snapslot { position: absolute; border: 1.5px dashed rgba(47,217,182,.55); border-radius: 8px; background: rgba(47,217,182,.07); }
+
+/* ---- Undo toast ------------------------------------------------------------------ */
+.dd-toast { display: flex; align-items: center; gap: 24px; width: 504px; height: 100px; padding: 0 28px 0 24px; background: #1b2026; border: 1px solid var(--dd-border); border-radius: 14px; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+.dd-toast__icon { width: 36px; height: 36px; border-radius: 9px; background: #232a31; color: #c9ced5; display: grid; place-items: center; }
+.dd-toast__icon svg { width: 18px; height: 18px; }
+.dd-toast b { display: block; font-size: 19px; font-weight: 700; }
+.dd-toast span { display: block; font-size: 14px; color: var(--dd-muted); margin-top: 4px; }
+.dd-undo { position: relative; margin-left: auto; width: 50px; height: 50px; border-radius: 50%; border: 0; background: var(--dd-teal-btn); color: #062018; font: 800 11px 'Inter', sans-serif; letter-spacing: .04em; cursor: pointer; display: grid; place-items: center; box-shadow: 0 0 24px rgba(18,178,160,.35); }
+.dd-undo svg { position: absolute; inset: -5px; width: 60px; height: 60px; transform: rotate(-90deg); }
+.dd-undo circle { fill: none; stroke: var(--dd-teal); stroke-width: 3; stroke-dasharray: 176; stroke-dashoffset: calc(176 * (1 - var(--p, 1))); }
+.dd-undo circle.track { stroke: #24302f; stroke-dashoffset: 0; }
+
+/* ---- Outro --------------------------------------------------------------------- */
+.dd-follow { display: inline-flex; align-items: center; gap: 10px; height: 54px; padding: 0 36px; border-radius: 10px; background: var(--dd-teal-btn); color: #062018; font-size: 19px; font-weight: 700; box-shadow: 0 0 50px rgba(18,178,160,.4); }
+.dd-follow svg { width: 16px; height: 16px; stroke-width: 2.5; }
+.dd-faint { position: absolute; width: 130px; opacity: .18; transform: rotate(-6deg); }
+.dd-faint .dd-card__title { font-size: 13px; }
+.dd-faint .dd-avatar { width: 16px; height: 16px; font-size: 7px; }
+.dd-faint .dd-meta { font-size: 9px; }

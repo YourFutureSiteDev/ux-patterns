@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Border Radius System · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0c0f12; --accent: #2fe0ad; --danger: #ff5c8a; }
+  .scene { color: #f3f5f7; }
+  .scene--green::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(70% 28% at 50% 14%, rgba(47,224,173,.10), transparent 70%), radial-gradient(70% 22% at 50% 84%, rgba(47,224,173,.09), transparent 70%); }
+</style>
+</head>
+<body class="br">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="aurora" viewBox="0 0 586 134" preserveAspectRatio="none">
+    <defs><linearGradient id="br-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d0f2f"/><stop offset="1" stop-color="#1e2c4e"/></linearGradient></defs>
+    <rect width="586" height="134" fill="url(#br-sky)"/>
+    <g fill="#fff"><circle cx="35" cy="14" r="1.6"/><circle cx="130" cy="9" r="1.4"/><circle cx="235" cy="12" r="1.8"/><circle cx="335" cy="8" r="1.6"/><circle cx="435" cy="13" r="1.4"/><circle cx="490" cy="20" r="1.2"/><circle cx="555" cy="10" r="1.6"/><circle cx="110" cy="32" r="1.1"/><circle cx="300" cy="28" r="1.1"/><circle cx="520" cy="42" r="1.1"/></g>
+    <path d="M0 76 C110 44 200 92 300 66 S470 34 586 60 V134 H0Z" fill="#3b3c7a" opacity=".85"/>
+    <path d="M0 88 C150 64 250 108 380 76 S520 60 586 84 V134 H0Z" fill="#2c8c7c" opacity=".9"/>
+    <path d="M0 102 C120 92 220 114 340 98 S500 88 586 104 V134 H0Z" fill="#12323a"/>
+    <path d="M0 116 C150 102 300 126 586 110 V134 H0Z" fill="#0b1b22"/>
+  </symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5M3 17l9 5 9-5"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><path d="M21 12l-8.5 8.5a5 5 0 0 1-7-7L14 5a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L15 8"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></symbol>
+  <symbol id="i-dup" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></symbol>
+  <symbol id="i-archive" viewBox="0 0 24 24"><path d="M3 4h18v4H3zM5 8v12h14V8M10 12h4"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-5-6.7"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12l5 5L20 7"/></symbol>
+  <symbol id="i-follow" viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M2 21a8 8 0 0 1 14-4M19 8v6M16 11h6"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.1 15.9M14.5 14.5L20 20M8.1 8.1L12 12"/></symbol>
+</svg>
+
+<template id="br-card-tpl">
+  <div class="br-card">
+    <div class="br-card__img"><svg viewBox="0 0 586 134" preserveAspectRatio="none"><use href="#aurora"/></svg><span class="br-card__badge"><svg viewBox="0 0 24 24"><use href="#i-layers"/></svg>12 frames</span></div>
+    <div class="br-card__body">
+      <div class="br-card__head"><div class="br-avatar">JR</div><div><div class="br-card__name">Aurora Handoff</div><div class="br-card__sub">Lumen Labs · Jonah Reyes</div></div><span class="br-status"><i></i>In review</span></div>
+      <div class="br-card__chips"><span class="br-chip">Design</span><span class="br-chip">Handoff</span><span class="br-chip">Q3</span><span class="br-card__upd"><svg viewBox="0 0 24 24"><use href="#i-clip"/></svg>Updated 2 hours ago</span></div>
+      <div class="br-card__label">INVITE BY EMAIL</div>
+      <div class="br-card__invite"><div class="br-input"><svg viewBox="0 0 24 24"><use href="#i-mail"/></svg>dana@lumenlabs.io</div><button class="br-btn" type="button"><svg viewBox="0 0 24 24"><use href="#i-send"/></svg>Invite</button></div>
+    </div>
+    <div class="br-tray"><span class="br-tray__btn"><svg viewBox="0 0 24 24"><use href="#i-share"/></svg>Share</span><span class="br-tray__btn"><svg viewBox="0 0 24 24"><use href="#i-dup"/></svg>Duplicate</span><span class="br-tray__btn"><svg viewBox="0 0 24 24"><use href="#i-archive"/></svg>Archive</span><span class="br-tray__link">Public link</span><span class="br-toggle"></span></div>
+  </div>
+</template>
+
+<!-- 1 · Hook: every corner rounded, nothing lines up -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="br-kick br-kick--pink">Radius · 01</div>
+  <h1 class="br-h">Every corner rounded.<br><span>Still nothing lines up.</span></h1>
+  <div data-card="is-uniform" style="position:absolute;left:67px;top:313px"></div>
+  <div class="br-outline" style="left:65px;top:311px;width:590px;height:138px;border-radius:12px 12px 0 0"></div>
+  <div class="br-outline" style="left:69px;top:666px;width:582px;height:64px"></div>
+  <div class="br-outline" style="left:88px;top:463px;width:54px;height:54px;border-width:1.5px;box-shadow:none"></div>
+  <div class="br-outline" style="left:88px;top:528px;width:76px;height:34px;border-width:1.5px;box-shadow:none"></div>
+  <div class="br-spot" style="left:639px;top:716px"></div>
+  <div class="br-thread" style="left:650px;top:742px;width:14px;transform:rotate(60deg)"></div>
+  <div class="br-loupe" style="left:550px;top:752px;width:156px;height:156px">
+    <svg viewBox="0 0 156 156" width="156" height="156"><rect x="-60" y="-60" width="182" height="182" rx="50" fill="#10151a"/><rect x="-60" y="-60" width="164" height="164" rx="48" fill="#171d22" stroke="#ff5c8a" stroke-width="11"/></svg>
+  </div>
+  <div class="br-loupe__handle" style="left:537px;top:894px"></div>
+  <div class="br-loupe__label" style="left:528px;top:899px;width:200px;justify-content:flex-end;padding-right:8px">tray 12 in card 12</div>
+  <div class="br-scale" style="position:absolute;left:48px;top:950px">
+    <div class="br-scale__tile is-on"><span class="br-scale__sq" style="--r:4px"></span><div><small>sm</small><b>4px</b></div></div>
+    <div class="br-scale__tile"><span class="br-scale__sq" style="--r:6px"></span><div><small>md</small><b>8px</b></div></div>
+    <div class="br-scale__tile"><span class="br-scale__sq" style="--r:8px"></span><div><small>lg</small><b>12px</b></div></div>
+    <div class="br-scale__tile"><span class="br-scale__sq" style="--r:10px"></span><div><small>xl</small><b>16px</b></div></div>
+    <div class="br-scale__tile"><span class="br-scale__sq" style="--r:50%"></span><div><small>full</small><b>9999</b></div></div>
+  </div>
+  <div class="br-cap br-cap--pink">One radius everywhere is not a system</div>
+</section>
+
+<!-- 2 · Nested: the tray corner bulges -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="br-kick">Radius · 02 Nested</div>
+  <h1 class="br-h">Inner equals outer minus<br>padding.</h1>
+  <div data-card="is-uniform" style="position:absolute;left:67px;top:281px"></div>
+  <div class="br-spot" style="left:53px;top:683px"></div>
+  <div class="br-thread" style="left:76px;top:708px;width:40px;transform:rotate(52deg)"></div>
+  <div class="br-loupe" style="left:55px;top:720px;width:250px;height:250px">
+    <svg viewBox="0 0 250 250" width="250" height="250"><rect x="40" y="-80" width="300" height="300" rx="72" fill="#12171c" stroke="#2a3038" stroke-width="3"/><rect x="72" y="-80" width="300" height="270" rx="70" fill="#1c2228" stroke="#2a3038" stroke-width="3"/></svg>
+  </div>
+  <div class="br-loupe__handle" style="left:275px;top:964px"></div>
+  <div class="br-loupe__label" style="left:80px;top:962px">inner corner bulges</div>
+  <div class="br-pill br-pill--pink" style="position:absolute;left:347px;top:755px">card 12 · tray 12</div>
+  <div class="br-cap">Nested corners share one center</div>
+</section>
+
+<!-- 2b · Nested: the rule appears -->
+<section class="scene" data-t="7.5" data-shot="9">
+  <div class="br-kick">Radius · 02 Nested</div>
+  <h1 class="br-h">Inner equals outer minus<br>padding.</h1>
+  <div data-card="is-uniform" style="position:absolute;left:67px;top:281px"></div>
+  <div class="br-outline" style="left:69px;top:634px;width:582px;height:64px"></div>
+  <div class="br-spot" style="left:53px;top:683px;box-shadow:0 0 0 8px rgba(255,92,138,.18),0 0 12px rgba(255,92,138,.5)"></div>
+  <div class="br-thread" style="left:76px;top:708px;width:40px;transform:rotate(52deg)"></div>
+  <div class="br-loupe" style="left:55px;top:720px;width:250px;height:250px">
+    <svg viewBox="0 0 250 250" width="250" height="250"><rect x="40" y="-80" width="300" height="300" rx="72" fill="#12171c"/><rect x="72" y="-80" width="300" height="270" rx="70" fill="#1c2228" stroke="#ff5c8a" stroke-width="13"/></svg>
+  </div>
+  <div class="br-loupe__handle" style="left:275px;top:964px"></div>
+  <div class="br-loupe__label" style="left:80px;top:962px">inner corner bulges</div>
+  <div class="br-pill br-pill--pink" style="position:absolute;left:347px;top:755px">card 12 · tray 12</div>
+  <div class="br-pill br-pill--teal" style="position:absolute;left:347px;top:813px">↳ inner = outer - padding</div>
+  <div class="br-cap">Nested corners share one center</div>
+</section>
+
+<!-- 2c · Nested: concentric -->
+<section class="scene scene--green" data-t="10.5" data-shot="12">
+  <div class="br-kick br-kick--teal">Radius · 02 Nested</div>
+  <h1 class="br-h">Inner equals outer minus<br>padding.</h1>
+  <div data-card="is-nested" style="position:absolute;left:67px;top:281px"></div>
+  <div class="br-outline br-outline--teal" style="left:69px;top:634px;width:582px;height:64px;border-radius:8px"></div>
+  <div class="br-spot br-spot--teal" style="left:53px;top:683px"></div>
+  <div class="br-thread br-thread--teal" style="left:76px;top:708px;width:40px;transform:rotate(52deg)"></div>
+  <div class="br-loupe br-loupe--teal" style="left:55px;top:720px;width:250px;height:250px">
+    <svg viewBox="0 0 250 250" width="250" height="250"><rect x="40" y="-80" width="300" height="300" rx="72" fill="#12171c"/><rect x="72" y="-80" width="300" height="270" rx="44" fill="#1c2228" stroke="#2fe0ad" stroke-width="13"/></svg>
+  </div>
+  <div class="br-loupe__handle br-loupe__handle--teal" style="left:275px;top:964px"></div>
+  <div class="br-loupe__label br-loupe__label--teal" style="left:120px;top:962px">concentric</div>
+  <div class="br-pill br-pill--strike" style="position:absolute;left:347px;top:755px">card 12 · tray 12</div>
+  <div class="br-pill br-pill--teal" style="position:absolute;left:347px;top:813px">↳ inner = outer - padding</div>
+  <div class="br-pill br-pill--teal" style="position:absolute;left:347px;top:873px">12 - 8 = 4</div>
+  <div class="br-cap br-cap--teal">Nested corners share one center</div>
+</section>
+
+<!-- 3 · Scale: one 8px everywhere -->
+<section class="scene" data-t="15" data-shot="16.5">
+  <div class="br-kick">Radius · 03 Scale</div>
+  <h1 class="br-h">Radius follows size.</h1>
+  <div class="br-pill" style="position:absolute;left:146px;top:372px">border-radius: 8px /* everything */</div>
+  <div class="br-badge" style="left:49px;top:667px">sm <b>8</b></div>
+  <div class="br-el br-el--chip" style="left:23px;top:703px;--r:8px"><i></i>Design</div>
+  <div class="br-badge" style="left:192px;top:651px">md <b>8</b></div>
+  <div class="br-el br-el--btn" style="left:150px;top:688px;--r:8px"><svg viewBox="0 0 24 24"><use href="#i-send"/></svg>Invite</div>
+  <div class="br-badge" style="left:367px;top:550px">lg <b>8</b></div>
+  <div class="br-el br-el--card" style="left:310px;top:585px;--r:8px"><div class="br-mini"><i></i><div><b>Aurora</b><small>Lumen Labs</small></div></div><div class="br-line" style="width:143px"></div><div class="br-line" style="width:95px"></div><div class="br-line" style="width:120px"></div><div class="br-open">Open</div></div>
+  <div class="br-badge" style="left:573px;top:470px">xl <b>8</b></div>
+  <div class="br-el br-el--sheet" style="left:504px;top:507px;--r:8px"><div class="br-handle"></div><b>Share sheet</b><div class="br-row">Copy link</div><div class="br-row">Invite</div><div class="br-row">Export</div><div class="br-done">Done</div></div>
+  <div class="br-el-label" style="left:76px;top:756px">Chip</div><div class="br-el-label" style="left:220px;top:756px">Button</div><div class="br-el-label" style="left:397px;top:756px">Card</div><div class="br-el-label" style="left:600px;top:756px">Sheet</div>
+  <div class="br-tiles" style="position:absolute;left:48px;top:795px">
+    <div class="br-tile"><span class="br-tile__sq" style="--r:4px"></span><small>sm</small><b>4px</b><i>Chip · Badge</i></div>
+    <div class="br-tile"><span class="br-tile__sq" style="--r:8px"></span><small>md</small><b>8px</b><i>Button · Input</i></div>
+    <div class="br-tile"><span class="br-tile__sq" style="--r:12px"></span><small>lg</small><b>12px</b><i>Card</i></div>
+    <div class="br-tile"><span class="br-tile__sq" style="--r:16px"></span><small>xl</small><b>16px</b><i>Modal · Sheet</i></div>
+    <div class="br-tile"><span class="br-tile__sq" style="--r:50%"></span><small>full</small><b>9999</b><i>Avatar · Toggle</i></div>
+  </div>
+  <div class="br-cap">One scale, every element on it</div>
+</section>
+
+<!-- 3b · Scale: radius follows size -->
+<section class="scene scene--green" data-t="22.5" data-shot="27">
+  <div class="br-kick br-kick--teal">Radius · 03 Scale</div>
+  <h1 class="br-h">Radius follows size.</h1>
+  <div class="br-pill br-pill--teal br-pill--strike" style="position:absolute;left:146px;top:372px">border-radius: 8px /* everything */</div>
+  <div class="br-link" style="left:76px;top:746px;width:49px;transform:rotate(53deg)"></div>
+  <div class="br-link" style="left:220px;top:746px;width:40px;transform:rotate(73deg)"></div>
+  <div class="br-link" style="left:397px;top:746px;width:54px;transform:rotate(134deg)"></div>
+  <div class="br-link" style="left:600px;top:746px;width:119px;transform:rotate(161deg)"></div>
+  <div class="br-badge is-on" style="left:49px;top:667px">sm <b>4</b></div>
+  <div class="br-el br-el--chip is-on" style="left:23px;top:703px;--r:4px"><i></i>Design</div>
+  <div class="br-badge is-on" style="left:192px;top:651px">md <b>8</b></div>
+  <div class="br-el br-el--btn is-on" style="left:150px;top:688px;--r:8px"><svg viewBox="0 0 24 24"><use href="#i-send"/></svg>Invite</div>
+  <div class="br-badge is-on" style="left:364px;top:550px">lg <b>12</b></div>
+  <div class="br-el br-el--card is-on" style="left:310px;top:585px;--r:12px"><div class="br-mini"><i></i><div><b>Aurora</b><small>Lumen Labs</small></div></div><div class="br-line" style="width:143px"></div><div class="br-line" style="width:95px"></div><div class="br-line" style="width:120px"></div><div class="br-open">Open</div></div>
+  <div class="br-badge is-on" style="left:567px;top:470px">xl <b>16</b></div>
+  <div class="br-el br-el--sheet is-on" style="left:504px;top:507px;--r:16px"><div class="br-handle"></div><b>Share sheet</b><div class="br-row">Copy link</div><div class="br-row">Invite</div><div class="br-row">Export</div><div class="br-done">Done</div></div>
+  <div class="br-tiles is-on" style="position:absolute;left:48px;top:785px">
+    <div class="br-tile"><span class="br-tile__sq" style="--r:4px"></span><small>sm</small><b>4px</b><i>Chip · Badge</i></div>
+    <div class="br-tile"><span class="br-tile__sq" style="--r:8px"></span><small>md</small><b>8px</b><i>Button · Input</i></div>
+    <div class="br-tile"><span class="br-tile__sq" style="--r:12px"></span><small>lg</small><b>12px</b><i>Card</i></div>
+    <div class="br-tile"><span class="br-tile__sq" style="--r:16px"></span><small>xl</small><b>16px</b><i>Modal · Sheet</i></div>
+    <div class="br-tile"><span class="br-tile__sq" style="--r:50%"></span><small>full</small><b>9999</b><i>Avatar · Toggle</i></div>
+  </div>
+  <div class="br-cap br-cap--teal">One scale, every element on it</div>
+</section>
+
+<!-- 4 · Pill: full radius on one-line shapes -->
+<section class="scene scene--green" data-t="30" data-shot="31.5">
+  <div class="br-kick br-kick--teal">Radius · 04 Pill</div>
+  <h1 class="br-h">Full radius is a shape, not a<br>number.</h1>
+  <div class="br-sample" style="left:27px;top:300px"><span class="br-chip-full"><i></i>Design<em>✕</em></span><span class="br-sample__lab"><i></i>Chip</span></div>
+  <div class="br-sample" style="left:253px;top:300px;gap:10px"><span class="br-avatar-full">JR</span><span class="br-sample__lab"><i></i>Avatar</span></div>
+  <div class="br-sample" style="left:480px;top:300px"><span class="br-toggle-full"></span><span class="br-sample__lab is-off"><i></i>Toggle</span></div>
+  <div class="br-pill br-pill--teal" style="position:absolute;left:156px;top:487px">✓ border-radius: 9999 on one line</div>
+  <div data-card="is-pill" style="position:absolute;left:67px;top:538px"></div>
+  <div class="br-cap br-cap--teal">A pill fits exactly one line</div>
+</section>
+
+<!-- 4b · Pill: full radius on a card -->
+<section class="scene" data-t="33" data-shot="34.5">
+  <div class="br-kick br-kick--pink">Radius · 04 Pill</div>
+  <h1 class="br-h">Full radius is a shape, not a<br>number.</h1>
+  <div class="br-sample" style="left:27px;top:300px"><span class="br-chip-full"><i></i>Design<em>✕</em></span><span class="br-sample__lab"><i></i>Chip</span></div>
+  <div class="br-sample" style="left:253px;top:300px;gap:10px"><span class="br-avatar-full">JR</span><span class="br-sample__lab"><i></i>Avatar</span></div>
+  <div class="br-sample" style="left:480px;top:300px"><span class="br-toggle-full"></span><span class="br-sample__lab"><i></i>Toggle</span></div>
+  <div class="br-pill br-pill--pink" style="position:absolute;left:167px;top:487px">✕ border-radius: 9999 on a card</div>
+  <div data-card="is-pill br-card--ellipse" style="position:absolute;left:67px;top:538px"></div>
+  <div class="br-cap br-cap--pink">Multi line needs a real number</div>
+</section>
+
+<!-- 5 · Edges: a sheet floating on its corners -->
+<section class="scene" data-t="39" data-shot="42">
+  <div class="br-kick">Radius · 05 Edges</div>
+  <h1 class="br-h">Touching an edge? No corner.</h1>
+  <div class="br-pill br-pill--pink" style="position:absolute;left:152px;top:279px">border-radius: 16px /* all four */</div>
+  <div class="br-phone" style="left:38px;top:333px">
+    <div class="br-phone__bar">9:41<svg viewBox="0 0 44 14"><path d="M4 10h6l-1 2H5zM7 3v1M5 5a2 2 0 0 1 4 0v3H5z"/><rect x="18" y="3" width="20" height="9" rx="2"/><rect x="39" y="6" width="2" height="3"/></svg></div>
+    <div class="br-phone__title">Projects</div>
+    <div class="br-phone__search"><svg viewBox="0 0 24 24"><use href="#i-search"/></svg>Search</div>
+    <div class="br-phone__row"><i></i>Aurora Handoff<small>12 frames</small></div>
+    <div class="br-phone__row"><i></i>Beacon Tokens<small>4 frames</small></div>
+    <div class="br-phone__row"><i></i>Halo Icons<small>31 frames</small></div>
+    <div class="br-phone__row"><i></i>Meridian Docs<small>8 frames</small></div>
+    <div class="br-phone__row"><i></i>Lumen Website<small>6 frames</small></div>
+    <div class="br-sheet"><div class="br-handle"></div><b>Share Aurora Handoff</b><small>Anyone with the link can comment</small><div class="br-row"><svg viewBox="0 0 24 24"><use href="#i-link"/></svg>Copy link<span class="br-ck"></span></div><div class="br-row"><svg viewBox="0 0 24 24"><use href="#i-users"/></svg>Invite teammates<span class="br-ck"></span></div><div class="br-done">Done</div></div>
+  </div>
+  <div class="br-gap" style="left:53px;top:890px"></div>
+  <div class="br-edge-note" style="top:937px">Sheet · floating on its corners</div>
+  <div class="br-mock" style="left:373px;top:333px;height:250px"><div class="br-mock__side"><div>Projects</div><div>Team</div><div>Assets</div></div><span class="br-sk" style="left:148px;top:19px;width:127px"></span><span class="br-sk" style="left:148px;top:41px;width:87px"></span><span class="br-sk" style="left:148px;top:63px;width:109px"></span><span class="br-sk" style="left:148px;top:85px;width:69px"></span></div>
+  <div class="br-mock-label" style="left:373px;top:592px">Sidebar · left edge 0</div>
+  <div class="br-mock" style="left:373px;top:640px;height:250px"><span class="br-sk" style="left:20px;top:17px;width:240px"></span><span class="br-sk" style="left:20px;top:40px;width:167px"></span><span class="br-sk" style="left:20px;top:63px;width:215px"></span><span class="br-sk" style="left:20px;top:86px;width:134px"></span><div class="br-toast"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Invite sent<span>Undo</span></div></div>
+  <div class="br-mock-label" style="left:373px;top:899px">Toast · bottom edge 0</div>
+  <div class="br-cap">A corner needs space beyond it</div>
+</section>
+
+<!-- 5b · Edges: flush to the bottom -->
+<section class="scene scene--green" data-t="45" data-shot="46.5">
+  <div class="br-kick br-kick--teal">Radius · 05 Edges</div>
+  <h1 class="br-h">Touching an edge? No corner.</h1>
+  <div class="br-pill br-pill--teal" style="position:absolute;left:186px;top:279px">border-radius: 16px 16px 0 0</div>
+  <div class="br-phone" style="left:38px;top:333px">
+    <div class="br-phone__bar">9:41<svg viewBox="0 0 44 14"><path d="M4 10h6l-1 2H5zM7 3v1M5 5a2 2 0 0 1 4 0v3H5z"/><rect x="18" y="3" width="20" height="9" rx="2"/><rect x="39" y="6" width="2" height="3"/></svg></div>
+    <div class="br-phone__title">Projects</div>
+    <div class="br-phone__search"><svg viewBox="0 0 24 24"><use href="#i-search"/></svg>Search</div>
+    <div class="br-phone__row"><i></i>Aurora Handoff<small>12 frames</small></div>
+    <div class="br-phone__row"><i></i>Beacon Tokens<small>4 frames</small></div>
+    <div class="br-phone__row"><i></i>Halo Icons<small>31 frames</small></div>
+    <div class="br-phone__row"><i></i>Meridian Docs<small>8 frames</small></div>
+    <div class="br-phone__row"><i></i>Lumen Website<small>6 frames</small></div>
+    <div class="br-sheet is-flush"><div class="br-handle"></div><b>Share Aurora Handoff</b><small>Anyone with the link can comment</small><div class="br-row"><svg viewBox="0 0 24 24"><use href="#i-link"/></svg>Copy link<span class="br-ck"></span></div><div class="br-row"><svg viewBox="0 0 24 24"><use href="#i-users"/></svg>Invite teammates<span class="br-ck"></span></div><div class="br-done">Done</div></div>
+  </div>
+  <div class="br-edge-note br-edge-note--teal" style="top:937px">Sheet · flush to the bottom</div>
+  <div class="br-mock" style="left:373px;top:333px;height:250px"><div class="br-mock__side"><div>Projects</div><div>Team</div><div>Assets</div></div><span class="br-sk" style="left:148px;top:19px;width:127px"></span><span class="br-sk" style="left:148px;top:41px;width:87px"></span><span class="br-sk" style="left:148px;top:63px;width:109px"></span><span class="br-sk" style="left:148px;top:85px;width:69px"></span></div>
+  <div class="br-mock-label" style="left:373px;top:592px">Sidebar · left edge 0</div>
+  <div class="br-mock" style="left:373px;top:640px;height:250px"><span class="br-sk" style="left:20px;top:17px;width:240px"></span><span class="br-sk" style="left:20px;top:40px;width:167px"></span><span class="br-sk" style="left:20px;top:63px;width:215px"></span><span class="br-sk" style="left:20px;top:86px;width:134px"></span><div class="br-toast"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Invite sent<span>Undo</span></div></div>
+  <div class="br-mock-label" style="left:373px;top:899px">Toast · bottom edge 0</div>
+  <div class="br-cap br-cap--teal">A corner needs space beyond it</div>
+</section>
+
+<!-- 6 · Ring: outer equals inner plus the gap -->
+<section class="scene" data-t="48" data-shot="52.5">
+  <div class="br-kick">Radius · 06 Ring</div>
+  <h1 class="br-h">Outer equals inner plus the gap.</h1>
+  <div class="br-price" style="left:54px;top:293px"><h4>Starter</h4><div class="br-amt">$0<small>/mo</small></div><ul><li>1 project</li><li>2 seats</li><li>Community</li></ul><div class="br-cta">Choose</div></div>
+  <div class="br-price is-selected" style="left:261px;top:293px"><h4>Team</h4><div class="br-amt">$24<small>/mo</small></div><ul><li>Unlimited</li><li>10 seats</li><li>Priority</li></ul><div class="br-cta">Selected</div></div>
+  <div class="br-price" style="left:474px;top:293px"><h4>Scale</h4><div class="br-amt">$96<small>/mo</small></div><ul><li>Unlimited</li><li>50 seats</li><li>SSO</li></ul><div class="br-cta">Choose</div></div>
+  <div class="br-pill" style="position:absolute;left:184px;top:575px;height:49px;font-size:21px">inner = outer - padding</div>
+  <div class="br-tag br-tag--pink" style="position:absolute;left:27px;top:634px">Ring inherits 8</div>
+  <div class="br-tag br-tag--teal" style="position:absolute;left:375px;top:634px">Ring = 8 + 2</div>
+  <div class="br-zoom br-zoom--pink" style="left:27px;top:674px">
+    <svg viewBox="0 0 320 274"><rect x="45" y="47" width="400" height="400" rx="80" fill="none" stroke="#3a4149" stroke-width="3"/><rect x="61" y="63" width="400" height="400" rx="44" fill="#20262d" stroke="#ff5c8a" stroke-width="3"/><path d="M135 47v16" stroke="#3a4149" stroke-width="2"/><text x="146" y="61" font-family="JetBrains Mono, monospace" font-size="15" fill="#8a9199">2</text><path d="M118 111L135 128" stroke="#ff5c8a" stroke-width="2"/><circle cx="118" cy="111" r="5" fill="#9aa0a8"/><circle cx="135" cy="128" r="5" fill="#ff5c8a"/></svg>
+    <span class="br-zoom__lab" style="top:191px">ring 8 · card 8</span><span class="br-zoom__verdict br-zoom__verdict--pink" style="top:225px">corner pinches</span>
+  </div>
+  <div class="br-zoom br-zoom--teal" style="left:374px;top:674px">
+    <svg viewBox="0 0 320 274"><rect x="45" y="47" width="400" height="400" rx="80" fill="none" stroke="#3a4149" stroke-width="3"/><rect x="61" y="63" width="400" height="400" rx="64" fill="#20262d" stroke="#2fe0ad" stroke-width="3"/><path d="M135 47v16" stroke="#3a4149" stroke-width="2"/><text x="146" y="61" font-family="JetBrains Mono, monospace" font-size="15" fill="#8a9199">2</text><circle cx="135" cy="128" r="9" fill="rgba(47,224,173,.25)"/><circle cx="135" cy="128" r="5" fill="#2fe0ad"/></svg>
+    <span class="br-zoom__lab" style="top:191px">ring 10 · card 8</span><span class="br-zoom__verdict br-zoom__verdict--teal" style="top:225px">concentric</span>
+  </div>
+  <div class="br-cap">Eight in, ten out</div>
+</section>
+
+<!-- 6b · Ring: the formula flips -->
+<section class="scene scene--green" data-t="55.5" data-shot="58.5">
+  <div class="br-kick br-kick--teal">Radius · 06 Ring</div>
+  <h1 class="br-h">Outer equals inner plus the gap.</h1>
+  <div class="br-price" style="left:54px;top:293px"><h4>Starter</h4><div class="br-amt">$0<small>/mo</small></div><ul><li>1 project</li><li>2 seats</li><li>Community</li></ul><div class="br-cta">Choose</div></div>
+  <div class="br-price is-selected is-ring-ok" style="left:261px;top:293px"><h4>Team</h4><div class="br-amt">$24<small>/mo</small></div><ul><li>Unlimited</li><li>10 seats</li><li>Priority</li></ul><div class="br-cta">Selected</div></div>
+  <div class="br-price" style="left:474px;top:293px"><h4>Scale</h4><div class="br-amt">$96<small>/mo</small></div><ul><li>Unlimited</li><li>50 seats</li><li>SSO</li></ul><div class="br-cta">Choose</div></div>
+  <div class="br-pill br-pill--teal" style="position:absolute;left:214px;top:575px;height:49px;font-size:21px">outer = inner + gap</div>
+  <div class="br-tag br-tag--pink" style="position:absolute;left:27px;top:634px">Ring inherits 8</div>
+  <div class="br-tag br-tag--teal" style="position:absolute;left:375px;top:634px">Ring = 8 + 2</div>
+  <div class="br-zoom" style="left:27px;top:674px">
+    <svg viewBox="0 0 320 274"><rect x="45" y="47" width="400" height="400" rx="80" fill="none" stroke="#3a4149" stroke-width="3"/><rect x="61" y="63" width="400" height="400" rx="44" fill="#20262d" stroke="#ff5c8a" stroke-width="3"/><path d="M135 47v16" stroke="#3a4149" stroke-width="2"/><text x="146" y="61" font-family="JetBrains Mono, monospace" font-size="15" fill="#8a9199">2</text><path d="M118 111L135 128" stroke="#ff5c8a" stroke-width="2"/><circle cx="118" cy="111" r="5" fill="#9aa0a8"/><circle cx="135" cy="128" r="5" fill="#ff5c8a"/></svg>
+    <span class="br-zoom__lab" style="top:191px">ring 8 · card 8</span><span class="br-zoom__verdict br-zoom__verdict--pink" style="top:225px">corner pinches</span>
+  </div>
+  <div class="br-zoom br-zoom--teal" style="left:374px;top:674px">
+    <svg viewBox="0 0 320 274"><rect x="45" y="47" width="400" height="400" rx="80" fill="none" stroke="#3a4149" stroke-width="3"/><rect x="61" y="63" width="400" height="400" rx="64" fill="#20262d" stroke="#2fe0ad" stroke-width="3"/><path d="M135 47v16" stroke="#3a4149" stroke-width="2"/><text x="146" y="61" font-family="JetBrains Mono, monospace" font-size="15" fill="#8a9199">2</text><circle cx="135" cy="128" r="9" fill="rgba(47,224,173,.25)"/><circle cx="135" cy="128" r="5" fill="#2fe0ad"/></svg>
+    <span class="br-zoom__lab" style="top:191px">ring 10 · card 8</span><span class="br-zoom__verdict br-zoom__verdict--teal" style="top:225px">concentric</span>
+  </div>
+  <div class="br-cap br-cap--teal">Eight in, ten out</div>
+</section>
+
+<!-- 7 · Images: the square corner pokes out -->
+<section class="scene" data-t="60" data-shot="61.5">
+  <div class="br-kick">Radius · 07 Images</div>
+  <h1 class="br-h">Let the card clip the image.</h1>
+  <div data-card="is-unclipped" style="position:absolute;left:67px;top:411px;--card-border:#1e3a34"></div>
+  <div class="br-outline" style="left:66px;top:410px;width:588px;height:138px;border-radius:0"></div>
+  <div class="br-loupe" style="left:509px;top:317px;width:206px;height:206px">
+    <svg viewBox="0 0 206 206" width="206" height="206"><rect x="-120" y="34" width="300" height="300" rx="66" fill="#10151a" stroke="#2fe0ad" stroke-width="12"/><rect x="-120" y="22" width="316" height="300" fill="#1b1d4a" stroke="#ff5c8a" stroke-width="10"/><g stroke="#232659" stroke-width="3"><path d="M-100 60h280M-100 80h280M-100 100h280M-100 120h280M-100 140h280M-100 160h280M-100 180h280"/></g></svg>
+  </div>
+  <div class="br-loupe__handle" style="left:494px;top:522px"></div>
+  <div class="br-loupe__label" style="left:490px;top:520px;width:240px">square corner pokes out</div>
+  <div class="br-pill br-pill--pink" style="position:absolute;left:145px;top:852px">image radius: 0</div>
+  <div class="br-cap">Clip it, or subtract the padding</div>
+</section>
+
+<!-- 7b · Images: clipped by the card -->
+<section class="scene scene--green" data-t="64.5" data-shot="66">
+  <div class="br-kick br-kick--teal">Radius · 07 Images</div>
+  <h1 class="br-h">Let the card clip the image.</h1>
+  <div data-card="br-card--teal" style="position:absolute;left:64px;top:411px;--w:592px;--h:423px"></div>
+  <div class="br-loupe br-loupe--teal" style="left:509px;top:317px;width:206px;height:206px">
+    <svg viewBox="0 0 206 206" width="206" height="206"><defs><clipPath id="br-clip"><rect x="-120" y="34" width="300" height="300" rx="66"/></clipPath></defs><rect x="-120" y="34" width="300" height="300" rx="66" fill="#10151a"/><g clip-path="url(#br-clip)"><rect x="-120" y="54" width="278" height="300" fill="#1b1d4a"/><g stroke="#232659" stroke-width="3"><path d="M-100 60h280M-100 80h280M-100 100h280M-100 120h280M-100 140h280M-100 160h280M-100 180h280"/></g></g><rect x="-120" y="34" width="300" height="300" rx="66" fill="none" stroke="#2fe0ad" stroke-width="12"/></svg>
+  </div>
+  <div class="br-loupe__handle br-loupe__handle--teal" style="left:494px;top:522px"></div>
+  <div class="br-loupe__label br-loupe__label--teal" style="left:510px;top:520px;width:220px">clipped by the card</div>
+  <div class="br-pill br-pill--strike" style="position:absolute;left:145px;top:852px">image radius: 0</div>
+  <div class="br-pill br-pill--teal" style="position:absolute;left:349px;top:852px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-scissors"/></svg>overflow: hidden</div>
+  <div class="br-cap br-cap--teal">Clip it, or subtract the padding</div>
+</section>
+
+<!-- 8 · System: corners are a system -->
+<section class="scene scene--green" data-t="69" data-shot="72">
+  <div class="br-kick br-kick--teal">Radius · System</div>
+  <h1 class="br-h">Corners are a system.</h1>
+  <div data-card="is-system br-card--teal" style="position:absolute;left:64px;top:265px;--w:592px;--h:423px"></div>
+  <div class="br-check" style="left:67px;top:712px"><i></i>Nested</div><div class="br-check" style="left:367px;top:712px"><i></i>Scale</div>
+  <div class="br-check" style="left:67px;top:765px"><i></i>Pill</div><div class="br-check" style="left:367px;top:765px"><i></i>Edges</div>
+  <div class="br-check" style="left:67px;top:818px"><i></i>Ring</div><div class="br-check" style="left:367px;top:818px"><i></i>Images</div>
+  <div class="br-handle-name" style="top:888px">@designmotionhq</div>
+  <a class="br-social" style="left:215px;top:940px" href="https://www.instagram.com/designmotionhq/"><svg viewBox="0 0 24 24"><use href="#i-follow"/></svg>Follow</a>
+  <a class="br-social" style="left:375px;top:940px" href="#"><svg viewBox="0 0 24 24"><use href="#i-bookmark"/></svg>Save</a>
+</section>
+
+<script type="module">
+  import { installScale, nestedRadius, edgeRadius } from './pattern.js';
+  installScale(document.body);
+  // Stamp the project card into every [data-card] slot; the value is the list of state classes for that scene.
+  const tpl = document.getElementById('br-card-tpl');
+  for (const slot of document.querySelectorAll('[data-card]')) {
+    const card = tpl.content.firstElementChild.cloneNode(true);
+    card.classList.add(...slot.dataset.card.split(/\s+/).filter(Boolean));
+    const cs = slot.style; card.style.cssText = cs.cssText; if (cs.getPropertyValue('--w')) { card.style.width = cs.getPropertyValue('--w'); card.style.height = cs.getPropertyValue('--h'); }
+    if (cs.getPropertyValue('--card-border')) card.style.borderColor = cs.getPropertyValue('--card-border');
+    // the nested rule, applied for real: the tray sits 4px inside a 12px card
+    if (card.classList.contains('is-nested')) card.querySelector('.br-tray').style.borderRadius = nestedRadius(12, 4) + 'px';
+    if (card.classList.contains('is-system')) card.querySelector('.br-tray').style.borderRadius = edgeRadius(nestedRadius(12, 4), []);
+    slot.replaceWith(card);
+  }
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

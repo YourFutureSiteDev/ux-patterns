@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Autosave · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a0d10; --accent: #2ed3b6; --danger: #e85a7c; --grid: rgba(255,255,255,.03); }
+  .scene { color: #f2f4f7; }
+  .kicker { top: 148px; font-size: 14px; letter-spacing: .16em; padding: 8px 20px; }
+  .kicker--amber { color: #c9ced5; background: #1a1e23; }
+  .title { top: 195px; font-size: 42px; line-height: 1.1; margin: 0; }
+  .title em.amber { color: #e3a94a; }
+  .caption { top: 1010px; height: 56px; display: flex; align-items: center; font-size: 24px; padding: 0 28px; border-radius: 12px; background: #0c1e1c; color: var(--accent); box-shadow: none; }
+  .caption--grey { background: #191b21; color: #c9ced5; }
+  .caption--pink { background: #2c1a20; color: #e85a7c; }
+</style>
+</head>
+<body class="as">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2 8.5a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16.5a5 5 0 0 1 6 0M12 20h.01"/></symbol>
+  <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M2 2l20 20M9 16.5a5 5 0 0 1 6 0M5.5 12.5a10 10 0 0 1 4.6-2.6M2 8.5a15 15 0 0 1 6-3.4M15.7 9.6A15 15 0 0 1 22 8.5M12 20h.01"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1-.6-7.95A6 6 0 0 1 18 9a4.5 4.5 0 0 1 0 9z"/></symbol>
+  <symbol id="i-cloud-off" viewBox="0 0 24 24"><path d="M2 2l20 20M7 18a4 4 0 0 1-2.5-7.1M10.5 5.3A6 6 0 0 1 18 9a4.5 4.5 0 0 1 2.7 8M8 18h9"/></symbol>
+  <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6M12 2v3"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="18" height="6" rx="2"/><path d="M7 7h.01M7 17h.01"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l4.5-1L19 8.5a2.1 2.1 0 0 0-3-3L5.5 16z"/><path d="M13.5 7.5l3 3"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v4.5h-4.5"/></symbol>
+  <symbol id="i-alert-c" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5M3 17l9 5 9-5"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-merge" viewBox="0 0 24 24"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 9v3a6 6 0 0 0 6 6h3"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4.5L5 21V4a1 1 0 0 1 1-1z"/></symbol>
+  <symbol id="i-follow" viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M2 21a8 8 0 0 1 14-4M19 8v6M16 11h6"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></symbol>
+</svg>
+
+<!-- 1a · Hook: "Saved." (teal, online) -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="glow" style="left:100px;top:420px;background:rgba(46,211,182,.16)"></div>
+  <div style="position:absolute;left:145px;top:143px;font-size:56px;font-weight:800;letter-spacing:-.02em;line-height:1">“Saved.”</div>
+  <div style="position:absolute;left:243px;top:260px;display:flex;align-items:center;gap:2px">
+    <span class="as-pill as-pill--saved" style="height:56px;padding:0 28px 0 26px;font-size:24px"><svg class="ic"><use href="#i-check"/></svg>Saved</span>
+    <span class="as-net"><svg class="ic"><use href="#i-wifi"/></svg></span>
+  </div>
+  <div class="as-doc" style="position:absolute;left:68px;top:393px">
+    <div class="as-doc__bar"><span class="as-doc__dots"><i></i><i></i><i></i></span><svg class="ic"><use href="#i-doc"/></svg>Team offsite notes<span class="as-doc__state">editing</span></div>
+    <div class="as-doc__body">— Kickoff at 9:30, roof terrace<br>— Sarah owns the agenda doc<br>— Budget review moved t<span class="as-caret"></span></div>
+  </div>
+  <div class="as-sync" style="position:absolute;left:175px;top:938px"><svg class="ic"><use href="#i-cloud"/></svg>Last sync 12:04 · up to date</div>
+</section>
+
+<!-- 1b · Hook: "It wasn't." (amber, offline) -->
+<section class="scene" data-t="1.5" data-shot="1.5">
+  <div class="glow" style="left:100px;top:420px;background:rgba(227,169,74,.14)"></div>
+  <div style="position:absolute;left:145px;top:143px;font-size:56px;font-weight:800;letter-spacing:-.02em;line-height:1;display:flex;align-items:baseline;gap:20px">“Saved.”<span style="font-size:36px;color:#e3a94a">It wasn't.</span></div>
+  <div style="position:absolute;left:163px;top:260px;display:flex;align-items:center;gap:0">
+    <span class="as-pill as-pill--pending" style="height:56px;padding:0 24px;font-size:24px"><svg class="ic"><use href="#i-clock"/></svg>3 changes pending</span>
+    <span class="as-net as-net--off" style="margin-left:-6px"><svg class="ic"><use href="#i-wifi-off"/></svg></span>
+  </div>
+  <div class="as-doc" style="position:absolute;left:68px;top:393px">
+    <div class="as-doc__bar"><span class="as-doc__dots"><i></i><i></i><i></i></span><svg class="ic"><use href="#i-doc"/></svg>Team offsite notes<span class="as-doc__state as-doc__state--off">offline</span></div>
+    <div class="as-doc__body">— Kickoff at 9:30, roof terrace<br>— Sarah owns the agenda doc<br>— Budget review moved to Thursda<span class="as-caret as-caret--amber"></span></div>
+  </div>
+  <div class="as-sync as-sync--warn" style="position:absolute;left:188px;top:938px"><svg class="ic"><use href="#i-cloud-off"/></svg>3 edits never left this tab</div>
+</section>
+
+<!-- 2a · Debounce: typing, timer resetting -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="glow" style="left:100px;top:520px;background:rgba(46,211,182,.10)"></div>
+  <div class="kicker">Debounce</div>
+  <h1 class="title">A timer between you <em>and the server</em></h1>
+  <div class="as-label center" style="top:318px">Keystrokes</div>
+  <div class="as-keys" id="keys-a" style="position:absolute;left:150px;top:346px"><span class="as-key">a</span><span class="as-key">g</span><span class="as-key">e</span></div>
+  <div class="as-deb" id="deb-a" style="position:absolute;left:68px;top:488px">
+    <div class="as-deb__head"><svg class="ic"><use href="#i-timer"/></svg>Debounce window<span class="as-deb__ms"><b class="as-deb__now" style="font-weight:500">150</b> / 800 ms</span></div>
+    <div class="as-deb__track"><div class="as-deb__fill" style="--w:18.75%"></div></div>
+    <div class="as-deb__foot">resets while you type<span class="as-deb__writes">writes: 0</span></div>
+  </div>
+  <div class="as-server" style="position:absolute;left:127px;top:800px"><div class="as-server__icon"><svg class="ic"><use href="#i-server"/></svg></div><div><b>Server</b><span>waiting for silence…</span></div></div>
+  <div class="caption">800 ms of silence → one clean write</div>
+</section>
+
+<!-- 2b · Debounce: silence reached, one write accepted -->
+<section class="scene" data-t="9" data-shot="12">
+  <div class="glow" style="left:100px;top:520px;background:rgba(46,211,182,.10)"></div>
+  <div class="kicker">Debounce</div>
+  <h1 class="title">A timer between you <em>and the server</em></h1>
+  <div class="as-label center" style="top:318px">Keystrokes</div>
+  <div class="as-keys" style="position:absolute;left:150px;top:346px"><span class="as-key">a</span><span class="as-key">g</span><span class="as-key">e</span><span class="as-key">n</span><span class="as-key">d</span><span class="as-key">a</span></div>
+  <div class="as-deb is-done" style="position:absolute;left:68px;top:488px">
+    <div class="as-deb__head"><svg class="ic"><use href="#i-timer"/></svg>Debounce window<span class="as-deb__ms">800 / 800 ms</span></div>
+    <div class="as-deb__track"><div class="as-deb__fill" style="--w:100%"></div></div>
+    <div class="as-deb__foot">resets while you type<span class="as-deb__writes"><svg class="ic"><use href="#i-check"/></svg>writes: 1</span></div>
+  </div>
+  <div class="as-chip center" style="top:686px"><svg class="ic"><use href="#i-bolt"/></svg>6 keystrokes → 1 write</div>
+  <div class="as-server is-ok" style="position:absolute;left:127px;top:800px"><div class="as-server__icon"><svg class="ic"><use href="#i-server"/></svg></div><div><b>Write accepted</b><span>PATCH /docs/offsite · 200 OK</span></div></div>
+  <div class="caption">800 ms of silence → one clean write</div>
+</section>
+
+<!-- 3a · Status: Typing… -->
+<section class="scene" data-t="13.5" data-shot="13.5">
+  <div class="kicker kicker--amber">Status</div>
+  <h1 class="title">That pill is a <em>state machine</em></h1>
+  <div class="as-pill as-pill--typing center" style="top:297px"><svg class="ic"><use href="#i-pencil"/></svg>Typing…</div>
+  <div class="as-sm" style="position:absolute;left:68px;top:375px">
+    <svg class="as-sm__edges" viewBox="0 0 584 483">
+      <line x1="158" y1="85" x2="426" y2="85"/><line x1="452" y1="111" x2="452" y2="245"/><line x1="158" y1="271" x2="426" y2="271"/>
+      <line class="dash" x1="152" y1="104" x2="432" y2="252"/><line class="dash" x1="303" y1="376" x2="440" y2="118"/><line x1="152" y1="290" x2="272" y2="376"/>
+    </svg>
+    <div class="as-node is-white" style="left:132px;top:85px"><svg class="ic"><use href="#i-pencil"/></svg><span class="as-node__blip" style="color:#fff;top:36px;left:36px"></span><span class="as-node__label">Typing</span></div>
+    <div class="as-node" style="left:452px;top:85px"><svg class="ic"><use href="#i-refresh"/></svg><span class="as-node__label">Saving</span></div>
+    <div class="as-node" style="left:132px;top:271px"><svg class="ic"><use href="#i-wifi-off"/></svg><span class="as-node__label">Offline</span></div>
+    <div class="as-node" style="left:452px;top:271px"><svg class="ic"><use href="#i-check"/></svg><span class="as-node__label">Saved</span></div>
+    <div class="as-node" style="left:292px;top:398px"><svg class="ic"><use href="#i-alert-c"/></svg><span class="as-node__label">Error</span></div>
+  </div>
+  <div class="caption caption--grey">Users trust the pill. Never let it lie.</div>
+</section>
+
+<!-- 3b · Status: Saving… -->
+<section class="scene" data-t="15" data-shot="15">
+  <div class="kicker kicker--amber">Status</div>
+  <h1 class="title">That pill is a <em>state machine</em></h1>
+  <div class="as-pill as-pill--saving center" style="top:297px"><svg class="ic as-spin"><use href="#i-refresh"/></svg>Saving…</div>
+  <div class="as-sm" style="position:absolute;left:68px;top:375px">
+    <svg class="as-sm__edges" viewBox="0 0 584 483">
+      <line x1="158" y1="85" x2="426" y2="85"/><line x1="452" y1="111" x2="452" y2="245"/><line x1="158" y1="271" x2="426" y2="271"/>
+      <line class="dash" x1="152" y1="104" x2="432" y2="252"/><line class="dash" x1="303" y1="376" x2="440" y2="118"/><line x1="152" y1="290" x2="272" y2="376"/>
+      <line class="on" x1="158" y1="85" x2="426" y2="85" style="opacity:.35"/>
+    </svg>
+    <div class="as-node" style="left:132px;top:85px"><svg class="ic"><use href="#i-pencil"/></svg><span class="as-node__label">Typing</span></div>
+    <div class="as-node is-on" style="left:452px;top:85px"><svg class="ic as-spin"><use href="#i-refresh"/></svg><span class="as-node__blip" style="top:36px;left:30px"></span><span class="as-node__label">Saving</span></div>
+    <div class="as-node" style="left:132px;top:271px"><svg class="ic"><use href="#i-wifi-off"/></svg><span class="as-node__label">Offline</span></div>
+    <div class="as-node" style="left:452px;top:271px"><svg class="ic"><use href="#i-check"/></svg><span class="as-node__label">Saved</span></div>
+    <div class="as-node" style="left:292px;top:398px"><svg class="ic"><use href="#i-alert-c"/></svg><span class="as-node__label">Error</span></div>
+  </div>
+  <div class="caption caption--grey">Users trust the pill. Never let it lie.</div>
+</section>
+
+<!-- 3c · Status: Offline -->
+<section class="scene" data-t="18" data-shot="18">
+  <div class="kicker kicker--amber">Status</div>
+  <h1 class="title">That pill is a <em>state machine</em></h1>
+  <div class="as-pill as-pill--offline center" style="top:297px"><svg class="ic"><use href="#i-wifi-off"/></svg>Offline</div>
+  <div class="as-sm" style="position:absolute;left:68px;top:375px">
+    <svg class="as-sm__edges" viewBox="0 0 584 483">
+      <line x1="158" y1="85" x2="426" y2="85"/><line x1="452" y1="111" x2="452" y2="245"/><line x1="158" y1="271" x2="426" y2="271"/>
+      <line class="dash" x1="152" y1="104" x2="432" y2="252"/><line class="dash" x1="303" y1="376" x2="440" y2="118"/><line x1="152" y1="290" x2="272" y2="376"/>
+    </svg>
+    <div class="as-node" style="left:132px;top:85px"><svg class="ic"><use href="#i-pencil"/></svg><span class="as-node__label">Typing</span></div>
+    <div class="as-node" style="left:452px;top:85px"><svg class="ic"><use href="#i-refresh"/></svg><span class="as-node__label">Saving</span></div>
+    <div class="as-node is-on is-amber" style="left:132px;top:271px"><svg class="ic"><use href="#i-wifi-off"/></svg><span class="as-node__blip" style="top:34px;left:26px"></span><span class="as-node__label">Offline</span></div>
+    <div class="as-node" style="left:452px;top:271px"><svg class="ic"><use href="#i-check"/></svg><span class="as-node__label">Saved</span></div>
+    <div class="as-node" style="left:292px;top:398px"><svg class="ic"><use href="#i-alert-c"/></svg><span class="as-node__label">Error</span></div>
+  </div>
+  <div class="caption caption--grey">Users trust the pill. Never let it lie.</div>
+</section>
+
+<!-- 4a · Offline queue: edits piling up -->
+<section class="scene" data-t="21" data-shot="24">
+  <div class="kicker kicker--amber">Offline queue</div>
+  <h1 class="title">Every edit <em class="amber">waits in line</em></h1>
+  <div class="as-pill as-pill--offline-o center" style="top:300px;height:46px;padding:0 22px;font-size:18px"><svg class="ic" style="width:18px;height:18px"><use href="#i-wifi-off"/></svg>Offline</div>
+  <div class="as-q" style="position:absolute;left:68px;top:367px;height:330px">
+    <div class="as-q__head"><svg class="ic"><use href="#i-layers"/></svg>Local queue<span class="as-q__badge">3</span></div>
+    <div class="as-q__row"><svg class="ic"><use href="#i-pencil"/></svg>Renamed section “Agenda”<time>14:02:11</time></div>
+    <div class="as-q__row"><svg class="ic"><use href="#i-pencil"/></svg>Added bullet · budget<time>14:02:19</time></div>
+    <div class="as-q__row is-new"><svg class="ic"><use href="#i-pencil"/></svg>Fixed typo · “Thursday”<time>14:02:24</time></div>
+  </div>
+  <div class="as-server" style="position:absolute;left:127px;top:773px"><div class="as-server__icon"><svg class="ic"><use href="#i-server"/></svg></div><div><b>Server</b><span>waiting for connection…</span></div></div>
+  <div class="caption">Reconnect → drain in order. Oldest first.</div>
+</section>
+
+<!-- 4b · Offline queue: back online, draining oldest first -->
+<section class="scene" data-t="27" data-shot="27">
+  <div class="kicker kicker--amber">Offline queue</div>
+  <h1 class="title">Every edit <em class="amber">waits in line</em></h1>
+  <div class="as-pill as-pill--online center" style="top:300px;height:46px;padding:0 22px;font-size:18px"><svg class="ic" style="width:18px;height:18px"><use href="#i-wifi"/></svg>Back online</div>
+  <div class="as-q" style="position:absolute;left:68px;top:367px;height:260px">
+    <div class="as-q__head"><svg class="ic"><use href="#i-layers"/></svg>Local queue<span class="as-q__badge">3</span></div>
+    <div class="as-q__row is-syncing"><svg class="ic"><use href="#i-pencil"/></svg>Added bullet · budget<time>14:02:19</time></div>
+    <div class="as-q__row"><svg class="ic"><use href="#i-pencil"/></svg>Fixed typo · “Thursday”<time>14:02:24</time></div>
+    <div class="as-q__row"><svg class="ic"><use href="#i-pencil"/></svg>Pasted venue map link<time>14:02:31</time></div>
+  </div>
+  <span class="as-dot" style="left:353px;top:688px"></span>
+  <div class="as-server is-ok" style="position:absolute;left:127px;top:773px"><div class="as-server__icon"><svg class="ic"><use href="#i-server"/></svg></div><div><b>Synced 1/4</b><span>draining queue, oldest first</span></div></div>
+  <div class="caption">Reconnect → drain in order. Oldest first.</div>
+</section>
+
+<!-- 5a · Conflicts: two tabs, one document -->
+<section class="scene" data-t="30" data-shot="31.5">
+  <div class="kicker kicker--danger">Conflicts</div>
+  <h1 class="title">Two tabs. <em class="danger">One document.</em></h1>
+  <div class="as-tab" style="position:absolute;left:35px;top:305px">
+    <div class="as-tab__head"><svg class="ic"><use href="#i-doc"/></svg>offsite.md<span class="as-tab__id">TAB A</span></div>
+    <div class="as-tab__h">Agenda — Friday offsite</div>
+    <div class="as-line">+ Intro: goals for H2</div>
+    <div class="as-tab__meta as-tab__meta--ok"><svg class="ic"><use href="#i-check"/></svg>saved 14:05</div>
+  </div>
+  <div class="as-tab" style="position:absolute;left:375px;top:305px">
+    <div class="as-tab__head"><svg class="ic"><use href="#i-doc"/></svg>offsite.md<span class="as-tab__id">TAB B</span></div>
+    <div class="as-tab__h">Agenda — Friday offsite</div>
+    <div class="as-line">+ Budget: venue &amp; travel</div>
+    <div class="as-tab__meta">editing…</div>
+  </div>
+  <div class="as-srv is-lww" style="position:absolute;left:68px;top:635px;height:122px">
+    <div class="as-srv__head">Server · offsite.md<span class="as-srv__tag as-srv__tag--lww"><svg class="ic"><use href="#i-warn"/></svg>Last write wins</span></div>
+    <div class="as-srv__row">Agenda — Friday offsite</div>
+  </div>
+  <div class="caption caption--pink">Merge or warn — never overwrite in silence.</div>
+</section>
+
+<!-- 5b · Conflicts: last write wins erases paragraph A -->
+<section class="scene" data-t="33" data-shot="33">
+  <div class="kicker kicker--danger">Conflicts</div>
+  <h1 class="title">Two tabs. <em class="danger">One document.</em></h1>
+  <div class="as-tab" style="position:absolute;left:35px;top:305px">
+    <div class="as-tab__head"><svg class="ic"><use href="#i-doc"/></svg>offsite.md<span class="as-tab__id">TAB A</span></div>
+    <div class="as-tab__h">Agenda — Friday offsite</div>
+    <div class="as-line">+ Intro: goals for H2</div>
+    <div class="as-tab__meta as-tab__meta--ok"><svg class="ic"><use href="#i-check"/></svg>saved 14:05</div>
+  </div>
+  <div class="as-tab" style="position:absolute;left:375px;top:305px">
+    <div class="as-tab__head"><svg class="ic"><use href="#i-doc"/></svg>offsite.md<span class="as-tab__id">TAB B</span></div>
+    <div class="as-tab__h">Agenda — Friday offsite</div>
+    <div class="as-line">+ Budget: venue &amp; travel</div>
+    <div class="as-tab__meta as-tab__meta--ok"><svg class="ic"><use href="#i-check"/></svg>saved 14:05</div>
+  </div>
+  <div class="as-srv is-lww" style="position:absolute;left:68px;top:635px;height:226px">
+    <div class="as-srv__head">Server · offsite.md<span class="as-srv__tag as-srv__tag--lww"><svg class="ic"><use href="#i-warn"/></svg>Last write wins</span></div>
+    <div class="as-srv__row">Agenda — Friday offsite</div>
+    <div class="as-line">+ Intro: goals for H2<small>from Tab A</small></div>
+    <div class="as-srv__erased"><svg class="ic"><use href="#i-warn"/></svg>Paragraph A silently erased — an hour of work</div>
+    <div class="as-line" style="opacity:.55">+ Budget: venue &amp; travel<small>from Tab B</small></div>
+  </div>
+  <div class="caption caption--pink">Merge or warn — never overwrite in silence.</div>
+</section>
+
+<!-- 5c · Conflicts: merged -->
+<section class="scene" data-t="36" data-shot="36">
+  <div class="kicker kicker--danger">Conflicts</div>
+  <h1 class="title">Two tabs. <em class="danger">One document.</em></h1>
+  <div class="as-tab" style="position:absolute;left:35px;top:305px">
+    <div class="as-tab__head"><svg class="ic"><use href="#i-doc"/></svg>offsite.md<span class="as-tab__id">TAB A</span></div>
+    <div class="as-tab__h">Agenda — Friday offsite</div>
+    <div class="as-line">+ Intro: goals for H2</div>
+    <div class="as-tab__meta as-tab__meta--ok"><svg class="ic"><use href="#i-check"/></svg>saved 14:05</div>
+  </div>
+  <div class="as-tab" style="position:absolute;left:375px;top:305px">
+    <div class="as-tab__head"><svg class="ic"><use href="#i-doc"/></svg>offsite.md<span class="as-tab__id">TAB B</span></div>
+    <div class="as-tab__h">Agenda — Friday offsite</div>
+    <div class="as-line">+ Budget: venue &amp; travel</div>
+    <div class="as-tab__meta as-tab__meta--ok"><svg class="ic"><use href="#i-check"/></svg>saved 14:05</div>
+  </div>
+  <div class="as-srv is-merge" style="position:absolute;left:68px;top:635px;height:213px">
+    <div class="as-srv__head">Server · offsite.md<span class="as-srv__tag as-srv__tag--merge"><svg class="ic"><use href="#i-merge"/></svg>Merge</span></div>
+    <div class="as-srv__row">Agenda — Friday offsite</div>
+    <div class="as-line as-line--teal">+ Intro: goals for H2<small>from Tab A</small></div>
+    <div class="as-line as-line--teal">+ Budget: venue &amp; travel<small>from Tab B</small></div>
+  </div>
+  <div class="caption">Merge or warn — never overwrite in silence.</div>
+</section>
+
+<!-- 6 · Navigation guard -->
+<section class="scene" data-t="39" data-shot="40.5">
+  <div class="glow" style="left:100px;top:420px;background:rgba(46,211,182,.10)"></div>
+  <div class="kicker">Navigation guard</div>
+  <h1 class="title">The browser <em>asks first</em></h1>
+  <div class="as-browser" style="position:absolute;left:68px;top:312px">
+    <div class="as-browser__tabs"><div class="as-browser__tab"><i></i>Team offsite notes<svg class="ic"><use href="#i-x"/></svg></div></div>
+    <div class="as-browser__chrome"><div class="as-browser__url"><svg class="ic"><use href="#i-lock"/></svg>docs.acme.co/team-offsite</div></div>
+    <div class="as-browser__page"><h3>Team offsite notes</h3><p>— Kickoff at 9:30, roof terrace<br>— Sarah owns the agenda doc<br>— Budget review moved to Thursday<br>— Book the roof terrace</p></div>
+    <div class="as-dialog" id="leaveDialog">
+      <div class="as-dialog__h"><svg class="ic"><use href="#i-warn"/></svg>Leave site?</div>
+      <p>Changes you made may not be saved.</p>
+      <div class="as-dialog__btns"><button class="as-btn">Leave</button><button class="as-btn as-btn--primary">Stay</button></div>
+    </div>
+    <div class="as-unsaved"><svg class="ic"><use href="#i-target"/></svg>2 unsaved changes</div>
+  </div>
+  <svg class="cursor" style="left:326px;top:322px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="as-code center" style="top:808px">window.addEventListener(<em>"beforeunload"</em>, warn)</div>
+  <div class="caption">One ugly dialog beats an afternoon retyped.</div>
+</section>
+
+<!-- 7 · Outro -->
+<section class="scene" data-t="45" data-shot="46.5">
+  <div class="glow" style="left:100px;top:150px;background:rgba(46,211,182,.16)"></div>
+  <div class="as-orb center" style="top:284px"><svg class="ic"><use href="#i-bookmark"/></svg></div>
+  <div class="title" style="top:440px;font-size:48px;color:var(--accent)">Autosave is a system.</div>
+  <div class="as-label center" style="top:512px;font-size:17px;color:#979ca7;letter-spacing:.14em;font-weight:600;white-space:nowrap">Debounce · States · Queue · Merge · Guard</div>
+  <div class="as-cta center" style="top:672px"><svg class="ic"><use href="#i-follow"/></svg>Follow for more UX engineering</div>
+  <div class="as-sub center" style="top:750px"><svg class="ic"><use href="#i-bookmark"/></svg>Now save this one manually</div>
+  <div class="as-flow" style="position:absolute;left:160px;top:940px">
+    <span class="as-pill as-pill--sm as-pill--typing"><svg class="ic"><use href="#i-pencil"/></svg>Typing…</span><span class="as-flow__arrow">→</span>
+    <span class="as-pill as-pill--sm as-pill--saving" id="demoSaving"><svg class="ic as-spin"><use href="#i-refresh"/></svg>Saving…</span><span class="as-flow__arrow">→</span>
+    <span class="as-pill as-pill--sm as-pill--saved" style="box-shadow:none"><svg class="ic"><use href="#i-check"/></svg>Saved</span>
+  </div>
+</section>
+
+<script type="module">
+  import { Debounce } from './pattern.js';
+  // Live demo of the debounce window on scene 2a: keys land at 0, 0.4, 0.9 s and the timer resets each time.
+  const deb = document.getElementById('deb-a');
+  if (deb) {
+    const fill = deb.querySelector('.as-deb__fill'), now = deb.querySelector('.as-deb__now'), writes = deb.querySelector('.as-deb__writes');
+    const d = Debounce({ wait: 800, onTick: ms => { fill.style.setProperty('--w', (ms / 800 * 100) + '%'); now.textContent = ms; }, onFire: () => { deb.classList.add('is-done'); writes.textContent = 'writes: 1'; } });
+    deb.closest('.scene').addEventListener('scene:enter', e => { if (e.detail.t > 0) return; deb.classList.remove('is-done'); writes.textContent = 'writes: 0'; [0, 400, 900].forEach(ms => setTimeout(() => d.hit(), ms)); });
+  }
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

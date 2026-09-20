@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Easing Curves · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0b0a0e; --accent: #22c55e; --danger: #ef4444; --grid: rgba(255,255,255,0); }
+  .scene { color: #f2f2f4; }
+</style>
+</head>
+<body class="ec">
+
+<!-- 1 · Hook: same distance, three curves -->
+<section class="scene" data-t="0" data-shot="3">
+  <div class="ec-glow" style="left:200px;top:340px"></div>
+  <div class="ec-title" style="top:136px;font-size:30px">Same distance. <em>Different feel.</em></div>
+  <div class="ec-track ec-grey" style="left:66px;top:394px"><div class="ec-ball"></div></div>
+  <div class="ec-label ec-grey" style="left:647px;top:424px">linear</div>
+  <div class="ec-track ec-blue" style="left:66px;top:594px"><div class="ec-ball"></div></div>
+  <div class="ec-label ec-blue" style="left:647px;top:624px">ease-<br>out</div>
+  <div class="ec-track ec-green" style="left:66px;top:794px"><div class="ec-ball"></div></div>
+  <div class="ec-label ec-green" style="left:650px;top:824px">spring <span style="font-size:11px;opacity:.7">✓</span></div>
+  <div class="ec-kicker" style="top:1036px;font-size:14px;color:#4b4a50">EASING CURVES</div>
+</section>
+
+<!-- 2 · Button press -->
+<section class="scene" data-t="4.5" data-shot="6">
+  <div class="ec-glow" style="left:220px;top:300px;opacity:.5"></div>
+  <div class="ec-kicker" style="top:134px">BUTTON PRESS</div>
+  <button class="ec-btn ec-grey ec-btn--loop" style="left:87px;top:466px">Submit</button>
+  <button class="ec-btn ec-blue ec-btn--loop" style="left:277px;top:466px">Submit</button>
+  <button class="ec-btn ec-green ec-btn--loop" style="left:467px;top:466px">Submit</button>
+  <div class="ec-label ec-grey" style="left:87px;width:172px;text-align:center;top:537px">linear</div>
+  <div class="ec-label ec-blue" style="left:277px;width:172px;text-align:center;top:537px">ease-out</div>
+  <div class="ec-label ec-green" style="left:467px;width:172px;text-align:center;top:537px">spring</div>
+  <svg class="ec-curve ec-grey" style="left:107px;top:588px" viewBox="0 0 132 52" data-curve="linear"><line class="ec-curve__axis" x1="0" y1="47" x2="132" y2="47"/><path/><circle r="2.5"/></svg>
+  <svg class="ec-curve ec-blue" style="left:297px;top:588px" viewBox="0 0 132 52" data-curve="easeOut"><line class="ec-curve__axis" x1="0" y1="47" x2="132" y2="47"/><path/><circle r="2.5"/></svg>
+  <svg class="ec-curve ec-green" style="left:487px;top:588px" viewBox="0 0 132 52" data-curve="spring"><line class="ec-curve__axis" x1="0" y1="47" x2="132" y2="47"/><path/><circle r="2.5"/></svg>
+  <div class="ec-pill" style="left:455px;top:700px">↑ the bounce</div>
+</section>
+
+<!-- 3 · Card entrance -->
+<section class="scene" data-t="9" data-shot="10.5">
+  <div class="ec-glow" style="left:260px;top:360px;opacity:.5"></div>
+  <div class="ec-kicker" style="top:134px">CARD ENTRANCE</div>
+  <div class="ec-label ec-grey" style="left:27px;width:200px;text-align:center;top:172px;font-size:14px">linear</div>
+  <div class="ec-label ec-blue" style="left:253px;width:200px;text-align:center;top:172px;font-size:14px">ease-out</div>
+  <div class="ec-label ec-green" style="left:480px;width:200px;text-align:center;top:172px;font-size:14px">spring</div>
+  <div data-cards="27,253,480|207,310,413,517,620"></div>
+</section>
+
+<!-- 4 · Modal open -->
+<section class="scene" data-t="13.5" data-shot="15">
+  <div class="ec-glow" style="left:260px;top:380px;opacity:.5"></div>
+  <div class="ec-kicker" style="top:134px">MODAL OPEN</div>
+  <div class="ec-phone ec-grey" style="left:20px;top:266px"><i class="ec-phone__line" style="top:17px;width:118px"></i><i class="ec-phone__line" style="top:32px;width:80px;height:5px"></i><div class="ec-phone__block"></div><div class="ec-sheet"><i></i><i></i><b></b></div></div>
+  <div class="ec-phone ec-blue" style="left:250px;top:266px"><i class="ec-phone__line" style="top:17px;width:118px"></i><i class="ec-phone__line" style="top:32px;width:80px;height:5px"></i><div class="ec-phone__block"></div><div class="ec-sheet"><i></i><i></i><b></b></div></div>
+  <div class="ec-phone ec-green" style="left:480px;top:266px"><i class="ec-phone__line" style="top:17px;width:118px"></i><i class="ec-phone__line" style="top:32px;width:80px;height:5px"></i><div class="ec-phone__block"></div><div class="ec-sheet"><i></i><i></i><b></b></div></div>
+  <div class="ec-label ec-grey" style="left:20px;width:200px;text-align:center;top:640px">linear</div>
+  <div class="ec-label ec-blue" style="left:250px;width:200px;text-align:center;top:640px">ease-out</div>
+  <div class="ec-label ec-green" style="left:524px;top:640px">spring</div>
+  <div class="ec-pill" style="left:577px;top:641px;font-size:11px;padding:2px 8px;border-radius:999px">premium</div>
+</section>
+
+<!-- 5 · The curve shapes the feel -->
+<section class="scene" data-t="18" data-shot="21">
+  <div class="ec-glow" style="left:-100px;top:280px"></div>
+  <div class="ec-title" style="top:134px;font-size:24px">The <em>curve</em> shapes the feel</div>
+  <div class="ec-label ec-grey" style="left:40px;top:207px;font-weight:700">linear</div>
+  <svg class="ec-graph ec-grey" style="left:40px;top:232px" viewBox="0 0 188 134" data-curve="linear"><line x1="0" y1="0" x2="0" y2="134"/><line x1="0" y1="134" x2="188" y2="134"/><path/><circle r="3"/></svg>
+  <div class="ec-vtrack ec-grey" style="left:460px;top:234px"><small style="top:-6px">start</small><small style="top:204px">end</small><div class="ec-ball"></div></div>
+  <div class="ec-label ec-blue" style="left:40px;top:474px;font-weight:700">ease-out</div>
+  <svg class="ec-graph ec-blue" style="left:40px;top:500px" viewBox="0 0 188 134" data-curve="easeOut"><line x1="0" y1="0" x2="0" y2="134"/><line x1="0" y1="134" x2="188" y2="134"/><path/><circle r="3"/></svg>
+  <div class="ec-vtrack ec-blue" style="left:460px;top:500px"><small style="top:-6px">start</small><small style="top:204px">end</small><div class="ec-ball"></div></div>
+  <div class="ec-label ec-green" style="left:40px;top:740px;font-weight:700">spring</div>
+  <svg class="ec-graph ec-green" style="left:40px;top:766px" viewBox="0 0 188 134" data-curve="spring"><line x1="0" y1="0" x2="0" y2="134"/><line x1="0" y1="134" x2="188" y2="134"/><path/><circle r="3"/></svg>
+  <div class="ec-vtrack ec-green" style="left:460px;top:767px"><small style="top:-6px">start</small><small style="top:204px">end</small><div class="ec-ball"></div></div>
+</section>
+
+<!-- 6 · Outro -->
+<section class="scene" data-t="24" data-shot="27">
+  <div class="ec-glow" style="left:40px;top:220px"></div>
+  <div class="ec-dot" style="left:200px;top:204px;background:#64748b"></div>
+  <div class="ec-dot" style="left:407px;top:229px;background:#3b82f6"></div>
+  <div class="ec-dot" style="left:659px;top:257px;background:#22c55e"></div>
+  <div class="ec-rank" style="top:585px"><b style="color:var(--ec-green)">spring</b><i>&gt;</i><b style="color:var(--ec-blue)">ease</b><i>&gt;</i><b style="color:var(--ec-grey)">linear</b></div>
+  <div class="ec-title" style="top:662px;font-size:28px;font-weight:500;color:var(--ec-muted)">Always.</div>
+  <div class="ec-title" style="top:1054px;font-size:19px;font-weight:700;color:#ddd;letter-spacing:.04em">@designmotionhq</div>
+</section>
+
+<script type="module">
+  import { EASE, curvePath, press } from './pattern.js';
+  // Draw every [data-curve] graph from the real easing function so the picture matches the CSS curve.
+  document.querySelectorAll('svg[data-curve]').forEach(svg => {
+    const fn = EASE[svg.dataset.curve].fn, [, , w, h] = svg.getAttribute('viewBox').split(' ').map(Number);
+    const pad = svg.classList.contains('ec-curve') ? 5 : 0, H = h - pad;
+    svg.querySelector('path').setAttribute('d', curvePath(fn, w, H));
+    const c = svg.querySelector('circle'); c.setAttribute('cx', w); c.setAttribute('cy', H - fn(1) * H);
+  });
+  // Card entrance grid: three columns (linear, ease-out, spring) × five rows, staggered by row.
+  document.querySelectorAll('[data-cards]').forEach(el => {
+    const [xs, ys] = el.dataset.cards.split('|').map(s => s.split(',').map(Number)); const cls = ['ec-grey', 'ec-blue', 'ec-green'];
+    el.outerHTML = xs.map((x, c) => ys.map((y, r) => `<div class="ec-card ec-card--loop ${cls[c]}" style="left:${x}px;top:${y}px;--i:${r}"><div class="ec-card__dot"></div><div class="ec-card__lines"><i></i><i></i></div></div>`).join('')).join('');
+  });
+  // Buttons respond to real presses with their own curve.
+  document.querySelectorAll('.ec-btn').forEach(b => b.addEventListener('pointerdown', () => press(b, { easing: getComputedStyle(b).getPropertyValue('--e').trim() })));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

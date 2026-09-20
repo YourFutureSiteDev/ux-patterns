@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CSS :has() Selector · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a0e11; --accent: #19c5a9; --danger: #e4506a; --grid: rgba(255,255,255,.03); }
+  .scene { color: #eef2f5; }
+  @keyframes hs-in { from { opacity: 0 } to { opacity: 1 } }
+  @keyframes hs-out { to { opacity: 0 } }
+  .hs-fade { -webkit-mask-image: linear-gradient(#000 78%, transparent); mask-image: linear-gradient(#000 78%, transparent); }
+  .hs-s1 .hs-code, .hs-s1 .hs-plan.is-checked { animation: hs-in .25s .9s both; }
+  .hs-s1 .cursor { animation: hs-out .2s .9s forwards; }
+  .hs-s2 .hs-node, .hs-s2 .hs-node--tag { animation: hs-in .3s 2s both; }
+  .hs-s2 .hs-edge .e-desc { animation: hs-in .3s 4s both; }
+  .hs-s2 .hs-edge .e-par, .hs-s2 .hs-edge .e-sib { animation: hs-in .3s 5.5s both; }
+  .hs-s2 .hs-pill--solid { animation: hs-in .3s 7s both; }
+  .hs-s2 .hs-pill--ghost { position: absolute; left: 50%; transform: translateX(-50%); top: 1030px; padding: 13px 26px; border-radius: 999px; font-size: 19px; font-weight: 700; color: #6b737c; background: #12171b; box-shadow: 0 0 0 1px rgba(255,255,255,.06); white-space: nowrap; animation: hs-out .3s 7s forwards; }
+</style>
+</head>
+<body class="hs">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 7"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8zM7.5 8h.01"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.1 0l3-3a5 5 0 0 0-7.1-7.1l-1.7 1.7M14 11a5 5 0 0 0-7.1 0l-3 3a5 5 0 0 0 7.1 7.1l1.7-1.7"/></symbol>
+  <symbol id="i-layout" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2zM19 15l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></symbol>
+  <symbol id="i-cursor" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></symbol>
+</svg>
+
+<!-- 1 · Hook: the card reacts to its checkbox -->
+<section class="scene hs-s1" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:100px;top:500px;background:rgba(25,197,169,.08)"></div>
+  <span class="hs-kicker">ONE LINE OF CSS · 01</span>
+  <h1 class="hs-title">The card reacts to its checkbox.</h1>
+  <pre class="hs-code" style="top:246px"><b>.plan</b><em>:has(:checked)</em>
+  { border-color: <i>var(--accent)</i> }</pre>
+  <div data-tpl="checkout-full" data-left="70" data-top="348"></div>
+  <svg class="cursor" style="left:291px;top:488px"><use href="#i-cursor"/></svg>
+  <span class="hs-pill hs-pill--solid" style="top:1029px">0 lines of JavaScript</span>
+</section>
+
+<!-- 2 · Selector 01 · The parent: CSS looks up now -->
+<section class="scene hs-s2" data-t="4.5" data-shot="12">
+  <div class="glow" style="left:100px;top:560px;background:rgba(25,197,169,.08)"></div>
+  <span class="hs-kicker">SELECTOR 01 · THE PARENT</span>
+  <h1 class="hs-title">CSS looks up now.</h1>
+  <pre class="hs-code" style="top:240px;font-size:21px"><b>.plan</b><em>:has(:checked)</em></pre>
+  <div data-tpl="checkout-plans" data-left="72" data-top="314"></div>
+  <svg class="hs-edge" viewBox="0 0 720 1280">
+    <g class="e-desc"><line x1="360" y1="705" x2="360" y2="836"/><path d="M355 830l5 8 5-8"/><text x="377" y="772">descendant</text></g>
+    <g class="e-sib"><line x1="401" y1="860" x2="496" y2="860"/><path d="M490 855l8 5-8 5"/><text x="431" y="838">sibling</text></g>
+    <g class="e-par"><line class="is-on" x1="190" y1="841" x2="322" y2="706"/><path class="is-on" d="M309 708l13-2-2 13" stroke-linejoin="round"/><text class="is-on" x="186" y="766">parent</text></g>
+  </svg>
+  <span class="hs-node is-on" style="left:320px;top:672px">.plan</span>
+  <span class="hs-node" style="left:102px;top:843px">input:radio</span>
+  <span class="hs-node hs-node--tag" style="left:137px;top:886px">:checked</span>
+  <span class="hs-node" style="left:320px;top:843px">.name</span>
+  <span class="hs-node" style="left:503px;top:843px">.price</span>
+  <span class="hs-pill--ghost">Chrome 105 · Safari 15.4 · Firefox 121 · Edge 105</span>
+  <span class="hs-pill hs-pill--solid" style="top:1030px">Chrome 105 · Safari 15.4 · Firefox 121 · Edge 105</span>
+</section>
+
+<!-- 3 · Selector 02 · Validation: the whole field knows -->
+<section class="scene" data-t="13.5" data-shot="16.5">
+  <span class="hs-kicker">SELECTOR 02 · VALIDATION</span>
+  <h1 class="hs-title">The whole field knows.</h1>
+  <pre class="hs-code hs-code--sm" style="top:240px"><b>.field</b><em>:has(:user-invalid)</em>
+  { border-color: <i>var(--error)</i> }</pre>
+  <div data-tpl="checkout-row" data-left="62" data-top="370" data-invalid="1" data-email="sarah@acme"></div>
+  <svg class="cursor" style="left:414px;top:624px"><use href="#i-cursor"/></svg>
+  <span class="hs-pill hs-pill--soft" style="top:1030px">0 onChange · 0 useState</span>
+</section>
+
+<!-- 3b · Validation: the form greys the button, the handlers go -->
+<section class="scene" data-t="25.5" data-shot="28.5">
+  <span class="hs-kicker">SELECTOR 02 · VALIDATION</span>
+  <h1 class="hs-title">The whole field knows.</h1>
+  <pre class="hs-code hs-code--xs" style="top:242px"><b>.field</b><em>:has(:user-invalid)</em> { border-color: <i>var(--error)</i> }</pre>
+  <pre class="hs-code hs-code--sm" style="top:288px"><b>form</b><em>:has(:user-invalid)</em> <i>button</i>
+  { opacity: <i>.4</i>; pointer-events: <i>none</i> }</pre>
+  <div data-tpl="checkout-row" data-left="62" data-top="370" data-invalid="1" data-form-invalid="1" data-email="sarah@acme"></div>
+  <svg class="cursor" style="left:414px;top:624px"><use href="#i-cursor"/></svg>
+  <span class="hs-strike" style="right:60px;top:900px"><b>✕</b><s>onChange={e =&gt; setError(...)}</s></span>
+  <span class="hs-strike" style="right:60px;top:941px"><b>✕</b><s>const [error, setError] = useState(false)</s></span>
+  <span class="hs-pill hs-pill--soft" style="top:1030px">0 onChange · 0 useState</span>
+</section>
+
+<!-- 4 · Selector 03 · Layout: main only -->
+<section class="scene" data-t="30" data-shot="36">
+  <span class="hs-kicker">SELECTOR 03 · LAYOUT</span>
+  <h1 class="hs-title">Layout follows the DOM.</h1>
+  <pre class="hs-code hs-code--sm" style="top:240px"><b>.app</b><em>:has(aside)</em>
+  { grid-template-columns: <i>280px 1fr</i> }</pre>
+  <div data-tpl="browser" data-left="48" data-top="333" data-tight="1" data-placeholder="1"></div>
+  <span class="hs-lbl" style="left:180px;top:876px">DOM</span><span class="hs-tok" style="left:234px;top:868px">&lt;main&gt;</span>
+  <span class="hs-lbl" style="left:349px;top:876px">columns</span><span class="hs-tok" style="left:416px;top:868px">1fr</span>
+  <span class="hs-pill hs-pill--soft" style="top:1030px">State lives in the DOM, not in a prop</span>
+</section>
+
+<!-- 4b · Layout: the aside renders, a column appears -->
+<section class="scene" data-t="36.5" data-shot="37.5">
+  <span class="hs-kicker">SELECTOR 03 · LAYOUT</span>
+  <h1 class="hs-title">Layout follows the DOM.</h1>
+  <pre class="hs-code hs-code--sm" style="top:240px"><b>.app</b><em>:has(aside)</em>
+  { grid-template-columns: <i>280px 1fr</i> }</pre>
+  <div data-tpl="browser" data-left="48" data-top="333" data-tight="1" data-placeholder="1" data-aside="1"></div>
+  <span class="hs-lbl" style="left:133px;top:876px">DOM</span><span class="hs-tok is-on" style="left:175px;top:868px">&lt;aside&gt;</span><span class="hs-tok" style="left:280px;top:868px">&lt;main&gt;</span>
+  <span class="hs-lbl" style="left:397px;top:876px">columns</span><span class="hs-tok is-on" style="left:460px;top:868px">280px 1fr</span>
+  <span class="hs-pill hs-pill--soft" style="top:1030px">State lives in the DOM, not in a prop</span>
+</section>
+
+<!-- 5 · Selector 04 · Quantity: four children, wide -->
+<section class="scene" data-t="40.5" data-shot="42">
+  <span class="hs-kicker">SELECTOR 04 · QUANTITY</span>
+  <h1 class="hs-title">The grid counts its children.</h1>
+  <pre class="hs-code hs-code--sm" style="top:240px"><b>.plans</b><em>:has(&gt; :nth-child(n + 5))</em>
+  { --density: <i>compact</i> }</pre>
+  <span style="position:absolute;left:60px;top:364px;font-size:16px;font-weight:600">Choose a plan</span>
+  <span class="hs-lbl" style="right:60px;top:367px;font-size:13px">Team selected · 3 seats</span>
+  <div class="hs-plans" id="plans4" style="position:absolute;left:60px;top:400px;width:600px"></div>
+  <span class="hs-tok" style="left:215px;top:822px"><span>children</span> 4</span><span class="hs-lbl" style="left:335px;top:829px;color:#4a5157">→</span><span class="hs-tok" style="left:360px;top:822px"><span>--density</span> wide</span>
+  <span class="hs-pill hs-pill--soft" style="top:1030px">Quantity query · pure CSS</span>
+</section>
+
+<!-- 5b · Quantity: the fifth child arrives, the grid goes compact -->
+<section class="scene" data-t="45" data-shot="48">
+  <span class="hs-kicker">SELECTOR 04 · QUANTITY</span>
+  <h1 class="hs-title">The grid counts its children.</h1>
+  <pre class="hs-code hs-code--sm" style="top:240px"><b>.plans</b><em>:has(&gt; :nth-child(n + 5))</em>
+  { --density: <i>compact</i> }</pre>
+  <span style="position:absolute;left:60px;top:364px;font-size:16px;font-weight:600">Choose a plan</span>
+  <span class="hs-lbl" style="right:60px;top:367px;font-size:13px">Team selected · 3 seats</span>
+  <div class="hs-plans" id="plans5" style="position:absolute;left:60px;top:400px;width:600px"></div>
+  <span class="hs-tok" style="left:202px;top:822px"><span>children</span> 5</span><span class="hs-lbl" style="left:322px;top:829px;color:#4a5157">→</span><span class="hs-tok is-on" style="left:346px;top:822px"><span style="color:#8fd9cb">--density</span> compact</span>
+  <span class="hs-strike" style="left:165px;top:878px"><b>✕</b><s>items.length &gt; 4 ? "compact" : "wide"</s></span>
+  <span class="hs-pill hs-pill--soft" style="top:1030px">Quantity query · pure CSS</span>
+</section>
+
+<!-- 6 · Selector 05 · Dialog: scroll locks -->
+<section class="scene" data-t="51" data-shot="54">
+  <span class="hs-kicker">SELECTOR 05 · DIALOG</span>
+  <h1 class="hs-title">The document reacts to the<br>modal.</h1>
+  <pre class="hs-code hs-code--sm" style="top:283px;padding:8px 18px"><b>body</b><em>:has(dialog[open])</em> { overflow: <i>hidden</i> }</pre>
+  <div data-tpl="browser" data-left="48" data-top="386" data-tight="1" data-narrow="1" data-dialog="open" data-rule1="1" data-email="sarah@acme.co"></div>
+  <span class="hs-pill hs-pill--soft" style="top:1030px">1 attribute · 2 rules</span>
+</section>
+
+<!-- 6b · Dialog: the app dims behind it -->
+<section class="scene" data-t="57" data-shot="58.5">
+  <span class="hs-kicker">SELECTOR 05 · DIALOG</span>
+  <h1 class="hs-title">The document reacts to the<br>modal.</h1>
+  <pre class="hs-code hs-code--xs" style="top:282px"><b>body</b><em>:has(dialog[open])</em> { overflow: <i>hidden</i> }</pre>
+  <pre class="hs-code hs-code--sm" style="top:328px;padding:8px 18px"><b>body</b><em>:has(dialog[open])</em> <i>.app</i> { opacity: <i>.4</i> }</pre>
+  <div data-tpl="browser" data-left="48" data-top="386" data-tight="1" data-narrow="1" data-dialog="open" data-email="sarah@acme.co"></div>
+  <span class="hs-pill hs-pill--soft" style="top:1030px">1 attribute · 2 rules</span>
+</section>
+
+<!-- 6c · Dialog closed: everything reverts, no cleanup effect -->
+<section class="scene" data-t="63" data-shot="64.5">
+  <span class="hs-kicker">SELECTOR 05 · DIALOG</span>
+  <h1 class="hs-title">The document reacts to the<br>modal.</h1>
+  <pre class="hs-code hs-code--xs" style="top:282px"><b>body</b><em>:has(dialog[open])</em> { overflow: <i>hidden</i> }</pre>
+  <pre class="hs-code hs-code--sm" style="top:328px;padding:8px 18px"><b>body</b><em>:has(dialog[open])</em> <i>.app</i> { opacity: <i>.4</i> }</pre>
+  <div data-tpl="browser" data-left="48" data-top="386" data-tight="1" data-narrow="1" data-dialog="closed" data-email="sarah@acme.co" data-scroll="1"></div>
+  <span class="hs-strike" style="left:122px;top:932px"><b>✕</b><span>useEffect(() =&gt; () =&gt; (body.style.overflow = ""))</span></span>
+  <span class="hs-pill hs-pill--soft" style="top:1030px">1 attribute · 2 rules</span>
+</section>
+
+<!-- 7 · Outro: five selectors, zero JavaScript -->
+<section class="scene" data-t="66" data-shot="75">
+  <div class="glow" style="left:100px;top:420px;width:520px;height:520px;background:rgba(25,197,169,.10)"></div>
+  <span class="hs-kicker">ONE LINE OF CSS · 01</span>
+  <h1 class="hs-title">Five selectors. Zero JavaScript.</h1>
+  <span class="hs-sel" style="left:67px;top:292px"><b>.plan</b><em>:has(:checked)</em></span>
+  <span class="hs-sel" style="left:67px;top:342px"><b>.field</b><em>:has(:user-invalid)</em></span>
+  <span class="hs-sel" style="left:67px;top:393px"><b>.app</b><em>:has(aside)</em></span>
+  <span class="hs-sel" style="left:67px;top:443px"><b>.plans</b><em>:has(&gt; :nth-child(n + 5))</em></span>
+  <span class="hs-sel" style="left:67px;top:494px"><b>body</b><em>:has(dialog[open])</em></span>
+  <span class="hs-zero" style="left:545px;top:380px">0 JS</span>
+  <div class="hs-product" style="left:68px;top:748px">
+    <div class="hs-product__head"><b>UX Engine</b><span class="hs-product__tag">CLAUDE CODE PLUGIN</span></div>
+    <div class="hs-cmds">
+      <span class="hs-cmd"><svg><use href="#i-layout"/></svg>/ux-design</span>
+      <span class="hs-cmd"><svg><use href="#i-warn"/></svg>/ux-audit</span>
+      <span class="hs-cmd"><svg><use href="#i-shield"/></svg>/ux-review</span>
+      <span class="hs-cmd is-on"><svg><use href="#i-spark"/></svg>/restyle</span>
+    </div>
+    <div class="hs-product__price">$79 one time · 30 day refund · 12 months of updates</div>
+  </div>
+  <span class="hs-pill hs-pill--link" style="top:1030px"><svg><use href="#i-link"/></svg>Link in bio</span>
+</section>
+
+<script>
+// Northwind checkout mock, stamped into each scene from one builder so every copy is identical.
+(() => {
+  const chk = '<svg><use href="#i-check"/></svg>';
+  const PLANS = {
+    starter: ['Starter', '$19', ['5 projects', '2 GB storage', 'Email support']],
+    team: ['Team', '$49', ['Unlimited projects', '50 GB storage', 'Priority support']],
+    scale: ['Scale', '$149', ['SSO', 'Audit log', 'Dedicated manager']],
+    enterprise: ['Enterprise', '$399', ['Custom SLA', 'On-prem', '24/7 support']],
+    agency: ['Agency', '$249', ['Client workspaces', 'White label', 'Usage billing']]
+  };
+  const plan = (k, on, group) => { const [n, p, f] = PLANS[k]; return `<label class="hs-plan${on ? ' is-checked' : ''}"><input type="radio" name="${group}" value="${k}"${on ? ' checked' : ''}><div class="hs-plan__name"><span class="hs-radio"></span>${n}</div><div class="hs-plan__price">${p}</div><div class="hs-plan__meta">per seat / month</div>${f.map(x => `<div class="hs-plan__feat">${chk}${x}</div>`).join('')}</label>`; };
+  window.hsPlan = plan;
+  const head = () => `<div class="hs-head"><span class="hs-logo"></span><b>Northwind</b><span class="hs-sep">/</span>Checkout<span class="hs-step">2 / 3</span></div><div class="hs-rule"></div>`;
+  const email = o => `<div class="hs-field${o.invalid ? ' is-invalid' : ''}"><div class="hs-label"><svg><use href="#i-mail"/></svg>Work email</div><div class="hs-input"><input type="email" required placeholder="sarah@acme.co" value="${o.email || ''}"><span class="hs-input__bang">!</span></div><div class="hs-field__help">Receipts go to this address</div><div class="hs-field__err">Enter a valid work email</div></div>`;
+  const promo = () => `<div class="hs-field"><div class="hs-label"><svg><use href="#i-tag"/></svg>Promo code</div><div class="hs-input"><input type="text" value="NW-LAUNCH"><button class="hs-input__act" type="button">Apply</button></div></div>`;
+  const foot = () => `<div class="hs-rule hs-rule--foot" style="margin-top:20px"></div><div class="hs-foot"><div><div class="hs-foot__meta">Team plan · 3 seats</div><div class="hs-foot__total">$147.00 <span>/ month</span></div></div><button class="hs-pay" type="button"><svg><use href="#i-card"/></svg>Pay $147</button></div>`;
+  const row = () => `<div class="hs-sub">Your plan</div><div class="hs-plan-row"><span class="hs-radio"></span><b>Team</b><span>$49 per seat / month &nbsp;·&nbsp; 3 seats</span><a>Change</a></div>`;
+  const build = {
+    'checkout-full': (o, g) => `<form class="hs-card hs-form" style="left:${o.left}px;top:${o.top}px">${head()}<div class="hs-sub">Choose a plan</div><div class="hs-plan-grid">${plan('starter', 0, g)}${plan('team', 1, g)}${plan('scale', 0, g)}</div>${email(o)}${promo()}${foot()}</form>`,
+    'checkout-plans': (o, g) => `<div class="hs-card hs-fade" style="left:${o.left}px;top:${o.top}px;width:576px;height:318px;overflow:hidden">${head()}<div class="hs-sub">Choose a plan</div><div class="hs-plan-grid">${plan('starter', 0, g)}${plan('team', 1, g)}${plan('scale', 0, g)}</div></div>`,
+    'checkout-row': (o) => `<form class="hs-card hs-form${o.formInvalid ? ' is-invalid' : ''}${o.tight ? ' hs-card--tight' : ' hs-card--row'}" style="${o.left !== undefined ? `left:${o.left}px;top:${o.top}px;` : ''}width:${o.width || 596}px;padding-left:22px;padding-right:22px">${head()}${row()}${email(o)}${promo()}${foot()}</form>`,
+    'browser': (o) => `<div class="hs-browser${o.rule1 ? ' hs-browser--rule1' : ''}" style="left:${o.left}px;top:${o.top}px"><div class="hs-browser__bar"><span class="hs-browser__dots"><i></i><i></i><i></i></span><span class="hs-browser__url"><svg><use href="#i-lock"/></svg>northwind.app/checkout</span></div><div class="hs-browser__body" style="${o.narrow ? 'padding:12px 46px 17px' : ''}"><span class="hs-browser__lock"><svg><use href="#i-lock"/></svg></span>${o.dialog || o.scroll ? '<span class="hs-browser__scroll"></span>' : ''}<div class="hs-app">${o.aside ? `<aside class="hs-aside"><h4>Order summary</h4><div class="hs-aside__row">Team plan<b>$49 / seat</b></div><div class="hs-aside__row">Seats<b>3</b></div><div class="hs-aside__row">Subtotal<b>$147.00</b></div><div class="hs-aside__row">Tax<b>$0.00</b></div><div class="hs-aside__rule"></div><div class="hs-aside__total">Total<b>$147.00</b></div><div class="hs-aside__secure"><svg><use href="#i-lock"/></svg>Secure checkout</div></aside>` : ''}${build['checkout-row']({ ...o, left: undefined, width: o.narrow ? 526 : (o.aside ? 380 : 598) })}</div>${o.dialog ? `<dialog class="hs-dialog" style="left:162px;top:155px"${o.dialog === 'open' ? ' open' : ''}><div class="hs-dialog__kicker">CONFIRM PAYMENT</div><div class="hs-dialog__amount">$147.00</div><div class="hs-dialog__meta">Team plan, 3 seats · billed monthly</div><div class="hs-dialog__btns"><button class="hs-btn--ghost" type="button" data-close>Cancel</button><button class="hs-btn--go" type="button" data-close>Pay now</button></div></dialog>` : ''}</div></div>`
+  };
+  document.querySelectorAll('[data-tpl]').forEach((el, i) => {
+    const d = el.dataset; const o = { left: +d.left, top: +d.top, invalid: !!d.invalid, formInvalid: !!d.formInvalid, email: d.email, tight: !!d.tight, aside: !!d.aside, narrow: !!d.narrow, dialog: d.dialog, rule1: !!d.rule1, scroll: !!d.scroll };
+    el.outerHTML = build[d.tpl](o, 'g' + i);
+  });
+  const grid = (id, keys) => { const g = document.getElementById(id); g.innerHTML = keys.map(k => plan(k, k === 'team', id)).join(''); };
+  grid('plans4', ['starter', 'team', 'scale', 'enterprise']);
+  grid('plans5', ['starter', 'team', 'scale', 'enterprise', 'agency']);
+})();
+</script>
+<script type="module">
+  import { supportsHas, mirrorHasState, wireDialogs } from './pattern.js';
+  if (!supportsHas()) document.querySelectorAll('.hs-form').forEach(mirrorHasState);
+  wireDialogs(document);
+  // Hook scene: the Team radio is ticked 0.9 s in when played live; screenshots at t>0 keep it ticked.
+  const s1 = document.querySelector('.hs-s1'), team = s1.querySelector('input[value=team]');
+  s1.addEventListener('scene:enter', e => { if (e.detail.t > 0) return; team.checked = false; team.closest('.hs-plan').classList.remove('is-checked'); setTimeout(() => { team.checked = true; team.closest('.hs-plan').classList.add('is-checked'); }, 900); });
+  // Radio clicks are real: :has(:checked) does the styling, this only keeps the demo-only .is-checked class in sync.
+  document.querySelectorAll('.hs-plan input').forEach(r => r.addEventListener('change', () => document.querySelectorAll(`input[name="${r.name}"]`).forEach(x => x.closest('.hs-plan').classList.toggle('is-checked', x.checked))));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

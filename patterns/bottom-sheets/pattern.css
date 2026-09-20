@@ -1,0 +1,94 @@
+/* Bottom Sheets, rebuilt from the @designmotionhq reel "Your thumb can't reach that menu."
+   Component classes are prefixed .bs- and depend only on the tokens below. */
+.bs {
+  --bs-bg: #0d1113; --bs-screen: #0e1317; --bs-card: #192028; --bs-card-2: #232a32; --bs-sheet: #1b2126; --bs-row: #232a30;
+  --bs-text: #eaeff2; --bs-muted: #8b939c; --bs-dim: #5f6871;
+  --bs-teal: #2fd6bd; --bs-teal-dim: rgba(47,214,189,.16); --bs-pink: #e04a76; --bs-pink-dim: rgba(224,74,118,.18); --bs-amber: rgba(230,170,70,.14);
+  --bs-dur: .38s; --bs-ease: cubic-bezier(.32,.72,0,1);
+  font-family: 'Inter', system-ui, sans-serif; color: var(--bs-text);
+}
+
+/* ---- Phone frame ------------------------------------------------------ */
+.bs-phone { position: absolute; width: 280px; height: 640px; border-radius: 40px; background: #1a1f24; padding: 9px; box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 30px 60px rgba(0,0,0,.5); }
+.bs-phone--teal { box-shadow: 0 0 0 1px rgba(47,214,189,.25), 0 0 40px rgba(47,214,189,.12), 0 30px 60px rgba(0,0,0,.5); }
+.bs-phone--pink { box-shadow: 0 0 0 1px rgba(224,74,118,.25), 0 0 40px rgba(224,74,118,.12), 0 30px 60px rgba(0,0,0,.5); }
+.bs-screen { position: relative; width: 100%; height: 100%; border-radius: 32px; background: var(--bs-screen); overflow: hidden; }
+.bs-status { position: absolute; left: 0; right: 0; top: 0; height: 40px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px 0 24px; font-size: 14px; font-weight: 700; z-index: 3; }
+.bs-status::before { content: ""; position: absolute; left: 50%; top: 10px; width: 78px; height: 22px; border-radius: 12px; background: #050708; transform: translateX(-50%); }
+.bs-status i { display: inline-flex; align-items: flex-end; gap: 2px; margin-right: 8px; }
+.bs-status i b { display: block; width: 3px; background: #dfe4e7; border-radius: 1px; }
+.bs-status u { display: inline-block; width: 22px; height: 11px; border: 1.5px solid #dfe4e7; border-radius: 3px; position: relative; text-decoration: none; }
+.bs-status u::after { content: ""; position: absolute; inset: 1.5px; background: #dfe4e7; border-radius: 1px; }
+.bs-home { position: absolute; left: 50%; bottom: 8px; width: 90px; height: 3px; border-radius: 2px; background: #3a434b; transform: translateX(-50%); z-index: 4; }
+.bs-app { position: absolute; left: 0; right: 0; top: 40px; bottom: 0; padding: 0 16px; }
+.bs-app__title { font-size: 18px; font-weight: 700; margin: 8px 0 8px; }
+.bs-feed { display: flex; flex-direction: column; gap: 12px; }
+.bs-post { height: 102px; border-radius: 10px; background: var(--bs-card); padding: 12px 13px; position: relative; }
+.bs-post::before { content: ""; position: absolute; left: 13px; top: 12px; width: 24px; height: 24px; border-radius: 6px; background: var(--bs-card-2); }
+.bs-post i { position: absolute; left: 45px; top: 16px; width: 96px; height: 7px; border-radius: 4px; background: var(--bs-card-2); }
+.bs-post i + i { top: 30px; width: 70px; height: 6px; }
+.bs-post u { position: absolute; left: 13px; right: 13px; top: 47px; bottom: 10px; border-radius: 6px; background: var(--bs-card-2); }
+
+/* ---- Top-right menu (the problem) ------------------------------------- */
+.bs-menu { position: absolute; left: 9px; right: 9px; top: 39px; border-radius: 10px; background: #14191e; border: 1px solid rgba(255,255,255,.06); padding: 6px; z-index: 5; box-shadow: 0 20px 40px rgba(0,0,0,.5); }
+.bs-menu div { display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 10px; border-radius: 6px; font-size: 15px; font-weight: 600; }
+.bs-menu div.is-on { background: #123c36; }
+.bs-menu svg { width: 14px; height: 14px; fill: none; stroke: var(--bs-muted); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.bs-menu div.is-on svg { stroke: var(--bs-teal); }
+.bs-menu--pink svg { stroke: var(--bs-pink); }
+.bs-scrim { position: absolute; inset: 0; background: rgba(6,9,11,.6); z-index: 2; transition: opacity var(--bs-dur); }
+.bs-hand { position: absolute; z-index: 6; width: 100px; height: 100px; fill: none; stroke: #fff; stroke-width: 1.5; transform: rotate(-35deg); stroke-linejoin: round; stroke-linecap: round; filter: drop-shadow(0 2px 8px rgba(0,0,0,.6)); }
+
+/* ---- Reach zones / arc ------------------------------------------------ */
+.bs-zone { position: absolute; left: 0; right: 0; z-index: 1; pointer-events: none; }
+.bs-zone--pink { background: linear-gradient(180deg, rgba(224,74,118,.28), rgba(224,74,118,.12)); }
+.bs-zone--amber { background: var(--bs-amber); }
+.bs-zone--teal { background: linear-gradient(180deg, rgba(47,214,189,.06), rgba(47,214,189,.28)); }
+.bs-arc { position: absolute; z-index: 2; overflow: visible; }
+.bs-arc path { fill: none; stroke: var(--bs-teal); stroke-width: 2; stroke-dasharray: 6 6; }
+.bs-tag { position: absolute; z-index: 3; height: 32px; padding: 0 14px; display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; font-size: 14px; font-weight: 700; white-space: nowrap; }
+.bs-tag--teal { background: #123c36; color: var(--bs-teal); }
+.bs-tag--pink { background: #3a1a26; color: var(--bs-pink); }
+.bs-tag--warn { background: #5e2b3e; color: var(--bs-pink); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; line-height: 1.1; min-width: 136px; justify-content: center; }
+.bs-tag svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.bs-iconbtn { position: absolute; z-index: 3; width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; background: var(--bs-pink-dim); border: 1px solid rgba(224,74,118,.5); color: var(--bs-pink); }
+.bs-iconbtn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---- The sheet -------------------------------------------------------- */
+.bs-sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 4; border-radius: 18px 18px 0 0; background: var(--bs-sheet); box-shadow: 0 -10px 40px rgba(0,0,0,.4); padding: 24px 16px 20px; transition: transform var(--bs-dur) var(--bs-ease); touch-action: none; }
+.bs-sheet::before { content: ""; position: absolute; left: 50%; top: 9px; width: 30px; height: 4px; border-radius: 2px; background: #3a434b; transform: translateX(-50%); }
+.bs-sheet__title { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+.bs-sheet__row { display: flex; align-items: center; gap: 14px; height: 47px; padding: 0 12px; margin-bottom: 12px; border-radius: 8px; background: var(--bs-row); font-size: 16px; font-weight: 600; }
+.bs-sheet__row i { width: 26px; height: 26px; border-radius: 7px; background: var(--bs-teal-dim); display: grid; place-items: center; flex: none; }
+.bs-sheet__row svg { width: 14px; height: 14px; fill: none; stroke: var(--bs-teal); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.bs-sheet.is-hidden { transform: translateY(100%); }
+.bs-sheet[data-snap="peek"] { transform: translateY(calc(100% - var(--bs-peek, 180px))); }
+.bs-sheet[data-snap="full"] { transform: translateY(0); }
+.bs-sheet.is-dragging { transition: none; }
+.bs-snaplabel { position: absolute; font-size: 10px; font-weight: 700; letter-spacing: .12em; color: var(--bs-teal); z-index: 5; }
+.bs-snapdot { position: absolute; width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid #2f3a3a; }
+.bs-snapdot.is-on { background: var(--bs-teal); border-color: var(--bs-teal); box-shadow: 0 0 10px var(--bs-teal); }
+.bs-comment { height: 47px; margin-bottom: 7px; border-radius: 8px; background: #1f262c; position: relative; }
+.bs-comment::before { content: ""; position: absolute; left: 10px; top: 12px; width: 24px; height: 24px; border-radius: 6px; background: #2c343c; }
+.bs-comment i { position: absolute; left: 44px; top: 15px; width: 110px; height: 6px; border-radius: 3px; background: #2c343c; }
+.bs-comment i + i { top: 28px; width: 70px; }
+.bs-comment--dim { opacity: .75; }
+.bs-modal { position: absolute; inset: 0; z-index: 1; background: var(--bs-screen); padding: 40px 16px 0; }
+.bs-modal__head { display: flex; align-items: center; justify-content: space-between; height: 44px; font-size: 17px; font-weight: 700; }
+.bs-modal__head svg { width: 14px; height: 14px; fill: none; stroke: var(--bs-muted); stroke-width: 2; stroke-linecap: round; }
+.bs-modal__img { height: 82px; border-radius: 8px; background: #1e2429; margin-bottom: 14px; }
+.bs-modal__row { display: flex; align-items: center; gap: 9px; height: 27px; font-size: 14px; font-weight: 500; color: var(--bs-muted); }
+.bs-modal__row svg { width: 13px; height: 13px; fill: none; stroke: var(--bs-pink); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.bs-modal__gone { position: absolute; left: 24px; bottom: 26px; font-size: 12px; font-weight: 700; letter-spacing: .12em; color: var(--bs-pink); }
+
+/* ---- Captions ------------------------------------------------------- */
+.bs-kicker { position: absolute; left: 50%; transform: translateX(-50%); height: 32px; padding: 0 18px; display: grid; place-items: center; border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; background: #112428; color: var(--bs-teal); }
+.bs-kicker--grey { background: #191c25; color: #9aa1ac; }
+.bs-cap { position: absolute; left: 50%; transform: translateX(-50%); height: 46px; padding: 0 22px; display: inline-flex; align-items: center; gap: 10px; border-radius: 10px; background: #171c20; border: 1px solid rgba(255,255,255,.05); font-size: 18px; font-weight: 700; white-space: nowrap; box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+.bs-cap svg { width: 16px; height: 16px; fill: none; stroke: var(--bs-teal); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.bs-cap--pink svg { stroke: var(--bs-pink); }
+.bs-label { position: absolute; height: 32px; padding: 0 16px; display: grid; place-items: center; border-radius: 999px; font-size: 14px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.bs-label--pink { background: #3a1a26; color: var(--bs-pink); box-shadow: 0 0 20px rgba(224,74,118,.2); }
+.bs-label--teal { background: #123c36; color: var(--bs-teal); box-shadow: 0 0 20px rgba(47,214,189,.2); }
+.bs-cta { display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 28px; border-radius: 12px; background: var(--bs-teal); color: #062018; font-size: 19px; font-weight: 700; box-shadow: 0 0 40px rgba(47,214,189,.35); white-space: nowrap; }
+.bs-cta svg { width: 16px; height: 16px; fill: currentColor; }

@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bulk Actions · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0b0e11; --accent: #2dd4a8; --danger: #e0575d; --grid: rgba(255,255,255,.03); }
+  .scene { color: #f2f4f7; }
+  .kicker { top: 148px; padding: 9px 22px; font-size: 15px; letter-spacing: .16em; color: #b8bec6; background: #1c1f22; }
+  .kicker--danger { color: #e0575d; background: #2a1516; }
+  .title { margin: 0; top: 198px; font-size: 38px; line-height: 42px; padding: 0 80px; letter-spacing: -.015em; }
+  .title--one { padding: 0 20px; }
+  .ba-cap { position: absolute; top: 1010px; left: 50%; transform: translateX(-50%); height: 56px; padding: 0 26px; border-radius: 12px; background: rgba(45,212,168,.13); color: #2dd4a8; font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+  .ba-cap svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .ba-h { position: absolute; left: 68px; top: 162px; display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 600; color: #8f98a3; }
+  .ba-h svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; }
+  .ba-slide { animation: ba-slide .5s cubic-bezier(.2,.8,.2,1) .6s both; }
+  @keyframes ba-slide { from { transform: translateY(24px); opacity: 0 } to { transform: none; opacity: 1 } }
+</style>
+</head>
+<body class="ba">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="ck-tick" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+  <symbol id="ck-dash" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-4-6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 12h3M11 12h9M4 17h12M20 17h0"/><circle cx="15" cy="7" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="17" cy="17" r="2"/></symbol>
+  <symbol id="i-export" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M4 19h16"/></symbol>
+  <symbol id="i-archive" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="4"/><path d="M5 8v12h14V8M10 12h4"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5M3 17l9 5 9-5"/></symbol>
+  <symbol id="i-funnel" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></symbol>
+  <symbol id="i-shift" viewBox="0 0 24 24"><path d="M12 3l9 10h-5v8H8v-8H3z"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M4 10h11a5 5 0 0 1 0 10h-3M4 10l4-4M4 10l4 4"/></symbol>
+  <symbol id="i-checksq" viewBox="0 0 24 24"><path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/><path d="M8 12l3 3 9-9"/></symbol>
+  <symbol id="i-hash" viewBox="0 0 24 24"><path d="M5 9h14M5 15h14M10 4l-2 16M16 4l-2 16"/></symbol>
+  <symbol id="i-follow" viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M2 21a8 8 0 0 1 14-4M19 8v6M16 11h6"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+</svg>
+
+<!-- 1 · Hook: the header box selects the whole table -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:100px;top:700px;background:rgba(224,87,93,.07)"></div>
+  <div class="ba-h"><svg><use href="#i-users"/></svg>Team members</div>
+  <div class="ba-table" style="position:absolute;left:68px;top:228px">
+    <div class="ba-table__top"><span class="ba-table__title">Members</span><span class="ba-table__count">247</span><span class="ba-table__search"><svg><use href="#i-search"/></svg>Search</span><span class="ba-table__filter"><svg><use href="#i-sliders"/></svg></span></div>
+    <div class="ba-thead"><button class="ba-check is-checked is-focus" id="hookHead" aria-label="Select all"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><span class="ba-thead__member">Member</span><span class="ba-thead__plan">Plan</span><span class="ba-thead__seen">Last seen</span></div>
+    <div class="ba-rows" data-members="p1" data-selected="1,2,3,4,5,6">
+      <div class="ba-row is-selected" data-id="mbr_1a0c"><button class="ba-check is-checked" aria-label="Select Sarah Chen"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">SC</div><div class="ba-row__who"><div class="ba-row__name">Sarah Chen</div><div class="ba-row__mail">sarah@northwind.io</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--pro">Pro</span></div><div class="ba-row__seen">2m ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_4c1a"><button class="ba-check is-checked" aria-label="Select Marcus Webb"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">MW</div><div class="ba-row__who"><div class="ba-row__name">Marcus Webb</div><div class="ba-row__mail">marcus@northwind.io</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--pro">Pro</span></div><div class="ba-row__seen">18m ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_9f30"><button class="ba-check is-checked" aria-label="Select Priya Raman"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">PR</div><div class="ba-row__who"><div class="ba-row__name">Priya Raman</div><div class="ba-row__mail">priya@vellum.co</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--team">Team</span></div><div class="ba-row__seen">1h ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_71bd"><button class="ba-check is-checked" aria-label="Select Tomas Nowak"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">TN</div><div class="ba-row__who"><div class="ba-row__name">Tomas Nowak</div><div class="ba-row__mail">tomas@vellum.co</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--free">Free</span></div><div class="ba-row__seen">3h ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_e208"><button class="ba-check is-checked" aria-label="Select Ada Okoro"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">AO</div><div class="ba-row__who"><div class="ba-row__name">Ada Okoro</div><div class="ba-row__mail">ada@fielded.dev</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--team">Team</span></div><div class="ba-row__seen">yesterday</div></div>
+      <div class="ba-row is-selected" data-id="mbr_b77e"><button class="ba-check is-checked" aria-label="Select Leo Barbier"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">LB</div><div class="ba-row__who"><div class="ba-row__name">Leo Barbier</div><div class="ba-row__mail">leo@fielded.dev</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--free">Free</span></div><div class="ba-row__seen">2d ago</div></div>
+    </div>
+  </div>
+  <svg class="cursor" style="left:92px;top:318px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="ba-bar ba-slide" style="position:absolute;left:68px;top:775px"><span class="ba-bar__x">×</span><span class="ba-bar__n">247</span><span class="ba-bar__sel">selected</span><button class="ba-btn"><svg><use href="#i-export"/></svg>Export</button><button class="ba-btn"><svg><use href="#i-archive"/></svg>Archive</button><button class="ba-btn ba-btn--danger"><svg><use href="#i-trash"/></svg>Delete 247</button></div>
+</section>
+
+<!-- 2 · Tri-state: 2 of 5 -> partial -->
+<section class="scene" data-t="3" data-shot="6">
+  <div class="kicker">Tri-state</div>
+  <h1 class="title">The header box has <em>three states.</em></h1>
+  <div class="ba-tiles" style="position:absolute;left:68px;top:302px">
+    <div class="ba-tile"><div class="ba-tile__box"></div><div class="ba-tile__name">empty</div><div class="ba-tile__sub">nothing picked</div></div>
+    <div class="ba-tile is-on"><div class="ba-tile__box is-partial"><svg><use href="#ck-dash"/></svg></div><div class="ba-tile__name">partial</div><div class="ba-tile__sub">some rows picked</div></div>
+    <div class="ba-tile"><div class="ba-tile__box is-checked"><svg><use href="#ck-tick"/></svg></div><div class="ba-tile__name">checked</div><div class="ba-tile__sub">every row picked</div></div>
+  </div>
+  <div class="ba-note" style="position:absolute;left:86px;top:478px"><svg viewBox="0 0 14 30"><path d="M7 2v25M2 22l5 5 5-5"/></svg>2 of 5 → the dash</div>
+  <div class="ba-table" style="position:absolute;left:68px;top:522px">
+    <div class="ba-thead"><button class="ba-check is-partial" aria-label="Select all"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><span class="ba-thead__member">Member</span><span class="ba-thead__plan">Plan</span><span class="ba-thead__seen">Last seen</span></div>
+    <div class="ba-rows" data-members="p1" data-count="5" data-selected="1,3">
+      <div class="ba-row is-selected" data-id="mbr_1a0c"><button class="ba-check is-checked" aria-label="Select Sarah Chen"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">SC</div><div class="ba-row__who"><div class="ba-row__name">Sarah Chen</div><div class="ba-row__mail">sarah@northwind.io</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--pro">Pro</span></div><div class="ba-row__seen">2m ago</div></div>
+      <div class="ba-row" data-id="mbr_4c1a"><button class="ba-check" aria-label="Select Marcus Webb"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">MW</div><div class="ba-row__who"><div class="ba-row__name">Marcus Webb</div><div class="ba-row__mail">marcus@northwind.io</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--pro">Pro</span></div><div class="ba-row__seen">18m ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_9f30"><button class="ba-check is-checked" aria-label="Select Priya Raman"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">PR</div><div class="ba-row__who"><div class="ba-row__name">Priya Raman</div><div class="ba-row__mail">priya@vellum.co</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--team">Team</span></div><div class="ba-row__seen">1h ago</div></div>
+      <div class="ba-row" data-id="mbr_71bd"><button class="ba-check" aria-label="Select Tomas Nowak"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">TN</div><div class="ba-row__who"><div class="ba-row__name">Tomas Nowak</div><div class="ba-row__mail">tomas@vellum.co</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--free">Free</span></div><div class="ba-row__seen">3h ago</div></div>
+      <div class="ba-row" data-id="mbr_e208"><button class="ba-check" aria-label="Select Ada Okoro"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">AO</div><div class="ba-row__who"><div class="ba-row__name">Ada Okoro</div><div class="ba-row__mail">ada@fielded.dev</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--team">Team</span></div><div class="ba-row__seen">yesterday</div></div>
+    </div>
+  </div>
+  <svg class="cursor" style="left:372px;top:778px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="ba-mono center" style="top:920px;white-space:nowrap">2 of 5 selected → header shows partial</div>
+  <div class="ba-cap"><svg><use href="#i-checksq"/></svg>partial is a state, not a bug</div>
+</section>
+
+<!-- 2b · Tri-state: click partial -> select all -->
+<section class="scene" data-t="12" data-shot="13.5">
+  <div class="kicker">Tri-state</div>
+  <h1 class="title">The header box has <em>three states.</em></h1>
+  <div class="ba-tiles" style="position:absolute;left:68px;top:302px">
+    <div class="ba-tile"><div class="ba-tile__box"></div><div class="ba-tile__name">empty</div><div class="ba-tile__sub">nothing picked</div></div>
+    <div class="ba-tile is-on"><div class="ba-tile__box is-partial is-focus"><svg><use href="#ck-dash"/></svg></div><div class="ba-tile__name">partial</div><div class="ba-tile__sub">some rows picked</div></div>
+    <div class="ba-tile"><div class="ba-tile__box is-checked"><svg><use href="#ck-tick"/></svg></div><div class="ba-tile__name">checked</div><div class="ba-tile__sub">every row picked</div></div>
+  </div>
+  <div class="ba-table" style="position:absolute;left:68px;top:522px">
+    <div class="ba-thead"><button class="ba-check is-checked is-focus" aria-label="Select all"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><span class="ba-thead__member">Member</span><span class="ba-thead__plan">Plan</span><span class="ba-thead__seen">Last seen</span></div>
+    <div class="ba-rows" data-members="p1" data-count="5" data-selected="1,2,3,4,5">
+      <div class="ba-row is-selected" data-id="mbr_1a0c"><button class="ba-check is-checked" aria-label="Select Sarah Chen"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">SC</div><div class="ba-row__who"><div class="ba-row__name">Sarah Chen</div><div class="ba-row__mail">sarah@northwind.io</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--pro">Pro</span></div><div class="ba-row__seen">2m ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_4c1a"><button class="ba-check is-checked" aria-label="Select Marcus Webb"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">MW</div><div class="ba-row__who"><div class="ba-row__name">Marcus Webb</div><div class="ba-row__mail">marcus@northwind.io</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--pro">Pro</span></div><div class="ba-row__seen">18m ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_9f30"><button class="ba-check is-checked" aria-label="Select Priya Raman"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">PR</div><div class="ba-row__who"><div class="ba-row__name">Priya Raman</div><div class="ba-row__mail">priya@vellum.co</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--team">Team</span></div><div class="ba-row__seen">1h ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_71bd"><button class="ba-check is-checked" aria-label="Select Tomas Nowak"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">TN</div><div class="ba-row__who"><div class="ba-row__name">Tomas Nowak</div><div class="ba-row__mail">tomas@vellum.co</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--free">Free</span></div><div class="ba-row__seen">3h ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_e208"><button class="ba-check is-checked" aria-label="Select Ada Okoro"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">AO</div><div class="ba-row__who"><div class="ba-row__name">Ada Okoro</div><div class="ba-row__mail">ada@fielded.dev</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--team">Team</span></div><div class="ba-row__seen">yesterday</div></div>
+    </div>
+  </div>
+  <svg class="cursor" style="left:92px;top:540px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="ba-mono is-teal center" style="top:920px;white-space:nowrap">click partial → select all</div>
+  <div class="ba-cap"><svg><use href="#i-checksq"/></svg>partial is a state, not a bug</div>
+</section>
+
+<!-- 3 · Select all: six on screen -->
+<section class="scene" data-t="15" data-shot="16.5">
+  <div class="kicker">Select all</div>
+  <h1 class="title title--one">Six on screen. <em>247 in the table.</em></h1>
+  <div class="ba-table" style="position:absolute;left:68px;top:296px">
+    <div class="ba-thead"><button class="ba-check is-checked" aria-label="Select all"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><span class="ba-thead__member">Member</span><span class="ba-thead__plan">Plan</span><span class="ba-thead__seen">Last seen</span></div>
+    <div class="ba-rows" data-members="p1" data-selected="1,2,3,4,5,6">
+      <div class="ba-row is-selected" data-id="mbr_1a0c"><button class="ba-check is-checked" aria-label="Select Sarah Chen"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">SC</div><div class="ba-row__who"><div class="ba-row__name">Sarah Chen</div><div class="ba-row__mail">sarah@northwind.io</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--pro">Pro</span></div><div class="ba-row__seen">2m ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_4c1a"><button class="ba-check is-checked" aria-label="Select Marcus Webb"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">MW</div><div class="ba-row__who"><div class="ba-row__name">Marcus Webb</div><div class="ba-row__mail">marcus@northwind.io</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--pro">Pro</span></div><div class="ba-row__seen">18m ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_9f30"><button class="ba-check is-checked" aria-label="Select Priya Raman"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">PR</div><div class="ba-row__who"><div class="ba-row__name">Priya Raman</div><div class="ba-row__mail">priya@vellum.co</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--team">Team</span></div><div class="ba-row__seen">1h ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_71bd"><button class="ba-check is-checked" aria-label="Select Tomas Nowak"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">TN</div><div class="ba-row__who"><div class="ba-row__name">Tomas Nowak</div><div class="ba-row__mail">tomas@vellum.co</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--free">Free</span></div><div class="ba-row__seen">3h ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_e208"><button class="ba-check is-checked" aria-label="Select Ada Okoro"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">AO</div><div class="ba-row__who"><div class="ba-row__name">Ada Okoro</div><div class="ba-row__mail">ada@fielded.dev</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--team">Team</span></div><div class="ba-row__seen">yesterday</div></div>
+      <div class="ba-row is-selected" data-id="mbr_b77e"><button class="ba-check is-checked" aria-label="Select Leo Barbier"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">LB</div><div class="ba-row__who"><div class="ba-row__name">Leo Barbier</div><div class="ba-row__mail">leo@fielded.dev</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--free">Free</span></div><div class="ba-row__seen">2d ago</div></div>
+    </div>
+    <div class="ba-table__scroll"></div>
+  </div>
+  <svg class="cursor" style="left:360px;top:655px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="ba-selbar" style="position:absolute;left:68px;top:742px"><svg><use href="#i-layers"/></svg><span class="ba-selbar__label"><span class="ba-selbar__n">6</span> selected</span><span class="ba-selbar__link">Select all 247 matching</span></div>
+  <div class="ba-chips" style="position:absolute;left:66px;top:832px"><svg><use href="#i-funnel"/></svg><span class="ba-chip">All</span><span class="ba-chip">Plan: Pro</span><span class="ba-chip">Plan: Free</span></div>
+  <div class="ba-mono center" style="top:900px;white-space:nowrap">matching = 247</div>
+  <div class="ba-cap">name the number, not “all”</div>
+</section>
+
+<!-- 3b · Select all 247 matching -->
+<section class="scene" data-t="19.5" data-shot="21">
+  <div class="kicker">Select all</div>
+  <h1 class="title title--one">Six on screen. <em>247 in the table.</em></h1>
+  <div class="ba-table" style="position:absolute;left:68px;top:296px">
+    <div class="ba-thead"><button class="ba-check is-checked" aria-label="Select all"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><span class="ba-thead__member">Member</span><span class="ba-thead__plan">Plan</span><span class="ba-thead__seen">Last seen</span></div>
+    <div class="ba-rows" data-members="p1" data-selected="1,2,3,4,5,6">
+      <div class="ba-row is-selected" data-id="mbr_1a0c"><button class="ba-check is-checked" aria-label="Select Sarah Chen"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">SC</div><div class="ba-row__who"><div class="ba-row__name">Sarah Chen</div><div class="ba-row__mail">sarah@northwind.io</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--pro">Pro</span></div><div class="ba-row__seen">2m ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_4c1a"><button class="ba-check is-checked" aria-label="Select Marcus Webb"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">MW</div><div class="ba-row__who"><div class="ba-row__name">Marcus Webb</div><div class="ba-row__mail">marcus@northwind.io</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--pro">Pro</span></div><div class="ba-row__seen">18m ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_9f30"><button class="ba-check is-checked" aria-label="Select Priya Raman"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">PR</div><div class="ba-row__who"><div class="ba-row__name">Priya Raman</div><div class="ba-row__mail">priya@vellum.co</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--team">Team</span></div><div class="ba-row__seen">1h ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_71bd"><button class="ba-check is-checked" aria-label="Select Tomas Nowak"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">TN</div><div class="ba-row__who"><div class="ba-row__name">Tomas Nowak</div><div class="ba-row__mail">tomas@vellum.co</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--free">Free</span></div><div class="ba-row__seen">3h ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_e208"><button class="ba-check is-checked" aria-label="Select Ada Okoro"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">AO</div><div class="ba-row__who"><div class="ba-row__name">Ada Okoro</div><div class="ba-row__mail">ada@fielded.dev</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--team">Team</span></div><div class="ba-row__seen">yesterday</div></div>
+      <div class="ba-row is-selected" data-id="mbr_b77e"><button class="ba-check is-checked" aria-label="Select Leo Barbier"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">LB</div><div class="ba-row__who"><div class="ba-row__name">Leo Barbier</div><div class="ba-row__mail">leo@fielded.dev</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--free">Free</span></div><div class="ba-row__seen">2d ago</div></div>
+    </div>
+  </div>
+  <div class="ba-selbar is-all" style="position:absolute;left:68px;top:742px"><svg><use href="#i-layers"/></svg><span class="ba-selbar__label"><span class="ba-selbar__n">247</span> selected</span><span class="ba-selbar__link">Clear selection</span></div>
+  <svg class="cursor" style="left:446px;top:778px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="ba-chips" style="position:absolute;left:66px;top:832px"><svg><use href="#i-funnel"/></svg><span class="ba-chip">All</span><span class="ba-chip">Plan: Pro</span><span class="ba-chip">Plan: Free</span></div>
+  <div class="ba-mono center" style="top:900px;white-space:nowrap">matching = 247</div>
+  <div class="ba-cap">name the number, not “all”</div>
+</section>
+
+<!-- 3c · Filter to Plan: Pro, count re-reads to 96 -->
+<section class="scene" data-t="24" data-shot="25.5">
+  <div class="kicker">Select all</div>
+  <h1 class="title title--one">Six on screen. <em>247 in the table.</em></h1>
+  <div class="ba-table" style="position:absolute;left:68px;top:296px">
+    <div class="ba-thead"><button class="ba-check is-checked" aria-label="Select all"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><span class="ba-thead__member">Member</span><span class="ba-thead__plan">Plan</span><span class="ba-thead__seen">Last seen</span></div>
+    <div class="ba-rows" data-members="p1" data-selected="1,2,3,4,5,6" data-dim="3,4,5,6">
+      <div class="ba-row is-selected" data-id="mbr_1a0c"><button class="ba-check is-checked" aria-label="Select Sarah Chen"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">SC</div><div class="ba-row__who"><div class="ba-row__name">Sarah Chen</div><div class="ba-row__mail">sarah@northwind.io</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--pro">Pro</span></div><div class="ba-row__seen">2m ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_4c1a"><button class="ba-check is-checked" aria-label="Select Marcus Webb"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">MW</div><div class="ba-row__who"><div class="ba-row__name">Marcus Webb</div><div class="ba-row__mail">marcus@northwind.io</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--pro">Pro</span></div><div class="ba-row__seen">18m ago</div></div>
+      <div class="ba-row is-selected is-dim" data-id="mbr_9f30"><button class="ba-check is-checked" aria-label="Select Priya Raman"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">PR</div><div class="ba-row__who"><div class="ba-row__name">Priya Raman</div><div class="ba-row__mail">priya@vellum.co</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--team">Team</span></div><div class="ba-row__seen">1h ago</div></div>
+      <div class="ba-row is-selected is-dim" data-id="mbr_71bd"><button class="ba-check is-checked" aria-label="Select Tomas Nowak"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">TN</div><div class="ba-row__who"><div class="ba-row__name">Tomas Nowak</div><div class="ba-row__mail">tomas@vellum.co</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--free">Free</span></div><div class="ba-row__seen">3h ago</div></div>
+      <div class="ba-row is-selected is-dim" data-id="mbr_e208"><button class="ba-check is-checked" aria-label="Select Ada Okoro"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">AO</div><div class="ba-row__who"><div class="ba-row__name">Ada Okoro</div><div class="ba-row__mail">ada@fielded.dev</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--team">Team</span></div><div class="ba-row__seen">yesterday</div></div>
+      <div class="ba-row is-selected is-dim" data-id="mbr_b77e"><button class="ba-check is-checked" aria-label="Select Leo Barbier"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">LB</div><div class="ba-row__who"><div class="ba-row__name">Leo Barbier</div><div class="ba-row__mail">leo@fielded.dev</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--free">Free</span></div><div class="ba-row__seen">2d ago</div></div>
+    </div>
+  </div>
+  <div class="ba-selbar is-all" style="position:absolute;left:68px;top:742px"><svg><use href="#i-layers"/></svg><span class="ba-selbar__label"><span class="ba-selbar__n">96</span> selected</span><span class="ba-selbar__link">Clear selection</span></div>
+  <div class="ba-chips" style="position:absolute;left:66px;top:832px"><svg><use href="#i-funnel"/></svg><span class="ba-chip">All</span><span class="ba-chip is-on">Plan: Pro</span><span class="ba-chip">Plan: Free</span></div>
+  <svg class="cursor" style="left:196px;top:850px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="ba-mono is-teal center" style="top:900px;white-space:nowrap">matching = 96</div>
+  <div class="ba-cap">name the number, not “all”</div>
+</section>
+
+<!-- 4 · Range + persist: shift-click picks a range -->
+<section class="scene" data-t="27" data-shot="28.5">
+  <div class="kicker">Range + persist</div>
+  <h1 class="title">Shift picks a range. <em>Paging keeps it.</em></h1>
+  <div class="ba-key" style="position:absolute;left:68px;top:295px"><svg><use href="#i-shift"/></svg>Shift</div>
+  <div style="position:absolute;left:164px;top:304px;font-size:15px;color:#6b7480">+ click the last row</div>
+  <div class="ba-table" style="position:absolute;left:68px;top:342px">
+    <div class="ba-thead"><button class="ba-check is-partial" aria-label="Select all"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><span class="ba-thead__member">Member</span><span class="ba-thead__plan">Plan</span><span class="ba-thead__seen">Last seen</span></div>
+    <div class="ba-rows" data-members="p1" data-count="5" data-selected="2,3,4,5" data-range="2,3,4,5">
+      <div class="ba-row" data-id="mbr_1a0c"><button class="ba-check" aria-label="Select Sarah Chen"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">SC</div><div class="ba-row__who"><div class="ba-row__name">Sarah Chen</div><div class="ba-row__mail">sarah@northwind.io</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--pro">Pro</span></div><div class="ba-row__seen">2m ago</div></div>
+      <div class="ba-row is-selected is-range" data-id="mbr_4c1a"><button class="ba-check is-checked" aria-label="Select Marcus Webb"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">MW</div><div class="ba-row__who"><div class="ba-row__name">Marcus Webb</div><div class="ba-row__mail">marcus@northwind.io</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--pro">Pro</span></div><div class="ba-row__seen">18m ago</div></div>
+      <div class="ba-row is-selected is-range" data-id="mbr_9f30"><button class="ba-check is-checked" aria-label="Select Priya Raman"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">PR</div><div class="ba-row__who"><div class="ba-row__name">Priya Raman</div><div class="ba-row__mail">priya@vellum.co</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--team">Team</span></div><div class="ba-row__seen">1h ago</div></div>
+      <div class="ba-row is-selected is-range" data-id="mbr_71bd"><button class="ba-check is-checked" aria-label="Select Tomas Nowak"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">TN</div><div class="ba-row__who"><div class="ba-row__name">Tomas Nowak</div><div class="ba-row__mail">tomas@vellum.co</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--free">Free</span></div><div class="ba-row__seen">3h ago</div></div>
+      <div class="ba-row is-selected is-range" data-id="mbr_e208"><button class="ba-check is-checked" aria-label="Select Ada Okoro"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">AO</div><div class="ba-row__who"><div class="ba-row__name">Ada Okoro</div><div class="ba-row__mail">ada@fielded.dev</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--team">Team</span></div><div class="ba-row__seen">yesterday</div></div>
+    </div>
+  </div>
+  <div class="ba-bracket" style="left:44px;top:456px;height:248px"></div>
+  <svg class="cursor" style="left:92px;top:652px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="ba-pages" style="position:absolute;left:68px;top:730px"><span class="ba-page is-on">1</span><span class="ba-page">2</span><span class="ba-page">3</span><span class="ba-page">42</span><span class="ba-pages__hint">page 1</span></div>
+  <div class="ba-state" style="position:absolute;left:64px;top:792px;width:592px"><div class="ba-state__head"><svg><use href="#i-db"/></svg>selectedIds<span>survives the page change</span></div><div class="ba-state__ids"><span class="ba-id is-in" style="animation-delay:.4s">mbr_4c1a</span><span class="ba-id is-in" style="animation-delay:.8s">mbr_9f30</span><span class="ba-id is-in" style="animation-delay:1.4s">mbr_71bd</span><span class="ba-id is-in" style="animation-delay:1.9s">mbr_e208</span></div></div>
+  <div class="ba-cap">selection lives in state</div>
+</section>
+
+<!-- 4b · Page 2: different rows, same ids -->
+<section class="scene" data-t="33" data-shot="36">
+  <div class="kicker">Range + persist</div>
+  <h1 class="title">Shift picks a range. <em>Paging keeps it.</em></h1>
+  <div class="ba-key is-off" style="position:absolute;left:68px;top:295px"><svg><use href="#i-shift"/></svg>Shift</div>
+  <div style="position:absolute;left:164px;top:304px;font-size:15px;color:#6b7480">+ click the last row</div>
+  <div class="ba-table" style="position:absolute;left:68px;top:342px">
+    <div class="ba-thead"><button class="ba-check is-partial" aria-label="Select all"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><span class="ba-thead__member">Member</span><span class="ba-thead__plan">Plan</span><span class="ba-thead__seen">Last seen</span></div>
+    <div class="ba-rows" data-members="p2" data-selected="">
+      <div class="ba-row" data-id="mbr_c3d9"><button class="ba-check" aria-label="Select Yuki Tanaka"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">YT</div><div class="ba-row__who"><div class="ba-row__name">Yuki Tanaka</div><div class="ba-row__mail">yuki@fielded.dev</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--pro">Pro</span></div><div class="ba-row__seen">4m ago</div></div>
+      <div class="ba-row" data-id="mbr_0e41"><button class="ba-check" aria-label="Select Diego Salas"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">DS</div><div class="ba-row__who"><div class="ba-row__name">Diego Salas</div><div class="ba-row__mail">diego@vellum.co</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--free">Free</span></div><div class="ba-row__seen">26m ago</div></div>
+      <div class="ba-row" data-id="mbr_5a12"><button class="ba-check" aria-label="Select Nour Haddad"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">NH</div><div class="ba-row__who"><div class="ba-row__name">Nour Haddad</div><div class="ba-row__mail">nour@northwind.io</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--team">Team</span></div><div class="ba-row__seen">2h ago</div></div>
+      <div class="ba-row" data-id="mbr_88fe"><button class="ba-check" aria-label="Select Erik Lindqvist"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">EL</div><div class="ba-row__who"><div class="ba-row__name">Erik Lindqvist</div><div class="ba-row__mail">erik@vellum.co</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--pro">Pro</span></div><div class="ba-row__seen">5h ago</div></div>
+      <div class="ba-row" data-id="mbr_2c07"><button class="ba-check" aria-label="Select Mei Fong"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">MF</div><div class="ba-row__who"><div class="ba-row__name">Mei Fong</div><div class="ba-row__mail">mei@fielded.dev</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--team">Team</span></div><div class="ba-row__seen">yesterday</div></div>
+    </div>
+  </div>
+  <div class="ba-pages" style="position:absolute;left:68px;top:730px"><span class="ba-page">1</span><span class="ba-page is-on">2</span><span class="ba-page">3</span><span class="ba-page">42</span><span class="ba-pages__hint">page 2 · different rows</span></div>
+  <svg class="cursor" style="left:142px;top:750px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="ba-state" style="position:absolute;left:64px;top:792px;width:592px"><div class="ba-state__head"><svg><use href="#i-db"/></svg>selectedIds<span>survives the page change</span></div><div class="ba-state__ids"><span class="ba-id">mbr_4c1a</span><span class="ba-id">mbr_9f30</span><span class="ba-id">mbr_71bd</span><span class="ba-id">mbr_e208</span></div></div>
+  <div class="ba-cap">selection lives in state</div>
+</section>
+
+<!-- 5 · Bulk destructive: no confirm modal -->
+<section class="scene" data-t="37.5" data-shot="37.5">
+  <div class="glow" style="left:100px;top:760px;background:rgba(224,87,93,.09)"></div>
+  <div class="kicker kicker--danger">Bulk destructive</div>
+  <h1 class="title title--one">Echo the count. <em class="danger">Offer undo.</em></h1>
+  <div class="ba-table" style="position:absolute;left:68px;top:296px;height:296px">
+    <div class="ba-thead"><button class="ba-check is-checked" aria-label="Select all"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><span class="ba-thead__member">Member</span><span class="ba-thead__plan">Plan</span><span class="ba-thead__seen">Last seen</span></div>
+    <div class="ba-rows" data-members="p1" data-count="4" data-selected="1,2,3,4">
+      <div class="ba-row is-selected" data-id="mbr_1a0c"><button class="ba-check is-checked" aria-label="Select Sarah Chen"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">SC</div><div class="ba-row__who"><div class="ba-row__name">Sarah Chen</div><div class="ba-row__mail">sarah@northwind.io</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--pro">Pro</span></div><div class="ba-row__seen">2m ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_4c1a"><button class="ba-check is-checked" aria-label="Select Marcus Webb"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">MW</div><div class="ba-row__who"><div class="ba-row__name">Marcus Webb</div><div class="ba-row__mail">marcus@northwind.io</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--pro">Pro</span></div><div class="ba-row__seen">18m ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_9f30"><button class="ba-check is-checked" aria-label="Select Priya Raman"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">PR</div><div class="ba-row__who"><div class="ba-row__name">Priya Raman</div><div class="ba-row__mail">priya@vellum.co</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--team">Team</span></div><div class="ba-row__seen">1h ago</div></div>
+      <div class="ba-row is-selected" data-id="mbr_71bd"><button class="ba-check is-checked" aria-label="Select Tomas Nowak"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><div class="ba-row__avatar">TN</div><div class="ba-row__who"><div class="ba-row__name">Tomas Nowak</div><div class="ba-row__mail">tomas@vellum.co</div></div><div class="ba-row__plan"><span class="ba-pill ba-pill--free">Free</span></div><div class="ba-row__seen">3h ago</div></div>
+    </div>
+  </div>
+  <div class="ba-bar" style="position:absolute;left:68px;top:590px"><span class="ba-bar__x">×</span><span class="ba-bar__n">247</span><span class="ba-bar__sel">selected</span><button class="ba-btn"><svg><use href="#i-export"/></svg>Export</button><button class="ba-btn"><svg><use href="#i-archive"/></svg>Archive</button><button class="ba-btn ba-btn--danger is-hover" id="delBtn"><svg><use href="#i-trash"/></svg>Delete 247</button></div>
+  <svg class="cursor" style="left:512px;top:622px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="ba-ghost" style="position:absolute;left:68px;top:690px"><b>Are you sure?</b><span>This will delete 247 members.</span><i>Cancel</i> <i>Confirm</i><svg class="ba-ghost__strike" viewBox="0 0 566 108"><line x1="0" y1="98" x2="566" y2="10"/></svg></div>
+  <div class="ba-mono is-red" style="position:absolute;left:68px;top:806px;font-size:15px">friction without recovery</div>
+  <div class="ba-cap">reversible beats careful</div>
+</section>
+
+<!-- 5b · Deleted: echo the count, offer a ten second undo -->
+<section class="scene" data-t="40.5" data-shot="43.5">
+  <div class="glow" style="left:100px;top:760px;background:rgba(224,87,93,.09)"></div>
+  <div class="kicker kicker--danger">Bulk destructive</div>
+  <h1 class="title title--one">Echo the count. <em class="danger">Offer undo.</em></h1>
+  <div class="ba-table" style="position:absolute;left:68px;top:296px">
+    <div class="ba-thead"><button class="ba-check" aria-label="Select all"><svg class="ba-check__tick"><use href="#ck-tick"/></svg><svg class="ba-check__dash"><use href="#ck-dash"/></svg></button><span class="ba-thead__member">Member</span><span class="ba-thead__plan">Plan</span><span class="ba-thead__seen">Last seen</span></div>
+    <div class="ba-table__empty"><div class="ba-table__empty-icon"><svg><use href="#i-users"/></svg></div><b>No members left in this view</b><span>247 removed a moment ago</span></div>
+  </div>
+  <div class="ba-ghost" style="position:absolute;left:68px;top:690px"><b>Are you sure?</b><span>This will delete 247 members.</span><i>Cancel</i> <i>Confirm</i><svg class="ba-ghost__strike" viewBox="0 0 566 108"><line x1="0" y1="98" x2="566" y2="10"/></svg></div>
+  <div class="ba-mono is-red" style="position:absolute;left:68px;top:806px;font-size:15px">friction without recovery</div>
+  <div class="ba-toast" id="undoToast" style="position:absolute;left:68px;top:842px"><div class="ba-ring is-running"><svg viewBox="0 0 44 44"><circle class="ba-ring__track" cx="22" cy="22" r="19"/><circle class="ba-ring__bar" cx="22" cy="22" r="19"/></svg><span class="ba-ring__n">7</span></div><div class="ba-toast__body"><div class="ba-toast__title"><svg><use href="#i-trash"/></svg>247 members deleted</div><div class="ba-toast__sub">recoverable for ten seconds</div></div><button class="ba-btn ba-btn--undo"><svg><use href="#i-undo"/></svg>Undo</button></div>
+  <svg class="cursor" style="left:466px;top:898px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="ba-cap">reversible beats careful</div>
+</section>
+
+<!-- 6 · Outro: Selection is a system -->
+<section class="scene" data-t="48" data-shot="49.5">
+  <div class="glow" style="left:100px;top:560px;width:520px;height:520px;background:rgba(45,212,168,.13)"></div>
+  <div class="title" style="top:178px;font-size:40px;color:#2dd4a8;padding:0">Selection is a system.</div>
+  <div class="ba-sum" style="position:absolute;left:84px;top:336px">
+    <div class="ba-sum__item"><div class="ba-sum__icon"><svg><use href="#i-checksq"/></svg></div><div class="ba-sum__text"><b>Three states</b><span>Empty, partial, checked — the dash is not optional</span></div><span class="ba-sum__n">01</span></div>
+    <div class="ba-sum__item"><div class="ba-sum__icon"><svg><use href="#i-hash"/></svg></div><div class="ba-sum__text"><b>Name the number</b><span>“Select all 247 matching”, never a bare “all”</span></div><span class="ba-sum__n">02</span></div>
+    <div class="ba-sum__item"><div class="ba-sum__icon"><svg><use href="#i-db"/></svg></div><div class="ba-sum__text"><b>Selection is state</b><span>Shift ranges and paging keep the ids alive</span></div><span class="ba-sum__n">03</span></div>
+    <div class="ba-sum__item"><div class="ba-sum__icon is-teal"><svg><use href="#i-undo"/></svg></div><div class="ba-sum__text"><b>Undo, not confirm</b><span>Echo the count, run it, offer ten seconds back</span></div><span class="ba-sum__n">04</span></div>
+  </div>
+  <div class="ba-handle" style="position:absolute;left:222px;top:828px"><div class="ba-handle__avatar"><svg><use href="#i-checksq"/></svg></div>@designmotionhq</div>
+  <div class="ba-cta" style="position:absolute;left:197px;top:905px"><svg><use href="#i-follow"/></svg>Follow</div>
+  <div class="ba-cta ba-cta--ghost" style="position:absolute;left:363px;top:905px"><svg><use href="#i-bookmark"/></svg>Save this</div>
+</section>
+
+<script type="module">
+  import { SelectionModel, renderRows, UndoCountdown } from './pattern.js';
+  // Hook scene: the header box is a live tri-state control over its rows (rows are static markup; the model re-renders them).
+  const hook = document.getElementById('hookHead'), rowsEl = hook.closest('.ba-table').querySelector('.ba-rows');
+  const members = [...rowsEl.querySelectorAll('.ba-row')].map(r => ({ id: r.dataset.id, name: r.querySelector('.ba-row__name').textContent, mail: r.querySelector('.ba-row__mail').textContent, plan: r.querySelector('.ba-pill').textContent, seen: r.querySelector('.ba-row__seen').textContent }));
+  const model = SelectionModel(members.map(m => m.id)); model.selectAll();
+  hook.addEventListener('click', () => {
+    model.headerClick();
+    renderRows(rowsEl, members, { selected: members.map((m, i) => model.has(m.id) ? i + 1 : 0).filter(Boolean) });
+    const s = model.state(); hook.className = 'ba-check is-focus' + (s === 'all' ? ' is-checked' : s === 'some' ? ' is-partial' : '');
+  });
+  rowsEl.addEventListener('click', e => { const row = e.target.closest('.ba-row'); if (!row) return; model.toggle(row.dataset.id, e.shiftKey); hook.click(); hook.click(); });
+  // Undo toast: the ring drains over 10 s (CSS), the number counts down from the scene time.
+  const toast = document.getElementById('undoToast'), n = toast.querySelector('.ba-ring__n');
+  toast.closest('.scene').addEventListener('scene:enter', e => { UndoCountdown(n, 10, Math.max(0, e.detail.t - 40.5), e.detail.t > 0); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

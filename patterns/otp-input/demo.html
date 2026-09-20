@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OTP Input · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0d1013; --grid: rgba(255,255,255,.04); --accent: #2fd9a8; --danger: #e8446f; }
+  .scene { color: #f3f5f7; }
+</style>
+</head>
+<body class="otp">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-clip" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M21 6H8l-6 6 6 6h13a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1zM12 9l6 6M18 9l-6 6"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5L1.8 20.5h20.4z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.5L6 21z"/></symbol>
+</svg>
+
+<!-- 1 · Hook: paste once -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="otp-clip center" style="top:428px"><svg><use href="#i-clip"/></svg>847291</div>
+  <div class="otp-boxes" id="liveOtp" style="position:absolute;left:84px;top:612px">
+    <input class="otp-box" value="8" maxlength="1" inputmode="numeric" autocomplete="one-time-code"><input class="otp-box is-focus" value="4" maxlength="1" inputmode="numeric"><input class="otp-box" value="7" maxlength="1" inputmode="numeric"><input class="otp-box" value="2" maxlength="1" inputmode="numeric"><input class="otp-box" value="9" maxlength="1" inputmode="numeric"><input class="otp-box" value="1" maxlength="1" inputmode="numeric">
+  </div>
+  <div class="title" style="top:1026px;font-size:34px;line-height:1.3;padding:0 120px">Paste once. <em>Six boxes fill themselves.</em></div>
+</section>
+
+<!-- 2 · The paste problem: one input chokes -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="otp-kicker center" style="top:155px">The paste problem</div>
+  <div class="otp-sub otp-sub--pink center" style="top:240px">One input chokes</div>
+  <div class="otp-wide" style="position:absolute;left:122px;top:271px">847 291 04</div>
+</section>
+
+<!-- 3 · The paste problem: strip, then six boxes -->
+<section class="scene" data-t="6" data-shot="9">
+  <div class="otp-kicker center" style="top:155px">The paste problem</div>
+  <div class="otp-code center" style="top:505px"><span class="w">value</span> <span class="g">.replace(</span> <em>/\D/g</em> <span class="g">,</span> <em>""</em> <span class="g">)</span> <span class="g">→</span> <span class="w">847291</span></div>
+  <div class="otp-boxes" style="position:absolute;left:84px;top:665px">
+    <div class="otp-box is-ok">8</div><div class="otp-box is-ok">4</div><div class="otp-box is-ok">7</div><div class="otp-box is-ok">2</div><div class="otp-box is-ok">9</div><div class="otp-box is-ok">1</div>
+  </div>
+  <div class="otp-pill center" style="top:927px">paste → strip → <em>6 boxes</em></div>
+  <div class="title" style="top:1040px;font-size:32px">One paste, <em>six boxes, done.</em></div>
+</section>
+
+<!-- 4 · Auto-advance -->
+<section class="scene" data-t="12" data-shot="15">
+  <div class="otp-kicker center" style="top:155px">Auto-advance</div>
+  <div class="title" style="top:218px;font-size:32px">Type a digit, <em>jump to the next.</em></div>
+  <div class="otp-boxes" style="position:absolute;left:84px;top:413px">
+    <div class="otp-box">8</div><div class="otp-box">4</div><div class="otp-box is-focus"><i class="otp-caret"></i></div><div class="otp-box"></div><div class="otp-box"></div><div class="otp-box"></div>
+  </div>
+  <div class="otp-keys" style="position:absolute;left:126px;top:654px"><b>8</b><b>4</b><b>7</b><b>2</b><b>9</b><b class="is-on otp-keys__back"><svg><use href="#i-back"/></svg></b></div>
+  <div class="otp-pill center" style="top:1022px">backspace on empty → <em>jump back</em></div>
+</section>
+
+<!-- 5 · State architecture: six inputs -->
+<section class="scene" data-t="18" data-shot="21">
+  <div class="otp-kicker center" style="top:155px">State architecture</div>
+  <div class="title" style="top:212px;font-size:32px">Six inputs? <em>One value.</em></div>
+  <div class="otp-boxes otp-boxes--wide" style="position:absolute;left:64px;top:680px">
+    <div class="otp-box">8<span class="otp-box__tag">input[0]</span></div><div class="otp-box">4<span class="otp-box__tag">input[1]</span></div><div class="otp-box">7<span class="otp-box__tag">input[2]</span></div><div class="otp-box">2<span class="otp-box__tag">input[3]</span></div><div class="otp-box">9<span class="otp-box__tag">input[4]</span></div><div class="otp-box">1<span class="otp-box__tag">input[5]</span></div>
+  </div>
+  <div class="otp-state center" style="top:1018px"><s>useState(["","","","","",""])</s><b>useState("847291")</b></div>
+</section>
+
+<!-- 5b · State architecture: one value -->
+<section class="scene" data-t="21" data-shot="24">
+  <div class="otp-kicker center" style="top:155px">State architecture</div>
+  <div class="title" style="top:212px;font-size:32px">Six inputs? <em>One value.</em></div>
+  <div class="otp-value center" style="top:400px"><i>"</i>847291<i>"</i></div>
+  <svg class="otp-lines" style="position:absolute;left:0;top:0" width="720" height="700" viewBox="0 0 720 700">
+    <path d="M360 470 L104 668 M360 470 L207 668 M360 470 L309 668 M360 470 L412 668 M360 470 L514 668 M360 470 L617 668"/>
+  </svg>
+  <div class="otp-boxes otp-boxes--wide" style="position:absolute;left:64px;top:680px">
+    <div class="otp-box">8</div><div class="otp-box">4</div><div class="otp-box">7</div><div class="otp-box">2</div><div class="otp-box">9</div><div class="otp-box">1</div>
+  </div>
+  <div class="otp-state center" style="top:1018px"><s>useState(["","","","","",""])</s><b>useState("847291")</b></div>
+</section>
+
+<!-- 6 · Mobile autofill -->
+<section class="scene" data-t="27" data-shot="31.5">
+  <div class="otp-kicker center" style="top:155px">Mobile autofill</div>
+  <div class="otp-sms center" style="top:200px"><svg><use href="#i-msg"/></svg>Your code is <em>847291</em></div>
+  <div class="otp-phone" style="position:absolute;left:175px;top:255px">
+    <div class="otp-phone__notch"></div>
+    <div class="otp-boxes otp-boxes--mini" style="position:absolute;left:28px;top:86px">
+      <div class="otp-box is-ok">8</div><div class="otp-box is-ok">4</div><div class="otp-box is-ok">7</div><div class="otp-box is-ok">2</div><div class="otp-box is-ok">9</div><div class="otp-box is-ok">1</div>
+    </div>
+    <div class="otp-pad" style="position:absolute;left:19px;top:486px"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b><i></i><b>0</b><b><svg><use href="#i-back"/></svg></b></div>
+  </div>
+  <div class="otp-attr" style="position:absolute;left:47px;top:1083px">inputmode="numeric"</div>
+  <div class="otp-attr" style="position:absolute;left:304px;top:1083px">autocomplete="one-time-code" ✓</div>
+</section>
+
+<!-- 7 · Resend, throttled -->
+<section class="scene" data-t="33" data-shot="36" data-timer>
+  <div class="otp-kicker center" style="top:155px">Resend, throttled</div>
+  <div class="title" style="top:212px;font-size:32px">Lock resend behind a <em>timer.</em></div>
+  <div class="otp-col" style="position:absolute;left:40px;top:414px;width:320px">
+    <div class="otp-col__title otp-col__title--pink">No timer</div>
+    <button class="otp-resend otp-resend--hot"><svg><use href="#i-refresh"/></svg>Resend code</button>
+    <div class="otp-429"><svg><use href="#i-warn"/></svg>429 Too Many Requests</div>
+    <div class="otp-col__note">Spam-clicks → server bans the user.</div>
+  </div>
+  <div class="otp-col" style="position:absolute;left:360px;top:414px;width:320px">
+    <div class="otp-col__title">30s timer</div>
+    <button class="otp-resend" disabled><svg><use href="#i-refresh"/></svg>Resend in <span class="otp-resend__t">0:22</span></button>
+    <div class="otp-ring"><svg viewBox="0 0 140 140"><circle class="otp-ring__track" cx="70" cy="70" r="62"/><circle class="otp-ring__arc" cx="70" cy="70" r="62" style="stroke-dashoffset:105"/></svg><b class="otp-ring__t">0:22</b></div>
+    <div class="otp-col__note otp-col__note--teal">Button re-enables when it hits zero.</div>
+  </div>
+</section>
+
+<!-- 7b · Resend, throttled: near zero -->
+<section class="scene" data-t="37.5" data-shot="39" data-timer>
+  <div class="otp-kicker center" style="top:155px">Resend, throttled</div>
+  <div class="title" style="top:212px;font-size:32px">Lock resend behind a <em>timer.</em></div>
+  <div class="otp-col" style="position:absolute;left:40px;top:414px;width:320px">
+    <div class="otp-col__title otp-col__title--pink">No timer</div>
+    <button class="otp-resend otp-resend--hot"><svg><use href="#i-refresh"/></svg>Resend code</button>
+    <div class="otp-429"><svg><use href="#i-warn"/></svg>429 Too Many Requests</div>
+    <div class="otp-col__note">Spam-clicks → server bans the user.</div>
+  </div>
+  <div class="otp-col" style="position:absolute;left:360px;top:414px;width:320px">
+    <div class="otp-col__title">30s timer</div>
+    <button class="otp-resend" disabled><svg><use href="#i-refresh"/></svg>Resend in <span class="otp-resend__t">0:04</span></button>
+    <div class="otp-ring"><svg viewBox="0 0 140 140"><circle class="otp-ring__track" cx="70" cy="70" r="62"/><circle class="otp-ring__arc" cx="70" cy="70" r="62" style="stroke-dashoffset:338"/></svg><b class="otp-ring__t">0:04</b></div>
+    <div class="otp-col__note otp-col__note--teal">Button re-enables when it hits zero.</div>
+  </div>
+  <div class="title" style="top:1060px;font-size:26px">No throttle = <em class="pink">they rate-limit themselves.</em></div>
+</section>
+
+<!-- 8 · Instant feedback: wrong code shakes and clears -->
+<section class="scene" data-t="40.5" data-shot="42" id="wrongScene">
+  <div class="otp-kicker center" style="top:155px">Instant feedback</div>
+  <div class="title" style="top:212px;font-size:32px">Wrong code <em class="pink">shakes &amp; clears.</em></div>
+  <div class="otp-boxes" id="wrongBoxes" style="position:absolute;left:84px;top:519px">
+    <div class="otp-box is-focus"><i class="otp-caret"></i></div><div class="otp-box"></div><div class="otp-box"></div><div class="otp-box"></div><div class="otp-box"></div><div class="otp-box"></div>
+  </div>
+  <div class="otp-pill otp-pill--sans center" style="top:675px"><svg><use href="#i-x"/></svg>cleared → focus box 1</div>
+</section>
+
+<!-- 9 · Instant feedback: right code locks in green -->
+<section class="scene" data-t="43.5" data-shot="48">
+  <div class="otp-kicker center" style="top:155px">Instant feedback</div>
+  <div class="title" style="top:212px;font-size:32px">Right code <em class="green">locks in green.</em></div>
+  <div class="otp-boxes" style="position:absolute;left:84px;top:519px">
+    <div class="otp-box is-ok is-locked">8</div><div class="otp-box is-ok is-locked">4</div><div class="otp-box is-ok is-locked">7</div><div class="otp-box is-ok is-locked">2</div><div class="otp-box is-ok is-locked">9</div><div class="otp-box is-ok is-locked">1</div>
+  </div>
+  <div class="otp-verified center" style="top:673px"><svg><use href="#i-check"/></svg>Verified</div>
+  <div class="otp-cmp otp-cmp--dim" style="position:absolute;left:92px;top:1027px"><svg><use href="#i-x"/></svg><div><b>Silent fail</b><span>nothing happens</span></div></div>
+  <div class="otp-cmp otp-cmp--ok" style="position:absolute;left:373px;top:1027px"><svg><use href="#i-check"/></svg><div><b>Instant feedback</b><span>shake or green</span></div></div>
+</section>
+
+<!-- 10 · Outro -->
+<section class="scene" data-t="51" data-shot="52.5">
+  <div class="glow" style="left:100px;top:300px;background:rgba(47,217,168,.10)"></div>
+  <div class="otp-boxes otp-boxes--sm" style="position:absolute;left:149px;top:484px">
+    <div class="otp-box is-ok">8</div><div class="otp-box is-ok">4</div><div class="otp-box is-ok">7</div><div class="otp-box is-ok">2</div><div class="otp-box is-ok">9</div><div class="otp-box is-ok">1</div>
+  </div>
+  <div class="otp-handle center" style="top:584px">@designmotionhq</div>
+  <div class="title" style="top:614px;font-size:38px;line-height:1.18">Follow for more<br>UI systems.</div>
+  <div class="otp-save-note center" style="top:732px">Save this for your next auth flow.</div>
+  <div class="otp-cta center" style="top:787px"><svg viewBox="0 0 24 24"><use href="#i-bookmark"/></svg>Save</div>
+</section>
+
+<script type="module">
+  import { OtpInput, ResendTimer, shakeAndClear } from './pattern.js';
+  // Hook boxes are live: paste "847-291" or type; backspace on an empty box jumps back. 847291 verifies green.
+  OtpInput(document.getElementById('liveOtp'), { verify: code => code === '847291' });
+  // Resend timer scenes: 30 s countdown played at 6x, so the frozen frames read 0:22 (36 s) and 0:04 (39 s).
+  document.querySelectorAll('[data-timer]').forEach(s => {
+    const timer = ResendTimer(s.querySelector('.otp-resend[disabled]'), s.querySelector('.otp-ring'), { seconds: 30 });
+    s.addEventListener('scene:enter', e => { if (e.detail.t > 0) timer.set(Math.max(0, Math.round(30 - (e.detail.t - 34.7) * 6))); else timer.start(6); });
+  });
+  // Wrong code scene: on live entry, show 099999, shake, clear, refocus box 1.
+  const ws = document.getElementById('wrongScene');
+  ws.addEventListener('scene:enter', e => { if (e.detail.t > 0) return; const boxes = [...document.querySelectorAll('#wrongBoxes .otp-box')]; boxes.forEach((b, i) => { b.textContent = '099999'[i]; b.classList.remove('is-focus'); }); setTimeout(() => shakeAndClear(document.getElementById('wrongBoxes')), 900); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

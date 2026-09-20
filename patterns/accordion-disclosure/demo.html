@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Accordion Disclosure · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0d1113; --accent: #2ed3a5; --danger: #ef4d7f; --grid: rgba(255,255,255,.03); }
+  .scene { color: #eaeff2; }
+  .kicker { top: 141px; padding: 0; background: none; color: #6b7378; font-size: 15px; letter-spacing: .22em; font-weight: 600; }
+  .title { top: 170px; margin: 0; font-size: 32px; line-height: 38px; font-weight: 700; letter-spacing: -.01em; }
+  .title code { font: 700 30px 'JetBrains Mono', ui-monospace, monospace; color: #ef4d7f; }
+  .caption { top: 1063px; padding: 0; background: none; box-shadow: none; font-size: 18px; font-weight: 400; color: #8b9298; }
+  .caption b { color: #eaeff2; font-weight: 700; }
+  .ac-item__head { line-height: 24px; }
+  .ac-hookline { position: absolute; top: 866px; left: 0; right: 0; text-align: center; font-size: 40px; line-height: 46px; font-weight: 800; letter-spacing: -.02em; }
+  .ac-hookline em { font-style: normal; color: #2ed3a5; }
+</style>
+</head>
+<body class="ac">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-ok" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
+  <symbol id="i-follow" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M19 8v6M16 11h6"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+</svg>
+
+<!-- 1 · Hook: one glides, one jumps -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="ac-list" id="hookGlide" style="position:absolute;left:14px;top:268px;width:332px">
+    <div class="ac-item is-open"><button class="ac-item__head" aria-expanded="true">Do you offer refunds?<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body" style="padding-bottom:82px">Yes — full refund within 30 days,<br>no questions asked.</div></div></div></div>
+    <div class="ac-item"><button class="ac-item__head" aria-expanded="false">How long is shipping?<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body">Usually 3 to 5 business days.</div></div></div></div>
+    <div class="ac-item"><button class="ac-item__head" aria-expanded="false">Can I cancel anytime?<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body">Yes, from your account page.</div></div></div></div>
+  </div>
+  <div class="ac-list" id="hookSnap" style="position:absolute;left:374px;top:268px;width:332px">
+    <div class="ac-item ac-item--snap is-open"><button class="ac-item__head" aria-expanded="true">Do you offer refunds?<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body" style="padding-bottom:82px">Yes — full refund within 30 days,<br>no questions asked.</div></div></div></div>
+    <div class="ac-item ac-item--snap"><button class="ac-item__head" aria-expanded="false">How long is shipping?<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body">Usually 3 to 5 business days.</div></div></div></div>
+    <div class="ac-item ac-item--snap"><button class="ac-item__head" aria-expanded="false">Can I cancel anytime?<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body">Yes, from your account page.</div></div></div></div>
+  </div>
+  <svg class="cursor" style="left:204px;top:306px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <svg class="cursor" style="left:508px;top:306px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="ac-hookline">One <em>glides</em>.<br>One jumps.</div>
+</section>
+
+<!-- 2 · The height trap -->
+<section class="scene" data-t="3" data-shot="7.5">
+  <div class="kicker">The height trap</div>
+  <h1 class="title">You can't animate <code>height: auto</code></h1>
+  <div class="glow" style="left:100px;top:260px;width:520px;height:420px;background:rgba(46,211,165,.08)"></div>
+  <div class="ac-item ac-item--md is-open" id="trapItem" style="position:absolute;left:87px;top:313px;width:546px"><button class="ac-item__head" aria-expanded="true">What payment methods do you accept?<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body" style="padding:0 19px 10px">Visa, Mastercard, Amex, Apple Pay and PayPal — all secured end to end.</div></div></div></div>
+  <div class="ac-code" style="position:absolute;left:87px;top:507px">
+    <div class="ac-code__bar"><i></i><i></i><i></i><span>accordion.css</span></div>
+    <div class="ac-code__lines">
+      <div class="ac-code__line"><u>.panel</u> {</div>
+      <div class="ac-code__line ac-code__line--in is-del">height: auto;</div>
+      <div class="ac-code__line ac-code__line--in is-add"><em>display</em>: grid;</div>
+      <div class="ac-code__line ac-code__line--in is-add"><em>grid-template-rows</em>: <b>0fr</b>;</div>
+      <div class="ac-code__line ac-code__line--in"><em>transition</em>: <b>0.3s</b>;</div>
+      <div class="ac-code__line">}</div>
+    </div>
+  </div>
+  <div class="ac-mark ac-mark--x" style="left:619px;top:571px"><svg><use href="#i-x"/></svg></div>
+  <div class="ac-mark ac-mark--ok" style="left:619px;top:641px"><svg><use href="#i-ok"/></svg></div>
+  <div class="caption">No grid? <b>Measure scrollHeight</b> → animate to px.</div>
+</section>
+
+<!-- 3 · Rotate the chevron with the panel -->
+<section class="scene" data-t="15" data-shot="19.5">
+  <h1 class="title" style="top:200px">Rotate the chevron <em>WITH</em> the panel.</h1>
+  <div class="ac-tag ac-tag--teal" style="left:22px;top:361px;width:320px">In sync</div>
+  <div class="ac-tag ac-tag--pink" style="left:377px;top:361px;width:320px">Chevron lags</div>
+  <div class="ac-item ac-item--md is-open" id="syncItem" style="position:absolute;left:22px;top:397px;width:320px"><button class="ac-item__head" aria-expanded="true">Track my order<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body" style="padding:0 19px 33px">Paste your order ID to see live status.</div></div></div></div>
+  <div class="ac-item ac-item--md ac-item--lag is-open" id="lagItem" style="position:absolute;left:377px;top:397px;width:320px"><button class="ac-item__head" aria-expanded="true">Track my order<span class="ac-chev" style="background:var(--ac-pink-dim);color:var(--ac-pink)"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body" style="padding:0 19px 33px">Paste your order ID to see live status.</div></div></div></div>
+  <svg class="ac-curve" style="left:0;top:0" width="720" height="720" viewBox="0 0 720 720">
+    <path class="panel" d="M30 645 C 160 645, 200 505, 335 505" style="stroke:#2ed3a5"/>
+    <path class="panel" d="M385 645 C 515 645, 555 505, 690 505"/>
+    <path class="chev chev--lag" d="M385 645 C 500 645, 560 630, 610 570 S 670 510, 690 505"/>
+  </svg>
+  <div class="ac-note" style="left:32px;top:666px">chevron tracks the panel — 0 frame lag</div>
+  <div class="ac-note" style="left:387px;top:666px">chevron arrives 10 frames late — feels broken</div>
+  <div class="ac-legend" style="left:268px;top:799px"><span>panel</span><span class="is-teal">chevron</span></div>
+</section>
+
+<!-- 4 · One at a time, or many open -->
+<section class="scene" data-t="27" data-shot="30">
+  <h1 class="title" style="top:139px">One at a time, or many open?</h1>
+  <div class="ac-col" style="left:27px;top:266px;width:319px"><b class="is-teal">Accordion</b><small>One at a time</small></div>
+  <div class="ac-col" style="left:374px;top:266px;width:319px"><b>Disclosure</b><small>Many open</small></div>
+  <div class="ac-list" id="steps" style="position:absolute;left:27px;top:322px;width:319px;gap:12px">
+    <div class="ac-item ac-item--sm"><button class="ac-item__head" aria-expanded="false">1 · Shipping address<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body">Where should we send it?</div></div></div></div>
+    <div class="ac-item ac-item--sm is-open"><button class="ac-item__head" aria-expanded="true">2 · Payment<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body">Card, Apple Pay or PayPal.</div></div></div></div>
+    <div class="ac-item ac-item--sm"><button class="ac-item__head" aria-expanded="false">3 · Review order<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body">Check everything before you pay.</div></div></div></div>
+  </div>
+  <div class="ac-list" id="faqs" style="position:absolute;left:374px;top:322px;width:319px;gap:12px">
+    <div class="ac-item ac-item--sm is-open"><button class="ac-item__head" aria-expanded="true">Do you ship internationally?<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body">Yes, to 40+ countries.</div></div></div></div>
+    <div class="ac-item ac-item--sm is-open"><button class="ac-item__head" aria-expanded="true">What's your return policy?<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body">30-day free returns.</div></div></div></div>
+    <div class="ac-item ac-item--sm is-open"><button class="ac-item__head" aria-expanded="true">Is there a warranty?<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body">2 years, parts and labor.</div></div></div></div>
+  </div>
+  <div class="caption" style="font-size:20px"><b>Steps</b> stay single. <b>FAQs</b> let many breathe.</div>
+</section>
+
+<!-- 5 · Accessibility: expanded -->
+<section class="scene" data-t="36" data-shot="36">
+  <div class="kicker" style="top:187px;font-size:17px">Accessibility</div>
+  <h1 class="title" style="top:217px">It's a <em>button</em>, not a div.</h1>
+  <div class="glow" style="left:100px;top:300px;width:520px;height:420px;background:rgba(46,211,165,.07)"></div>
+  <div class="ac-item ac-item--md is-open is-focus" id="a11yItem" style="position:absolute;left:87px;top:398px;width:546px">
+    <button class="ac-item__head" aria-expanded="true" aria-controls="panel-1" style="padding:18px 19px 17px;align-items:center"><span>How do I reset my password?<span class="ac-aria" style="display:block">aria-expanded<i>=</i><code class="is-true">true</code></span></span><span class="ac-chev" style="width:28px;height:28px;border-radius:8px"><svg style="width:14px;height:14px"><use href="#i-chev"/></svg></span></button>
+    <div class="ac-item__panel" id="panel-1"><div><div class="ac-item__body" style="padding:0 19px 30px"><div class="ac-quote" style="margin-top:0;line-height:18px;padding:0 0 18px 15px">Open settings → Security → Reset password. We'll email a link.</div></div></div></div>
+  </div>
+  <div class="ac-aria-line" style="left:87px;top:561px"><em>aria-controls</em> = <b>"panel-1"</b> <i>→</i> links to the panel above</div>
+  <div class="ac-keys" style="left:198px;top:727px"><div class="ac-key"><b>Tab</b>focus</div><div class="ac-key"><b>↵ Enter</b>toggle</div><div class="ac-key"><b>Space</b>toggle</div></div>
+</section>
+
+<!-- 5b · Accessibility: collapsed -->
+<section class="scene" data-t="39" data-shot="39">
+  <div class="kicker" style="top:187px;font-size:17px">Accessibility</div>
+  <h1 class="title" style="top:217px">It's a <em>button</em>, not a div.</h1>
+  <div class="glow" style="left:100px;top:300px;width:520px;height:420px;background:rgba(46,211,165,.07)"></div>
+  <div class="ac-item ac-item--md" id="a11yItem2" style="position:absolute;left:87px;top:398px;width:546px">
+    <button class="ac-item__head" aria-expanded="false" aria-controls="panel-2" style="padding:18px 19px 17px;align-items:center"><span>How do I reset my password?<span class="ac-aria" style="display:block">aria-expanded<i>=</i><code>false</code></span></span><span class="ac-chev" style="width:28px;height:28px;border-radius:8px"><svg style="width:14px;height:14px"><use href="#i-chev"/></svg></span></button>
+    <div class="ac-item__panel" id="panel-2"><div><div class="ac-item__body" style="padding:0 19px 30px"><div class="ac-quote" style="margin-top:0;line-height:18px;padding:0 0 18px 15px">Open settings → Security → Reset password. We'll email a link.</div></div></div></div>
+  </div>
+  <div class="ac-aria-line" style="left:87px;top:497px"><em>aria-controls</em> = <b>"panel-1"</b> <i>→</i> links to the panel above</div>
+  <div class="ac-keys" style="left:198px;top:727px"><div class="ac-key"><b>Tab</b>focus</div><div class="ac-key"><b>↵ Enter</b>toggle</div><div class="ac-key"><b>Space</b>toggle</div></div>
+</section>
+
+<!-- 6 · Anchor the scroll, stagger the content -->
+<section class="scene" data-t="45" data-shot="48">
+  <h1 class="title" style="top:99px;font-size:30px;line-height:35px">Anchor the scroll.<br><em>Stagger</em> the content.</h1>
+  <svg class="cursor" style="left:190px;top:128px" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+  <div class="ac-tag ac-tag--pink" style="left:57px;top:280px;width:289px">No anchor</div>
+  <div class="ac-tag ac-tag--teal" style="left:374px;top:280px;width:289px">Anchored</div>
+  <div class="ac-phone ac-phone--pink" style="position:absolute;left:57px;top:310px">
+    <div class="ac-phone__bar">Help Center</div>
+    <div class="ac-phone__scroll"><div class="ac-phone__list" id="noAnchor" style="transform:translateY(-177px)">
+      <div class="ac-item"><button class="ac-item__head" aria-expanded="false">Track my order<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body"><p>Track from the orders tab.</p><p>Tap an order to see live status.</p><p>Updates arrive by email too.</p></div></div></div></div>
+      <div class="ac-item"><button class="ac-item__head" aria-expanded="false">Change my shipping address<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body"><p>Track from the orders tab.</p><p>Tap an order to see live status.</p><p>Updates arrive by email too.</p></div></div></div></div>
+      <div class="ac-item"><button class="ac-item__head" aria-expanded="false">Apply a discount code<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body"><p>Track from the orders tab.</p><p>Tap an order to see live status.</p><p>Updates arrive by email too.</p></div></div></div></div>
+      <div class="ac-item is-open"><button class="ac-item__head" aria-expanded="true">Update my payment method<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body"><p>Track from the orders tab.</p><p>Tap an order to see live status.</p><p>Updates arrive by email too.</p></div></div></div></div>
+      <div class="ac-item"><button class="ac-item__head" aria-expanded="false">Request a return label<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body"><p>Track from the orders tab.</p><p>Tap an order to see live status.</p><p>Updates arrive by email too.</p></div></div></div></div>
+    </div></div>
+  </div>
+  <div class="ac-phone" style="position:absolute;left:374px;top:310px">
+    <div class="ac-phone__bar">Help Center</div>
+    <div class="ac-phone__scroll" data-anchor-scroll><div class="ac-phone__list" id="anchored">
+      <div class="ac-item"><button class="ac-item__head" aria-expanded="false">Track my order<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body"><p>Track from the orders tab.</p><p>Tap an order to see live status.</p><p>Updates arrive by email too.</p></div></div></div></div>
+      <div class="ac-item"><button class="ac-item__head" aria-expanded="false">Change my shipping address<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body"><p>Track from the orders tab.</p><p>Tap an order to see live status.</p><p>Updates arrive by email too.</p></div></div></div></div>
+      <div class="ac-item"><button class="ac-item__head" aria-expanded="false">Apply a discount code<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body"><p>Track from the orders tab.</p><p>Tap an order to see live status.</p><p>Updates arrive by email too.</p></div></div></div></div>
+      <div class="ac-item is-open"><button class="ac-item__head" aria-expanded="true">Update my payment method<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body"><p>Track from the orders tab.</p><p>Tap an order to see live status.</p><p>Updates arrive by email too.</p></div></div></div></div>
+      <div class="ac-item"><button class="ac-item__head" aria-expanded="false">Request a return label<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body"><p>Track from the orders tab.</p><p>Tap an order to see live status.</p><p>Updates arrive by email too.</p></div></div></div></div>
+    </div></div>
+  </div>
+</section>
+
+<!-- 7 · Outro -->
+<section class="scene" data-t="51" data-shot="52.5">
+  <div class="glow" style="left:100px;top:300px;width:520px;height:520px;background:rgba(46,211,165,.1)"></div>
+  <div class="title" style="top:374px;font-size:40px;line-height:49px;font-weight:800;color:#2ed3a5">Follow for more<br>UI engineering</div>
+  <div class="ac-pill center" style="top:535px"><svg><use href="#i-follow"/></svg>Follow @designmotionhq</div>
+  <div class="ac-pill center" style="top:598px"><svg><use href="#i-bookmark"/></svg>Save this for your next component.</div>
+  <div class="ac-item ac-item--md is-open" style="position:absolute;left:87px;top:750px;width:546px;opacity:.35"><button class="ac-item__head" aria-expanded="true">Want more breakdowns like this?<span class="ac-chev"><svg><use href="#i-chev"/></svg></span></button><div class="ac-item__panel"><div><div class="ac-item__body" style="padding:2px 19px 40px">New UI engineering reel every week.</div></div></div></div>
+</section>
+
+<script type="module">
+  import { Accordion, Disclosure } from './pattern.js';
+  const loop = (scene, fn, ms) => scene.addEventListener('scene:enter', e => { clearInterval(scene._iv); if (e.detail.t > 0) return; scene._iv = setInterval(fn, ms); });
+  // Hook: both lists open and close the first item every 2s; the right one has every transition removed.
+  const glide = Accordion(document.getElementById('hookGlide')), snap = Accordion(document.getElementById('hookSnap'));
+  loop(document.getElementById('hookGlide').closest('.scene'), () => { glide.toggle(glide.items[0]); snap.toggle(snap.items[0]); }, 2000);
+  // Height trap: the grid-row panel breathes open and shut.
+  const trap = Accordion(document.getElementById('trapItem').parentElement);
+  loop(document.getElementById('trapItem').closest('.scene'), () => trap.toggle(trap.items[0]), 3000);
+  // Chevron: the lagging one gets its rotation 10 frames (~330ms) late.
+  const sync = Accordion(document.getElementById('syncItem').parentElement), lagChev = document.querySelector('#lagItem .ac-chev svg');
+  lagChev.style.transitionDelay = '330ms';
+  loop(document.getElementById('syncItem').closest('.scene'), () => { sync.toggle(sync.items[0]); sync.toggle(sync.items[1]); }, 2500);
+  // Accordion (single) vs disclosure (many).
+  const steps = Accordion(document.getElementById('steps')), faqs = Disclosure(document.getElementById('faqs'));
+  let s = 1; loop(document.getElementById('steps').closest('.scene'), () => { s = (s + 1) % 3; steps.toggle(steps.items[s]); }, 2200);
+  // Accessibility: real buttons, Tab / Enter / Space work.
+  Accordion(document.getElementById('a11yItem').parentElement); Accordion(document.getElementById('a11yItem2').parentElement);
+  // Anchored scroll: the right phone keeps the tapped header still, the left jumps.
+  Accordion(document.getElementById('noAnchor'), { anchor: false }); Accordion(document.getElementById('anchored'));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

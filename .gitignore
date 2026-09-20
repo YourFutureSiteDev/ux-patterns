@@ -9,3 +9,4 @@ source/md/
 source/*.err
 node_modules/
 tools/shots/
+site/

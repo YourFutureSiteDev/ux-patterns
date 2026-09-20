@@ -1,0 +1,81 @@
+/* Form Field States, rebuilt from the @designmotionhq reel "Six field states, one system."
+   Component classes are prefixed .ffs- and depend only on the tokens below. */
+.ffs {
+  --ffs-bg: #0b0c0f; --ffs-panel: #15171c; --ffs-border: #2a2e35; --ffs-text: #f3f5f7; --ffs-muted: #8b93a1; --ffs-muted-2: #b8bcc4;
+  --ffs-teal: #34e0b0; --ffs-red: #e6435c; --ffs-green: #3ddc6b; --ffs-pink: #e84a7f; --ffs-amber: #f2b13a;
+  --ffs-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--ffs-text);
+}
+
+/* ---- Field: label outside, box, helper below. data-state drives everything. ---- */
+.ffs-field { display: block; position: relative; }
+.ffs-label { display: block; font-size: 16px; font-weight: 600; color: var(--ffs-text); margin-bottom: 7px; }
+.ffs-box { position: relative; display: flex; align-items: center; height: 58px; padding: 0 20px; border-radius: 10px; background: var(--ffs-panel); border: 1.5px solid var(--ffs-border); transition: border-color .18s, box-shadow .18s, background .18s; }
+.ffs-input, .ffs-value { flex: 1; min-width: 0; background: none; border: 0; outline: 0; padding: 0; margin: 0; font: 400 19px/1 var(--ffs-mono); letter-spacing: .01em; color: var(--ffs-text); }
+.ffs-value { flex: 0 0 auto; }
+.ffs-caret { display: inline-block; width: 2px; height: 26px; margin-left: 3px; background: #fff; animation: ffs-blink 1s linear infinite; }
+@keyframes ffs-blink { 0%, 60% { opacity: 1; } 61%, 100% { opacity: 0; } }
+.ffs-icon { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; display: none; }
+.ffs-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ffs-help { display: flex; align-items: center; gap: 6px; margin-top: 9px; font-size: 15px; color: var(--ffs-muted); }
+.ffs-help svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.ffs-field[data-state="focus"] .ffs-box { border-color: var(--ffs-teal); border-width: 2px; box-shadow: 0 0 0 1px rgba(52,224,176,.35), 0 0 36px rgba(52,224,176,.5); }
+.ffs-field[data-state="error"] .ffs-box { border-color: var(--ffs-red); border-width: 2px; box-shadow: 0 0 0 1px rgba(230,67,92,.3), 0 0 36px rgba(230,67,92,.5); }
+.ffs-field[data-state="error"] .ffs-icon { display: block; color: var(--ffs-red); }
+.ffs-field[data-state="error"] .ffs-help { color: var(--ffs-red); }
+.ffs-field[data-state="success"] .ffs-box { border-color: var(--ffs-green); border-width: 2px; box-shadow: 0 0 0 1px rgba(61,220,107,.3), 0 0 36px rgba(61,220,107,.45); }
+.ffs-field[data-state="success"] .ffs-icon { display: block; color: var(--ffs-green); }
+.ffs-field[data-state="success"] .ffs-help { color: var(--ffs-green); }
+.ffs-field[data-state="disabled"] { opacity: .28; filter: grayscale(1); }
+.ffs-field[data-state="disabled"] .ffs-box { background: #1e2126; border-color: #32363d; cursor: not-allowed; }
+.ffs-field[data-state="disabled"] .ffs-input, .ffs-field[data-state="disabled"] .ffs-value { color: #9a9ea6; pointer-events: none; }
+.ffs-field[data-state="loading"] .ffs-box { border-color: #2c3a37; box-shadow: 0 0 30px rgba(52,224,176,.10); }
+.ffs-field[data-state="loading"] .ffs-input, .ffs-field[data-state="loading"] .ffs-value { color: var(--ffs-muted-2); pointer-events: none; }
+.ffs-field[data-state="loading"] .ffs-icon { display: block; color: #a9b3b0; }
+.ffs-field[data-state="loading"] .ffs-icon svg, .ffs-spin { animation: ffs-spin .9s linear infinite; }
+@keyframes ffs-spin { to { transform: rotate(360deg); } }
+
+/* ---- Reel chrome ------------------------------------------------------------- */
+.ffs-kicker--pink { color: var(--ffs-pink); background: rgba(232,74,127,.16); }
+.title em.pink, .ffs .pink { color: var(--ffs-pink); }
+.ffs-steps { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; height: 16px; white-space: nowrap; --ffs-step: #c9ced5; }
+.ffs-steps i { width: 5px; height: 5px; border-radius: 3px; background: #3a3e46; }
+.ffs-steps i.is-on { width: 22px; height: 8px; background: var(--ffs-step); box-shadow: 0 0 10px var(--ffs-step); }
+.ffs-steps b { margin-left: 8px; font-size: 14px; font-weight: 700; letter-spacing: .06em; color: var(--ffs-muted); }
+.ffs-steps__name { font-size: 14px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ffs-step); padding-left: 12px; margin-left: 4px; border-left: 1.5px solid #3a3e46; }
+.ffs-steps--accent { --ffs-step: var(--ffs-teal); } .ffs-steps--danger { --ffs-step: var(--ffs-red); } .ffs-steps--green { --ffs-step: var(--ffs-green); } .ffs-steps--grey { --ffs-step: #9aa0a8; }
+.ffs-title { position: absolute; top: 208px; left: 0; right: 0; margin: 0; text-align: center; font-size: 62px; font-weight: 800; letter-spacing: -.03em; line-height: 1.1; -webkit-background-clip: text; background-clip: text; color: transparent; }
+.ffs-title--white { background-image: linear-gradient(180deg, #ffffff, #b9bcc4); }
+.ffs-title--teal { background-image: linear-gradient(180deg, #b8ffe8, #34e0b0); }
+.ffs-title--red { background-image: linear-gradient(180deg, #ffb3bf, #e6435c); }
+.ffs-title--green { background-image: linear-gradient(180deg, #b6f7c8, #3ddc6b); }
+.ffs-sub { position: absolute; top: 288px; left: 40px; right: 40px; margin: 0; text-align: center; font-size: 22px; font-weight: 500; line-height: 1.35; color: var(--ffs-muted-2); }
+.ffs-contrast { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border-radius: 8px; background: #14201d; border: 1px solid rgba(52,224,176,.3); font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ffs-teal); }
+.ffs-contrast i { color: #4a5a55; font-style: normal; }
+.ffs-contrast b { font-size: 16px; letter-spacing: 0; text-transform: none; color: var(--ffs-teal); }
+
+/* ---- Rule / Avoid pills -------------------------------------------------------- */
+.ffs-pill { display: inline-flex; align-items: center; gap: 12px; height: 52px; padding: 0 22px 0 18px; border-radius: 999px; background: #17191e; font-size: 20px; font-weight: 700; white-space: nowrap; color: var(--ffs-text); box-shadow: 0 8px 30px rgba(0,0,0,.35); }
+.ffs-pill svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; color: #9aa0a8; }
+.ffs-pill b { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding: 5px 9px; border-radius: 6px; background: #2a2d34; color: #c9ced5; }
+.ffs-pill--teal svg, .ffs-pill--teal b { color: var(--ffs-teal); } .ffs-pill--teal b { background: rgba(52,224,176,.14); }
+.ffs-pill--red svg, .ffs-pill--red b { color: var(--ffs-red); } .ffs-pill--red b { background: rgba(230,67,92,.16); }
+.ffs-pill--green svg, .ffs-pill--green b { color: var(--ffs-green); } .ffs-pill--green b { background: rgba(61,220,107,.14); }
+.ffs-pill--avoid { background: #1f1c14; padding-left: 20px; }
+.ffs-pill--avoid b { background: rgba(242,177,58,.16); color: var(--ffs-amber); }
+
+/* ---- Outro ---------------------------------------------------------------------- */
+.ffs-eyebrow { font-size: 18px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--ffs-pink); white-space: nowrap; }
+.ffs-chips { display: flex; gap: 10px; white-space: nowrap; }
+.ffs-chip { display: inline-block; padding: 12px 18px; border-radius: 20px; font-size: 16px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.ffs-chip--default { background: #2a2c33; color: #b5b9c1; }
+.ffs-chip--focus { background: rgba(52,224,176,.16); color: var(--ffs-teal); }
+.ffs-chip--error { background: rgba(230,67,92,.18); color: var(--ffs-red); }
+.ffs-chip--success { background: rgba(61,220,107,.16); color: var(--ffs-green); }
+.ffs-chip--disabled { background: #232529; color: #6b7078; }
+.ffs-chip--loading { background: rgba(52,224,176,.14); color: var(--ffs-teal); }
+.ffs-cta { display: inline-flex; align-items: center; gap: 10px; height: 60px; padding: 0 30px; border-radius: 999px; background: var(--ffs-pink); color: #fff; font-size: 21px; font-weight: 700; white-space: nowrap; box-shadow: 0 0 50px rgba(232,74,127,.45); }
+.ffs-cta svg { width: 18px; height: 18px; fill: currentColor; }
+.ffs-follow { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #9aa0a8; white-space: nowrap; }
+.ffs-follow svg { width: 14px; height: 14px; fill: var(--ffs-pink); }

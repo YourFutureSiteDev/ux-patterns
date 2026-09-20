@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Doherty Threshold · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0b0a0f; --accent: #08b6d5; --danger: #ef4444; --grid: transparent; }
+  .scene { color: #f2f2f5; }
+  .hide { display: none !important; }
+  .frozen * { transition: none !important; }
+  .dt-page-glow { position: absolute; left: 40px; top: 460px; width: 640px; height: 640px; border-radius: 50%; background: radial-gradient(circle, rgba(8,120,150,.28), rgba(8,120,150,0) 62%); pointer-events: none; }
+</style>
+</head>
+<body class="dt">
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="dt-heart-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff6b5e"/><stop offset="1" stop-color="#d9261a"/></linearGradient>
+    <symbol id="i-heart" viewBox="0 0 60 56"><path d="M30 54.5L5.5 30.8C-1.2 24.2-1.4 13.6 5 6.9 11.3.3 21.8.4 28.1 7.1L30 9.1l1.9-2c6.3-6.7 16.8-6.8 23.1-.2 6.4 6.7 6.2 17.3-.5 23.9L30 54.5z" fill="url(#dt-heart-g)"/><ellipse cx="17" cy="15" rx="6" ry="4" fill="rgba(255,255,255,.35)" transform="rotate(-25 17 15)"/></symbol>
+  </defs>
+</svg>
+
+<!-- 1 · Hook: Submit -->
+<section class="scene s-hook" data-t="0" data-shot="0">
+  <div class="dt-glow dt-glow--green j-gg" style="top:590px;transform:scale(.8)"></div>
+  <div class="dt-glow dt-glow--yellow j-gy hide" style="top:640px"></div>
+  <div class="dt-glow dt-glow--red j-gr hide" style="top:520px"></div>
+  <button class="dt-submit j-submit" style="left:266px;top:555px">Submit</button>
+  <div class="dt-counter j-counter hide" style="top:635px"><b>0</b><small>ms</small></div>
+  <div class="dt-after j-after hide" style="top:590px">After this, your user <em>disconnects</em></div>
+  <div class="dt-thresh j-thresh hide" style="top:911px">Doherty threshold<div class="dt-thresh__bar"><i></i><i></i><i></i></div></div>
+</section>
+<!-- 1b · 117 ms (instant) -->
+<section class="scene s-hook" data-t="0" data-shot="1.5">
+  <div class="dt-glow dt-glow--green j-gg" style="top:590px;transform:scale(.8)"></div>
+  <div class="dt-glow dt-glow--yellow j-gy hide" style="top:640px"></div>
+  <div class="dt-glow dt-glow--red j-gr hide" style="top:520px"></div>
+  <button class="dt-submit j-submit" style="left:266px;top:555px">Submit</button>
+  <div class="dt-counter j-counter hide" style="top:635px"><b>0</b><small>ms</small></div>
+  <div class="dt-after j-after hide" style="top:590px">After this, your user <em>disconnects</em></div>
+  <div class="dt-thresh j-thresh hide" style="top:911px">Doherty threshold<div class="dt-thresh__bar"><i></i><i></i><i></i></div></div>
+</section>
+<!-- 1c · 357 ms (tolerable) -->
+<section class="scene s-hook" data-t="0" data-shot="3">
+  <div class="dt-glow dt-glow--green j-gg" style="top:590px;transform:scale(.8)"></div>
+  <div class="dt-glow dt-glow--yellow j-gy hide" style="top:640px"></div>
+  <div class="dt-glow dt-glow--red j-gr hide" style="top:520px"></div>
+  <button class="dt-submit j-submit" style="left:266px;top:555px">Submit</button>
+  <div class="dt-counter j-counter hide" style="top:635px"><b>0</b><small>ms</small></div>
+  <div class="dt-after j-after hide" style="top:590px">After this, your user <em>disconnects</em></div>
+  <div class="dt-thresh j-thresh hide" style="top:911px">Doherty threshold<div class="dt-thresh__bar"><i></i><i></i><i></i></div></div>
+</section>
+<!-- 1d · 400 ms (disconnect) -->
+<section class="scene s-hook" data-t="0" data-shot="6">
+  <div class="dt-glow dt-glow--green j-gg" style="top:590px;transform:scale(.8)"></div>
+  <div class="dt-glow dt-glow--yellow j-gy hide" style="top:640px"></div>
+  <div class="dt-glow dt-glow--red j-gr hide" style="top:520px"></div>
+  <button class="dt-submit j-submit" style="left:266px;top:555px">Submit</button>
+  <div class="dt-counter j-counter hide" style="top:635px"><b>0</b><small>ms</small></div>
+  <div class="dt-after j-after hide" style="top:590px">After this, your user <em>disconnects</em></div>
+  <div class="dt-thresh j-thresh hide" style="top:911px">Doherty threshold<div class="dt-thresh__bar"><i></i><i></i><i></i></div></div>
+</section>
+
+<!-- 2 · Skeleton loading -->
+<section class="scene s-skel" data-t="7.9" data-shot="9">
+  <div class="dt-page-glow"></div>
+  <div class="dt-kicker">Skeleton loading</div>
+  <div class="dt-card dt-card--without" style="left:45px;top:200px"><div class="dt-card__label">Without</div><div class="dt-dots"><i></i><i></i><i></i></div><div class="dt-ms"><span class="j-ms">0</span>ms</div></div>
+  <div class="dt-card dt-card--with" style="left:368px;top:200px"><div class="dt-card__label">With</div><div class="dt-skel"><i class="a"></i><i class="l1"></i><i class="l2"></i><i class="img"></i><i class="l3"></i><i class="l4"></i><i class="l5"></i></div><div class="dt-ms"><span class="j-ms">0</span>ms<span class="dt-feels">Feels ~200ms</span></div></div>
+</section>
+<section class="scene s-skel" data-t="7.9" data-shot="10.5">
+  <div class="dt-page-glow"></div>
+  <div class="dt-kicker">Skeleton loading</div>
+  <div class="dt-card dt-card--without" style="left:45px;top:200px"><div class="dt-card__label">Without</div><div class="dt-dots"><i></i><i></i><i></i></div><div class="dt-ms"><span class="j-ms">0</span>ms</div></div>
+  <div class="dt-card dt-card--with" style="left:368px;top:200px"><div class="dt-card__label">With</div><div class="dt-skel"><i class="a"></i><i class="l1"></i><i class="l2"></i><i class="img"></i><i class="l3"></i><i class="l4"></i><i class="l5"></i></div><div class="dt-ms"><span class="j-ms">0</span>ms<span class="dt-feels">Feels ~200ms</span></div></div>
+</section>
+
+<!-- 3 · Optimistic UI -->
+<section class="scene s-opt" data-t="12.6" data-shot="13.5">
+  <div class="dt-page-glow"></div>
+  <div class="dt-kicker">Optimistic UI</div>
+  <div class="dt-card dt-card--without" style="left:45px;top:200px"><div class="dt-card__label">Without</div><div class="dt-spinner j-spin"></div><svg class="dt-heart dt-heart--sm j-lheart hide" style="top:154px"><use href="#i-heart"/></svg><div class="dt-ms"><span class="j-ms">0</span>ms</div></div>
+  <div class="dt-card dt-card--with" style="left:368px;top:200px"><div class="dt-card__label">With</div><svg class="dt-heart j-rheart" style="top:139px"><use href="#i-heart"/></svg><div class="dt-resp j-resp" style="top:212px">Response: <b>0ms</b></div><div class="dt-confirm j-confirm hide" style="top:228px">✓ Server confirmed in background</div><div class="dt-ms">0ms</div></div>
+</section>
+<section class="scene s-opt" data-t="12.6" data-shot="15">
+  <div class="dt-page-glow"></div>
+  <div class="dt-kicker">Optimistic UI</div>
+  <div class="dt-card dt-card--without" style="left:45px;top:200px"><div class="dt-card__label">Without</div><div class="dt-spinner j-spin"></div><svg class="dt-heart dt-heart--sm j-lheart hide" style="top:154px"><use href="#i-heart"/></svg><div class="dt-ms"><span class="j-ms">0</span>ms</div></div>
+  <div class="dt-card dt-card--with" style="left:368px;top:200px"><div class="dt-card__label">With</div><svg class="dt-heart j-rheart" style="top:139px"><use href="#i-heart"/></svg><div class="dt-resp j-resp" style="top:212px">Response: <b>0ms</b></div><div class="dt-confirm j-confirm hide" style="top:228px">✓ Server confirmed in background</div><div class="dt-ms">0ms</div></div>
+</section>
+
+<!-- 4 · Progress feedback -->
+<section class="scene s-prog" data-t="17.3" data-shot="18">
+  <div class="dt-page-glow"></div>
+  <div class="dt-kicker">Progress feedback</div>
+  <div class="dt-card dt-card--without" style="left:45px;top:200px"><div class="dt-card__label">Without</div><div class="dt-spinner"></div><div class="dt-ms"><span class="j-ms">0</span>ms</div></div>
+  <div class="dt-card dt-card--with" style="left:368px;top:200px"><div class="dt-card__label">With</div>
+    <div class="dt-up j-up"><div class="dt-up__title">Uploading...</div><div class="dt-up__bar"><i></i></div><div class="dt-up__pct">0%</div><div class="dt-up__steps"><span>Upload</span><span>Process</span><span>Done</span></div></div>
+    <div class="dt-engaged">User stays engaged</div>
+  </div>
+</section>
+<section class="scene s-prog" data-t="17.3" data-shot="19.5">
+  <div class="dt-page-glow"></div>
+  <div class="dt-kicker">Progress feedback</div>
+  <div class="dt-card dt-card--without" style="left:45px;top:200px"><div class="dt-card__label">Without</div><div class="dt-spinner"></div><div class="dt-ms"><span class="j-ms">0</span>ms</div></div>
+  <div class="dt-card dt-card--with" style="left:368px;top:200px"><div class="dt-card__label">With</div>
+    <div class="dt-up j-up"><div class="dt-up__title">Uploading...</div><div class="dt-up__bar"><i></i></div><div class="dt-up__pct">0%</div><div class="dt-up__steps"><span>Upload</span><span>Process</span><span>Done</span></div></div>
+    <div class="dt-engaged">User stays engaged</div>
+  </div>
+</section>
+<section class="scene s-prog" data-t="17.3" data-shot="21">
+  <div class="dt-page-glow"></div>
+  <div class="dt-kicker">Progress feedback</div>
+  <div class="dt-card dt-card--without" style="left:45px;top:200px"><div class="dt-card__label">Without</div><div class="dt-spinner"></div><div class="dt-ms"><span class="j-ms">0</span>ms</div></div>
+  <div class="dt-card dt-card--with" style="left:368px;top:200px"><div class="dt-card__label">With</div>
+    <div class="dt-up j-up"><div class="dt-up__title">Uploading...</div><div class="dt-up__bar"><i></i></div><div class="dt-up__pct">0%</div><div class="dt-up__steps"><span>Upload</span><span>Process</span><span>Done</span></div></div>
+    <div class="dt-engaged">User stays engaged</div>
+  </div>
+</section>
+
+<!-- 5 · Split feed: blank vs skeleton, then loaded -->
+<section class="scene s-split" data-t="21.5" data-shot="22.5">
+  <div class="dt-page-glow" style="top:700px"></div>
+  <div class="dt-split">
+    <div class="dt-feed dt-feed--skel j-skel"><i class="a"></i><i class="l1"></i><i class="l2"></i><i class="img"></i><i class="l3"></i><i class="l4"></i><i class="l5"></i></div>
+    <div class="dt-feed dt-feed--live j-live"><i class="a"></i><i class="l1"></i><i class="l2"></i><i class="img"></i><i class="l3"></i><i class="l4"></i><i class="l5"></i></div>
+    <div class="dt-split__line"></div>
+    <div class="dt-split__chip dt-split__chip--without">Without</div>
+    <div class="dt-split__chip dt-split__chip--with">With</div>
+  </div>
+</section>
+<section class="scene s-split" data-t="21.5" data-shot="24">
+  <div class="dt-page-glow" style="top:700px"></div>
+  <div class="dt-split">
+    <div class="dt-feed dt-feed--skel j-skel"><i class="a"></i><i class="l1"></i><i class="l2"></i><i class="img"></i><i class="l3"></i><i class="l4"></i><i class="l5"></i></div>
+    <div class="dt-feed dt-feed--live j-live"><i class="a"></i><i class="l1"></i><i class="l2"></i><i class="img"></i><i class="l3"></i><i class="l4"></i><i class="l5"></i></div>
+    <div class="dt-split__line"></div>
+    <div class="dt-split__chip dt-split__chip--without">Without</div>
+    <div class="dt-split__chip dt-split__chip--with">With</div>
+  </div>
+</section>
+
+<!-- 6 · Outro -->
+<section class="scene" data-t="26" data-shot="28.5">
+  <div class="dt-glow dt-glow--teal" style="top:600px"></div>
+  <div class="dt-final"><b>&lt; 400</b><small>ms</small></div>
+  <div class="dt-final__sub">or the illusion of it.</div>
+  <div class="dt-tag" style="left:165px;top:1003px;transform:rotate(-1deg)">Skeleton</div>
+  <div class="dt-tag" style="left:316px;top:1004px;transform:rotate(2deg)">Optimistic</div>
+  <div class="dt-tag" style="left:471px;top:1000px;transform:rotate(-2deg)">Progress</div>
+  <div class="dt-handle">@designmotionhq</div>
+</section>
+
+<script>
+  (() => {
+    const $ = (s, q) => s.querySelector(q), $$ = (s, q) => [...s.querySelectorAll(q)];
+    const show = (el, on = true) => el.classList.toggle('hide', !on);
+    function timeline(sel, reset, steps, loop = 9) {
+      document.querySelectorAll(sel).forEach(s => {
+        const apply = t => { reset(s); steps.forEach(([at, fn]) => { if (t >= at) fn(s, t - at); }); };
+        s.addEventListener('scene:enter', e => {
+          cancelAnimationFrame(s._raf);
+          if (e.detail.t) { document.body.classList.add('frozen'); apply(e.detail.t - (Number(s.dataset.t) || 0)); return; }
+          const start = performance.now();
+          const tick = () => { apply(((performance.now() - start) / 1000) % loop); s._raf = requestAnimationFrame(tick); };
+          tick();
+        });
+      });
+    }
+    const zone = ms => ms < 200 ? 'instant' : ms < 400 ? 'tolerable' : 'disconnect';
+    timeline('.s-hook', s => { const b = $(s, '.j-submit'); show(b); b.classList.remove('is-pressed'); const c = $(s, '.j-counter'); show(c, false); c.className = 'dt-counter j-counter hide'; c.style.top = '635px'; show($(s, '.j-gg')); show($(s, '.j-gy'), false); show($(s, '.j-gr'), false); show($(s, '.j-after'), false); show($(s, '.j-thresh'), false); }, [
+      [0.6, s => $(s, '.j-submit').classList.add('is-pressed')],
+      [0.85, (s, dt) => { show($(s, '.j-submit'), false); const c = $(s, '.j-counter'); show(c); const ms = Math.min(400, Math.round((dt + 0.08) * 160)); $(c, 'b').textContent = ms; const z = zone(ms);
+        c.classList.toggle('is-warm', z === 'tolerable'); c.classList.toggle('is-hot', z === 'disconnect'); c.classList.toggle('is-big', ms >= 400); c.style.top = ms >= 400 ? '460px' : '635px';
+        show($(s, '.j-gg'), z === 'instant'); show($(s, '.j-gy'), z === 'tolerable'); show($(s, '.j-gr'), z === 'disconnect'); }],
+      [4.4, s => show($(s, '.j-after'))],
+      [5.4, s => show($(s, '.j-thresh'))],
+    ], 8);
+    timeline('.s-skel', s => $$(s, '.j-ms').forEach(e => e.textContent = 0), [
+      [0, (s, dt) => $$(s, '.j-ms').forEach(e => e.textContent = Math.round((dt - 0.033) * 300))],
+    ], 4);
+    timeline('.s-opt', s => { $(s, '.j-ms').textContent = 0; show($(s, '.j-spin')); show($(s, '.j-lheart'), false); $(s, '.j-rheart').style.top = '139px'; $(s, '.j-resp').style.top = '212px'; show($(s, '.j-confirm'), false); }, [
+      [0, (s, dt) => { const ms = Math.min(720, Math.round(dt * 300)); $(s, '.j-ms').textContent = ms; show($(s, '.j-spin'), ms < 720); show($(s, '.j-lheart'), ms >= 720); }],
+      [1.8, s => { $(s, '.j-rheart').style.top = '124px'; $(s, '.j-resp').style.top = '199px'; show($(s, '.j-confirm')); }],
+    ], 5);
+    timeline('.s-prog', s => { $(s, '.j-ms').textContent = 0; const u = $(s, '.j-up'); u.classList.remove('is-done'); $(u, '.dt-up__bar i').style.width = 0; $(u, '.dt-up__pct').textContent = '0%'; $(u, '.dt-up__title').textContent = 'Uploading...'; $$(u, '.dt-up__steps span').forEach(x => x.classList.remove('is-on')); }, [
+      [0, (s, dt) => { const ms = Math.min(2000, Math.round(dt * 750 + 25)); $(s, '.j-ms').textContent = ms; const p = Math.min(100, Math.round(dt * 35 + 12.5)); const u = $(s, '.j-up');
+        $(u, '.dt-up__bar i').style.width = p + '%'; $(u, '.dt-up__pct').textContent = p + '%'; u.classList.toggle('is-done', p >= 100); $(u, '.dt-up__title').textContent = p >= 100 ? 'Complete!' : 'Uploading...';
+        const st = $$(u, '.dt-up__steps span'); st[0].classList.add('is-on'); st[1].classList.toggle('is-on', p >= 50); st[2].classList.toggle('is-on', p >= 100); }],
+    ], 5);
+    timeline('.s-split', s => { $(s, '.j-live').classList.remove('is-on'); show($(s, '.j-skel')); }, [
+      [2.0, s => { $(s, '.j-live').classList.add('is-on'); show($(s, '.j-skel'), false); }],
+    ], 5);
+  })();
+</script>
+<script type="module">
+  import { ResponseTimer } from './pattern.js';
+  // Live: clicking Submit on the hook times a real (simulated) request with the same counter.
+  document.querySelectorAll('.s-hook').forEach(s => { const t = ResponseTimer(s.querySelector('.j-counter')); s.querySelector('.j-submit').addEventListener('click', () => { cancelAnimationFrame(s._raf); s.querySelector('.j-counter').classList.remove('hide'); t.start(); }); });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

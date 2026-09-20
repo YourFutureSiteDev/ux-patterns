@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Scroll-Driven Animations · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a090b; --accent: #2ee6b4; --danger: #f04a72; --grid: transparent; }
+  .scene { color: #f2f3f5; }
+  /* scene 4-5 choreography: the element travels up through the viewport bands (6 s loop) */
+  .sd-el--travel { animation: sd-travel 6s linear infinite; }
+  .sd-vp__band--bottom.is-anim { animation: sd-band-bottom 6s linear infinite; }
+  .sd-vp__band--mid.is-anim { animation: sd-band-mid 6s linear infinite; }
+  .sd-vp__band--top.is-anim { animation: sd-band-top 6s linear infinite; }
+  @keyframes sd-travel { 0% { transform: translateY(300px) } 25% { transform: translateY(140px) } 50% { transform: translateY(-5px) } 58% { transform: translateY(-70px) } 58.01% { transform: translateY(300px) } 100% { transform: translateY(300px) } }
+  @keyframes sd-band-bottom { 0% { opacity: 1 } 12% { opacity: 0 } 100% { opacity: 0 } }
+  @keyframes sd-band-mid { 0%, 12% { opacity: 0 } 20%, 32% { opacity: 1 } 42%, 100% { opacity: 0 } }
+  @keyframes sd-band-top { 0%, 42% { opacity: 0 } 48%, 56% { opacity: 1 } 60%, 100% { opacity: 0 } }
+  .sd-strike--js { width: 283px; left: 70px; top: 662px; transform: rotate(-7.7deg); animation: sd-grow .4s ease-out 1s both; }
+  .sd-late { animation: sd-fade .4s ease-out 1.4s both; }
+</style>
+</head>
+<body class="sd">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 16l-5-5-9 10"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-follow" viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M2 21a8 8 0 0 1 14-4M19 8v6M16 11h6"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M10 8v8M14 8v8"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 7v10M8 13l4 4 4-4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+</svg>
+
+<!-- 1 · Hook: same scroll, static vs animated -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:-60px;top:560px;background:rgba(240,74,114,.09)"></div>
+  <div class="glow" style="left:260px;top:600px;background:rgba(46,230,180,.09)"></div>
+  <div class="sd-h1" style="top:128px">Same scroll. <em>One feels alive.</em></div>
+  <div class="sd-browser sd-browser--static" style="position:absolute;left:55px;top:213px">
+    <div class="sd-browser__bar"><i></i><i></i><i></i><span></span></div>
+    <div class="sd-browser__view sd-scroller" data-scroll="0:0,3:140">
+      <div class="sd-feed">
+        <div class="sd-card sd-card--pink sd-card--hero"><i></i><i></i><i></i></div>
+        <div class="sd-card sd-card--teal"><i></i><i></i></div>
+        <div class="sd-card sd-card--yellow"><i></i><i></i></div>
+        <div class="sd-card sd-card--pink"><i></i><i></i></div>
+        <div class="sd-card sd-card--teal"><i></i><i></i></div>
+        <div class="sd-card sd-card--gray sd-card--hero"><i></i><i></i><i></i></div>
+        <div class="sd-card sd-card--teal"><i></i><i></i></div>
+        <div class="sd-card sd-card--yellow"><i></i><i></i></div>
+      </div>
+    </div>
+    <div class="sd-browser__thumb"></div>
+    <span class="sd-badge sd-badge--static">Static</span>
+  </div>
+  <div class="sd-vs" style="left:346px;top:413px">vs</div>
+  <div class="sd-browser sd-browser--live" style="position:absolute;left:375px;top:213px">
+    <div class="sd-browser__bar"><i></i><i></i><i></i><span></span></div>
+    <div class="sd-browser__view sd-scroller" data-scroll="0:0,3:140">
+      <div class="sd-feed">
+        <div class="sd-card sd-card--pink sd-card--hero"><i></i><i></i><i></i></div>
+        <div class="sd-card sd-card--teal"><i></i><i></i></div>
+        <div class="sd-card sd-card--yellow"><i></i><i></i></div>
+        <div class="sd-card sd-card--pink"><i></i><i></i></div>
+        <div class="sd-card sd-card--teal"><i></i><i></i></div>
+        <div class="sd-card sd-card--gray sd-card--hero"><i></i><i></i><i></i></div>
+        <div class="sd-card sd-card--teal"><i></i><i></i></div>
+        <div class="sd-card sd-card--yellow"><i></i><i></i></div>
+      </div>
+    </div>
+    <div class="sd-browser__thumb"></div>
+    <span class="sd-badge sd-badge--live">Animated</span>
+  </div>
+</section>
+
+<!-- 2 · scroll-timeline: the scrollbar drives the progress line -->
+<section class="scene" data-t="3" data-shot="3">
+  <div class="glow" style="left:120px;top:150px;background:rgba(46,230,180,.10)"></div>
+  <div class="glow" style="left:-40px;top:680px;background:rgba(240,74,114,.10)"></div>
+  <div class="sd-label" style="top:121px">Scroll-timeline</div>
+  <div class="sd-browser sd-browser--tl" style="position:absolute;left:174px;top:167px">
+    <div class="sd-browser__bar"><i></i><i></i><i></i><span></span></div>
+    <div class="sd-browser__progress"></div>
+    <div class="sd-browser__view sd-scroller" data-scroll="0:24,3:164">
+      <div class="sd-feed">
+        <div class="sd-card sd-card--pink sd-card--hero"><i></i><i></i><i></i></div>
+        <div class="sd-card sd-card--teal"><i></i><i></i></div>
+        <div class="sd-card sd-card--yellow"><i></i><i></i></div>
+        <div class="sd-card sd-card--pink"><i></i><i></i></div>
+        <div class="sd-card sd-card--gray"><i></i><i></i></div>
+      </div>
+    </div>
+    <div class="sd-browser__thumb"></div>
+  </div>
+</section>
+
+<!-- 3 · JavaScript vs CSS: 2 lines of CSS -->
+<section class="scene" data-t="6" data-shot="9">
+  <div class="glow" style="left:100px;top:60px;background:rgba(46,230,180,.08)"></div>
+  <div class="glow" style="left:-60px;top:700px;background:rgba(240,74,114,.08)"></div>
+  <div class="sd-label" style="top:121px">Scroll-timeline</div>
+  <div class="sd-browser sd-browser--tl" style="position:absolute;left:215px;top:148px;transform:scale(.78);transform-origin:0 0">
+    <div class="sd-browser__bar"><i></i><i></i><i></i><span></span></div>
+    <div class="sd-browser__progress"></div>
+    <div class="sd-browser__view sd-scroller" data-scroll="0:164" data-loop="no">
+      <div class="sd-feed">
+        <div class="sd-card sd-card--pink sd-card--hero"><i></i><i></i><i></i></div>
+        <div class="sd-card sd-card--teal"><i></i><i></i></div>
+        <div class="sd-card sd-card--yellow"><i></i><i></i></div>
+        <div class="sd-card sd-card--pink"><i></i><i></i></div>
+        <div class="sd-card sd-card--gray"><i></i><i></i></div>
+      </div>
+    </div>
+    <div class="sd-browser__thumb"></div>
+  </div>
+  <div class="sd-label" style="top:490px;left:70px;right:auto;width:280px;font-size:15px;letter-spacing:.12em;color:var(--sd-pink)">JavaScript</div>
+  <div class="sd-label" style="top:490px;left:370px;right:auto;width:280px;font-size:15px;letter-spacing:.12em">CSS</div>
+  <div class="sd-code sd-code--dead" style="left:70px;top:515px;width:280px;height:257px"><span class="ln">window</span>
+<span class="ln">.addEventListener(</span>
+<span class="ln s">"scroll"</span>
+<span class="ln">() =&gt; {</span>
+<span class="ln">const rect =</span>
+<span class="ln k">el.getBounding</span>
+<span class="ln k">ClientRect();</span>
+<span class="ln c">// 15 more lines...</span>
+<span class="ln">}</span>
+<span class="ln">);</span></div>
+  <div class="sd-strike sd-strike--js"></div>
+  <div class="sd-code sd-code--ok" style="left:370px;top:515px;width:280px;height:168px"><span class="w">.element</span>
+<span class="k">animation:</span>
+fade-in;
+<span class="k">animation-timeline:</span>
+<span class="hl s">scroll();</span>}</div>
+  <div class="sd-stat sd-late" style="top:1034px"><b>2</b><span>lines of CSS</span></div>
+</section>
+
+<!-- 4 · animation-range: the element crosses entry 0% to entry 100% -->
+<section class="scene" data-t="10.5" data-shot="12">
+  <div class="glow" style="left:100px;top:300px;background:rgba(240,74,114,.08)"></div>
+  <div class="glow" style="left:-60px;top:720px;background:rgba(46,230,180,.07)"></div>
+  <div class="sd-pill sd-pill--pink" style="top:96px;font-size:18px">Animation-range</div>
+  <div class="sd-vp__label" style="left:134px;top:372px">Viewport</div>
+  <div class="sd-vp" style="left:134px;top:400px">
+    <div class="sd-vp__band sd-vp__band--top is-anim"></div>
+    <div class="sd-vp__band sd-vp__band--mid is-anim"></div>
+    <div class="sd-vp__band sd-vp__band--bottom is-anim"></div>
+    <div class="sd-vp__line sd-vp__line--exit"></div>
+    <div class="sd-vp__line sd-vp__line--entry"></div>
+    <div class="sd-el sd-el--travel" style="top:0"><i></i><i></i></div>
+  </div>
+  <div class="sd-vp__mark sd-vp__mark--exit" style="left:645px;top:425px"><svg><use href="#i-pause"/></svg>exit</div>
+  <div class="sd-vp__mark sd-vp__mark--entry" style="left:593px;top:564px"><svg><use href="#i-play"/></svg>entry 100%</div>
+  <div class="sd-vp__mark sd-vp__mark--start" style="left:610px;top:720px"><svg><use href="#i-down"/></svg>entry 0%</div>
+</section>
+
+<!-- 4b · animation-range: element at the top, the rule spelled out -->
+<section class="scene" data-t="12.5" data-shot="13.5">
+  <div class="glow" style="left:100px;top:300px;background:rgba(240,74,114,.08)"></div>
+  <div class="glow" style="left:-60px;top:720px;background:rgba(46,230,180,.07)"></div>
+  <div class="sd-pill sd-pill--pink" style="top:96px;font-size:18px">Animation-range</div>
+  <div class="sd-vp__label" style="left:134px;top:372px">Viewport</div>
+  <div class="sd-vp" style="left:134px;top:400px">
+    <div class="sd-vp__band sd-vp__band--top"></div>
+    <div class="sd-vp__line sd-vp__line--exit"></div>
+    <div class="sd-vp__line sd-vp__line--entry"></div>
+    <div class="sd-el" style="top:-5px"><i></i><i></i></div>
+  </div>
+  <div class="sd-vp__mark sd-vp__mark--exit" style="left:645px;top:425px"><svg><use href="#i-pause"/></svg>exit</div>
+  <div class="sd-vp__mark sd-vp__mark--entry" style="left:593px;top:564px"><svg><use href="#i-play"/></svg>entry 100%</div>
+  <div class="sd-vp__mark sd-vp__mark--start" style="left:610px;top:720px"><svg><use href="#i-down"/></svg>entry 0%</div>
+  <div class="sd-codebar sd-fade" style="left:53px;top:1017px;width:614px"><span class="s" style="color:var(--sd-pink)">animation-range:</span> entry <span style="color:var(--sd-teal)">0%</span> entry <span style="color:var(--sd-teal)">100%;</span></div>
+</section>
+
+<!-- 5 · view(): each element animates on scroll into view -->
+<section class="scene" data-t="16.5" data-shot="18">
+  <div class="glow" style="left:100px;top:100px;background:rgba(46,230,180,.08)"></div>
+  <div class="glow" style="left:60px;top:760px;background:rgba(240,74,114,.06)"></div>
+  <div class="sd-pill sd-pill--teal" style="top:90px;font-size:18px">View( )</div>
+  <div class="sd-list" style="left:97px;top:322px">
+    <div class="sd-list__view sd-scroller" data-scroll="0:10,1.5:108,4.5:268">
+      <div class="sd-list__feed">
+        <div class="sd-item sd-item--short">
+          <div class="sd-item__icon sd-item__icon--pink"><svg><use href="#i-follow"/></svg></div>
+          <div class="sd-item__body" style="top:16px"><div class="sd-item__title">Alex Morgan <span class="sd-chip sd-chip--pink">PRO</span></div><div class="sd-item__sub">Product Designer at Figma</div><div class="sd-item__pills"><i></i><i></i><i></i></div></div>
+        </div>
+        <div class="sd-item">
+          <div class="sd-item__icon sd-item__icon--teal"><svg><use href="#i-chart"/></svg></div>
+          <div class="sd-item__body"><div class="sd-item__title">Weekly Stats</div><div class="sd-item__sub">Engagement overview</div>
+            <div class="sd-item__stats"><div><b>12.4k</b><span>Views</span></div><div><b>891</b><span>Likes</span></div><div><b>234</b><span>Saves</span></div></div></div>
+        </div>
+        <div class="sd-item">
+          <div class="sd-item__icon sd-item__icon--yellow"><svg><use href="#i-image"/></svg></div>
+          <div class="sd-item__body"><div class="sd-item__title">Hero Section</div><div class="sd-item__sub">Landing page cover image</div><div class="sd-item__bar"></div></div>
+        </div>
+        <div class="sd-item">
+          <div class="sd-item__icon sd-item__icon--teal"><svg><use href="#i-bolt"/></svg></div>
+          <div class="sd-item__body"><div class="sd-item__title">Auto-Animate <span class="sd-chip sd-chip--teal">NEW</span></div><div class="sd-item__sub">Scroll-triggered transitions</div>
+            <div class="sd-item__segs"><i style="width:36px"></i><i style="width:60px"></i><i style="width:30px"></i><i style="width:48px"></i></div></div>
+        </div>
+        <div class="sd-item">
+          <div class="sd-item__icon sd-item__icon--pink"><svg><use href="#i-arrow"/></svg></div>
+          <div class="sd-item__body"><div class="sd-item__title">Get Started</div><div class="sd-item__sub">Try scroll-driven animations</div><span class="sd-btn">Start Building</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="sd-list__thumb"></div>
+  </div>
+  <div class="sd-cap" style="top:1036px">Each element animates <em>on scroll into view</em></div>
+</section>
+
+<!-- 6 · Parallax landing: JavaScript vs CSS only -->
+<section class="scene" data-t="22.5" data-shot="22.5">
+  <div class="glow" style="left:100px;top:700px;background:rgba(46,230,180,.06)"></div>
+  <div class="sd-site" style="left:55px;top:121px">
+    <div class="sd-site__bar"><i></i><i></i><i></i><span>parallax-landing.dev</span></div>
+    <div class="sd-site__view sd-scroller" data-scroll="0:0,3:44,4.5:66">
+      <div class="sd-site__page">
+        <div class="sd-layer sd-stars" style="--offset:150px"><i style="left:78px;top:35px"></i><i style="left:198px;top:39px"></i><i style="left:105px;top:137px"></i><i style="left:452px;top:97px"></i><i style="left:532px;top:115px"></i><i style="left:498px;top:175px"></i><i style="left:290px;top:137px"></i><i style="left:600px;top:223px"></i></div>
+        <div class="sd-layer" style="--offset:60px">
+          <div class="sd-tiles"><div class="sd-tile" style="--c:var(--sd-pink)"><i></i><i></i></div><div class="sd-tile" style="--c:var(--sd-teal)"><i></i><i></i></div><div class="sd-tile" style="--c:var(--sd-yellow)"><i></i><i></i></div></div>
+        </div>
+        <div class="sd-layer" style="--offset:110px">
+          <svg class="sd-mtn" viewBox="0 0 610 250"><path d="M0 200 L95 60 L200 140 L305 30 L400 125 L505 30 L610 120 L610 250 L0 250Z" fill="rgba(240,74,114,.26)"/><path d="M0 250 L0 215 L185 130 L300 190 L420 130 L610 230 L610 250Z" fill="rgba(58,64,80,.7)"/></svg>
+        </div>
+        <div class="sd-hero"><h2>Premium Landing Page</h2><p>Scroll-driven parallax with zero JavaScript</p><a>Get Started</a></div>
+      </div>
+    </div>
+    <div class="sd-site__thumb"></div>
+  </div>
+  <div class="sd-code sd-code--site sd-code--js" style="left:67px;top:517px"><span class="sd-code__title s">JavaScript</span><span class="ln">window.addEventListener(</span>
+<span class="ln">  "scroll", () =&gt; {</span>
+<span class="ln">    const speed = 0.5;</span>
+<span class="ln">    const y = window.scrollY;</span>
+<span class="ln">    el.style.transform =</span>
+<span class="ln">      `translateY(${y *</span>
+<span class="ln">      speed}px)`;</span>
+<span class="ln">});</span></div>
+  <div class="sd-code sd-code--site sd-code--css" style="left:369px;top:517px"><span class="sd-code__title k">CSS only</span>animation-timeline: scroll();
+animation-range: 0% 100%;
+translate: 0 var(--offset);</div>
+</section>
+
+<!-- 6b · Parallax landing, verdict -->
+<section class="scene" data-t="25.5" data-shot="25.5">
+  <div class="glow" style="left:100px;top:700px;background:rgba(46,230,180,.06)"></div>
+  <div class="sd-site" style="left:55px;top:121px">
+    <div class="sd-site__bar"><i></i><i></i><i></i><span>parallax-landing.dev</span></div>
+    <div class="sd-site__view sd-scroller" data-scroll="0:44,1.5:66,3:90" data-loop="no">
+      <div class="sd-site__page">
+        <div class="sd-layer sd-stars" style="--offset:150px"><i style="left:78px;top:35px"></i><i style="left:198px;top:39px"></i><i style="left:105px;top:137px"></i><i style="left:452px;top:97px"></i><i style="left:532px;top:115px"></i><i style="left:498px;top:175px"></i><i style="left:290px;top:137px"></i><i style="left:600px;top:223px"></i></div>
+        <div class="sd-layer" style="--offset:60px">
+          <div class="sd-tiles"><div class="sd-tile" style="--c:var(--sd-pink)"><i></i><i></i></div><div class="sd-tile" style="--c:var(--sd-teal)"><i></i><i></i></div><div class="sd-tile" style="--c:var(--sd-yellow)"><i></i><i></i></div></div>
+        </div>
+        <div class="sd-layer" style="--offset:110px">
+          <svg class="sd-mtn" viewBox="0 0 610 250"><path d="M0 200 L95 60 L200 140 L305 30 L400 125 L505 30 L610 120 L610 250 L0 250Z" fill="rgba(240,74,114,.26)"/><path d="M0 250 L0 215 L185 130 L300 190 L420 130 L610 230 L610 250Z" fill="rgba(58,64,80,.7)"/></svg>
+        </div>
+        <div class="sd-hero"><h2>Premium Landing Page</h2><p>Scroll-driven parallax with zero JavaScript</p><a>Get Started</a></div>
+      </div>
+    </div>
+    <div class="sd-site__thumb" style="top:200px"></div>
+  </div>
+  <div class="sd-code sd-code--site sd-code--js sd-code--bad sd-code--dead" style="left:67px;top:517px"><span class="sd-code__title s">JavaScript</span><span class="sd-code__mark" style="color:var(--sd-pink)"><svg><use href="#i-x"/></svg></span><span class="ln">window.addEventListener(</span>
+<span class="ln">  "scroll", () =&gt; {</span>
+<span class="ln">    const speed = 0.5;</span>
+<span class="ln">    const y = window.scrollY;</span>
+<span class="ln">    el.style.transform =</span>
+<span class="ln">      `translateY(${y *</span>
+<span class="ln">      speed}px)`;</span>
+<span class="ln">});</span></div>
+  <div class="sd-code sd-code--site sd-code--css sd-code--ok" style="left:369px;top:517px"><span class="sd-code__title k">CSS only</span><span class="sd-code__mark" style="color:var(--sd-teal)"><svg><use href="#i-check"/></svg></span>animation-timeline: scroll();
+animation-range: 0% 100%;
+translate: 0 var(--offset);</div>
+</section>
+
+<!-- 7 · Combine everything: sticky nav, reading progress, section rail -->
+<section class="scene" data-t="30" data-shot="30">
+  <div class="glow" style="left:100px;top:760px;background:rgba(240,74,114,.08)"></div>
+  <div class="sd-pill sd-pill--teal" style="top:96px;font-size:15px;letter-spacing:.16em;padding:8px 24px">Combine everything</div>
+  <div class="sd-app" style="left:100px;top:150px" id="app1">
+    <div class="sd-app__nav"><b>Scroll</b>App<div class="sd-app__links"><span>Docs</span><span>API</span><span>Blog</span><svg><use href="#i-search"/></svg><svg><use href="#i-bell"/></svg><svg><use href="#i-menu"/></svg></div></div>
+    <div class="sd-app__progress"></div>
+    <div class="sd-app__view sd-scroller" data-scroll="0:85,3:566">
+      <div class="sd-doc">
+        <section class="sd-sec sd-sec--pink" data-label="Introduction"><div class="sd-sec__h"><span class="sd-sec__n">1</span>Introduction</div><div class="sd-sec__p"><i></i><i></i><i></i><i></i></div><div class="sd-sec__fig"></div><div class="sd-sec__p sd-sec__p--3"><i></i><i></i><i></i></div></section>
+        <section class="sd-sec sd-sec--teal" data-label="Core Concepts"><div class="sd-sec__h"><span class="sd-sec__n">2</span>Core Concepts</div><div class="sd-sec__p"><i></i><i></i><i></i><i></i></div><div class="sd-sec__fig"></div><div class="sd-sec__p sd-sec__p--3"><i></i><i></i><i></i></div></section>
+        <section class="sd-sec sd-sec--yellow" data-label="Examples"><div class="sd-sec__h"><span class="sd-sec__n">3</span>Examples</div><div class="sd-sec__p"><i></i><i></i><i></i><i></i></div><div class="sd-sec__fig"></div><div class="sd-sec__p sd-sec__p--3"><i></i><i></i><i></i></div></section>
+        <section class="sd-sec sd-sec--pink" data-label="Advanced"><div class="sd-sec__h"><span class="sd-sec__n">4</span>Advanced</div><div class="sd-sec__p"><i></i><i></i><i></i><i></i></div><div class="sd-sec__fig"></div><div class="sd-sec__p sd-sec__p--3"><i></i><i></i><i></i></div></section>
+      </div>
+    </div>
+    <div class="sd-rail"><div class="sd-rail__dot" style="--c:var(--sd-pink)"><span>Introduction</span></div><div class="sd-rail__dot" style="--c:var(--sd-teal)"><span>Core Concepts</span></div><div class="sd-rail__dot" style="--c:var(--sd-yellow)"><span>Examples</span></div><div class="sd-rail__dot" style="--c:var(--sd-pink)"><span>Advanced</span></div></div>
+  </div>
+</section>
+
+<!-- 7b · Combine everything, further down -->
+<section class="scene" data-t="33" data-shot="33">
+  <div class="glow" style="left:100px;top:760px;background:rgba(240,74,114,.08)"></div>
+  <div class="sd-pill sd-pill--teal" style="top:96px;font-size:15px;letter-spacing:.16em;padding:8px 24px">Combine everything</div>
+  <div class="sd-app" style="left:100px;top:150px" id="app2">
+    <div class="sd-app__nav"><b>Scroll</b>App<div class="sd-app__links"><span>Docs</span><span>API</span><span>Blog</span><svg><use href="#i-search"/></svg><svg><use href="#i-bell"/></svg><svg><use href="#i-menu"/></svg></div></div>
+    <div class="sd-app__progress"></div>
+    <div class="sd-app__view sd-scroller" data-scroll="0:566,3:870" data-loop="no">
+      <div class="sd-doc">
+        <section class="sd-sec sd-sec--pink" data-label="Introduction"><div class="sd-sec__h"><span class="sd-sec__n">1</span>Introduction</div><div class="sd-sec__p"><i></i><i></i><i></i><i></i></div><div class="sd-sec__fig"></div><div class="sd-sec__p sd-sec__p--3"><i></i><i></i><i></i></div></section>
+        <section class="sd-sec sd-sec--teal" data-label="Core Concepts"><div class="sd-sec__h"><span class="sd-sec__n">2</span>Core Concepts</div><div class="sd-sec__p"><i></i><i></i><i></i><i></i></div><div class="sd-sec__fig"></div><div class="sd-sec__p sd-sec__p--3"><i></i><i></i><i></i></div></section>
+        <section class="sd-sec sd-sec--yellow" data-label="Examples"><div class="sd-sec__h"><span class="sd-sec__n">3</span>Examples</div><div class="sd-sec__p"><i></i><i></i><i></i><i></i></div><div class="sd-sec__fig"></div><div class="sd-sec__p sd-sec__p--3"><i></i><i></i><i></i></div></section>
+        <section class="sd-sec sd-sec--pink" data-label="Advanced"><div class="sd-sec__h"><span class="sd-sec__n">4</span>Advanced</div><div class="sd-sec__p"><i></i><i></i><i></i><i></i></div><div class="sd-sec__fig"></div><div class="sd-sec__p sd-sec__p--3"><i></i><i></i><i></i></div></section>
+      </div>
+    </div>
+    <div class="sd-rail"><div class="sd-rail__dot" style="--c:var(--sd-pink)"><span>Introduction</span></div><div class="sd-rail__dot" style="--c:var(--sd-teal)"><span>Core Concepts</span></div><div class="sd-rail__dot" style="--c:var(--sd-yellow)"><span>Examples</span></div><div class="sd-rail__dot" style="--c:var(--sd-pink)"><span>Advanced</span></div></div>
+  </div>
+</section>
+
+<!-- 8 · Outro -->
+<section class="scene" data-t="36" data-shot="37.5">
+  <div class="glow" style="left:60px;top:260px;width:600px;height:600px;background:rgba(240,74,114,.12)"></div>
+  <div class="sd-outro__title sd-grad sd-fade" style="top:463px">CSS &gt; JavaScript</div>
+  <div class="sd-outro__follow sd-fade" style="top:563px;animation-delay:.5s">Follow <b>@designmotionhq</b></div>
+  <div class="sd-cta sd-fade" style="top:621px;animation-delay:.8s"><svg><use href="#i-follow"/></svg>Follow</div>
+  <div class="sd-save sd-fade" style="top:710px;animation-delay:1s"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+
+<script type="module">
+  import { mountScrollScenes, SectionRail } from './pattern.js';
+  mountScrollScenes(document);
+  for (const app of document.querySelectorAll('.sd-app')) SectionRail(app.querySelector('.sd-app__view'), [...app.querySelectorAll('.sd-sec')], app.querySelector('.sd-rail'));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

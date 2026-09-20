@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Form Field States · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0b0c0f; --accent: #34e0b0; --danger: #e6435c; --grid: transparent; }
+  .scene { color: #f3f5f7; }
+</style>
+</head>
+<body class="ffs">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.2h.01"/></symbol>
+  <symbol id="i-check-c" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.2l2.8 2.8L16.5 9.3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-spin" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-4.2-7.6"/></symbol>
+  <symbol id="i-type" viewBox="0 0 24 24"><path d="M5 5h14M12 5v14M9 19h6"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.5L6 21z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8 3.4 4.5 7 4.5c2 0 3.4 1 5 2.8 1.6-1.8 3-2.8 5-2.8 3.6 0 6 3.5 4.5 7.3C19.5 16.4 12 21 12 21z"/></symbol>
+</svg>
+
+<!-- 1 · Hook: six states, most apps ship two -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:60px;top:230px;width:600px;height:720px;background:rgba(232,74,127,.2)"></div>
+  <div class="kicker ffs-kicker--pink" style="top:148px;font-size:17px;letter-spacing:.14em;padding:12px 26px">6 form states</div>
+
+  <div class="ffs-field" data-state="default" style="position:absolute;left:45px;top:397px;width:290px">
+    <div class="ffs-label">Email</div>
+    <div class="ffs-box"><span class="ffs-value">you@example.com</span></div>
+  </div>
+  <div class="ffs-field" data-state="focus" style="position:absolute;left:385px;top:397px;width:290px">
+    <div class="ffs-label">Email</div>
+    <div class="ffs-box"><span class="ffs-value">you@</span><i class="ffs-caret"></i></div>
+  </div>
+
+  <div class="ffs-field" data-state="error" style="position:absolute;left:45px;top:569px;width:290px">
+    <div class="ffs-label">Email</div>
+    <div class="ffs-box"><span class="ffs-value">you@example</span><span class="ffs-icon"><svg><use href="#i-alert"/></svg></span></div>
+    <div class="ffs-help"><svg><use href="#i-alert"/></svg>Invalid email format</div>
+  </div>
+  <div class="ffs-field" data-state="success" style="position:absolute;left:385px;top:569px;width:290px">
+    <div class="ffs-label">Email</div>
+    <div class="ffs-box"><span class="ffs-value">you@example.com</span><span class="ffs-icon"><svg><use href="#i-check-c"/></svg></span></div>
+    <div class="ffs-help"><svg><use href="#i-check-c"/></svg>Looks good</div>
+  </div>
+
+  <div class="ffs-field" data-state="disabled" style="position:absolute;left:45px;top:741px;width:290px">
+    <div class="ffs-label">Email</div>
+    <div class="ffs-box"><span class="ffs-value">frozen@locked.dev</span></div>
+  </div>
+  <div class="ffs-field" data-state="loading" style="position:absolute;left:385px;top:741px;width:290px">
+    <div class="ffs-label">Email</div>
+    <div class="ffs-box"><span class="ffs-value">you@example.com</span><span class="ffs-icon"><svg><use href="#i-spin"/></svg></span></div>
+  </div>
+
+  <div class="title" style="top:1020px;font-size:40px">Most apps ship <em class="pink">two.</em></div>
+</section>
+
+<!-- 2 · 01/06 Default: At rest -->
+<section class="scene" data-t="3" data-shot="6">
+  <div class="ffs-steps" style="top:148px"><i class="is-on"></i><i></i><i></i><i></i><i></i><i></i><b>01 / 06</b><span class="ffs-steps__name">Default</span></div>
+  <h1 class="ffs-title ffs-title--white">At rest</h1>
+  <p class="ffs-sub">Anatomy of a field nobody is touching</p>
+  <div class="ffs-field" id="liveField" data-state="default" style="position:absolute;left:73px;top:467px;width:573px">
+    <label class="ffs-label" for="liveInput">Email</label>
+    <div class="ffs-box"><input class="ffs-input" id="liveInput" type="email" autocomplete="off" spellcheck="false"><span class="ffs-icon"></span></div>
+    <div class="ffs-help">We’ll never share your email</div>
+  </div>
+  <div class="ffs-pill ffs-pill--rule center" style="top:808px"><svg><use href="#i-type"/></svg><b>Rule</b>Label outside, helper below</div>
+  <div class="ffs-pill ffs-pill--avoid center" style="top:869px"><b>Avoid</b>Placeholder-as-label vanishes when typing</div>
+</section>
+
+<!-- 3 · 02/06 Focus: In focus -->
+<section class="scene" data-t="12" data-shot="15">
+  <div class="glow" style="left:100px;top:300px;background:rgba(52,224,176,.10)"></div>
+  <div class="ffs-steps ffs-steps--accent" style="top:148px"><i></i><i class="is-on"></i><i></i><i></i><i></i><i></i><b>02 / 06</b><span class="ffs-steps__name">Focus</span></div>
+  <h1 class="ffs-title ffs-title--teal">In focus</h1>
+  <p class="ffs-sub">The user is typing — make their target obvious</p>
+  <div class="ffs-contrast" style="position:absolute;left:458px;top:400px"><span>Contrast</span><i>·</i><b>4.6:1 ✓</b></div>
+  <div class="ffs-field" data-state="focus" style="position:absolute;left:73px;top:467px;width:573px">
+    <div class="ffs-label">Email</div>
+    <div class="ffs-box"><span class="ffs-value">thibault@des</span><i class="ffs-caret"></i></div>
+    <div class="ffs-help">Tab to confirm</div>
+  </div>
+  <div class="ffs-pill ffs-pill--rule ffs-pill--teal center" style="top:808px"><svg><use href="#i-eye"/></svg><b>Rule</b>Ring contrast 3:1 minimum</div>
+  <div class="ffs-pill ffs-pill--avoid center" style="top:869px"><b>Avoid</b>Soft blue glow fails accessibility</div>
+</section>
+
+<!-- 4 · 03/06 Error: Validation failed -->
+<section class="scene" data-t="18" data-shot="21">
+  <div class="glow" style="left:100px;top:300px;background:rgba(230,67,92,.12)"></div>
+  <div class="ffs-steps ffs-steps--danger" style="top:148px"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i><b>03 / 06</b><span class="ffs-steps__name">Error</span></div>
+  <h1 class="ffs-title ffs-title--red">Validation failed</h1>
+  <p class="ffs-sub">Be loud, clear, and accessible</p>
+  <div class="ffs-field" data-state="error" style="position:absolute;left:73px;top:467px;width:573px">
+    <div class="ffs-label">Email</div>
+    <div class="ffs-box"><span class="ffs-value">hello@@example</span><span class="ffs-icon"><svg><use href="#i-alert"/></svg></span></div>
+    <div class="ffs-help"><svg><use href="#i-alert"/></svg>Email format is invalid — check the @ symbol</div>
+  </div>
+  <div class="ffs-pill ffs-pill--rule ffs-pill--red center" style="top:808px"><svg><use href="#i-alert"/></svg><b>Rule</b>Color + icon + message</div>
+  <div class="ffs-pill ffs-pill--avoid center" style="top:869px"><b>Avoid</b>Border-only red is invisible to 12% of users</div>
+</section>
+
+<!-- 5 · 04/06 Success: It worked -->
+<section class="scene" data-t="30" data-shot="33">
+  <div class="glow" style="left:100px;top:300px;background:rgba(61,220,107,.10)"></div>
+  <div class="ffs-steps ffs-steps--green" style="top:148px"><i></i><i></i><i></i><i class="is-on"></i><i></i><i></i><b>04 / 06</b><span class="ffs-steps__name">Success</span></div>
+  <h1 class="ffs-title ffs-title--green">It worked</h1>
+  <p class="ffs-sub" style="left:100px;right:100px">Confirm in-place — feedback lands where attention is</p>
+  <div class="ffs-field" data-state="success" style="position:absolute;left:73px;top:467px;width:573px">
+    <div class="ffs-label">Email</div>
+    <div class="ffs-box"><span class="ffs-value">thibault@designmotionhq.com</span><span class="ffs-icon"><svg><use href="#i-check-c"/></svg></span></div>
+    <div class="ffs-help"><svg><use href="#i-check-c"/></svg>Email available</div>
+  </div>
+  <div class="ffs-pill ffs-pill--rule ffs-pill--green center" style="top:808px"><svg><use href="#i-check"/></svg><b>Rule</b>Confirm inside the field</div>
+  <div class="ffs-pill ffs-pill--avoid center" style="top:869px"><b>Avoid</b>Toasts steal focus and disappear too fast</div>
+</section>
+
+<!-- 6 · 05/06 Disabled: Locked -->
+<section class="scene" data-t="36" data-shot="39">
+  <div class="ffs-steps ffs-steps--grey" style="top:148px"><i></i><i></i><i></i><i></i><i class="is-on"></i><i></i><b>05 / 06</b><span class="ffs-steps__name">Disabled</span></div>
+  <h1 class="ffs-title ffs-title--white">Locked</h1>
+  <p class="ffs-sub">Visible to readers, untouchable to clicks</p>
+  <div class="ffs-field" data-state="disabled" style="position:absolute;left:73px;top:467px;width:573px">
+    <div class="ffs-label">Email</div>
+    <div class="ffs-box"><span class="ffs-value">frozen@locked.dev</span></div>
+    <div class="ffs-help">Account locked — contact support</div>
+  </div>
+  <div class="ffs-pill ffs-pill--rule center" style="top:808px"><svg><use href="#i-lock"/></svg><b>Rule</b>Grayscale background + cursor not-allowed</div>
+  <div class="ffs-pill ffs-pill--avoid center" style="top:869px"><b>Avoid</b>Opacity 0.5 looks like a loading state</div>
+</section>
+
+<!-- 7 · 06/06 Loading: Async in flight -->
+<section class="scene" data-t="45" data-shot="48">
+  <div class="glow" style="left:100px;top:300px;background:rgba(52,224,176,.08)"></div>
+  <div class="ffs-steps ffs-steps--accent" style="top:148px"><i></i><i></i><i></i><i></i><i></i><i class="is-on"></i><b>06 / 06</b><span class="ffs-steps__name">Loading</span></div>
+  <h1 class="ffs-title ffs-title--teal">Async in flight</h1>
+  <p class="ffs-sub" style="left:72px;right:72px">Disable input, show progress, prevent the double submit</p>
+  <div class="ffs-field" data-state="loading" style="position:absolute;left:73px;top:467px;width:573px">
+    <div class="ffs-label">Email</div>
+    <div class="ffs-box"><span class="ffs-value">thibault@designmotionhq.com</span><span class="ffs-icon"><svg><use href="#i-spin"/></svg></span></div>
+    <div class="ffs-help">Checking availability…</div>
+  </div>
+  <div class="ffs-pill ffs-pill--rule ffs-pill--teal center" style="top:808px"><svg class="ffs-spin"><use href="#i-spin"/></svg><b>Rule</b>Spinner inside + disable the input</div>
+  <div class="ffs-pill ffs-pill--avoid center" style="top:869px"><b>Avoid</b>No loading state = double submit bug</div>
+</section>
+
+<!-- 8 · Outro -->
+<section class="scene" data-t="54" data-shot="57">
+  <div class="glow" style="left:60px;top:150px;width:600px;height:800px;background:rgba(232,74,127,.22)"></div>
+  <div class="ffs-eyebrow center" style="top:435px">6 states · 1 system</div>
+  <div class="title" style="top:468px;font-size:50px;line-height:1.1;padding:0 80px">One forgotten = <em class="pink">one bug.</em></div>
+  <div class="ffs-chips center" style="top:621px">
+    <span class="ffs-chip ffs-chip--default">Default</span><span class="ffs-chip ffs-chip--focus">Focus</span><span class="ffs-chip ffs-chip--error">Error</span><span class="ffs-chip ffs-chip--success">Success</span>
+  </div>
+  <div class="ffs-chips center" style="top:671px">
+    <span class="ffs-chip ffs-chip--disabled">Disabled</span><span class="ffs-chip ffs-chip--loading">Loading</span>
+  </div>
+  <div class="ffs-cta center" style="top:758px"><svg viewBox="0 0 24 24"><use href="#i-bookmark"/></svg>Save this for your next form</div>
+  <div class="ffs-follow center" style="top:830px"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg>Follow for more system thinking</div>
+</section>
+
+<script type="module">
+  import { EmailField } from './pattern.js';
+  // The "At rest" field is live: focus it, type, tab away. Blur validates; a valid address runs an async availability check.
+  EmailField(document.getElementById('liveField'), { check: v => new Promise(r => setTimeout(() => r(!/taken/.test(v)), 900)) });
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

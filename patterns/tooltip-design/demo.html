@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tooltip Design · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a090b; --accent: #3ebf9a; --danger: #e0405c; --grid: transparent; }
+  .scene { color: #f3f5f7; }
+  .tt-h { position: absolute; left: 0; right: 0; text-align: center; font-size: 40px; font-weight: 800; letter-spacing: -.02em; white-space: nowrap; }
+  .tt-rule { position: absolute; left: 0; right: 0; text-align: center; font-size: 15px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: #8a9199; }
+  .tt-grad { background: linear-gradient(90deg, #e0405c, #8a8a90 50%, #3ebf9a); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .tt-grad--orange { background: linear-gradient(90deg, #e0a030, #f06a3a); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .tt-grad--purple { background: linear-gradient(90deg, #e0405c, #9b5cf6 55%, #3b82f6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .tt-glow { position: absolute; left: -20px; top: 240px; width: 760px; height: 760px; border-radius: 50%; background: radial-gradient(circle, rgba(224,64,92,.13), rgba(0,0,0,0) 68%); pointer-events: none; }
+  .tt-glow--teal { background: radial-gradient(circle, rgba(62,191,154,.10), rgba(0,0,0,0) 68%); }
+  .tt-cap { position: absolute; left: 0; right: 0; text-align: center; font-size: 20px; font-weight: 700; white-space: nowrap; }
+</style>
+</head>
+<body class="tt">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.5M12 17h.01"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></symbol>
+  <symbol id="i-follow" viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M2 21a8 8 0 0 1 14-4M19 8v6M16 11h6"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></symbol>
+</svg>
+
+<!-- 1 · Hook -->
+<section class="scene" data-t="0" data-shot="0">
+  <div class="tt-glow" style="left:-200px"></div><div class="tt-glow tt-glow--teal" style="left:180px"></div>
+  <div class="tt-h" style="top:106px">Your tooltip is <span class="tt-grad">annoying</span>.</div>
+  <div class="tt-tip tt-tip--static tt-tip--danger" style="left:140px;top:504px;width:227px;height:62px;padding:8px 10px;border-radius:4px">This is a tooltip. It explains this button in great detail and spans multiple lines with so many words.</div>
+  <button class="tt-btn tt-btn--lg is-dim" style="position:absolute;left:216px;top:543px"><svg><use href="#i-help"/></svg></button>
+  <div class="tt-label tt-label--pink" style="position:absolute;left:216px;width:60px;text-align:center;top:611px">Cheap</div>
+  <button class="tt-btn tt-btn--lg is-teal" id="premium" style="position:absolute;left:443px;top:543px"><svg><use href="#i-help"/></svg></button>
+  <div class="tt-label tt-label--teal" style="position:absolute;left:433px;width:80px;text-align:center;top:611px">Premium</div>
+</section>
+
+<!-- 2 · Rule 1: wait 300ms -->
+<section class="scene" data-t="3" data-shot="4.5">
+  <div class="tt-glow"></div>
+  <div class="tt-rule" style="top:95px">Rule 1</div>
+  <div class="tt-h" style="top:118px">Wait <span class="tt-grad">300ms</span>.</div>
+  <div class="tt-label tt-label--pink" style="position:absolute;left:120px;width:200px;text-align:center;top:320px;font-size:16px;letter-spacing:.02em;text-transform:none">0ms DELAY</div>
+  <div class="tt-label tt-label--teal" style="position:absolute;left:400px;width:200px;text-align:center;top:320px;font-size:16px;letter-spacing:.02em;text-transform:none">300ms DELAY</div>
+  <div class="tt-tip tt-tip--static" style="left:197px;top:378px;padding:5px 11px;font-size:14px;border-radius:6px">Info</div>
+  <div class="tt-tip tt-tip--static tt-tip--teal" style="left:477px;top:378px;padding:5px 11px;font-size:14px;border-radius:6px">Info</div>
+  <button class="tt-btn tt-btn--lg is-pink" style="position:absolute;left:190px;top:412px"><svg><use href="#i-info"/></svg></button>
+  <button class="tt-btn tt-btn--lg is-teal" style="position:absolute;left:470px;top:412px"><svg><use href="#i-info"/></svg></button>
+  <div class="tt-sub tt-sub--pink" style="position:absolute;left:100px;width:240px;text-align:center;top:485px">Fires on every cursor graze</div>
+  <div class="tt-sub tt-sub--teal" style="position:absolute;left:380px;width:240px;text-align:center;top:485px">Intent confirmed</div>
+</section>
+
+<!-- 3 · Rule 2: point with an arrow (Settings) -->
+<section class="scene" data-t="9" data-shot="13.5">
+  <div class="tt-glow tt-glow--teal"></div>
+  <div class="tt-rule" style="top:95px">Rule 2</div>
+  <div class="tt-h" style="top:118px">Point with an <span class="tt-grad">arrow</span>.</div>
+  <div class="tt-label tt-label--pink" style="position:absolute;left:194px;top:307px;font-size:15px;letter-spacing:.08em">Without arrow</div>
+  <div class="tt-tip tt-tip--static" style="left:320px;top:342px;width:80px;text-align:center">Settings</div>
+  <div style="position:absolute;left:0;right:0;top:382px;text-align:center;font-size:18px;font-weight:800;color:#e0405c">?</div>
+  <div class="tt-row" style="position:absolute;left:241px;top:414px">
+    <button class="tt-btn"><svg><use href="#i-user"/></svg></button><button class="tt-btn"><svg><use href="#i-bell"/></svg></button><button class="tt-btn is-pink"><svg><use href="#i-gear"/></svg></button><button class="tt-btn"><svg><use href="#i-shield"/></svg></button>
+  </div>
+  <div class="tt-sub tt-sub--pink" style="position:absolute;left:194px;top:473px">Which one does it describe?</div>
+  <div class="tt-label tt-label--teal" style="position:absolute;left:194px;top:534px;font-size:15px;letter-spacing:.08em">With arrow</div>
+  <div class="tt-tip tt-tip--static tt-tip--arrow tt-tip--teal" style="left:353px;top:575px;width:78px;text-align:center">Settings</div>
+  <div class="tt-row" style="position:absolute;left:241px;top:641px">
+    <button class="tt-btn"><svg><use href="#i-user"/></svg></button><button class="tt-btn"><svg><use href="#i-bell"/></svg></button><button class="tt-btn is-teal"><svg><use href="#i-gear"/></svg></button><button class="tt-btn"><svg><use href="#i-shield"/></svg></button>
+  </div>
+</section>
+
+<!-- 4 · Rule 2: Profile, arrows remove all doubt -->
+<section class="scene" data-t="15" data-shot="16.5">
+  <div class="tt-glow tt-glow--teal"></div>
+  <div class="tt-rule" style="top:95px">Rule 2</div>
+  <div class="tt-h" style="top:118px">Point with an <span class="tt-grad">arrow</span>.</div>
+  <div class="tt-label tt-label--pink" style="position:absolute;left:194px;top:307px;font-size:15px;letter-spacing:.08em">Without arrow</div>
+  <div class="tt-tip tt-tip--static" style="left:328px;top:342px;width:64px;text-align:center">Profile</div>
+  <div style="position:absolute;left:0;right:0;top:382px;text-align:center;font-size:18px;font-weight:800;color:#e0405c">?</div>
+  <div class="tt-row" style="position:absolute;left:241px;top:414px">
+    <button class="tt-btn is-pink"><svg><use href="#i-user"/></svg></button><button class="tt-btn"><svg><use href="#i-bell"/></svg></button><button class="tt-btn"><svg><use href="#i-gear"/></svg></button><button class="tt-btn"><svg><use href="#i-shield"/></svg></button>
+  </div>
+  <div class="tt-sub tt-sub--pink" style="position:absolute;left:194px;top:473px">Which one does it describe?</div>
+  <div class="tt-label tt-label--teal" style="position:absolute;left:194px;top:534px;font-size:15px;letter-spacing:.08em">With arrow</div>
+  <div class="tt-tip tt-tip--static tt-tip--arrow tt-tip--teal" style="left:230px;top:575px;width:68px;text-align:center">Profile</div>
+  <div class="tt-row" style="position:absolute;left:241px;top:641px">
+    <button class="tt-btn is-teal"><svg><use href="#i-user"/></svg></button><button class="tt-btn"><svg><use href="#i-bell"/></svg></button><button class="tt-btn"><svg><use href="#i-gear"/></svg></button><button class="tt-btn"><svg><use href="#i-shield"/></svg></button>
+  </div>
+  <div class="tt-cap" style="top:1208px">Arrows remove <span style="color:#3ebf9a">all doubt</span>.</div>
+</section>
+
+<!-- 5 · Rule 3: near the edge, about to clip -->
+<section class="scene" data-t="18" data-shot="19.5">
+  <div class="tt-rule" style="top:95px">Rule 3</div>
+  <div class="tt-h" style="top:118px">Flip near <span class="tt-grad--orange">edges</span>.</div>
+  <div class="tt-window" style="position:absolute;left:120px;top:280px;overflow:hidden">
+    <div class="tt-window__bar"><i></i><i></i><i></i></div>
+    <div class="tt-skel tt-skel--title" style="left:21px;top:48px;width:174px;height:13px"></div>
+    <div class="tt-skel" style="left:21px;top:73px;width:308px;height:6px"></div>
+    <div class="tt-skel" style="left:21px;top:86px;width:372px;height:6px"></div>
+    <button class="tt-btn tt-btn--md is-orange" style="position:absolute;left:406px;top:66px"><svg><use href="#i-info"/></svg></button>
+    <div class="tt-tip tt-tip--static tt-tip--arrow tt-tip--right tt-tip--pink" style="left:458px;top:73px;width:228px;padding:8px 12px;font-size:14px;font-weight:500;white-space:normal;line-height:18px"><span style="color:#e0405c;font-weight:700">✕</span> Shows a useful hint for this setting.</div>
+  </div>
+</section>
+
+<!-- 6 · Rule 3: flipped in bounds -->
+<section class="scene" data-t="22.5" data-shot="24">
+  <div class="tt-rule" style="top:95px">Rule 3</div>
+  <div class="tt-h" style="top:118px">Flip near <span class="tt-grad--orange">edges</span>.</div>
+  <div class="tt-window" id="win" style="position:absolute;left:120px;top:280px">
+    <div class="tt-window__bar"><i></i><i></i><i></i></div>
+    <div class="tt-skel tt-skel--title" style="left:21px;top:48px;width:174px;height:13px"></div>
+    <div class="tt-skel" style="left:21px;top:73px;width:308px;height:6px"></div>
+    <div class="tt-skel" style="left:21px;top:86px;width:372px;height:6px"></div>
+    <button class="tt-btn tt-btn--md is-orange" id="edgeBtn" style="position:absolute;left:406px;top:66px"><svg><use href="#i-info"/></svg></button>
+    <div class="tt-tip tt-tip--static tt-tip--arrow tt-tip--left tt-tip--teal" style="left:193px;top:73px;width:228px;height:55px;padding:9px 14px;font-size:15px;font-weight:500;white-space:normal;line-height:18px;background:#15171f">Shows a useful hint for this setting.</div>
+    <div class="tt-chip tt-chip--teal" style="position:absolute;left:154px;top:573px">✓ Flipped in bounds</div>
+  </div>
+  <div class="tt-cap" style="top:1120px;font-size:22px">Detect viewport bounds. <span style="color:#e0a030">Adjust anchor.</span></div>
+</section>
+
+<!-- 7 · Rule 4: dismiss everywhere (Escape) -->
+<section class="scene" data-t="27" data-shot="27">
+  <div class="tt-glow" style="top:380px;background:radial-gradient(circle, rgba(155,92,246,.10), rgba(0,0,0,0) 68%)"></div>
+  <div class="tt-rule" style="top:95px">Rule 4</div>
+  <div class="tt-h" style="top:118px">Dismiss <span class="tt-grad--purple">everywhere</span>.</div>
+  <div class="tt-list" style="position:absolute;left:154px;top:321px">
+    <div class="tt-item"><span class="tt-item__n">1</span><div><div class="tt-item__t">Mouse leave</div><div class="tt-item__c">onMouseLeave</div></div><span class="tt-item__closed">✓ CLOSED</span></div>
+    <div class="tt-item is-active"><span class="tt-item__n">2</span><div><div class="tt-item__t">Escape key</div><div class="tt-item__c">onKeyDown → Esc</div></div><span class="tt-item__closed">✓ CLOSED</span></div>
+    <div class="tt-item"><span class="tt-item__n">3</span><div><div class="tt-item__t">Focus out</div><div class="tt-item__c">onBlur</div></div><span class="tt-item__closed">✓ CLOSED</span></div>
+    <div class="tt-item"><span class="tt-item__n">4</span><div><div class="tt-item__t">Tap outside</div><div class="tt-item__c">onOutsideClick</div></div><span class="tt-item__closed">✓ CLOSED</span></div>
+  </div>
+</section>
+
+<!-- 8 · Rule 4: tap outside -->
+<section class="scene" data-t="30" data-shot="31.5">
+  <div class="tt-glow" style="top:380px;background:radial-gradient(circle, rgba(155,92,246,.10), rgba(0,0,0,0) 68%)"></div>
+  <div class="tt-rule" style="top:95px">Rule 4</div>
+  <div class="tt-h" style="top:118px">Dismiss <span class="tt-grad--purple">everywhere</span>.</div>
+  <div class="tt-list" style="position:absolute;left:154px;top:321px">
+    <div class="tt-item"><span class="tt-item__n">1</span><div><div class="tt-item__t">Mouse leave</div><div class="tt-item__c">onMouseLeave</div></div><span class="tt-item__closed">✓ CLOSED</span></div>
+    <div class="tt-item"><span class="tt-item__n">2</span><div><div class="tt-item__t">Escape key</div><div class="tt-item__c">onKeyDown → Esc</div></div><span class="tt-item__closed">✓ CLOSED</span></div>
+    <div class="tt-item"><span class="tt-item__n">3</span><div><div class="tt-item__t">Focus out</div><div class="tt-item__c">onBlur</div></div><span class="tt-item__closed">✓ CLOSED</span></div>
+    <div class="tt-item is-active is-teal"><span class="tt-item__n">4</span><div><div class="tt-item__t">Tap outside</div><div class="tt-item__c">onOutsideClick</div></div><span class="tt-item__closed">✓ CLOSED</span></div>
+  </div>
+  <div class="tt-cap" style="top:1100px">Every escape route <span style="color:#9b5cf6">matters</span>.</div>
+</section>
+
+<!-- 9 · Rule 5: keep it tight -->
+<section class="scene" data-t="33" data-shot="37.5">
+  <div class="tt-glow"></div>
+  <div class="tt-rule" style="top:95px">Rule 5</div>
+  <div class="tt-h" style="top:118px">Keep it <span class="tt-grad">tight</span>.</div>
+  <div class="tt-label tt-label--pink" style="position:absolute;left:0;right:0;text-align:center;top:299px;font-size:15px;letter-spacing:.02em;text-transform:none">BEFORE — 600px, documentation</div>
+  <div class="tt-tip tt-tip--static tt-tip--doc" style="left:160px;top:328px;width:400px;height:100px;padding:14px 18px">This setting controls the default behavior of the notification system across your entire workspace. You can configure advanced preferences including email digests, push frequency, and sound profiles. See docs for full options.</div>
+  <div class="tt-label tt-label--teal" style="position:absolute;left:0;right:0;text-align:center;top:579px;font-size:15px;letter-spacing:.02em;text-transform:none">AFTER — 300px, one sentence</div>
+  <div class="tt-tip tt-tip--static tt-tip--tight" style="left:260px;top:608px;width:200px;height:58px;padding:10px 24px">Controls notification defaults.</div>
+  <div class="tt-measure" style="position:absolute;left:260px;top:674px;width:200px"><i></i><b>300px</b></div>
+  <div class="tt-cap" style="top:1106px;font-size:22px">A hint, not <span style="color:#e0405c">documentation</span>.</div>
+</section>
+
+<!-- 10 · Outro -->
+<section class="scene" data-t="39" data-shot="40.5">
+  <div class="tt-glow" style="top:200px;background:radial-gradient(circle, rgba(224,64,92,.14), rgba(0,0,0,0) 70%)"></div>
+  <div class="tt-h" style="top:440px;font-size:54px;line-height:1.05;white-space:normal"><span style="color:#e0405c">Tooltips,</span><br><span class="tt-grad">done right.</span></div>
+  <div class="center" style="top:586px;font-size:20px;color:#9aa1a8;white-space:nowrap">Follow <b style="color:#fff">@designmotionhq</b></div>
+  <div class="tt-cta center" style="top:645px"><svg><use href="#i-follow"/></svg>Follow</div>
+  <div class="tt-save center" style="top:735px"><svg><use href="#i-bookmark"/></svg>Save for later</div>
+</section>
+
+<script type="module">
+  import { Tooltip } from './pattern.js';
+  // Live behaviour: the premium button and the edge button get real tooltips (300ms, arrow, flip, dismiss everywhere).
+  Tooltip(document.getElementById('premium'), { text: 'Get help', placement: 'top', className: 'tt-tip--teal' });
+  Tooltip(document.getElementById('edgeBtn'), { text: 'Shows a useful hint for this setting.', placement: 'right', container: document.getElementById('win'), className: 'tt-tip--teal' });
+</script>
+<script src="../_shared/stage.js" defer></script>
+</body>
+</html>

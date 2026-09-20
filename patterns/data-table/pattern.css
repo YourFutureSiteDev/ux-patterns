@@ -1,0 +1,107 @@
+/* Data Table, rebuilt from the @designmotionhq reel "Your data table feels cheap because it's a grid of divs, not a system."
+   Component classes are prefixed .dt- and depend only on the tokens below. */
+.dt {
+  --dt-bg: #090d0e; --dt-panel: #111619; --dt-head: #171f22; --dt-line: rgba(255,255,255,.05); --dt-border: rgba(255,255,255,.06);
+  --dt-text: #e6ecf0; --dt-muted: #8e97a1; --dt-dim: #4e565f;
+  --dt-accent: #34d3ab; --dt-accent-dim: rgba(52,211,171,.13); --dt-select: #153530;
+  --dt-pink: #f0506e; --dt-pink-dim: rgba(240,80,110,.14); --dt-amber: #e0a84a; --dt-amber-dim: rgba(224,168,74,.14);
+  --dt-mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--dt-text);
+}
+
+/* ---- Table ------------------------------------------------------------ */
+.dt-table { --dt-cols: 20px 188px 150px 114px 88px; --dt-row: 64px; --dt-font: 15px; --dt-pad: 0 18px; --dt-head-h: 46px;
+  position: absolute; background: var(--dt-panel); border-radius: 8px; box-shadow: 0 30px 80px rgba(0,0,0,.55); overflow: hidden; font-size: var(--dt-font); }
+.dt-head, .dt-row { display: grid; grid-template-columns: var(--dt-cols); align-items: center; padding: var(--dt-pad); }
+.dt-head { height: var(--dt-head-h); font-size: 12px; font-weight: 700; letter-spacing: .06em; color: var(--dt-muted); text-transform: uppercase; background: var(--dt-head); position: relative; z-index: 2; }
+.dt-head.is-sticky { box-shadow: 0 8px 20px rgba(0,0,0,.45); }
+.dt-head .is-sort { color: var(--dt-accent); display: inline-flex; align-items: center; justify-content: flex-end; gap: 4px; }
+.dt-head .is-sort svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.dt-head .is-sort.is-none { color: var(--dt-muted); }
+.dt-head .is-sort.is-none svg { opacity: .5; }
+.dt-body { position: relative; }
+.dt-row { height: var(--dt-row); position: relative; border-top: 1px solid var(--dt-line); transition: background .2s; cursor: default; }
+.dt-row:first-child { border-top: 0; }
+.dt-row.is-selected { background: var(--dt-select); }
+.dt-row.is-selected::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--dt-accent); }
+.dt-row.is-hover { background: rgba(255,255,255,.03); }
+.dt-name { font-weight: 500; white-space: nowrap; }
+.dt-num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; white-space: nowrap; }
+.dt-num.is-prop { text-align: left; font-variant-numeric: proportional-nums; }
+.dt-date { color: var(--dt-muted); padding-left: 13px; white-space: nowrap; font-size: calc(var(--dt-font) - 1px); }
+.dt-status { color: var(--dt-muted); }
+.dt-head .dt-date { font-size: inherit; color: inherit; }
+.dt-zebra .dt-row:nth-child(even) { background: rgba(255,255,255,.015); }
+
+/* ---- Chip + checkbox ------------------------------------------------- */
+.dt-chip { display: inline-flex; align-items: center; gap: 6px; font-style: normal; padding: 3px 10px; border-radius: 999px; font-size: calc(var(--dt-font) - 2px); font-weight: 500; white-space: nowrap; }
+.dt-chip::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.dt-chip.is-paid { background: var(--dt-accent-dim); color: var(--dt-accent); }
+.dt-chip.is-pending { background: var(--dt-amber-dim); color: var(--dt-amber); }
+.dt-chip.is-refunded { background: var(--dt-pink-dim); color: var(--dt-pink); }
+.dt-check { width: 15px; height: 15px; border-radius: 4px; border: 1.5px solid #3a424b; background: transparent; display: grid; place-items: center; box-sizing: border-box; transition: background .15s, border-color .15s; }
+.dt-check svg { width: 10px; height: 10px; fill: none; stroke: #04221c; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; display: none; }
+.dt-check.is-on, .dt-check.is-mixed { background: var(--dt-accent); border-color: var(--dt-accent); }
+.dt-check.is-on .dt-check__tick { display: block; }
+.dt-check.is-mixed .dt-check__dash { display: block; }
+.dt-check.is-solo { border-color: var(--dt-accent); background: var(--dt-accent-dim); }
+.dt-check.is-solo .dt-check__tick { display: block; stroke: var(--dt-accent); }
+
+/* ---- Sticky header / frozen column scroll frames --------------------- */
+.dt-frame { position: absolute; background: var(--dt-panel); border-radius: 8px; box-shadow: 0 30px 80px rgba(0,0,0,.55); overflow: hidden; }
+.dt-frame .dt-table { position: relative; box-shadow: none; border-radius: 0; }
+.dt-frame .dt-head { position: sticky; top: 0; }
+.dt-frame.is-loose .dt-head { position: relative; }
+.dt-scroll { transition: transform .8s cubic-bezier(.2,.8,.2,1); }
+.dt-frozen { position: absolute; left: 0; top: 0; bottom: 0; background: var(--dt-panel); box-shadow: 8px 0 18px rgba(0,0,0,.45); z-index: 3; }
+.dt-frozen .dt-head, .dt-frozen .dt-row { grid-template-columns: 1fr; padding-right: 0; }
+.dt-frozen .dt-head { background: var(--dt-head); }
+.dt-frozen .dt-row { border-top-color: transparent; }
+
+/* ---- Reel chrome ------------------------------------------------------ */
+.dt-title { position: absolute; left: 0; right: 0; margin: 0; text-align: center; font-size: 34px; font-weight: 800; letter-spacing: -.025em; line-height: 1.15; }
+.dt-title em { font-style: normal; color: var(--dt-accent); }
+.dt-sub { position: absolute; left: 0; right: 0; text-align: center; font-size: 17px; color: var(--dt-muted); }
+.dt-pill { position: absolute; left: 50%; transform: translateX(-50%); padding: 8px 20px; border-radius: 999px; font-size: 16px; font-weight: 700; white-space: nowrap; background: var(--dt-accent-dim); color: var(--dt-accent); box-shadow: 0 0 0 1px rgba(52,211,171,.25); display: inline-flex; align-items: center; gap: 8px; }
+.dt-pill.is-grey { background: #1a2026; color: var(--dt-muted); box-shadow: none; }
+.dt-pill.is-pink { background: var(--dt-pink-dim); color: var(--dt-pink); box-shadow: 0 0 0 1px rgba(240,80,110,.25); }
+.dt-pill .dt-check { width: 14px; height: 14px; }
+.dt-card { position: absolute; background: var(--dt-panel); border: 1px solid var(--dt-border); border-radius: 8px; padding: 12px 14px; transition: opacity .3s; }
+.dt-card b { display: flex; align-items: center; gap: 7px; font-size: 17px; font-weight: 600; }
+.dt-card b svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.dt-card span { display: block; margin-top: 4px; font-size: 15px; color: var(--dt-muted); }
+.dt-card.is-pink b { color: var(--dt-pink); } .dt-card.is-teal b { color: var(--dt-accent); }
+.dt-card.is-dim { opacity: .35; }
+.dt-label { position: absolute; text-align: center; white-space: nowrap; }
+.dt-label b { display: block; font-size: 17px; font-weight: 700; }
+.dt-label span { display: block; margin-top: 2px; font-size: 14px; color: var(--dt-muted); }
+.dt-label.is-pink b { color: var(--dt-pink); } .dt-label.is-teal b { color: var(--dt-accent); }
+.dt-caption { position: absolute; left: 0; right: 0; text-align: center; font-size: 19px; font-weight: 500; color: #c9cfd5; }
+.dt-caption em { font-style: normal; font-weight: 700; color: var(--dt-accent); }
+
+/* numbers panel */
+.dt-numpanel { position: absolute; width: 314px; height: 495px; background: var(--dt-panel); border: 1px solid var(--dt-border); border-radius: 10px; padding: 16px; }
+.dt-numpanel h4 { margin: 0; font-size: 15px; font-weight: 700; line-height: 18px; }
+.dt-numpanel.is-pink h4 { color: var(--dt-pink); } .dt-numpanel.is-teal h4 { color: var(--dt-accent); }
+.dt-numpanel p { margin: 2px 0 0; font-size: 13px; color: var(--dt-muted); line-height: 16px; }
+.dt-numpanel ul { list-style: none; margin: 14px 0 0; padding: 0; }
+.dt-numpanel li { height: 69px; display: flex; align-items: center; font-size: 20px; font-weight: 500; border-bottom: 1px solid var(--dt-line); padding: 0 6px; margin: 0 -6px; border-radius: 6px; }
+.dt-numpanel.is-teal li { justify-content: flex-end; font-variant-numeric: tabular-nums; }
+.dt-numpanel.is-pink li { font-variant-numeric: proportional-nums; }
+.dt-numpanel li.is-hi { background: var(--dt-select); color: var(--dt-accent); border-bottom-color: transparent; }
+
+/* density segmented control */
+.dt-seg { position: absolute; display: flex; gap: 16px; padding: 6px 20px; border-radius: 999px; background: #0d1215; box-shadow: 0 0 0 1px rgba(255,255,255,.04); }
+.dt-seg button { height: 30px; padding: 0 12px; border: 0; border-radius: 999px; background: none; color: var(--dt-muted); font: 500 15px 'Inter', sans-serif; cursor: pointer; transition: background .2s, color .2s; }
+.dt-seg button.is-on { background: #2b3238; color: #fff; font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,.35); }
+.dt-mono { position: absolute; left: 0; right: 0; text-align: center; font: 15px var(--dt-mono); color: var(--dt-muted); }
+.dt-mono em { font-style: normal; color: var(--dt-accent); font-weight: 700; }
+.dt-mono b { font-weight: 500; color: #c9cfd5; }
+.dt-table.is-compact { --dt-row: 24px; --dt-font: 13px; }
+.dt-table.is-comfortable { --dt-row: 32px; --dt-font: 13px; }
+.dt-table.is-spacious { --dt-row: 40px; --dt-font: 13px; }
+.dt-density { position: absolute; width: 28px; height: 28px; border-radius: 50%; background: var(--dt-accent-dim); box-shadow: 0 0 0 1px rgba(52,211,171,.35); display: grid; place-items: center; }
+.dt-density svg { width: 14px; height: 14px; fill: none; stroke: var(--dt-accent); stroke-width: 2; stroke-linecap: round; }
+.dt-save { position: absolute; left: 0; right: 0; text-align: center; font-size: 19px; font-weight: 500; color: #c9cfd5; display: flex; justify-content: center; align-items: center; gap: 10px; }
+.dt-save svg { width: 16px; height: 16px; fill: none; stroke: var(--dt-accent); stroke-width: 2; }
+.dt-handle { position: absolute; left: 0; right: 0; text-align: center; font-size: 19px; font-weight: 700; }

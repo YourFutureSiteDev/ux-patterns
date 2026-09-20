@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fitts's Law · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0c0913; --accent: #8b5cf6; --danger: #ef4444; --grid: transparent; }
+  .scene { color: #f6f4fd; }
+  .kicker { top: 128px; height: 33px; padding: 0 16px; display: grid; place-items: center; background: #2a1d5c; color: #a78bfa; font-size: 17px; letter-spacing: .12em; }
+  .title { top: 168px; margin: 0; font-size: 36px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+  .glow { width: 620px; height: 620px; filter: blur(110px); }
+</style>
+</head>
+<body class="fl">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-arrows" viewBox="0 0 24 24"><path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z" fill="#ef4444"/><circle cx="12" cy="10" r="2.6" fill="#fff"/></symbol>
+  <symbol id="i-mouse" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="5" fill="currentColor"/><path d="M12 5v4" stroke="#1c1928" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 6v12M6 12h12" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8 3.4 4.5 7 4.5c2 0 3.4 1 5 2.8 1.6-1.8 3-2.8 5-2.8 3.6 0 6 3.5 4.5 7.3C19.5 16.4 12 21 12 21z"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M6 18L18 6M9 6h9v9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><circle cx="9" cy="10.5" r="1.2" fill="#1a1726"/><circle cx="12" cy="10.5" r="1.2" fill="#1a1726"/><circle cx="15" cy="10.5" r="1.2" fill="#1a1726"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="18" cy="12" r="1.8"/></symbol>
+  <symbol id="i-pointer" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></symbol>
+</svg>
+
+<!-- 1 · Fitts's Law: small, far target -->
+<section class="scene" data-t="0" data-shot="1.5">
+  <div class="glow" style="left:50px;top:200px;background:rgba(139,92,246,.12)"></div>
+  <div class="fl-head"><h1>Fitts's Law</h1><p>The rule behind every great button</p></div>
+  <div class="fl-track" id="track1" style="position:absolute;left:107px;top:265px" data-d="360" data-w="26">
+    <i class="fl-track__line"></i><i class="fl-track__d" style="left:78px;width:361px"></i><b class="fl-track__dl" style="left:258px">D</b>
+    <svg class="fl-track__cursor" style="left:66px"><use href="#i-pointer"/></svg>
+    <button class="fl-target" style="left:439px;width:26px;height:52px;top:2px"></button>
+    <i class="fl-track__wline" style="left:439px;width:26px"></i><b class="fl-track__wl" style="left:439px;width:26px">W</b>
+  </div>
+  <div class="fl-time center" style="top:394px"><span>Time to click</span><b id="t1">9.6s</b></div>
+  <div class="fl-sub center" style="top:905px"><b>The time</b> to reach a</div>
+</section>
+
+<!-- 1b · Bigger target -->
+<section class="scene" data-t="4.5" data-shot="6">
+  <div class="glow" style="left:50px;top:200px;background:rgba(139,92,246,.12)"></div>
+  <div class="fl-head"><h1>Fitts's Law</h1><p>The rule behind every great button</p></div>
+  <div class="fl-track" style="position:absolute;left:107px;top:265px">
+    <i class="fl-track__line"></i><i class="fl-track__d" style="left:78px;width:339px"></i><b class="fl-track__dl" style="left:247px">D</b>
+    <svg class="fl-track__cursor" style="left:66px"><use href="#i-pointer"/></svg>
+    <button class="fl-target" style="left:417px;width:72px;height:42px;top:7px">Click</button>
+    <i class="fl-track__wline" style="left:417px;width:72px"></i><b class="fl-track__wl" style="left:417px;width:72px">W</b>
+  </div>
+  <div class="fl-note fl-note--green center" style="top:352px">Bigger target = faster clicks</div>
+  <div class="fl-time center" style="top:394px"><span>Time to click</span><b>5.4s</b></div>
+  <div class="fl-formula center" style="top:493px">T = a + b <i>×</i> <i>log</i> <sub>2</sub> <i>(</i> <em class="d">D</em> <i>/</i> <em class="w">W</em> <i>+ 1)</i></div>
+</section>
+
+<!-- 1c · Closer target + the two takeaways -->
+<section class="scene" data-t="7.5" data-shot="10.5">
+  <div class="glow" style="left:50px;top:200px;background:rgba(139,92,246,.12)"></div>
+  <div class="fl-head"><h1>Fitts's Law</h1><p>The rule behind every great button</p></div>
+  <div class="fl-track" id="track3" style="position:absolute;left:107px;top:265px">
+    <i class="fl-track__line"></i><i class="fl-track__d" style="left:78px;width:129px"></i><b class="fl-track__dl" style="left:142px">D</b>
+    <svg class="fl-track__cursor" style="left:66px"><use href="#i-pointer"/></svg>
+    <button class="fl-target" style="left:207px;width:92px;height:42px;top:7px">Click</button>
+    <i class="fl-track__wline" style="left:207px;width:92px"></i><b class="fl-track__wl" style="left:207px;width:92px">W</b>
+  </div>
+  <div class="fl-note fl-note--orange center" style="top:352px">Closer target = faster clicks</div>
+  <div class="fl-time center" style="top:394px"><span>Time to click</span><b>3.0s</b></div>
+  <div class="fl-formula center" style="top:493px">T = a + b <i>×</i> <i>log</i> <sub>2</sub> <i>(</i> <em class="d">D</em> <i>/</i> <em class="w">W</em> <i>+ 1)</i></div>
+  <div class="fl-cards" style="position:absolute;left:40px;top:577px">
+    <div class="fl-card"><span class="fl-card__icon fl-card__icon--green"><svg><use href="#i-arrows"/></svg></span><b>Make targets</b><em class="green">Bigger</em></div>
+    <div class="fl-card"><span class="fl-card__icon fl-card__icon--purple"><svg><use href="#i-pin"/></svg></span><b>Put them</b><em class="purple">Closer</em></div>
+  </div>
+  <div class="fl-sub center" style="top:905px"><b>That's</b> it</div>
+</section>
+
+<!-- 2 · Secret 01: Size in action -->
+<section class="scene" data-t="12" data-shot="13.5">
+  <div class="glow" style="left:50px;top:200px;background:rgba(139,92,246,.10)"></div>
+  <div class="kicker">Secret 01</div>
+  <h1 class="title">Size in action</h1>
+  <div class="fl-verdict fl-verdict--bad" style="position:absolute;left:162px;top:232px;width:185px">✕ BAD</div>
+  <div class="fl-verdict fl-verdict--good" style="position:absolute;left:373px;top:232px;width:185px">✓ GOOD</div>
+  <div class="fl-phone" style="position:absolute;left:162px;top:262px">
+    <i class="fl-phone__notch"></i>
+    <button class="fl-buy fl-buy--small">Buy Now</button>
+    <div class="fl-phone__rows"><i></i><i></i><i></i><i></i><i></i></div>
+    <i class="fl-phone__home"></i>
+  </div>
+  <div class="fl-phone fl-phone--good" style="position:absolute;left:373px;top:262px">
+    <i class="fl-phone__notch"></i>
+    <div class="fl-phone__rows" style="margin-top:0"><i></i><i></i><i></i><i></i><i></i></div>
+    <button class="fl-buy fl-buy--big">Buy Now</button>
+    <i class="fl-phone__home"></i>
+  </div>
+</section>
+
+<!-- 2b · Tap rates -->
+<section class="scene" data-t="16" data-shot="18">
+  <div class="glow" style="left:50px;top:200px;background:rgba(139,92,246,.10)"></div>
+  <div class="kicker">Secret 01</div>
+  <h1 class="title">Size in action</h1>
+  <div class="fl-verdict fl-verdict--bad" style="position:absolute;left:162px;top:232px;width:185px">✕ BAD</div>
+  <div class="fl-verdict fl-verdict--good" style="position:absolute;left:373px;top:232px;width:185px">✓ GOOD</div>
+  <div class="fl-phone" style="position:absolute;left:162px;top:262px">
+    <i class="fl-phone__notch"></i>
+    <button class="fl-buy fl-buy--small">Buy Now</button>
+    <div class="fl-phone__rows"><i></i><i></i><i></i><i></i><i></i></div>
+    <i class="fl-phone__reach"></i><span class="fl-hand" style="left:82px;top:70px">👆</span>
+    <i class="fl-phone__home"></i>
+  </div>
+  <div class="fl-phone fl-phone--good" style="position:absolute;left:373px;top:262px">
+    <i class="fl-phone__notch"></i>
+    <div class="fl-phone__rows" style="margin-top:0"><i></i><i></i><i></i><i></i><i></i></div>
+    <button class="fl-buy fl-buy--big">Buy Now</button><span class="fl-hand" style="left:82px;top:302px">👆</span>
+    <i class="fl-phone__home"></i>
+  </div>
+  <div class="fl-rate fl-rate--bad" style="position:absolute;left:162px;top:618px;width:185px"><b>12%</b>tap rate</div>
+  <div class="fl-rate fl-rate--good" style="position:absolute;left:373px;top:618px;width:185px"><b>34%</b>tap rate</div>
+  <div class="fl-sub center" style="top:905px"><b>Now flip</b> it</div>
+</section>
+
+<!-- 2c · Touch target sizes -->
+<section class="scene" data-t="21" data-shot="24">
+  <div class="glow" style="left:50px;top:200px;background:rgba(139,92,246,.10)"></div>
+  <div class="kicker">Secret 01</div>
+  <h1 class="title">Size in action</h1>
+  <div class="fl-verdict fl-verdict--bad" style="position:absolute;left:162px;top:232px;width:185px">✕ BAD</div>
+  <div class="fl-verdict fl-verdict--good" style="position:absolute;left:373px;top:232px;width:185px">✓ GOOD</div>
+  <div class="fl-phone" style="position:absolute;left:162px;top:262px">
+    <i class="fl-phone__notch"></i>
+    <button class="fl-buy fl-buy--small">Buy Now</button>
+    <div class="fl-phone__rows"><i></i><i></i><i></i><i></i><i></i></div>
+    <i class="fl-phone__reach"></i><span class="fl-hand" style="left:82px;top:70px">👆</span>
+    <i class="fl-phone__home"></i>
+  </div>
+  <div class="fl-phone fl-phone--good" style="position:absolute;left:373px;top:262px">
+    <i class="fl-phone__notch"></i>
+    <div class="fl-phone__rows" style="margin-top:0"><i></i><i></i><i></i><i></i><i></i></div>
+    <button class="fl-buy fl-buy--big">Buy Now</button><span class="fl-hand" style="left:82px;top:302px">👆</span>
+    <i class="fl-phone__home"></i>
+  </div>
+  <div class="fl-rate fl-rate--bad" style="position:absolute;left:162px;top:618px;width:185px"><b>12%</b>tap rate</div>
+  <div class="fl-rate fl-rate--good" style="position:absolute;left:373px;top:618px;width:185px"><b>34%</b>tap rate</div>
+  <div class="fl-label center" style="top:667px">Touch target sizes</div>
+  <div class="fl-sizes" style="position:absolute;left:57px;top:704px">
+    <div class="fl-size fl-size--bad"><b>✕ 32px targets</b>
+      <div class="fl-size__icons"><i><svg><use href="#i-heart"/></svg></i><i><svg><use href="#i-share"/></svg></i><i><svg><use href="#i-chat"/></svg></i><i><svg><use href="#i-target"/></svg></i><i><svg><use href="#i-more"/></svg></i></div>
+      <span>Too small for fingers</span></div>
+    <div class="fl-size fl-size--good"><b>✓ 48px+ targets</b>
+      <div class="fl-size__icons"><i><svg><use href="#i-heart"/></svg></i><i><svg><use href="#i-share"/></svg></i><i><svg><use href="#i-chat"/></svg></i><i><svg><use href="#i-target"/></svg></i><i><svg><use href="#i-more"/></svg></i></div>
+      <span>Comfortable tap targets</span></div>
+  </div>
+  <div class="fl-guide center" style="top:852px">Apple's guideline: 44pt minimum</div>
+  <div class="fl-sub center" style="top:905px"><b>12% to 34%</b></div>
+</section>
+
+<!-- 3 · Secret 02: The distance trick (first row) -->
+<section class="scene" data-t="27" data-shot="28.5">
+  <div class="glow" style="left:50px;top:300px;background:rgba(139,92,246,.10)"></div>
+  <div class="kicker">Secret 02</div>
+  <h1 class="title">The distance trick</h1>
+  <p class="fl-subtitle center" style="top:222px">Reduce distance to zero</p>
+  <div class="fl-tricks" style="position:absolute;left:40px;top:266px">
+    <div class="fl-trick"><span class="fl-trick__icon"><svg><use href="#i-mouse"/></svg></span><div><b>Right-click menu</b><span>Menu appears at cursor. <em class="green">D = 0</em></span></div>
+      <div class="fl-mini"><i></i><i></i><i></i><i></i><svg class="fl-mini__cursor"><use href="#i-pointer"/></svg><div class="fl-mini__menu"><span>Cut</span><span class="is-hi">Copy</span><span>Paste</span></div></div></div>
+  </div>
+  <div class="fl-sub center" style="top:905px"><b>Right-click Menus,</b></div>
+</section>
+
+<!-- 3b · All three tricks + banner -->
+<section class="scene" data-t="30" data-shot="37.5">
+  <div class="glow" style="left:50px;top:300px;background:rgba(139,92,246,.10)"></div>
+  <div class="kicker">Secret 02</div>
+  <h1 class="title">The distance trick</h1>
+  <p class="fl-subtitle center" style="top:222px">Reduce distance to zero</p>
+  <div class="fl-tricks" id="tricks" style="position:absolute;left:40px;top:266px">
+    <div class="fl-trick"><span class="fl-trick__icon"><svg><use href="#i-mouse"/></svg></span><div><b>Right-click menu</b><span>Menu appears at cursor. <em class="green">D = 0</em></span></div>
+      <div class="fl-mini"><i></i><i></i><i></i><i></i><svg class="fl-mini__cursor"><use href="#i-pointer"/></svg><div class="fl-mini__menu"><span>Cut</span><span class="is-hi">Copy</span><span>Paste</span></div></div></div>
+    <div class="fl-trick"><span class="fl-trick__icon fl-trick__icon--green"><svg><use href="#i-target"/></svg></span><div><b>Floating Action Button</b><span>Fixed position, <em class="green">always within reach</em></span></div>
+      <div class="fl-mini"><i></i><i></i><i></i><i></i><i></i><i></i><button class="fl-mini__fab"><svg><use href="#i-plus"/></svg></button></div></div>
+    <div class="fl-trick"><span class="fl-trick__icon">✏️</span><div><b>Inline editing</b><span>Edit in place. <em class="orange">No modal needed</em></span></div>
+      <div class="fl-mini fl-mini--form"><small>Project name</small><div class="fl-mini__input" contenteditable="true" spellcheck="false">My Project</div><i></i><i></i></div></div>
+  </div>
+  <div class="fl-banner center" style="top:718px">The best target is already under your cursor</div>
+  <div class="fl-sub center" style="top:905px"><b>cursor</b></div>
+</section>
+
+<script type="module">
+  import { FittsTrack, fittsTime } from './pattern.js';
+  // Scene 1: a live Fitts track. Drag the target or resize it; the time recomputes from D and W.
+  document.querySelectorAll('.fl-track').forEach(t => FittsTrack(t, { timeEl: t.closest('.scene').querySelector('.fl-time b') }));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>

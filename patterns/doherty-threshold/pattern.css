@@ -1,0 +1,96 @@
+/* Doherty Threshold, rebuilt from the @designmotionhq reel "Cross 400ms and your user checks out".
+   Component classes are prefixed .dt- and depend only on the tokens below. */
+.dt {
+  --dt-bg: #0b0a0f; --dt-card: #141318; --dt-border: rgba(255,255,255,.05); --dt-text: #f2f2f5; --dt-muted: #9aa3ad; --dt-dim: #6b7280;
+  --dt-cyan: #08b6d5; --dt-cyan-hi: #22c7e6; --dt-green: #2fd35c; --dt-yellow: #e1be0a; --dt-red: #ef4444; --dt-red-text: #e8443f;
+  --dt-skel: #26252a; --dt-skel-2: #252a2e;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--dt-text);
+}
+
+/* ---- Response-time counter (the hook) ------------------------------------ */
+.dt-submit { position: absolute; width: 188px; height: 63px; border: 0; border-radius: 8px; background: var(--dt-cyan); color: #fff; font: 700 21px 'Inter', sans-serif; cursor: pointer; box-shadow: 0 0 34px rgba(8,182,213,.55), inset 0 1px 0 rgba(255,255,255,.25); transition: transform .12s ease; }
+.dt-submit.is-pressed { transform: scale(.95); }
+.dt-counter { position: absolute; left: 0; right: 0; text-align: center; white-space: nowrap; line-height: 1; }
+.dt-counter b { font-size: 44px; font-weight: 800; letter-spacing: -.02em; color: var(--dt-green); text-shadow: 0 0 24px currentColor; transition: font-size .3s, color .3s; }
+.dt-counter small { font-size: 17px; font-weight: 500; color: #9aa3ad; margin-left: 6px; vertical-align: 6px; transition: font-size .3s; }
+.dt-counter.is-warm b { color: var(--dt-yellow); } .dt-counter.is-hot b { color: var(--dt-red); }
+.dt-counter.is-big b { font-size: 90px; } .dt-counter.is-big small { font-size: 32px; margin-left: 8px; vertical-align: 10px; }
+.dt-glow { position: absolute; left: 50%; top: 50%; width: 640px; height: 640px; margin: -320px 0 0 -320px; border-radius: 50%; pointer-events: none; transition: opacity .4s, transform .4s; }
+.dt-glow--green { background: radial-gradient(circle, rgba(20,110,60,.45), rgba(20,110,60,0) 62%); }
+.dt-glow--yellow { background: radial-gradient(circle, rgba(200,160,10,.7), rgba(200,160,10,0) 66%); }
+.dt-glow--red { background: radial-gradient(circle, rgba(200,40,40,.5), rgba(200,40,40,0) 62%); }
+.dt-glow--cyan { background: radial-gradient(circle, rgba(8,140,170,.3), rgba(8,140,170,0) 62%); }
+.dt-glow--teal { background: radial-gradient(circle, rgba(8,110,90,.45), rgba(8,110,90,0) 62%); }
+.dt-after { position: absolute; left: 0; right: 0; text-align: center; font-size: 22px; font-weight: 500; color: #c9ced5; }
+.dt-after em { font-style: normal; font-weight: 700; color: var(--dt-red); }
+.dt-thresh { position: absolute; left: 158px; width: 404px; text-align: center; font-size: 18px; font-weight: 700; letter-spacing: .2em; color: var(--dt-cyan-hi); text-transform: uppercase; }
+.dt-thresh__bar { display: flex; gap: 3px; margin-top: 10px; height: 5px; }
+.dt-thresh__bar i { flex: 1; border-radius: 3px; } .dt-thresh__bar i:nth-child(1) { background: var(--dt-green); } .dt-thresh__bar i:nth-child(2) { background: var(--dt-yellow); } .dt-thresh__bar i:nth-child(3) { background: var(--dt-red); }
+
+/* ---- Compare cards (skeleton / optimistic / progress) ------------------------ */
+.dt-kicker { position: absolute; top: 134px; left: 50%; transform: translateX(-50%); height: 40px; padding: 0 22px; border-radius: 6px; background: #011725; border: 1px solid rgba(8,182,213,.45); color: var(--dt-cyan-hi); font-size: 17px; font-weight: 700; letter-spacing: .12em; line-height: 38px; text-transform: uppercase; white-space: nowrap; }
+.dt-card { position: absolute; width: 307px; height: 468px; border-radius: 14px; background: var(--dt-card); border: 1px solid var(--dt-border); overflow: hidden; }
+.dt-card::after { content: ''; position: absolute; left: 50%; bottom: -160px; width: 420px; height: 420px; margin-left: -210px; border-radius: 50%; background: radial-gradient(circle, rgba(8,120,150,.32), rgba(8,120,150,0) 60%); pointer-events: none; }
+.dt-card__label { position: absolute; left: 0; right: 0; top: 19px; text-align: center; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.dt-card--without .dt-card__label { color: var(--dt-red-text); } .dt-card--with .dt-card__label { color: var(--dt-green); }
+.dt-ms { position: absolute; left: 0; right: 0; top: 314px; text-align: center; font-size: 22px; font-weight: 700; letter-spacing: -.01em; }
+.dt-card--without .dt-ms { color: var(--dt-red-text); text-shadow: 0 0 18px rgba(232,68,63,.5); } .dt-card--with .dt-ms { color: var(--dt-green); text-shadow: 0 0 18px rgba(47,211,92,.5); }
+.dt-ms .dt-feels { display: inline-block; margin-left: 14px; padding: 3px 9px; border-radius: 4px; background: rgba(47,211,92,.12); color: var(--dt-green); font-size: 12px; font-weight: 600; text-shadow: none; vertical-align: 2px; }
+.dt-dots { position: absolute; left: 50%; top: 190px; display: flex; gap: 6px; transform: translateX(-50%); }
+.dt-dots i { width: 6px; height: 6px; border-radius: 50%; background: #3a3f47; animation: dt-dot 1.2s ease-in-out infinite; }
+.dt-dots i:nth-child(2) { animation-delay: .2s } .dt-dots i:nth-child(3) { animation-delay: .4s }
+@keyframes dt-dot { 0%, 100% { opacity: .35 } 50% { opacity: 1 } }
+.dt-spinner { position: absolute; left: 50%; top: 160px; width: 40px; height: 40px; margin-left: -20px; border-radius: 50%; border: 3px solid #4b5059; border-top-color: #9aa3ad; animation: dt-spin .9s linear infinite; }
+@keyframes dt-spin { to { transform: rotate(360deg) } }
+
+/* Skeleton */
+.dt-skel { position: absolute; left: 17px; top: 61px; width: 253px; }
+.dt-skel i { position: absolute; display: block; border-radius: 5px; background: var(--dt-skel-2); overflow: hidden; }
+.dt-skel i::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent); transform: translateX(-100%); animation: dt-shimmer 1.6s linear infinite; }
+@keyframes dt-shimmer { to { transform: translateX(100%) } }
+.dt-skel .a { left: 0; top: 0; width: 36px; height: 36px; border-radius: 6px; background: var(--dt-skel); }
+.dt-skel .l1 { left: 46px; top: 4px; width: 135px; height: 11px; } .dt-skel .l2 { left: 46px; top: 23px; width: 95px; height: 9px; }
+.dt-skel .img { left: 0; top: 48px; width: 253px; height: 105px; border-radius: 6px; background: var(--dt-skel); }
+.dt-skel .l3 { left: 0; top: 165px; width: 253px; height: 14px; } .dt-skel .l4 { left: 0; top: 192px; width: 199px; height: 14px; } .dt-skel .l5 { left: 0; top: 219px; width: 226px; height: 14px; }
+
+/* Optimistic */
+.dt-heart { position: absolute; left: 50%; width: 60px; height: 56px; margin-left: -30px; transition: top .3s; }
+.dt-heart--sm { width: 56px; height: 52px; margin-left: -28px; }
+.dt-resp { position: absolute; left: 0; right: 0; text-align: center; font-size: 14px; color: var(--dt-muted); }
+.dt-resp b { color: var(--dt-green); }
+.dt-confirm { position: absolute; left: 0; right: 0; text-align: center; font-size: 12px; color: var(--dt-dim); }
+
+/* Progress */
+.dt-up { position: absolute; left: 34px; width: 239px; top: 112px; text-align: center; }
+.dt-up__title { font-size: 18px; font-weight: 700; }
+.dt-up__bar { margin-top: 14px; height: 10px; border-radius: 5px; background: #252429; overflow: hidden; }
+.dt-up__bar i { display: block; height: 100%; width: 0; border-radius: 5px; background: linear-gradient(90deg, #0891b3, #5ee0f0); box-shadow: 0 0 12px rgba(8,182,213,.6); }
+.dt-up__pct { margin-top: 14px; font-size: 30px; font-weight: 800; color: var(--dt-cyan-hi); text-shadow: 0 0 20px rgba(8,182,213,.5); letter-spacing: -.01em; }
+.dt-up.is-done .dt-up__pct { color: var(--dt-green); text-shadow: 0 0 20px rgba(47,211,92,.5); }
+.dt-up__steps { margin-top: 14px; display: flex; justify-content: center; gap: 14px; font-size: 13px; color: var(--dt-dim); }
+.dt-up__steps span::before { content: '○ '; } .dt-up__steps span.is-on { color: var(--dt-green); } .dt-up__steps span.is-on::before { content: '✓ '; }
+.dt-engaged { position: absolute; left: 50%; top: 314px; transform: translateX(-50%); padding: 4px 9px; border-radius: 4px; background: rgba(47,211,92,.12); color: var(--dt-green); font-size: 13px; font-weight: 600; white-space: nowrap; }
+
+/* ---- Split screen feed ------------------------------------------------------ */
+.dt-split { position: absolute; left: 41px; top: 173px; width: 638px; height: 867px; border-radius: 14px; background: #14141e; overflow: hidden; }
+.dt-split__chip { position: absolute; top: 11px; height: 26px; padding: 0 10px; border-radius: 5px; font-size: 14px; font-weight: 700; line-height: 26px; }
+.dt-split__chip--without { left: 11px; background: rgba(169,39,49,.35); color: #f05a55; } .dt-split__chip--with { right: 10px; background: rgba(27,148,79,.35); color: #3ee07a; }
+.dt-split__line { position: absolute; left: 358px; top: 0; bottom: 0; width: 2px; background: rgba(8,182,213,.75); box-shadow: 0 0 22px 8px rgba(8,182,213,.28); }
+.dt-feed { position: absolute; left: 26px; top: 20px; width: 586px; height: 300px; }
+.dt-feed i { position: absolute; display: block; border-radius: 5px; }
+.dt-feed .a { left: 0; top: 10px; width: 28px; height: 28px; border-radius: 50%; }
+.dt-feed .l1 { left: 43px; top: 9px; width: 120px; height: 14px; } .dt-feed .l2 { left: 43px; top: 28px; width: 80px; height: 10px; }
+.dt-feed .img { left: 0; top: 66px; width: 586px; height: 131px; border-radius: 8px; }
+.dt-feed .l3 { left: 0; top: 213px; width: 586px; height: 15px; } .dt-feed .l4 { left: 0; top: 242px; width: 469px; height: 14px; } .dt-feed .l5 { left: 0; top: 271px; width: 527px; height: 16px; }
+.dt-feed--skel { clip-path: inset(0 0 0 333px); }
+.dt-feed--skel i { background: var(--dt-skel-2); } .dt-feed--skel .a, .dt-feed--skel .img { background: var(--dt-skel); }
+.dt-feed--live i { background: #8a8a94; } .dt-feed--live .a { background: var(--dt-cyan); } .dt-feed--live .l1 { background: #cfd0d8; } .dt-feed--live .l2 { background: #6b6b78; } .dt-feed--live .img { background: #0891b3; }
+.dt-feed--live { opacity: 0; transition: opacity .35s; } .dt-feed--live.is-on { opacity: 1; }
+
+/* ---- Outro ------------------------------------------------------------------ */
+.dt-final { position: absolute; left: 0; right: 0; top: 560px; text-align: center; white-space: nowrap; line-height: 1; }
+.dt-final b { font-size: 92px; font-weight: 800; letter-spacing: -.03em; color: var(--dt-green); text-shadow: 0 0 30px rgba(47,211,92,.45); }
+.dt-final small { font-size: 40px; font-weight: 500; color: #9aa3ad; margin-left: 4px; }
+.dt-final__sub { position: absolute; left: 0; right: 0; top: 688px; text-align: center; font-size: 30px; font-weight: 700; color: var(--dt-cyan-hi); text-shadow: 0 0 20px rgba(8,182,213,.45); }
+.dt-tag { position: absolute; height: 30px; padding: 0 14px; border-radius: 4px; background: #0f2a30; border: 1px solid rgba(8,182,213,.35); color: #8fd8e8; font-size: 14px; font-weight: 700; line-height: 28px; box-shadow: 0 0 16px rgba(8,182,213,.2); }
+.dt-handle { position: absolute; left: 0; right: 0; top: 1058px; text-align: center; font-size: 18px; font-weight: 700; letter-spacing: .04em; }

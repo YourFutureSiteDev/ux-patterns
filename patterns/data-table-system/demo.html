@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Data Table System · UX Patterns</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_shared/stage.css">
+<link rel="stylesheet" href="pattern.css">
+<style>
+  :root { --bg: #0a0e11; --accent: #2fd6b0; --danger: #f0506e; --grid: rgba(255,255,255,.03); }
+  .scene { color: #eef2f5; }
+  .cursor { z-index: 20; }
+  @keyframes ds-in { from { opacity: 0 } to { opacity: 1 } }
+  @keyframes ds-x408 { to { transform: translateX(-408px) } }
+  @keyframes ds-x444 { to { transform: translateX(-444px) } }
+  @keyframes ds-x512 { to { transform: translateX(-512px) } }
+  @keyframes ds-y96 { to { transform: translateY(-96px) } }
+  .ds-s5a .ds-grid { animation: ds-x408 1.2s .4s cubic-bezier(.2,.8,.2,1) both; }
+  .ds-s5b .ds-grid { animation: ds-x444 1s .2s cubic-bezier(.2,.8,.2,1) both; }
+  .ds-s5c .ds-grid { transform: translateX(-512px); }
+  .ds-s5c .ds-body { animation: ds-y96 .9s .3s cubic-bezier(.2,.8,.2,1) both; }
+  .ds-s6c .ds-tip { animation: ds-in .25s .8s both; }
+</style>
+</head>
+<body class="ds">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-table" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></symbol>
+  <symbol id="i-funnel" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-sort" viewBox="0 0 24 24"><path d="M8 9l4-4 4 4M8 15l4 4 4-4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1-4.5L15.5 5a2.1 2.1 0 0 1 3 3L8 18.5z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-lines" viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h13"/></symbol>
+  <symbol id="i-lines-r" viewBox="0 0 24 24"><path d="M4 7h16M10 12h10M7 17h13"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-check-c" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7 12.5l3.5 3.5L17 9" fill="none" stroke="#04221c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M9 3h6l-1 6 3 3H7l3-3zM12 12v9"/></symbol>
+  <symbol id="i-pin-top" viewBox="0 0 24 24"><path d="M4 4h16M12 20V8M8 12l4-4 4 4"/></symbol>
+  <symbol id="i-cols" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v16"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 4l1.8 4.7L18.5 10.5l-4.7 1.8L12 17l-1.8-4.7L5.5 10.5l4.7-1.8zM18 16l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-follow" viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M2 21a8 8 0 0 1 14-4M19 8v6M16 11h6"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-cursor" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="#fff" stroke="#000" stroke-width="1.5"/></symbol>
+  <symbol id="i-cursor-t" viewBox="0 0 22 26"><path d="M2 2l6 19 3.5-7.5L19 10z" fill="none" stroke="#2fd6b0" stroke-width="2.4" stroke-linejoin="round"/></symbol>
+</svg>
+
+<!-- 1 · Your table is a spreadsheet -->
+<section class="scene" data-t="0" data-shot="0">
+  <span class="ds-kicker">DATA TABLE · 01</span>
+  <h1 class="ds-title">Your table is a spreadsheet.</h1>
+  <div data-app='{"left":48,"top":350,"style":"hook","sep":true,"zebra":true,"rows":6,"amount":"center","count":"6 of 128","foot":"1 to 6 of 128 invoices"}'></div>
+  <div class="ds-deci" style="left:62px;top:866px"><i>01</i><b>Align</b></div><div class="ds-deci" style="left:265px;top:866px"><i>02</i><b>Rows</b></div><div class="ds-deci" style="left:469px;top:866px"><i>03</i><b>Density</b></div>
+  <div class="ds-deci" style="left:62px;top:947px"><i>04</i><b>Sticky</b></div><div class="ds-deci" style="left:265px;top:947px"><i>05</i><b>Cells</b></div><div class="ds-deci" style="left:469px;top:947px"><i>06</i><b>Actions</b></div>
+</section>
+
+<!-- 2 · Align: digits that never line up -->
+<section class="scene" data-t="4.5" data-shot="6">
+  <span class="ds-kicker">DATA TABLE · 02 ALIGN</span>
+  <h1 class="ds-title">Digits that never line up.</h1>
+  <div data-app='{"left":48,"top":313,"style":"hook","rows":5,"amount":"center","dash":"pink"}'></div>
+  <span class="ds-code is-pink" style="left:170px;top:783px">text-align: center</span><span class="ds-code is-pink" style="left:386px;top:783px">normal figures</span>
+  <div class="ds-cmp is-pink" style="left:55px;top:835px"><h4><svg><use href="#i-lines"/></svg>Centered · proportional</h4><ul><li>$1,204.00</li><li>$89.50</li><li>$12,480.75</li></ul><span class="ds-dash" style="left:272px"></span></div>
+  <div class="ds-cmp is-teal is-dim" style="left:370px;top:835px"><h4><svg><use href="#i-lines-r"/></svg>Right · tabular</h4><ul><li>$1,204.00</li><li>$89.50</li><li>$12,480.75</li></ul><span class="ds-dash is-teal" style="left:272px"></span></div>
+  <span class="ds-pill" style="top:1030px">The eye cannot compare scattered digits</span>
+</section>
+
+<!-- 3 · Align: numbers right, text left -->
+<section class="scene" data-t="9" data-shot="10.5">
+  <span class="ds-kicker is-on">DATA TABLE · 02 ALIGN</span>
+  <h1 class="ds-title">Numbers right. Text left.</h1>
+  <div data-app='{"left":48,"top":313,"rows":5,"dash":"teal","hiCol":true}'></div>
+  <span class="ds-code is-teal" style="left:185px;top:783px">text-align: right</span><span class="ds-code is-teal" style="left:390px;top:783px">tabular-nums</span>
+  <div class="ds-cmp is-pink" style="left:55px;top:835px"><h4><svg><use href="#i-lines"/></svg>Centered · proportional</h4><ul><li>$1,204.00</li><li>$89.50</li><li>$12,480.75</li></ul><span class="ds-dash" style="left:272px"></span></div>
+  <div class="ds-cmp is-teal" style="left:370px;top:835px"><h4><svg><use href="#i-lines-r"/></svg>Right · tabular</h4><ul><li>$1,204.00</li><li>$89.50</li><li>$12,480.75</li></ul><span class="ds-dash is-teal" style="left:272px"></span></div>
+  <span class="ds-pill is-on" style="top:1030px">A column that reads like a receipt</span>
+</section>
+
+<!-- 4 · Rows: stripes fight the content -->
+<section class="scene" data-t="15" data-shot="16.5">
+  <span class="ds-kicker">DATA TABLE · 03 ROWS</span>
+  <h1 class="ds-title">Stripes fight the content.</h1>
+  <div data-app='{"left":48,"top":306,"rows":5,"zebra":true}'></div>
+  <div class="ds-mini" style="left:147px;top:780px"><h4>12 columns wide<span>stripes earn it</span></h4><div class="ds-mini__rows" data-mini></div></div>
+  <span class="ds-pill" style="top:1030px">Every other row screams for nothing</span>
+</section>
+
+<!-- 5 · Rows: one hairline, hover does the rest -->
+<section class="scene" data-t="18" data-shot="19.5">
+  <span class="ds-kicker is-on">DATA TABLE · 03 ROWS</span>
+  <h1 class="ds-title">One hairline. Hover does the rest.</h1>
+  <div data-app='{"left":48,"top":306,"rows":5,"hover":"INV-2042"}'></div>
+  <svg class="cursor" style="left:256px;top:538px"><use href="#i-cursor"/></svg>
+  <span class="ds-hovertag" style="left:682px;top:522px"><svg><use href="#i-cursor-t"/></svg></span>
+  <div class="ds-mini" style="left:147px;top:780px"><h4>12 columns wide<span>stripes earn it</span></h4><div class="ds-mini__rows" data-mini></div></div>
+  <span class="ds-pill is-on" style="top:1030px">Stripes only earn very wide rows</span>
+</section>
+
+<!-- 6 · Rows: wide tables earn stripes -->
+<section class="scene" data-t="22.5" data-shot="24">
+  <span class="ds-kicker is-on">DATA TABLE · 03 ROWS</span>
+  <h1 class="ds-title">One hairline. Hover does the rest.</h1>
+  <div data-app='{"left":48,"top":306,"rows":5}'></div>
+  <svg class="cursor" style="left:258px;top:743px"><use href="#i-cursor"/></svg>
+  <div class="ds-mini" style="left:147px;top:780px"><h4><svg viewBox="0 0 24 24"><use href="#i-check-c"/></svg>12 columns wide<span>stripes earn it</span></h4><div class="ds-mini__rows" data-mini></div></div>
+  <span class="ds-pill is-on" style="top:1030px">Stripes only earn very wide rows</span>
+</section>
+
+<!-- 7 · Density: default 48px -->
+<section class="scene" data-t="25.5" data-shot="27">
+  <span class="ds-kicker is-on">DATA TABLE · 04 DENSITY</span>
+  <h1 class="ds-title">Row height is a decision.</h1>
+  <span class="ds-badge is-on" style="left:488px;top:273px">Default rows</span>
+  <div data-app='{"left":22,"top":313,"rows":6,"rowH":48,"outline":"INV-2044","count":"6 of 128","foot":"1 to 6 of 128 invoices"}'></div>
+  <span class="ds-bracket" style="left:652px;top:619px;height:44px"></span><span class="ds-px" style="left:676px;top:621px;width:40px">48<small>px</small></span>
+  <div class="ds-persona" style="left:50px;top:888px"><b>Ops</b><span>Compact rows</span></div><div class="ds-persona is-on" style="left:262px;top:888px"><b>Everyday</b><span>Default rows</span></div><div class="ds-persona" style="left:475px;top:888px"><b>Review</b><span>Comfortable rows</span></div>
+  <div class="ds-seg" style="left:90px;top:1012px"><button><b>Compact</b><span>40px</span></button><button class="is-on"><b>Default</b><span>48px</span></button><button><b>Comfortable</b><span>56px</span></button></div>
+  <svg class="cursor" style="left:220px;top:1032px"><use href="#i-cursor"/></svg>
+</section>
+
+<!-- 8 · Density: compact 40px -->
+<section class="scene" data-t="28.5" data-shot="30">
+  <span class="ds-kicker is-on">DATA TABLE · 04 DENSITY</span>
+  <h1 class="ds-title">Row height is a decision.</h1>
+  <span class="ds-badge is-on" style="left:488px;top:273px">Compact rows</span>
+  <div data-app='{"left":22,"top":313,"rows":6,"rowH":40,"outline":"INV-2044","count":"6 of 128","foot":"1 to 6 of 128 invoices"}'></div>
+  <span class="ds-bracket" style="left:652px;top:595px;height:36px"></span><span class="ds-px" style="left:676px;top:593px;width:40px">40<small>px</small></span>
+  <div class="ds-persona is-on" style="left:50px;top:888px"><b>Ops</b><span>Compact rows</span></div><div class="ds-persona" style="left:262px;top:888px"><b>Everyday</b><span>Default rows</span></div><div class="ds-persona" style="left:475px;top:888px"><b>Review</b><span>Comfortable rows</span></div>
+  <div class="ds-seg" style="left:90px;top:1012px"><button class="is-on"><b>Compact</b><span>40px</span></button><button><b>Default</b><span>48px</span></button><button><b>Comfortable</b><span>56px</span></button></div>
+  <svg class="cursor" style="left:360px;top:1054px"><use href="#i-cursor"/></svg>
+</section>
+
+<!-- 9 · Density: comfortable 56px -->
+<section class="scene" data-t="34.5" data-shot="36">
+  <span class="ds-kicker is-on">DATA TABLE · 04 DENSITY</span>
+  <h1 class="ds-title">Row height is a decision.</h1>
+  <span class="ds-badge is-on" style="left:488px;top:273px">Comfortable rows</span>
+  <div data-app='{"left":22,"top":313,"rows":6,"rowH":56,"outline":"INV-2044","count":"6 of 128","foot":"1 to 6 of 128 invoices"}'></div>
+  <span class="ds-bracket" style="left:652px;top:643px;height:52px"></span><span class="ds-px" style="left:676px;top:650px;width:40px">56<small>px</small></span>
+  <div class="ds-persona" style="left:50px;top:888px"><b>Ops</b><span>Compact rows</span></div><div class="ds-persona" style="left:262px;top:888px"><b>Everyday</b><span>Default rows</span></div><div class="ds-persona is-on" style="left:475px;top:888px"><b>Review</b><span>Comfortable rows</span></div>
+  <div class="ds-seg" style="left:90px;top:1012px"><button><b>Compact</b><span>40px</span></button><button><b>Default</b><span>48px</span></button><button class="is-on"><b>Comfortable</b><span>56px</span></button></div>
+  <svg class="cursor" style="left:543px;top:1054px"><use href="#i-cursor"/></svg>
+</section>
+
+<!-- 10 · Sticky: scroll right, lose the row -->
+<section class="scene ds-s5a" data-t="37.5" data-shot="40.5">
+  <span class="ds-kicker">DATA TABLE · 05 STICKY</span>
+  <h1 class="ds-title">Scroll right, lose the row.</h1>
+  <div data-app='{"left":48,"top":306,"rows":5,"wide":true}'></div>
+  <span class="ds-hbar" style="left:48px;top:778px;width:624px"><i style="left:227px;width:338px"></i></span>
+  <span class="ds-code" style="left:181px;top:803px">position: sticky · left: 0</span><span class="ds-code" style="left:457px;top:803px">top: 0</span>
+  <div class="ds-opt" style="left:60px;top:855px"><i><svg><use href="#i-pin"/></svg></i>Pin the identity columns<span class="ds-opt__end"><svg><use href="#i-cols"/></svg><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <div class="ds-opt" style="left:60px;top:936px"><i><svg><use href="#i-pin-top"/></svg></i>Pin the header on vertical scroll<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <span class="ds-pill" style="top:1030px">12 columns, 6 on screen</span>
+</section>
+
+<!-- 11 · Sticky: identity columns pinned -->
+<section class="scene ds-s5b" data-t="42" data-shot="43.5">
+  <span class="ds-kicker is-on">DATA TABLE · 05 STICKY</span>
+  <h1 class="ds-title">Context stays on screen.</h1>
+  <div data-app='{"left":48,"top":306,"rows":5,"wide":true,"pin":true}'></div>
+  <span class="ds-hbar" style="left:48px;top:778px;width:624px"><i class="is-on" style="left:247px;width:340px"></i></span>
+  <span class="ds-code is-teal" style="left:181px;top:803px">position: sticky · left: 0</span><span class="ds-code" style="left:457px;top:803px">top: 0</span>
+  <div class="ds-opt is-on" style="left:60px;top:855px"><i><svg><use href="#i-pin"/></svg></i>Pin the identity columns<span class="ds-opt__end"><svg><use href="#i-cols"/></svg><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <div class="ds-opt" style="left:60px;top:936px"><i><svg><use href="#i-pin-top"/></svg></i>Pin the header on vertical scroll<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <span class="ds-pill" style="top:1030px">12 columns, 6 on screen</span>
+</section>
+
+<!-- 12 · Sticky: header pinned on vertical scroll -->
+<section class="scene ds-s5c" data-t="46.5" data-shot="48">
+  <span class="ds-kicker is-on">DATA TABLE · 05 STICKY</span>
+  <h1 class="ds-title">Context stays on screen.</h1>
+  <div data-app='{"left":48,"top":306,"rows":7,"clip":5,"wide":true,"pin":true,"actions":"pinned"}'></div>
+  <span class="ds-hbar" style="left:48px;top:778px;width:624px"><i class="is-on" style="left:282px;width:342px"></i></span>
+  <span class="ds-code is-teal" style="left:181px;top:803px">position: sticky · left: 0</span><span class="ds-code is-teal" style="left:457px;top:803px">top: 0</span>
+  <div class="ds-opt is-on" style="left:60px;top:855px"><i><svg><use href="#i-pin"/></svg></i>Pin the identity columns<span class="ds-opt__end"><svg><use href="#i-cols"/></svg><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <div class="ds-opt is-on" style="left:60px;top:936px"><i><svg><use href="#i-pin-top"/></svg></i>Pin the header on vertical scroll<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <span class="ds-pill is-on" style="top:1030px">Context never leaves the screen</span>
+</section>
+
+<!-- 13 · Cells: an empty cell is a question -->
+<section class="scene" data-t="49.5" data-shot="49.5">
+  <span class="ds-kicker">DATA TABLE · 06 CELLS</span>
+  <h1 class="ds-title">An empty cell is a question.</h1>
+  <div data-app='{"left":48,"top":300,"rows":5,"missing":"?"}'></div>
+  <div class="ds-opt" style="left:60px;top:790px"><i><svg><use href="#i-minus"/></svg></i>Missing gets a dash, not a blank<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <div class="ds-opt" style="left:60px;top:861px"><i>T</i>Truncate long text, tooltip on hover<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <div class="ds-opt" style="left:60px;top:932px"><i>#</i>Numbers never truncate<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <span class="ds-pill" style="top:1030px">Missing, zero, or loading?</span>
+</section>
+
+<!-- 14 · Cells: truncate, never wrap (the wrapped row) -->
+<section class="scene" data-t="52.5" data-shot="52.5">
+  <span class="ds-kicker is-on">DATA TABLE · 06 CELLS</span>
+  <h1 class="ds-title">Truncate. Never wrap.</h1>
+  <div data-app='{"left":48,"top":300,"rows":5,"missing":"-","wrap":"INV-2043"}'></div>
+  <div class="ds-opt is-on" style="left:60px;top:790px"><i><svg><use href="#i-minus"/></svg></i>Missing gets a dash, not a blank<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <div class="ds-opt" style="left:60px;top:861px"><i>T</i>Truncate long text, tooltip on hover<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <div class="ds-opt" style="left:60px;top:932px"><i>#</i>Numbers never truncate<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <span class="ds-pill" style="top:1030px">Missing, zero, or loading?</span>
+</section>
+
+<!-- 15 · Cells: truncated with a tooltip -->
+<section class="scene ds-s6c" data-t="55.5" data-shot="57">
+  <span class="ds-kicker is-on">DATA TABLE · 06 CELLS</span>
+  <h1 class="ds-title">Truncate. Never wrap.</h1>
+  <div data-app='{"left":48,"top":300,"rows":5,"missing":"-","long":"INV-2043","tip":"Priya Natarajan Consulting Group"}'></div>
+  <svg class="cursor" style="left:220px;top:583px"><use href="#i-cursor"/></svg>
+  <div class="ds-opt is-on" style="left:60px;top:790px"><i><svg><use href="#i-minus"/></svg></i>Missing gets a dash, not a blank<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <div class="ds-opt is-on" style="left:60px;top:861px"><i>T</i>Truncate long text, tooltip on hover<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <div class="ds-opt" style="left:60px;top:932px"><i>#</i>Numbers never truncate<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <span class="ds-pill is-on" style="top:1030px">One line per row, always</span>
+</section>
+
+<!-- 16 · Cells: numbers never truncate -->
+<section class="scene ds-s6c" data-t="58.5" data-shot="58.5">
+  <span class="ds-kicker is-on">DATA TABLE · 06 CELLS</span>
+  <h1 class="ds-title">Truncate. Never wrap.</h1>
+  <div data-app='{"left":48,"top":300,"rows":5,"missing":"-","long":"INV-2043","tip":"Priya Natarajan Consulting Group"}'></div>
+  <svg class="cursor" style="left:220px;top:583px"><use href="#i-cursor"/></svg>
+  <div class="ds-opt is-on" style="left:60px;top:790px"><i><svg><use href="#i-minus"/></svg></i>Missing gets a dash, not a blank<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <div class="ds-opt is-on" style="left:60px;top:861px"><i>T</i>Truncate long text, tooltip on hover<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <div class="ds-opt is-on" style="left:60px;top:932px"><i>#</i>Numbers never truncate<span class="ds-fix"><s>$12,48…</s><b>$12,480.75</b></span><span class="ds-opt__end" style="margin-left:14px"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <span class="ds-pill is-on" style="top:1030px">One line per row, always</span>
+</section>
+
+<!-- 17 · Actions: an action column is noise -->
+<section class="scene" data-t="60" data-shot="61.5">
+  <span class="ds-kicker">DATA TABLE · 07 ACTIONS</span>
+  <h1 class="ds-title">An action column is noise.</h1>
+  <span class="ds-badge" style="left:472px;top:260px">7 rows · 14 icons</span>
+  <div data-app='{"left":48,"top":300,"rows":5,"missing":"-","long":"INV-2043"}'></div>
+  <div class="ds-phone" style="left:70px;top:773px"><div class="ds-phone__row"></div><div class="ds-phone__row"></div><div class="ds-phone__row"></div><div class="ds-phone__row"></div></div>
+  <div class="ds-opt" style="left:265px;top:773px;width:386px"><i><svg><use href="#i-spark"/></svg></i>Reveal on hover or focus<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <div class="ds-opt" style="left:265px;top:853px;width:386px"><i><svg><use href="#i-phone"/></svg></i>Touch keeps a kebab<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <div class="ds-opt ds-opt--two" style="left:265px;top:933px;width:386px"><i><svg><use href="#i-chev"/></svg></i>Sort arrow on the active<br>column only</div>
+  <span class="ds-pill" style="top:1030px">Fifty rows, fifty pencils</span>
+</section>
+
+<!-- 18 · Actions: reveal on hover or focus -->
+<section class="scene" data-t="63" data-shot="67.5">
+  <span class="ds-kicker is-on">DATA TABLE · 07 ACTIONS</span>
+  <h1 class="ds-title">Reveal on hover or focus.</h1>
+  <div data-app='{"left":48,"top":300,"rows":5,"missing":"-","long":"INV-2043","reveal":true,"hover":"INV-2045"}'></div>
+  <svg class="cursor" style="left:620px;top:680px"><use href="#i-cursor"/></svg>
+  <div class="ds-phone" style="left:70px;top:773px"><div class="ds-phone__row"></div><div class="ds-phone__row"></div><div class="ds-phone__row"></div><div class="ds-phone__row"></div></div>
+  <div class="ds-opt is-on" style="left:265px;top:773px;width:386px"><i><svg><use href="#i-spark"/></svg></i>Reveal on hover or focus<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <div class="ds-opt" style="left:265px;top:853px;width:386px"><i><svg><use href="#i-phone"/></svg></i>Touch keeps a kebab<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <div class="ds-opt ds-opt--two" style="left:265px;top:933px;width:386px"><i><svg><use href="#i-chev"/></svg></i>Sort arrow on the active<br>column only</div>
+  <span class="ds-pill is-on" style="top:1030px">One row, one set of actions</span>
+</section>
+
+<!-- 19 · Actions: touch keeps a kebab, sort arrow on the active column only -->
+<section class="scene" data-t="69" data-shot="70.5">
+  <span class="ds-kicker is-on">DATA TABLE · 07 ACTIONS</span>
+  <h1 class="ds-title">Reveal on hover or focus.</h1>
+  <div data-app='{"left":48,"top":300,"rows":5,"missing":"-","long":"INV-2043","reveal":true,"sortActive":"Due date"}'></div>
+  <span class="ds-ring" style="left:528px;top:402px"></span>
+  <svg class="cursor" style="left:561px;top:437px"><use href="#i-cursor"/></svg>
+  <div class="ds-phone" style="left:70px;top:773px"><div class="ds-phone__row"><i>AL</i><b></b><b></b><span class="ds-kebab">⋮</span></div><div class="ds-phone__row"><i>MO</i><b></b><b></b><span class="ds-kebab">⋮</span></div><div class="ds-phone__row"><i>PN</i><b></b><b></b><span class="ds-kebab">⋮</span></div><div class="ds-phone__row"><i>TR</i><b></b><b></b><span class="ds-kebab">⋮</span></div></div>
+  <div class="ds-opt is-on" style="left:265px;top:773px;width:386px"><i><svg><use href="#i-spark"/></svg></i>Reveal on hover or focus<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <div class="ds-opt is-on" style="left:265px;top:853px;width:386px"><i><svg><use href="#i-phone"/></svg></i>Touch keeps a kebab<span class="ds-opt__end"><span class="ds-check"><svg><use href="#i-check"/></svg></span></span></div>
+  <div class="ds-opt ds-opt--two" style="left:265px;top:933px;width:386px"><i><svg><use href="#i-chev"/></svg></i>Sort arrow on the active<br>column only</div>
+  <span class="ds-pill is-on" style="top:1030px">One row, one set of actions</span>
+</section>
+
+<!-- 20 · Outro: a table is six decisions -->
+<section class="scene" data-t="72" data-shot="75">
+  <div class="glow" style="left:100px;top:560px;width:520px;height:520px;background:rgba(47,214,176,.14)"></div>
+  <span class="ds-kicker is-on">DATA TABLE · SYSTEM</span>
+  <h1 class="ds-title">A table is six decisions.</h1>
+  <div data-app='{"left":130,"top":287,"rows":5,"missing":"-","long":"INV-2043","reveal":true,"sortActive":"Due date","scale":0.737}'></div>
+  <div class="ds-done" style="left:68px;top:674px"><i><svg><use href="#i-check"/></svg></i>Align</div><div class="ds-done" style="left:366px;top:674px"><i><svg><use href="#i-check"/></svg></i>Rows</div>
+  <div class="ds-done" style="left:68px;top:734px"><i><svg><use href="#i-check"/></svg></i>Density</div><div class="ds-done" style="left:366px;top:734px"><i><svg><use href="#i-check"/></svg></i>Sticky</div>
+  <div class="ds-done" style="left:68px;top:794px"><i><svg><use href="#i-check"/></svg></i>Cells</div><div class="ds-done" style="left:366px;top:794px"><i><svg><use href="#i-check"/></svg></i>Actions</div>
+  <div class="ds-handle" style="top:888px">@designmotionhq</div>
+  <span class="ds-cta" style="left:216px;top:940px"><svg><use href="#i-follow"/></svg>Follow</span><span class="ds-cta" style="left:375px;top:940px"><svg><use href="#i-bookmark"/></svg>Save</span>
+</section>
+
+<script>
+// Lumen Billing invoice app, stamped from one builder so every scene's table is the same component in a different state.
+(() => {
+  const ROWS = [
+    { id: 'INV-2041', ini: 'AL', name: 'Ada Lindqvist', amount: '$1,204.00', status: 'Paid', due: 'Mar 04', plan: 'Growth', seats: '12', method: 'Card 4291', issued: 'Feb 02', terms: 'Net 30', owner: 'R. Feldman' },
+    { id: 'INV-2042', ini: 'MO', name: 'Marcus Oyelaran-Adebayo', amount: '$89.50', status: 'Open', due: 'Mar 09', miss: true, plan: 'Starter', seats: '3', method: 'Card 8817', issued: 'Feb 08', terms: 'Net 30', owner: 'S. Okoro' },
+    { id: 'INV-2043', ini: 'PN', name: 'Priya Natarajan', amount: '$12,480.75', status: 'Overdue', due: 'Feb 27', plan: 'Scale', seats: '84', method: 'Transfer', issued: 'Jan 28', terms: 'Net 15', owner: 'L. Petit' },
+    { id: 'INV-2044', ini: 'TR', name: 'Tomas Ricci', amount: '$340.00', status: 'Paid', due: 'Mar 12', miss: true, plan: 'Growth', seats: '9', method: 'Card 5504', issued: 'Feb 11', terms: 'Net 30', owner: 'N. Adeyemi' },
+    { id: 'INV-2045', ini: 'NH', name: 'Noor Haddad', amount: '$7.99', status: 'Draft', due: 'Mar 15', miss: true, plan: 'Starter', seats: '1', method: 'Card 2260', issued: 'Feb 14', terms: 'Net 7', owner: 'J. Kowalski' },
+    { id: 'INV-2046', ini: 'EV', name: 'Elena Vasquez', amount: '$2,015.20', status: 'Open', due: 'Mar 18', plan: 'Growth', seats: '6', method: 'Transfer', issued: 'Feb 17', terms: 'Net 30', owner: 'M. Duarte' },
+    { id: 'INV-2047', ini: 'KB', name: 'Kwame Boateng', amount: '$4,120.00', status: 'Open', due: 'Mar 22', plan: 'Scale', seats: '20', method: 'Card 9038', issued: 'Feb 20', terms: 'Net 30', owner: 'H. Sato' }
+  ];
+  const sort = '<svg><use href="#i-sort"/></svg>';
+  const acts = '<span class="ds-act"><svg><use href="#i-pencil"/></svg><svg><use href="#i-trash"/></svg></span>';
+  const head = o => {
+    const h = (label, cls = '') => o.sortActive ? `<span class="${cls}${o.sortActive === label ? ' is-active' : ''}">${label}${o.sortActive === label ? '<svg><use href="#i-chev"/></svg>' : ''}</span>` : `<span class="${cls}">${label}${label === 'Due date' && o.style === 'hook' ? '' : sort}</span>`;
+    const base = `${h('Invoice')}${h('Customer')}${h('Amount', 'is-num')}${h('Status')}${h('Due date')}`;
+    const wide = o.wide ? `${h('Plan')}${h('Seats', 'is-num')}${h('Method')}${h('Issued')}${h('Terms')}${h('Owner')}` : '';
+    return `<div class="ds-head">${base}${wide}<span class="is-act"></span></div>`;
+  };
+  const row = (r, o) => {
+    const long = o.long === r.id || o.wrap === r.id;
+    const name = long ? 'Priya Natarajan Consulting Group' : r.name;
+    const due = o.missing && r.miss ? (o.missing === '?' ? '<span class="ds-date is-q">?</span>' : '<span class="ds-date">–</span>') : `<span class="ds-date">${r.due}</span>`;
+    const wide = o.wide ? `<span class="ds-cell">${r.plan}</span><span class="ds-cell is-num">${r.seats}</span><span class="ds-cell">${r.method}</span><span class="ds-cell">${r.issued}</span><span class="ds-cell">${r.terms}</span><span class="ds-cell">${r.owner}</span>` : '';
+    const cls = ['ds-row', o.hover === r.id ? 'is-hover' : '', o.outline === r.id ? 'is-outline' : '', o.wrap === r.id ? 'is-bad' : ''].join(' ').trim();
+    const style = o.wrap === r.id ? ' style="height:72px"' : '';
+    return `<div class="${cls}" data-id="${r.id}"${style}><span class="ds-inv">${r.id}</span><span class="ds-cust${o.wrap === r.id ? ' is-wrap' : ''}"><i>${r.ini}</i><span>${name}</span></span><span class="ds-num${o.amount === 'center' ? ' is-prop' : ''}">${r.amount}</span><span><span class="ds-chip is-${r.status.toLowerCase()}">${r.status}</span></span>${due}${wide}${o.actions === 'none' ? '<span></span>' : acts}</div>`;
+  };
+  const pinRow = r => `<div class="ds-row" data-id="${r.id}"><span class="ds-inv">${r.id}</span><span class="ds-cust"><i>${r.ini}</i><span>${r.name}</span></span></div>`;
+  const build = o => {
+    const rows = ROWS.slice(0, o.rows || 5), rh = o.rowH || 48, visible = o.clip || rows.length;
+    const cls = ['ds-app', o.style === 'hook' ? 'is-hook' : '', o.sep ? 'is-sep' : '', o.zebra ? 'is-zebra' : '', o.reveal ? 'is-reveal' : ''].join(' ').trim();
+    const scrollH = 34 + visible * rh + (o.wrap ? 24 : 0);
+    const tf = o.scale ? `transform:scale(${o.scale});transform-origin:0 0;` : '';
+    return `<div class="${cls}" style="left:${o.left}px;top:${o.top}px;--ds-row:${rh}px;${tf}">
+      <div class="ds-top"><span class="ds-logo"><svg><use href="#i-table"/></svg></span><span class="ds-brand">Lumen Billing</span><span class="ds-tabs"><b>Invoices</b><span>Customers</span><span>Reports</span></span><span class="ds-new"><svg><use href="#i-plus"/></svg>New invoice</span></div>
+      <div class="ds-tools"><span class="ds-search"><svg><use href="#i-search"/></svg>Search invoices</span><span class="ds-filter"><svg><use href="#i-funnel"/></svg>Status<svg><use href="#i-chev"/></svg></span><span class="ds-count">${o.count || '5 of 128'}</span></div>
+      <div class="ds-scroll" style="height:${scrollH}px">
+        ${o.hiCol ? '<span class="ds-hi-col" style="left:100px;width:157px"></span>' : ''}
+        <div class="ds-grid${o.wide ? ' is-wide' : ''}">${head(o)}<div class="ds-body">${rows.map(r => row(r, o)).join('')}</div></div>
+        ${o.pin ? `<div class="ds-pin"><div class="ds-head"><span>Invoice${sort}</span><span>Customer${sort}</span></div><div class="ds-body">${rows.map(pinRow).join('')}</div></div>` : ''}
+        ${o.dash ? `<span class="ds-dash${o.dash === 'teal' ? ' is-teal' : ''}" style="left:355px"></span>` : ''}
+        ${o.tip ? `<span class="ds-tip" style="left:140px;top:99px">${o.tip}</span>` : ''}
+        ${o.ring ? `<span class="ds-ring" style="left:${o.ring[0]}px;top:${o.ring[1] - 118}px"></span>` : ''}
+      </div>
+      <div class="ds-foot">${o.foot || '1 to 5 of 128 invoices'}<span class="ds-pages"><span><svg><use href="#i-left"/></svg></span><span class="is-on">1</span><span>2</span><span>3</span><span><svg><use href="#i-right"/></svg></span></span></div>
+    </div>`;
+  };
+  document.querySelectorAll('[data-app]').forEach(el => { el.outerHTML = build(JSON.parse(el.dataset.app)); });
+  document.querySelectorAll('[data-mini]').forEach(el => { el.innerHTML = Array.from({ length: 7 }, () => `<div class="ds-mini__row">${'<i></i>'.repeat(12)}</div>`).join(''); });
+})();
+</script>
+<script type="module">
+  import { TableSystem } from './pattern.js';
+  // Every app in the demo is live: hover reveals actions, the density control re-tokens rows, header clicks sort one column.
+  document.querySelectorAll('.ds-app').forEach(app => TableSystem(app));
+  document.querySelectorAll('.ds-seg').forEach(seg => seg.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; seg.querySelectorAll('button').forEach(x => x.classList.toggle('is-on', x === b)); const app = seg.closest('.scene').querySelector('.ds-app'); app.style.setProperty('--ds-row', b.querySelector('span').textContent); }));
+</script>
+<script src="../_shared/stage.js"></script>
+</body>
+</html>
