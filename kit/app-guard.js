@@ -59,7 +59,17 @@
     if (!sessionStorage.getItem(K)) { sessionStorage.setItem(K, "1"); hardReload(); return; }
     if (document.body) panel("boot"); else document.addEventListener("DOMContentLoaded", function () { panel("boot"); });
   }
+  /* a failed <img>, <link> or someone else's <script> (Cloudflare's injected analytics beacon, blocked by our CSP) is not the app failing;
+     only our own scripts count. Without this the blocked beacon reloaded the page in a loop on 10 Oct 2026. */
+  function ignorable(e) {
+    var t = e && e.target;
+    if (!t || t === window || !t.tagName) return false;
+    if (t.tagName !== "SCRIPT") return true;
+    var src = t.src || "";
+    return !src || src.indexOf(location.origin + "/") !== 0;
+  }
   function onRuntimeFail(e) {
+    if (ignorable(e)) return;
     if (!READY) return onBootFail();
     var msg = e && (e.reason && e.reason.message || e.message || e.reason) || "";
     if (/Failed to fetch|NetworkError|Load failed/i.test(String(msg))) return panel("network", "", mountEl());
