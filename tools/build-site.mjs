@@ -28,16 +28,17 @@ for (const p of built) {
 }
 
 const cats = [...new Set(built.map(p => p.category))].sort();
+const ours = built.filter(p => p.source === 'ours'), dmhq = built.length - ours.length;
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const card = p => `<a class="card" href="patterns/${p.slug}/demo.html" data-cat="${p.category}" data-q="${esc((p.title + ' ' + p.hook + ' ' + (p.caption || '') + ' ' + p.insights.join(' ')).toLowerCase())}">
   <img src="thumbs/${p.slug}.jpg" alt="" loading="lazy" width="360" height="640">
-  <div class="card__body"><span class="cat cat--${p.category}">${p.category}</span><h3>${esc(p.title)}</h3><p>${esc(p.hook || p.caption || '')}</p><small>${p.scenes} scenes${p.views ? ' · ' + esc(p.views) + ' views' : ''}</small></div>
+  <div class="card__body"><span class="cat cat--${p.category}">${p.category}</span><h3>${esc(p.title)}</h3><p>${esc(p.hook || p.caption || '')}</p><small>${p.source === 'ours' ? 'our own, from a reel' : p.scenes + ' scenes'}${p.views ? ' · ' + esc(p.views) + ' views' : ''}</small></div>
 </a>`;
 
 fs.writeFileSync(path.join(site, 'index.html'), `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UX Patterns</title>
-<meta name="description" content="${built.length} UX patterns from @designmotionhq rebuilt as working HTML, CSS and JS components, scene for scene.">
+<meta name="description" content="${dmhq} UX patterns from @designmotionhq, plus ${ours.length} of our own, rebuilt as working HTML, CSS and JS components, scene for scene.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -50,11 +51,11 @@ header p{color:var(--muted);margin:0 0 20px;max-width:640px;line-height:1.5}head
 main{max-width:1280px;margin:0 auto;padding:16px 24px 80px;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
 .card{display:block;background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;transition:transform .18s ease,border-color .18s ease}.card:hover{transform:translateY(-3px);border-color:rgba(45,212,191,.5)}.card[hidden]{display:none}
 .card img{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;background:#000}.card__body{padding:12px 14px 14px}.card h3{margin:6px 0 4px;font-size:16px}.card p{margin:0 0 8px;color:var(--muted);font-size:13px;line-height:1.4}.card small{color:#5f6772;font-size:12px}
-.cat{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}.cat--forms{color:#f59e0b}.cat--visual{color:#a78bfa}.cat--feedback{color:#2dd4bf}.cat--interaction{color:#60a5fa}.cat--content{color:#f472b6}.cat--navigation{color:#34d399}.cat--motion{color:#fb7185}
+.cat{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}.cat--forms{color:#f59e0b}.cat--ours{color:#f472b6}.cat--visual{color:#a78bfa}.cat--feedback{color:#2dd4bf}.cat--interaction{color:#60a5fa}.cat--content{color:#f472b6}.cat--navigation{color:#34d399}.cat--motion{color:#fb7185}
 footer{max-width:1280px;margin:0 auto;padding:0 24px 48px;color:var(--muted);font-size:13px;line-height:1.6}footer a{color:var(--accent)}
 @media (max-width:480px){header{padding:32px 16px 12px}h1{font-size:30px}main{padding:12px 16px 60px;grid-template-columns:repeat(2,1fr);gap:10px}}
 </style></head><body>
-<header><h1>UX <em>Patterns</em></h1><p>${built.length} patterns from <a href="https://www.instagram.com/designmotionhq/">@designmotionhq</a>, each rebuilt scene for scene as a working HTML, CSS and JS component. ${scenesTotal} scenes. Use ← → inside a pattern to step through its scenes.</p>
+<header><h1>UX <em>Patterns</em></h1><p>${dmhq} patterns from <a href="https://www.instagram.com/designmotionhq/">@designmotionhq</a>, each rebuilt scene for scene as a working HTML, CSS and JS component, plus ${ours.length} of our own. ${scenesTotal} scenes. Use ← → inside a pattern to step through its scenes.</p>
 <div class="bar"><input id="q" type="search" placeholder="Search patterns…" aria-label="Search patterns"><button class="on" data-cat="">All</button>${cats.map(c => `<button data-cat="${c}">${c}</button>`).join('')}</div></header>
 <main id="grid">${built.map(card).join('\n')}</main>
 <footer>Rebuilt by <a href="https://yourfuturesite.com.au">Your Future Site</a> as our own implementation of each pattern. The originals, and the free written breakdowns, are at <a href="https://www.designmotionhq.com/patterns">designmotionhq.com/patterns</a>.</footer>

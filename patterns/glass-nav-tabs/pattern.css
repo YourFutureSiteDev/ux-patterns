@@ -1,0 +1,117 @@
+/* Glass Nav Tabs: three glass navigation bars from the reel by code.xr (Insta batch
+   7 Nov 2026). An optional look: offer it when a customer wants glass, never as a
+   default. Retheme through the --gn-* tokens. The pill stretches as it travels, turns
+   into a clear lens while moving, and settles solid on the new item. */
+
+.gn-bar {
+  --gn-pad: 6px;
+  --gn-fast: .2s;
+  --gn-slow: .36s;
+  --gn-ease: cubic-bezier(.3, .9, .3, 1);
+  --gn-focus: #fff;
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  gap: 2px;
+  max-width: 100%;
+  padding: var(--gn-pad);
+  border: 1.5px solid var(--gn-edge);
+  border-radius: 999px;
+  background: var(--gn-fill);
+  color: var(--gn-ink);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .18), inset 0 1px 0 rgba(255, 255, 255, .22);
+  isolation: isolate;
+}
+
+/* three skins, all tokens */
+.gn-smoke { --gn-fill: rgba(38, 34, 30, .52); --gn-edge: rgba(255, 255, 255, .34); --gn-ink: #f6f1ea; --gn-on: #1b1916; --gn-pill: linear-gradient(180deg, #fff, #efe9e1); --gn-glow: 0 6px 24px rgba(255, 224, 180, .4); }
+.gn-frost { --gn-fill: rgba(232, 229, 225, .62); --gn-edge: rgba(255, 255, 255, .7); --gn-ink: #211f1c; --gn-on: #fff; --gn-pill: #0f0e0d; --gn-glow: 0 4px 14px rgba(0, 0, 0, .28); --gn-focus: #0f0e0d; }
+.gn-dock { --gn-fill: rgba(238, 228, 216, .86); --gn-edge: rgba(255, 255, 255, .8); --gn-ink: #2b2622; --gn-on: #1d1916; --gn-pill: rgba(70, 48, 28, .13); --gn-glow: none; --gn-focus: #2b2622; }
+
+.gn-item {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  min-height: 44px;
+  padding: 0 15px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color .22s;
+}
+.gn-item:focus-visible { outline: 2px solid var(--gn-focus); outline-offset: -3px; }
+.gn-item[aria-current] { color: var(--gn-on); }
+.gn-ico { flex: none; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.gn-label { display: inline-block; overflow: hidden; max-width: 110px; margin-left: 8px; transition: max-width var(--gn-slow) var(--gn-ease), margin var(--gn-slow) var(--gn-ease), opacity .2s; }
+
+/* the dock: icons only, the active item opens its label */
+.gn-dock .gn-item:not([aria-current]) .gn-label { max-width: 0; margin-left: 0; opacity: 0; }
+.gn-dock .gn-item[aria-current] .gn-ico { fill: currentColor; }
+
+/* the pill: left and right edges run at different speeds, so it stretches */
+.gn-pill {
+  position: absolute;
+  z-index: 0;
+  top: var(--gn-pad);
+  bottom: var(--gn-pad);
+  left: 0;
+  right: 100%;
+  border-radius: 999px;
+  background: var(--gn-pill);
+  box-shadow: var(--gn-glow), inset 0 1px 0 rgba(255, 255, 255, .28);
+  transition: left var(--gn-slow) var(--gn-ease), right var(--gn-fast) var(--gn-ease), transform .24s var(--gn-ease), background .2s, box-shadow .2s;
+}
+.gn-pill.to-left { transition: left var(--gn-fast) var(--gn-ease), right var(--gn-slow) var(--gn-ease), transform .24s var(--gn-ease), background .2s, box-shadow .2s; }
+.gn-pill.is-still { transition: none; }
+
+/* in flight it is a lens, not a button */
+.gn-pill.is-moving {
+  background: rgba(255, 255, 255, .16);
+  -webkit-backdrop-filter: blur(1.5px) brightness(1.12) saturate(1.5);
+  backdrop-filter: blur(1.5px) brightness(1.12) saturate(1.5);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .75), inset 0 -8px 14px rgba(255, 255, 255, .14), 0 6px 18px rgba(0, 0, 0, .18);
+  transform: scale(1.05, 1.16);
+}
+
+/* the round button beside the dock */
+.gn-solo { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border: 1.5px solid var(--gn-edge); border-radius: 50%; background: var(--gn-fill); color: var(--gn-ink); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: 0 10px 30px rgba(0, 0, 0, .18); cursor: pointer; }
+.gn-solo:focus-visible { outline: 2px solid var(--gn-focus); outline-offset: 2px; }
+.gn-badge { position: absolute; top: 3px; right: 3px; min-width: 19px; height: 19px; padding: 0 5px; border-radius: 99px; background: #d92c2c; color: #fff; font: 700 11px/19px system-ui, sans-serif; text-align: center; }
+
+/* measuring pass: lets the script read where things will end up */
+.gn-measuring .gn-label { transition: none; }
+
+/* a phone: every bar works like the dock, so five items fit */
+@media (max-width: 560px) {
+  .gn-bar .gn-item:not([aria-current]) .gn-label { max-width: 0; margin-left: 0; opacity: 0; }
+  .gn-item { flex: 1 1 auto; padding: 0 12px; }
+  .gn-bar:not(.gn-dock) .gn-item[aria-current] .gn-ico { fill: none; }
+}
+
+/* no glass available or wanted: solid, still readable */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .gn-smoke { --gn-fill: #2a2622; }
+  .gn-frost { --gn-fill: #e8e5e1; }
+  .gn-dock { --gn-fill: #eee4d8; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .gn-smoke { --gn-fill: #2a2622; }
+  .gn-frost { --gn-fill: #e8e5e1; }
+  .gn-dock { --gn-fill: #eee4d8; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gn-pill, .gn-pill.to-left, .gn-label, .gn-item { transition: none; }
+  .gn-pill.is-moving { transform: none; }
+}

@@ -1,0 +1,25 @@
+/* Circle Theme Switch: the browser's own cross fade is turned off so only the circle shows.
+   Add once, in the site's main stylesheet. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+.cts-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--cts-edge, currentColor);
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.cts-toggle:focus-visible { outline: 2px solid var(--cts-focus, currentColor); outline-offset: 2px; }
+.cts-toggle svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+.cts-toggle .cts-moon { display: none; }
+.cts-toggle[aria-pressed="true"] .cts-sun { display: none; }
+.cts-toggle[aria-pressed="true"] .cts-moon { display: block; }

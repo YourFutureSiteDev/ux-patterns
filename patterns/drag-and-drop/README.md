@@ -17,6 +17,10 @@ Confirm the grab with three cues at once (scale, shadow, tilt), reveal the drop 
 - While dragging on a snapping surface, expose the valid target slots (dashed outlines) so the destination is never ambiguous.
 - A drag is easy to fumble. Pair every drop with a short undo toast (~5 seconds) so a wrong move costs one click, not a redo.
 
+## Numbers worth copying
+
+From Code & Chill's packing board (Insta batch 6 Nov 2026, card 8): start the drag only past a 6px move, so a tap stays a tap. Drag a clone, tilt it 2 degrees and scale it to 1.04 over 0.25s with a slight overshoot (GSAP `back.out(2)`), find the target with `elementFromPoint`, and follow the drop with a toast that names the record and offers Undo.
+
 ## Do / Don't
 
 - **Do:** confirm pickup with scale, shadow, and tilt together so the grab reads instantly.

@@ -3013,5 +3013,84 @@
     "insights": [],
     "dodont": [],
     "related": []
+  },
+  {
+    "slug": "control-board",
+    "title": "Control Board",
+    "category": "ours",
+    "hook": "One rail, one head, four tiles, a two thirds and one third split, then the table.",
+    "source": "ours",
+    "video": null,
+    "frames": null,
+    "site": null,
+    "instagram": "https://www.instagram.com/reel/DfT_DWgzb9H/",
+    "views": null,
+    "insights": [
+      "Every page is the same stack in the same order, so nothing has to be learnt twice.",
+      "Density comes from small gaps, not small text.",
+      "A context line under each number turns it into a decision.",
+      "Layout only: colours, type and radius come from the host dashboard's tokens."
+    ],
+    "dodont": [
+      "**Do:** give one tile the lead.",
+      "**Don't:** add blur, glass or shadows."
+    ],
+    "related": [
+      "de-ai-dashboard",
+      "data-table-system",
+      "number-formatting"
+    ]
+  },
+  {
+    "slug": "glass-nav-tabs",
+    "title": "Glass Nav Tabs",
+    "category": "ours",
+    "hook": "A pill that stretches between tabs, goes clear while it moves, and settles solid.",
+    "source": "ours",
+    "video": null,
+    "frames": null,
+    "site": null,
+    "instagram": "https://www.instagram.com/reel/DfZr3GkTD8a/",
+    "views": null,
+    "insights": [
+      "The stretch comes from two edge speeds, 0.2s leading and 0.36s trailing.",
+      "In flight the pill is a clear lens; at rest it is a solid button.",
+      "Under 560px every bar shows icons, with a label only on the active item.",
+      "An optional look, offered when a customer wants glass, never a default."
+    ],
+    "dodont": [
+      "**Do:** put a real photo or strong colour behind it.",
+      "**Don't:** use it on a flat background."
+    ],
+    "related": [
+      "tabs-system",
+      "navigation-patterns",
+      "glassmorphism"
+    ]
+  },
+  {
+    "slug": "circle-theme-switch",
+    "title": "Circle Theme Switch",
+    "category": "ours",
+    "hook": "The new theme grows as a circle from the toggle you pressed.",
+    "source": "ours",
+    "video": null,
+    "frames": null,
+    "site": null,
+    "instagram": "https://www.instagram.com/reel/De12lc1vUmr/",
+    "views": null,
+    "insights": [
+      "Built on the View Transitions API with a clip-path circle from the toggle's centre.",
+      "Without the API, or with reduced motion on, the theme swaps instantly.",
+      "Every colour must be a token under data-theme for one attribute change to re-theme the page."
+    ],
+    "dodont": [
+      "**Do:** keep the toggle 44px with an aria-label.",
+      "**Don't:** run it on page load."
+    ],
+    "related": [
+      "dark-mode-surfaces",
+      "button-feedback"
+    ]
   }
 ]

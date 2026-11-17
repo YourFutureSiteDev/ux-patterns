@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Control Board</title>
+<link rel="stylesheet" href="pattern.css">
+<style>
+  /* The demo's own skin. In a real dashboard these tokens come from that dashboard. */
+  html, body { margin: 0; background: #0b0e14; color: #e8edf5; font: 14px/1.45 system-ui, "Segoe UI", sans-serif; }
+  .bd { --bd-panel: #121722; --bd-line: rgba(130, 150, 180, .16); --bd-ink: #e8edf5; --bd-mid: #8a94a8; --bd-dim: #5b6478; --bd-accent: #22d3ee; --bd-accent-soft: rgba(34, 211, 238, .14); --bd-num: ui-monospace, Menlo, Consolas, monospace; }
+  .up { color: #34d399; } .down { color: #f87171; }
+  .bars { display: flex; align-items: flex-end; gap: 10px; height: 190px; padding-top: 10px; }
+  .bars span { flex: 1; border-radius: 6px 6px 0 0; background: rgba(34, 211, 238, .35); }
+  .bars span:last-child { background: #22d3ee; }
+  .t { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .t th { text-align: left; color: var(--bd-dim); font: 600 11px var(--bd-num); letter-spacing: .08em; text-transform: uppercase; padding: 6px 4px; }
+  .t td { padding: 8px 4px; border-top: 1px solid var(--bd-line); }
+  .t .r { text-align: right; font-family: var(--bd-num); }
+  .wrap { overflow-x: auto; }
+</style>
+</head>
+<body>
+<div class="bd">
+  <aside class="bd-rail" aria-label="Pages">
+    <a class="bd-brand" href="#"><span><b>Northside Roofing</b><small>demo data</small></span></a>
+    <p class="bd-label">Overview</p>
+    <a class="bd-item" href="#" aria-current="page"><i class="bd-dot" style="background:#22d3ee"></i><span>Today</span></a>
+    <p class="bd-label">Work</p>
+    <a class="bd-item" href="#"><i class="bd-dot"></i><span>Quotes</span><b class="bd-count">4</b></a>
+    <a class="bd-item" href="#"><i class="bd-dot"></i><span>Jobs</span><b class="bd-count">7</b></a>
+    <a class="bd-item" href="#"><i class="bd-dot"></i><span>Invoices</span><b class="bd-count warn">2</b></a>
+    <p class="bd-label">Business</p>
+    <a class="bd-item" href="#"><i class="bd-dot"></i><span>Reviews</span></a>
+    <a class="bd-item" href="#"><i class="bd-dot"></i><span>Settings</span></a>
+    <div class="bd-foot"><b>All systems live</b><br>last sync 2 min ago</div>
+  </aside>
+
+  <header class="bd-top"><span style="color:#8a94a8">Today</span><span class="bd-grow"></span><span style="color:#8a94a8">Tue 17 Nov</span></header>
+
+  <main class="bd-well">
+    <div class="bd-head">
+      <div><h1>Today</h1><p>4 quotes waiting, 2 invoices overdue</p></div>
+      <div class="bd-actions"></div>
+    </div>
+
+    <section class="bd-tiles">
+      <div class="bd-tile"><span class="bd-v lead up">$18,420</span><span class="bd-k">Booked this week</span><span class="bd-c">up $3,100 on last week</span></div>
+      <div class="bd-tile"><span class="bd-v">7</span><span class="bd-k">Jobs in progress</span><span class="bd-c">2 finish today</span></div>
+      <div class="bd-tile"><span class="bd-v">4</span><span class="bd-k">Quotes waiting</span><span class="bd-c">oldest sent 2 days ago</span></div>
+      <div class="bd-tile"><span class="bd-v down">$2,640</span><span class="bd-k">Overdue</span><span class="bd-c">2 invoices, 8 and 12 days</span></div>
+    </section>
+
+    <section class="bd-split">
+      <div class="bd-card">
+        <div class="bd-card-head"><div><h2>Booked by week</h2><p>Last 8 weeks, AUD</p></div>
+          <div class="bd-seg" role="group" aria-label="Range"><button type="button" aria-pressed="false">4 weeks</button><button type="button" aria-pressed="true">8 weeks</button></div></div>
+        <div class="bars"><span style="height:38%"></span><span style="height:52%"></span><span style="height:44%"></span><span style="height:61%"></span><span style="height:57%"></span><span style="height:70%"></span><span style="height:66%"></span><span style="height:84%"></span></div>
+      </div>
+      <div class="bd-card">
+        <div class="bd-card-head"><div><h2>Quote win rate</h2><p>Last 30 days</p></div></div>
+        <svg class="bd-ring" viewBox="0 0 120 120" role="img" aria-label="62 percent of quotes won"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg" cx="60" cy="60" r="52" stroke-dasharray="202.6 327"/><text x="60" y="64">62%</text><text class="s" x="60" y="80">won</text></svg>
+        <div class="bd-trio"><div><b>21</b><span>Sent</span></div><div><b>13</b><span>Won</span></div><div><b>$4.2k</b><span>Average</span></div></div>
+      </div>
+    </section>
+
+    <section class="bd-card">
+      <div class="bd-card-head"><div><h2>Jobs</h2><p>Soonest first</p></div>
+        <div class="bd-seg" role="group" aria-label="Filter"><button type="button" aria-pressed="true">All <i>7</i></button><button type="button" aria-pressed="false">Today <i>2</i></button><button type="button" aria-pressed="false">This week <i>5</i></button></div></div>
+      <div class="wrap"><table class="t"><thead><tr><th>Job</th><th>Suburb</th><th>Starts</th><th class="r">Value</th></tr></thead><tbody>
+        <tr><td>Re-roof, tile to metal</td><td>Example suburb</td><td>Today 7am</td><td class="r">$14,800</td></tr>
+        <tr><td>Gutter replacement</td><td>Example suburb</td><td>Today 1pm</td><td class="r">$2,350</td></tr>
+        <tr><td>Storm leak repair</td><td>Example suburb</td><td>Wed 8am</td><td class="r">$980</td></tr>
+        <tr><td>Ridge capping repoint</td><td>Example suburb</td><td>Thu 9am</td><td class="r">$1,640</td></tr>
+      </tbody></table></div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

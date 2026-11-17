@@ -1,0 +1,119 @@
+/* Control board: the layout of the Code XR admin dashboard, from the reel by
+   code.xr (Insta batch 6 Nov 2026, card 13). LAYOUT ONLY. Colour, type, radius
+   and borders come from the host dashboard through the --bd-* tokens, so a board
+   keeps the look of the dashboard it lands in. Nothing in this file is glass:
+   no blur, no gradient, no shadow, and it must stay that way.
+
+   The skeleton: a fixed rail of grouped pages, a slim top bar, one scrolling
+   well. Inside the well every page is the same stack: one head, four tiles,
+   a two thirds and one third split, then the table. */
+
+.bd {
+  --bd-rail: 224px;
+  --bd-topbar: 54px;
+  --bd-gap: 12px;
+  --bd-pad: 18px;
+  --bd-radius: 14px;
+  --bd-panel: #10151f;
+  --bd-line: rgba(120, 140, 170, .14);
+  --bd-hover: rgba(120, 140, 170, .10);
+  --bd-ink: #e8edf5;
+  --bd-mid: #8a94a8;
+  --bd-dim: #5b6478;
+  --bd-accent: #22d3ee;
+  --bd-accent-soft: rgba(34, 211, 238, .14);
+  --bd-warn: #ffb454;
+  --bd-num: ui-monospace, Menlo, Consolas, monospace;
+
+  display: grid;
+  grid-template-columns: var(--bd-rail) minmax(0, 1fr);
+  grid-template-rows: var(--bd-topbar) minmax(0, 1fr);
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* ---------- rail: grouped pages, a count only when something waits ---------- */
+.bd-rail { grid-row: 1 / -1; display: flex; flex-direction: column; min-height: 0; overflow-y: auto; padding: 12px 10px; border-right: 1px solid var(--bd-line); }
+.bd-brand { display: flex; align-items: center; gap: 10px; padding: 4px 8px 6px; min-width: 0; color: inherit; text-decoration: none; }
+.bd-brand img { width: 30px; height: 30px; border-radius: 8px; flex: none; }
+.bd-brand b { display: block; font-size: 14px; line-height: 1.2; }
+.bd-brand small { display: block; font-size: 11px; color: var(--bd-mid); }
+.bd-label { margin: 14px 10px 5px; font: 600 10px/1 var(--bd-num); letter-spacing: .12em; text-transform: uppercase; color: var(--bd-dim); }
+.bd-item { text-decoration: none; display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; align-items: center; gap: 10px; min-height: 36px; padding: 0 10px; border-radius: 9px; color: var(--bd-mid); font-size: 14px; transition: background .15s, color .15s; }
+.bd-item:hover { color: var(--bd-ink); background: var(--bd-hover); }
+.bd-item[aria-current] { color: var(--bd-ink); background: var(--bd-accent-soft); box-shadow: inset 0 0 0 1px var(--bd-accent); }
+.bd-item:focus-visible, .bd-seg button:focus-visible { outline: 2px solid var(--bd-accent); outline-offset: 2px; }
+.bd-dot { display: block; width: 10px; height: 10px; border-radius: 50%; margin: 0 auto; background: var(--bd-dim); }
+.bd-count { min-width: 22px; height: 19px; padding: 0 6px; border-radius: 99px; font: 600 11px/19px var(--bd-num); text-align: center; background: var(--bd-hover); color: var(--bd-ink); }
+.bd-count.warn { background: var(--bd-warn); color: #111; }
+.bd-count[hidden] { display: none; }
+.bd-foot { margin-top: auto; padding: 10px; border: 1px solid var(--bd-line); border-radius: 10px; font-size: 12px; color: var(--bd-mid); }
+.bd-foot b { color: var(--bd-ink); font-weight: 600; }
+
+/* ---------- top bar: one slim row ---------- */
+.bd-top { display: flex; align-items: center; gap: 12px; min-width: 0; padding: 0 var(--bd-pad); border-bottom: 1px solid var(--bd-line); }
+.bd-top .bd-grow { flex: 1; }
+
+/* ---------- the well ---------- */
+.bd-well { min-width: 0; min-height: 0; overflow-y: auto; padding: var(--bd-pad); display: flex; flex-direction: column; gap: var(--bd-gap); }
+.bd-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.bd-head h1 { margin: 0; font-size: 24px; line-height: 1.15; }
+.bd-head p { margin: 3px 0 0; font-size: 13px; color: var(--bd-mid); }
+.bd-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* four across: a number, what it is, one line of context */
+.bd-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--bd-gap); }
+.bd-tile, .bd-card { min-width: 0; background: var(--bd-panel); border: 1px solid var(--bd-line); border-radius: var(--bd-radius); }
+.bd-tile { padding: 13px 15px; }
+.bd-v { display: block; font: 600 26px/1.15 var(--bd-num); letter-spacing: -.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bd-k { display: block; margin-top: 5px; font-size: 13px; font-weight: 600; }
+.bd-c { display: block; margin-top: 1px; font-size: 12px; color: var(--bd-mid); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* two thirds and one third */
+.bd-split { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: var(--bd-gap); }
+.bd-split:has(> [hidden]) { grid-template-columns: minmax(0, 1fr); }
+.bd-card { padding: 13px 15px; }
+.bd-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.bd-card-head h2 { margin: 0; font-size: 14px; font-weight: 600; }
+.bd-card-head p { margin: 1px 0 0; font-size: 12px; color: var(--bd-mid); }
+
+/* the segmented filter: counts sit inside the button */
+.bd-seg { display: inline-flex; flex-wrap: wrap; gap: 2px; padding: 2px; border: 1px solid var(--bd-line); border-radius: 99px; }
+.bd-seg button { background: none; border: 0; border-radius: 99px; padding: 4px 11px; min-height: 26px; color: var(--bd-mid); font: inherit; font-size: 12px; cursor: pointer; transition: background .15s, color .15s; }
+.bd-seg button:hover { color: var(--bd-ink); }
+.bd-seg button[aria-pressed="true"] { background: var(--bd-accent-soft); color: var(--bd-ink); }
+.bd-seg i { font-style: normal; color: var(--bd-dim); margin-left: 3px; font-family: var(--bd-num); }
+
+/* a ring with three small facts under it */
+.bd-ring { display: block; width: 124px; height: 124px; margin: 4px auto 10px; }
+.bd-ring .bg { fill: none; stroke: var(--bd-hover); stroke-width: 10; }
+.bd-ring .fg { fill: none; stroke: var(--bd-accent); stroke-width: 10; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 60px 60px; transition: stroke-dasharray .5s ease-out; }
+.bd-ring text { fill: var(--bd-ink); font: 600 22px var(--bd-num); text-anchor: middle; }
+.bd-ring text.s { fill: var(--bd-mid); font: 400 10px system-ui, sans-serif; }
+.bd-trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.bd-trio > div { min-width: 0; padding: 7px 4px; border: 1px solid var(--bd-line); border-radius: 9px; text-align: center; }
+.bd-trio b { display: block; font: 600 13px/1.2 var(--bd-num); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bd-trio span { display: block; font-size: 11px; color: var(--bd-mid); }
+
+/* ---------- narrower: the rail keeps its shape, the tiles go two up ---------- */
+@media (max-width: 1100px) {
+  .bd-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- phone: the rail becomes a strip, the page scrolls as one ---------- */
+@media (max-width: 760px) {
+  .bd { display: flex; flex-direction: column; height: auto; }
+  .bd-top { order: 1; flex: none; }
+  .bd-rail { order: 2; flex: none; }
+  .bd-well { order: 3; }
+  .bd-top { position: sticky; top: 0; z-index: 6; height: calc(var(--bd-topbar) + env(safe-area-inset-top, 0px)); padding-top: env(safe-area-inset-top, 0px); background: var(--bd-panel); }
+  .bd-rail { position: sticky; top: calc(var(--bd-topbar) + env(safe-area-inset-top, 0px)); z-index: 5; flex-direction: row; align-items: center; gap: 4px; overflow-x: auto; padding: 6px max(12px, env(safe-area-inset-right, 0px)) 6px max(12px, env(safe-area-inset-left, 0px)); border-right: 0; border-bottom: 1px solid var(--bd-line); background: var(--bd-panel); scrollbar-width: none; }
+  .bd-rail::-webkit-scrollbar { display: none; }
+  .bd-rail nav { display: flex; gap: 4px; }
+  .bd-brand, .bd-label, .bd-foot { display: none; }
+  .bd-item { display: inline-flex; flex: none; gap: 7px; min-height: 40px; padding: 0 12px; white-space: nowrap; }
+  .bd-well { overflow: visible; padding: 12px max(12px, env(safe-area-inset-right, 0px)) 18px max(12px, env(safe-area-inset-left, 0px)); }
+  .bd-split { grid-template-columns: minmax(0, 1fr); }
+  .bd-head h1 { font-size: 21px; }
+  .bd-v { font-size: 20px; }
+}
